@@ -155,4 +155,5 @@ C:\Users\User\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.pdb
 C:\Users\User\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.genruntimeconfig.cache
 C:\Users\User\source\repos\POS\POS\obj\Debug\net8.0-windows\ref\POS.dll
 C:\Users\User\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.Properties.Resources.resources
-C:\Users\User\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.PAL.USERCONTROL.Login.resources
+C:\Users\User\source\repos\POS\POS\obj\Debug\net8.0-windows\POS.PAL.USERCONTROL.UC_Login.resources
+C:\Users\User\source\repos\POS\POS\bin\Debug\net8.0-windows\BCrypt.Net-Next.dll

@@ -5,7 +5,7 @@
     <Compile Update="PAL\Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="PAL\USERCONTROL\Login.cs">
+    <Compile Update="PAL\USERCONTROL\UC_Login.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

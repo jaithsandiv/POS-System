@@ -15,7 +15,7 @@ namespace POS
         public Main()
         {
             InitializeComponent();
-            Login login = new Login();
+            UC_Login login = new UC_Login();
             pnlMain.Controls.Clear();
             pnlMain.Controls.Add(login);
             login.Dock = DockStyle.Fill;

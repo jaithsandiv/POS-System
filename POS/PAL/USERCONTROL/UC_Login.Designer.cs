@@ -1,6 +1,6 @@
 ﻿namespace POS.PAL.USERCONTROL
 {
-    partial class Login
+    partial class UC_Login
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Login));
             pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             txtUsername = new DevExpress.XtraEditors.TextEdit();
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -126,6 +126,7 @@
             btnSignIn.Size = new System.Drawing.Size(480, 44);
             btnSignIn.TabIndex = 9;
             btnSignIn.Text = "Sign in";
+            btnSignIn.Click += btnSignIn_Click;
             // 
             // txtPassword
             // 
