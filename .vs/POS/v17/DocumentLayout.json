@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\POS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\source\\repos\\pos\\pos\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\source\\repos\\pos\\pos\\pal\\usercontrol\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\source\\repos\\pos\\pos\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\source\\repos\\pos\\pos\\pal\\usercontrol\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|C:\\Users\\User\\source\\repos\\POS\\pos\\pal\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\source\\repos\\pos\\pos\\pal\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\source\\repos\\pos\\pos\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +35,63 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\POS\\POS\\Form1.cs",
-              "RelativeDocumentMoniker": "POS\\Form1.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\POS\\POS\\Form1.cs",
-              "RelativeToolTip": "POS\\Form1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Title": "Login.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\POS\\POS\\PAL\\USERCONTROL\\Login.cs",
+              "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\Login.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\POS\\POS\\PAL\\USERCONTROL\\Login.cs",
+              "RelativeToolTip": "POS\\PAL\\USERCONTROL\\Login.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T17:28:55.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Login.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\POS\\POS\\PAL\\USERCONTROL\\Login.cs",
+              "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\Login.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\POS\\POS\\PAL\\USERCONTROL\\Login.cs [Design]",
+              "RelativeToolTip": "POS\\PAL\\USERCONTROL\\Login.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T17:25:05.838Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\POS\\POS\\Program.cs",
+              "RelativeDocumentMoniker": "POS\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\POS\\POS\\Program.cs",
+              "RelativeToolTip": "POS\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-10T17:05:03.594Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Main.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\POS\\POS\\PAL\\Main.cs",
+              "RelativeDocumentMoniker": "POS\\PAL\\Main.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\POS\\POS\\PAL\\Main.cs",
+              "RelativeToolTip": "POS\\PAL\\Main.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-09T17:25:03.434Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\POS\\POS\\Form1.cs",
-              "RelativeDocumentMoniker": "POS\\Form1.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\POS\\POS\\Form1.cs [Design]",
-              "RelativeToolTip": "POS\\Form1.cs [Design]",
+              "DocumentIndex": 2,
+              "Title": "Main.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\POS\\POS\\PAL\\Main.cs",
+              "RelativeDocumentMoniker": "POS\\PAL\\Main.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\POS\\POS\\PAL\\Main.cs [Design]",
+              "RelativeToolTip": "POS\\PAL\\Main.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T17:25:21.172Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-10-09T17:25:21.172Z"
             }
           ]
         }
