@@ -8,5 +8,11 @@
     <Compile Update="PAL\USERCONTROL\UC_Login.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Business_Registration.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_User_Registration.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -94,6 +94,7 @@
             hlblSignUp.Size = new System.Drawing.Size(44, 17);
             hlblSignUp.TabIndex = 6;
             hlblSignUp.Text = "Sign up";
+            hlblSignUp.Click += hlblSignUp_Click;
             // 
             // labelControl3
             // 
@@ -138,7 +139,7 @@
             txtPassword.Size = new System.Drawing.Size(480, 44);
             txtPassword.TabIndex = 10;
             // 
-            // Login
+            // UC_Login
             // 
             Appearance.BackColor = System.Drawing.Color.White;
             Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
@@ -155,7 +156,7 @@
             Controls.Add(txtUsername);
             Controls.Add(pictureEdit1);
             Margin = new System.Windows.Forms.Padding(4);
-            Name = "Login";
+            Name = "UC_Login";
             Size = new System.Drawing.Size(1920, 1050);
             ((System.ComponentModel.ISupportInitialize)pictureEdit1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtUsername.Properties).EndInit();
