@@ -74,7 +74,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = System.Drawing.Color.FromArgb(242, 242, 242);
+            panel1.BackColor = System.Drawing.Color.White;
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(panel4);
             panel1.Controls.Add(nextBtn);
@@ -117,13 +117,13 @@
             // 
             // labelControl7
             // 
-            labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             labelControl7.Appearance.ForeColor = System.Drawing.Color.White;
             labelControl7.Appearance.Options.UseFont = true;
             labelControl7.Appearance.Options.UseForeColor = true;
-            labelControl7.Location = new System.Drawing.Point(14, 8);
+            labelControl7.Location = new System.Drawing.Point(15, 11);
             labelControl7.Name = "labelControl7";
-            labelControl7.Size = new System.Drawing.Size(124, 40);
+            labelControl7.Size = new System.Drawing.Size(103, 32);
             labelControl7.TabIndex = 10;
             labelControl7.Text = "2. Owner";
             // 
@@ -138,13 +138,13 @@
             // 
             // labelControl15
             // 
-            labelControl15.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl15.Appearance.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             labelControl15.Appearance.ForeColor = System.Drawing.Color.White;
             labelControl15.Appearance.Options.UseFont = true;
             labelControl15.Appearance.Options.UseForeColor = true;
-            labelControl15.Location = new System.Drawing.Point(14, 8);
+            labelControl15.Location = new System.Drawing.Point(14, 11);
             labelControl15.Name = "labelControl15";
-            labelControl15.Size = new System.Drawing.Size(151, 40);
+            labelControl15.Size = new System.Drawing.Size(126, 32);
             labelControl15.TabIndex = 10;
             labelControl15.Text = "1. Business";
             // 

@@ -49,10 +49,10 @@
             labelControl4 = new DevExpress.XtraEditors.LabelControl();
             txtfullName = new DevExpress.XtraEditors.TextEdit();
             labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            panel2 = new System.Windows.Forms.Panel();
-            labelControl1 = new DevExpress.XtraEditors.LabelControl();
             labelControl3 = new DevExpress.XtraEditors.LabelControl();
             pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
+            labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            panel2 = new System.Windows.Forms.Panel();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtPin.Properties).BeginInit();
@@ -62,12 +62,13 @@
             ((System.ComponentModel.ISupportInitialize)txtUPhoneNumber.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtUsername.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtfullName.Properties).BeginInit();
-            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureEdit1.Properties).BeginInit();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.BackColor = System.Drawing.Color.White;
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(regBtn);
             panel1.Controls.Add(labelControl11);
@@ -105,13 +106,13 @@
             // 
             // labelControl7
             // 
-            labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             labelControl7.Appearance.ForeColor = System.Drawing.Color.White;
             labelControl7.Appearance.Options.UseFont = true;
             labelControl7.Appearance.Options.UseForeColor = true;
-            labelControl7.Location = new System.Drawing.Point(14, 8);
+            labelControl7.Location = new System.Drawing.Point(14, 11);
             labelControl7.Name = "labelControl7";
-            labelControl7.Size = new System.Drawing.Size(124, 40);
+            labelControl7.Size = new System.Drawing.Size(103, 32);
             labelControl7.TabIndex = 10;
             labelControl7.Text = "2. Owner";
             // 
@@ -289,27 +290,6 @@
             labelControl2.TabIndex = 34;
             labelControl2.Text = "Owner Details: ";
             // 
-            // panel2
-            // 
-            panel2.BackColor = System.Drawing.Color.FromArgb(57, 62, 70);
-            panel2.Controls.Add(labelControl1);
-            panel2.Location = new System.Drawing.Point(175, 225);
-            panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(780, 56);
-            panel2.TabIndex = 33;
-            // 
-            // labelControl1
-            // 
-            labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl1.Appearance.Options.UseFont = true;
-            labelControl1.Appearance.Options.UseForeColor = true;
-            labelControl1.Location = new System.Drawing.Point(14, 8);
-            labelControl1.Name = "labelControl1";
-            labelControl1.Size = new System.Drawing.Size(151, 40);
-            labelControl1.TabIndex = 10;
-            labelControl1.Text = "1. Business";
-            // 
             // labelControl3
             // 
             labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
@@ -334,6 +314,27 @@
             pictureEdit1.Size = new System.Drawing.Size(336, 168);
             pictureEdit1.TabIndex = 31;
             // 
+            // labelControl1
+            // 
+            labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl1.Appearance.Options.UseFont = true;
+            labelControl1.Appearance.Options.UseForeColor = true;
+            labelControl1.Location = new System.Drawing.Point(14, 11);
+            labelControl1.Name = "labelControl1";
+            labelControl1.Size = new System.Drawing.Size(126, 32);
+            labelControl1.TabIndex = 10;
+            labelControl1.Text = "1. Business";
+            // 
+            // panel2
+            // 
+            panel2.BackColor = System.Drawing.Color.FromArgb(57, 62, 70);
+            panel2.Controls.Add(labelControl1);
+            panel2.Location = new System.Drawing.Point(175, 225);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(780, 56);
+            panel2.TabIndex = 33;
+            // 
             // UC_User_Registration
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -352,9 +353,9 @@
             ((System.ComponentModel.ISupportInitialize)txtUPhoneNumber.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtUsername.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtfullName.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureEdit1.Properties).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureEdit1.Properties).EndInit();
             ResumeLayout(false);
         }
 
@@ -378,11 +379,11 @@
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.TextEdit txtfullName;
         private DevExpress.XtraEditors.LabelControl labelControl2;
-        private System.Windows.Forms.Panel panel2;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.PictureEdit pictureEdit1;
         private System.Windows.Forms.Panel panel3;
         private DevExpress.XtraEditors.LabelControl labelControl7;
+        private System.Windows.Forms.Panel panel2;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
     }
 }
