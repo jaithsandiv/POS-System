@@ -41,10 +41,6 @@
             nextBtn = new System.Windows.Forms.Button();
             labelControl10 = new DevExpress.XtraEditors.LabelControl();
             txtCountry = new DevExpress.XtraEditors.TextEdit();
-            labelControl11 = new DevExpress.XtraEditors.LabelControl();
-            txtPostalCode = new DevExpress.XtraEditors.TextEdit();
-            labelControl12 = new DevExpress.XtraEditors.LabelControl();
-            txtState = new DevExpress.XtraEditors.TextEdit();
             labelControl13 = new DevExpress.XtraEditors.LabelControl();
             txtCity = new DevExpress.XtraEditors.TextEdit();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
@@ -65,8 +61,6 @@
             panel3.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtCountry.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtPostalCode.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtState.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtCity.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtTaxNo.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).BeginInit();
@@ -86,10 +80,6 @@
             panel1.Controls.Add(nextBtn);
             panel1.Controls.Add(labelControl10);
             panel1.Controls.Add(txtCountry);
-            panel1.Controls.Add(labelControl11);
-            panel1.Controls.Add(txtPostalCode);
-            panel1.Controls.Add(labelControl12);
-            panel1.Controls.Add(txtState);
             panel1.Controls.Add(labelControl13);
             panel1.Controls.Add(txtCity);
             panel1.Controls.Add(labelControl8);
@@ -114,7 +104,7 @@
             // 
             labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl5.Appearance.Options.UseFont = true;
-            labelControl5.Location = new System.Drawing.Point(380, 745);
+            labelControl5.Location = new System.Drawing.Point(1025, 401);
             labelControl5.Name = "labelControl5";
             labelControl5.Size = new System.Drawing.Size(55, 17);
             labelControl5.TabIndex = 40;
@@ -122,7 +112,7 @@
             // 
             // txtAddress
             // 
-            txtAddress.Location = new System.Drawing.Point(380, 768);
+            txtAddress.Location = new System.Drawing.Point(1025, 424);
             txtAddress.Name = "txtAddress";
             txtAddress.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtAddress.Properties.Appearance.Options.UseFont = true;
@@ -211,7 +201,7 @@
             // 
             labelControl10.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl10.Appearance.Options.UseFont = true;
-            labelControl10.Location = new System.Drawing.Point(1025, 665);
+            labelControl10.Location = new System.Drawing.Point(1025, 573);
             labelControl10.Name = "labelControl10";
             labelControl10.Size = new System.Drawing.Size(48, 17);
             labelControl10.TabIndex = 29;
@@ -219,7 +209,7 @@
             // 
             // txtCountry
             // 
-            txtCountry.Location = new System.Drawing.Point(1025, 688);
+            txtCountry.Location = new System.Drawing.Point(1025, 596);
             txtCountry.Name = "txtCountry";
             txtCountry.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtCountry.Properties.Appearance.Options.UseFont = true;
@@ -227,51 +217,11 @@
             txtCountry.Size = new System.Drawing.Size(480, 44);
             txtCountry.TabIndex = 28;
             // 
-            // labelControl11
-            // 
-            labelControl11.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl11.Appearance.Options.UseFont = true;
-            labelControl11.Location = new System.Drawing.Point(1025, 579);
-            labelControl11.Name = "labelControl11";
-            labelControl11.Size = new System.Drawing.Size(73, 17);
-            labelControl11.TabIndex = 27;
-            labelControl11.Text = "Postal Code:";
-            // 
-            // txtPostalCode
-            // 
-            txtPostalCode.Location = new System.Drawing.Point(1025, 602);
-            txtPostalCode.Name = "txtPostalCode";
-            txtPostalCode.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            txtPostalCode.Properties.Appearance.Options.UseFont = true;
-            txtPostalCode.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtPostalCode.Size = new System.Drawing.Size(480, 44);
-            txtPostalCode.TabIndex = 26;
-            // 
-            // labelControl12
-            // 
-            labelControl12.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl12.Appearance.Options.UseFont = true;
-            labelControl12.Location = new System.Drawing.Point(1025, 487);
-            labelControl12.Name = "labelControl12";
-            labelControl12.Size = new System.Drawing.Size(32, 17);
-            labelControl12.TabIndex = 25;
-            labelControl12.Text = "State:";
-            // 
-            // txtState
-            // 
-            txtState.Location = new System.Drawing.Point(1025, 510);
-            txtState.Name = "txtState";
-            txtState.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            txtState.Properties.Appearance.Options.UseFont = true;
-            txtState.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtState.Size = new System.Drawing.Size(480, 44);
-            txtState.TabIndex = 24;
-            // 
             // labelControl13
             // 
             labelControl13.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl13.Appearance.Options.UseFont = true;
-            labelControl13.Location = new System.Drawing.Point(1025, 401);
+            labelControl13.Location = new System.Drawing.Point(1025, 487);
             labelControl13.Name = "labelControl13";
             labelControl13.Size = new System.Drawing.Size(24, 17);
             labelControl13.TabIndex = 23;
@@ -279,7 +229,7 @@
             // 
             // txtCity
             // 
-            txtCity.Location = new System.Drawing.Point(1025, 424);
+            txtCity.Location = new System.Drawing.Point(1025, 510);
             txtCity.Name = "txtCity";
             txtCity.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtCity.Properties.Appearance.Options.UseFont = true;
@@ -429,8 +379,6 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)txtCountry.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtPostalCode.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtState.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtCity.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtTaxNo.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).EndInit();
@@ -457,10 +405,6 @@
         private DevExpress.XtraEditors.TextEdit txtPhoneNumber;
         private DevExpress.XtraEditors.LabelControl labelControl10;
         private DevExpress.XtraEditors.TextEdit txtCountry;
-        private DevExpress.XtraEditors.LabelControl labelControl11;
-        private DevExpress.XtraEditors.TextEdit txtPostalCode;
-        private DevExpress.XtraEditors.LabelControl labelControl12;
-        private DevExpress.XtraEditors.TextEdit txtState;
         private DevExpress.XtraEditors.LabelControl labelControl13;
         private DevExpress.XtraEditors.TextEdit txtCity;
         private System.Windows.Forms.Button nextBtn;

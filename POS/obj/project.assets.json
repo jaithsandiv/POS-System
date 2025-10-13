@@ -3790,11 +3790,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\Documents\\pos-system\\POS\\POS.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\Documents\\POS\\pos-system\\POS\\POS.csproj",
       "projectName": "POS",
-      "projectPath": "C:\\Users\\USER\\Documents\\pos-system\\POS\\POS.csproj",
+      "projectPath": "C:\\Users\\USER\\Documents\\POS\\pos-system\\POS\\POS.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\Documents\\pos-system\\POS\\obj\\",
+      "outputPath": "C:\\Users\\USER\\Documents\\POS\\pos-system\\POS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 24.2\\Components\\Offline Packages",

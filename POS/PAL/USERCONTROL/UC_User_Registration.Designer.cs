@@ -174,6 +174,7 @@
             regBtn.TabIndex = 54;
             regBtn.Text = "Register";
             regBtn.UseVisualStyleBackColor = false;
+            regBtn.Click += regBtn_Click;
             // 
             // labelControl11
             // 

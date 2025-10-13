@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OgxAbW1bFiw=",
+  "dgSpecHash": "EqAltW7H0hY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\Documents\\pos-system\\POS\\POS.csproj",
+  "projectFilePath": "C:\\Users\\USER\\Documents\\POS\\pos-system\\POS\\POS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Program Files\\DevExpress 24.2\\Components\\Offline Packages\\devexpress.charts\\24.2.7\\devexpress.charts.24.2.7.nupkg.sha512",
