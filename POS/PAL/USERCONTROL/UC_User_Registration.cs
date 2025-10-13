@@ -20,13 +20,13 @@ namespace POS.PAL.USERCONTROL
 
         private void backBtn2_Click(object sender, EventArgs e)
         {
-            UC_Business_Registration businessRegistration = new UC_Business_Registration();
+            UC_Store_Registration storeRegistration = new UC_Store_Registration();
             Control parentPanel = this.Parent;
             if (parentPanel != null)
             {
                 parentPanel.Controls.Clear();
-                parentPanel.Controls.Add(businessRegistration);
-                businessRegistration.Dock = DockStyle.Fill;
+                parentPanel.Controls.Add(storeRegistration);
+                storeRegistration.Dock = DockStyle.Fill;
             }
         }
     }

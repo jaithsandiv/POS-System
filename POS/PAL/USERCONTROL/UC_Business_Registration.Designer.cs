@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Business_Registration));
             panel1 = new System.Windows.Forms.Panel();
+            panel2 = new System.Windows.Forms.Panel();
+            labelControl1 = new DevExpress.XtraEditors.LabelControl();
             panel3 = new System.Windows.Forms.Panel();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             panel4 = new System.Windows.Forms.Panel();
@@ -44,37 +46,41 @@
             labelControl13 = new DevExpress.XtraEditors.LabelControl();
             txtCity = new DevExpress.XtraEditors.TextEdit();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
-            txtAddress = new DevExpress.XtraEditors.TextEdit();
+            txtTaxNo = new DevExpress.XtraEditors.TextEdit();
             labelControl9 = new DevExpress.XtraEditors.LabelControl();
             txtEmail = new DevExpress.XtraEditors.TextEdit();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             txtPhoneNumber = new DevExpress.XtraEditors.TextEdit();
-            labelControl5 = new DevExpress.XtraEditors.LabelControl();
-            txtManagerName = new DevExpress.XtraEditors.TextEdit();
             backBtn = new System.Windows.Forms.Button();
             labelControl4 = new DevExpress.XtraEditors.LabelControl();
             txtBusinessName = new DevExpress.XtraEditors.TextEdit();
             labelControl2 = new DevExpress.XtraEditors.LabelControl();
             labelControl3 = new DevExpress.XtraEditors.LabelControl();
             pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
+            labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            txtAddress = new DevExpress.XtraEditors.TextEdit();
             panel1.SuspendLayout();
+            panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtCountry.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtPostalCode.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtState.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtCity.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtAddress.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtTaxNo.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtPhoneNumber.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtManagerName.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtBusinessName.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureEdit1.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtAddress.Properties).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = System.Drawing.Color.White;
+            panel1.Controls.Add(labelControl5);
+            panel1.Controls.Add(txtAddress);
+            panel1.Controls.Add(panel2);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(panel4);
             panel1.Controls.Add(nextBtn);
@@ -87,13 +93,11 @@
             panel1.Controls.Add(labelControl13);
             panel1.Controls.Add(txtCity);
             panel1.Controls.Add(labelControl8);
-            panel1.Controls.Add(txtAddress);
+            panel1.Controls.Add(txtTaxNo);
             panel1.Controls.Add(labelControl9);
             panel1.Controls.Add(txtEmail);
             panel1.Controls.Add(labelControl6);
             panel1.Controls.Add(txtPhoneNumber);
-            panel1.Controls.Add(labelControl5);
-            panel1.Controls.Add(txtManagerName);
             panel1.Controls.Add(backBtn);
             panel1.Controls.Add(labelControl4);
             panel1.Controls.Add(txtBusinessName);
@@ -106,13 +110,34 @@
             panel1.Size = new System.Drawing.Size(1920, 1050);
             panel1.TabIndex = 0;
             // 
+            // panel2
+            // 
+            panel2.BackColor = System.Drawing.Color.FromArgb(57, 62, 70);
+            panel2.Controls.Add(labelControl1);
+            panel2.Location = new System.Drawing.Point(701, 223);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(520, 56);
+            panel2.TabIndex = 38;
+            // 
+            // labelControl1
+            // 
+            labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl1.Appearance.Options.UseFont = true;
+            labelControl1.Appearance.Options.UseForeColor = true;
+            labelControl1.Location = new System.Drawing.Point(15, 11);
+            labelControl1.Name = "labelControl1";
+            labelControl1.Size = new System.Drawing.Size(88, 32);
+            labelControl1.TabIndex = 10;
+            labelControl1.Text = "2. Store";
+            // 
             // panel3
             // 
             panel3.BackColor = System.Drawing.Color.FromArgb(57, 62, 70);
             panel3.Controls.Add(labelControl7);
-            panel3.Location = new System.Drawing.Point(966, 223);
+            panel3.Location = new System.Drawing.Point(1226, 223);
             panel3.Name = "panel3";
-            panel3.Size = new System.Drawing.Size(780, 56);
+            panel3.Size = new System.Drawing.Size(520, 56);
             panel3.TabIndex = 37;
             // 
             // labelControl7
@@ -125,7 +150,7 @@
             labelControl7.Name = "labelControl7";
             labelControl7.Size = new System.Drawing.Size(103, 32);
             labelControl7.TabIndex = 10;
-            labelControl7.Text = "2. Owner";
+            labelControl7.Text = "3. Owner";
             // 
             // panel4
             // 
@@ -133,7 +158,7 @@
             panel4.Controls.Add(labelControl15);
             panel4.Location = new System.Drawing.Point(175, 223);
             panel4.Name = "panel4";
-            panel4.Size = new System.Drawing.Size(780, 56);
+            panel4.Size = new System.Drawing.Size(520, 56);
             panel4.TabIndex = 35;
             // 
             // labelControl15
@@ -246,27 +271,27 @@
             // 
             labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Location = new System.Drawing.Point(380, 751);
+            labelControl8.Location = new System.Drawing.Point(380, 659);
             labelControl8.Name = "labelControl8";
-            labelControl8.Size = new System.Drawing.Size(51, 17);
+            labelControl8.Size = new System.Drawing.Size(79, 17);
             labelControl8.TabIndex = 21;
-            labelControl8.Text = "Address:";
+            labelControl8.Text = "Tax Number: ";
             // 
-            // txtAddress
+            // txtTaxNo
             // 
-            txtAddress.Location = new System.Drawing.Point(380, 774);
-            txtAddress.Name = "txtAddress";
-            txtAddress.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            txtAddress.Properties.Appearance.Options.UseFont = true;
-            txtAddress.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtAddress.Size = new System.Drawing.Size(480, 44);
-            txtAddress.TabIndex = 20;
+            txtTaxNo.Location = new System.Drawing.Point(380, 682);
+            txtTaxNo.Name = "txtTaxNo";
+            txtTaxNo.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtTaxNo.Properties.Appearance.Options.UseFont = true;
+            txtTaxNo.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtTaxNo.Size = new System.Drawing.Size(480, 44);
+            txtTaxNo.TabIndex = 20;
             // 
             // labelControl9
             // 
             labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl9.Appearance.Options.UseFont = true;
-            labelControl9.Location = new System.Drawing.Point(380, 665);
+            labelControl9.Location = new System.Drawing.Point(380, 573);
             labelControl9.Name = "labelControl9";
             labelControl9.Size = new System.Drawing.Size(34, 17);
             labelControl9.TabIndex = 19;
@@ -274,7 +299,7 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new System.Drawing.Point(380, 688);
+            txtEmail.Location = new System.Drawing.Point(380, 596);
             txtEmail.Name = "txtEmail";
             txtEmail.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtEmail.Properties.Appearance.Options.UseFont = true;
@@ -286,7 +311,7 @@
             // 
             labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl6.Appearance.Options.UseFont = true;
-            labelControl6.Location = new System.Drawing.Point(380, 579);
+            labelControl6.Location = new System.Drawing.Point(380, 487);
             labelControl6.Name = "labelControl6";
             labelControl6.Size = new System.Drawing.Size(91, 17);
             labelControl6.TabIndex = 17;
@@ -294,33 +319,13 @@
             // 
             // txtPhoneNumber
             // 
-            txtPhoneNumber.Location = new System.Drawing.Point(380, 602);
+            txtPhoneNumber.Location = new System.Drawing.Point(380, 510);
             txtPhoneNumber.Name = "txtPhoneNumber";
             txtPhoneNumber.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtPhoneNumber.Properties.Appearance.Options.UseFont = true;
             txtPhoneNumber.Properties.Padding = new System.Windows.Forms.Padding(10);
             txtPhoneNumber.Size = new System.Drawing.Size(480, 44);
             txtPhoneNumber.TabIndex = 16;
-            // 
-            // labelControl5
-            // 
-            labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl5.Appearance.Options.UseFont = true;
-            labelControl5.Location = new System.Drawing.Point(380, 487);
-            labelControl5.Name = "labelControl5";
-            labelControl5.Size = new System.Drawing.Size(95, 17);
-            labelControl5.TabIndex = 15;
-            labelControl5.Text = "Manager Name:";
-            // 
-            // txtManagerName
-            // 
-            txtManagerName.Location = new System.Drawing.Point(380, 510);
-            txtManagerName.Name = "txtManagerName";
-            txtManagerName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            txtManagerName.Properties.Appearance.Options.UseFont = true;
-            txtManagerName.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtManagerName.Size = new System.Drawing.Size(480, 44);
-            txtManagerName.TabIndex = 14;
             // 
             // backBtn
             // 
@@ -387,6 +392,26 @@
             pictureEdit1.Size = new System.Drawing.Size(336, 168);
             pictureEdit1.TabIndex = 2;
             // 
+            // labelControl5
+            // 
+            labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl5.Appearance.Options.UseFont = true;
+            labelControl5.Location = new System.Drawing.Point(380, 745);
+            labelControl5.Name = "labelControl5";
+            labelControl5.Size = new System.Drawing.Size(55, 17);
+            labelControl5.TabIndex = 40;
+            labelControl5.Text = "Address: ";
+            // 
+            // txtAddress
+            // 
+            txtAddress.Location = new System.Drawing.Point(380, 768);
+            txtAddress.Name = "txtAddress";
+            txtAddress.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtAddress.Properties.Appearance.Options.UseFont = true;
+            txtAddress.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtAddress.Size = new System.Drawing.Size(480, 44);
+            txtAddress.TabIndex = 39;
+            // 
             // UC_Business_Registration
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -396,6 +421,8 @@
             Size = new System.Drawing.Size(1920, 1050);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel4.ResumeLayout(false);
@@ -404,12 +431,12 @@
             ((System.ComponentModel.ISupportInitialize)txtPostalCode.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtState.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtCity.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtAddress.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtTaxNo.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtPhoneNumber.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtManagerName.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtBusinessName.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureEdit1.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtAddress.Properties).EndInit();
             ResumeLayout(false);
         }
 
@@ -422,10 +449,8 @@
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.TextEdit txtBusinessName;
         private System.Windows.Forms.Button backBtn;
-        private DevExpress.XtraEditors.LabelControl labelControl5;
-        private DevExpress.XtraEditors.TextEdit txtManagerName;
         private DevExpress.XtraEditors.LabelControl labelControl8;
-        private DevExpress.XtraEditors.TextEdit txtAddress;
+        private DevExpress.XtraEditors.TextEdit txtTaxNo;
         private DevExpress.XtraEditors.LabelControl labelControl9;
         private DevExpress.XtraEditors.TextEdit txtEmail;
         private DevExpress.XtraEditors.LabelControl labelControl6;
@@ -443,5 +468,9 @@
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private System.Windows.Forms.Panel panel4;
         private DevExpress.XtraEditors.LabelControl labelControl15;
+        private System.Windows.Forms.Panel panel2;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl5;
+        private DevExpress.XtraEditors.TextEdit txtAddress;
     }
 }

@@ -11,6 +11,9 @@
     <Compile Update="PAL\USERCONTROL\UC_Business_Registration.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Store_Registration.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="PAL\USERCONTROL\UC_User_Registration.cs">
       <SubType>UserControl</SubType>
     </Compile>

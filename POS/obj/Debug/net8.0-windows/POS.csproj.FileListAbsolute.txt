@@ -318,3 +318,4 @@ C:\Users\USER\Documents\pos-system\POS\obj\Debug\net8.0-windows\POS.genruntimeco
 C:\Users\USER\Documents\pos-system\POS\obj\Debug\net8.0-windows\ref\POS.dll
 C:\Users\USER\Documents\pos-system\POS\obj\Debug\net8.0-windows\POS.PAL.USERCONTROL.UC_Business_Registration.resources
 C:\Users\USER\Documents\pos-system\POS\obj\Debug\net8.0-windows\POS.PAL.USERCONTROL.UC_User_Registration.resources
+C:\Users\USER\Documents\pos-system\POS\obj\Debug\net8.0-windows\POS.PAL.USERCONTROL.UC_Store_Registration.resources

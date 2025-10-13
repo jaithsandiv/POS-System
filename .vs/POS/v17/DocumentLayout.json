@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\USER\\Documents\\pos-system\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|C:\\Users\\USER\\Documents\\pos-system\\pos\\pal\\usercontrol\\uc_user_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\uc_user_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\pal\\usercontrol\\uc_store_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\uc_store_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\pal\\usercontrol\\uc_user_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\uc_user_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|C:\\Users\\USER\\Documents\\pos-system\\pos\\pal\\usercontrol\\uc_business_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -19,12 +23,20 @@
       "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\uc_business_registration.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\pal\\usercontrol\\uc_store_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\uc_store_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\pal\\usercontrol\\uc_user_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\uc_user_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\pal\\usercontrol\\uc_user_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\uc_user_registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\pal\\usercontrol\\uc_login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\uc_login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|C:\\Users\\USER\\Documents\\pos-system\\pos\\pal\\usercontrol\\uc_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -37,10 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\pal\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\pal\\usercontrol\\uc_login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|solutionrelative:pos\\pal\\usercontrol\\uc_login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EC6B98ED-1E25-449E-9645-475BE854B866}|POS\\POS.csproj|c:\\users\\user\\documents\\pos-system\\pos\\dal\\dal_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -75,19 +83,44 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "UC_Store_Registration.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Store_Registration.cs",
+              "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\UC_Store_Registration.cs",
+              "ToolTip": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Store_Registration.cs*",
+              "RelativeToolTip": "POS\\PAL\\USERCONTROL\\UC_Store_Registration.cs*",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAiwC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T15:45:47.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UC_Store_Registration.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Store_Registration.cs",
+              "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\UC_Store_Registration.cs",
+              "ToolTip": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Store_Registration.cs [Design]*",
+              "RelativeToolTip": "POS\\PAL\\USERCONTROL\\UC_Store_Registration.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-13T15:30:36.025Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "UC_User_Registration.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_User_Registration.cs",
               "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\UC_User_Registration.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_User_Registration.cs",
               "RelativeToolTip": "POS\\PAL\\USERCONTROL\\UC_User_Registration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAiwCEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-11T17:57:09.522Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "UC_User_Registration.cs [Design]",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_User_Registration.cs",
               "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\UC_User_Registration.cs",
@@ -99,7 +132,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "UC_Business_Registration.Designer.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Business_Registration.Designer.cs",
               "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\UC_Business_Registration.Designer.cs",
@@ -112,20 +145,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UC_Business_Registration.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Business_Registration.cs",
               "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\UC_Business_Registration.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Business_Registration.cs",
               "RelativeToolTip": "POS\\PAL\\USERCONTROL\\UC_Business_Registration.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAiwC4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAgwCoAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-11T16:10:48.661Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UC_Business_Registration.cs [Design]",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Business_Registration.cs",
               "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\UC_Business_Registration.cs",
@@ -137,7 +170,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "App.config",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\App.config",
               "RelativeDocumentMoniker": "POS\\App.config",
@@ -150,7 +183,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "Connection.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\DAL\\Connection.cs",
               "RelativeDocumentMoniker": "POS\\DAL\\Connection.cs",
@@ -162,7 +195,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "UC_Login.Designer.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Login.Designer.cs",
               "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\UC_Login.Designer.cs",
@@ -175,7 +208,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "BLL_Login.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\BLL\\BLL_Login.cs",
               "RelativeDocumentMoniker": "POS\\BLL\\BLL_Login.cs",
@@ -187,7 +220,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "UC_Login.cs [Design]",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Login.cs",
               "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\UC_Login.cs",
@@ -199,7 +232,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "Main.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\Main.cs",
               "RelativeDocumentMoniker": "POS\\PAL\\Main.cs",
@@ -212,7 +245,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "UC_Login.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\USERCONTROL\\UC_Login.cs",
               "RelativeDocumentMoniker": "POS\\PAL\\USERCONTROL\\UC_Login.cs",
@@ -220,12 +253,11 @@
               "RelativeToolTip": "POS\\PAL\\USERCONTROL\\UC_Login.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAgwDkAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-11T17:47:02.697Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-11T17:47:02.697Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "DAL_Login.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\DAL\\DAL_Login.cs",
               "RelativeDocumentMoniker": "POS\\DAL\\DAL_Login.cs",
@@ -237,7 +269,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\Program.cs",
               "RelativeDocumentMoniker": "POS\\Program.cs",
@@ -249,15 +281,14 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "Main.cs [Design]",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\Main.cs",
               "RelativeDocumentMoniker": "POS\\PAL\\Main.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\pos-system\\POS\\PAL\\Main.cs [Design]",
               "RelativeToolTip": "POS\\PAL\\Main.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-09T17:25:21.172Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-10-09T17:25:21.172Z"
             }
           ]
         }

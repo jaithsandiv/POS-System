@@ -11,35 +11,35 @@ using System.Windows.Forms;
 
 namespace POS.PAL.USERCONTROL
 {
-    public partial class UC_Business_Registration : DevExpress.XtraEditors.XtraUserControl
+    public partial class UC_Store_Registration : DevExpress.XtraEditors.XtraUserControl
     {
-        public UC_Business_Registration()
+        public UC_Store_Registration()
         {
             InitializeComponent();
         }
 
-        private void backBtn1_Click(object sender, EventArgs e)
+        private void backBtn2_Click(object sender, EventArgs e)
         {
-            UC_Login login = new UC_Login();
+            UC_Business_Registration businessRegistration = new UC_Business_Registration();
             Control parentPanel = this.Parent;
 
             if (parentPanel != null)
             {
                 parentPanel.Controls.Clear();
-                parentPanel.Controls.Add(login);
-                login.Dock = DockStyle.Fill;
+                parentPanel.Controls.Add(businessRegistration);
+                businessRegistration.Dock = DockStyle.Fill;
             }
         }
 
         private void nextBtn_Click(object sender, EventArgs e)
         {
-            UC_Store_Registration storeRegistration = new UC_Store_Registration();
+            UC_User_Registration userRegistration = new UC_User_Registration();
             Control parentPanel = this.Parent;
             if (parentPanel != null)
             {
                 parentPanel.Controls.Clear();
-                parentPanel.Controls.Add(storeRegistration);
-                storeRegistration.Dock = DockStyle.Fill;
+                parentPanel.Controls.Add(userRegistration);
+                userRegistration.Dock = DockStyle.Fill;
             }
         }
     }
