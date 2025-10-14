@@ -12,6 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="DAL\DataSource\DAL_DS_Initialize.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DAL_DS_Initialize.xsd</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -24,6 +29,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DAL\DataSource\DAL_DS_Initialize.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DAL_DS_Initialize.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

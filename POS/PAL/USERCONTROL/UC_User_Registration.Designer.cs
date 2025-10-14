@@ -202,9 +202,9 @@
             labelControl12.Appearance.Options.UseFont = true;
             labelControl12.Location = new System.Drawing.Point(1025, 489);
             labelControl12.Name = "labelControl12";
-            labelControl12.Size = new System.Drawing.Size(109, 17);
+            labelControl12.Size = new System.Drawing.Size(118, 17);
             labelControl12.TabIndex = 49;
-            labelControl12.Text = "Confirm Password:";
+            labelControl12.Text = "Confirm Password: *";
             // 
             // txtConfirmPassword
             // 
@@ -223,9 +223,9 @@
             labelControl13.Appearance.Options.UseFont = true;
             labelControl13.Location = new System.Drawing.Point(1025, 403);
             labelControl13.Name = "labelControl13";
-            labelControl13.Size = new System.Drawing.Size(59, 17);
+            labelControl13.Size = new System.Drawing.Size(68, 17);
             labelControl13.TabIndex = 47;
-            labelControl13.Text = "Password:";
+            labelControl13.Text = "Password: *";
             // 
             // txtPassword
             // 
@@ -242,15 +242,15 @@
             // 
             labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl9.Appearance.Options.UseFont = true;
-            labelControl9.Location = new System.Drawing.Point(380, 667);
+            labelControl9.Location = new System.Drawing.Point(380, 581);
             labelControl9.Name = "labelControl9";
-            labelControl9.Size = new System.Drawing.Size(34, 17);
+            labelControl9.Size = new System.Drawing.Size(43, 17);
             labelControl9.TabIndex = 43;
-            labelControl9.Text = "Email:";
+            labelControl9.Text = "Email: *";
             // 
             // txtUEmail
             // 
-            txtUEmail.Location = new System.Drawing.Point(380, 690);
+            txtUEmail.Location = new System.Drawing.Point(380, 604);
             txtUEmail.Name = "txtUEmail";
             txtUEmail.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtUEmail.Properties.Appearance.Options.UseFont = true;
@@ -262,7 +262,7 @@
             // 
             labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl6.Appearance.Options.UseFont = true;
-            labelControl6.Location = new System.Drawing.Point(380, 581);
+            labelControl6.Location = new System.Drawing.Point(380, 667);
             labelControl6.Name = "labelControl6";
             labelControl6.Size = new System.Drawing.Size(91, 17);
             labelControl6.TabIndex = 41;
@@ -270,7 +270,7 @@
             // 
             // txtUPhoneNumber
             // 
-            txtUPhoneNumber.Location = new System.Drawing.Point(380, 604);
+            txtUPhoneNumber.Location = new System.Drawing.Point(380, 690);
             txtUPhoneNumber.Name = "txtUPhoneNumber";
             txtUPhoneNumber.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtUPhoneNumber.Properties.Appearance.Options.UseFont = true;
@@ -284,9 +284,9 @@
             labelControl5.Appearance.Options.UseFont = true;
             labelControl5.Location = new System.Drawing.Point(380, 489);
             labelControl5.Name = "labelControl5";
-            labelControl5.Size = new System.Drawing.Size(62, 17);
+            labelControl5.Size = new System.Drawing.Size(71, 17);
             labelControl5.TabIndex = 39;
-            labelControl5.Text = "Username:";
+            labelControl5.Text = "Username: *";
             // 
             // txtUsername
             // 
@@ -315,9 +315,9 @@
             labelControl4.Appearance.Options.UseFont = true;
             labelControl4.Location = new System.Drawing.Point(380, 403);
             labelControl4.Name = "labelControl4";
-            labelControl4.Size = new System.Drawing.Size(61, 17);
+            labelControl4.Size = new System.Drawing.Size(70, 17);
             labelControl4.TabIndex = 36;
-            labelControl4.Text = "Full Name:";
+            labelControl4.Text = "Full Name: *";
             // 
             // txtfullName
             // 

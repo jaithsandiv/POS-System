@@ -1,0 +1,3 @@
+﻿namespace POS.DAL.DataSource
+{
+}

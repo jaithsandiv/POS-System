@@ -8,13 +8,7 @@
 CREATE TABLE Business (
     business_id    INT IDENTITY(1,1) PRIMARY KEY, -- Single business (app logic uses id=1)
     business_name  NVARCHAR(200) NOT NULL,        -- Registered business name
-    phone          NVARCHAR(20),
-    email          NVARCHAR(100),
-    address        NVARCHAR(500),
-    city           NVARCHAR(50),
-    country        NVARCHAR(50) DEFAULT 'Sri Lanka',
-    tax_number     NVARCHAR(50),
-    logo_url       NVARCHAR(500),
+    logo           VARBINARY(MAX),
     status         CHAR(1) DEFAULT 'A',          -- 'A' = Active, 'I' = Inactive
     created_by     INT NULL,                     -- user_id who created (nullable)
     created_date   DATETIME2 NULL DEFAULT GETDATE(),
@@ -28,7 +22,6 @@ CREATE TABLE Business (
 CREATE TABLE Store (
     store_id       INT IDENTITY(1,1) PRIMARY KEY, -- Branch/location id
     store_name     NVARCHAR(100) NOT NULL,
-    manager_name   NVARCHAR(100),
     phone          NVARCHAR(20),
     email          NVARCHAR(100),
     address        NVARCHAR(500),

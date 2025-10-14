@@ -19,9 +19,6 @@ namespace POS.PAL.USERCONTROL
         public UC_Login()
         {
             InitializeComponent();
-            string plainPassword = "password123";
-            string hashedPassword = _bllLogin.HashPassword(plainPassword);
-            Console.WriteLine(hashedPassword);
         }
 
         private void btnSignIn_Click(object sender, EventArgs e)
@@ -44,8 +41,8 @@ namespace POS.PAL.USERCONTROL
             bool isAuthenticated = _bllLogin.Authenticate(username, password);
             if (isAuthenticated)
             {
-                XtraMessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // Proceed to the next step in your application
+                UC_Dashboard dashboard = new UC_Dashboard();
+                Main.Instance.SwitchToControl(dashboard);
             }
             else
             {

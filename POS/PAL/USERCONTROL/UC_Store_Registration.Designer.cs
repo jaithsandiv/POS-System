@@ -387,9 +387,9 @@
             labelControl16.Appearance.Options.UseFont = true;
             labelControl16.Location = new System.Drawing.Point(379, 401);
             labelControl16.Name = "labelControl16";
-            labelControl16.Size = new System.Drawing.Size(73, 17);
+            labelControl16.Size = new System.Drawing.Size(82, 17);
             labelControl16.TabIndex = 31;
-            labelControl16.Text = "Store Name:";
+            labelControl16.Text = "Store Name: *";
             // 
             // labelControl14
             // 
