@@ -1,19 +1,25 @@
 -- =============================================================
--- POS v3
+-- POS v3 (Updated for Inclusive Pricing, Promotions & Trial Licensing)
 -- =============================================================
 
 /* ---------------------------
    1. BUSINESS (single business row per installation)
    --------------------------- */
 CREATE TABLE Business (
-    business_id    INT IDENTITY(1,1) PRIMARY KEY, -- Single business (app logic uses id=1)
-    business_name  NVARCHAR(200) NOT NULL,        -- Registered business name
-    logo           VARBINARY(MAX),
-    status         CHAR(1) DEFAULT 'A',          -- 'A' = Active, 'I' = Inactive
-    created_by     INT NULL,                     -- user_id who created (nullable)
-    created_date   DATETIME2 NULL DEFAULT GETDATE(),
-    updated_by     INT NULL,
-    updated_date   DATETIME2 NULL DEFAULT GETDATE()
+    business_id      INT IDENTITY(1,1) PRIMARY KEY, -- Single business (app logic uses id=1)
+    business_name    NVARCHAR(200) NOT NULL,        -- Registered business name
+    logo             VARBINARY(MAX),
+    status           CHAR(1) DEFAULT 'A',          -- 'A' = Active, 'I' = Inactive
+    
+    -- TRIAL & LICENSING (for local one-time payment model)
+    trial_start_date DATETIME2 NULL,               -- Set on first registration
+    trial_end_date   DATETIME2 NULL,               -- trial_start + 3 days
+    is_licensed      BIT DEFAULT 0,                -- 0 = trial/expired, 1 = paid & unlocked
+    
+    created_by       INT NULL,                     -- user_id who created (nullable)
+    created_date     DATETIME2 NULL DEFAULT GETDATE(),
+    updated_by       INT NULL,
+    updated_date     DATETIME2 NULL DEFAULT GETDATE()
 );
 
 -- ---------------------------
@@ -71,7 +77,7 @@ CREATE TABLE [User] (
     phone          NVARCHAR(20),
     password_hash  NVARCHAR(255) NOT NULL,
     pin_code       NVARCHAR(6),            -- required for discount approval
-    is_super_admin BIT DEFAULT 0,          -- full system access
+    is_super_admin BIT DEFAULT 0,          -- vendor account; bypasses trial lock
     status         CHAR(1) DEFAULT 'A',
     created_by     INT NULL,
     created_date   DATETIME2 NULL DEFAULT GETDATE(),
@@ -85,7 +91,7 @@ CREATE TABLE [User] (
 CREATE TABLE Category (
     category_id    INT IDENTITY(1,1) PRIMARY KEY,
     category_name  NVARCHAR(100) NOT NULL,       -- unique name per store
-    image_url      NVARCHAR(500) NULL,
+    image          VARBINARY(MAX),
     status         CHAR(1) DEFAULT 'A',          -- 'A'=Active, 'I'=Inactive
     created_by     INT NULL,
     created_date   DATETIME2 NULL DEFAULT GETDATE(),
@@ -93,12 +99,11 @@ CREATE TABLE Category (
     updated_date   DATETIME2 NULL DEFAULT GETDATE()
 );
 
-
 CREATE TABLE Brand (
     brand_id       INT IDENTITY(1,1) PRIMARY KEY,
     brand_name     NVARCHAR(100) NOT NULL,
     supplier_id    INT NULL FOREIGN KEY REFERENCES Supplier(supplier_id), -- Link to Supplier
-    image_url      NVARCHAR(500),
+    image          VARBINARY(MAX),
     status         CHAR(1) DEFAULT 'A',
     created_by     INT NULL,
     created_date   DATETIME2 NULL DEFAULT GETDATE(),
@@ -127,18 +132,12 @@ CREATE TABLE Product (
     brand_id       INT NULL FOREIGN KEY REFERENCES Brand(brand_id),
     unit_id        INT NOT NULL FOREIGN KEY REFERENCES Unit(unit_id), -- required
     purchase_cost  DECIMAL(14,2) NULL,
-    selling_price  DECIMAL(14,2) NOT NULL,   -- required
-    tax_rate       DECIMAL(5,2) DEFAULT 0,
-    tax_method     NVARCHAR(10) DEFAULT 'Exclusive', -- Inclusive/Exclusive
+    selling_price  DECIMAL(14,2) NOT NULL,   -- INCLUSIVE of all taxes (final consumer price)
     stock_quantity DECIMAL(14,3) DEFAULT 0,  -- maintained by app
     expiry_date    DATE NULL,
     manufacture_date DATE NULL,
     description    NVARCHAR(MAX) NULL,
-    image_url      NVARCHAR(500) NULL,
-    is_featured    BIT DEFAULT 0,
-    promotional_price DECIMAL(14,2) NULL,
-    promo_start    DATE NULL,
-    promo_end      DATE NULL,
+    image          VARBINARY(MAX),
     status         CHAR(1) DEFAULT 'A',
     created_by     INT NULL,
     created_date   DATETIME2 NULL DEFAULT GETDATE(),
@@ -146,8 +145,37 @@ CREATE TABLE Product (
     updated_date   DATETIME2 NULL DEFAULT GETDATE()
 );
 
+-- PROMOTIONS (campaign-based, with per-product discounts)
+CREATE TABLE Promotion (
+    promotion_id     INT IDENTITY(1,1) PRIMARY KEY,
+    promotion_name   NVARCHAR(100) NOT NULL,        -- e.g., 'New Year Sale 2025'
+    description      NVARCHAR(255) NULL,
+    start_date       DATETIME2 NOT NULL,            -- inclusive
+    end_date         DATETIME2 NOT NULL,            -- inclusive
+    status           CHAR(1) DEFAULT 'A',           -- 'A'=Active, 'I'=Inactive
+    created_by       INT NULL,
+    created_date     DATETIME2 DEFAULT GETDATE(),
+    updated_by       INT NULL,
+    updated_date     DATETIME2 DEFAULT GETDATE()
+);
+
+CREATE TABLE ProductPromotion (
+    promotion_product_id INT IDENTITY(1,1) PRIMARY KEY,
+    promotion_id         INT NOT NULL FOREIGN KEY REFERENCES Promotion(promotion_id) ON DELETE CASCADE,
+    product_id           INT NOT NULL FOREIGN KEY REFERENCES Product(product_id),
+    promotion_type       NVARCHAR(20) NOT NULL,     -- 'PERCENTAGE' or 'FIXED_AMOUNT'
+    discount_value       DECIMAL(10,2) NOT NULL,    -- e.g., 15.00 (%) or 100.00 (LKR off)
+    status               CHAR(1) DEFAULT 'A',
+    created_by           INT NULL,
+    created_date         DATETIME2 DEFAULT GETDATE(),
+    updated_by           INT NULL,
+    updated_date         DATETIME2 DEFAULT GETDATE(),
+    CONSTRAINT UQ_PromotionProduct UNIQUE (promotion_id, product_id),
+    CONSTRAINT CHK_PromotionType CHECK (promotion_type IN ('PERCENTAGE', 'FIXED_AMOUNT'))
+);
+
 -- ---------------------------
--- 5. CUSTOMER & GROUP
+-- 5. CUSTOMER
 -- ---------------------------
 CREATE TABLE CustomerGroup (
     group_id       INT IDENTITY(1,1) PRIMARY KEY,
@@ -167,7 +195,6 @@ CREATE TABLE Customer (
     company_name   NVARCHAR(100) NULL,
     email          NVARCHAR(100) NULL,
     phone          NVARCHAR(20) NOT NULL,
-    tax_number     NVARCHAR(50) NULL,
     address        NVARCHAR(500) NULL,
     city           NVARCHAR(50) NULL,
     state          NVARCHAR(50) NULL,
@@ -190,7 +217,6 @@ CREATE TABLE Supplier (
     company_name   NVARCHAR(100) NULL,
     email          NVARCHAR(100) NULL,
     phone          NVARCHAR(20) NULL,
-    tax_number     NVARCHAR(50) NULL,
     address        NVARCHAR(500) NULL,
     status         CHAR(1) DEFAULT 'A',
     created_by     INT NULL,
@@ -211,10 +237,9 @@ CREATE TABLE Sale (
     customer_id    INT NULL FOREIGN KEY REFERENCES Customer(customer_id),
     biller_id      INT NOT NULL FOREIGN KEY REFERENCES [User](user_id), -- cashier
     total_items    INT NOT NULL,
-    total_amount   DECIMAL(14,2) NOT NULL,
-    discount_amount DECIMAL(14,2) DEFAULT 0,
-    tax_amount     DECIMAL(14,2) DEFAULT 0,
-    grand_total    DECIMAL(14,2) NOT NULL,
+    total_amount   DECIMAL(14,2) NOT NULL,       -- Σ(SaleItem.subtotal)
+    discount_amount DECIMAL(14,2) DEFAULT 0,     -- sale-level discount (manual, PIN-authorized)
+    grand_total    DECIMAL(14,2) NOT NULL,       -- total_amount - discount_amount
     payment_status NVARCHAR(20) DEFAULT 'PENDING', -- 'PAID','PARTIAL','CREDIT'
     sale_status    NVARCHAR(20) DEFAULT 'COMPLETED', -- 'CANCELLED','CONVERTED'
     order_type     NVARCHAR(20) NULL,            -- KOT: 'TAKE_AWAY','DINE_IN'
@@ -233,11 +258,10 @@ CREATE TABLE SaleItem (
     product_id     INT NOT NULL FOREIGN KEY REFERENCES Product(product_id),
     product_name   NVARCHAR(200) NOT NULL,      -- denormalized snapshot
     product_code   NVARCHAR(50) NULL,
-    unit_price     DECIMAL(14,2) NOT NULL,
+    unit_price     DECIMAL(14,2) NOT NULL,      -- base selling_price (inclusive, pre-discount)
     quantity       DECIMAL(10,3) NOT NULL,
-    discount_amount DECIMAL(14,2) DEFAULT 0,
-    tax_amount     DECIMAL(14,2) DEFAULT 0,
-    subtotal       DECIMAL(14,2) NOT NULL,
+    discount_amount DECIMAL(14,2) DEFAULT 0,    -- item-level discount (from promo)
+    subtotal       DECIMAL(14,2) NOT NULL,      -- (unit_price * qty) - discount_amount
     status         CHAR(1) DEFAULT 'A',
     created_by     INT NULL,
     created_date   DATETIME2 NULL DEFAULT GETDATE(),
@@ -304,24 +328,11 @@ CREATE TABLE [Table] (
 );
 
 -- ---------------------------
--- 10. SYSTEM SETTINGS, TRIAL & BARCODE PRINT
+-- 10. SYSTEM SETTINGS & BARCODE PRINT
 -- ---------------------------
 CREATE TABLE SystemSetting (
     setting_key    NVARCHAR(100) PRIMARY KEY,   -- e.g. 'kot_enabled'
     setting_value  NVARCHAR(MAX) NULL,
-    status         CHAR(1) DEFAULT 'A',
-    created_by     INT NULL,
-    created_date   DATETIME2 NULL DEFAULT GETDATE(),
-    updated_by     INT NULL,
-    updated_date   DATETIME2 NULL DEFAULT GETDATE()
-);
-
-CREATE TABLE TrialAccount (
-    trial_id       INT IDENTITY(1,1) PRIMARY KEY,
-    trial_start    DATE NOT NULL,
-    trial_end      DATE NOT NULL,
-    is_active      BIT DEFAULT 1,
-    granted_by     INT NULL FOREIGN KEY REFERENCES [User](user_id),
     status         CHAR(1) DEFAULT 'A',
     created_by     INT NULL,
     created_date   DATETIME2 NULL DEFAULT GETDATE(),
@@ -359,4 +370,3 @@ CREATE TABLE SystemLog (
     user_id        INT NULL FOREIGN KEY REFERENCES [User](user_id),
     created_date   DATETIME2 DEFAULT GETDATE()
 );
-
