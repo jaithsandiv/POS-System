@@ -52,7 +52,6 @@
             txtEmail = new DevExpress.XtraEditors.TextEdit();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             txtPhoneNumber = new DevExpress.XtraEditors.TextEdit();
-            backBtn = new System.Windows.Forms.Button();
             labelControl4 = new DevExpress.XtraEditors.LabelControl();
             txtBusinessName = new DevExpress.XtraEditors.TextEdit();
             labelControl2 = new DevExpress.XtraEditors.LabelControl();
@@ -96,7 +95,6 @@
             panel1.Controls.Add(txtEmail);
             panel1.Controls.Add(labelControl6);
             panel1.Controls.Add(txtPhoneNumber);
-            panel1.Controls.Add(backBtn);
             panel1.Controls.Add(labelControl4);
             panel1.Controls.Add(txtBusinessName);
             panel1.Controls.Add(labelControl2);
@@ -335,17 +333,6 @@
             txtPhoneNumber.Size = new System.Drawing.Size(480, 44);
             txtPhoneNumber.TabIndex = 16;
             // 
-            // backBtn
-            // 
-            backBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            backBtn.Location = new System.Drawing.Point(175, 918);
-            backBtn.Name = "backBtn";
-            backBtn.Size = new System.Drawing.Size(250, 44);
-            backBtn.TabIndex = 13;
-            backBtn.Text = "Sign In";
-            backBtn.UseVisualStyleBackColor = true;
-            backBtn.Click += backBtn1_Click;
-            // 
             // labelControl4
             // 
             labelControl4.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
@@ -434,7 +421,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.TextEdit txtBusinessName;
-        private System.Windows.Forms.Button backBtn;
         private DevExpress.XtraEditors.LabelControl labelControl9;
         private DevExpress.XtraEditors.TextEdit txtEmail;
         private DevExpress.XtraEditors.LabelControl labelControl6;

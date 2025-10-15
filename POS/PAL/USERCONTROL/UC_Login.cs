@@ -62,17 +62,5 @@ namespace POS.PAL.USERCONTROL
                 XtraMessageBox.Show("Invalid username or password.", "Authentication Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void hlblSignUp_Click(object sender, EventArgs e)
-        {
-            UC_Business_Registration businessRegistration = new UC_Business_Registration();
-            Control parentPanel = this.Parent;
-            if (parentPanel != null) 
-            {
-                parentPanel.Controls.Clear();
-                parentPanel.Controls.Add(businessRegistration);
-                businessRegistration.Dock = DockStyle.Fill;
-            }
-        }
     }
 }

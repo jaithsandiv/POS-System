@@ -58,22 +58,6 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
-        private void backBtn1_Click(object sender, EventArgs e)
-        {
-            // Clear registration data when going back to login
-            _dataSet.Clear();
-
-            UC_Login login = new UC_Login();
-            Control parentPanel = this.Parent;
-
-            if (parentPanel != null)
-            {
-                parentPanel.Controls.Clear();
-                parentPanel.Controls.Add(login);
-                login.Dock = DockStyle.Fill;
-            }
-        }
-
         private void nextBtn_Click(object sender, EventArgs e)
         {
             // Validate Business Name is required

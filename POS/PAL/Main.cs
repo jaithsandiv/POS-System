@@ -26,8 +26,16 @@ namespace POS
 
             Instance = this;
 
-            UC_Login login = new UC_Login();
-            SwitchToControl(login);
+            if (DataSetApp.Business.Rows.Count > 0)
+            {
+                UC_Login login = new UC_Login();
+                SwitchToControl(login);
+            }
+            else
+            {
+                UC_Business_Registration businessRegistration = new UC_Business_Registration();
+                SwitchToControl(businessRegistration);
+            }
         }
 
         private void LoadBusinessData()

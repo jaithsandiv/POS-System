@@ -32,8 +32,6 @@
             pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             txtUsername = new DevExpress.XtraEditors.TextEdit();
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            hlblSignUp = new DevExpress.XtraEditors.HyperlinkLabelControl();
             labelControl3 = new DevExpress.XtraEditors.LabelControl();
             labelControl4 = new DevExpress.XtraEditors.LabelControl();
             btnSignIn = new DevExpress.XtraEditors.SimpleButton();
@@ -74,27 +72,6 @@
             labelControl1.Size = new System.Drawing.Size(121, 17);
             labelControl1.TabIndex = 4;
             labelControl1.Text = "Enter your username";
-            // 
-            // labelControl2
-            // 
-            labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl2.Appearance.Options.UseFont = true;
-            labelControl2.Location = new System.Drawing.Point(1393, 655);
-            labelControl2.Name = "labelControl2";
-            labelControl2.Size = new System.Drawing.Size(199, 17);
-            labelControl2.TabIndex = 5;
-            labelControl2.Text = "Register yourself as a shop owner";
-            // 
-            // hlblSignUp
-            // 
-            hlblSignUp.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            hlblSignUp.Appearance.Options.UseFont = true;
-            hlblSignUp.Location = new System.Drawing.Point(1598, 655);
-            hlblSignUp.Name = "hlblSignUp";
-            hlblSignUp.Size = new System.Drawing.Size(44, 17);
-            hlblSignUp.TabIndex = 6;
-            hlblSignUp.Text = "Sign up";
-            hlblSignUp.Click += hlblSignUp_Click;
             // 
             // labelControl3
             // 
@@ -151,8 +128,6 @@
             Controls.Add(btnSignIn);
             Controls.Add(labelControl4);
             Controls.Add(labelControl3);
-            Controls.Add(hlblSignUp);
-            Controls.Add(labelControl2);
             Controls.Add(labelControl1);
             Controls.Add(txtUsername);
             Controls.Add(pictureEdit1);
@@ -172,8 +147,6 @@
         private DevExpress.XtraEditors.PictureEdit pictureEdit1;
         private DevExpress.XtraEditors.TextEdit txtUsername;
         private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.HyperlinkLabelControl hlblSignUp;
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.SimpleButton btnSignIn;
