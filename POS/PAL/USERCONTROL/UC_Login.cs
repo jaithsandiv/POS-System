@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,18 @@ namespace POS.PAL.USERCONTROL
         public UC_Login()
         {
             InitializeComponent();
+        }
+
+        private void UC_Login_Load(object sender, EventArgs e)
+        {
+            if (Main.DataSetApp?.Business.Rows.Count > 0 && !Main.DataSetApp.Business[0].IslogoNull())
+            {
+                byte[] logoBytes = Main.DataSetApp.Business[0].logo;
+                using (MemoryStream ms = new MemoryStream(logoBytes))
+                {
+                    pictureEdit1.Image = Image.FromStream(ms);
+                }
+            }
         }
 
         private void btnSignIn_Click(object sender, EventArgs e)

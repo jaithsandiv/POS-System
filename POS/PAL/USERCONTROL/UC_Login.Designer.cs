@@ -159,6 +159,7 @@
             Margin = new System.Windows.Forms.Padding(4);
             Name = "UC_Login";
             Size = new System.Drawing.Size(1920, 1050);
+            Load += UC_Login_Load;
             ((System.ComponentModel.ISupportInitialize)pictureEdit1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtUsername.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtPassword.Properties).EndInit();

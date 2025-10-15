@@ -20,9 +20,9 @@ namespace POS
         public Main()
         {
             InitializeComponent();
-            
-            //DataSetApp = new DAL_DS_Initialize();
-            //LoadBusinessData();
+
+            DataSetApp = new DAL_DS_Initialize();
+            LoadBusinessData();
 
             Instance = this;
 
@@ -30,22 +30,22 @@ namespace POS
             SwitchToControl(login);
         }
 
-        //private void LoadBusinessData()
-        //{
-        //    try
-        //    {
-        //        DataSetApp.Business.Clear();
-        //        DataSetApp.Business.Merge(_bllInitialize.GetBusiness());
+        private void LoadBusinessData()
+        {
+            try
+            {
+                DataSetApp.Business.Clear();
+                DataSetApp.Business.Merge(_bllInitialize.GetBusiness());
 
-        //        if (DataSetApp.Business.Rows.Count == 0)
-        //            DataSetApp.Business.AddBusinessRow(DataSetApp.Business.NewBusinessRow());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error loading business data: {ex.Message}", "Initialization Error",
-        //            MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
+                if (DataSetApp.Business.Rows.Count == 0)
+                    DataSetApp.Business.AddBusinessRow(DataSetApp.Business.NewBusinessRow());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading business data: {ex.Message}", "Initialization Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         public void SwitchToControl(UserControl control)
         {
