@@ -136,6 +136,7 @@
             txtPassword.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtPassword.Properties.Appearance.Options.UseFont = true;
             txtPassword.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtPassword.Properties.PasswordChar = '*';
             txtPassword.Size = new System.Drawing.Size(480, 44);
             txtPassword.TabIndex = 10;
             // 

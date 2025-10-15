@@ -48,7 +48,6 @@ namespace POS.PAL.USERCONTROL
             if (_dataSet.Store.Count > 0)
             {
                 var storeRow = _dataSet.Store[0];
-                txtStoreName.Text = storeRow.store_name;
                 txtPhoneNumber.Text = storeRow.phone;
                 txtEmail.Text = storeRow.email;
                 txtAddress.Text = storeRow.address;
@@ -85,14 +84,6 @@ namespace POS.PAL.USERCONTROL
                 return;
             }
 
-            // Validate Store Name is required
-            if (string.IsNullOrWhiteSpace(txtStoreName.Text))
-            {
-                XtraMessageBox.Show("Store Name is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtStoreName.Focus();
-                return;
-            }
-
             // Save business data to DataSet
             _dataSet.Business.Clear();
             var businessRow = _dataSet.Business.NewBusinessRow();
@@ -110,10 +101,10 @@ namespace POS.PAL.USERCONTROL
             
             _dataSet.Business.AddBusinessRow(businessRow);
 
-            // Save store data to DataSet
+            // Save store data to DataSet - use business name as store name
             _dataSet.Store.Clear();
             var storeRow = _dataSet.Store.NewStoreRow();
-            storeRow.store_name = txtStoreName.Text.Trim();
+            storeRow.store_name = txtBusinessName.Text.Trim(); // Use business name for store name
             storeRow.phone = txtPhoneNumber.Text.Trim();
             storeRow.email = txtEmail.Text.Trim();
             storeRow.address = txtAddress.Text.Trim();
