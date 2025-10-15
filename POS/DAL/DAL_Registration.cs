@@ -24,9 +24,9 @@ namespace POS.DAL
 
                 // Insert Business
                 string businessQuery = @"
-                    INSERT INTO Business (business_name, logo, status, created_by, created_date)
+                    INSERT INTO Business (business_name, logo, trial_start_date, trial_end_date, is_licensed, status, created_by, created_date)
                     OUTPUT INSERTED.business_id
-                    VALUES (@business_name, @logo, 'A', NULL, GETDATE())";
+                    VALUES (@business_name, @logo, GETDATE(), GETDATE() + 3, 0, 'A', NULL, GETDATE())";
 
                 SqlParameter[] businessParams = {
                     new SqlParameter("@business_name", businessRow.business_name),
