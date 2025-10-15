@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_User_Registration));
             panel1 = new System.Windows.Forms.Panel();
-            panel4 = new System.Windows.Forms.Panel();
-            labelControl8 = new DevExpress.XtraEditors.LabelControl();
             panel5 = new System.Windows.Forms.Panel();
             labelControl10 = new DevExpress.XtraEditors.LabelControl();
             panel6 = new System.Windows.Forms.Panel();
@@ -56,7 +54,6 @@
             labelControl3 = new DevExpress.XtraEditors.LabelControl();
             pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             panel1.SuspendLayout();
-            panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtPin.Properties).BeginInit();
@@ -72,7 +69,6 @@
             // panel1
             // 
             panel1.BackColor = System.Drawing.Color.White;
-            panel1.Controls.Add(panel4);
             panel1.Controls.Add(panel5);
             panel1.Controls.Add(panel6);
             panel1.Controls.Add(regBtn);
@@ -99,34 +95,13 @@
             panel1.Size = new System.Drawing.Size(1920, 1050);
             panel1.TabIndex = 0;
             // 
-            // panel4
-            // 
-            panel4.BackColor = System.Drawing.Color.FromArgb(57, 62, 70);
-            panel4.Controls.Add(labelControl8);
-            panel4.Location = new System.Drawing.Point(711, 225);
-            panel4.Name = "panel4";
-            panel4.Size = new System.Drawing.Size(520, 56);
-            panel4.TabIndex = 57;
-            // 
-            // labelControl8
-            // 
-            labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl8.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Appearance.Options.UseForeColor = true;
-            labelControl8.Location = new System.Drawing.Point(15, 11);
-            labelControl8.Name = "labelControl8";
-            labelControl8.Size = new System.Drawing.Size(88, 32);
-            labelControl8.TabIndex = 10;
-            labelControl8.Text = "2. Store";
-            // 
             // panel5
             // 
             panel5.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
             panel5.Controls.Add(labelControl10);
-            panel5.Location = new System.Drawing.Point(1236, 225);
+            panel5.Location = new System.Drawing.Point(966, 225);
             panel5.Name = "panel5";
-            panel5.Size = new System.Drawing.Size(520, 56);
+            panel5.Size = new System.Drawing.Size(780, 56);
             panel5.TabIndex = 56;
             // 
             // labelControl10
@@ -139,15 +114,15 @@
             labelControl10.Name = "labelControl10";
             labelControl10.Size = new System.Drawing.Size(103, 32);
             labelControl10.TabIndex = 10;
-            labelControl10.Text = "3. Owner";
+            labelControl10.Text = "2. Owner";
             // 
             // panel6
             // 
             panel6.BackColor = System.Drawing.Color.FromArgb(57, 62, 70);
             panel6.Controls.Add(labelControl15);
-            panel6.Location = new System.Drawing.Point(185, 225);
+            panel6.Location = new System.Drawing.Point(175, 225);
             panel6.Name = "panel6";
-            panel6.Size = new System.Drawing.Size(520, 56);
+            panel6.Size = new System.Drawing.Size(780, 56);
             panel6.TabIndex = 55;
             // 
             // labelControl15
@@ -372,8 +347,6 @@
             Size = new System.Drawing.Size(1920, 1050);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             panel6.ResumeLayout(false);
@@ -411,8 +384,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.PictureEdit pictureEdit1;
-        private System.Windows.Forms.Panel panel4;
-        private DevExpress.XtraEditors.LabelControl labelControl8;
         private System.Windows.Forms.Panel panel5;
         private DevExpress.XtraEditors.LabelControl labelControl10;
         private System.Windows.Forms.Panel panel6;

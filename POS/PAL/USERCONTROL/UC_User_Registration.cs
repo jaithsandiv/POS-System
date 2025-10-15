@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using POS.BLL;
+using POS.DAL.DataSource;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,17 +20,35 @@ namespace POS.PAL.USERCONTROL
         public UC_User_Registration()
         {
             InitializeComponent();
+            LoadPreviousData();
+        }
+
+        private void LoadPreviousData()
+        {
+            // Load previously entered data if navigating back
+            var dataSet = UC_Business_Registration.RegistrationDataSet;
+            
+            if (dataSet.User.Count > 0)
+            {
+                var userRow = dataSet.User[0];
+                txtfullName.Text = userRow.full_name;
+                txtUsername.Text = userRow.username;
+                txtUEmail.Text = userRow.email;
+                txtUPhoneNumber.Text = userRow.phone;
+                txtPin.Text = userRow.pin_code;
+                // Don't load passwords for security
+            }
         }
 
         private void backBtn2_Click(object sender, EventArgs e)
         {
-            UC_Store_Registration storeRegistration = new UC_Store_Registration();
+            UC_Business_Registration businessRegistration = new UC_Business_Registration();
             Control parentPanel = this.Parent;
             if (parentPanel != null)
             {
                 parentPanel.Controls.Clear();
-                parentPanel.Controls.Add(storeRegistration);
-                storeRegistration.Dock = DockStyle.Fill;
+                parentPanel.Controls.Add(businessRegistration);
+                businessRegistration.Dock = DockStyle.Fill;
             }
         }
 
@@ -80,33 +99,44 @@ namespace POS.PAL.USERCONTROL
                 return;
             }
 
+            // Get the DataSet with Business and Store data
+            var dataSet = UC_Business_Registration.RegistrationDataSet;
+
+            // Validate that Business and Store data exists
+            if (dataSet.Business.Count == 0 || dataSet.Store.Count == 0)
+            {
+                XtraMessageBox.Show("Business and Store information is missing. Please start from the beginning.", 
+                    "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
+                UC_Business_Registration businessRegistration = new UC_Business_Registration();
+                Control parentPanel = this.Parent;
+                if (parentPanel != null)
+                {
+                    parentPanel.Controls.Clear();
+                    parentPanel.Controls.Add(businessRegistration);
+                    businessRegistration.Dock = DockStyle.Fill;
+                }
+                return;
+            }
+
+            // Create User row
+            dataSet.User.Clear();
+            var userRow = dataSet.User.NewUserRow();
+            userRow.full_name = txtfullName.Text.Trim();
+            userRow.username = txtUsername.Text.Trim();
+            userRow.email = txtUEmail.Text.Trim();
+            userRow.phone = txtUPhoneNumber.Text.Trim();
+            userRow.password_hash = txtPassword.Text; // Will be hashed in BLL
+            userRow.pin_code = txtPin.Text.Trim();
+            userRow.role_id = "1"; // Default role_id = 1
+            
+            dataSet.User.AddUserRow(userRow);
+
             // Call the registration method
             bool success = _bllRegistration.RegisterComplete(
-                // Business data from RegistrationData
-                RegistrationData.BusinessName,
-                RegistrationData.BusinessPhone,
-                RegistrationData.BusinessEmail,
-                RegistrationData.BusinessAddress,
-                RegistrationData.BusinessCity,
-                RegistrationData.BusinessCountry,
-                RegistrationData.BusinessTaxNo,
-                // Store data from RegistrationData
-                RegistrationData.StoreName,
-                RegistrationData.ManagerName,
-                RegistrationData.StorePhone,
-                RegistrationData.StoreEmail,
-                RegistrationData.StoreAddress,
-                RegistrationData.StoreCity,
-                RegistrationData.StoreState,
-                RegistrationData.StoreCountry,
-                RegistrationData.StorePostalCode,
-                // User data from current form
-                txtfullName.Text.Trim(),
-                txtUsername.Text.Trim(),
-                txtUEmail.Text.Trim(),
-                txtUPhoneNumber.Text.Trim(),
-                txtPassword.Text,
-                txtPin.Text.Trim(),
+                dataSet.Business[0],
+                dataSet.Store[0],
+                dataSet.User[0],
                 out string errorMessage
             );
 
@@ -116,7 +146,7 @@ namespace POS.PAL.USERCONTROL
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Clear registration data
-                RegistrationData.Clear();
+                dataSet.Clear();
 
                 // Navigate to login
                 UC_Login login = new UC_Login();
