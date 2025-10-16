@@ -28,11 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SimpleContextButton simpleContextButton1 = new DevExpress.Utils.SimpleContextButton();
-            DevExpress.Utils.SimpleContextButton simpleContextButton2 = new DevExpress.Utils.SimpleContextButton();
-            DevExpress.Utils.SimpleContextButton simpleContextButton3 = new DevExpress.Utils.SimpleContextButton();
-            DevExpress.Utils.SimpleContextButton simpleContextButton4 = new DevExpress.Utils.SimpleContextButton();
-            DevExpress.Utils.SimpleContextButton simpleContextButton5 = new DevExpress.Utils.SimpleContextButton();
             sidePanel1 = new DevExpress.XtraEditors.SidePanel();
             topPanel1 = new System.Windows.Forms.Panel();
             btnAccount = new System.Windows.Forms.Button();
@@ -66,12 +61,12 @@
             label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             panel9 = new System.Windows.Forms.Panel();
-            panel10 = new System.Windows.Forms.Panel();
-            chartControl1 = new DevExpress.XtraCharts.ChartControl();
-            label3 = new System.Windows.Forms.Label();
             panel11 = new System.Windows.Forms.Panel();
             chartControl2 = new DevExpress.XtraCharts.ChartControl();
             label4 = new System.Windows.Forms.Label();
+            panel10 = new System.Windows.Forms.Panel();
+            chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            label3 = new System.Windows.Forms.Label();
             topPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DateFilterComboBox.Properties).BeginInit();
@@ -84,10 +79,10 @@
             panel8.SuspendLayout();
             totalSalesPanel.SuspendLayout();
             panel9.SuspendLayout();
-            panel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)chartControl1).BeginInit();
             panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl2).BeginInit();
+            panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)chartControl1).BeginInit();
             SuspendLayout();
             // 
             // sidePanel1
@@ -160,36 +155,6 @@
             DateFilterComboBox.Location = new System.Drawing.Point(1430, 21);
             DateFilterComboBox.Name = "DateFilterComboBox";
             DateFilterComboBox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            simpleContextButton1.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Center;
-            simpleContextButton1.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
-            simpleContextButton1.Id = new System.Guid("52dd2217-573a-4e16-953f-ea190de774ef");
-            simpleContextButton1.ImageOptionsCollection.ItemNormal.UseDefaultImage = true;
-            simpleContextButton1.Name = "Yesterday";
-            simpleContextButton2.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Center;
-            simpleContextButton2.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
-            simpleContextButton2.Id = new System.Guid("04f29abf-805c-4842-a388-8887cf431726");
-            simpleContextButton2.ImageOptionsCollection.ItemNormal.UseDefaultImage = true;
-            simpleContextButton2.Name = "Last 7 Days";
-            simpleContextButton3.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Center;
-            simpleContextButton3.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
-            simpleContextButton3.Id = new System.Guid("4eea596e-8bde-44d5-bb82-4afca99d9667");
-            simpleContextButton3.ImageOptionsCollection.ItemNormal.UseDefaultImage = true;
-            simpleContextButton3.Name = "Last 30 Days";
-            simpleContextButton4.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Center;
-            simpleContextButton4.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
-            simpleContextButton4.Id = new System.Guid("70641952-23c5-46a5-aac1-fa5abc892690");
-            simpleContextButton4.ImageOptionsCollection.ItemNormal.UseDefaultImage = true;
-            simpleContextButton4.Name = "This Month";
-            simpleContextButton5.AlignmentOptions.Panel = DevExpress.Utils.ContextItemPanel.Center;
-            simpleContextButton5.AlignmentOptions.Position = DevExpress.Utils.ContextItemPosition.Far;
-            simpleContextButton5.Id = new System.Guid("210fb2a7-20a2-45f3-9fc9-ca16884d7d4f");
-            simpleContextButton5.ImageOptionsCollection.ItemNormal.UseDefaultImage = true;
-            simpleContextButton5.Name = "Last Month";
-            DateFilterComboBox.Properties.ContextButtons.Add(simpleContextButton1);
-            DateFilterComboBox.Properties.ContextButtons.Add(simpleContextButton2);
-            DateFilterComboBox.Properties.ContextButtons.Add(simpleContextButton3);
-            DateFilterComboBox.Properties.ContextButtons.Add(simpleContextButton4);
-            DateFilterComboBox.Properties.ContextButtons.Add(simpleContextButton5);
             DateFilterComboBox.Properties.HtmlTemplates.AddRange(new DevExpress.Utils.Html.HtmlTemplate[] { htmlTemplate1 });
             DateFilterComboBox.Properties.Items.AddRange(new object[] { "Yesterday", "Last 7 Days", "Last 30 Days", "This Month", "Last Month", "This Year", "Last Year" });
             DateFilterComboBox.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
@@ -477,49 +442,21 @@
             panel9.Size = new System.Drawing.Size(1671, 763);
             panel9.TabIndex = 3;
             // 
-            // panel10
-            // 
-            panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panel10.Controls.Add(chartControl1);
-            panel10.Controls.Add(label3);
-            panel10.Location = new System.Drawing.Point(28, 25);
-            panel10.Name = "panel10";
-            panel10.Size = new System.Drawing.Size(1561, 395);
-            panel10.TabIndex = 4;
-            // 
-            // chartControl1
-            // 
-            chartControl1.Location = new System.Drawing.Point(13, 46);
-            chartControl1.Name = "chartControl1";
-            chartControl1.Size = new System.Drawing.Size(1529, 331);
-            chartControl1.TabIndex = 10;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            label3.ForeColor = System.Drawing.Color.Black;
-            label3.Location = new System.Drawing.Point(13, 13);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(160, 19);
-            label3.TabIndex = 9;
-            label3.Text = "Sales Last 30 Days";
-            // 
             // panel11
             // 
             panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panel11.Controls.Add(chartControl2);
             panel11.Controls.Add(label4);
-            panel11.Location = new System.Drawing.Point(28, 443);
+            panel11.Location = new System.Drawing.Point(28, 394);
             panel11.Name = "panel11";
-            panel11.Size = new System.Drawing.Size(1561, 395);
+            panel11.Size = new System.Drawing.Size(1561, 351);
             panel11.TabIndex = 11;
             // 
             // chartControl2
             // 
             chartControl2.Location = new System.Drawing.Point(13, 46);
             chartControl2.Name = "chartControl2";
-            chartControl2.Size = new System.Drawing.Size(1529, 331);
+            chartControl2.Size = new System.Drawing.Size(1529, 289);
             chartControl2.TabIndex = 10;
             // 
             // label4
@@ -532,6 +469,34 @@
             label4.Size = new System.Drawing.Size(239, 19);
             label4.TabIndex = 9;
             label4.Text = "Sales Current Financial Year";
+            // 
+            // panel10
+            // 
+            panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            panel10.Controls.Add(chartControl1);
+            panel10.Controls.Add(label3);
+            panel10.Location = new System.Drawing.Point(28, 25);
+            panel10.Name = "panel10";
+            panel10.Size = new System.Drawing.Size(1561, 349);
+            panel10.TabIndex = 4;
+            // 
+            // chartControl1
+            // 
+            chartControl1.Location = new System.Drawing.Point(13, 46);
+            chartControl1.Name = "chartControl1";
+            chartControl1.Size = new System.Drawing.Size(1529, 287);
+            chartControl1.TabIndex = 10;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label3.ForeColor = System.Drawing.Color.Black;
+            label3.Location = new System.Drawing.Point(13, 13);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(160, 19);
+            label3.TabIndex = 9;
+            label3.Text = "Sales Last 30 Days";
             // 
             // UC_Dashboard
             // 
@@ -569,12 +534,12 @@
             totalSalesPanel.ResumeLayout(false);
             totalSalesPanel.PerformLayout();
             panel9.ResumeLayout(false);
-            panel10.ResumeLayout(false);
-            panel10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)chartControl1).EndInit();
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl2).EndInit();
+            panel10.ResumeLayout(false);
+            panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)chartControl1).EndInit();
             ResumeLayout(false);
         }
 
