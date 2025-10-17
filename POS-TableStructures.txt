@@ -56,6 +56,11 @@ CREATE TABLE Role (
     updated_date   DATETIME2 NULL DEFAULT GETDATE()
 );
 
+INSERT INTO Role (role_name, description, status, created_by)VALUES
+
+('Admin', 'System administrator with full access', 'A', NULL),
+('Cashier', 'Standard cashier for sales transactions', 'A', NULL);
+
 CREATE TABLE RolePermission (
     role_id        INT NOT NULL FOREIGN KEY REFERENCES Role(role_id),
     permission_code NVARCHAR(100) NOT NULL,          -- e.g., 'SALE_CREATE', 'DISCOUNT_APPROVE'
