@@ -28,11 +28,14 @@ namespace POS.DAL
                         business_id, 
                         business_name, 
                         logo, 
+                        CONVERT(varchar, trial_start_date, 23) AS trial_start_date,
+                        CONVERT(varchar, trial_end_date, 23) AS trial_end_date,
+                        is_licensed,
                         status, 
                         created_by, 
-                        created_date, 
+                        CONVERT(varchar, created_date, 23) AS created_date,
                         updated_by, 
-                        updated_date
+                        CONVERT(varchar, updated_date, 23) AS updated_date
                     FROM Business";
 
             DataTable result = Connection.ExecuteQuery(query);
@@ -44,6 +47,9 @@ namespace POS.DAL
                 r["business_id"] = row["business_id"]?.ToString();
                 r["business_name"] = row["business_name"]?.ToString();
                 r["logo"] = row["logo"] is DBNull ? null : (byte[])row["logo"];
+                r["trial_start_date"] = row["trial_start_date"]?.ToString();
+                r["trial_end_date"] = row["trial_end_date"]?.ToString();
+                r["is_licensed"] = row["is_licensed"]?.ToString();
                 r["status"] = row["status"]?.ToString();
                 r["created_by"] = row["created_by"]?.ToString();
                 r["created_date"] = row["created_date"]?.ToString();

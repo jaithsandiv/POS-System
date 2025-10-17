@@ -12,20 +12,28 @@ namespace POS.BLL
         public bool Authenticate(string username, string password)
         {
             DataTable userTable = _dalLogin.GetUserByUsername(username);
-
             if (userTable.Rows.Count == 0)
-            {
                 return false;
+
+            var userRow = userTable.Rows[0];
+            if (!BCrypt.Net.BCrypt.Verify(password, userRow["password_hash"].ToString()))
+                return false;
+
+            var businessRow = Main.DataSetApp?.Business?[0];
+            if (businessRow != null)
+            {
+                DateTime trialEnd;
+                bool trialExpired = DateTime.TryParse(businessRow["trial_end_date"].ToString(), out trialEnd) && trialEnd < DateTime.Now;
+                bool isLicensed = businessRow["is_licensed"].ToString() == "1";
+                bool isSuperAdmin = userRow["is_super_admin"].ToString() == "1";
+
+                if (trialExpired && !isLicensed && !isSuperAdmin)
+                    return false;
             }
 
-            string storedHash = userTable.Rows[0]["password_hash"].ToString();
-
-            return VerifyPassword(password, storedHash);
-        }
-
-        private bool VerifyPassword(string password, string storedHash)
-        {
-            return BCrypt.Net.BCrypt.Verify(password, storedHash);
+            Main.DataSetApp.User.Clear();
+            Main.DataSetApp.User.ImportRow(userRow);
+            return true;
         }
 
         public string HashPassword(string password)

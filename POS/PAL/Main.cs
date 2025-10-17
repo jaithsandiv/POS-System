@@ -28,14 +28,24 @@ namespace POS
 
             if (DataSetApp.Business.Rows.Count > 0)
             {
-                UC_Login login = new UC_Login();
-                SwitchToControl(login);
+                var firstBusinessRow = DataSetApp.Business[0];
+                if (!firstBusinessRow.Isbusiness_idNull() && !string.IsNullOrWhiteSpace(firstBusinessRow.business_id))
+                {
+                    UC_Login login = new UC_Login();
+                    SwitchToControl(login);
+                }
+                else
+                {
+                    UC_Business_Registration businessRegistration = new UC_Business_Registration();
+                    SwitchToControl(businessRegistration);
+                }
             }
             else
             {
                 UC_Business_Registration businessRegistration = new UC_Business_Registration();
                 SwitchToControl(businessRegistration);
             }
+
         }
 
         private void LoadBusinessData()

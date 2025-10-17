@@ -402,6 +402,12 @@ namespace POS.DAL.DataSource {
             
             private global::System.Data.DataColumn columnupdated_date;
             
+            private global::System.Data.DataColumn columntrial_start_date;
+            
+            private global::System.Data.DataColumn columntrial_end_date;
+            
+            private global::System.Data.DataColumn columnis_licensed;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public BusinessDataTable() {
@@ -503,6 +509,30 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn trial_start_dateColumn {
+                get {
+                    return this.columntrial_start_date;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn trial_end_dateColumn {
+                get {
+                    return this.columntrial_end_date;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn is_licensedColumn {
+                get {
+                    return this.columnis_licensed;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -538,7 +568,7 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public BusinessRow AddBusinessRow(string business_id, string business_name, byte[] logo, string status, string created_by, string created_date, string updated_by, string updated_date) {
+            public BusinessRow AddBusinessRow(string business_id, string business_name, byte[] logo, string status, string created_by, string created_date, string updated_by, string updated_date, string trial_start_date, string trial_end_date, string is_licensed) {
                 BusinessRow rowBusinessRow = ((BusinessRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         business_id,
@@ -548,7 +578,10 @@ namespace POS.DAL.DataSource {
                         created_by,
                         created_date,
                         updated_by,
-                        updated_date};
+                        updated_date,
+                        trial_start_date,
+                        trial_end_date,
+                        is_licensed};
                 rowBusinessRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBusinessRow);
                 return rowBusinessRow;
@@ -579,6 +612,9 @@ namespace POS.DAL.DataSource {
                 this.columncreated_date = base.Columns["created_date"];
                 this.columnupdated_by = base.Columns["updated_by"];
                 this.columnupdated_date = base.Columns["updated_date"];
+                this.columntrial_start_date = base.Columns["trial_start_date"];
+                this.columntrial_end_date = base.Columns["trial_end_date"];
+                this.columnis_licensed = base.Columns["is_licensed"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -600,6 +636,12 @@ namespace POS.DAL.DataSource {
                 base.Columns.Add(this.columnupdated_by);
                 this.columnupdated_date = new global::System.Data.DataColumn("updated_date", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnupdated_date);
+                this.columntrial_start_date = new global::System.Data.DataColumn("trial_start_date", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntrial_start_date);
+                this.columntrial_end_date = new global::System.Data.DataColumn("trial_end_date", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntrial_end_date);
+                this.columnis_licensed = new global::System.Data.DataColumn("is_licensed", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnis_licensed);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2079,6 +2121,54 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string trial_start_date {
+                get {
+                    try {
+                        return ((string)(this[this.tableBusiness.trial_start_dateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'trial_start_date\' in table \'Business\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBusiness.trial_start_dateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string trial_end_date {
+                get {
+                    try {
+                        return ((string)(this[this.tableBusiness.trial_end_dateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'trial_end_date\' in table \'Business\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBusiness.trial_end_dateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string is_licensed {
+                get {
+                    try {
+                        return ((string)(this[this.tableBusiness.is_licensedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'is_licensed\' in table \'Business\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBusiness.is_licensedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Isbusiness_idNull() {
                 return this.IsNull(this.tableBusiness.business_idColumn);
             }
@@ -2171,6 +2261,42 @@ namespace POS.DAL.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setupdated_dateNull() {
                 this[this.tableBusiness.updated_dateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Istrial_start_dateNull() {
+                return this.IsNull(this.tableBusiness.trial_start_dateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Settrial_start_dateNull() {
+                this[this.tableBusiness.trial_start_dateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Istrial_end_dateNull() {
+                return this.IsNull(this.tableBusiness.trial_end_dateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Settrial_end_dateNull() {
+                this[this.tableBusiness.trial_end_dateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Isis_licensedNull() {
+                return this.IsNull(this.tableBusiness.is_licensedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setis_licensedNull() {
+                this[this.tableBusiness.is_licensedColumn] = global::System.Convert.DBNull;
             }
         }
         
