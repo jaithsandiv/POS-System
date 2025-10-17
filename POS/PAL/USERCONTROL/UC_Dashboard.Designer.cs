@@ -130,6 +130,7 @@
             btnPOS.TabIndex = 0;
             btnPOS.Text = "POS";
             btnPOS.UseVisualStyleBackColor = false;
+            btnPOS.Click += btnPOS_Click;
             // 
             // panel1
             // 

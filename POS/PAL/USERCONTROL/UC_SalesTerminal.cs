@@ -11,16 +11,16 @@ using System.Windows.Forms;
 
 namespace POS.PAL.USERCONTROL
 {
-    public partial class UC_Dashboard : DevExpress.XtraEditors.XtraUserControl
+    public partial class UC_SalesTerminal : DevExpress.XtraEditors.XtraUserControl
     {
-        public UC_Dashboard()
+        public UC_SalesTerminal()
         {
             InitializeComponent();
         }
 
-        private void btnPOS_Click(object sender, EventArgs e)
+        private void btnDashboard_Click(object sender, EventArgs e)
         {
-            Main.Instance.SwitchToControl(new UC_SalesTerminal());
+            Main.Instance.SwitchToControl(new UC_Dashboard());
         }
     }
 }
