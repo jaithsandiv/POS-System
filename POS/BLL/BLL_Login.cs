@@ -33,6 +33,15 @@ namespace POS.BLL
 
             Main.DataSetApp.User.Clear();
             Main.DataSetApp.User.ImportRow(userRow);
+
+            string roleId = userRow["role_id"].ToString();
+            DataTable rolePermissions = _dalLogin.GetRolePermissionsByRoleId(roleId);
+            Main.DataSetApp.RolePermission.Clear();
+            foreach (DataRow rolePermissionRow in rolePermissions.Rows)
+            {
+                Main.DataSetApp.RolePermission.ImportRow(rolePermissionRow);
+            }
+
             return true;
         }
 

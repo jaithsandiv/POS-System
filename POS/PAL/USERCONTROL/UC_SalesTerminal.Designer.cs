@@ -29,27 +29,27 @@
         private void InitializeComponent()
         {
             topPanel1 = new System.Windows.Forms.Panel();
+            labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            labelControl1 = new DevExpress.XtraEditors.LabelControl();
             btnDashboard = new DevExpress.XtraEditors.SimpleButton();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            labelControl5 = new DevExpress.XtraEditors.LabelControl();
-            labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            panelControl4 = new DevExpress.XtraEditors.PanelControl();
             separatorControl2 = new DevExpress.XtraEditors.SeparatorControl();
+            panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            panelControl1 = new DevExpress.XtraEditors.PanelControl();
             topPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
             panelControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             SuspendLayout();
             // 
             // topPanel1
@@ -67,6 +67,80 @@
             topPanel1.Name = "topPanel1";
             topPanel1.Size = new System.Drawing.Size(1920, 49);
             topPanel1.TabIndex = 2;
+            // 
+            // labelControl6
+            // 
+            labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl6.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl6.Appearance.Options.UseFont = true;
+            labelControl6.Appearance.Options.UseForeColor = true;
+            labelControl6.Location = new System.Drawing.Point(1696, 16);
+            labelControl6.Name = "labelControl6";
+            labelControl6.Size = new System.Drawing.Size(66, 17);
+            labelControl6.TabIndex = 9;
+            labelControl6.Text = "11:18:00 PM";
+            // 
+            // labelControl5
+            // 
+            labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl5.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl5.Appearance.Options.UseFont = true;
+            labelControl5.Appearance.Options.UseForeColor = true;
+            labelControl5.Location = new System.Drawing.Point(1596, 16);
+            labelControl5.Name = "labelControl5";
+            labelControl5.Size = new System.Drawing.Size(94, 17);
+            labelControl5.TabIndex = 8;
+            labelControl5.Text = "Fri, Oct 17, 2025";
+            // 
+            // labelControl3
+            // 
+            labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl3.Appearance.Options.UseFont = true;
+            labelControl3.Appearance.Options.UseForeColor = true;
+            labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            labelControl3.Location = new System.Drawing.Point(356, 16);
+            labelControl3.Name = "labelControl3";
+            labelControl3.Size = new System.Drawing.Size(232, 17);
+            labelControl3.TabIndex = 6;
+            labelControl3.Text = "ADMINISTRATOR";
+            // 
+            // labelControl4
+            // 
+            labelControl4.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl4.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl4.Appearance.Options.UseFont = true;
+            labelControl4.Appearance.Options.UseForeColor = true;
+            labelControl4.Location = new System.Drawing.Point(316, 16);
+            labelControl4.Name = "labelControl4";
+            labelControl4.Size = new System.Drawing.Size(34, 17);
+            labelControl4.TabIndex = 5;
+            labelControl4.Text = "User: ";
+            // 
+            // labelControl2
+            // 
+            labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl2.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl2.Appearance.Options.UseFont = true;
+            labelControl2.Appearance.Options.UseForeColor = true;
+            labelControl2.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            labelControl2.Location = new System.Drawing.Point(78, 16);
+            labelControl2.Name = "labelControl2";
+            labelControl2.Size = new System.Drawing.Size(232, 17);
+            labelControl2.TabIndex = 4;
+            labelControl2.Text = "QuickSell POS Solutions";
+            // 
+            // labelControl1
+            // 
+            labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl1.Appearance.Options.UseFont = true;
+            labelControl1.Appearance.Options.UseForeColor = true;
+            labelControl1.Location = new System.Drawing.Point(14, 16);
+            labelControl1.Name = "labelControl1";
+            labelControl1.Size = new System.Drawing.Size(58, 17);
+            labelControl1.TabIndex = 3;
+            labelControl1.Text = "Location: ";
             // 
             // btnDashboard
             // 
@@ -115,88 +189,14 @@
             panelControl3.Size = new System.Drawing.Size(453, 1001);
             panelControl3.TabIndex = 5;
             // 
-            // labelControl1
+            // separatorControl2
             // 
-            labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl1.Appearance.Options.UseFont = true;
-            labelControl1.Appearance.Options.UseForeColor = true;
-            labelControl1.Location = new System.Drawing.Point(14, 16);
-            labelControl1.Name = "labelControl1";
-            labelControl1.Size = new System.Drawing.Size(58, 17);
-            labelControl1.TabIndex = 3;
-            labelControl1.Text = "Location: ";
-            // 
-            // labelControl2
-            // 
-            labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl2.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl2.Appearance.Options.UseFont = true;
-            labelControl2.Appearance.Options.UseForeColor = true;
-            labelControl2.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            labelControl2.Location = new System.Drawing.Point(78, 16);
-            labelControl2.Name = "labelControl2";
-            labelControl2.Size = new System.Drawing.Size(232, 17);
-            labelControl2.TabIndex = 4;
-            labelControl2.Text = "QuickSell POS Solutions";
-            // 
-            // labelControl3
-            // 
-            labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl3.Appearance.Options.UseFont = true;
-            labelControl3.Appearance.Options.UseForeColor = true;
-            labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            labelControl3.Location = new System.Drawing.Point(356, 16);
-            labelControl3.Name = "labelControl3";
-            labelControl3.Size = new System.Drawing.Size(232, 17);
-            labelControl3.TabIndex = 6;
-            labelControl3.Text = "ADMINISTRATOR";
-            // 
-            // labelControl4
-            // 
-            labelControl4.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl4.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl4.Appearance.Options.UseFont = true;
-            labelControl4.Appearance.Options.UseForeColor = true;
-            labelControl4.Location = new System.Drawing.Point(316, 16);
-            labelControl4.Name = "labelControl4";
-            labelControl4.Size = new System.Drawing.Size(34, 17);
-            labelControl4.TabIndex = 5;
-            labelControl4.Text = "User: ";
-            // 
-            // labelControl5
-            // 
-            labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl5.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl5.Appearance.Options.UseFont = true;
-            labelControl5.Appearance.Options.UseForeColor = true;
-            labelControl5.Location = new System.Drawing.Point(634, 16);
-            labelControl5.Name = "labelControl5";
-            labelControl5.Size = new System.Drawing.Size(94, 17);
-            labelControl5.TabIndex = 8;
-            labelControl5.Text = "Fri, Oct 17, 2025";
-            // 
-            // labelControl6
-            // 
-            labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl6.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl6.Appearance.Options.UseFont = true;
-            labelControl6.Appearance.Options.UseForeColor = true;
-            labelControl6.Location = new System.Drawing.Point(734, 16);
-            labelControl6.Name = "labelControl6";
-            labelControl6.Size = new System.Drawing.Size(66, 17);
-            labelControl6.TabIndex = 9;
-            labelControl6.Text = "11:18:00 PM";
-            // 
-            // panelControl1
-            // 
-            panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            panelControl1.Location = new System.Drawing.Point(0, 0);
-            panelControl1.Name = "panelControl1";
-            panelControl1.Size = new System.Drawing.Size(453, 776);
-            panelControl1.TabIndex = 0;
+            separatorControl2.AutoSizeMode = true;
+            separatorControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            separatorControl2.Location = new System.Drawing.Point(0, 776);
+            separatorControl2.Name = "separatorControl2";
+            separatorControl2.Size = new System.Drawing.Size(453, 20);
+            separatorControl2.TabIndex = 1;
             // 
             // panelControl4
             // 
@@ -207,14 +207,14 @@
             panelControl4.Size = new System.Drawing.Size(453, 205);
             panelControl4.TabIndex = 1;
             // 
-            // separatorControl2
+            // panelControl1
             // 
-            separatorControl2.AutoSizeMode = true;
-            separatorControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            separatorControl2.Location = new System.Drawing.Point(0, 776);
-            separatorControl2.Name = "separatorControl2";
-            separatorControl2.Size = new System.Drawing.Size(453, 19);
-            separatorControl2.TabIndex = 1;
+            panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            panelControl1.Location = new System.Drawing.Point(0, 0);
+            panelControl1.Name = "panelControl1";
+            panelControl1.Size = new System.Drawing.Size(453, 776);
+            panelControl1.TabIndex = 0;
             // 
             // UC_SalesTerminal
             // 
@@ -234,9 +234,9 @@
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
             panelControl3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             ResumeLayout(false);
         }
 

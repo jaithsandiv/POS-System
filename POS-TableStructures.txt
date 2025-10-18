@@ -90,6 +90,10 @@ CREATE TABLE [User] (
     updated_date   DATETIME2 NULL DEFAULT GETDATE()
 );
 
+INSERT INTO [User] (store_id, role_id, full_name, username, email, phone, password_hash, pin_code, is_super_admin, status, created_by)
+VALUES
+(1, 1, 'ADMINISTRATOR', 'admin', 'admin@serendib.lk', '012-345-6789', '$2a$11$ypBkOii4sXOcuhgNYDEGku3qu9SL65L5vBjZuxFwAocMPx35I.z1O', '123456', 1, 'A', NULL); -- Super Admin
+
 -- ---------------------------
 -- 4. PRODUCT CATALOG
 -- ---------------------------

@@ -67,7 +67,7 @@ namespace POS.DAL
                 // Insert User
                 string userQuery = @"
                     INSERT INTO [User] (store_id, role_id, full_name, username, email, phone, password_hash, pin_code, is_super_admin, status, created_by, created_date)
-                    VALUES (@store_id, @role_id, @full_name, @username, @email, @phone, @password_hash, @pin_code, 1, 'A', NULL, GETDATE())";
+                    VALUES (@store_id, @role_id, @full_name, @username, @email, @phone, @password_hash, @pin_code, 0, 'A', NULL, GETDATE())";
 
                 SqlParameter[] userParams = {
                     new SqlParameter("@store_id", storeId),

@@ -61,5 +61,44 @@ namespace POS.DAL
 
             return dt;
         }
+
+        public DataTable GetRolePermissionsByRoleId(string roleId)
+        {
+            DAL_DS_Initialize ds = new DAL_DS_Initialize();
+            DataTable dt = ds.RolePermission;
+            dt.Clear();
+
+            string query = @"
+                SELECT 
+                    role_id,
+                    permission_code,
+                    status,
+                    created_by,
+                    created_date,
+                    updated_by,
+                    updated_date
+                FROM RolePermission
+                WHERE role_id = @roleId AND status = 'A'";
+
+            SqlParameter[] parameters = { new SqlParameter("@roleId", roleId) };
+            DataTable result = Connection.ExecuteQuery(query, parameters);
+
+            foreach (DataRow row in result.Rows)
+            {
+                DataRow r = dt.NewRow();
+
+                r["role_id"] = row["role_id"]?.ToString();
+                r["permission_code"] = row["permission_code"]?.ToString();
+                r["status"] = row["status"]?.ToString();
+                r["created_by"] = row["created_by"]?.ToString();
+                r["created_date"] = row["created_date"]?.ToString();
+                r["updated_by"] = row["updated_by"]?.ToString();
+                r["updated_date"] = row["updated_date"]?.ToString();
+
+                dt.Rows.Add(r);
+            }
+
+            return dt;
+        }
     }
 }
