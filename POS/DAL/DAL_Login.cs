@@ -100,5 +100,58 @@ namespace POS.DAL
 
             return dt;
         }
+
+        public DataTable GetStoreByStoreId(string storeId)
+        {
+            DAL_DS_Initialize ds = new DAL_DS_Initialize();
+            DataTable dt = ds.Store;
+            dt.Clear();
+
+            string query = @"
+                SELECT 
+                    store_id,
+                    store_name,
+                    phone,
+                    email,
+                    address,
+                    city,
+                    state,
+                    country,
+                    postal_code,
+                    status,
+                    created_by,
+                    created_date,
+                    updated_by,
+                    updated_date
+                FROM Store
+                WHERE store_id = @storeId AND status = 'A'";
+
+            SqlParameter[] parameters = { new SqlParameter("@storeId", storeId) };
+            DataTable result = Connection.ExecuteQuery(query, parameters);
+
+            foreach (DataRow row in result.Rows)
+            {
+                DataRow r = dt.NewRow();
+
+                r["store_id"] = row["store_id"]?.ToString();
+                r["store_name"] = row["store_name"]?.ToString();
+                r["phone"] = row["phone"]?.ToString();
+                r["email"] = row["email"]?.ToString();
+                r["address"] = row["address"]?.ToString();
+                r["city"] = row["city"]?.ToString();
+                r["state"] = row["state"]?.ToString();
+                r["country"] = row["country"]?.ToString();
+                r["postal_code"] = row["postal_code"]?.ToString();
+                r["status"] = row["status"]?.ToString();
+                r["created_by"] = row["created_by"]?.ToString();
+                r["created_date"] = row["created_date"]?.ToString();
+                r["updated_by"] = row["updated_by"]?.ToString();
+                r["updated_date"] = row["updated_date"]?.ToString();
+
+                dt.Rows.Add(r);
+            }
+
+            return dt;
+        }
     }
 }
