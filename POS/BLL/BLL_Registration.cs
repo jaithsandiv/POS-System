@@ -14,11 +14,17 @@ namespace POS.BLL
             DAL_DS_Initialize.UserRow userRow,
             out string errorMessage)
         {
-            // Hash the password before saving
             userRow.password_hash = BCrypt.Net.BCrypt.HashPassword(userRow.password_hash);
 
-            // Call DAL to insert data
-            return _dalRegistration.RegisterComplete(businessRow, storeRow, userRow, out errorMessage);
+            bool isRegistered = _dalRegistration.RegisterComplete(businessRow, storeRow, userRow, out errorMessage);
+
+            if (isRegistered)
+            {
+                Main.DataSetApp.Business.Clear();
+                Main.DataSetApp.Business.Merge(new BLL_Initialize().GetBusiness());
+            }
+
+            return isRegistered;
         }
     }
 }
