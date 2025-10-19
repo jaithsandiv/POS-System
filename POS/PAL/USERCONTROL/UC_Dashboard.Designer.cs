@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Dashboard));
             sidePanel1 = new DevExpress.XtraEditors.SidePanel();
             topPanel1 = new System.Windows.Forms.Panel();
-            btnAccount = new System.Windows.Forms.Button();
-            btnPOS = new System.Windows.Forms.Button();
+            btnPOS = new DevExpress.XtraEditors.SimpleButton();
+            btnAcc = new DevExpress.XtraEditors.SimpleButton();
             panel1 = new System.Windows.Forms.Panel();
             DateFilterComboBox = new DevExpress.XtraEditors.ComboBoxEdit();
             htmlTemplate1 = new DevExpress.Utils.Html.HtmlTemplate();
@@ -61,12 +62,15 @@
             label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             panel9 = new System.Windows.Forms.Panel();
-            panel11 = new System.Windows.Forms.Panel();
+            panelControl2 = new DevExpress.XtraEditors.PanelControl();
             chartControl2 = new DevExpress.XtraCharts.ChartControl();
             label4 = new System.Windows.Forms.Label();
-            panel10 = new System.Windows.Forms.Panel();
+            panelControl1 = new DevExpress.XtraEditors.PanelControl();
             chartControl1 = new DevExpress.XtraCharts.ChartControl();
             label3 = new System.Windows.Forms.Label();
+            panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            lblBusinessName = new DevExpress.XtraEditors.LabelControl();
+            sidePanel1.SuspendLayout();
             topPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DateFilterComboBox.Properties).BeginInit();
@@ -79,17 +83,22 @@
             panel8.SuspendLayout();
             totalSalesPanel.SuspendLayout();
             panel9.SuspendLayout();
-            panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
+            panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl2).BeginInit();
-            panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
+            panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
+            panelControl3.SuspendLayout();
             SuspendLayout();
             // 
             // sidePanel1
             // 
-            sidePanel1.Appearance.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
+            sidePanel1.Appearance.BackColor = System.Drawing.Color.White;
             sidePanel1.Appearance.Options.UseBackColor = true;
             sidePanel1.BorderThickness = 2;
+            sidePanel1.Controls.Add(panelControl3);
             sidePanel1.Dock = System.Windows.Forms.DockStyle.Left;
             sidePanel1.Location = new System.Drawing.Point(0, 0);
             sidePanel1.Name = "sidePanel1";
@@ -100,37 +109,41 @@
             // topPanel1
             // 
             topPanel1.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
-            topPanel1.Controls.Add(btnAccount);
             topPanel1.Controls.Add(btnPOS);
+            topPanel1.Controls.Add(btnAcc);
             topPanel1.Location = new System.Drawing.Point(249, 0);
             topPanel1.Name = "topPanel1";
             topPanel1.Size = new System.Drawing.Size(1671, 49);
             topPanel1.TabIndex = 1;
             // 
-            // btnAccount
-            // 
-            btnAccount.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
-            btnAccount.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnAccount.ForeColor = System.Drawing.Color.White;
-            btnAccount.Location = new System.Drawing.Point(1531, 3);
-            btnAccount.Name = "btnAccount";
-            btnAccount.Size = new System.Drawing.Size(58, 45);
-            btnAccount.TabIndex = 1;
-            btnAccount.Text = "Acc";
-            btnAccount.UseVisualStyleBackColor = false;
-            // 
             // btnPOS
             // 
-            btnPOS.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
-            btnPOS.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnPOS.ForeColor = System.Drawing.Color.White;
-            btnPOS.Location = new System.Drawing.Point(1456, 1);
+            btnPOS.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnPOS.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnPOS.Appearance.Options.UseBackColor = true;
+            btnPOS.Appearance.Options.UseFont = true;
+            btnPOS.AppearanceHovered.Options.UseBackColor = true;
+            btnPOS.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnPOS.Location = new System.Drawing.Point(1478, 9);
             btnPOS.Name = "btnPOS";
-            btnPOS.Size = new System.Drawing.Size(58, 45);
-            btnPOS.TabIndex = 0;
+            btnPOS.Size = new System.Drawing.Size(48, 30);
+            btnPOS.TabIndex = 5;
             btnPOS.Text = "POS";
-            btnPOS.UseVisualStyleBackColor = false;
             btnPOS.Click += btnPOS_Click;
+            // 
+            // btnAcc
+            // 
+            btnAcc.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnAcc.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnAcc.Appearance.Options.UseBackColor = true;
+            btnAcc.Appearance.Options.UseFont = true;
+            btnAcc.AppearanceHovered.Options.UseBackColor = true;
+            btnAcc.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnAcc.ImageOptions.Image");
+            btnAcc.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnAcc.Location = new System.Drawing.Point(1541, 9);
+            btnAcc.Name = "btnAcc";
+            btnAcc.Size = new System.Drawing.Size(48, 30);
+            btnAcc.TabIndex = 4;
             // 
             // panel1
             // 
@@ -436,68 +449,90 @@
             // panel9
             // 
             panel9.AutoScroll = true;
-            panel9.Controls.Add(panel11);
-            panel9.Controls.Add(panel10);
+            panel9.Controls.Add(panelControl2);
+            panel9.Controls.Add(panelControl1);
             panel9.Location = new System.Drawing.Point(249, 287);
             panel9.Name = "panel9";
             panel9.Size = new System.Drawing.Size(1671, 763);
             panel9.TabIndex = 3;
             // 
-            // panel11
+            // panelControl2
             // 
-            panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panel11.Controls.Add(chartControl2);
-            panel11.Controls.Add(label4);
-            panel11.Location = new System.Drawing.Point(28, 394);
-            panel11.Name = "panel11";
-            panel11.Size = new System.Drawing.Size(1561, 351);
-            panel11.TabIndex = 11;
+            panelControl2.Appearance.BackColor = System.Drawing.Color.White;
+            panelControl2.Appearance.Options.UseBackColor = true;
+            panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
+            panelControl2.Controls.Add(chartControl2);
+            panelControl2.Controls.Add(label4);
+            panelControl2.Location = new System.Drawing.Point(28, 388);
+            panelControl2.Name = "panelControl2";
+            panelControl2.Size = new System.Drawing.Size(1625, 363);
+            panelControl2.TabIndex = 13;
             // 
             // chartControl2
             // 
-            chartControl2.Location = new System.Drawing.Point(13, 46);
+            chartControl2.Location = new System.Drawing.Point(16, 57);
             chartControl2.Name = "chartControl2";
-            chartControl2.Size = new System.Drawing.Size(1529, 289);
-            chartControl2.TabIndex = 10;
+            chartControl2.Size = new System.Drawing.Size(1590, 287);
+            chartControl2.TabIndex = 12;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             label4.ForeColor = System.Drawing.Color.Black;
-            label4.Location = new System.Drawing.Point(13, 13);
+            label4.Location = new System.Drawing.Point(16, 24);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(239, 19);
-            label4.TabIndex = 9;
+            label4.TabIndex = 11;
             label4.Text = "Sales Current Financial Year";
             // 
-            // panel10
+            // panelControl1
             // 
-            panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panel10.Controls.Add(chartControl1);
-            panel10.Controls.Add(label3);
-            panel10.Location = new System.Drawing.Point(28, 25);
-            panel10.Name = "panel10";
-            panel10.Size = new System.Drawing.Size(1561, 349);
-            panel10.TabIndex = 4;
+            panelControl1.Appearance.BackColor = System.Drawing.Color.White;
+            panelControl1.Appearance.Options.UseBackColor = true;
+            panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
+            panelControl1.Controls.Add(chartControl1);
+            panelControl1.Controls.Add(label3);
+            panelControl1.Location = new System.Drawing.Point(28, 10);
+            panelControl1.Name = "panelControl1";
+            panelControl1.Size = new System.Drawing.Size(1625, 363);
+            panelControl1.TabIndex = 12;
             // 
             // chartControl1
             // 
-            chartControl1.Location = new System.Drawing.Point(13, 46);
+            chartControl1.Location = new System.Drawing.Point(16, 57);
             chartControl1.Name = "chartControl1";
-            chartControl1.Size = new System.Drawing.Size(1529, 287);
-            chartControl1.TabIndex = 10;
+            chartControl1.Size = new System.Drawing.Size(1590, 287);
+            chartControl1.TabIndex = 12;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             label3.ForeColor = System.Drawing.Color.Black;
-            label3.Location = new System.Drawing.Point(13, 13);
+            label3.Location = new System.Drawing.Point(16, 24);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(160, 19);
-            label3.TabIndex = 9;
+            label3.TabIndex = 11;
             label3.Text = "Sales Last 30 Days";
+            // 
+            // panelControl3
+            // 
+            panelControl3.Controls.Add(lblBusinessName);
+            panelControl3.Location = new System.Drawing.Point(0, 0);
+            panelControl3.Name = "panelControl3";
+            panelControl3.Size = new System.Drawing.Size(250, 49);
+            panelControl3.TabIndex = 0;
+            // 
+            // lblBusinessName
+            // 
+            lblBusinessName.Appearance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblBusinessName.Appearance.Options.UseFont = true;
+            lblBusinessName.Location = new System.Drawing.Point(53, 13);
+            lblBusinessName.Name = "lblBusinessName";
+            lblBusinessName.Size = new System.Drawing.Size(145, 23);
+            lblBusinessName.TabIndex = 0;
+            lblBusinessName.Text = "Business Name";
             // 
             // UC_Dashboard
             // 
@@ -514,6 +549,7 @@
             Name = "UC_Dashboard";
             Size = new System.Drawing.Size(1920, 1050);
             Tag = "";
+            sidePanel1.ResumeLayout(false);
             topPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -535,12 +571,17 @@
             totalSalesPanel.ResumeLayout(false);
             totalSalesPanel.PerformLayout();
             panel9.ResumeLayout(false);
-            panel11.ResumeLayout(false);
-            panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl2).EndInit();
+            panelControl2.ResumeLayout(false);
+            panelControl2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl2).EndInit();
-            panel10.ResumeLayout(false);
-            panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
+            panelControl1.ResumeLayout(false);
+            panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
+            panelControl3.ResumeLayout(false);
+            panelControl3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -548,8 +589,6 @@
 
         private DevExpress.XtraEditors.SidePanel sidePanel1;
         private System.Windows.Forms.Panel topPanel1;
-        private System.Windows.Forms.Button btnPOS;
-        private System.Windows.Forms.Button btnAccount;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel totalSalesPanel;
@@ -579,11 +618,15 @@
         private DevExpress.XtraEditors.ComboBoxEdit DateFilterComboBox;
         private DevExpress.Utils.Html.HtmlTemplate htmlTemplate1;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Panel panel11;
+        private DevExpress.XtraEditors.SimpleButton btnAcc;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraCharts.ChartControl chartControl2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel10;
         private DevExpress.XtraCharts.ChartControl chartControl1;
         private System.Windows.Forms.Label label3;
+        private DevExpress.XtraEditors.SimpleButton btnPOS;
+        private DevExpress.XtraEditors.PanelControl panelControl3;
+        private DevExpress.XtraEditors.LabelControl lblBusinessName;
     }
 }
