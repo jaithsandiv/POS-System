@@ -74,9 +74,9 @@ namespace POS.DAL
                     permission_code,
                     status,
                     created_by,
-                    created_date,
+                    CONVERT(varchar, created_date, 23) AS created_date,
                     updated_by,
-                    updated_date
+                    CONVERT(varchar, updated_date, 23) AS updated_date
                 FROM RolePermission
                 WHERE role_id = @roleId AND status = 'A'";
 
@@ -120,9 +120,9 @@ namespace POS.DAL
                     postal_code,
                     status,
                     created_by,
-                    created_date,
+                    CONVERT(varchar, created_date, 23) AS created_date,
                     updated_by,
-                    updated_date
+                    CONVERT(varchar, updated_date, 23) AS updated_date
                 FROM Store
                 WHERE store_id = @storeId AND status = 'A'";
 

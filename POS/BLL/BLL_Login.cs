@@ -41,7 +41,7 @@ namespace POS.BLL
             {
                 Main.DataSetApp.RolePermission.ImportRow(rolePermissionRow);
             }
-
+    
             string storeId = userRow["store_id"].ToString();
             DataTable storeData = _dalLogin.GetStoreByStoreId(storeId);
             Main.DataSetApp.Store.Clear();
