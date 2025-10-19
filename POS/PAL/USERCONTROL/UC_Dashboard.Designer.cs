@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Dashboard));
             sidePanel1 = new DevExpress.XtraEditors.SidePanel();
+            panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            lblBusinessName = new DevExpress.XtraEditors.LabelControl();
             topPanel1 = new System.Windows.Forms.Panel();
             btnPOS = new DevExpress.XtraEditors.SimpleButton();
             btnAcc = new DevExpress.XtraEditors.SimpleButton();
@@ -68,9 +70,19 @@
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
             chartControl1 = new DevExpress.XtraCharts.ChartControl();
             label3 = new System.Windows.Forms.Label();
-            panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            lblBusinessName = new DevExpress.XtraEditors.LabelControl();
+            labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            labelControl9 = new DevExpress.XtraEditors.LabelControl();
+            labelControl10 = new DevExpress.XtraEditors.LabelControl();
             sidePanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
+            panelControl3.SuspendLayout();
             topPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DateFilterComboBox.Properties).BeginInit();
@@ -89,8 +101,6 @@
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
-            panelControl3.SuspendLayout();
             SuspendLayout();
             // 
             // sidePanel1
@@ -106,9 +116,31 @@
             sidePanel1.TabIndex = 0;
             sidePanel1.Text = "sidePanel1";
             // 
+            // panelControl3
+            // 
+            panelControl3.Appearance.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
+            panelControl3.Appearance.Options.UseBackColor = true;
+            panelControl3.Controls.Add(lblBusinessName);
+            panelControl3.Location = new System.Drawing.Point(0, 0);
+            panelControl3.Name = "panelControl3";
+            panelControl3.Size = new System.Drawing.Size(250, 49);
+            panelControl3.TabIndex = 0;
+            // 
+            // lblBusinessName
+            // 
+            lblBusinessName.Appearance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblBusinessName.Appearance.Options.UseFont = true;
+            lblBusinessName.Location = new System.Drawing.Point(53, 13);
+            lblBusinessName.Name = "lblBusinessName";
+            lblBusinessName.Size = new System.Drawing.Size(145, 23);
+            lblBusinessName.TabIndex = 0;
+            lblBusinessName.Text = "Business Name";
+            // 
             // topPanel1
             // 
             topPanel1.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
+            topPanel1.Controls.Add(labelControl6);
+            topPanel1.Controls.Add(labelControl5);
             topPanel1.Controls.Add(btnPOS);
             topPanel1.Controls.Add(btnAcc);
             topPanel1.Location = new System.Drawing.Point(249, 0);
@@ -182,6 +214,7 @@
             // panel5
             // 
             panel5.BackColor = System.Drawing.Color.White;
+            panel5.Controls.Add(labelControl7);
             panel5.Controls.Add(lblExpense);
             panel5.Controls.Add(label17);
             panel5.Location = new System.Drawing.Point(1210, 146);
@@ -214,6 +247,7 @@
             // panel4
             // 
             panel4.BackColor = System.Drawing.Color.White;
+            panel4.Controls.Add(labelControl8);
             panel4.Controls.Add(lblTotalSalesReturn);
             panel4.Controls.Add(label15);
             panel4.Location = new System.Drawing.Point(1210, 60);
@@ -246,6 +280,7 @@
             // panel6
             // 
             panel6.BackColor = System.Drawing.Color.White;
+            panel6.Controls.Add(labelControl4);
             panel6.Controls.Add(lblTotalPurchaseReturn);
             panel6.Controls.Add(label13);
             panel6.Location = new System.Drawing.Point(816, 146);
@@ -278,6 +313,7 @@
             // panel3
             // 
             panel3.BackColor = System.Drawing.Color.White;
+            panel3.Controls.Add(labelControl9);
             panel3.Controls.Add(lblInvoiceDue);
             panel3.Controls.Add(label11);
             panel3.Location = new System.Drawing.Point(816, 60);
@@ -310,6 +346,7 @@
             // panel7
             // 
             panel7.BackColor = System.Drawing.Color.White;
+            panel7.Controls.Add(labelControl3);
             panel7.Controls.Add(lblPurchaseDue);
             panel7.Controls.Add(label9);
             panel7.Location = new System.Drawing.Point(422, 146);
@@ -342,6 +379,7 @@
             // panel2
             // 
             panel2.BackColor = System.Drawing.Color.White;
+            panel2.Controls.Add(labelControl10);
             panel2.Controls.Add(lblNet);
             panel2.Controls.Add(label7);
             panel2.Location = new System.Drawing.Point(422, 60);
@@ -374,6 +412,7 @@
             // panel8
             // 
             panel8.BackColor = System.Drawing.Color.White;
+            panel8.Controls.Add(labelControl2);
             panel8.Controls.Add(lblTotalPurchase);
             panel8.Controls.Add(label5);
             panel8.Location = new System.Drawing.Point(28, 146);
@@ -406,6 +445,7 @@
             // totalSalesPanel
             // 
             totalSalesPanel.BackColor = System.Drawing.Color.White;
+            totalSalesPanel.Controls.Add(labelControl1);
             totalSalesPanel.Controls.Add(lblTotalSales);
             totalSalesPanel.Controls.Add(label2);
             totalSalesPanel.Location = new System.Drawing.Point(28, 60);
@@ -516,23 +556,93 @@
             label3.TabIndex = 11;
             label3.Text = "Sales Last 30 Days";
             // 
-            // panelControl3
+            // labelControl6
             // 
-            panelControl3.Controls.Add(lblBusinessName);
-            panelControl3.Location = new System.Drawing.Point(0, 0);
-            panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(250, 49);
-            panelControl3.TabIndex = 0;
+            labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl6.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl6.Appearance.Options.UseFont = true;
+            labelControl6.Appearance.Options.UseForeColor = true;
+            labelControl6.Location = new System.Drawing.Point(1397, 16);
+            labelControl6.Name = "labelControl6";
+            labelControl6.Size = new System.Drawing.Size(73, 17);
+            labelControl6.TabIndex = 14;
+            labelControl6.Text = "09:56:00 AM";
             // 
-            // lblBusinessName
+            // labelControl5
             // 
-            lblBusinessName.Appearance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            lblBusinessName.Appearance.Options.UseFont = true;
-            lblBusinessName.Location = new System.Drawing.Point(53, 13);
-            lblBusinessName.Name = "lblBusinessName";
-            lblBusinessName.Size = new System.Drawing.Size(145, 23);
-            lblBusinessName.TabIndex = 0;
-            lblBusinessName.Text = "Business Name";
+            labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl5.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl5.Appearance.Options.UseFont = true;
+            labelControl5.Appearance.Options.UseForeColor = true;
+            labelControl5.Location = new System.Drawing.Point(1290, 16);
+            labelControl5.Name = "labelControl5";
+            labelControl5.Size = new System.Drawing.Size(98, 17);
+            labelControl5.TabIndex = 13;
+            labelControl5.Text = "Sat, Oct 18, 2025";
+            // 
+            // labelControl1
+            // 
+            labelControl1.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl1.ImageOptions.Image");
+            labelControl1.Location = new System.Drawing.Point(26, 29);
+            labelControl1.Name = "labelControl1";
+            labelControl1.Size = new System.Drawing.Size(35, 35);
+            labelControl1.TabIndex = 2;
+            // 
+            // labelControl2
+            // 
+            labelControl2.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl2.ImageOptions.Image");
+            labelControl2.Location = new System.Drawing.Point(26, 29);
+            labelControl2.Name = "labelControl2";
+            labelControl2.Size = new System.Drawing.Size(32, 32);
+            labelControl2.TabIndex = 3;
+            // 
+            // labelControl3
+            // 
+            labelControl3.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl3.ImageOptions.Image");
+            labelControl3.Location = new System.Drawing.Point(30, 29);
+            labelControl3.Name = "labelControl3";
+            labelControl3.Size = new System.Drawing.Size(35, 35);
+            labelControl3.TabIndex = 4;
+            // 
+            // labelControl4
+            // 
+            labelControl4.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl4.ImageOptions.Image");
+            labelControl4.Location = new System.Drawing.Point(29, 29);
+            labelControl4.Name = "labelControl4";
+            labelControl4.Size = new System.Drawing.Size(32, 32);
+            labelControl4.TabIndex = 5;
+            // 
+            // labelControl7
+            // 
+            labelControl7.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl7.ImageOptions.Image");
+            labelControl7.Location = new System.Drawing.Point(28, 29);
+            labelControl7.Name = "labelControl7";
+            labelControl7.Size = new System.Drawing.Size(35, 35);
+            labelControl7.TabIndex = 6;
+            // 
+            // labelControl8
+            // 
+            labelControl8.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl8.ImageOptions.Image");
+            labelControl8.Location = new System.Drawing.Point(28, 29);
+            labelControl8.Name = "labelControl8";
+            labelControl8.Size = new System.Drawing.Size(35, 35);
+            labelControl8.TabIndex = 7;
+            // 
+            // labelControl9
+            // 
+            labelControl9.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl9.ImageOptions.Image");
+            labelControl9.Location = new System.Drawing.Point(29, 29);
+            labelControl9.Name = "labelControl9";
+            labelControl9.Size = new System.Drawing.Size(35, 35);
+            labelControl9.TabIndex = 8;
+            // 
+            // labelControl10
+            // 
+            labelControl10.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl10.ImageOptions.Image");
+            labelControl10.Location = new System.Drawing.Point(30, 29);
+            labelControl10.Name = "labelControl10";
+            labelControl10.Size = new System.Drawing.Size(35, 35);
+            labelControl10.TabIndex = 9;
             // 
             // UC_Dashboard
             // 
@@ -550,7 +660,11 @@
             Size = new System.Drawing.Size(1920, 1050);
             Tag = "";
             sidePanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
+            panelControl3.ResumeLayout(false);
+            panelControl3.PerformLayout();
             topPanel1.ResumeLayout(false);
+            topPanel1.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DateFilterComboBox.Properties).EndInit();
@@ -579,9 +693,6 @@
             panelControl1.ResumeLayout(false);
             panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
-            panelControl3.ResumeLayout(false);
-            panelControl3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -628,5 +739,15 @@
         private DevExpress.XtraEditors.SimpleButton btnPOS;
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.LabelControl lblBusinessName;
+        private DevExpress.XtraEditors.LabelControl labelControl6;
+        private DevExpress.XtraEditors.LabelControl labelControl5;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl7;
+        private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.LabelControl labelControl4;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.LabelControl labelControl10;
     }
 }
