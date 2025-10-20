@@ -24,8 +24,8 @@ namespace POS.BLL
             {
                 DateTime trialEnd;
                 bool trialExpired = DateTime.TryParse(businessRow["trial_end_date"].ToString(), out trialEnd) && trialEnd < DateTime.Now;
-                bool isLicensed = businessRow["is_licensed"].ToString() == "1";
-                bool isSuperAdmin = userRow["is_super_admin"].ToString() == "1";
+                bool isLicensed = businessRow["is_licensed"].ToString() == "True";
+                bool isSuperAdmin = userRow["is_super_admin"].ToString() == "True";
 
                 if (trialExpired && !isLicensed && !isSuperAdmin)
                     return false;

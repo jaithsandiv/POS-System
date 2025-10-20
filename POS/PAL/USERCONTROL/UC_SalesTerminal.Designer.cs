@@ -38,16 +38,9 @@
             btnDashboard = new DevExpress.XtraEditors.SimpleButton();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             panelControl6 = new DevExpress.XtraEditors.PanelControl();
-            button15 = new System.Windows.Forms.Button();
-            button13 = new System.Windows.Forms.Button();
-            button12 = new System.Windows.Forms.Button();
-            button11 = new System.Windows.Forms.Button();
-            button14 = new System.Windows.Forms.Button();
-            button5 = new System.Windows.Forms.Button();
-            button6 = new System.Windows.Forms.Button();
-            button7 = new System.Windows.Forms.Button();
-            button1 = new System.Windows.Forms.Button();
-            uploadBtn = new System.Windows.Forms.Button();
+            xtraScrollableControl3 = new DevExpress.XtraEditors.XtraScrollableControl();
+            xtraScrollableControl2 = new DevExpress.XtraEditors.XtraScrollableControl();
+            xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             separatorControl4 = new DevExpress.XtraEditors.SeparatorControl();
@@ -72,26 +65,6 @@
             labelControl10 = new DevExpress.XtraEditors.LabelControl();
             nextBtn = new System.Windows.Forms.Button();
             txtBusinessName = new DevExpress.XtraEditors.TextEdit();
-            button16 = new System.Windows.Forms.Button();
-            button17 = new System.Windows.Forms.Button();
-            button18 = new System.Windows.Forms.Button();
-            button19 = new System.Windows.Forms.Button();
-            button20 = new System.Windows.Forms.Button();
-            button21 = new System.Windows.Forms.Button();
-            button22 = new System.Windows.Forms.Button();
-            button23 = new System.Windows.Forms.Button();
-            button24 = new System.Windows.Forms.Button();
-            button25 = new System.Windows.Forms.Button();
-            button26 = new System.Windows.Forms.Button();
-            button27 = new System.Windows.Forms.Button();
-            button28 = new System.Windows.Forms.Button();
-            button29 = new System.Windows.Forms.Button();
-            button30 = new System.Windows.Forms.Button();
-            button2 = new System.Windows.Forms.Button();
-            button3 = new System.Windows.Forms.Button();
-            button4 = new System.Windows.Forms.Button();
-            button8 = new System.Windows.Forms.Button();
-            button9 = new System.Windows.Forms.Button();
             topPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
@@ -236,36 +209,9 @@
             // panelControl6
             // 
             panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl6.Controls.Add(button8);
-            panelControl6.Controls.Add(button9);
-            panelControl6.Controls.Add(button2);
-            panelControl6.Controls.Add(button3);
-            panelControl6.Controls.Add(button4);
-            panelControl6.Controls.Add(button26);
-            panelControl6.Controls.Add(button27);
-            panelControl6.Controls.Add(button28);
-            panelControl6.Controls.Add(button29);
-            panelControl6.Controls.Add(button30);
-            panelControl6.Controls.Add(button21);
-            panelControl6.Controls.Add(button22);
-            panelControl6.Controls.Add(button23);
-            panelControl6.Controls.Add(button24);
-            panelControl6.Controls.Add(button25);
-            panelControl6.Controls.Add(button16);
-            panelControl6.Controls.Add(button17);
-            panelControl6.Controls.Add(button18);
-            panelControl6.Controls.Add(button19);
-            panelControl6.Controls.Add(button20);
-            panelControl6.Controls.Add(button15);
-            panelControl6.Controls.Add(button13);
-            panelControl6.Controls.Add(button12);
-            panelControl6.Controls.Add(button11);
-            panelControl6.Controls.Add(button14);
-            panelControl6.Controls.Add(button5);
-            panelControl6.Controls.Add(button6);
-            panelControl6.Controls.Add(button7);
-            panelControl6.Controls.Add(button1);
-            panelControl6.Controls.Add(uploadBtn);
+            panelControl6.Controls.Add(xtraScrollableControl3);
+            panelControl6.Controls.Add(xtraScrollableControl2);
+            panelControl6.Controls.Add(xtraScrollableControl1);
             panelControl6.Controls.Add(labelControl8);
             panelControl6.Controls.Add(labelControl7);
             panelControl6.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -274,111 +220,39 @@
             panelControl6.Size = new System.Drawing.Size(1087, 899);
             panelControl6.TabIndex = 4;
             // 
-            // button15
+            // xtraScrollableControl3
             // 
-            button15.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button15.Location = new System.Drawing.Point(879, 204);
-            button15.Name = "button15";
-            button15.Size = new System.Drawing.Size(202, 195);
-            button15.TabIndex = 83;
-            button15.Text = "Prod5";
-            button15.UseVisualStyleBackColor = true;
+            xtraScrollableControl3.AllowTouchScroll = true;
+            xtraScrollableControl3.Appearance.BackColor = System.Drawing.Color.White;
+            xtraScrollableControl3.Appearance.BorderColor = System.Drawing.Color.Brown;
+            xtraScrollableControl3.Appearance.Options.UseBackColor = true;
+            xtraScrollableControl3.Appearance.Options.UseBorderColor = true;
+            xtraScrollableControl3.Location = new System.Drawing.Point(13, 239);
+            xtraScrollableControl3.Name = "xtraScrollableControl3";
+            xtraScrollableControl3.Size = new System.Drawing.Size(1067, 660);
+            xtraScrollableControl3.TabIndex = 106;
             // 
-            // button13
+            // xtraScrollableControl2
             // 
-            button13.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button13.Location = new System.Drawing.Point(448, 204);
-            button13.Name = "button13";
-            button13.Size = new System.Drawing.Size(202, 195);
-            button13.TabIndex = 82;
-            button13.Text = "Prod3";
-            button13.UseVisualStyleBackColor = true;
+            xtraScrollableControl2.AllowTouchScroll = true;
+            xtraScrollableControl2.Location = new System.Drawing.Point(13, 144);
+            xtraScrollableControl2.Name = "xtraScrollableControl2";
+            xtraScrollableControl2.Size = new System.Drawing.Size(1067, 72);
+            xtraScrollableControl2.TabIndex = 105;
             // 
-            // button12
+            // xtraScrollableControl1
             // 
-            button12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button12.Location = new System.Drawing.Point(231, 204);
-            button12.Name = "button12";
-            button12.Size = new System.Drawing.Size(202, 195);
-            button12.TabIndex = 81;
-            button12.Text = "Prod2";
-            button12.UseVisualStyleBackColor = true;
-            // 
-            // button11
-            // 
-            button11.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button11.Location = new System.Drawing.Point(14, 204);
-            button11.Name = "button11";
-            button11.Size = new System.Drawing.Size(202, 195);
-            button11.TabIndex = 80;
-            button11.Text = "Prod1";
-            button11.UseVisualStyleBackColor = true;
-            // 
-            // button14
-            // 
-            button14.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button14.Location = new System.Drawing.Point(664, 204);
-            button14.Name = "button14";
-            button14.Size = new System.Drawing.Size(202, 195);
-            button14.TabIndex = 79;
-            button14.Text = "Prod4";
-            button14.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            button5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button5.Location = new System.Drawing.Point(376, 127);
-            button5.Name = "button5";
-            button5.Size = new System.Drawing.Size(171, 44);
-            button5.TabIndex = 72;
-            button5.Text = "Br3";
-            button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            button6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button6.Location = new System.Drawing.Point(194, 127);
-            button6.Name = "button6";
-            button6.Size = new System.Drawing.Size(171, 44);
-            button6.TabIndex = 71;
-            button6.Text = "Br2";
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            button7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button7.Location = new System.Drawing.Point(13, 127);
-            button7.Name = "button7";
-            button7.Size = new System.Drawing.Size(171, 44);
-            button7.TabIndex = 70;
-            button7.Text = "Br1";
-            button7.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button1.Location = new System.Drawing.Point(194, 42);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(171, 44);
-            button1.TabIndex = 67;
-            button1.Text = "Cat2";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // uploadBtn
-            // 
-            uploadBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            uploadBtn.Location = new System.Drawing.Point(13, 42);
-            uploadBtn.Name = "uploadBtn";
-            uploadBtn.Size = new System.Drawing.Size(171, 44);
-            uploadBtn.TabIndex = 66;
-            uploadBtn.Text = "Cat1";
-            uploadBtn.UseVisualStyleBackColor = true;
+            xtraScrollableControl1.AllowTouchScroll = true;
+            xtraScrollableControl1.Location = new System.Drawing.Point(13, 38);
+            xtraScrollableControl1.Name = "xtraScrollableControl1";
+            xtraScrollableControl1.Size = new System.Drawing.Size(1067, 72);
+            xtraScrollableControl1.TabIndex = 104;
             // 
             // labelControl8
             // 
             labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Location = new System.Drawing.Point(14, 100);
+            labelControl8.Location = new System.Drawing.Point(16, 121);
             labelControl8.Name = "labelControl8";
             labelControl8.Size = new System.Drawing.Size(36, 17);
             labelControl8.TabIndex = 35;
@@ -624,206 +498,6 @@
             txtBusinessName.Size = new System.Drawing.Size(525, 44);
             txtBusinessName.TabIndex = 31;
             // 
-            // button16
-            // 
-            button16.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button16.Location = new System.Drawing.Point(878, 415);
-            button16.Name = "button16";
-            button16.Size = new System.Drawing.Size(202, 195);
-            button16.TabIndex = 88;
-            button16.Text = "Prod5";
-            button16.UseVisualStyleBackColor = true;
-            // 
-            // button17
-            // 
-            button17.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button17.Location = new System.Drawing.Point(447, 415);
-            button17.Name = "button17";
-            button17.Size = new System.Drawing.Size(202, 195);
-            button17.TabIndex = 87;
-            button17.Text = "Prod3";
-            button17.UseVisualStyleBackColor = true;
-            // 
-            // button18
-            // 
-            button18.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button18.Location = new System.Drawing.Point(230, 415);
-            button18.Name = "button18";
-            button18.Size = new System.Drawing.Size(202, 195);
-            button18.TabIndex = 86;
-            button18.Text = "Prod2";
-            button18.UseVisualStyleBackColor = true;
-            // 
-            // button19
-            // 
-            button19.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button19.Location = new System.Drawing.Point(13, 415);
-            button19.Name = "button19";
-            button19.Size = new System.Drawing.Size(202, 195);
-            button19.TabIndex = 85;
-            button19.Text = "Prod1";
-            button19.UseVisualStyleBackColor = true;
-            // 
-            // button20
-            // 
-            button20.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button20.Location = new System.Drawing.Point(663, 415);
-            button20.Name = "button20";
-            button20.Size = new System.Drawing.Size(202, 195);
-            button20.TabIndex = 84;
-            button20.Text = "Prod4";
-            button20.UseVisualStyleBackColor = true;
-            // 
-            // button21
-            // 
-            button21.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button21.Location = new System.Drawing.Point(878, 630);
-            button21.Name = "button21";
-            button21.Size = new System.Drawing.Size(202, 195);
-            button21.TabIndex = 93;
-            button21.Text = "Prod5";
-            button21.UseVisualStyleBackColor = true;
-            // 
-            // button22
-            // 
-            button22.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button22.Location = new System.Drawing.Point(447, 630);
-            button22.Name = "button22";
-            button22.Size = new System.Drawing.Size(202, 195);
-            button22.TabIndex = 92;
-            button22.Text = "Prod3";
-            button22.UseVisualStyleBackColor = true;
-            // 
-            // button23
-            // 
-            button23.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button23.Location = new System.Drawing.Point(230, 630);
-            button23.Name = "button23";
-            button23.Size = new System.Drawing.Size(202, 195);
-            button23.TabIndex = 91;
-            button23.Text = "Prod2";
-            button23.UseVisualStyleBackColor = true;
-            // 
-            // button24
-            // 
-            button24.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button24.Location = new System.Drawing.Point(13, 630);
-            button24.Name = "button24";
-            button24.Size = new System.Drawing.Size(202, 195);
-            button24.TabIndex = 90;
-            button24.Text = "Prod1";
-            button24.UseVisualStyleBackColor = true;
-            // 
-            // button25
-            // 
-            button25.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button25.Location = new System.Drawing.Point(663, 630);
-            button25.Name = "button25";
-            button25.Size = new System.Drawing.Size(202, 195);
-            button25.TabIndex = 89;
-            button25.Text = "Prod4";
-            button25.UseVisualStyleBackColor = true;
-            // 
-            // button26
-            // 
-            button26.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button26.Location = new System.Drawing.Point(878, 840);
-            button26.Name = "button26";
-            button26.Size = new System.Drawing.Size(202, 195);
-            button26.TabIndex = 98;
-            button26.Text = "Prod5";
-            button26.UseVisualStyleBackColor = true;
-            // 
-            // button27
-            // 
-            button27.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button27.Location = new System.Drawing.Point(447, 840);
-            button27.Name = "button27";
-            button27.Size = new System.Drawing.Size(202, 195);
-            button27.TabIndex = 97;
-            button27.Text = "Prod3";
-            button27.UseVisualStyleBackColor = true;
-            // 
-            // button28
-            // 
-            button28.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button28.Location = new System.Drawing.Point(230, 840);
-            button28.Name = "button28";
-            button28.Size = new System.Drawing.Size(202, 195);
-            button28.TabIndex = 96;
-            button28.Text = "Prod2";
-            button28.UseVisualStyleBackColor = true;
-            // 
-            // button29
-            // 
-            button29.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button29.Location = new System.Drawing.Point(13, 840);
-            button29.Name = "button29";
-            button29.Size = new System.Drawing.Size(202, 195);
-            button29.TabIndex = 95;
-            button29.Text = "Prod1";
-            button29.UseVisualStyleBackColor = true;
-            // 
-            // button30
-            // 
-            button30.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button30.Location = new System.Drawing.Point(663, 840);
-            button30.Name = "button30";
-            button30.Size = new System.Drawing.Size(202, 195);
-            button30.TabIndex = 94;
-            button30.Text = "Prod4";
-            button30.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button2.Location = new System.Drawing.Point(922, 127);
-            button2.Name = "button2";
-            button2.Size = new System.Drawing.Size(171, 44);
-            button2.TabIndex = 101;
-            button2.Text = "Br3";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button3.Location = new System.Drawing.Point(740, 127);
-            button3.Name = "button3";
-            button3.Size = new System.Drawing.Size(171, 44);
-            button3.TabIndex = 100;
-            button3.Text = "Br2";
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            button4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button4.Location = new System.Drawing.Point(559, 127);
-            button4.Name = "button4";
-            button4.Size = new System.Drawing.Size(171, 44);
-            button4.TabIndex = 99;
-            button4.Text = "Br1";
-            button4.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            button8.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button8.Location = new System.Drawing.Point(556, 42);
-            button8.Name = "button8";
-            button8.Size = new System.Drawing.Size(171, 44);
-            button8.TabIndex = 103;
-            button8.Text = "Cat2";
-            button8.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            button9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            button9.Location = new System.Drawing.Point(375, 42);
-            button9.Name = "button9";
-            button9.Size = new System.Drawing.Size(171, 44);
-            button9.TabIndex = 102;
-            button9.Text = "Cat1";
-            button9.UseVisualStyleBackColor = true;
-            // 
             // UC_SalesTerminal
             // 
             Appearance.BackColor = System.Drawing.Color.White;
@@ -900,36 +574,10 @@
         private DevExpress.XtraEditors.LabelControl labelControl14;
         private DevExpress.XtraEditors.LabelControl labelControl16;
         private DevExpress.XtraEditors.TextEdit textEdit1;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button uploadBtn;
         private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button26;
-        private System.Windows.Forms.Button button27;
-        private System.Windows.Forms.Button button28;
-        private System.Windows.Forms.Button button29;
-        private System.Windows.Forms.Button button30;
-        private System.Windows.Forms.Button button21;
-        private System.Windows.Forms.Button button22;
-        private System.Windows.Forms.Button button23;
-        private System.Windows.Forms.Button button24;
-        private System.Windows.Forms.Button button25;
-        private System.Windows.Forms.Button button16;
-        private System.Windows.Forms.Button button17;
-        private System.Windows.Forms.Button button18;
-        private System.Windows.Forms.Button button19;
-        private System.Windows.Forms.Button button20;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private DevExpress.XtraEditors.HScrollBar hScrollBar1;
+        private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
+        private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl2;
+        private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl3;
     }
 }
