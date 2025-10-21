@@ -65,6 +65,13 @@
             labelControl10 = new DevExpress.XtraEditors.LabelControl();
             nextBtn = new System.Windows.Forms.Button();
             txtBusinessName = new DevExpress.XtraEditors.TextEdit();
+            gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             topPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
@@ -295,7 +302,7 @@
             button10.FlatAppearance.BorderSize = 0;
             button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             button10.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            button10.Location = new System.Drawing.Point(908, 21);
+            button10.Location = new System.Drawing.Point(908, 22);
             button10.Name = "button10";
             button10.Size = new System.Drawing.Size(173, 44);
             button10.TabIndex = 34;
@@ -314,12 +321,12 @@
             // 
             // textEdit1
             // 
-            textEdit1.Location = new System.Drawing.Point(87, 22);
+            textEdit1.Location = new System.Drawing.Point(74, 22);
             textEdit1.Name = "textEdit1";
             textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             textEdit1.Properties.Appearance.Options.UseFont = true;
             textEdit1.Properties.Padding = new System.Windows.Forms.Padding(10);
-            textEdit1.Size = new System.Drawing.Size(806, 44);
+            textEdit1.Size = new System.Drawing.Size(819, 44);
             textEdit1.TabIndex = 34;
             // 
             // separatorControl1
@@ -450,8 +457,24 @@
             // 
             // gridView1
             // 
+            gridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            gridView1.Appearance.HeaderPanel.Options.UseFont = true;
+            gridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            gridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            gridView1.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
+            gridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            gridView1.Appearance.Row.Options.UseFont = true;
+            gridView1.ColumnPanelRowHeight = 44;
+            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1, gridColumn2, gridColumn3, gridColumn4, gridColumn5, gridColumn6, gridColumn7 });
             gridView1.GridControl = gridControl1;
             gridView1.Name = "gridView1";
+            gridView1.OptionsCustomization.AllowFilter = false;
+            gridView1.OptionsCustomization.AllowGroup = false;
+            gridView1.OptionsLayout.Columns.StoreLayout = false;
+            gridView1.OptionsView.EnableAppearanceOddRow = true;
+            gridView1.OptionsView.ShowGroupPanel = false;
+            gridView1.OptionsView.ShowIndicator = false;
+            gridView1.RowHeight = 44;
             // 
             // panelControl5
             // 
@@ -481,22 +504,77 @@
             nextBtn.FlatAppearance.BorderSize = 0;
             nextBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             nextBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            nextBtn.Location = new System.Drawing.Point(622, 22);
+            nextBtn.Location = new System.Drawing.Point(619, 22);
             nextBtn.Name = "nextBtn";
-            nextBtn.Size = new System.Drawing.Size(173, 44);
+            nextBtn.Size = new System.Drawing.Size(176, 44);
             nextBtn.TabIndex = 32;
             nextBtn.Text = "Add Customer";
             nextBtn.UseVisualStyleBackColor = false;
             // 
             // txtBusinessName
             // 
-            txtBusinessName.Location = new System.Drawing.Point(80, 22);
+            txtBusinessName.Location = new System.Drawing.Point(78, 22);
             txtBusinessName.Name = "txtBusinessName";
             txtBusinessName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtBusinessName.Properties.Appearance.Options.UseFont = true;
             txtBusinessName.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtBusinessName.Size = new System.Drawing.Size(525, 44);
+            txtBusinessName.Size = new System.Drawing.Size(527, 44);
             txtBusinessName.TabIndex = 31;
+            // 
+            // gridColumn1
+            // 
+            gridColumn1.Caption = "Product ID";
+            gridColumn1.FieldName = "product_id";
+            gridColumn1.Name = "gridColumn1";
+            // 
+            // gridColumn2
+            // 
+            gridColumn2.Caption = "Product";
+            gridColumn2.FieldName = "product_name";
+            gridColumn2.Name = "gridColumn2";
+            gridColumn2.Visible = true;
+            gridColumn2.VisibleIndex = 0;
+            gridColumn2.Width = 347;
+            // 
+            // gridColumn3
+            // 
+            gridColumn3.Caption = "Product Code";
+            gridColumn3.FieldName = "product_code";
+            gridColumn3.Name = "gridColumn3";
+            // 
+            // gridColumn4
+            // 
+            gridColumn4.Caption = "Unit Price";
+            gridColumn4.FieldName = "unit_price";
+            gridColumn4.Name = "gridColumn4";
+            gridColumn4.Visible = true;
+            gridColumn4.VisibleIndex = 1;
+            gridColumn4.Width = 101;
+            // 
+            // gridColumn5
+            // 
+            gridColumn5.Caption = "Quantity";
+            gridColumn5.FieldName = "quantity";
+            gridColumn5.Name = "gridColumn5";
+            gridColumn5.Visible = true;
+            gridColumn5.VisibleIndex = 2;
+            gridColumn5.Width = 76;
+            // 
+            // gridColumn6
+            // 
+            gridColumn6.Caption = "Discount";
+            gridColumn6.Name = "gridColumn6";
+            gridColumn6.Visible = true;
+            gridColumn6.VisibleIndex = 3;
+            gridColumn6.Width = 76;
+            // 
+            // gridColumn7
+            // 
+            gridColumn7.Caption = "Sub Total";
+            gridColumn7.Name = "gridColumn7";
+            gridColumn7.Visible = true;
+            gridColumn7.VisibleIndex = 4;
+            gridColumn7.Width = 108;
             // 
             // UC_SalesTerminal
             // 
@@ -579,5 +657,12 @@
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl2;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
     }
 }
