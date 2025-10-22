@@ -44,7 +44,7 @@ namespace POS.PAL.USERCONTROL
             Main.Instance.SwitchToControl(new UC_Dashboard());
         }
 
-        private void AddBrandButtonsToScrollableControl(List<string> brandNames, int buttonWidth = 150, int buttonHeight = 50, int spacing = 10)
+        private void AddBrandButtonsToScrollableControl(List<string> brandNames, int buttonWidth = 150, int buttonHeight = 41, int spacing = 10)
         {
             xtraScrollableControl2.Controls.Clear();
 
@@ -82,7 +82,7 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
-        private void AddCatButtonsToScrollableControl(List<string> catNames, int buttonWidth = 150, int buttonHeight = 50, int spacing = 10)
+        private void AddCatButtonsToScrollableControl(List<string> catNames, int buttonWidth = 150, int buttonHeight = 41, int spacing = 10)
         {
             xtraScrollableControl1.Controls.Clear();
 
@@ -120,7 +120,7 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
-        private void AddProductButtonsToScrollableControl(List<string> productNames, int buttonWidth = 201, int buttonHeight = 190, int spacing = 10, int maxButtonsPerRow = 5)
+        private void AddProductButtonsToScrollableControl(List<string> productNames, int buttonWidth = 170, int buttonHeight = 150, int spacing = 10, int maxButtonsPerRow = 4)
         {
             xtraScrollableControl3.Controls.Clear();
 

@@ -38,33 +38,19 @@
             btnDashboard = new DevExpress.XtraEditors.SimpleButton();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             panelControl6 = new DevExpress.XtraEditors.PanelControl();
+            labelControl16 = new DevExpress.XtraEditors.LabelControl();
+            labelControl14 = new DevExpress.XtraEditors.LabelControl();
             xtraScrollableControl3 = new DevExpress.XtraEditors.XtraScrollableControl();
+            textEdit1 = new DevExpress.XtraEditors.TextEdit();
             xtraScrollableControl2 = new DevExpress.XtraEditors.XtraScrollableControl();
             xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
-            separatorControl4 = new DevExpress.XtraEditors.SeparatorControl();
-            panelControl7 = new DevExpress.XtraEditors.PanelControl();
-            button10 = new System.Windows.Forms.Button();
-            labelControl16 = new DevExpress.XtraEditors.LabelControl();
-            textEdit1 = new DevExpress.XtraEditors.TextEdit();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            panelControl4 = new DevExpress.XtraEditors.PanelControl();
-            separatorControl2 = new DevExpress.XtraEditors.SeparatorControl();
-            panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            labelControl15 = new DevExpress.XtraEditors.LabelControl();
-            labelControl13 = new DevExpress.XtraEditors.LabelControl();
-            labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            labelControl12 = new DevExpress.XtraEditors.LabelControl();
-            labelControl11 = new DevExpress.XtraEditors.LabelControl();
             labelControl9 = new DevExpress.XtraEditors.LabelControl();
-            gridControl1 = new DevExpress.XtraGrid.GridControl();
-            gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            panelControl5 = new DevExpress.XtraEditors.PanelControl();
-            labelControl10 = new DevExpress.XtraEditors.LabelControl();
-            nextBtn = new System.Windows.Forms.Button();
-            txtBusinessName = new DevExpress.XtraEditors.TextEdit();
+            gcTransactionSum = new DevExpress.XtraGrid.GridControl();
+            gvTransactionSum = new DevExpress.XtraGrid.Views.Grid.GridView();
             gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -72,27 +58,110 @@
             gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            separatorControl3 = new DevExpress.XtraEditors.SeparatorControl();
+            panelControl8 = new DevExpress.XtraEditors.PanelControl();
+            separatorControl6 = new DevExpress.XtraEditors.SeparatorControl();
+            panelControl11 = new DevExpress.XtraEditors.PanelControl();
+            labelControl25 = new DevExpress.XtraEditors.LabelControl();
+            labelControl26 = new DevExpress.XtraEditors.LabelControl();
+            panel3 = new System.Windows.Forms.Panel();
+            simpleButton11 = new DevExpress.XtraEditors.SimpleButton();
+            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
+            simpleButton8 = new DevExpress.XtraEditors.SimpleButton();
+            simpleButton9 = new DevExpress.XtraEditors.SimpleButton();
+            simpleButton10 = new DevExpress.XtraEditors.SimpleButton();
+            labelControl24 = new DevExpress.XtraEditors.LabelControl();
+            textEdit5 = new DevExpress.XtraEditors.TextEdit();
+            separatorControl7 = new DevExpress.XtraEditors.SeparatorControl();
+            panelControl10 = new DevExpress.XtraEditors.PanelControl();
+            panel1 = new System.Windows.Forms.Panel();
+            labelControl20 = new DevExpress.XtraEditors.LabelControl();
+            labelControl22 = new DevExpress.XtraEditors.LabelControl();
+            simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
+            panel2 = new System.Windows.Forms.Panel();
+            labelControl19 = new DevExpress.XtraEditors.LabelControl();
+            labelControl21 = new DevExpress.XtraEditors.LabelControl();
+            labelControl17 = new DevExpress.XtraEditors.LabelControl();
+            labelControl18 = new DevExpress.XtraEditors.LabelControl();
+            simpleButton7 = new DevExpress.XtraEditors.SimpleButton();
+            labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            panelControl12 = new DevExpress.XtraEditors.PanelControl();
+            separatorControl4 = new DevExpress.XtraEditors.SeparatorControl();
+            panelControl7 = new DevExpress.XtraEditors.PanelControl();
+            panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            labelControl23 = new DevExpress.XtraEditors.LabelControl();
+            textEdit4 = new DevExpress.XtraEditors.TextEdit();
+            simpleButton5 = new DevExpress.XtraEditors.SimpleButton();
+            simpleButton6 = new DevExpress.XtraEditors.SimpleButton();
+            labelControl15 = new DevExpress.XtraEditors.LabelControl();
+            separatorControl2 = new DevExpress.XtraEditors.SeparatorControl();
+            panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            labelControl11 = new DevExpress.XtraEditors.LabelControl();
+            textEdit3 = new DevExpress.XtraEditors.TextEdit();
+            separatorControl5 = new DevExpress.XtraEditors.SeparatorControl();
+            panelControl9 = new DevExpress.XtraEditors.PanelControl();
+            labelControl10 = new DevExpress.XtraEditors.LabelControl();
+            textEdit2 = new DevExpress.XtraEditors.TextEdit();
+            button1 = new System.Windows.Forms.Button();
+            pnlPMCash = new System.Windows.Forms.Panel();
+            simpleButton12 = new DevExpress.XtraEditors.SimpleButton();
+            pnlPMCard = new System.Windows.Forms.Panel();
+            simpleButton13 = new DevExpress.XtraEditors.SimpleButton();
+            textEdit6 = new DevExpress.XtraEditors.TextEdit();
+            labelControl29 = new DevExpress.XtraEditors.LabelControl();
+            pnlPMTransfer = new System.Windows.Forms.Panel();
+            simpleButton14 = new DevExpress.XtraEditors.SimpleButton();
+            textEdit7 = new DevExpress.XtraEditors.TextEdit();
+            labelControl27 = new DevExpress.XtraEditors.LabelControl();
             topPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl6).BeginInit();
             panelControl6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)separatorControl4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl7).BeginInit();
-            panelControl7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)textEdit1.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
             panelControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gcTransactionSum).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gvTransactionSum).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl8).BeginInit();
+            panelControl8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)separatorControl6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl11).BeginInit();
+            panelControl11.SuspendLayout();
+            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)textEdit5.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl10).BeginInit();
+            panelControl10.SuspendLayout();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl12).BeginInit();
+            panelControl12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)separatorControl4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl7).BeginInit();
+            panelControl7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)gridControl1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl5).BeginInit();
-            panelControl5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)txtBusinessName.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)textEdit4.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
+            panelControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)textEdit3.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl9).BeginInit();
+            panelControl9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)textEdit2.Properties).BeginInit();
+            pnlPMCash.SuspendLayout();
+            pnlPMCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)textEdit6.Properties).BeginInit();
+            pnlPMTransfer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)textEdit7.Properties).BeginInit();
             SuspendLayout();
             // 
             // topPanel1
@@ -108,6 +177,7 @@
             topPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             topPanel1.Location = new System.Drawing.Point(0, 0);
             topPanel1.Name = "topPanel1";
+            topPanel1.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             topPanel1.Size = new System.Drawing.Size(1920, 49);
             topPanel1.TabIndex = 2;
             // 
@@ -117,7 +187,7 @@
             labelControl6.Appearance.ForeColor = System.Drawing.Color.White;
             labelControl6.Appearance.Options.UseFont = true;
             labelControl6.Appearance.Options.UseForeColor = true;
-            labelControl6.Location = new System.Drawing.Point(1696, 16);
+            labelControl6.Location = new System.Drawing.Point(1706, 16);
             labelControl6.Name = "labelControl6";
             labelControl6.Size = new System.Drawing.Size(66, 17);
             labelControl6.TabIndex = 9;
@@ -129,7 +199,7 @@
             labelControl5.Appearance.ForeColor = System.Drawing.Color.White;
             labelControl5.Appearance.Options.UseFont = true;
             labelControl5.Appearance.Options.UseForeColor = true;
-            labelControl5.Location = new System.Drawing.Point(1596, 16);
+            labelControl5.Location = new System.Drawing.Point(1606, 16);
             labelControl5.Name = "labelControl5";
             labelControl5.Size = new System.Drawing.Size(94, 17);
             labelControl5.TabIndex = 8;
@@ -142,7 +212,7 @@
             labelControl3.Appearance.Options.UseFont = true;
             labelControl3.Appearance.Options.UseForeColor = true;
             labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            labelControl3.Location = new System.Drawing.Point(356, 16);
+            labelControl3.Location = new System.Drawing.Point(355, 16);
             labelControl3.Name = "labelControl3";
             labelControl3.Size = new System.Drawing.Size(232, 17);
             labelControl3.TabIndex = 6;
@@ -154,7 +224,7 @@
             labelControl4.Appearance.ForeColor = System.Drawing.Color.White;
             labelControl4.Appearance.Options.UseFont = true;
             labelControl4.Appearance.Options.UseForeColor = true;
-            labelControl4.Location = new System.Drawing.Point(316, 16);
+            labelControl4.Location = new System.Drawing.Point(315, 16);
             labelControl4.Name = "labelControl4";
             labelControl4.Size = new System.Drawing.Size(34, 17);
             labelControl4.TabIndex = 5;
@@ -167,7 +237,7 @@
             labelControl2.Appearance.Options.UseFont = true;
             labelControl2.Appearance.Options.UseForeColor = true;
             labelControl2.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            labelControl2.Location = new System.Drawing.Point(78, 16);
+            labelControl2.Location = new System.Drawing.Point(77, 16);
             labelControl2.Name = "labelControl2";
             labelControl2.Size = new System.Drawing.Size(232, 17);
             labelControl2.TabIndex = 4;
@@ -179,7 +249,7 @@
             labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
             labelControl1.Appearance.Options.UseFont = true;
             labelControl1.Appearance.Options.UseForeColor = true;
-            labelControl1.Location = new System.Drawing.Point(14, 16);
+            labelControl1.Location = new System.Drawing.Point(13, 16);
             labelControl1.Name = "labelControl1";
             labelControl1.Size = new System.Drawing.Size(58, 17);
             labelControl1.TabIndex = 3;
@@ -192,7 +262,7 @@
             btnDashboard.Appearance.Options.UseBackColor = true;
             btnDashboard.Appearance.Options.UseFont = true;
             btnDashboard.AppearanceHovered.Options.UseBackColor = true;
-            btnDashboard.Location = new System.Drawing.Point(1781, 9);
+            btnDashboard.Location = new System.Drawing.Point(1787, 9);
             btnDashboard.Name = "btnDashboard";
             btnDashboard.Size = new System.Drawing.Size(120, 30);
             btnDashboard.TabIndex = 2;
@@ -205,27 +275,50 @@
             panelControl2.Appearance.Options.UseBackColor = true;
             panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl2.Controls.Add(panelControl6);
-            panelControl2.Controls.Add(separatorControl4);
-            panelControl2.Controls.Add(panelControl7);
             panelControl2.Dock = System.Windows.Forms.DockStyle.Left;
             panelControl2.Location = new System.Drawing.Point(0, 49);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(1087, 1001);
+            panelControl2.Size = new System.Drawing.Size(752, 1001);
             panelControl2.TabIndex = 4;
             // 
             // panelControl6
             // 
             panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl6.Controls.Add(labelControl16);
+            panelControl6.Controls.Add(labelControl14);
             panelControl6.Controls.Add(xtraScrollableControl3);
+            panelControl6.Controls.Add(textEdit1);
             panelControl6.Controls.Add(xtraScrollableControl2);
             panelControl6.Controls.Add(xtraScrollableControl1);
             panelControl6.Controls.Add(labelControl8);
             panelControl6.Controls.Add(labelControl7);
             panelControl6.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelControl6.Location = new System.Drawing.Point(0, 102);
+            panelControl6.Location = new System.Drawing.Point(0, 0);
             panelControl6.Name = "panelControl6";
-            panelControl6.Size = new System.Drawing.Size(1087, 899);
+            panelControl6.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            panelControl6.Size = new System.Drawing.Size(752, 1001);
             panelControl6.TabIndex = 4;
+            // 
+            // labelControl16
+            // 
+            labelControl16.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl16.Appearance.Options.UseFont = true;
+            labelControl16.Location = new System.Drawing.Point(13, 66);
+            labelControl16.Name = "labelControl16";
+            labelControl16.Size = new System.Drawing.Size(52, 17);
+            labelControl16.TabIndex = 35;
+            labelControl16.Text = "Barcode:";
+            // 
+            // labelControl14
+            // 
+            labelControl14.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl14.Appearance.Options.UseFont = true;
+            labelControl14.Location = new System.Drawing.Point(13, 6);
+            labelControl14.Name = "labelControl14";
+            labelControl14.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            labelControl14.Size = new System.Drawing.Size(135, 41);
+            labelControl14.TabIndex = 107;
+            labelControl14.Text = "Product Selection";
             // 
             // xtraScrollableControl3
             // 
@@ -234,32 +327,42 @@
             xtraScrollableControl3.Appearance.BorderColor = System.Drawing.Color.Brown;
             xtraScrollableControl3.Appearance.Options.UseBackColor = true;
             xtraScrollableControl3.Appearance.Options.UseBorderColor = true;
-            xtraScrollableControl3.Location = new System.Drawing.Point(13, 239);
+            xtraScrollableControl3.Location = new System.Drawing.Point(13, 339);
             xtraScrollableControl3.Name = "xtraScrollableControl3";
-            xtraScrollableControl3.Size = new System.Drawing.Size(1067, 660);
+            xtraScrollableControl3.Size = new System.Drawing.Size(736, 660);
             xtraScrollableControl3.TabIndex = 106;
+            // 
+            // textEdit1
+            // 
+            textEdit1.Location = new System.Drawing.Point(72, 53);
+            textEdit1.Name = "textEdit1";
+            textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textEdit1.Properties.Appearance.Options.UseFont = true;
+            textEdit1.Properties.Padding = new System.Windows.Forms.Padding(10);
+            textEdit1.Size = new System.Drawing.Size(677, 44);
+            textEdit1.TabIndex = 34;
             // 
             // xtraScrollableControl2
             // 
             xtraScrollableControl2.AllowTouchScroll = true;
-            xtraScrollableControl2.Location = new System.Drawing.Point(13, 144);
+            xtraScrollableControl2.Location = new System.Drawing.Point(13, 244);
             xtraScrollableControl2.Name = "xtraScrollableControl2";
-            xtraScrollableControl2.Size = new System.Drawing.Size(1067, 72);
+            xtraScrollableControl2.Size = new System.Drawing.Size(736, 72);
             xtraScrollableControl2.TabIndex = 105;
             // 
             // xtraScrollableControl1
             // 
             xtraScrollableControl1.AllowTouchScroll = true;
-            xtraScrollableControl1.Location = new System.Drawing.Point(13, 38);
+            xtraScrollableControl1.Location = new System.Drawing.Point(13, 138);
             xtraScrollableControl1.Name = "xtraScrollableControl1";
-            xtraScrollableControl1.Size = new System.Drawing.Size(1067, 72);
+            xtraScrollableControl1.Size = new System.Drawing.Size(736, 72);
             xtraScrollableControl1.TabIndex = 104;
             // 
             // labelControl8
             // 
             labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Location = new System.Drawing.Point(16, 121);
+            labelControl8.Location = new System.Drawing.Point(13, 221);
             labelControl8.Name = "labelControl8";
             labelControl8.Size = new System.Drawing.Size(36, 17);
             labelControl8.TabIndex = 35;
@@ -269,72 +372,18 @@
             // 
             labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             labelControl7.Appearance.Options.UseFont = true;
-            labelControl7.Location = new System.Drawing.Point(14, 15);
+            labelControl7.Location = new System.Drawing.Point(13, 115);
             labelControl7.Name = "labelControl7";
             labelControl7.Size = new System.Drawing.Size(55, 17);
             labelControl7.TabIndex = 34;
             labelControl7.Text = "Category";
-            // 
-            // separatorControl4
-            // 
-            separatorControl4.AutoSizeMode = true;
-            separatorControl4.Dock = System.Windows.Forms.DockStyle.Top;
-            separatorControl4.Location = new System.Drawing.Point(0, 83);
-            separatorControl4.Name = "separatorControl4";
-            separatorControl4.Size = new System.Drawing.Size(1087, 19);
-            separatorControl4.TabIndex = 6;
-            // 
-            // panelControl7
-            // 
-            panelControl7.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl7.Controls.Add(button10);
-            panelControl7.Controls.Add(labelControl16);
-            panelControl7.Controls.Add(textEdit1);
-            panelControl7.Dock = System.Windows.Forms.DockStyle.Top;
-            panelControl7.Location = new System.Drawing.Point(0, 0);
-            panelControl7.Name = "panelControl7";
-            panelControl7.Size = new System.Drawing.Size(1087, 83);
-            panelControl7.TabIndex = 5;
-            // 
-            // button10
-            // 
-            button10.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
-            button10.FlatAppearance.BorderSize = 0;
-            button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            button10.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            button10.Location = new System.Drawing.Point(908, 22);
-            button10.Name = "button10";
-            button10.Size = new System.Drawing.Size(173, 44);
-            button10.TabIndex = 34;
-            button10.Text = "Add Product";
-            button10.UseVisualStyleBackColor = false;
-            // 
-            // labelControl16
-            // 
-            labelControl16.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl16.Appearance.Options.UseFont = true;
-            labelControl16.Location = new System.Drawing.Point(13, 35);
-            labelControl16.Name = "labelControl16";
-            labelControl16.Size = new System.Drawing.Size(52, 17);
-            labelControl16.TabIndex = 35;
-            labelControl16.Text = "Barcode:";
-            // 
-            // textEdit1
-            // 
-            textEdit1.Location = new System.Drawing.Point(74, 22);
-            textEdit1.Name = "textEdit1";
-            textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            textEdit1.Properties.Appearance.Options.UseFont = true;
-            textEdit1.Properties.Padding = new System.Windows.Forms.Padding(10);
-            textEdit1.Size = new System.Drawing.Size(819, 44);
-            textEdit1.TabIndex = 34;
             // 
             // separatorControl1
             // 
             separatorControl1.AutoSizeMode = true;
             separatorControl1.Dock = System.Windows.Forms.DockStyle.Left;
             separatorControl1.LineOrientation = System.Windows.Forms.Orientation.Vertical;
-            separatorControl1.Location = new System.Drawing.Point(1087, 49);
+            separatorControl1.Location = new System.Drawing.Point(752, 49);
             separatorControl1.Name = "separatorControl1";
             separatorControl1.Size = new System.Drawing.Size(19, 1001);
             separatorControl1.TabIndex = 0;
@@ -342,184 +391,54 @@
             // panelControl3
             // 
             panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl3.Controls.Add(panelControl4);
-            panelControl3.Controls.Add(separatorControl2);
-            panelControl3.Controls.Add(panelControl1);
-            panelControl3.Controls.Add(panelControl5);
-            panelControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelControl3.Location = new System.Drawing.Point(1106, 49);
+            panelControl3.Controls.Add(labelControl9);
+            panelControl3.Controls.Add(gcTransactionSum);
+            panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
+            panelControl3.Location = new System.Drawing.Point(771, 49);
             panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(814, 1001);
+            panelControl3.Size = new System.Drawing.Size(752, 1001);
             panelControl3.TabIndex = 5;
-            // 
-            // panelControl4
-            // 
-            panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelControl4.Location = new System.Drawing.Point(0, 927);
-            panelControl4.Name = "panelControl4";
-            panelControl4.Size = new System.Drawing.Size(814, 74);
-            panelControl4.TabIndex = 1;
-            // 
-            // separatorControl2
-            // 
-            separatorControl2.AutoSizeMode = true;
-            separatorControl2.Dock = System.Windows.Forms.DockStyle.Top;
-            separatorControl2.Location = new System.Drawing.Point(0, 908);
-            separatorControl2.Name = "separatorControl2";
-            separatorControl2.Size = new System.Drawing.Size(814, 19);
-            separatorControl2.TabIndex = 1;
-            // 
-            // panelControl1
-            // 
-            panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl1.Controls.Add(labelControl15);
-            panelControl1.Controls.Add(labelControl13);
-            panelControl1.Controls.Add(labelControl14);
-            panelControl1.Controls.Add(labelControl12);
-            panelControl1.Controls.Add(labelControl11);
-            panelControl1.Controls.Add(labelControl9);
-            panelControl1.Controls.Add(gridControl1);
-            panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            panelControl1.Location = new System.Drawing.Point(0, 83);
-            panelControl1.Name = "panelControl1";
-            panelControl1.Size = new System.Drawing.Size(814, 825);
-            panelControl1.TabIndex = 0;
-            // 
-            // labelControl15
-            // 
-            labelControl15.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl15.Appearance.Options.UseFont = true;
-            labelControl15.Location = new System.Drawing.Point(750, 787);
-            labelControl15.Name = "labelControl15";
-            labelControl15.Size = new System.Drawing.Size(45, 17);
-            labelControl15.TabIndex = 39;
-            labelControl15.Text = "Rs. 0.00";
-            // 
-            // labelControl13
-            // 
-            labelControl13.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl13.Appearance.Options.UseFont = true;
-            labelControl13.Location = new System.Drawing.Point(741, 711);
-            labelControl13.Name = "labelControl13";
-            labelControl13.Size = new System.Drawing.Size(54, 17);
-            labelControl13.TabIndex = 38;
-            labelControl13.Text = "- Rs. 0.00";
-            // 
-            // labelControl14
-            // 
-            labelControl14.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl14.Appearance.Options.UseFont = true;
-            labelControl14.Location = new System.Drawing.Point(750, 684);
-            labelControl14.Name = "labelControl14";
-            labelControl14.Size = new System.Drawing.Size(45, 17);
-            labelControl14.TabIndex = 37;
-            labelControl14.Text = "Rs. 0.00";
-            // 
-            // labelControl12
-            // 
-            labelControl12.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl12.Appearance.Options.UseFont = true;
-            labelControl12.Location = new System.Drawing.Point(6, 787);
-            labelControl12.Name = "labelControl12";
-            labelControl12.Size = new System.Drawing.Size(33, 17);
-            labelControl12.TabIndex = 36;
-            labelControl12.Text = "Total:";
-            // 
-            // labelControl11
-            // 
-            labelControl11.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl11.Appearance.Options.UseFont = true;
-            labelControl11.Location = new System.Drawing.Point(6, 711);
-            labelControl11.Name = "labelControl11";
-            labelControl11.Size = new System.Drawing.Size(56, 17);
-            labelControl11.TabIndex = 35;
-            labelControl11.Text = "Discount:";
             // 
             // labelControl9
             // 
-            labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             labelControl9.Appearance.Options.UseFont = true;
-            labelControl9.Location = new System.Drawing.Point(6, 684);
+            labelControl9.Location = new System.Drawing.Point(6, 6);
             labelControl9.Name = "labelControl9";
-            labelControl9.Size = new System.Drawing.Size(60, 17);
+            labelControl9.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            labelControl9.Size = new System.Drawing.Size(166, 41);
             labelControl9.TabIndex = 34;
-            labelControl9.Text = "Sub Total:";
+            labelControl9.Text = "Transaction Summary";
             // 
-            // gridControl1
+            // gcTransactionSum
             // 
-            gridControl1.Location = new System.Drawing.Point(6, 6);
-            gridControl1.MainView = gridView1;
-            gridControl1.Name = "gridControl1";
-            gridControl1.Size = new System.Drawing.Size(789, 660);
-            gridControl1.TabIndex = 0;
-            gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
+            gcTransactionSum.Location = new System.Drawing.Point(3, 53);
+            gcTransactionSum.MainView = gvTransactionSum;
+            gcTransactionSum.Name = "gcTransactionSum";
+            gcTransactionSum.Size = new System.Drawing.Size(743, 945);
+            gcTransactionSum.TabIndex = 0;
+            gcTransactionSum.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gvTransactionSum });
             // 
-            // gridView1
+            // gvTransactionSum
             // 
-            gridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            gridView1.Appearance.HeaderPanel.Options.UseFont = true;
-            gridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
-            gridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            gridView1.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
-            gridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            gridView1.Appearance.Row.Options.UseFont = true;
-            gridView1.ColumnPanelRowHeight = 44;
-            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1, gridColumn2, gridColumn3, gridColumn4, gridColumn5, gridColumn6, gridColumn7 });
-            gridView1.GridControl = gridControl1;
-            gridView1.Name = "gridView1";
-            gridView1.OptionsCustomization.AllowFilter = false;
-            gridView1.OptionsCustomization.AllowGroup = false;
-            gridView1.OptionsLayout.Columns.StoreLayout = false;
-            gridView1.OptionsView.EnableAppearanceOddRow = true;
-            gridView1.OptionsView.ShowGroupPanel = false;
-            gridView1.OptionsView.ShowIndicator = false;
-            gridView1.RowHeight = 44;
-            // 
-            // panelControl5
-            // 
-            panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl5.Controls.Add(labelControl10);
-            panelControl5.Controls.Add(nextBtn);
-            panelControl5.Controls.Add(txtBusinessName);
-            panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
-            panelControl5.Location = new System.Drawing.Point(0, 0);
-            panelControl5.Name = "panelControl5";
-            panelControl5.Size = new System.Drawing.Size(814, 83);
-            panelControl5.TabIndex = 2;
-            // 
-            // labelControl10
-            // 
-            labelControl10.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl10.Appearance.Options.UseFont = true;
-            labelControl10.Location = new System.Drawing.Point(6, 35);
-            labelControl10.Name = "labelControl10";
-            labelControl10.Size = new System.Drawing.Size(62, 17);
-            labelControl10.TabIndex = 33;
-            labelControl10.Text = "Customer:";
-            // 
-            // nextBtn
-            // 
-            nextBtn.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
-            nextBtn.FlatAppearance.BorderSize = 0;
-            nextBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            nextBtn.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            nextBtn.Location = new System.Drawing.Point(619, 22);
-            nextBtn.Name = "nextBtn";
-            nextBtn.Size = new System.Drawing.Size(176, 44);
-            nextBtn.TabIndex = 32;
-            nextBtn.Text = "Add Customer";
-            nextBtn.UseVisualStyleBackColor = false;
-            // 
-            // txtBusinessName
-            // 
-            txtBusinessName.Location = new System.Drawing.Point(78, 22);
-            txtBusinessName.Name = "txtBusinessName";
-            txtBusinessName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            txtBusinessName.Properties.Appearance.Options.UseFont = true;
-            txtBusinessName.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtBusinessName.Size = new System.Drawing.Size(527, 44);
-            txtBusinessName.TabIndex = 31;
+            gvTransactionSum.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            gvTransactionSum.Appearance.HeaderPanel.Options.UseFont = true;
+            gvTransactionSum.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            gvTransactionSum.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            gvTransactionSum.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
+            gvTransactionSum.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            gvTransactionSum.Appearance.Row.Options.UseFont = true;
+            gvTransactionSum.ColumnPanelRowHeight = 44;
+            gvTransactionSum.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1, gridColumn2, gridColumn3, gridColumn4, gridColumn5, gridColumn6, gridColumn7, gridColumn8 });
+            gvTransactionSum.GridControl = gcTransactionSum;
+            gvTransactionSum.Name = "gvTransactionSum";
+            gvTransactionSum.OptionsCustomization.AllowFilter = false;
+            gvTransactionSum.OptionsCustomization.AllowGroup = false;
+            gvTransactionSum.OptionsLayout.Columns.StoreLayout = false;
+            gvTransactionSum.OptionsView.EnableAppearanceOddRow = true;
+            gvTransactionSum.OptionsView.ShowGroupPanel = false;
+            gvTransactionSum.OptionsView.ShowIndicator = false;
+            gvTransactionSum.RowHeight = 44;
             // 
             // gridColumn1
             // 
@@ -534,7 +453,7 @@
             gridColumn2.Name = "gridColumn2";
             gridColumn2.Visible = true;
             gridColumn2.VisibleIndex = 0;
-            gridColumn2.Width = 347;
+            gridColumn2.Width = 283;
             // 
             // gridColumn3
             // 
@@ -549,7 +468,7 @@
             gridColumn4.Name = "gridColumn4";
             gridColumn4.Visible = true;
             gridColumn4.VisibleIndex = 1;
-            gridColumn4.Width = 101;
+            gridColumn4.Width = 103;
             // 
             // gridColumn5
             // 
@@ -558,7 +477,7 @@
             gridColumn5.Name = "gridColumn5";
             gridColumn5.Visible = true;
             gridColumn5.VisibleIndex = 2;
-            gridColumn5.Width = 76;
+            gridColumn5.Width = 101;
             // 
             // gridColumn6
             // 
@@ -566,7 +485,7 @@
             gridColumn6.Name = "gridColumn6";
             gridColumn6.Visible = true;
             gridColumn6.VisibleIndex = 3;
-            gridColumn6.Width = 76;
+            gridColumn6.Width = 80;
             // 
             // gridColumn7
             // 
@@ -576,12 +495,707 @@
             gridColumn7.VisibleIndex = 4;
             gridColumn7.Width = 108;
             // 
+            // gridColumn8
+            // 
+            gridColumn8.Caption = "Action";
+            gridColumn8.FieldName = "action";
+            gridColumn8.Name = "gridColumn8";
+            gridColumn8.Visible = true;
+            gridColumn8.VisibleIndex = 5;
+            gridColumn8.Width = 66;
+            // 
+            // separatorControl3
+            // 
+            separatorControl3.AutoSizeMode = true;
+            separatorControl3.Dock = System.Windows.Forms.DockStyle.Left;
+            separatorControl3.LineOrientation = System.Windows.Forms.Orientation.Vertical;
+            separatorControl3.Location = new System.Drawing.Point(1523, 49);
+            separatorControl3.Name = "separatorControl3";
+            separatorControl3.Size = new System.Drawing.Size(19, 1001);
+            separatorControl3.TabIndex = 6;
+            // 
+            // panelControl8
+            // 
+            panelControl8.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl8.Controls.Add(separatorControl6);
+            panelControl8.Controls.Add(panelControl11);
+            panelControl8.Controls.Add(separatorControl7);
+            panelControl8.Controls.Add(panelControl10);
+            panelControl8.Controls.Add(panelControl12);
+            panelControl8.Controls.Add(separatorControl2);
+            panelControl8.Controls.Add(panelControl4);
+            panelControl8.Controls.Add(separatorControl5);
+            panelControl8.Controls.Add(panelControl9);
+            panelControl8.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelControl8.Location = new System.Drawing.Point(1542, 49);
+            panelControl8.Name = "panelControl8";
+            panelControl8.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            panelControl8.Size = new System.Drawing.Size(378, 1001);
+            panelControl8.TabIndex = 7;
+            // 
+            // separatorControl6
+            // 
+            separatorControl6.AutoSizeMode = true;
+            separatorControl6.Dock = System.Windows.Forms.DockStyle.Top;
+            separatorControl6.Location = new System.Drawing.Point(0, 979);
+            separatorControl6.Name = "separatorControl6";
+            separatorControl6.Size = new System.Drawing.Size(368, 19);
+            separatorControl6.TabIndex = 4;
+            // 
+            // panelControl11
+            // 
+            panelControl11.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl11.Controls.Add(pnlPMTransfer);
+            panelControl11.Controls.Add(pnlPMCard);
+            panelControl11.Controls.Add(pnlPMCash);
+            panelControl11.Controls.Add(panel3);
+            panelControl11.Controls.Add(simpleButton8);
+            panelControl11.Controls.Add(simpleButton9);
+            panelControl11.Controls.Add(simpleButton10);
+            panelControl11.Dock = System.Windows.Forms.DockStyle.Top;
+            panelControl11.Location = new System.Drawing.Point(0, 596);
+            panelControl11.Name = "panelControl11";
+            panelControl11.Size = new System.Drawing.Size(368, 383);
+            panelControl11.TabIndex = 5;
+            // 
+            // labelControl25
+            // 
+            labelControl25.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl25.Appearance.ForeColor = System.Drawing.Color.Black;
+            labelControl25.Appearance.Options.UseFont = true;
+            labelControl25.Appearance.Options.UseForeColor = true;
+            labelControl25.Location = new System.Drawing.Point(317, 84);
+            labelControl25.Name = "labelControl25";
+            labelControl25.Size = new System.Drawing.Size(45, 17);
+            labelControl25.TabIndex = 45;
+            labelControl25.Text = "Rs. 0.00";
+            // 
+            // labelControl26
+            // 
+            labelControl26.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl26.Appearance.ForeColor = System.Drawing.Color.Black;
+            labelControl26.Appearance.Options.UseFont = true;
+            labelControl26.Appearance.Options.UseForeColor = true;
+            labelControl26.Location = new System.Drawing.Point(6, 84);
+            labelControl26.Name = "labelControl26";
+            labelControl26.Size = new System.Drawing.Size(53, 17);
+            labelControl26.TabIndex = 44;
+            labelControl26.Text = "Change: ";
+            // 
+            // panel3
+            // 
+            panel3.BackColor = System.Drawing.Color.White;
+            panel3.Controls.Add(simpleButton11);
+            panel3.Controls.Add(simpleButton1);
+            panel3.Controls.Add(labelControl13);
+            panel3.Controls.Add(simpleButton2);
+            panel3.Controls.Add(simpleButton3);
+            panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            panel3.Location = new System.Drawing.Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            panel3.Size = new System.Drawing.Size(368, 83);
+            panel3.TabIndex = 43;
+            // 
+            // simpleButton11
+            // 
+            simpleButton11.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton11.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton11.Appearance.Options.UseBackColor = true;
+            simpleButton11.Appearance.Options.UseFont = true;
+            simpleButton11.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton11.Location = new System.Drawing.Point(1781, 9);
+            simpleButton11.Name = "simpleButton11";
+            simpleButton11.Size = new System.Drawing.Size(120, 30);
+            simpleButton11.TabIndex = 2;
+            simpleButton11.Text = "Dashboard";
+            // 
+            // simpleButton1
+            // 
+            simpleButton1.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton1.Appearance.Options.UseBackColor = true;
+            simpleButton1.Appearance.Options.UseFont = true;
+            simpleButton1.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton1.Location = new System.Drawing.Point(3, 50);
+            simpleButton1.Name = "simpleButton1";
+            simpleButton1.Size = new System.Drawing.Size(122, 30);
+            simpleButton1.TabIndex = 36;
+            simpleButton1.Text = "Cash";
+            // 
+            // labelControl13
+            // 
+            labelControl13.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl13.Appearance.Options.UseFont = true;
+            labelControl13.Location = new System.Drawing.Point(6, 3);
+            labelControl13.Name = "labelControl13";
+            labelControl13.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            labelControl13.Size = new System.Drawing.Size(132, 41);
+            labelControl13.TabIndex = 35;
+            labelControl13.Text = "Payment Method";
+            // 
+            // simpleButton2
+            // 
+            simpleButton2.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton2.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton2.Appearance.Options.UseBackColor = true;
+            simpleButton2.Appearance.Options.UseFont = true;
+            simpleButton2.Location = new System.Drawing.Point(131, 50);
+            simpleButton2.Name = "simpleButton2";
+            simpleButton2.Size = new System.Drawing.Size(110, 30);
+            simpleButton2.TabIndex = 37;
+            simpleButton2.Text = "Card";
+            // 
+            // simpleButton3
+            // 
+            simpleButton3.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton3.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton3.Appearance.Options.UseBackColor = true;
+            simpleButton3.Appearance.Options.UseFont = true;
+            simpleButton3.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton3.Location = new System.Drawing.Point(247, 50);
+            simpleButton3.Name = "simpleButton3";
+            simpleButton3.Size = new System.Drawing.Size(118, 30);
+            simpleButton3.TabIndex = 38;
+            simpleButton3.Text = "Transfer";
+            // 
+            // simpleButton8
+            // 
+            simpleButton8.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton8.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton8.Appearance.Options.UseBackColor = true;
+            simpleButton8.Appearance.Options.UseFont = true;
+            simpleButton8.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton8.Location = new System.Drawing.Point(247, 347);
+            simpleButton8.Name = "simpleButton8";
+            simpleButton8.Size = new System.Drawing.Size(118, 30);
+            simpleButton8.TabIndex = 42;
+            simpleButton8.Text = "Complete";
+            // 
+            // simpleButton9
+            // 
+            simpleButton9.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton9.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton9.Appearance.Options.UseBackColor = true;
+            simpleButton9.Appearance.Options.UseFont = true;
+            simpleButton9.Location = new System.Drawing.Point(131, 347);
+            simpleButton9.Name = "simpleButton9";
+            simpleButton9.Size = new System.Drawing.Size(110, 30);
+            simpleButton9.TabIndex = 41;
+            simpleButton9.Text = "Quotation";
+            // 
+            // simpleButton10
+            // 
+            simpleButton10.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton10.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton10.Appearance.Options.UseBackColor = true;
+            simpleButton10.Appearance.Options.UseFont = true;
+            simpleButton10.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton10.Location = new System.Drawing.Point(3, 347);
+            simpleButton10.Name = "simpleButton10";
+            simpleButton10.Size = new System.Drawing.Size(122, 30);
+            simpleButton10.TabIndex = 40;
+            simpleButton10.Text = "Draft";
+            // 
+            // labelControl24
+            // 
+            labelControl24.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl24.Appearance.Options.UseFont = true;
+            labelControl24.Location = new System.Drawing.Point(3, 11);
+            labelControl24.Name = "labelControl24";
+            labelControl24.Size = new System.Drawing.Size(110, 17);
+            labelControl24.TabIndex = 39;
+            labelControl24.Text = "Amount Received:";
+            // 
+            // textEdit5
+            // 
+            textEdit5.Location = new System.Drawing.Point(3, 34);
+            textEdit5.Name = "textEdit5";
+            textEdit5.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textEdit5.Properties.Appearance.Options.UseFont = true;
+            textEdit5.Properties.Padding = new System.Windows.Forms.Padding(10);
+            textEdit5.Size = new System.Drawing.Size(362, 44);
+            textEdit5.TabIndex = 31;
+            // 
+            // separatorControl7
+            // 
+            separatorControl7.AutoSizeMode = true;
+            separatorControl7.Dock = System.Windows.Forms.DockStyle.Top;
+            separatorControl7.Location = new System.Drawing.Point(0, 577);
+            separatorControl7.Name = "separatorControl7";
+            separatorControl7.Size = new System.Drawing.Size(368, 19);
+            separatorControl7.TabIndex = 6;
+            // 
+            // panelControl10
+            // 
+            panelControl10.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl10.Controls.Add(panel1);
+            panelControl10.Controls.Add(panel2);
+            panelControl10.Controls.Add(labelControl12);
+            panelControl10.Dock = System.Windows.Forms.DockStyle.Top;
+            panelControl10.Location = new System.Drawing.Point(0, 417);
+            panelControl10.Name = "panelControl10";
+            panelControl10.Size = new System.Drawing.Size(368, 160);
+            panelControl10.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
+            panel1.Controls.Add(labelControl20);
+            panel1.Controls.Add(labelControl22);
+            panel1.Controls.Add(simpleButton4);
+            panel1.Location = new System.Drawing.Point(3, 107);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(362, 49);
+            panel1.TabIndex = 36;
+            // 
+            // labelControl20
+            // 
+            labelControl20.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl20.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl20.Appearance.Options.UseFont = true;
+            labelControl20.Appearance.Options.UseForeColor = true;
+            labelControl20.Location = new System.Drawing.Point(314, 16);
+            labelControl20.Name = "labelControl20";
+            labelControl20.Size = new System.Drawing.Size(45, 17);
+            labelControl20.TabIndex = 5;
+            labelControl20.Text = "Rs. 0.00";
+            // 
+            // labelControl22
+            // 
+            labelControl22.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl22.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl22.Appearance.Options.UseFont = true;
+            labelControl22.Appearance.Options.UseForeColor = true;
+            labelControl22.Location = new System.Drawing.Point(3, 16);
+            labelControl22.Name = "labelControl22";
+            labelControl22.Size = new System.Drawing.Size(74, 17);
+            labelControl22.TabIndex = 3;
+            labelControl22.Text = "Grand Total:";
+            // 
+            // simpleButton4
+            // 
+            simpleButton4.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton4.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton4.Appearance.Options.UseBackColor = true;
+            simpleButton4.Appearance.Options.UseFont = true;
+            simpleButton4.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton4.Location = new System.Drawing.Point(1781, 9);
+            simpleButton4.Name = "simpleButton4";
+            simpleButton4.Size = new System.Drawing.Size(120, 30);
+            simpleButton4.TabIndex = 2;
+            simpleButton4.Text = "Dashboard";
+            // 
+            // panel2
+            // 
+            panel2.BackColor = System.Drawing.Color.White;
+            panel2.Controls.Add(labelControl19);
+            panel2.Controls.Add(labelControl21);
+            panel2.Controls.Add(labelControl17);
+            panel2.Controls.Add(labelControl18);
+            panel2.Controls.Add(simpleButton7);
+            panel2.Location = new System.Drawing.Point(3, 53);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(362, 48);
+            panel2.TabIndex = 37;
+            // 
+            // labelControl19
+            // 
+            labelControl19.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl19.Appearance.ForeColor = System.Drawing.Color.Black;
+            labelControl19.Appearance.Options.UseFont = true;
+            labelControl19.Appearance.Options.UseForeColor = true;
+            labelControl19.Location = new System.Drawing.Point(308, 28);
+            labelControl19.Name = "labelControl19";
+            labelControl19.Size = new System.Drawing.Size(51, 17);
+            labelControl19.TabIndex = 7;
+            labelControl19.Text = "- Rs 0.00";
+            // 
+            // labelControl21
+            // 
+            labelControl21.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl21.Appearance.ForeColor = System.Drawing.Color.Black;
+            labelControl21.Appearance.Options.UseFont = true;
+            labelControl21.Appearance.Options.UseForeColor = true;
+            labelControl21.Location = new System.Drawing.Point(3, 26);
+            labelControl21.Name = "labelControl21";
+            labelControl21.Size = new System.Drawing.Size(56, 17);
+            labelControl21.TabIndex = 6;
+            labelControl21.Text = "Discount:";
+            // 
+            // labelControl17
+            // 
+            labelControl17.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl17.Appearance.ForeColor = System.Drawing.Color.Black;
+            labelControl17.Appearance.Options.UseFont = true;
+            labelControl17.Appearance.Options.UseForeColor = true;
+            labelControl17.Location = new System.Drawing.Point(317, 3);
+            labelControl17.Name = "labelControl17";
+            labelControl17.Size = new System.Drawing.Size(42, 17);
+            labelControl17.TabIndex = 5;
+            labelControl17.Text = "Rs 0.00";
+            // 
+            // labelControl18
+            // 
+            labelControl18.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl18.Appearance.ForeColor = System.Drawing.Color.Black;
+            labelControl18.Appearance.Options.UseFont = true;
+            labelControl18.Appearance.Options.UseForeColor = true;
+            labelControl18.Location = new System.Drawing.Point(3, 3);
+            labelControl18.Name = "labelControl18";
+            labelControl18.Size = new System.Drawing.Size(33, 17);
+            labelControl18.TabIndex = 3;
+            labelControl18.Text = "Total:";
+            // 
+            // simpleButton7
+            // 
+            simpleButton7.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton7.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton7.Appearance.Options.UseBackColor = true;
+            simpleButton7.Appearance.Options.UseFont = true;
+            simpleButton7.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton7.Location = new System.Drawing.Point(1781, 9);
+            simpleButton7.Name = "simpleButton7";
+            simpleButton7.Size = new System.Drawing.Size(120, 30);
+            simpleButton7.TabIndex = 2;
+            simpleButton7.Text = "Dashboard";
+            // 
+            // labelControl12
+            // 
+            labelControl12.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl12.Appearance.Options.UseFont = true;
+            labelControl12.Location = new System.Drawing.Point(6, 6);
+            labelControl12.Name = "labelControl12";
+            labelControl12.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            labelControl12.Size = new System.Drawing.Size(131, 41);
+            labelControl12.TabIndex = 35;
+            labelControl12.Text = "Pricing Summary";
+            // 
+            // panelControl12
+            // 
+            panelControl12.AutoSize = true;
+            panelControl12.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl12.Controls.Add(separatorControl4);
+            panelControl12.Controls.Add(panelControl7);
+            panelControl12.Dock = System.Windows.Forms.DockStyle.Top;
+            panelControl12.Location = new System.Drawing.Point(0, 242);
+            panelControl12.Name = "panelControl12";
+            panelControl12.Size = new System.Drawing.Size(368, 175);
+            panelControl12.TabIndex = 9;
+            // 
+            // separatorControl4
+            // 
+            separatorControl4.AutoSizeMode = true;
+            separatorControl4.Dock = System.Windows.Forms.DockStyle.Top;
+            separatorControl4.Location = new System.Drawing.Point(0, 156);
+            separatorControl4.Name = "separatorControl4";
+            separatorControl4.Size = new System.Drawing.Size(368, 19);
+            separatorControl4.TabIndex = 10;
+            // 
+            // panelControl7
+            // 
+            panelControl7.AutoSize = true;
+            panelControl7.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl7.Controls.Add(panelControl1);
+            panelControl7.Controls.Add(simpleButton5);
+            panelControl7.Controls.Add(simpleButton6);
+            panelControl7.Controls.Add(labelControl15);
+            panelControl7.Dock = System.Windows.Forms.DockStyle.Top;
+            panelControl7.Location = new System.Drawing.Point(0, 0);
+            panelControl7.Name = "panelControl7";
+            panelControl7.Size = new System.Drawing.Size(368, 156);
+            panelControl7.TabIndex = 9;
+            // 
+            // panelControl1
+            // 
+            panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl1.Controls.Add(labelControl23);
+            panelControl1.Controls.Add(textEdit4);
+            panelControl1.Location = new System.Drawing.Point(0, 97);
+            panelControl1.Name = "panelControl1";
+            panelControl1.Size = new System.Drawing.Size(378, 56);
+            panelControl1.TabIndex = 38;
+            // 
+            // labelControl23
+            // 
+            labelControl23.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl23.Appearance.Options.UseFont = true;
+            labelControl23.Location = new System.Drawing.Point(6, 19);
+            labelControl23.Name = "labelControl23";
+            labelControl23.Size = new System.Drawing.Size(89, 17);
+            labelControl23.TabIndex = 36;
+            labelControl23.Text = "Table Number:";
+            // 
+            // textEdit4
+            // 
+            textEdit4.Location = new System.Drawing.Point(247, 6);
+            textEdit4.Name = "textEdit4";
+            textEdit4.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textEdit4.Properties.Appearance.Options.UseFont = true;
+            textEdit4.Properties.Padding = new System.Windows.Forms.Padding(10);
+            textEdit4.Size = new System.Drawing.Size(118, 44);
+            textEdit4.TabIndex = 31;
+            // 
+            // simpleButton5
+            // 
+            simpleButton5.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton5.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton5.Appearance.Options.UseBackColor = true;
+            simpleButton5.Appearance.Options.UseFont = true;
+            simpleButton5.Location = new System.Drawing.Point(187, 53);
+            simpleButton5.Name = "simpleButton5";
+            simpleButton5.Size = new System.Drawing.Size(178, 30);
+            simpleButton5.TabIndex = 37;
+            simpleButton5.Text = "Dine In";
+            // 
+            // simpleButton6
+            // 
+            simpleButton6.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton6.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton6.Appearance.Options.UseBackColor = true;
+            simpleButton6.Appearance.Options.UseFont = true;
+            simpleButton6.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton6.Location = new System.Drawing.Point(3, 53);
+            simpleButton6.Name = "simpleButton6";
+            simpleButton6.Size = new System.Drawing.Size(178, 30);
+            simpleButton6.TabIndex = 36;
+            simpleButton6.Text = "Take Away";
+            // 
+            // labelControl15
+            // 
+            labelControl15.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl15.Appearance.Options.UseFont = true;
+            labelControl15.Location = new System.Drawing.Point(6, 6);
+            labelControl15.Name = "labelControl15";
+            labelControl15.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            labelControl15.Size = new System.Drawing.Size(155, 41);
+            labelControl15.TabIndex = 35;
+            labelControl15.Text = "Kitchen Order Ticket";
+            // 
+            // separatorControl2
+            // 
+            separatorControl2.AutoSizeMode = true;
+            separatorControl2.Dock = System.Windows.Forms.DockStyle.Top;
+            separatorControl2.Location = new System.Drawing.Point(0, 223);
+            separatorControl2.Name = "separatorControl2";
+            separatorControl2.Size = new System.Drawing.Size(368, 19);
+            separatorControl2.TabIndex = 4;
+            // 
+            // panelControl4
+            // 
+            panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl4.Controls.Add(labelControl11);
+            panelControl4.Controls.Add(textEdit3);
+            panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
+            panelControl4.Location = new System.Drawing.Point(0, 121);
+            panelControl4.Name = "panelControl4";
+            panelControl4.Size = new System.Drawing.Size(368, 102);
+            panelControl4.TabIndex = 3;
+            // 
+            // labelControl11
+            // 
+            labelControl11.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl11.Appearance.Options.UseFont = true;
+            labelControl11.Location = new System.Drawing.Point(6, 6);
+            labelControl11.Name = "labelControl11";
+            labelControl11.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            labelControl11.Size = new System.Drawing.Size(68, 41);
+            labelControl11.TabIndex = 35;
+            labelControl11.Text = "Staff PIN";
+            // 
+            // textEdit3
+            // 
+            textEdit3.Location = new System.Drawing.Point(3, 53);
+            textEdit3.Name = "textEdit3";
+            textEdit3.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textEdit3.Properties.Appearance.Options.UseFont = true;
+            textEdit3.Properties.Padding = new System.Windows.Forms.Padding(10);
+            textEdit3.Size = new System.Drawing.Size(362, 44);
+            textEdit3.TabIndex = 31;
+            // 
+            // separatorControl5
+            // 
+            separatorControl5.AutoSizeMode = true;
+            separatorControl5.Dock = System.Windows.Forms.DockStyle.Top;
+            separatorControl5.Location = new System.Drawing.Point(0, 102);
+            separatorControl5.Name = "separatorControl5";
+            separatorControl5.Size = new System.Drawing.Size(368, 19);
+            separatorControl5.TabIndex = 4;
+            // 
+            // panelControl9
+            // 
+            panelControl9.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl9.Controls.Add(labelControl10);
+            panelControl9.Controls.Add(textEdit2);
+            panelControl9.Controls.Add(button1);
+            panelControl9.Dock = System.Windows.Forms.DockStyle.Top;
+            panelControl9.Location = new System.Drawing.Point(0, 0);
+            panelControl9.Name = "panelControl9";
+            panelControl9.Size = new System.Drawing.Size(368, 102);
+            panelControl9.TabIndex = 3;
+            // 
+            // labelControl10
+            // 
+            labelControl10.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl10.Appearance.Options.UseFont = true;
+            labelControl10.Location = new System.Drawing.Point(6, 6);
+            labelControl10.Name = "labelControl10";
+            labelControl10.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            labelControl10.Size = new System.Drawing.Size(73, 41);
+            labelControl10.TabIndex = 35;
+            labelControl10.Text = "Customer";
+            // 
+            // textEdit2
+            // 
+            textEdit2.Location = new System.Drawing.Point(3, 53);
+            textEdit2.Name = "textEdit2";
+            textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textEdit2.Properties.Appearance.Options.UseFont = true;
+            textEdit2.Properties.Padding = new System.Windows.Forms.Padding(10);
+            textEdit2.Size = new System.Drawing.Size(362, 44);
+            textEdit2.TabIndex = 31;
+            // 
+            // button1
+            // 
+            button1.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            button1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            button1.Location = new System.Drawing.Point(334, 12);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(31, 31);
+            button1.TabIndex = 32;
+            button1.Text = "+";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // pnlPMCash
+            // 
+            pnlPMCash.BackColor = System.Drawing.Color.White;
+            pnlPMCash.Controls.Add(simpleButton12);
+            pnlPMCash.Controls.Add(labelControl25);
+            pnlPMCash.Controls.Add(textEdit5);
+            pnlPMCash.Controls.Add(labelControl26);
+            pnlPMCash.Controls.Add(labelControl24);
+            pnlPMCash.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlPMCash.Location = new System.Drawing.Point(0, 83);
+            pnlPMCash.Name = "pnlPMCash";
+            pnlPMCash.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            pnlPMCash.Size = new System.Drawing.Size(368, 112);
+            pnlPMCash.TabIndex = 46;
+            // 
+            // simpleButton12
+            // 
+            simpleButton12.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton12.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton12.Appearance.Options.UseBackColor = true;
+            simpleButton12.Appearance.Options.UseFont = true;
+            simpleButton12.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton12.Location = new System.Drawing.Point(1781, 9);
+            simpleButton12.Name = "simpleButton12";
+            simpleButton12.Size = new System.Drawing.Size(120, 30);
+            simpleButton12.TabIndex = 2;
+            simpleButton12.Text = "Dashboard";
+            // 
+            // pnlPMCard
+            // 
+            pnlPMCard.BackColor = System.Drawing.Color.White;
+            pnlPMCard.Controls.Add(simpleButton13);
+            pnlPMCard.Controls.Add(textEdit6);
+            pnlPMCard.Controls.Add(labelControl29);
+            pnlPMCard.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlPMCard.Location = new System.Drawing.Point(0, 195);
+            pnlPMCard.Name = "pnlPMCard";
+            pnlPMCard.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            pnlPMCard.Size = new System.Drawing.Size(368, 86);
+            pnlPMCard.TabIndex = 47;
+            // 
+            // simpleButton13
+            // 
+            simpleButton13.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton13.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton13.Appearance.Options.UseBackColor = true;
+            simpleButton13.Appearance.Options.UseFont = true;
+            simpleButton13.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton13.Location = new System.Drawing.Point(1781, 9);
+            simpleButton13.Name = "simpleButton13";
+            simpleButton13.Size = new System.Drawing.Size(120, 30);
+            simpleButton13.TabIndex = 2;
+            simpleButton13.Text = "Dashboard";
+            // 
+            // textEdit6
+            // 
+            textEdit6.Location = new System.Drawing.Point(3, 34);
+            textEdit6.Name = "textEdit6";
+            textEdit6.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textEdit6.Properties.Appearance.Options.UseFont = true;
+            textEdit6.Properties.Padding = new System.Windows.Forms.Padding(10);
+            textEdit6.Size = new System.Drawing.Size(362, 44);
+            textEdit6.TabIndex = 31;
+            // 
+            // labelControl29
+            // 
+            labelControl29.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl29.Appearance.Options.UseFont = true;
+            labelControl29.Location = new System.Drawing.Point(3, 11);
+            labelControl29.Name = "labelControl29";
+            labelControl29.Size = new System.Drawing.Size(85, 17);
+            labelControl29.TabIndex = 39;
+            labelControl29.Text = "Card Number:";
+            // 
+            // pnlPMTransfer
+            // 
+            pnlPMTransfer.BackColor = System.Drawing.Color.White;
+            pnlPMTransfer.Controls.Add(simpleButton14);
+            pnlPMTransfer.Controls.Add(textEdit7);
+            pnlPMTransfer.Controls.Add(labelControl27);
+            pnlPMTransfer.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlPMTransfer.Location = new System.Drawing.Point(0, 281);
+            pnlPMTransfer.Name = "pnlPMTransfer";
+            pnlPMTransfer.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            pnlPMTransfer.Size = new System.Drawing.Size(368, 86);
+            pnlPMTransfer.TabIndex = 48;
+            // 
+            // simpleButton14
+            // 
+            simpleButton14.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton14.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton14.Appearance.Options.UseBackColor = true;
+            simpleButton14.Appearance.Options.UseFont = true;
+            simpleButton14.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton14.Location = new System.Drawing.Point(1781, 9);
+            simpleButton14.Name = "simpleButton14";
+            simpleButton14.Size = new System.Drawing.Size(120, 30);
+            simpleButton14.TabIndex = 2;
+            simpleButton14.Text = "Dashboard";
+            // 
+            // textEdit7
+            // 
+            textEdit7.Location = new System.Drawing.Point(3, 34);
+            textEdit7.Name = "textEdit7";
+            textEdit7.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textEdit7.Properties.Appearance.Options.UseFont = true;
+            textEdit7.Properties.Padding = new System.Windows.Forms.Padding(10);
+            textEdit7.Size = new System.Drawing.Size(362, 44);
+            textEdit7.TabIndex = 31;
+            // 
+            // labelControl27
+            // 
+            labelControl27.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl27.Appearance.Options.UseFont = true;
+            labelControl27.Location = new System.Drawing.Point(3, 11);
+            labelControl27.Name = "labelControl27";
+            labelControl27.Size = new System.Drawing.Size(115, 17);
+            labelControl27.TabIndex = 39;
+            labelControl27.Text = "Transfer Reference:";
+            // 
             // UC_SalesTerminal
             // 
             Appearance.BackColor = System.Drawing.Color.White;
             Appearance.Options.UseBackColor = true;
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(panelControl8);
+            Controls.Add(separatorControl3);
             Controls.Add(panelControl3);
             Controls.Add(separatorControl1);
             Controls.Add(panelControl2);
@@ -595,25 +1209,60 @@
             ((System.ComponentModel.ISupportInitialize)panelControl6).EndInit();
             panelControl6.ResumeLayout(false);
             panelControl6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)separatorControl4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl7).EndInit();
-            panelControl7.ResumeLayout(false);
-            panelControl7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)textEdit1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
             panelControl3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl2).EndInit();
+            panelControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)gcTransactionSum).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gvTransactionSum).EndInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl8).EndInit();
+            panelControl8.ResumeLayout(false);
+            panelControl8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)separatorControl6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl11).EndInit();
+            panelControl11.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)textEdit5.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl10).EndInit();
+            panelControl10.ResumeLayout(false);
+            panelControl10.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl12).EndInit();
+            panelControl12.ResumeLayout(false);
+            panelControl12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)separatorControl4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl7).EndInit();
+            panelControl7.ResumeLayout(false);
+            panelControl7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
             panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)gridControl1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl5).EndInit();
-            panelControl5.ResumeLayout(false);
-            panelControl5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)txtBusinessName.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)textEdit4.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
+            panelControl4.ResumeLayout(false);
+            panelControl4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)textEdit3.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl9).EndInit();
+            panelControl9.ResumeLayout(false);
+            panelControl9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)textEdit2.Properties).EndInit();
+            pnlPMCash.ResumeLayout(false);
+            pnlPMCash.PerformLayout();
+            pnlPMCard.ResumeLayout(false);
+            pnlPMCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)textEdit6.Properties).EndInit();
+            pnlPMTransfer.ResumeLayout(false);
+            pnlPMTransfer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)textEdit7.Properties).EndInit();
             ResumeLayout(false);
         }
 
@@ -621,7 +1270,6 @@
 
         private System.Windows.Forms.Panel topPanel1;
         private DevExpress.XtraEditors.SimpleButton btnDashboard;
-        private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
@@ -631,28 +1279,13 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.LabelControl labelControl5;
-        private DevExpress.XtraEditors.PanelControl panelControl4;
-        private DevExpress.XtraEditors.SeparatorControl separatorControl2;
-        private DevExpress.XtraEditors.PanelControl panelControl5;
         private DevExpress.XtraEditors.PanelControl panelControl6;
-        private DevExpress.XtraEditors.SeparatorControl separatorControl4;
-        private DevExpress.XtraEditors.PanelControl panelControl7;
-        private DevExpress.XtraGrid.GridControl gridControl1;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private System.Windows.Forms.Button nextBtn;
-        private DevExpress.XtraEditors.TextEdit txtBusinessName;
+        private DevExpress.XtraGrid.GridControl gcTransactionSum;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvTransactionSum;
         private DevExpress.XtraEditors.LabelControl labelControl8;
         private DevExpress.XtraEditors.LabelControl labelControl7;
-        private DevExpress.XtraEditors.LabelControl labelControl10;
-        private DevExpress.XtraEditors.LabelControl labelControl12;
-        private DevExpress.XtraEditors.LabelControl labelControl11;
-        private DevExpress.XtraEditors.LabelControl labelControl9;
-        private DevExpress.XtraEditors.LabelControl labelControl15;
-        private DevExpress.XtraEditors.LabelControl labelControl13;
-        private DevExpress.XtraEditors.LabelControl labelControl14;
         private DevExpress.XtraEditors.LabelControl labelControl16;
         private DevExpress.XtraEditors.TextEdit textEdit1;
-        private System.Windows.Forms.Button button10;
         private DevExpress.XtraEditors.HScrollBar hScrollBar1;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl2;
@@ -664,5 +1297,66 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl3;
+        private DevExpress.XtraEditors.PanelControl panelControl8;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl5;
+        private DevExpress.XtraEditors.PanelControl panelControl9;
+        private DevExpress.XtraEditors.TextEdit textEdit2;
+        private System.Windows.Forms.Button button1;
+        private DevExpress.XtraEditors.LabelControl labelControl10;
+        private DevExpress.XtraEditors.LabelControl labelControl14;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl7;
+        private DevExpress.XtraEditors.PanelControl panelControl11;
+        private DevExpress.XtraEditors.LabelControl labelControl13;
+        private DevExpress.XtraEditors.TextEdit textEdit5;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl6;
+        private DevExpress.XtraEditors.PanelControl panelControl10;
+        private DevExpress.XtraEditors.LabelControl labelControl12;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl2;
+        private DevExpress.XtraEditors.PanelControl panelControl4;
+        private DevExpress.XtraEditors.LabelControl labelControl11;
+        private DevExpress.XtraEditors.TextEdit textEdit3;
+        private DevExpress.XtraEditors.SimpleButton simpleButton3;
+        private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.PanelControl panelControl12;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl4;
+        private DevExpress.XtraEditors.PanelControl panelControl7;
+        private DevExpress.XtraEditors.SimpleButton simpleButton5;
+        private DevExpress.XtraEditors.SimpleButton simpleButton6;
+        private DevExpress.XtraEditors.LabelControl labelControl15;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private System.Windows.Forms.Panel panel1;
+        private DevExpress.XtraEditors.LabelControl labelControl20;
+        private DevExpress.XtraEditors.LabelControl labelControl22;
+        private DevExpress.XtraEditors.SimpleButton simpleButton4;
+        private System.Windows.Forms.Panel panel2;
+        private DevExpress.XtraEditors.LabelControl labelControl17;
+        private DevExpress.XtraEditors.LabelControl labelControl18;
+        private DevExpress.XtraEditors.SimpleButton simpleButton7;
+        private DevExpress.XtraEditors.LabelControl labelControl19;
+        private DevExpress.XtraEditors.LabelControl labelControl21;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private DevExpress.XtraEditors.TextEdit textEdit4;
+        private DevExpress.XtraEditors.LabelControl labelControl23;
+        private DevExpress.XtraEditors.SimpleButton simpleButton8;
+        private DevExpress.XtraEditors.SimpleButton simpleButton9;
+        private DevExpress.XtraEditors.SimpleButton simpleButton10;
+        private DevExpress.XtraEditors.LabelControl labelControl24;
+        private System.Windows.Forms.Panel panel3;
+        private DevExpress.XtraEditors.SimpleButton simpleButton11;
+        private DevExpress.XtraEditors.LabelControl labelControl25;
+        private DevExpress.XtraEditors.LabelControl labelControl26;
+        private System.Windows.Forms.Panel pnlPMTransfer;
+        private DevExpress.XtraEditors.SimpleButton simpleButton14;
+        private DevExpress.XtraEditors.TextEdit textEdit7;
+        private DevExpress.XtraEditors.LabelControl labelControl27;
+        private System.Windows.Forms.Panel pnlPMCard;
+        private DevExpress.XtraEditors.SimpleButton simpleButton13;
+        private DevExpress.XtraEditors.TextEdit textEdit6;
+        private DevExpress.XtraEditors.LabelControl labelControl29;
+        private System.Windows.Forms.Panel pnlPMCash;
+        private DevExpress.XtraEditors.SimpleButton simpleButton12;
     }
 }
