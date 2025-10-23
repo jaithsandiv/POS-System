@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -16,6 +16,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DAL_DS_Initialize.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="DAL\DataSource\DAL_DS_SalesTerminal.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DAL_DS_SalesTerminal.xsd</DependentUpon>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -35,6 +40,10 @@
     <None Update="DAL\DataSource\DAL_DS_Initialize.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DAL_DS_Initialize.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="DAL\DataSource\DAL_DS_SalesTerminal.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DAL_DS_SalesTerminal.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
