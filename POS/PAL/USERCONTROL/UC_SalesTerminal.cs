@@ -16,32 +16,6 @@ namespace POS.PAL.USERCONTROL
         {
             InitializeComponent();
 
-            List<string> brands = new List<string>
-            {
-                "Brand A", "Brand B", "Brand C", "Brand D",
-                "Brand E", "Brand F", "Brand G", "Brand H"
-            };
-
-            List<string> cats = new List<string>
-            {
-                "Cat A", "Cat B", "Cat C", "Cat D",
-                "Cat E", "Cat F", "Cat G", "Cat H"
-            };
-
-            List<string> products = new List<string>
-            {
-                "Product A", "Product B", "Product C", "Product D",
-                "Product E", "Product F", "Product G", "Product H",
-                "Product AA", "Product AB", "Product AC", "Product AD",
-                "Product AE", "Product AF", "Product AG", "Product AH",
-                "Product BA", "Product BB", "Product BC", "Product BD",
-                "Product BE", "Product BF", "Product BG", "Product BH"
-            };
-
-            AddBrandButtonsToScrollableControl(brands);
-            AddCatButtonsToScrollableControl(cats);
-            AddProductButtonsToScrollableControl(products);
-
             LoadCategories();
             LoadBrands();
             LoadProducts();
@@ -52,68 +26,51 @@ namespace POS.PAL.USERCONTROL
             Main.Instance.SwitchToControl(new UC_Dashboard());
         }
 
-        private void AddBrandButtonsToScrollableControl(List<string> brandNames, int buttonWidth = 150, int buttonHeight = 41, int spacing = 10)
+        private void FilterProducts(string brandId, string categoryId)
         {
-            xtraScrollableControl2.Controls.Clear();
+            DataTable products = _bllSalesTerminal.GetProducts();
+            DataView filteredView = new DataView(products);
 
-            int currentX = 0;
+            string filter = string.Empty;
 
-            foreach (var brand in brandNames)
+            if (brandId != "All Brands")
             {
-                DevExpress.XtraEditors.SimpleButton brandButton = new DevExpress.XtraEditors.SimpleButton
-                {
-                    Text = brand,
-                    Name = $"btn{brand.Replace(" ", "_")}",
-                    Width = buttonWidth,
-                    Height = buttonHeight,
-                    Tag = brand
-                };
-
-                brandButton.Location = new Point(currentX, 0);
-
-                brandButton.Click += BrandButton_Click;
-
-                xtraScrollableControl2.Controls.Add(brandButton);
-
-                currentX += buttonWidth + spacing;
+                filter += $"brand_id = '{brandId}'";
             }
+
+            if (categoryId != "All Categories")
+            {
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    filter += " AND ";
+                }
+                filter += $"category_id = '{categoryId}'";
+            }
+
+            filteredView.RowFilter = filter;
+
+            List<(string Name, byte[] Image, string Stock)> productDetails = new List<(string, byte[], string)>();
+            foreach (DataRowView row in filteredView)
+            {
+                string name = row["product_name"]?.ToString();
+                byte[] image = row["image"] as byte[];
+                string stock = row["stock_quantity"]?.ToString();
+
+                productDetails.Add((name, image, stock));
+            }
+
+            AddProductButtonsToScrollableControl(productDetails);
         }
+
+        private string _selectedBrandId = "All Brands";
+        private string _selectedCategoryId = "All Categories";
 
         private void BrandButton_Click(object sender, EventArgs e)
         {
             if (sender is DevExpress.XtraEditors.SimpleButton button)
             {
-                string selectedBrand = button.Tag.ToString();
-                MessageBox.Show($"Selected Brand: {selectedBrand}", "Brand Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // TODO: Add filtering logic based on the selected brand
-            }
-        }
-
-        private void AddCatButtonsToScrollableControl(List<string> catNames, int buttonWidth = 150, int buttonHeight = 41, int spacing = 10)
-        {
-            xtraScrollableControl1.Controls.Clear();
-
-            int currentX = 0;
-
-            foreach (var cat in catNames)
-            {
-                DevExpress.XtraEditors.SimpleButton brandButton = new DevExpress.XtraEditors.SimpleButton
-                {
-                    Text = cat,
-                    Name = $"btn{cat.Replace(" ", "_")}",
-                    Width = buttonWidth,
-                    Height = buttonHeight,
-                    Tag = cat
-                };
-
-                brandButton.Location = new Point(currentX, 0);
-
-                brandButton.Click += CatButton_Click;
-
-                xtraScrollableControl1.Controls.Add(brandButton);
-
-                currentX += buttonWidth + spacing;
+                _selectedBrandId = button.Tag.ToString();
+                FilterProducts(_selectedBrandId, _selectedCategoryId);
             }
         }
 
@@ -121,46 +78,8 @@ namespace POS.PAL.USERCONTROL
         {
             if (sender is DevExpress.XtraEditors.SimpleButton button)
             {
-                string selectedCat = button.Tag.ToString();
-                MessageBox.Show($"Selected Category: {selectedCat}", "Cat Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // TODO: Add filtering logic based on the selected brand
-            }
-        }
-
-        private void AddProductButtonsToScrollableControl(List<string> productNames, int buttonWidth = 170, int buttonHeight = 150, int spacing = 10, int maxButtonsPerRow = 4)
-        {
-            xtraScrollableControl3.Controls.Clear();
-
-            int currentX = 0;
-            int currentY = 0;
-
-            for (int i = 0; i < productNames.Count; i++)
-            {
-                DevExpress.XtraEditors.SimpleButton productButton = new DevExpress.XtraEditors.SimpleButton
-                {
-                    Text = productNames[i],
-                    Name = $"btnProduct_{i}",
-                    Width = buttonWidth,
-                    Height = buttonHeight,
-                    Tag = productNames[i]
-                };
-
-                productButton.Location = new Point(currentX, currentY);
-
-                productButton.Click += ProductButton_Click;
-
-                xtraScrollableControl3.Controls.Add(productButton);
-
-                if ((i + 1) % maxButtonsPerRow == 0)
-                {
-                    currentX = 0;
-                    currentY += buttonHeight + spacing;
-                }
-                else
-                {
-                    currentX += buttonWidth + spacing;
-                }
+                _selectedCategoryId = button.Tag.ToString();
+                FilterProducts(_selectedBrandId, _selectedCategoryId);
             }
         }
 
@@ -222,19 +141,185 @@ namespace POS.PAL.USERCONTROL
         private void LoadCategories()
         {
             DataTable categories = _bllSalesTerminal.GetCategories();
-            // Populate categories into UI (e.g., buttons or dropdowns)
+
+            List<(string Id, string Name)> categoryDetails = new List<(string, string)> { ("All Categories", "All Categories") };
+            foreach (DataRow row in categories.Rows)
+            {
+                if (row["category_id"] != DBNull.Value && row["category_name"] != DBNull.Value)
+                {
+                    categoryDetails.Add((row["category_id"].ToString(), row["category_name"].ToString()));
+                }
+            }
+
+            AddCatButtonsToScrollableControl(categoryDetails);
+        }
+
+        private void AddCatButtonsToScrollableControl(List<(string Id, string Name)> categoryDetails, int buttonWidth = 150, int buttonHeight = 41, int spacing = 10)
+        {
+            xtraScrollableControl1.Controls.Clear();
+
+            int currentX = 0;
+
+            foreach (var category in categoryDetails)
+            {
+                DevExpress.XtraEditors.SimpleButton categoryButton = new DevExpress.XtraEditors.SimpleButton
+                {
+                    Text = category.Name,
+                    Name = $"btnCat{category.Id}",
+                    Width = buttonWidth,
+                    Height = buttonHeight,
+                    Tag = category.Id,
+                    Appearance = { BackColor = Color.LightGray } // Default color
+                };
+
+                categoryButton.Location = new Point(currentX, 0);
+
+                categoryButton.Click += (s, e) =>
+                {
+                    ResetCategoryButtonColors();
+                    categoryButton.Appearance.BackColor = Color.LightBlue; // Highlight selected button
+                    CatButton_Click(s, e);
+                };
+
+                xtraScrollableControl1.Controls.Add(categoryButton);
+
+                currentX += buttonWidth + spacing;
+            }
+        }
+
+        private void ResetCategoryButtonColors()
+        {
+            foreach (Control control in xtraScrollableControl1.Controls)
+            {
+                if (control is DevExpress.XtraEditors.SimpleButton button)
+                {
+                    button.Appearance.BackColor = Color.LightGray; // Reset to default color
+                }
+            }
         }
 
         private void LoadBrands()
         {
             DataTable brands = _bllSalesTerminal.GetBrands();
-            // Populate brands into UI (e.g., buttons or dropdowns)
+
+            List<(string Id, string Name)> brandDetails = new List<(string, string)> { ("All Brands", "All Brands") };
+            foreach (DataRow row in brands.Rows)
+            {
+                if (row["brand_id"] != DBNull.Value && row["brand_name"] != DBNull.Value)
+                {
+                    brandDetails.Add((row["brand_id"].ToString(), row["brand_name"].ToString()));
+                }
+            }
+
+            AddBrandButtonsToScrollableControl(brandDetails);
+        }
+
+        private void AddBrandButtonsToScrollableControl(List<(string Id, string Name)> brandDetails, int buttonWidth = 150, int buttonHeight = 41, int spacing = 10)
+        {
+            xtraScrollableControl2.Controls.Clear();
+
+            int currentX = 0;
+
+            foreach (var brand in brandDetails)
+            {
+                DevExpress.XtraEditors.SimpleButton brandButton = new DevExpress.XtraEditors.SimpleButton
+                {
+                    Text = brand.Name,
+                    Name = $"btnBrand{brand.Id}",
+                    Width = buttonWidth,
+                    Height = buttonHeight,
+                    Tag = brand.Id,
+                    Appearance = { BackColor = Color.LightGray } // Default color
+                };
+
+                brandButton.Location = new Point(currentX, 0);
+
+                brandButton.Click += (s, e) =>
+                {
+                    ResetBrandButtonColors();
+                    brandButton.Appearance.BackColor = Color.LightBlue; // Highlight selected button
+                    BrandButton_Click(s, e);
+                };
+
+                xtraScrollableControl2.Controls.Add(brandButton);
+
+                currentX += buttonWidth + spacing;
+            }
+        }
+
+        private void ResetBrandButtonColors()
+        {
+            foreach (Control control in xtraScrollableControl2.Controls)
+            {
+                if (control is DevExpress.XtraEditors.SimpleButton button)
+                {
+                    button.Appearance.BackColor = Color.LightGray;
+                }
+            }
         }
 
         private void LoadProducts()
         {
             DataTable products = _bllSalesTerminal.GetProducts();
-            // Populate products into UI (e.g., buttons or grid)
+
+            List<(string Name, byte[] Image, string Stock)> productDetails = new List<(string, byte[], string)>();
+            foreach (DataRow row in products.Rows)
+            {
+                string name = row["product_name"]?.ToString();
+                byte[] image = row["image"] as byte[];
+                string stock = row["stock_quantity"]?.ToString();
+
+                productDetails.Add((name, image, stock));
+            }
+
+            AddProductButtonsToScrollableControl(productDetails);
+        }
+
+        private void AddProductButtonsToScrollableControl(List<(string Name, byte[] Image, string Stock)> productDetails, int buttonWidth = 170, int buttonHeight = 150, int spacing = 10, int maxButtonsPerRow = 4)
+        {
+            xtraScrollableControl3.Controls.Clear();
+
+            int currentX = 0;
+            int currentY = 0;
+
+            for (int i = 0; i < productDetails.Count; i++)
+            {
+                var product = productDetails[i];
+
+                DevExpress.XtraEditors.SimpleButton productButton = new DevExpress.XtraEditors.SimpleButton
+                {
+                    Text = $"{product.Name}\nStock: {product.Stock}",
+                    Name = $"btnProduct{i}",
+                    Width = buttonWidth,
+                    Height = buttonHeight,
+                    Tag = product.Name
+                };
+
+                if (product.Image != null)
+                {
+                    using (var ms = new System.IO.MemoryStream(product.Image))
+                    {
+                        productButton.ImageOptions.Image = Image.FromStream(ms);
+                        productButton.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+                    }
+                }
+
+                productButton.Location = new Point(currentX, currentY);
+
+                productButton.Click += ProductButton_Click;
+
+                xtraScrollableControl3.Controls.Add(productButton);
+
+                if ((i + 1) % maxButtonsPerRow == 0)
+                {
+                    currentX = 0;
+                    currentY += buttonHeight + spacing;
+                }
+                else
+                {
+                    currentX += buttonWidth + spacing;
+                }
+            }
         }
 
         private void CheckKotEnabled()

@@ -63,6 +63,7 @@ namespace POS.DAL
                 SELECT 
                     brand_id,
                     brand_name,
+                    supplier_id,
                     status,
                     created_by,
                     CONVERT(varchar, created_date, 23) AS created_date,
@@ -76,6 +77,7 @@ namespace POS.DAL
                 DataRow r = dt.NewRow();
                 r["brand_id"] = row["brand_id"]?.ToString();
                 r["brand_name"] = row["brand_name"]?.ToString();
+                r["supplier_id"] = row["supplier_id"]?.ToString();
                 r["status"] = row["status"]?.ToString();
                 r["created_by"] = row["created_by"]?.ToString();
                 r["created_date"] = row["created_date"]?.ToString();
@@ -144,7 +146,7 @@ namespace POS.DAL
                 r["expiry_date"] = row["expiry_date"]?.ToString();
                 r["manufacture_date"] = row["manufacture_date"]?.ToString();
                 r["description"] = row["description"]?.ToString();
-                r["image"] = row["image"] as byte[];
+                r["image"] = row["image"] is DBNull ? DBNull.Value : row["image"];
                 r["status"] = row["status"]?.ToString();
                 r["created_by"] = row["created_by"]?.ToString();
                 r["created_date"] = row["created_date"]?.ToString();

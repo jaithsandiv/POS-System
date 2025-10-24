@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             topPanel1 = new System.Windows.Forms.Panel();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             labelControl5 = new DevExpress.XtraEditors.LabelControl();
@@ -43,9 +43,10 @@
             btnDashboard = new DevExpress.XtraEditors.SimpleButton();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             panelControl6 = new DevExpress.XtraEditors.PanelControl();
+            panelControl5 = new DevExpress.XtraEditors.PanelControl();
+            xtraScrollableControl3 = new DevExpress.XtraEditors.XtraScrollableControl();
             labelControl16 = new DevExpress.XtraEditors.LabelControl();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            xtraScrollableControl3 = new DevExpress.XtraEditors.XtraScrollableControl();
             textEdit1 = new DevExpress.XtraEditors.TextEdit();
             xtraScrollableControl2 = new DevExpress.XtraEditors.XtraScrollableControl();
             xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
@@ -63,6 +64,7 @@
             gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
             repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
@@ -124,12 +126,13 @@
             labelControl10 = new DevExpress.XtraEditors.LabelControl();
             textEdit2 = new DevExpress.XtraEditors.TextEdit();
             button1 = new System.Windows.Forms.Button();
-            gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             topPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl6).BeginInit();
             panelControl6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl5).BeginInit();
+            panelControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)textEdit1.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
@@ -294,9 +297,9 @@
             // panelControl6
             // 
             panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl6.Controls.Add(panelControl5);
             panelControl6.Controls.Add(labelControl16);
             panelControl6.Controls.Add(labelControl14);
-            panelControl6.Controls.Add(xtraScrollableControl3);
             panelControl6.Controls.Add(textEdit1);
             panelControl6.Controls.Add(xtraScrollableControl2);
             panelControl6.Controls.Add(xtraScrollableControl1);
@@ -308,6 +311,29 @@
             panelControl6.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             panelControl6.Size = new System.Drawing.Size(752, 1001);
             panelControl6.TabIndex = 4;
+            // 
+            // panelControl5
+            // 
+            panelControl5.Appearance.BorderColor = System.Drawing.Color.Gray;
+            panelControl5.Appearance.Options.UseBorderColor = true;
+            panelControl5.Controls.Add(xtraScrollableControl3);
+            panelControl5.Location = new System.Drawing.Point(13, 322);
+            panelControl5.Name = "panelControl5";
+            panelControl5.Size = new System.Drawing.Size(736, 679);
+            panelControl5.TabIndex = 0;
+            // 
+            // xtraScrollableControl3
+            // 
+            xtraScrollableControl3.AllowTouchScroll = true;
+            xtraScrollableControl3.Appearance.BackColor = System.Drawing.Color.White;
+            xtraScrollableControl3.Appearance.BorderColor = System.Drawing.Color.Gray;
+            xtraScrollableControl3.Appearance.Options.UseBackColor = true;
+            xtraScrollableControl3.Appearance.Options.UseBorderColor = true;
+            xtraScrollableControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            xtraScrollableControl3.Location = new System.Drawing.Point(2, 2);
+            xtraScrollableControl3.Name = "xtraScrollableControl3";
+            xtraScrollableControl3.Size = new System.Drawing.Size(732, 675);
+            xtraScrollableControl3.TabIndex = 106;
             // 
             // labelControl16
             // 
@@ -329,18 +355,6 @@
             labelControl14.Size = new System.Drawing.Size(135, 41);
             labelControl14.TabIndex = 107;
             labelControl14.Text = "Product Selection";
-            // 
-            // xtraScrollableControl3
-            // 
-            xtraScrollableControl3.AllowTouchScroll = true;
-            xtraScrollableControl3.Appearance.BackColor = System.Drawing.Color.White;
-            xtraScrollableControl3.Appearance.BorderColor = System.Drawing.Color.Brown;
-            xtraScrollableControl3.Appearance.Options.UseBackColor = true;
-            xtraScrollableControl3.Appearance.Options.UseBorderColor = true;
-            xtraScrollableControl3.Location = new System.Drawing.Point(13, 339);
-            xtraScrollableControl3.Name = "xtraScrollableControl3";
-            xtraScrollableControl3.Size = new System.Drawing.Size(736, 660);
-            xtraScrollableControl3.TabIndex = 106;
             // 
             // textEdit1
             // 
@@ -510,6 +524,12 @@
             gridColumn6.VisibleIndex = 3;
             gridColumn6.Width = 80;
             // 
+            // gridColumn9
+            // 
+            gridColumn9.Caption = "Discount Type";
+            gridColumn9.FieldName = "discount_value";
+            gridColumn9.Name = "gridColumn9";
+            // 
             // gridColumn7
             // 
             gridColumn7.Caption = "Sub Total";
@@ -530,7 +550,7 @@
             // repositoryItemButtonEdit1
             // 
             repositoryItemButtonEdit1.AutoHeight = false;
-            repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
             repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
@@ -1220,12 +1240,6 @@
             button1.Text = "+";
             button1.UseVisualStyleBackColor = false;
             // 
-            // gridColumn9
-            // 
-            gridColumn9.Caption = "Discount Type";
-            gridColumn9.FieldName = "discount_value";
-            gridColumn9.Name = "gridColumn9";
-            // 
             // UC_SalesTerminal
             // 
             Appearance.BackColor = System.Drawing.Color.White;
@@ -1247,6 +1261,8 @@
             ((System.ComponentModel.ISupportInitialize)panelControl6).EndInit();
             panelControl6.ResumeLayout(false);
             panelControl6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl5).EndInit();
+            panelControl5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)textEdit1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
@@ -1401,5 +1417,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit1;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraEditors.PanelControl panelControl5;
     }
 }
