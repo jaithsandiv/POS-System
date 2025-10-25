@@ -64,10 +64,10 @@
             gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             repositoryItemSpinEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
+            repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
-            repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             separatorControl3 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl8 = new DevExpress.XtraEditors.PanelControl();
             separatorControl6 = new DevExpress.XtraEditors.SeparatorControl();
@@ -510,29 +510,43 @@
             // 
             // repositoryItemSpinEdit1
             // 
+            repositoryItemSpinEdit1.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            repositoryItemSpinEdit1.Appearance.Options.UseFont = true;
             repositoryItemSpinEdit1.AutoHeight = false;
             repositoryItemSpinEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             repositoryItemSpinEdit1.Name = "repositoryItemSpinEdit1";
-            repositoryItemSpinEdit1.SpinStyle = DevExpress.XtraEditors.Controls.SpinStyles.Horizontal;
             // 
             // gridColumn6
             // 
             gridColumn6.Caption = "Discount";
+            gridColumn6.ColumnEdit = repositoryItemButtonEdit1;
             gridColumn6.FieldName = "discount_value";
             gridColumn6.Name = "gridColumn6";
             gridColumn6.Visible = true;
             gridColumn6.VisibleIndex = 3;
             gridColumn6.Width = 80;
             // 
+            // repositoryItemButtonEdit1
+            // 
+            repositoryItemButtonEdit1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            repositoryItemButtonEdit1.Appearance.Options.UseFont = true;
+            repositoryItemButtonEdit1.AutoHeight = false;
+            repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
+            repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
+            repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
+            repositoryItemButtonEdit1.ButtonClick += repositoryItemButtonEdit1_ButtonClick;
+            // 
             // gridColumn9
             // 
             gridColumn9.Caption = "Discount Type";
-            gridColumn9.FieldName = "discount_value";
+            gridColumn9.FieldName = "discount_type";
             gridColumn9.Name = "gridColumn9";
             // 
             // gridColumn7
             // 
             gridColumn7.Caption = "Sub Total";
+            gridColumn7.FieldName = "subtotal";
             gridColumn7.Name = "gridColumn7";
             gridColumn7.Visible = true;
             gridColumn7.VisibleIndex = 4;
@@ -546,15 +560,6 @@
             gridColumn8.Visible = true;
             gridColumn8.VisibleIndex = 5;
             gridColumn8.Width = 66;
-            // 
-            // repositoryItemButtonEdit1
-            // 
-            repositoryItemButtonEdit1.AutoHeight = false;
-            repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
-            repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
-            repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
-            repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
-            repositoryItemButtonEdit1.ButtonClick += repositoryItemButtonEdit1_ButtonClick;
             // 
             // separatorControl3
             // 

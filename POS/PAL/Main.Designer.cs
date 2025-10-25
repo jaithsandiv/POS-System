@@ -53,6 +53,7 @@
             Controls.Add(pnlMain);
             Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             IconOptions.Image = (System.Drawing.Image)resources.GetObject("Main.IconOptions.Image");
+            IconOptions.LargeImage = (System.Drawing.Image)resources.GetObject("Main.IconOptions.LargeImage");
             LookAndFeel.SkinName = "The Bezier";
             LookAndFeel.TouchUIMode = DevExpress.Utils.DefaultBoolean.False;
             LookAndFeel.UseDefaultLookAndFeel = false;

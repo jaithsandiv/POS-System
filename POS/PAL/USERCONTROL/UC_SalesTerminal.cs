@@ -88,9 +88,51 @@ namespace POS.PAL.USERCONTROL
             if (sender is DevExpress.XtraEditors.SimpleButton button)
             {
                 string selectedProduct = button.Tag.ToString();
-                MessageBox.Show($"Selected Product: {selectedProduct}", "Product Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // TODO: Add logic for product selection
+                // Fetch product details from the dataset
+                DataTable products = _bllSalesTerminal.GetProducts();
+                DataRow[] productRows = products.Select($"product_name = '{selectedProduct}'");
+
+                if (productRows.Length > 0)
+                {
+                    DataRow product = productRows[0];
+
+                    // Add product to the transaction summary grid
+                    DataTable salesItems = gvTransactionSum.GridControl.DataSource as DataTable ?? new DataTable();
+
+                    if (salesItems.Columns.Count == 0)
+                    {
+                        salesItems.Columns.Add("product_id", typeof(string));
+                        salesItems.Columns.Add("product_name", typeof(string));
+                        salesItems.Columns.Add("unit_price", typeof(decimal));
+                        salesItems.Columns.Add("quantity", typeof(int));
+                        salesItems.Columns.Add("discount_type", typeof(string));
+                        salesItems.Columns.Add("discount_value", typeof(decimal));
+                        salesItems.Columns.Add("subtotal", typeof(decimal));
+                    }
+
+                    DataRow newRow = salesItems.NewRow();
+                    newRow["product_id"] = product["product_id"];
+                    newRow["product_name"] = product["product_name"];
+                    newRow["unit_price"] = Convert.ToDecimal(product["selling_price"]);
+                    newRow["quantity"] = 1;
+
+                    // Load discount details from the product
+                    string promotionType = product["promotion_type"]?.ToString() ?? "PERCENTAGE";
+                    decimal discountValue = Convert.ToDecimal(product["discount_value"] ?? 0);
+
+                    newRow["discount_type"] = promotionType;
+                    newRow["discount_value"] = discountValue;
+
+                    // Calculate subtotal
+                    decimal price = Convert.ToDecimal(product["selling_price"]);
+                    decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
+                    newRow["subtotal"] = price - discountAmount;
+
+                    salesItems.Rows.Add(newRow);
+
+                    gvTransactionSum.GridControl.DataSource = salesItems;
+                }
             }
         }
 
@@ -104,8 +146,20 @@ namespace POS.PAL.USERCONTROL
 
             view.SetRowCellValue(row, "discount_type", newType);
 
-            var editor = sender as DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit;
-            editor.Buttons[0].Caption = newType == "PERCENTAGE" ? "%" : "$";
+            // Access the RepositoryItemButtonEdit directly from the column's repository item
+            var editor = view.Columns["discount_value"].ColumnEdit as DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit;
+            if (editor != null)
+            {
+                editor.Buttons[0].Caption = newType == "PERCENTAGE" ? "%" : "$";
+            }
+
+            // Recalculate subtotal
+            decimal price = Convert.ToDecimal(view.GetRowCellValue(row, "unit_price"));
+            decimal qty = Convert.ToDecimal(view.GetRowCellValue(row, "quantity"));
+            decimal discountValue = Convert.ToDecimal(view.GetRowCellValue(row, "discount_value"));
+
+            decimal discountAmount = newType == "PERCENTAGE" ? (price * qty * discountValue / 100m) : discountValue;
+            view.SetRowCellValue(row, "subtotal", price * qty - discountAmount);
 
             view.RefreshRow(row);
         }
