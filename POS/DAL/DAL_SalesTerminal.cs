@@ -210,6 +210,7 @@ namespace POS.DAL
                 FROM Customer c
                 LEFT JOIN CustomerGroup cg
                     ON c.group_id = cg.group_id
+                    AND cg.status = 'A'
                 WHERE c.status = 'A'";
 
             DataTable result = Connection.ExecuteQuery(query);
@@ -243,7 +244,7 @@ namespace POS.DAL
             string query = @"
                 SELECT 
                     table_id,
-                    table_name,
+                    table_number,
                     capacity,
                     status,
                     created_by,

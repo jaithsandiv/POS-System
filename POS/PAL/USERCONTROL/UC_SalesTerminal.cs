@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Printing;
 using System.Windows.Forms;
 
 namespace POS.PAL.USERCONTROL
@@ -11,6 +12,7 @@ namespace POS.PAL.USERCONTROL
     public partial class UC_SalesTerminal : DevExpress.XtraEditors.XtraUserControl
     {
         private readonly BLL_SalesTerminal _bllSalesTerminal = new BLL_SalesTerminal();
+        private DevExpress.XtraEditors.ComboBoxEdit cmbCustomers;
 
         public UC_SalesTerminal()
         {
@@ -19,6 +21,9 @@ namespace POS.PAL.USERCONTROL
             LoadCategories();
             LoadBrands();
             LoadProducts();
+
+            LoadCustomers();
+            LoadTableNos();
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -386,6 +391,31 @@ namespace POS.PAL.USERCONTROL
             else
             {
                 MessageBox.Show("KOT is disabled.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void LoadCustomers()
+        {
+            DataTable customers = _bllSalesTerminal.GetCustomers();
+
+            cmbCustomer.Properties.Items.Clear();
+
+            foreach (DataRow row in customers.Rows)
+            {
+                string customerDisplay = $"{row["full_name"]} ({row["phone"]})";
+                cmbCustomer.Properties.Items.Add(customerDisplay);
+            }
+        }
+
+        private void LoadTableNos()
+        {
+            DataTable TableNos = _bllSalesTerminal.GetTables();
+
+            cmbTableNo.Properties.Items.Clear();
+
+            foreach (DataRow row in TableNos.Rows)
+            {
+                cmbTableNo.Properties.Items.Add(row["table_number"]);
             }
         }
     }

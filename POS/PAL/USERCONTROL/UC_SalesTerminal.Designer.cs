@@ -33,6 +33,11 @@
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             topPanel1 = new System.Windows.Forms.Panel();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             labelControl5 = new DevExpress.XtraEditors.LabelControl();
@@ -112,8 +117,8 @@
             separatorControl4 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl7 = new DevExpress.XtraEditors.PanelControl();
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            cmbTableNo = new DevExpress.XtraEditors.ComboBoxEdit();
             labelControl23 = new DevExpress.XtraEditors.LabelControl();
-            textEdit4 = new DevExpress.XtraEditors.TextEdit();
             simpleButton5 = new DevExpress.XtraEditors.SimpleButton();
             simpleButton6 = new DevExpress.XtraEditors.SimpleButton();
             labelControl15 = new DevExpress.XtraEditors.LabelControl();
@@ -123,9 +128,10 @@
             textEdit3 = new DevExpress.XtraEditors.TextEdit();
             separatorControl5 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl9 = new DevExpress.XtraEditors.PanelControl();
+            cmbCustomer = new DevExpress.XtraEditors.ComboBoxEdit();
             labelControl10 = new DevExpress.XtraEditors.LabelControl();
-            textEdit2 = new DevExpress.XtraEditors.TextEdit();
             button1 = new System.Windows.Forms.Button();
+            repositoryItemButtonEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             topPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
@@ -166,7 +172,7 @@
             panelControl7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit4.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbTableNo.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
             panelControl4.SuspendLayout();
@@ -174,7 +180,8 @@
             ((System.ComponentModel.ISupportInitialize)separatorControl5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl9).BeginInit();
             panelControl9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit2.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbCustomer.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit2).BeginInit();
             SuspendLayout();
             // 
             // topPanel1
@@ -439,7 +446,7 @@
             gcTransactionSum.Location = new System.Drawing.Point(3, 53);
             gcTransactionSum.MainView = gvTransactionSum;
             gcTransactionSum.Name = "gcTransactionSum";
-            gcTransactionSum.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemSpinEdit1, repositoryItemButtonEdit1 });
+            gcTransactionSum.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemSpinEdit1, repositoryItemButtonEdit1, repositoryItemButtonEdit2 });
             gcTransactionSum.Size = new System.Drawing.Size(743, 945);
             gcTransactionSum.TabIndex = 0;
             gcTransactionSum.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gvTransactionSum });
@@ -555,6 +562,7 @@
             // gridColumn8
             // 
             gridColumn8.Caption = "Action";
+            gridColumn8.ColumnEdit = repositoryItemButtonEdit2;
             gridColumn8.FieldName = "action";
             gridColumn8.Name = "gridColumn8";
             gridColumn8.Visible = true;
@@ -586,7 +594,7 @@
             panelControl8.Dock = System.Windows.Forms.DockStyle.Fill;
             panelControl8.Location = new System.Drawing.Point(1542, 49);
             panelControl8.Name = "panelControl8";
-            panelControl8.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            panelControl8.Padding = new System.Windows.Forms.Padding(0, 0, 9, 0);
             panelControl8.Size = new System.Drawing.Size(378, 1001);
             panelControl8.TabIndex = 7;
             // 
@@ -596,7 +604,7 @@
             separatorControl6.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl6.Location = new System.Drawing.Point(0, 979);
             separatorControl6.Name = "separatorControl6";
-            separatorControl6.Size = new System.Drawing.Size(368, 19);
+            separatorControl6.Size = new System.Drawing.Size(369, 19);
             separatorControl6.TabIndex = 4;
             // 
             // panelControl11
@@ -612,7 +620,7 @@
             panelControl11.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl11.Location = new System.Drawing.Point(0, 596);
             panelControl11.Name = "panelControl11";
-            panelControl11.Size = new System.Drawing.Size(368, 383);
+            panelControl11.Size = new System.Drawing.Size(369, 383);
             panelControl11.TabIndex = 5;
             // 
             // pnlPMTransfer
@@ -625,7 +633,7 @@
             pnlPMTransfer.Location = new System.Drawing.Point(0, 281);
             pnlPMTransfer.Name = "pnlPMTransfer";
             pnlPMTransfer.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            pnlPMTransfer.Size = new System.Drawing.Size(368, 86);
+            pnlPMTransfer.Size = new System.Drawing.Size(369, 86);
             pnlPMTransfer.TabIndex = 48;
             // 
             // simpleButton14
@@ -671,7 +679,7 @@
             pnlPMCard.Location = new System.Drawing.Point(0, 195);
             pnlPMCard.Name = "pnlPMCard";
             pnlPMCard.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            pnlPMCard.Size = new System.Drawing.Size(368, 86);
+            pnlPMCard.Size = new System.Drawing.Size(369, 86);
             pnlPMCard.TabIndex = 47;
             // 
             // simpleButton13
@@ -719,7 +727,7 @@
             pnlPMCash.Location = new System.Drawing.Point(0, 83);
             pnlPMCash.Name = "pnlPMCash";
             pnlPMCash.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            pnlPMCash.Size = new System.Drawing.Size(368, 112);
+            pnlPMCash.Size = new System.Drawing.Size(369, 112);
             pnlPMCash.TabIndex = 46;
             // 
             // simpleButton12
@@ -791,7 +799,7 @@
             panel3.Location = new System.Drawing.Point(0, 0);
             panel3.Name = "panel3";
             panel3.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            panel3.Size = new System.Drawing.Size(368, 83);
+            panel3.Size = new System.Drawing.Size(369, 83);
             panel3.TabIndex = 43;
             // 
             // simpleButton11
@@ -900,7 +908,7 @@
             separatorControl7.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl7.Location = new System.Drawing.Point(0, 577);
             separatorControl7.Name = "separatorControl7";
-            separatorControl7.Size = new System.Drawing.Size(368, 19);
+            separatorControl7.Size = new System.Drawing.Size(369, 19);
             separatorControl7.TabIndex = 6;
             // 
             // panelControl10
@@ -912,7 +920,7 @@
             panelControl10.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl10.Location = new System.Drawing.Point(0, 417);
             panelControl10.Name = "panelControl10";
-            panelControl10.Size = new System.Drawing.Size(368, 160);
+            panelControl10.Size = new System.Drawing.Size(369, 160);
             panelControl10.TabIndex = 3;
             // 
             // panel1
@@ -1057,7 +1065,7 @@
             panelControl12.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl12.Location = new System.Drawing.Point(0, 242);
             panelControl12.Name = "panelControl12";
-            panelControl12.Size = new System.Drawing.Size(368, 175);
+            panelControl12.Size = new System.Drawing.Size(369, 175);
             panelControl12.TabIndex = 9;
             // 
             // separatorControl4
@@ -1066,7 +1074,7 @@
             separatorControl4.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl4.Location = new System.Drawing.Point(0, 156);
             separatorControl4.Name = "separatorControl4";
-            separatorControl4.Size = new System.Drawing.Size(368, 19);
+            separatorControl4.Size = new System.Drawing.Size(369, 19);
             separatorControl4.TabIndex = 10;
             // 
             // panelControl7
@@ -1080,18 +1088,29 @@
             panelControl7.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl7.Location = new System.Drawing.Point(0, 0);
             panelControl7.Name = "panelControl7";
-            panelControl7.Size = new System.Drawing.Size(368, 156);
+            panelControl7.Size = new System.Drawing.Size(369, 156);
             panelControl7.TabIndex = 9;
             // 
             // panelControl1
             // 
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl1.Controls.Add(cmbTableNo);
             panelControl1.Controls.Add(labelControl23);
-            panelControl1.Controls.Add(textEdit4);
             panelControl1.Location = new System.Drawing.Point(0, 97);
             panelControl1.Name = "panelControl1";
-            panelControl1.Size = new System.Drawing.Size(378, 56);
+            panelControl1.Size = new System.Drawing.Size(369, 56);
             panelControl1.TabIndex = 38;
+            // 
+            // cmbTableNo
+            // 
+            cmbTableNo.Location = new System.Drawing.Point(247, 6);
+            cmbTableNo.Name = "cmbTableNo";
+            cmbTableNo.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            cmbTableNo.Properties.Appearance.Options.UseFont = true;
+            cmbTableNo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            cmbTableNo.Properties.Padding = new System.Windows.Forms.Padding(10);
+            cmbTableNo.Size = new System.Drawing.Size(118, 44);
+            cmbTableNo.TabIndex = 37;
             // 
             // labelControl23
             // 
@@ -1102,16 +1121,6 @@
             labelControl23.Size = new System.Drawing.Size(89, 17);
             labelControl23.TabIndex = 36;
             labelControl23.Text = "Table Number:";
-            // 
-            // textEdit4
-            // 
-            textEdit4.Location = new System.Drawing.Point(247, 6);
-            textEdit4.Name = "textEdit4";
-            textEdit4.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            textEdit4.Properties.Appearance.Options.UseFont = true;
-            textEdit4.Properties.Padding = new System.Windows.Forms.Padding(10);
-            textEdit4.Size = new System.Drawing.Size(118, 44);
-            textEdit4.TabIndex = 31;
             // 
             // simpleButton5
             // 
@@ -1155,7 +1164,7 @@
             separatorControl2.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl2.Location = new System.Drawing.Point(0, 223);
             separatorControl2.Name = "separatorControl2";
-            separatorControl2.Size = new System.Drawing.Size(368, 19);
+            separatorControl2.Size = new System.Drawing.Size(369, 19);
             separatorControl2.TabIndex = 4;
             // 
             // panelControl4
@@ -1166,7 +1175,7 @@
             panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl4.Location = new System.Drawing.Point(0, 121);
             panelControl4.Name = "panelControl4";
-            panelControl4.Size = new System.Drawing.Size(368, 102);
+            panelControl4.Size = new System.Drawing.Size(369, 102);
             panelControl4.TabIndex = 3;
             // 
             // labelControl11
@@ -1196,20 +1205,31 @@
             separatorControl5.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl5.Location = new System.Drawing.Point(0, 102);
             separatorControl5.Name = "separatorControl5";
-            separatorControl5.Size = new System.Drawing.Size(368, 19);
+            separatorControl5.Size = new System.Drawing.Size(369, 19);
             separatorControl5.TabIndex = 4;
             // 
             // panelControl9
             // 
             panelControl9.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl9.Controls.Add(cmbCustomer);
             panelControl9.Controls.Add(labelControl10);
-            panelControl9.Controls.Add(textEdit2);
             panelControl9.Controls.Add(button1);
             panelControl9.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl9.Location = new System.Drawing.Point(0, 0);
             panelControl9.Name = "panelControl9";
-            panelControl9.Size = new System.Drawing.Size(368, 102);
+            panelControl9.Size = new System.Drawing.Size(369, 102);
             panelControl9.TabIndex = 3;
+            // 
+            // cmbCustomer
+            // 
+            cmbCustomer.Location = new System.Drawing.Point(3, 53);
+            cmbCustomer.Name = "cmbCustomer";
+            cmbCustomer.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            cmbCustomer.Properties.Appearance.Options.UseFont = true;
+            cmbCustomer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            cmbCustomer.Properties.Padding = new System.Windows.Forms.Padding(10);
+            cmbCustomer.Size = new System.Drawing.Size(362, 44);
+            cmbCustomer.TabIndex = 0;
             // 
             // labelControl10
             // 
@@ -1221,16 +1241,6 @@
             labelControl10.Size = new System.Drawing.Size(73, 41);
             labelControl10.TabIndex = 35;
             labelControl10.Text = "Customer";
-            // 
-            // textEdit2
-            // 
-            textEdit2.Location = new System.Drawing.Point(3, 53);
-            textEdit2.Name = "textEdit2";
-            textEdit2.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            textEdit2.Properties.Appearance.Options.UseFont = true;
-            textEdit2.Properties.Padding = new System.Windows.Forms.Padding(10);
-            textEdit2.Size = new System.Drawing.Size(362, 44);
-            textEdit2.TabIndex = 31;
             // 
             // button1
             // 
@@ -1244,6 +1254,12 @@
             button1.TabIndex = 32;
             button1.Text = "+";
             button1.UseVisualStyleBackColor = false;
+            // 
+            // repositoryItemButtonEdit2
+            // 
+            repositoryItemButtonEdit2.AutoHeight = false;
+            repositoryItemButtonEdit2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "...", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            repositoryItemButtonEdit2.Name = "repositoryItemButtonEdit2";
             // 
             // UC_SalesTerminal
             // 
@@ -1313,7 +1329,7 @@
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
             panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit4.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbTableNo.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl2).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
             panelControl4.ResumeLayout(false);
@@ -1323,7 +1339,8 @@
             ((System.ComponentModel.ISupportInitialize)panelControl9).EndInit();
             panelControl9.ResumeLayout(false);
             panelControl9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit2.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbCustomer.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit2).EndInit();
             ResumeLayout(false);
         }
 
@@ -1363,7 +1380,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl9;
         private DevExpress.XtraEditors.SeparatorControl separatorControl5;
         private DevExpress.XtraEditors.PanelControl panelControl9;
-        private DevExpress.XtraEditors.TextEdit textEdit2;
         private System.Windows.Forms.Button button1;
         private DevExpress.XtraEditors.LabelControl labelControl10;
         private DevExpress.XtraEditors.LabelControl labelControl14;
@@ -1423,5 +1439,9 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
         private DevExpress.XtraEditors.PanelControl panelControl5;
+        private DevExpress.XtraEditors.ComboBoxEdit cmbCustomer;
+        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
+        private DevExpress.XtraEditors.ComboBoxEdit cmbTableNo;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit2;
     }
 }
