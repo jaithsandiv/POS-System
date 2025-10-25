@@ -22,5 +22,10 @@ namespace POS.PAL.USERCONTROL
         {
             Main.Instance.SwitchToControl(new UC_SalesTerminal());
         }
+
+        private void btnCustomerManagement_Click(object sender, EventArgs e)
+        {
+            Main.Instance.SwitchToControl(new UC_Customer_Registration());
+        }
     }
 }

@@ -33,33 +33,43 @@
             panelControl3 = new DevExpress.XtraEditors.PanelControl();
             lblBusinessName = new DevExpress.XtraEditors.LabelControl();
             topPanel1 = new System.Windows.Forms.Panel();
+            labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            labelControl5 = new DevExpress.XtraEditors.LabelControl();
             btnPOS = new DevExpress.XtraEditors.SimpleButton();
             btnAcc = new DevExpress.XtraEditors.SimpleButton();
             panel1 = new System.Windows.Forms.Panel();
             DateFilterComboBox = new DevExpress.XtraEditors.ComboBoxEdit();
             htmlTemplate1 = new DevExpress.Utils.Html.HtmlTemplate();
             panel5 = new System.Windows.Forms.Panel();
+            labelControl7 = new DevExpress.XtraEditors.LabelControl();
             lblExpense = new System.Windows.Forms.Label();
             label17 = new System.Windows.Forms.Label();
             panel4 = new System.Windows.Forms.Panel();
+            labelControl8 = new DevExpress.XtraEditors.LabelControl();
             lblTotalSalesReturn = new System.Windows.Forms.Label();
             label15 = new System.Windows.Forms.Label();
             panel6 = new System.Windows.Forms.Panel();
+            labelControl4 = new DevExpress.XtraEditors.LabelControl();
             lblTotalPurchaseReturn = new System.Windows.Forms.Label();
             label13 = new System.Windows.Forms.Label();
             panel3 = new System.Windows.Forms.Panel();
+            labelControl9 = new DevExpress.XtraEditors.LabelControl();
             lblInvoiceDue = new System.Windows.Forms.Label();
             label11 = new System.Windows.Forms.Label();
             panel7 = new System.Windows.Forms.Panel();
+            labelControl3 = new DevExpress.XtraEditors.LabelControl();
             lblPurchaseDue = new System.Windows.Forms.Label();
             label9 = new System.Windows.Forms.Label();
             panel2 = new System.Windows.Forms.Panel();
+            labelControl10 = new DevExpress.XtraEditors.LabelControl();
             lblNet = new System.Windows.Forms.Label();
             label7 = new System.Windows.Forms.Label();
             panel8 = new System.Windows.Forms.Panel();
+            labelControl2 = new DevExpress.XtraEditors.LabelControl();
             lblTotalPurchase = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             totalSalesPanel = new System.Windows.Forms.Panel();
+            labelControl1 = new DevExpress.XtraEditors.LabelControl();
             lblTotalSales = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
@@ -70,16 +80,7 @@
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
             chartControl1 = new DevExpress.XtraCharts.ChartControl();
             label3 = new System.Windows.Forms.Label();
-            labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            labelControl5 = new DevExpress.XtraEditors.LabelControl();
-            labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            labelControl7 = new DevExpress.XtraEditors.LabelControl();
-            labelControl8 = new DevExpress.XtraEditors.LabelControl();
-            labelControl9 = new DevExpress.XtraEditors.LabelControl();
-            labelControl10 = new DevExpress.XtraEditors.LabelControl();
+            btnCustomerManagement = new DevExpress.XtraEditors.SimpleButton();
             sidePanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
             panelControl3.SuspendLayout();
@@ -108,6 +109,7 @@
             sidePanel1.Appearance.BackColor = System.Drawing.Color.White;
             sidePanel1.Appearance.Options.UseBackColor = true;
             sidePanel1.BorderThickness = 2;
+            sidePanel1.Controls.Add(btnCustomerManagement);
             sidePanel1.Controls.Add(panelControl3);
             sidePanel1.Dock = System.Windows.Forms.DockStyle.Left;
             sidePanel1.Location = new System.Drawing.Point(0, 0);
@@ -147,6 +149,30 @@
             topPanel1.Name = "topPanel1";
             topPanel1.Size = new System.Drawing.Size(1671, 49);
             topPanel1.TabIndex = 1;
+            // 
+            // labelControl6
+            // 
+            labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl6.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl6.Appearance.Options.UseFont = true;
+            labelControl6.Appearance.Options.UseForeColor = true;
+            labelControl6.Location = new System.Drawing.Point(1397, 16);
+            labelControl6.Name = "labelControl6";
+            labelControl6.Size = new System.Drawing.Size(73, 17);
+            labelControl6.TabIndex = 14;
+            labelControl6.Text = "09:56:00 AM";
+            // 
+            // labelControl5
+            // 
+            labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl5.Appearance.ForeColor = System.Drawing.Color.White;
+            labelControl5.Appearance.Options.UseFont = true;
+            labelControl5.Appearance.Options.UseForeColor = true;
+            labelControl5.Location = new System.Drawing.Point(1290, 16);
+            labelControl5.Name = "labelControl5";
+            labelControl5.Size = new System.Drawing.Size(98, 17);
+            labelControl5.TabIndex = 13;
+            labelControl5.Text = "Sat, Oct 18, 2025";
             // 
             // btnPOS
             // 
@@ -222,6 +248,14 @@
             panel5.Size = new System.Drawing.Size(379, 80);
             panel5.TabIndex = 7;
             // 
+            // labelControl7
+            // 
+            labelControl7.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl7.ImageOptions.Image");
+            labelControl7.Location = new System.Drawing.Point(28, 29);
+            labelControl7.Name = "labelControl7";
+            labelControl7.Size = new System.Drawing.Size(35, 35);
+            labelControl7.TabIndex = 6;
+            // 
             // lblExpense
             // 
             lblExpense.AutoSize = true;
@@ -254,6 +288,14 @@
             panel4.Name = "panel4";
             panel4.Size = new System.Drawing.Size(379, 80);
             panel4.TabIndex = 6;
+            // 
+            // labelControl8
+            // 
+            labelControl8.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl8.ImageOptions.Image");
+            labelControl8.Location = new System.Drawing.Point(28, 29);
+            labelControl8.Name = "labelControl8";
+            labelControl8.Size = new System.Drawing.Size(35, 35);
+            labelControl8.TabIndex = 7;
             // 
             // lblTotalSalesReturn
             // 
@@ -288,6 +330,14 @@
             panel6.Size = new System.Drawing.Size(379, 80);
             panel6.TabIndex = 6;
             // 
+            // labelControl4
+            // 
+            labelControl4.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl4.ImageOptions.Image");
+            labelControl4.Location = new System.Drawing.Point(29, 29);
+            labelControl4.Name = "labelControl4";
+            labelControl4.Size = new System.Drawing.Size(32, 32);
+            labelControl4.TabIndex = 5;
+            // 
             // lblTotalPurchaseReturn
             // 
             lblTotalPurchaseReturn.AutoSize = true;
@@ -320,6 +370,14 @@
             panel3.Name = "panel3";
             panel3.Size = new System.Drawing.Size(379, 80);
             panel3.TabIndex = 5;
+            // 
+            // labelControl9
+            // 
+            labelControl9.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl9.ImageOptions.Image");
+            labelControl9.Location = new System.Drawing.Point(29, 29);
+            labelControl9.Name = "labelControl9";
+            labelControl9.Size = new System.Drawing.Size(35, 35);
+            labelControl9.TabIndex = 8;
             // 
             // lblInvoiceDue
             // 
@@ -354,6 +412,14 @@
             panel7.Size = new System.Drawing.Size(379, 80);
             panel7.TabIndex = 5;
             // 
+            // labelControl3
+            // 
+            labelControl3.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl3.ImageOptions.Image");
+            labelControl3.Location = new System.Drawing.Point(30, 29);
+            labelControl3.Name = "labelControl3";
+            labelControl3.Size = new System.Drawing.Size(35, 35);
+            labelControl3.TabIndex = 4;
+            // 
             // lblPurchaseDue
             // 
             lblPurchaseDue.AutoSize = true;
@@ -386,6 +452,14 @@
             panel2.Name = "panel2";
             panel2.Size = new System.Drawing.Size(379, 80);
             panel2.TabIndex = 4;
+            // 
+            // labelControl10
+            // 
+            labelControl10.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl10.ImageOptions.Image");
+            labelControl10.Location = new System.Drawing.Point(30, 29);
+            labelControl10.Name = "labelControl10";
+            labelControl10.Size = new System.Drawing.Size(35, 35);
+            labelControl10.TabIndex = 9;
             // 
             // lblNet
             // 
@@ -420,6 +494,14 @@
             panel8.Size = new System.Drawing.Size(379, 80);
             panel8.TabIndex = 4;
             // 
+            // labelControl2
+            // 
+            labelControl2.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl2.ImageOptions.Image");
+            labelControl2.Location = new System.Drawing.Point(26, 29);
+            labelControl2.Name = "labelControl2";
+            labelControl2.Size = new System.Drawing.Size(32, 32);
+            labelControl2.TabIndex = 3;
+            // 
             // lblTotalPurchase
             // 
             lblTotalPurchase.AutoSize = true;
@@ -452,6 +534,14 @@
             totalSalesPanel.Name = "totalSalesPanel";
             totalSalesPanel.Size = new System.Drawing.Size(379, 80);
             totalSalesPanel.TabIndex = 3;
+            // 
+            // labelControl1
+            // 
+            labelControl1.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl1.ImageOptions.Image");
+            labelControl1.Location = new System.Drawing.Point(26, 29);
+            labelControl1.Name = "labelControl1";
+            labelControl1.Size = new System.Drawing.Size(35, 35);
+            labelControl1.TabIndex = 2;
             // 
             // lblTotalSales
             // 
@@ -556,93 +646,20 @@
             label3.TabIndex = 11;
             label3.Text = "Sales Last 30 Days";
             // 
-            // labelControl6
+            // btnCustomerManagement
             // 
-            labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl6.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl6.Appearance.Options.UseFont = true;
-            labelControl6.Appearance.Options.UseForeColor = true;
-            labelControl6.Location = new System.Drawing.Point(1397, 16);
-            labelControl6.Name = "labelControl6";
-            labelControl6.Size = new System.Drawing.Size(73, 17);
-            labelControl6.TabIndex = 14;
-            labelControl6.Text = "09:56:00 AM";
-            // 
-            // labelControl5
-            // 
-            labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl5.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl5.Appearance.Options.UseFont = true;
-            labelControl5.Appearance.Options.UseForeColor = true;
-            labelControl5.Location = new System.Drawing.Point(1290, 16);
-            labelControl5.Name = "labelControl5";
-            labelControl5.Size = new System.Drawing.Size(98, 17);
-            labelControl5.TabIndex = 13;
-            labelControl5.Text = "Sat, Oct 18, 2025";
-            // 
-            // labelControl1
-            // 
-            labelControl1.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl1.ImageOptions.Image");
-            labelControl1.Location = new System.Drawing.Point(26, 29);
-            labelControl1.Name = "labelControl1";
-            labelControl1.Size = new System.Drawing.Size(35, 35);
-            labelControl1.TabIndex = 2;
-            // 
-            // labelControl2
-            // 
-            labelControl2.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl2.ImageOptions.Image");
-            labelControl2.Location = new System.Drawing.Point(26, 29);
-            labelControl2.Name = "labelControl2";
-            labelControl2.Size = new System.Drawing.Size(32, 32);
-            labelControl2.TabIndex = 3;
-            // 
-            // labelControl3
-            // 
-            labelControl3.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl3.ImageOptions.Image");
-            labelControl3.Location = new System.Drawing.Point(30, 29);
-            labelControl3.Name = "labelControl3";
-            labelControl3.Size = new System.Drawing.Size(35, 35);
-            labelControl3.TabIndex = 4;
-            // 
-            // labelControl4
-            // 
-            labelControl4.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl4.ImageOptions.Image");
-            labelControl4.Location = new System.Drawing.Point(29, 29);
-            labelControl4.Name = "labelControl4";
-            labelControl4.Size = new System.Drawing.Size(32, 32);
-            labelControl4.TabIndex = 5;
-            // 
-            // labelControl7
-            // 
-            labelControl7.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl7.ImageOptions.Image");
-            labelControl7.Location = new System.Drawing.Point(28, 29);
-            labelControl7.Name = "labelControl7";
-            labelControl7.Size = new System.Drawing.Size(35, 35);
-            labelControl7.TabIndex = 6;
-            // 
-            // labelControl8
-            // 
-            labelControl8.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl8.ImageOptions.Image");
-            labelControl8.Location = new System.Drawing.Point(28, 29);
-            labelControl8.Name = "labelControl8";
-            labelControl8.Size = new System.Drawing.Size(35, 35);
-            labelControl8.TabIndex = 7;
-            // 
-            // labelControl9
-            // 
-            labelControl9.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl9.ImageOptions.Image");
-            labelControl9.Location = new System.Drawing.Point(29, 29);
-            labelControl9.Name = "labelControl9";
-            labelControl9.Size = new System.Drawing.Size(35, 35);
-            labelControl9.TabIndex = 8;
-            // 
-            // labelControl10
-            // 
-            labelControl10.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("labelControl10.ImageOptions.Image");
-            labelControl10.Location = new System.Drawing.Point(30, 29);
-            labelControl10.Name = "labelControl10";
-            labelControl10.Size = new System.Drawing.Size(35, 35);
-            labelControl10.TabIndex = 9;
+            btnCustomerManagement.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnCustomerManagement.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnCustomerManagement.Appearance.Options.UseBackColor = true;
+            btnCustomerManagement.Appearance.Options.UseFont = true;
+            btnCustomerManagement.AppearanceHovered.Options.UseBackColor = true;
+            btnCustomerManagement.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnCustomerManagement.Location = new System.Drawing.Point(5, 241);
+            btnCustomerManagement.Name = "btnCustomerManagement";
+            btnCustomerManagement.Size = new System.Drawing.Size(240, 30);
+            btnCustomerManagement.TabIndex = 15;
+            btnCustomerManagement.Text = "Customers";
+            btnCustomerManagement.Click += btnCustomerManagement_Click;
             // 
             // UC_Dashboard
             // 
@@ -749,5 +766,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl10;
+        private DevExpress.XtraEditors.SimpleButton btnCustomerManagement;
     }
 }
