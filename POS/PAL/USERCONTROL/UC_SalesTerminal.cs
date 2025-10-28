@@ -1,22 +1,50 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.DataAccess.Native.Excel;
+using DevExpress.XtraEditors;
 using POS.BLL;
+using POS.DAL.DataSource;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Printing;
 using System.Windows.Forms;
+using DataView = System.Data.DataView;
 
 namespace POS.PAL.USERCONTROL
 {
     public partial class UC_SalesTerminal : DevExpress.XtraEditors.XtraUserControl
     {
         private readonly BLL_SalesTerminal _bllSalesTerminal = new BLL_SalesTerminal();
-        private DevExpress.XtraEditors.ComboBoxEdit cmbCustomers;
+
+        private DataTable productsTable;
+        private DataTable categoriesTable;
+        private DataTable brandsTable;
+        private DataTable saleTable;
+        private DataTable salesItemsTable;
+        private DataTable customersTable;
+        private DataTable tableNosTable;
 
         public UC_SalesTerminal()
         {
             InitializeComponent();
+
+            DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
+
+            // Initialize global DataTables
+            productsTable = _bllSalesTerminal.GetProducts();
+            categoriesTable = _bllSalesTerminal.GetCategories();
+            brandsTable = _bllSalesTerminal.GetBrands();
+            saleTable = ds.Sale;
+            saleTable.Clear();
+            saleTable.Rows.Add(saleTable.NewRow());
+            salesItemsTable = ds.SaleItem;
+            salesItemsTable.Clear();
+            customersTable = ds.Customer;
+            customersTable.Clear();
+            tableNosTable = ds.Table;
+            tableNosTable.Clear();
+
+            saleTable.RowChanged += SaleTable_RowChanged;
 
             LoadCategories();
             LoadBrands();
@@ -33,8 +61,7 @@ namespace POS.PAL.USERCONTROL
 
         private void FilterProducts(string brandId, string categoryId)
         {
-            DataTable products = _bllSalesTerminal.GetProducts();
-            DataView filteredView = new DataView(products);
+            DataView filteredView = new DataView(productsTable);
 
             string filter = string.Empty;
 
@@ -94,49 +121,84 @@ namespace POS.PAL.USERCONTROL
             {
                 string selectedProduct = button.Tag.ToString();
 
-                // Fetch product details from the dataset
-                DataTable products = _bllSalesTerminal.GetProducts();
-                DataRow[] productRows = products.Select($"product_name = '{selectedProduct}'");
+                // Fetch product details from the global products table
+                DataRow[] productRows = productsTable.Select($"product_name = '{selectedProduct}'");
 
                 if (productRows.Length > 0)
                 {
                     DataRow product = productRows[0];
 
-                    // Add product to the transaction summary grid
-                    DataTable salesItems = gvTransactionSum.GridControl.DataSource as DataTable ?? new DataTable();
-
-                    if (salesItems.Columns.Count == 0)
+                    // Check if the product already exists in the salesItemsTable
+                    DataRow existingRow = null;
+                    foreach (DataRow row in salesItemsTable.Rows)
                     {
-                        salesItems.Columns.Add("product_id", typeof(string));
-                        salesItems.Columns.Add("product_name", typeof(string));
-                        salesItems.Columns.Add("unit_price", typeof(decimal));
-                        salesItems.Columns.Add("quantity", typeof(int));
-                        salesItems.Columns.Add("discount_type", typeof(string));
-                        salesItems.Columns.Add("discount_value", typeof(decimal));
-                        salesItems.Columns.Add("subtotal", typeof(decimal));
+                        if (row["product_id"].ToString() == product["product_id"].ToString())
+                        {
+                            existingRow = row;
+                            break;
+                        }
                     }
 
-                    DataRow newRow = salesItems.NewRow();
-                    newRow["product_id"] = product["product_id"];
-                    newRow["product_name"] = product["product_name"];
-                    newRow["unit_price"] = Convert.ToDecimal(product["selling_price"]);
-                    newRow["quantity"] = 1;
+                    if (existingRow != null)
+                    {
+                        // Increase the quantity of the existing product
+                        int currentQuantity = Convert.ToInt32(existingRow["quantity"]);
+                        existingRow["quantity"] = currentQuantity + 1;
 
-                    // Load discount details from the product
-                    string promotionType = product["promotion_type"]?.ToString() ?? "PERCENTAGE";
-                    decimal discountValue = Convert.ToDecimal(product["discount_value"] ?? 0);
+                        // Recalculate subtotal
+                        decimal price = Convert.ToDecimal(existingRow["unit_price"]);
+                        string promotionType = existingRow["discount_type"].ToString();
+                        decimal discountValue = Convert.ToDecimal(existingRow["discount_value"]);
+                        decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
+                        existingRow["subtotal"] = (price - discountAmount) * Convert.ToInt32(existingRow["quantity"]);
+                    }
+                    else
+                    {
+                        // Add new product to the salesItemsTable
+                        DataRow newRow = salesItemsTable.NewRow();
+                        newRow["product_id"] = product["product_id"];
+                        newRow["product_name"] = product["product_name"];
+                        newRow["unit_price"] = Convert.ToDecimal(product["selling_price"]);
+                        newRow["quantity"] = 1;
 
-                    newRow["discount_type"] = promotionType;
-                    newRow["discount_value"] = discountValue;
+                        // Load discount details from the product
+                        string promotionType = product["promotion_type"]?.ToString() ?? "PERCENTAGE";
+                        decimal discountValue = 0;
+                        if (product["discount_value"] != DBNull.Value && !string.IsNullOrWhiteSpace(product["discount_value"]?.ToString()))
+                        {
+                            discountValue = Convert.ToDecimal(product["discount_value"]);
+                        }
 
-                    // Calculate subtotal
-                    decimal price = Convert.ToDecimal(product["selling_price"]);
-                    decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
-                    newRow["subtotal"] = price - discountAmount;
+                        newRow["discount_type"] = promotionType;
+                        newRow["discount_value"] = discountValue;
 
-                    salesItems.Rows.Add(newRow);
+                        // Calculate subtotal
+                        decimal price = Convert.ToDecimal(product["selling_price"]);
+                        decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
+                        newRow["subtotal"] = price - discountAmount;
 
-                    gvTransactionSum.GridControl.DataSource = salesItems;
+                        salesItemsTable.Rows.Add(newRow);
+                    }
+
+                    // Update total amount and total items
+                    decimal totalAmount = 0;
+                    int totalItems = 0;
+
+                    foreach (DataRow row in salesItemsTable.Rows)
+                    {
+                        totalAmount += Convert.ToDecimal(row["subtotal"]);
+                        totalItems += Convert.ToInt32(row["quantity"]);
+                    }
+
+                    // Update the saleTable with total amount and total items
+                    if (saleTable.Rows.Count > 0)
+                    {
+                        DataRow saleRow = saleTable.Rows[0];
+                        saleRow["total_amount"] = totalAmount.ToString("F2");
+                        saleRow["total_items"] = totalItems.ToString();
+                    }
+
+                    gvTransactionSum.GridControl.DataSource = salesItemsTable;
                 }
             }
         }
@@ -182,6 +244,23 @@ namespace POS.PAL.USERCONTROL
 
                 decimal discountAmount = type == "PERCENTAGE" ? (price * qty * discountValue / 100m) : discountValue;
                 gvTransactionSum.SetRowCellValue(e.RowHandle, "subtotal", price * qty - discountAmount);
+
+                // Update total amount and total items in the saleTable
+                decimal totalAmount = 0;
+                int totalItems = 0;
+
+                foreach (DataRow row in salesItemsTable.Rows)
+                {
+                    totalAmount += Convert.ToDecimal(row["subtotal"]);
+                    totalItems += Convert.ToInt32(row["quantity"]);
+                }
+
+                if (saleTable.Rows.Count > 0)
+                {
+                    DataRow saleRow = saleTable.Rows[0];
+                    saleRow["total_amount"] = totalAmount.ToString("F2");
+                    saleRow["total_items"] = totalItems.ToString();
+                }
             }
         }
 
@@ -199,10 +278,8 @@ namespace POS.PAL.USERCONTROL
 
         private void LoadCategories()
         {
-            DataTable categories = _bllSalesTerminal.GetCategories();
-
             List<(string Id, string Name)> categoryDetails = new List<(string, string)> { ("All Categories", "All Categories") };
-            foreach (DataRow row in categories.Rows)
+            foreach (DataRow row in categoriesTable.Rows)
             {
                 if (row["category_id"] != DBNull.Value && row["category_name"] != DBNull.Value)
                 {
@@ -259,10 +336,8 @@ namespace POS.PAL.USERCONTROL
 
         private void LoadBrands()
         {
-            DataTable brands = _bllSalesTerminal.GetBrands();
-
             List<(string Id, string Name)> brandDetails = new List<(string, string)> { ("All Brands", "All Brands") };
-            foreach (DataRow row in brands.Rows)
+            foreach (DataRow row in brandsTable.Rows)
             {
                 if (row["brand_id"] != DBNull.Value && row["brand_name"] != DBNull.Value)
                 {
@@ -319,10 +394,8 @@ namespace POS.PAL.USERCONTROL
 
         private void LoadProducts()
         {
-            DataTable products = _bllSalesTerminal.GetProducts();
-
             List<(string Name, byte[] Image, string Stock)> productDetails = new List<(string, byte[], string)>();
-            foreach (DataRow row in products.Rows)
+            foreach (DataRow row in productsTable.Rows)
             {
                 string name = row["product_name"]?.ToString();
                 byte[] image = row["image"] as byte[];
@@ -416,6 +489,36 @@ namespace POS.PAL.USERCONTROL
             foreach (DataRow row in TableNos.Rows)
             {
                 cmbTableNo.Properties.Items.Add(row["table_number"]);
+            }
+        }
+
+        private void repositoryItemButtonEdit2_Click(object sender, EventArgs e)
+        {
+            var view = gvTransactionSum;
+            int rowHandle = view.FocusedRowHandle;
+
+            if (rowHandle >= 0)
+            {
+                // Get the data source
+                DataTable salesItems = view.GridControl.DataSource as DataTable;
+
+                if (salesItems != null)
+                {
+                    // Remove the row from the data source
+                    salesItems.Rows.RemoveAt(rowHandle);
+
+                    // Refresh the grid view
+                    view.RefreshData();
+                }
+            }
+        }
+
+        private void SaleTable_RowChanged(object sender, DataRowChangeEventArgs e)
+        {
+            if (e.Row.Table.Columns.Contains("total_amount"))
+            {
+                decimal totalAmount = Convert.ToDecimal(e.Row["total_amount"]);
+                lblTotal.Text = $"{totalAmount:C}";
             }
         }
     }
