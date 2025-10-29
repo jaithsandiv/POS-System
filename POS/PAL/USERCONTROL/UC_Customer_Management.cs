@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace POS.PAL.USERCONTROL
 {
-    public partial class UC_Customer_Registration : DevExpress.XtraEditors.XtraUserControl
+    public partial class UC_Customer_Management : DevExpress.XtraEditors.XtraUserControl
     {
-        public UC_Customer_Registration()
+        public UC_Customer_Management()
         {
             InitializeComponent();
         }
@@ -53,7 +53,7 @@ namespace POS.PAL.USERCONTROL
 
         private void simpleButton2_Click(object sender, EventArgs e)
         {
-
+            Main.Instance.SwitchToControl(new UC_Customer_Registration());
         }
     }
 }

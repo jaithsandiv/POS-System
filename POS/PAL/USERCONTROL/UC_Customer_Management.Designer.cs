@@ -1,6 +1,6 @@
 ﻿namespace POS.PAL.USERCONTROL
 {
-    partial class UC_Customer_Registration
+    partial class UC_Customer_Management
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Customer_Registration));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Customer_Management));
             topPanel1 = new System.Windows.Forms.Panel();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             labelControl5 = new DevExpress.XtraEditors.LabelControl();
