@@ -30,6 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Dashboard));
             sidePanel1 = new DevExpress.XtraEditors.SidePanel();
+            xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
+            panelContactsSubmenu = new DevExpress.XtraEditors.PanelControl();
+            btnCustomerGroups = new DevExpress.XtraEditors.SimpleButton();
+            btnCustomerManagement = new DevExpress.XtraEditors.SimpleButton();
+            panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            dropDownButton1 = new DevExpress.XtraEditors.DropDownButton();
+            btnHome = new DevExpress.XtraEditors.SimpleButton();
             panelControl3 = new DevExpress.XtraEditors.PanelControl();
             lblBusinessName = new DevExpress.XtraEditors.LabelControl();
             topPanel1 = new System.Windows.Forms.Panel();
@@ -80,8 +87,12 @@
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
             chartControl1 = new DevExpress.XtraCharts.ChartControl();
             label3 = new System.Windows.Forms.Label();
-            btnCustomerManagement = new DevExpress.XtraEditors.SimpleButton();
             sidePanel1.SuspendLayout();
+            xtraScrollableControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelContactsSubmenu).BeginInit();
+            panelContactsSubmenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
+            panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
             panelControl3.SuspendLayout();
             topPanel1.SuspendLayout();
@@ -109,7 +120,7 @@
             sidePanel1.Appearance.BackColor = System.Drawing.Color.White;
             sidePanel1.Appearance.Options.UseBackColor = true;
             sidePanel1.BorderThickness = 2;
-            sidePanel1.Controls.Add(btnCustomerManagement);
+            sidePanel1.Controls.Add(xtraScrollableControl1);
             sidePanel1.Controls.Add(panelControl3);
             sidePanel1.Dock = System.Windows.Forms.DockStyle.Left;
             sidePanel1.Location = new System.Drawing.Point(0, 0);
@@ -118,14 +129,102 @@
             sidePanel1.TabIndex = 0;
             sidePanel1.Text = "sidePanel1";
             // 
+            // xtraScrollableControl1
+            // 
+            xtraScrollableControl1.Controls.Add(panelContactsSubmenu);
+            xtraScrollableControl1.Controls.Add(panelControl4);
+            xtraScrollableControl1.Controls.Add(btnHome);
+            xtraScrollableControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            xtraScrollableControl1.Location = new System.Drawing.Point(0, 49);
+            xtraScrollableControl1.Name = "xtraScrollableControl1";
+            xtraScrollableControl1.Size = new System.Drawing.Size(248, 1001);
+            xtraScrollableControl1.TabIndex = 1;
+            // 
+            // panelContactsSubmenu
+            // 
+            panelContactsSubmenu.Controls.Add(btnCustomerGroups);
+            panelContactsSubmenu.Controls.Add(btnCustomerManagement);
+            panelContactsSubmenu.Location = new System.Drawing.Point(4, 124);
+            panelContactsSubmenu.Name = "panelContactsSubmenu";
+            panelContactsSubmenu.Size = new System.Drawing.Size(239, 230);
+            panelContactsSubmenu.TabIndex = 16;
+            panelContactsSubmenu.Visible = false;
+            // 
+            // btnCustomerGroups
+            // 
+            btnCustomerGroups.Appearance.BackColor = System.Drawing.Color.White;
+            btnCustomerGroups.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnCustomerGroups.Appearance.Options.UseBackColor = true;
+            btnCustomerGroups.Appearance.Options.UseFont = true;
+            btnCustomerGroups.AppearanceHovered.Options.UseBackColor = true;
+            btnCustomerGroups.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnCustomerGroups.Location = new System.Drawing.Point(0, 42);
+            btnCustomerGroups.Name = "btnCustomerGroups";
+            btnCustomerGroups.Size = new System.Drawing.Size(239, 39);
+            btnCustomerGroups.TabIndex = 17;
+            btnCustomerGroups.Text = "Customer Groups";
+            btnCustomerGroups.Click += btnCustomerGroups_Click;
+            // 
+            // btnCustomerManagement
+            // 
+            btnCustomerManagement.Appearance.BackColor = System.Drawing.Color.White;
+            btnCustomerManagement.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnCustomerManagement.Appearance.Options.UseBackColor = true;
+            btnCustomerManagement.Appearance.Options.UseFont = true;
+            btnCustomerManagement.AppearanceHovered.Options.UseBackColor = true;
+            btnCustomerManagement.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
+            btnCustomerManagement.Location = new System.Drawing.Point(0, 0);
+            btnCustomerManagement.Name = "btnCustomerManagement";
+            btnCustomerManagement.Size = new System.Drawing.Size(239, 39);
+            btnCustomerManagement.TabIndex = 15;
+            btnCustomerManagement.Text = "Customers";
+            btnCustomerManagement.Click += btnCustomerManagement_Click;
+            // 
+            // panelControl4
+            // 
+            panelControl4.Controls.Add(dropDownButton1);
+            panelControl4.Location = new System.Drawing.Point(4, 73);
+            panelControl4.Name = "panelControl4";
+            panelControl4.Size = new System.Drawing.Size(239, 47);
+            panelControl4.TabIndex = 15;
+            // 
+            // dropDownButton1
+            // 
+            dropDownButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            dropDownButton1.Appearance.Options.UseFont = true;
+            dropDownButton1.DropDownArrowStyle = DevExpress.XtraEditors.DropDownArrowStyle.SplitButton;
+            dropDownButton1.Location = new System.Drawing.Point(0, 0);
+            dropDownButton1.Name = "dropDownButton1";
+            dropDownButton1.Size = new System.Drawing.Size(239, 47);
+            dropDownButton1.TabIndex = 0;
+            dropDownButton1.Text = "Contacts";
+            dropDownButton1.Click += dropDownButton1_Click;
+            // 
+            // btnHome
+            // 
+            btnHome.Appearance.BackColor = System.Drawing.Color.White;
+            btnHome.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnHome.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnHome.Appearance.Options.UseBackColor = true;
+            btnHome.Appearance.Options.UseFont = true;
+            btnHome.Appearance.Options.UseForeColor = true;
+            btnHome.AppearanceHovered.Options.UseBackColor = true;
+            btnHome.Location = new System.Drawing.Point(4, 3);
+            btnHome.Name = "btnHome";
+            btnHome.Size = new System.Drawing.Size(240, 39);
+            btnHome.TabIndex = 14;
+            btnHome.Text = "Home";
+            btnHome.Click += btnHome_Click;
+            // 
             // panelControl3
             // 
             panelControl3.Appearance.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
             panelControl3.Appearance.Options.UseBackColor = true;
             panelControl3.Controls.Add(lblBusinessName);
+            panelControl3.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl3.Location = new System.Drawing.Point(0, 0);
             panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(250, 49);
+            panelControl3.Size = new System.Drawing.Size(248, 49);
             panelControl3.TabIndex = 0;
             // 
             // lblBusinessName
@@ -646,21 +745,6 @@
             label3.TabIndex = 11;
             label3.Text = "Sales Last 30 Days";
             // 
-            // btnCustomerManagement
-            // 
-            btnCustomerManagement.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            btnCustomerManagement.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnCustomerManagement.Appearance.Options.UseBackColor = true;
-            btnCustomerManagement.Appearance.Options.UseFont = true;
-            btnCustomerManagement.AppearanceHovered.Options.UseBackColor = true;
-            btnCustomerManagement.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnCustomerManagement.Location = new System.Drawing.Point(5, 241);
-            btnCustomerManagement.Name = "btnCustomerManagement";
-            btnCustomerManagement.Size = new System.Drawing.Size(240, 30);
-            btnCustomerManagement.TabIndex = 15;
-            btnCustomerManagement.Text = "Customers";
-            btnCustomerManagement.Click += btnCustomerManagement_Click;
-            // 
             // UC_Dashboard
             // 
             Appearance.BackColor = System.Drawing.Color.White;
@@ -677,6 +761,11 @@
             Size = new System.Drawing.Size(1920, 1050);
             Tag = "";
             sidePanel1.ResumeLayout(false);
+            xtraScrollableControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)panelContactsSubmenu).EndInit();
+            panelContactsSubmenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
+            panelControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
             panelControl3.ResumeLayout(false);
             panelControl3.PerformLayout();
@@ -767,5 +856,11 @@
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl10;
         private DevExpress.XtraEditors.SimpleButton btnCustomerManagement;
+        private DevExpress.XtraEditors.SimpleButton btnCustomerGroups;
+        private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
+        private DevExpress.XtraEditors.SimpleButton btnHome;
+        private DevExpress.XtraEditors.PanelControl panelContactsSubmenu;
+        private DevExpress.XtraEditors.PanelControl panelControl4;
+        private DevExpress.XtraEditors.DropDownButton dropDownButton1;
     }
 }

@@ -27,5 +27,20 @@ namespace POS.PAL.USERCONTROL
         {
             Main.Instance.SwitchToControl(new UC_Customer_Management());
         }
+
+        private void btnCustomerGroups_Click(object sender, EventArgs e)
+        {
+            Main.Instance.SwitchToControl(new UC_CustomerGroup_Management());
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            Main.Instance.SwitchToControl(new UC_Dashboard());
+        }
+
+        private void dropDownButton1_Click(object sender, EventArgs e)
+        {
+            panelContactsSubmenu.Visible = !panelContactsSubmenu.Visible;
+        }
     }
 }
