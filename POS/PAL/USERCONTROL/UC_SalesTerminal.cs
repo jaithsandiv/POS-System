@@ -51,6 +51,7 @@ namespace POS.PAL.USERCONTROL
             LoadProducts();
 
             LoadCustomers();
+            CheckKotEnabled();
             LoadTableNos();
         }
 
@@ -459,11 +460,11 @@ namespace POS.PAL.USERCONTROL
             bool isKotEnabled = _bllSalesTerminal.IsKotEnabled();
             if (isKotEnabled)
             {
-                MessageBox.Show("KOT is enabled.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                pnlKOT.Visible = true;
             }
             else
             {
-                MessageBox.Show("KOT is disabled.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                pnlKOT.Visible = false;
             }
         }
 
