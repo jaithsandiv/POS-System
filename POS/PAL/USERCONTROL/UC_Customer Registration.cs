@@ -11,19 +11,14 @@ using System.Windows.Forms;
 
 namespace POS.PAL.USERCONTROL
 {
-    public partial class UC_Dashboard : DevExpress.XtraEditors.XtraUserControl
+    public partial class UC_Customer_Registration : DevExpress.XtraEditors.XtraUserControl
     {
-        public UC_Dashboard()
+        public UC_Customer_Registration()
         {
             InitializeComponent();
         }
 
-        private void btnPOS_Click(object sender, EventArgs e)
-        {
-            Main.Instance.SwitchToControl(new UC_SalesTerminal());
-        }
-
-        private void btnCustomerManagement_Click(object sender, EventArgs e)
+        private void backBtn2_Click(object sender, EventArgs e)
         {
             Main.Instance.SwitchToControl(new UC_Customer_Management());
         }
