@@ -23,6 +23,7 @@ namespace POS.PAL.USERCONTROL
         private DataTable salesItemsTable;
         private DataTable customersTable;
         private DataTable tableNosTable;
+        private DataTable staffPinTable;
 
         public UC_SalesTerminal()
         {
@@ -34,6 +35,7 @@ namespace POS.PAL.USERCONTROL
             productsTable = _bllSalesTerminal.GetProducts();
             categoriesTable = _bllSalesTerminal.GetCategories();
             brandsTable = _bllSalesTerminal.GetBrands();
+            staffPinTable = _bllSalesTerminal.GetStaffPin();
             saleTable = ds.Sale;
             saleTable.Clear();
             saleTable.Rows.Add(saleTable.NewRow());
@@ -539,6 +541,43 @@ namespace POS.PAL.USERCONTROL
             btnDineIn.Appearance.ForeColor = Color.White;
             btnTakeAway.Appearance.BackColor = Color.White;
             btnTakeAway.Appearance.ForeColor = Color.Black;
+        }
+
+        private void SetDiscountFieldsEditable(bool isEditable)
+        {
+            // Product discount in grid (discount_value column)
+            gvTransactionSum.Columns["discount_value"].OptionsColumn.AllowEdit = isEditable;
+            gvTransactionSum.Columns["discount_value"].OptionsColumn.AllowFocus = isEditable;
+
+            // Sale discount field (txtDiscount)sat
+            if (txtDiscount != null)
+            {
+                txtDiscount.Properties.ReadOnly = !isEditable;
+            }
+        }
+
+        private void txtStaffPin_EditValueChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtStaffPin.Text))
+            {
+                SetDiscountFieldsEditable(false);
+                return;
+            }
+
+            string enteredPin = txtStaffPin.Text.Trim();
+
+            // Search for the PIN in the staffPinTable
+            DataRow[] matchingRows = staffPinTable.Select($"pin_code = '{enteredPin}'");
+
+            if (matchingRows.Length > 0)
+            {
+                // PIN found - Enable discount editing
+                SetDiscountFieldsEditable(true);
+            }
+            else
+            {
+                SetDiscountFieldsEditable(false);
+            }
         }
     }
 }

@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             topPanel1 = new System.Windows.Forms.Panel();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             labelControl5 = new DevExpress.XtraEditors.LabelControl();
@@ -76,14 +76,6 @@
             panelControl8 = new DevExpress.XtraEditors.PanelControl();
             separatorControl6 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl11 = new DevExpress.XtraEditors.PanelControl();
-            pnlPMTransfer = new System.Windows.Forms.Panel();
-            simpleButton14 = new DevExpress.XtraEditors.SimpleButton();
-            textEdit7 = new DevExpress.XtraEditors.TextEdit();
-            labelControl27 = new DevExpress.XtraEditors.LabelControl();
-            pnlPMCard = new System.Windows.Forms.Panel();
-            simpleButton13 = new DevExpress.XtraEditors.SimpleButton();
-            textEdit6 = new DevExpress.XtraEditors.TextEdit();
-            labelControl29 = new DevExpress.XtraEditors.LabelControl();
             pnlPMCash = new System.Windows.Forms.Panel();
             simpleButton12 = new DevExpress.XtraEditors.SimpleButton();
             labelControl25 = new DevExpress.XtraEditors.LabelControl();
@@ -112,12 +104,12 @@
             panelControl10 = new DevExpress.XtraEditors.PanelControl();
             separatorControl8 = new DevExpress.XtraEditors.SeparatorControl();
             panel1 = new System.Windows.Forms.Panel();
-            textEdit8 = new DevExpress.XtraEditors.TextEdit();
+            txtGrandTotal = new DevExpress.XtraEditors.TextEdit();
             labelControl20 = new DevExpress.XtraEditors.LabelControl();
             labelControl22 = new DevExpress.XtraEditors.LabelControl();
             simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
             panel2 = new System.Windows.Forms.Panel();
-            buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
+            txtDiscount = new DevExpress.XtraEditors.ButtonEdit();
             txtTotal = new DevExpress.XtraEditors.TextEdit();
             labelControl21 = new DevExpress.XtraEditors.LabelControl();
             labelControl18 = new DevExpress.XtraEditors.LabelControl();
@@ -126,7 +118,7 @@
             separatorControl2 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl4 = new DevExpress.XtraEditors.PanelControl();
             labelControl11 = new DevExpress.XtraEditors.LabelControl();
-            textEdit3 = new DevExpress.XtraEditors.TextEdit();
+            txtStaffPin = new DevExpress.XtraEditors.TextEdit();
             separatorControl5 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl9 = new DevExpress.XtraEditors.PanelControl();
             cmbCustomer = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -153,10 +145,6 @@
             ((System.ComponentModel.ISupportInitialize)separatorControl6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl11).BeginInit();
             panelControl11.SuspendLayout();
-            pnlPMTransfer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit7.Properties).BeginInit();
-            pnlPMCard.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit6.Properties).BeginInit();
             pnlPMCash.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)textEdit5.Properties).BeginInit();
             panel3.SuspendLayout();
@@ -173,14 +161,14 @@
             panelControl10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl8).BeginInit();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit8.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtGrandTotal.Properties).BeginInit();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)buttonEdit1.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtDiscount.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtTotal.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
             panelControl4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit3.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtStaffPin.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl9).BeginInit();
             panelControl9.SuspendLayout();
@@ -569,6 +557,8 @@
             gridColumn6.ColumnEdit = repositoryItemButtonEdit1;
             gridColumn6.FieldName = "discount_value";
             gridColumn6.Name = "gridColumn6";
+            gridColumn6.OptionsColumn.AllowEdit = false;
+            gridColumn6.OptionsColumn.AllowFocus = false;
             gridColumn6.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.False;
             gridColumn6.OptionsColumn.AllowIncrementalSearch = false;
             gridColumn6.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
@@ -586,7 +576,7 @@
             repositoryItemButtonEdit1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             repositoryItemButtonEdit1.Appearance.Options.UseFont = true;
             repositoryItemButtonEdit1.AutoHeight = false;
-            repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
             repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
@@ -652,16 +642,15 @@
             // 
             separatorControl6.AutoSizeMode = true;
             separatorControl6.Dock = System.Windows.Forms.DockStyle.Top;
-            separatorControl6.Location = new System.Drawing.Point(0, 1037);
+            separatorControl6.Location = new System.Drawing.Point(0, 889);
             separatorControl6.Name = "separatorControl6";
             separatorControl6.Size = new System.Drawing.Size(369, 19);
             separatorControl6.TabIndex = 4;
             // 
             // panelControl11
             // 
+            panelControl11.AutoSize = true;
             panelControl11.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl11.Controls.Add(pnlPMTransfer);
-            panelControl11.Controls.Add(pnlPMCard);
             panelControl11.Controls.Add(pnlPMCash);
             panelControl11.Controls.Add(panel3);
             panelControl11.Controls.Add(simpleButton8);
@@ -670,100 +659,8 @@
             panelControl11.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl11.Location = new System.Drawing.Point(0, 654);
             panelControl11.Name = "panelControl11";
-            panelControl11.Size = new System.Drawing.Size(369, 383);
+            panelControl11.Size = new System.Drawing.Size(369, 235);
             panelControl11.TabIndex = 5;
-            // 
-            // pnlPMTransfer
-            // 
-            pnlPMTransfer.BackColor = System.Drawing.Color.White;
-            pnlPMTransfer.Controls.Add(simpleButton14);
-            pnlPMTransfer.Controls.Add(textEdit7);
-            pnlPMTransfer.Controls.Add(labelControl27);
-            pnlPMTransfer.Dock = System.Windows.Forms.DockStyle.Top;
-            pnlPMTransfer.Location = new System.Drawing.Point(0, 282);
-            pnlPMTransfer.Name = "pnlPMTransfer";
-            pnlPMTransfer.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            pnlPMTransfer.Size = new System.Drawing.Size(369, 86);
-            pnlPMTransfer.TabIndex = 48;
-            // 
-            // simpleButton14
-            // 
-            simpleButton14.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            simpleButton14.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton14.Appearance.Options.UseBackColor = true;
-            simpleButton14.Appearance.Options.UseFont = true;
-            simpleButton14.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton14.Location = new System.Drawing.Point(1781, 9);
-            simpleButton14.Name = "simpleButton14";
-            simpleButton14.Size = new System.Drawing.Size(120, 30);
-            simpleButton14.TabIndex = 2;
-            simpleButton14.Text = "Dashboard";
-            // 
-            // textEdit7
-            // 
-            textEdit7.Location = new System.Drawing.Point(3, 34);
-            textEdit7.Name = "textEdit7";
-            textEdit7.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            textEdit7.Properties.Appearance.Options.UseFont = true;
-            textEdit7.Properties.Padding = new System.Windows.Forms.Padding(10);
-            textEdit7.Size = new System.Drawing.Size(362, 44);
-            textEdit7.TabIndex = 31;
-            // 
-            // labelControl27
-            // 
-            labelControl27.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl27.Appearance.Options.UseFont = true;
-            labelControl27.Location = new System.Drawing.Point(3, 11);
-            labelControl27.Name = "labelControl27";
-            labelControl27.Size = new System.Drawing.Size(115, 17);
-            labelControl27.TabIndex = 39;
-            labelControl27.Text = "Transfer Reference:";
-            // 
-            // pnlPMCard
-            // 
-            pnlPMCard.BackColor = System.Drawing.Color.White;
-            pnlPMCard.Controls.Add(simpleButton13);
-            pnlPMCard.Controls.Add(textEdit6);
-            pnlPMCard.Controls.Add(labelControl29);
-            pnlPMCard.Dock = System.Windows.Forms.DockStyle.Top;
-            pnlPMCard.Location = new System.Drawing.Point(0, 196);
-            pnlPMCard.Name = "pnlPMCard";
-            pnlPMCard.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            pnlPMCard.Size = new System.Drawing.Size(369, 86);
-            pnlPMCard.TabIndex = 47;
-            // 
-            // simpleButton13
-            // 
-            simpleButton13.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            simpleButton13.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton13.Appearance.Options.UseBackColor = true;
-            simpleButton13.Appearance.Options.UseFont = true;
-            simpleButton13.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton13.Location = new System.Drawing.Point(1781, 9);
-            simpleButton13.Name = "simpleButton13";
-            simpleButton13.Size = new System.Drawing.Size(120, 30);
-            simpleButton13.TabIndex = 2;
-            simpleButton13.Text = "Dashboard";
-            // 
-            // textEdit6
-            // 
-            textEdit6.Location = new System.Drawing.Point(3, 34);
-            textEdit6.Name = "textEdit6";
-            textEdit6.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            textEdit6.Properties.Appearance.Options.UseFont = true;
-            textEdit6.Properties.Padding = new System.Windows.Forms.Padding(10);
-            textEdit6.Size = new System.Drawing.Size(362, 44);
-            textEdit6.TabIndex = 31;
-            // 
-            // labelControl29
-            // 
-            labelControl29.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl29.Appearance.Options.UseFont = true;
-            labelControl29.Location = new System.Drawing.Point(3, 11);
-            labelControl29.Name = "labelControl29";
-            labelControl29.Size = new System.Drawing.Size(85, 17);
-            labelControl29.TabIndex = 39;
-            labelControl29.Text = "Card Number:";
             // 
             // pnlPMCash
             // 
@@ -891,7 +788,7 @@
             // 
             // simpleButton2
             // 
-            simpleButton2.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton2.Appearance.BackColor = System.Drawing.Color.White;
             simpleButton2.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             simpleButton2.Appearance.Options.UseBackColor = true;
             simpleButton2.Appearance.Options.UseFont = true;
@@ -903,7 +800,7 @@
             // 
             // simpleButton3
             // 
-            simpleButton3.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton3.Appearance.BackColor = System.Drawing.Color.White;
             simpleButton3.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             simpleButton3.Appearance.Options.UseBackColor = true;
             simpleButton3.Appearance.Options.UseFont = true;
@@ -921,7 +818,7 @@
             simpleButton8.Appearance.Options.UseBackColor = true;
             simpleButton8.Appearance.Options.UseFont = true;
             simpleButton8.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton8.Location = new System.Drawing.Point(247, 347);
+            simpleButton8.Location = new System.Drawing.Point(247, 202);
             simpleButton8.Name = "simpleButton8";
             simpleButton8.Size = new System.Drawing.Size(118, 30);
             simpleButton8.TabIndex = 42;
@@ -933,7 +830,7 @@
             simpleButton9.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             simpleButton9.Appearance.Options.UseBackColor = true;
             simpleButton9.Appearance.Options.UseFont = true;
-            simpleButton9.Location = new System.Drawing.Point(131, 347);
+            simpleButton9.Location = new System.Drawing.Point(131, 202);
             simpleButton9.Name = "simpleButton9";
             simpleButton9.Size = new System.Drawing.Size(110, 30);
             simpleButton9.TabIndex = 41;
@@ -946,7 +843,7 @@
             simpleButton10.Appearance.Options.UseBackColor = true;
             simpleButton10.Appearance.Options.UseFont = true;
             simpleButton10.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton10.Location = new System.Drawing.Point(3, 347);
+            simpleButton10.Location = new System.Drawing.Point(3, 202);
             simpleButton10.Name = "simpleButton10";
             simpleButton10.Size = new System.Drawing.Size(122, 30);
             simpleButton10.TabIndex = 40;
@@ -1090,7 +987,7 @@
             // panel1
             // 
             panel1.BackColor = System.Drawing.Color.White;
-            panel1.Controls.Add(textEdit8);
+            panel1.Controls.Add(txtGrandTotal);
             panel1.Controls.Add(labelControl20);
             panel1.Controls.Add(labelControl22);
             panel1.Controls.Add(simpleButton4);
@@ -1099,17 +996,18 @@
             panel1.Size = new System.Drawing.Size(369, 58);
             panel1.TabIndex = 36;
             // 
-            // textEdit8
+            // txtGrandTotal
             // 
-            textEdit8.Location = new System.Drawing.Point(250, 7);
-            textEdit8.Name = "textEdit8";
-            textEdit8.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            textEdit8.Properties.Appearance.Options.UseFont = true;
-            textEdit8.Properties.Appearance.Options.UseTextOptions = true;
-            textEdit8.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            textEdit8.Properties.Padding = new System.Windows.Forms.Padding(10);
-            textEdit8.Size = new System.Drawing.Size(115, 44);
-            textEdit8.TabIndex = 40;
+            txtGrandTotal.Location = new System.Drawing.Point(250, 7);
+            txtGrandTotal.Name = "txtGrandTotal";
+            txtGrandTotal.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtGrandTotal.Properties.Appearance.Options.UseFont = true;
+            txtGrandTotal.Properties.Appearance.Options.UseTextOptions = true;
+            txtGrandTotal.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            txtGrandTotal.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtGrandTotal.Properties.ReadOnly = true;
+            txtGrandTotal.Size = new System.Drawing.Size(115, 44);
+            txtGrandTotal.TabIndex = 40;
             // 
             // labelControl20
             // 
@@ -1151,7 +1049,7 @@
             // panel2
             // 
             panel2.BackColor = System.Drawing.Color.White;
-            panel2.Controls.Add(buttonEdit1);
+            panel2.Controls.Add(txtDiscount);
             panel2.Controls.Add(txtTotal);
             panel2.Controls.Add(labelControl21);
             panel2.Controls.Add(labelControl18);
@@ -1162,18 +1060,19 @@
             panel2.Size = new System.Drawing.Size(369, 98);
             panel2.TabIndex = 37;
             // 
-            // buttonEdit1
+            // txtDiscount
             // 
-            buttonEdit1.Location = new System.Drawing.Point(250, 51);
-            buttonEdit1.Name = "buttonEdit1";
-            buttonEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            buttonEdit1.Properties.Appearance.Options.UseFont = true;
-            buttonEdit1.Properties.Appearance.Options.UseTextOptions = true;
-            buttonEdit1.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
-            buttonEdit1.Properties.Padding = new System.Windows.Forms.Padding(10);
-            buttonEdit1.Size = new System.Drawing.Size(115, 44);
-            buttonEdit1.TabIndex = 38;
+            txtDiscount.Location = new System.Drawing.Point(250, 51);
+            txtDiscount.Name = "txtDiscount";
+            txtDiscount.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtDiscount.Properties.Appearance.Options.UseFont = true;
+            txtDiscount.Properties.Appearance.Options.UseTextOptions = true;
+            txtDiscount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            txtDiscount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            txtDiscount.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtDiscount.Properties.ReadOnly = true;
+            txtDiscount.Size = new System.Drawing.Size(115, 44);
+            txtDiscount.TabIndex = 38;
             // 
             // txtTotal
             // 
@@ -1184,6 +1083,7 @@
             txtTotal.Properties.Appearance.Options.UseTextOptions = true;
             txtTotal.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             txtTotal.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtTotal.Properties.ReadOnly = true;
             txtTotal.Size = new System.Drawing.Size(115, 44);
             txtTotal.TabIndex = 39;
             // 
@@ -1249,7 +1149,7 @@
             // 
             panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl4.Controls.Add(labelControl11);
-            panelControl4.Controls.Add(textEdit3);
+            panelControl4.Controls.Add(txtStaffPin);
             panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl4.Location = new System.Drawing.Point(0, 121);
             panelControl4.Name = "panelControl4";
@@ -1267,15 +1167,17 @@
             labelControl11.TabIndex = 35;
             labelControl11.Text = "Staff PIN";
             // 
-            // textEdit3
+            // txtStaffPin
             // 
-            textEdit3.Location = new System.Drawing.Point(3, 53);
-            textEdit3.Name = "textEdit3";
-            textEdit3.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            textEdit3.Properties.Appearance.Options.UseFont = true;
-            textEdit3.Properties.Padding = new System.Windows.Forms.Padding(10);
-            textEdit3.Size = new System.Drawing.Size(362, 44);
-            textEdit3.TabIndex = 31;
+            txtStaffPin.Location = new System.Drawing.Point(3, 53);
+            txtStaffPin.Name = "txtStaffPin";
+            txtStaffPin.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtStaffPin.Properties.Appearance.Options.UseFont = true;
+            txtStaffPin.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtStaffPin.Properties.PasswordChar = '*';
+            txtStaffPin.Size = new System.Drawing.Size(362, 44);
+            txtStaffPin.TabIndex = 31;
+            txtStaffPin.EditValueChanged += txtStaffPin_EditValueChanged;
             // 
             // separatorControl5
             // 
@@ -1372,12 +1274,6 @@
             ((System.ComponentModel.ISupportInitialize)separatorControl6).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl11).EndInit();
             panelControl11.ResumeLayout(false);
-            pnlPMTransfer.ResumeLayout(false);
-            pnlPMTransfer.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit7.Properties).EndInit();
-            pnlPMCard.ResumeLayout(false);
-            pnlPMCard.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit6.Properties).EndInit();
             pnlPMCash.ResumeLayout(false);
             pnlPMCash.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)textEdit5.Properties).EndInit();
@@ -1401,16 +1297,16 @@
             ((System.ComponentModel.ISupportInitialize)separatorControl8).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit8.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtGrandTotal.Properties).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)buttonEdit1.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtDiscount.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtTotal.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl2).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
             panelControl4.ResumeLayout(false);
             panelControl4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit3.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtStaffPin.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl5).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl9).EndInit();
             panelControl9.ResumeLayout(false);
@@ -1468,7 +1364,7 @@
         private DevExpress.XtraEditors.SeparatorControl separatorControl2;
         private DevExpress.XtraEditors.PanelControl panelControl4;
         private DevExpress.XtraEditors.LabelControl labelControl11;
-        private DevExpress.XtraEditors.TextEdit textEdit3;
+        private DevExpress.XtraEditors.TextEdit txtStaffPin;
         private DevExpress.XtraEditors.SimpleButton simpleButton3;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
@@ -1487,7 +1383,6 @@
         private DevExpress.XtraEditors.SimpleButton simpleButton7;
         private DevExpress.XtraEditors.LabelControl labelControl21;
         private DevExpress.XtraEditors.PanelControl pnlKOTTableNo;
-        private DevExpress.XtraEditors.TextEdit textEdit4;
         private DevExpress.XtraEditors.LabelControl labelControl23;
         private DevExpress.XtraEditors.SimpleButton simpleButton8;
         private DevExpress.XtraEditors.SimpleButton simpleButton9;
@@ -1497,14 +1392,6 @@
         private DevExpress.XtraEditors.SimpleButton simpleButton11;
         private DevExpress.XtraEditors.LabelControl labelControl25;
         private DevExpress.XtraEditors.LabelControl labelControl26;
-        private System.Windows.Forms.Panel pnlPMTransfer;
-        private DevExpress.XtraEditors.SimpleButton simpleButton14;
-        private DevExpress.XtraEditors.TextEdit textEdit7;
-        private DevExpress.XtraEditors.LabelControl labelControl27;
-        private System.Windows.Forms.Panel pnlPMCard;
-        private DevExpress.XtraEditors.SimpleButton simpleButton13;
-        private DevExpress.XtraEditors.TextEdit textEdit6;
-        private DevExpress.XtraEditors.LabelControl labelControl29;
         private System.Windows.Forms.Panel pnlPMCash;
         private DevExpress.XtraEditors.SimpleButton simpleButton12;
         private DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit repositoryItemSpinEdit1;
@@ -1514,9 +1401,9 @@
         private DevExpress.XtraEditors.ComboBoxEdit cmbCustomer;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
         private DevExpress.XtraEditors.ComboBoxEdit cmbTableNo;
-        private DevExpress.XtraEditors.ButtonEdit buttonEdit1;
+        private DevExpress.XtraEditors.ButtonEdit txtDiscount;
         private DevExpress.XtraEditors.TextEdit txtTotal;
-        private DevExpress.XtraEditors.TextEdit textEdit8;
+        private DevExpress.XtraEditors.TextEdit txtGrandTotal;
         private DevExpress.XtraEditors.SeparatorControl separatorControl8;
     }
 }
