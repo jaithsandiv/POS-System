@@ -519,8 +519,26 @@ namespace POS.PAL.USERCONTROL
             if (e.Row.Table.Columns.Contains("total_amount"))
             {
                 decimal totalAmount = Convert.ToDecimal(e.Row["total_amount"]);
-                lblTotal.Text = $"{totalAmount:C}";
+                txtTotal.Text = $"{totalAmount:C}";
             }
+        }
+
+        private void btnTakeAway_Click(object sender, EventArgs e)
+        {
+            pnlKOTTableNo.Visible = false;
+            btnTakeAway.Appearance.BackColor = Color.FromArgb(4, 181, 152);
+            btnTakeAway.Appearance.ForeColor = Color.White;
+            btnDineIn.Appearance.BackColor = Color.White;
+            btnDineIn.Appearance.ForeColor = Color.Black;
+        }
+
+        private void btnDineIn_Click(object sender, EventArgs e)
+        {
+            pnlKOTTableNo.Visible = true;
+            btnDineIn.Appearance.BackColor = Color.FromArgb(4, 181, 152);
+            btnDineIn.Appearance.ForeColor = Color.White;
+            btnTakeAway.Appearance.BackColor = Color.White;
+            btnTakeAway.Appearance.ForeColor = Color.Black;
         }
     }
 }
