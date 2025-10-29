@@ -28,16 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             topPanel1 = new System.Windows.Forms.Panel();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             labelControl5 = new DevExpress.XtraEditors.LabelControl();
@@ -72,8 +67,6 @@
             repositoryItemButtonEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
-            repositoryItemButtonEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             separatorControl3 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl8 = new DevExpress.XtraEditors.PanelControl();
             separatorControl6 = new DevExpress.XtraEditors.SeparatorControl();
@@ -147,7 +140,6 @@
             ((System.ComponentModel.ISupportInitialize)gvTransactionSum).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemSpinEdit1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl8).BeginInit();
             panelControl8.SuspendLayout();
@@ -446,7 +438,7 @@
             gcTransactionSum.Location = new System.Drawing.Point(3, 53);
             gcTransactionSum.MainView = gvTransactionSum;
             gcTransactionSum.Name = "gcTransactionSum";
-            gcTransactionSum.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemSpinEdit1, repositoryItemButtonEdit1, repositoryItemButtonEdit2 });
+            gcTransactionSum.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemSpinEdit1, repositoryItemButtonEdit1 });
             gcTransactionSum.Size = new System.Drawing.Size(743, 945);
             gcTransactionSum.TabIndex = 0;
             gcTransactionSum.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gvTransactionSum });
@@ -461,13 +453,14 @@
             gvTransactionSum.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             gvTransactionSum.Appearance.Row.Options.UseFont = true;
             gvTransactionSum.ColumnPanelRowHeight = 44;
-            gvTransactionSum.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1, gridColumn2, gridColumn3, gridColumn4, gridColumn5, gridColumn6, gridColumn9, gridColumn7, gridColumn8 });
+            gvTransactionSum.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1, gridColumn2, gridColumn3, gridColumn4, gridColumn5, gridColumn6, gridColumn9, gridColumn7 });
             gvTransactionSum.GridControl = gcTransactionSum;
             gvTransactionSum.Name = "gvTransactionSum";
             gvTransactionSum.OptionsCustomization.AllowFilter = false;
             gvTransactionSum.OptionsCustomization.AllowGroup = false;
             gvTransactionSum.OptionsLayout.Columns.StoreLayout = false;
-            gvTransactionSum.OptionsView.EnableAppearanceOddRow = true;
+            gvTransactionSum.OptionsSelection.EnableAppearanceFocusedCell = false;
+            gvTransactionSum.OptionsSelection.EnableAppearanceFocusedRow = false;
             gvTransactionSum.OptionsView.ShowGroupPanel = false;
             gvTransactionSum.OptionsView.ShowIndicator = false;
             gvTransactionSum.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
@@ -509,19 +502,42 @@
             // 
             // gridColumn4
             // 
+            gridColumn4.AppearanceCell.Options.UseTextOptions = true;
+            gridColumn4.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             gridColumn4.Caption = "Unit Price";
             gridColumn4.FieldName = "unit_price";
             gridColumn4.Name = "gridColumn4";
+            gridColumn4.OptionsColumn.AllowEdit = false;
+            gridColumn4.OptionsColumn.AllowFocus = false;
+            gridColumn4.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn4.OptionsColumn.AllowIncrementalSearch = false;
+            gridColumn4.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn4.OptionsColumn.AllowMove = false;
+            gridColumn4.OptionsColumn.AllowShowHide = false;
+            gridColumn4.OptionsColumn.AllowSize = false;
+            gridColumn4.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn4.OptionsColumn.FixedWidth = true;
+            gridColumn4.OptionsColumn.ReadOnly = true;
             gridColumn4.Visible = true;
             gridColumn4.VisibleIndex = 1;
             gridColumn4.Width = 103;
             // 
             // gridColumn5
             // 
+            gridColumn5.AppearanceCell.Options.UseTextOptions = true;
+            gridColumn5.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             gridColumn5.Caption = "Quantity";
             gridColumn5.ColumnEdit = repositoryItemSpinEdit1;
             gridColumn5.FieldName = "quantity";
             gridColumn5.Name = "gridColumn5";
+            gridColumn5.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn5.OptionsColumn.AllowIncrementalSearch = false;
+            gridColumn5.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn5.OptionsColumn.AllowMove = false;
+            gridColumn5.OptionsColumn.AllowShowHide = false;
+            gridColumn5.OptionsColumn.AllowSize = false;
+            gridColumn5.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn5.OptionsColumn.FixedWidth = true;
             gridColumn5.Visible = true;
             gridColumn5.VisibleIndex = 2;
             gridColumn5.Width = 101;
@@ -536,10 +552,20 @@
             // 
             // gridColumn6
             // 
+            gridColumn6.AppearanceCell.Options.UseTextOptions = true;
+            gridColumn6.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             gridColumn6.Caption = "Discount";
             gridColumn6.ColumnEdit = repositoryItemButtonEdit1;
             gridColumn6.FieldName = "discount_value";
             gridColumn6.Name = "gridColumn6";
+            gridColumn6.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn6.OptionsColumn.AllowIncrementalSearch = false;
+            gridColumn6.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn6.OptionsColumn.AllowMove = false;
+            gridColumn6.OptionsColumn.AllowShowHide = false;
+            gridColumn6.OptionsColumn.AllowSize = false;
+            gridColumn6.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn6.OptionsColumn.FixedWidth = true;
             gridColumn6.Visible = true;
             gridColumn6.VisibleIndex = 3;
             gridColumn6.Width = 80;
@@ -549,7 +575,7 @@
             repositoryItemButtonEdit1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             repositoryItemButtonEdit1.Appearance.Options.UseFont = true;
             repositoryItemButtonEdit1.AutoHeight = false;
-            repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
             repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
@@ -563,29 +589,24 @@
             // 
             // gridColumn7
             // 
+            gridColumn7.AppearanceCell.Options.UseTextOptions = true;
+            gridColumn7.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             gridColumn7.Caption = "Sub Total";
+            gridColumn7.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             gridColumn7.FieldName = "subtotal";
             gridColumn7.Name = "gridColumn7";
+            gridColumn7.OptionsColumn.AllowEdit = false;
+            gridColumn7.OptionsColumn.AllowFocus = false;
+            gridColumn7.OptionsColumn.AllowMerge = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn7.OptionsColumn.AllowMove = false;
+            gridColumn7.OptionsColumn.AllowShowHide = false;
+            gridColumn7.OptionsColumn.AllowSize = false;
+            gridColumn7.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            gridColumn7.OptionsColumn.FixedWidth = true;
+            gridColumn7.OptionsColumn.ReadOnly = true;
             gridColumn7.Visible = true;
             gridColumn7.VisibleIndex = 4;
             gridColumn7.Width = 108;
-            // 
-            // gridColumn8
-            // 
-            gridColumn8.Caption = "Action";
-            gridColumn8.ColumnEdit = repositoryItemButtonEdit2;
-            gridColumn8.FieldName = "action";
-            gridColumn8.Name = "gridColumn8";
-            gridColumn8.Visible = true;
-            gridColumn8.VisibleIndex = 5;
-            gridColumn8.Width = 66;
-            // 
-            // repositoryItemButtonEdit2
-            // 
-            repositoryItemButtonEdit2.AutoHeight = false;
-            repositoryItemButtonEdit2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "...", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
-            repositoryItemButtonEdit2.Name = "repositoryItemButtonEdit2";
-            repositoryItemButtonEdit2.Click += repositoryItemButtonEdit2_Click;
             // 
             // separatorControl3
             // 
@@ -1306,7 +1327,6 @@
             ((System.ComponentModel.ISupportInitialize)gvTransactionSum).EndInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemSpinEdit1).EndInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit2).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl3).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl8).EndInit();
             panelControl8.ResumeLayout(false);
@@ -1416,7 +1436,6 @@
         private DevExpress.XtraEditors.SimpleButton simpleButton5;
         private DevExpress.XtraEditors.SimpleButton simpleButton6;
         private DevExpress.XtraEditors.LabelControl labelControl15;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
         private System.Windows.Forms.Panel panel1;
         private DevExpress.XtraEditors.LabelControl labelControl20;
         private DevExpress.XtraEditors.LabelControl labelControl22;
@@ -1455,6 +1474,5 @@
         private DevExpress.XtraEditors.ComboBoxEdit cmbCustomer;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
         private DevExpress.XtraEditors.ComboBoxEdit cmbTableNo;
-        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit2;
     }
 }
