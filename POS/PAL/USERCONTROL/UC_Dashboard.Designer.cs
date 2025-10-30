@@ -69,7 +69,6 @@
             labelControl5 = new DevExpress.XtraEditors.LabelControl();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             topPanel1 = new System.Windows.Forms.Panel();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             label1 = new System.Windows.Forms.Label();
             totalSalesPanel = new System.Windows.Forms.Panel();
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -715,7 +714,6 @@
             // topPanel1
             // 
             topPanel1.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
-            topPanel1.Controls.Add(simpleButton1);
             topPanel1.Controls.Add(labelControl6);
             topPanel1.Controls.Add(labelControl5);
             topPanel1.Controls.Add(btnPOS);
@@ -724,20 +722,6 @@
             topPanel1.Name = "topPanel1";
             topPanel1.Size = new System.Drawing.Size(1671, 49);
             topPanel1.TabIndex = 1;
-            // 
-            // simpleButton1
-            // 
-            simpleButton1.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton1.Appearance.Options.UseBackColor = true;
-            simpleButton1.Appearance.Options.UseFont = true;
-            simpleButton1.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton1.Location = new System.Drawing.Point(154, 9);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.Size = new System.Drawing.Size(48, 30);
-            simpleButton1.TabIndex = 15;
-            simpleButton1.Text = "POS";
             // 
             // label1
             // 
@@ -1126,7 +1110,7 @@
             // 
             // chartControl1
             // 
-            chartControl1.Location = new System.Drawing.Point(16, 57);
+            chartControl1.Location = new System.Drawing.Point(35, 40);
             chartControl1.Name = "chartControl1";
             chartControl1.Size = new System.Drawing.Size(1590, 287);
             chartControl1.TabIndex = 12;
@@ -1323,7 +1307,6 @@
         private System.Windows.Forms.Panel panel9;
         private DevExpress.XtraEditors.PanelControl panelProductsHeader;
         private DevExpress.XtraEditors.SimpleButton btnProducts;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.PanelControl panelProductsSubmenu;
         private DevExpress.XtraEditors.SimpleButton simpleButton13;
         private DevExpress.XtraEditors.SimpleButton simpleButton12;
