@@ -38,9 +38,14 @@ namespace POS.PAL.USERCONTROL
             Main.Instance.SwitchToControl(new UC_Dashboard());
         }
 
-        private void dropDownButton1_Click(object sender, EventArgs e)
+        private void btnUserManagement_Click(object sender, EventArgs e)
         {
-            panelContactsSubmenu.Visible = !panelContactsSubmenu.Visible;
+            panelUserManagementSubmenu.Visible = !panelUserManagementSubmenu.Visible;
+        }
+
+        private void btnContacts_Click(object sender, EventArgs e)
+        {
+            panelContactSubmenu.Visible = !panelContactSubmenu.Visible;
         }
     }
 }
