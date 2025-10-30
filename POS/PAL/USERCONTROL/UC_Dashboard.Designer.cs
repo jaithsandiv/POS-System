@@ -30,34 +30,35 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Dashboard));
             sidePanel1 = new DevExpress.XtraEditors.SidePanel();
-            xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
-            panelControl5 = new DevExpress.XtraEditors.PanelControl();
+            scrollSidebar = new DevExpress.XtraEditors.XtraScrollableControl();
+            panelPurchaseHeader = new DevExpress.XtraEditors.PanelControl();
+            btnPurchases = new DevExpress.XtraEditors.SimpleButton();
             panelProductsSubmenu = new DevExpress.XtraEditors.PanelControl();
-            simpleButton13 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton12 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton11 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton10 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton9 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton8 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton7 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton6 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton5 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            btnWarrenties = new DevExpress.XtraEditors.SimpleButton();
+            btnListProducts = new DevExpress.XtraEditors.SimpleButton();
+            btnAddProducts = new DevExpress.XtraEditors.SimpleButton();
+            btnBrands = new DevExpress.XtraEditors.SimpleButton();
+            btnUpdatePrice = new DevExpress.XtraEditors.SimpleButton();
+            btnCategories = new DevExpress.XtraEditors.SimpleButton();
+            btnPrintLabels = new DevExpress.XtraEditors.SimpleButton();
+            btnUnits = new DevExpress.XtraEditors.SimpleButton();
+            btnVariations = new DevExpress.XtraEditors.SimpleButton();
+            btnSellingPriceGroup = new DevExpress.XtraEditors.SimpleButton();
+            btnImportProducts = new DevExpress.XtraEditors.SimpleButton();
+            btnImportOpeningStock = new DevExpress.XtraEditors.SimpleButton();
             panelProductsHeader = new DevExpress.XtraEditors.PanelControl();
             btnProducts = new DevExpress.XtraEditors.SimpleButton();
             panelContactSubmenu = new DevExpress.XtraEditors.PanelControl();
-            btnImportContacts = new DevExpress.XtraEditors.SimpleButton();
-            btnCustomerGroups = new DevExpress.XtraEditors.SimpleButton();
-            btnCustomerManagement = new DevExpress.XtraEditors.SimpleButton();
             btnSuppliers = new DevExpress.XtraEditors.SimpleButton();
-            panelContactsHeader = new DevExpress.XtraEditors.PanelControl();
+            btnCustomerManagement = new DevExpress.XtraEditors.SimpleButton();
+            btnCustomerGroups = new DevExpress.XtraEditors.SimpleButton();
+            btnImportContacts = new DevExpress.XtraEditors.SimpleButton();
+            panelContactHeader = new DevExpress.XtraEditors.PanelControl();
             btnContacts = new DevExpress.XtraEditors.SimpleButton();
             panelUserManagementSubmenu = new DevExpress.XtraEditors.PanelControl();
-            btnSalesCommisionAgents = new DevExpress.XtraEditors.SimpleButton();
-            btnRoles = new DevExpress.XtraEditors.SimpleButton();
             btnUsers = new DevExpress.XtraEditors.SimpleButton();
+            btnRoles = new DevExpress.XtraEditors.SimpleButton();
+            btnSalesCommisionAgents = new DevExpress.XtraEditors.SimpleButton();
             panelUserManagementHeader = new DevExpress.XtraEditors.PanelControl();
             btnUserManagement = new DevExpress.XtraEditors.SimpleButton();
             panelHomeHeader = new DevExpress.XtraEditors.PanelControl();
@@ -69,6 +70,7 @@
             labelControl5 = new DevExpress.XtraEditors.LabelControl();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             topPanel1 = new System.Windows.Forms.Panel();
+            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             label1 = new System.Windows.Forms.Label();
             totalSalesPanel = new System.Windows.Forms.Panel();
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -113,17 +115,17 @@
             label4 = new System.Windows.Forms.Label();
             panel9 = new System.Windows.Forms.Panel();
             sidePanel1.SuspendLayout();
-            xtraScrollableControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)panelControl5).BeginInit();
-            panelControl5.SuspendLayout();
+            scrollSidebar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelPurchaseHeader).BeginInit();
+            panelPurchaseHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelProductsSubmenu).BeginInit();
             panelProductsSubmenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelProductsHeader).BeginInit();
             panelProductsHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelContactSubmenu).BeginInit();
             panelContactSubmenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)panelContactsHeader).BeginInit();
-            panelContactsHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelContactHeader).BeginInit();
+            panelContactHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelUserManagementSubmenu).BeginInit();
             panelUserManagementSubmenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelUserManagementHeader).BeginInit();
@@ -157,7 +159,7 @@
             sidePanel1.Appearance.BackColor = System.Drawing.Color.White;
             sidePanel1.Appearance.Options.UseBackColor = true;
             sidePanel1.BorderThickness = 2;
-            sidePanel1.Controls.Add(xtraScrollableControl1);
+            sidePanel1.Controls.Add(scrollSidebar);
             sidePanel1.Controls.Add(panelControl3);
             sidePanel1.Dock = System.Windows.Forms.DockStyle.Left;
             sidePanel1.Location = new System.Drawing.Point(0, 0);
@@ -166,234 +168,251 @@
             sidePanel1.TabIndex = 0;
             sidePanel1.Text = "sidePanel1";
             // 
-            // xtraScrollableControl1
+            // scrollSidebar
             // 
-            xtraScrollableControl1.Controls.Add(panelControl5);
-            xtraScrollableControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            xtraScrollableControl1.Location = new System.Drawing.Point(0, 49);
-            xtraScrollableControl1.Name = "xtraScrollableControl1";
-            xtraScrollableControl1.Size = new System.Drawing.Size(248, 1001);
-            xtraScrollableControl1.TabIndex = 1;
+            scrollSidebar.Appearance.BackColor = System.Drawing.Color.White;
+            scrollSidebar.Appearance.Options.UseBackColor = true;
+            scrollSidebar.Controls.Add(panelPurchaseHeader);
+            scrollSidebar.Controls.Add(panelProductsSubmenu);
+            scrollSidebar.Controls.Add(panelProductsHeader);
+            scrollSidebar.Controls.Add(panelContactSubmenu);
+            scrollSidebar.Controls.Add(panelContactHeader);
+            scrollSidebar.Controls.Add(panelUserManagementSubmenu);
+            scrollSidebar.Controls.Add(panelUserManagementHeader);
+            scrollSidebar.Controls.Add(panelHomeHeader);
+            scrollSidebar.Dock = System.Windows.Forms.DockStyle.Fill;
+            scrollSidebar.Location = new System.Drawing.Point(0, 49);
+            scrollSidebar.Name = "scrollSidebar";
+            scrollSidebar.Size = new System.Drawing.Size(248, 1001);
+            scrollSidebar.TabIndex = 1;
             // 
-            // panelControl5
+            // panelPurchaseHeader
             // 
-            panelControl5.AllowTouchScroll = true;
-            panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl5.Controls.Add(panelProductsSubmenu);
-            panelControl5.Controls.Add(panelProductsHeader);
-            panelControl5.Controls.Add(panelContactSubmenu);
-            panelControl5.Controls.Add(panelContactsHeader);
-            panelControl5.Controls.Add(panelUserManagementSubmenu);
-            panelControl5.Controls.Add(panelUserManagementHeader);
-            panelControl5.Controls.Add(panelHomeHeader);
-            panelControl5.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelControl5.FireScrollEventOnMouseWheel = true;
-            panelControl5.Location = new System.Drawing.Point(0, 0);
-            panelControl5.Name = "panelControl5";
-            panelControl5.Size = new System.Drawing.Size(248, 1001);
-            panelControl5.TabIndex = 0;
+            panelPurchaseHeader.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelPurchaseHeader.Controls.Add(btnPurchases);
+            panelPurchaseHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            panelPurchaseHeader.Location = new System.Drawing.Point(0, 940);
+            panelPurchaseHeader.Name = "panelPurchaseHeader";
+            panelPurchaseHeader.Size = new System.Drawing.Size(248, 45);
+            panelPurchaseHeader.TabIndex = 7;
+            // 
+            // btnPurchases
+            // 
+            btnPurchases.Appearance.BackColor = System.Drawing.Color.White;
+            btnPurchases.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnPurchases.Appearance.Options.UseBackColor = true;
+            btnPurchases.Appearance.Options.UseFont = true;
+            btnPurchases.AppearanceHovered.Options.UseBackColor = true;
+            btnPurchases.Dock = System.Windows.Forms.DockStyle.Fill;
+            btnPurchases.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnPurchases.ImageOptions.Image");
+            btnPurchases.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter;
+            btnPurchases.Location = new System.Drawing.Point(0, 0);
+            btnPurchases.Name = "btnPurchases";
+            btnPurchases.Size = new System.Drawing.Size(248, 45);
+            btnPurchases.TabIndex = 16;
+            btnPurchases.Text = "Purchases";
             // 
             // panelProductsSubmenu
             // 
             panelProductsSubmenu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelProductsSubmenu.Controls.Add(simpleButton13);
-            panelProductsSubmenu.Controls.Add(simpleButton12);
-            panelProductsSubmenu.Controls.Add(simpleButton11);
-            panelProductsSubmenu.Controls.Add(simpleButton10);
-            panelProductsSubmenu.Controls.Add(simpleButton9);
-            panelProductsSubmenu.Controls.Add(simpleButton8);
-            panelProductsSubmenu.Controls.Add(simpleButton7);
-            panelProductsSubmenu.Controls.Add(simpleButton6);
-            panelProductsSubmenu.Controls.Add(simpleButton5);
-            panelProductsSubmenu.Controls.Add(simpleButton4);
-            panelProductsSubmenu.Controls.Add(simpleButton3);
-            panelProductsSubmenu.Controls.Add(simpleButton2);
+            panelProductsSubmenu.Controls.Add(btnWarrenties);
+            panelProductsSubmenu.Controls.Add(btnListProducts);
+            panelProductsSubmenu.Controls.Add(btnAddProducts);
+            panelProductsSubmenu.Controls.Add(btnBrands);
+            panelProductsSubmenu.Controls.Add(btnUpdatePrice);
+            panelProductsSubmenu.Controls.Add(btnCategories);
+            panelProductsSubmenu.Controls.Add(btnPrintLabels);
+            panelProductsSubmenu.Controls.Add(btnUnits);
+            panelProductsSubmenu.Controls.Add(btnVariations);
+            panelProductsSubmenu.Controls.Add(btnSellingPriceGroup);
+            panelProductsSubmenu.Controls.Add(btnImportProducts);
+            panelProductsSubmenu.Controls.Add(btnImportOpeningStock);
             panelProductsSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            panelProductsSubmenu.Location = new System.Drawing.Point(0, 455);
+            panelProductsSubmenu.Location = new System.Drawing.Point(0, 460);
             panelProductsSubmenu.Name = "panelProductsSubmenu";
             panelProductsSubmenu.Size = new System.Drawing.Size(248, 480);
             panelProductsSubmenu.TabIndex = 6;
             panelProductsSubmenu.Visible = false;
             // 
-            // simpleButton13
+            // btnWarrenties
             // 
-            simpleButton13.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton13.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton13.Appearance.Options.UseBackColor = true;
-            simpleButton13.Appearance.Options.UseFont = true;
-            simpleButton13.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton13.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton13.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton13.Location = new System.Drawing.Point(0, 440);
-            simpleButton13.Name = "simpleButton13";
-            simpleButton13.Size = new System.Drawing.Size(248, 40);
-            simpleButton13.TabIndex = 27;
-            simpleButton13.Text = "Warrenties";
+            btnWarrenties.Appearance.BackColor = System.Drawing.Color.White;
+            btnWarrenties.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnWarrenties.Appearance.Options.UseBackColor = true;
+            btnWarrenties.Appearance.Options.UseFont = true;
+            btnWarrenties.AppearanceHovered.Options.UseBackColor = true;
+            btnWarrenties.Dock = System.Windows.Forms.DockStyle.Top;
+            btnWarrenties.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnWarrenties.Location = new System.Drawing.Point(0, 440);
+            btnWarrenties.Name = "btnWarrenties";
+            btnWarrenties.Size = new System.Drawing.Size(248, 40);
+            btnWarrenties.TabIndex = 27;
+            btnWarrenties.Text = "Warrenties";
             // 
-            // simpleButton12
+            // btnListProducts
             // 
-            simpleButton12.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton12.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton12.Appearance.Options.UseBackColor = true;
-            simpleButton12.Appearance.Options.UseFont = true;
-            simpleButton12.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton12.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton12.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton12.Location = new System.Drawing.Point(0, 400);
-            simpleButton12.Name = "simpleButton12";
-            simpleButton12.Size = new System.Drawing.Size(248, 40);
-            simpleButton12.TabIndex = 26;
-            simpleButton12.Text = "Brands";
+            btnListProducts.Appearance.BackColor = System.Drawing.Color.White;
+            btnListProducts.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnListProducts.Appearance.Options.UseBackColor = true;
+            btnListProducts.Appearance.Options.UseFont = true;
+            btnListProducts.AppearanceHovered.Options.UseBackColor = true;
+            btnListProducts.Dock = System.Windows.Forms.DockStyle.Top;
+            btnListProducts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnListProducts.Location = new System.Drawing.Point(0, 400);
+            btnListProducts.Name = "btnListProducts";
+            btnListProducts.Size = new System.Drawing.Size(248, 40);
+            btnListProducts.TabIndex = 16;
+            btnListProducts.Text = "List Products";
             // 
-            // simpleButton11
+            // btnAddProducts
             // 
-            simpleButton11.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton11.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton11.Appearance.Options.UseBackColor = true;
-            simpleButton11.Appearance.Options.UseFont = true;
-            simpleButton11.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton11.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton11.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton11.Location = new System.Drawing.Point(0, 360);
-            simpleButton11.Name = "simpleButton11";
-            simpleButton11.Size = new System.Drawing.Size(248, 40);
-            simpleButton11.TabIndex = 25;
-            simpleButton11.Text = "Categories";
+            btnAddProducts.Appearance.BackColor = System.Drawing.Color.White;
+            btnAddProducts.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnAddProducts.Appearance.Options.UseBackColor = true;
+            btnAddProducts.Appearance.Options.UseFont = true;
+            btnAddProducts.AppearanceHovered.Options.UseBackColor = true;
+            btnAddProducts.Dock = System.Windows.Forms.DockStyle.Top;
+            btnAddProducts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnAddProducts.Location = new System.Drawing.Point(0, 360);
+            btnAddProducts.Name = "btnAddProducts";
+            btnAddProducts.Size = new System.Drawing.Size(248, 40);
+            btnAddProducts.TabIndex = 17;
+            btnAddProducts.Text = "Add Products";
             // 
-            // simpleButton10
+            // btnBrands
             // 
-            simpleButton10.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton10.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton10.Appearance.Options.UseBackColor = true;
-            simpleButton10.Appearance.Options.UseFont = true;
-            simpleButton10.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton10.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton10.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton10.Location = new System.Drawing.Point(0, 320);
-            simpleButton10.Name = "simpleButton10";
-            simpleButton10.Size = new System.Drawing.Size(248, 40);
-            simpleButton10.TabIndex = 24;
-            simpleButton10.Text = "Units";
+            btnBrands.Appearance.BackColor = System.Drawing.Color.White;
+            btnBrands.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnBrands.Appearance.Options.UseBackColor = true;
+            btnBrands.Appearance.Options.UseFont = true;
+            btnBrands.AppearanceHovered.Options.UseBackColor = true;
+            btnBrands.Dock = System.Windows.Forms.DockStyle.Top;
+            btnBrands.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnBrands.Location = new System.Drawing.Point(0, 320);
+            btnBrands.Name = "btnBrands";
+            btnBrands.Size = new System.Drawing.Size(248, 40);
+            btnBrands.TabIndex = 26;
+            btnBrands.Text = "Brands";
             // 
-            // simpleButton9
+            // btnUpdatePrice
             // 
-            simpleButton9.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton9.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton9.Appearance.Options.UseBackColor = true;
-            simpleButton9.Appearance.Options.UseFont = true;
-            simpleButton9.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton9.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton9.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton9.Location = new System.Drawing.Point(0, 280);
-            simpleButton9.Name = "simpleButton9";
-            simpleButton9.Size = new System.Drawing.Size(248, 40);
-            simpleButton9.TabIndex = 23;
-            simpleButton9.Text = "Selling Price Group";
+            btnUpdatePrice.Appearance.BackColor = System.Drawing.Color.White;
+            btnUpdatePrice.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnUpdatePrice.Appearance.Options.UseBackColor = true;
+            btnUpdatePrice.Appearance.Options.UseFont = true;
+            btnUpdatePrice.AppearanceHovered.Options.UseBackColor = true;
+            btnUpdatePrice.Dock = System.Windows.Forms.DockStyle.Top;
+            btnUpdatePrice.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnUpdatePrice.Location = new System.Drawing.Point(0, 280);
+            btnUpdatePrice.Name = "btnUpdatePrice";
+            btnUpdatePrice.Size = new System.Drawing.Size(248, 40);
+            btnUpdatePrice.TabIndex = 18;
+            btnUpdatePrice.Text = "Update Price";
             // 
-            // simpleButton8
+            // btnCategories
             // 
-            simpleButton8.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton8.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton8.Appearance.Options.UseBackColor = true;
-            simpleButton8.Appearance.Options.UseFont = true;
-            simpleButton8.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton8.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton8.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton8.Location = new System.Drawing.Point(0, 240);
-            simpleButton8.Name = "simpleButton8";
-            simpleButton8.Size = new System.Drawing.Size(248, 40);
-            simpleButton8.TabIndex = 22;
-            simpleButton8.Text = "Import Opening Stock";
+            btnCategories.Appearance.BackColor = System.Drawing.Color.White;
+            btnCategories.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnCategories.Appearance.Options.UseBackColor = true;
+            btnCategories.Appearance.Options.UseFont = true;
+            btnCategories.AppearanceHovered.Options.UseBackColor = true;
+            btnCategories.Dock = System.Windows.Forms.DockStyle.Top;
+            btnCategories.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnCategories.Location = new System.Drawing.Point(0, 240);
+            btnCategories.Name = "btnCategories";
+            btnCategories.Size = new System.Drawing.Size(248, 40);
+            btnCategories.TabIndex = 25;
+            btnCategories.Text = "Categories";
             // 
-            // simpleButton7
+            // btnPrintLabels
             // 
-            simpleButton7.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton7.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton7.Appearance.Options.UseBackColor = true;
-            simpleButton7.Appearance.Options.UseFont = true;
-            simpleButton7.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton7.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton7.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton7.Location = new System.Drawing.Point(0, 200);
-            simpleButton7.Name = "simpleButton7";
-            simpleButton7.Size = new System.Drawing.Size(248, 40);
-            simpleButton7.TabIndex = 21;
-            simpleButton7.Text = "Import Products";
+            btnPrintLabels.Appearance.BackColor = System.Drawing.Color.White;
+            btnPrintLabels.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnPrintLabels.Appearance.Options.UseBackColor = true;
+            btnPrintLabels.Appearance.Options.UseFont = true;
+            btnPrintLabels.AppearanceHovered.Options.UseBackColor = true;
+            btnPrintLabels.Dock = System.Windows.Forms.DockStyle.Top;
+            btnPrintLabels.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnPrintLabels.Location = new System.Drawing.Point(0, 200);
+            btnPrintLabels.Name = "btnPrintLabels";
+            btnPrintLabels.Size = new System.Drawing.Size(248, 40);
+            btnPrintLabels.TabIndex = 19;
+            btnPrintLabels.Text = "Print Labels";
             // 
-            // simpleButton6
+            // btnUnits
             // 
-            simpleButton6.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton6.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton6.Appearance.Options.UseBackColor = true;
-            simpleButton6.Appearance.Options.UseFont = true;
-            simpleButton6.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton6.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton6.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton6.Location = new System.Drawing.Point(0, 160);
-            simpleButton6.Name = "simpleButton6";
-            simpleButton6.Size = new System.Drawing.Size(248, 40);
-            simpleButton6.TabIndex = 20;
-            simpleButton6.Text = "Variations";
+            btnUnits.Appearance.BackColor = System.Drawing.Color.White;
+            btnUnits.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnUnits.Appearance.Options.UseBackColor = true;
+            btnUnits.Appearance.Options.UseFont = true;
+            btnUnits.AppearanceHovered.Options.UseBackColor = true;
+            btnUnits.Dock = System.Windows.Forms.DockStyle.Top;
+            btnUnits.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnUnits.Location = new System.Drawing.Point(0, 160);
+            btnUnits.Name = "btnUnits";
+            btnUnits.Size = new System.Drawing.Size(248, 40);
+            btnUnits.TabIndex = 24;
+            btnUnits.Text = "Units";
             // 
-            // simpleButton5
+            // btnVariations
             // 
-            simpleButton5.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton5.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton5.Appearance.Options.UseBackColor = true;
-            simpleButton5.Appearance.Options.UseFont = true;
-            simpleButton5.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton5.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton5.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton5.Location = new System.Drawing.Point(0, 120);
-            simpleButton5.Name = "simpleButton5";
-            simpleButton5.Size = new System.Drawing.Size(248, 40);
-            simpleButton5.TabIndex = 19;
-            simpleButton5.Text = "Print Labels";
+            btnVariations.Appearance.BackColor = System.Drawing.Color.White;
+            btnVariations.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnVariations.Appearance.Options.UseBackColor = true;
+            btnVariations.Appearance.Options.UseFont = true;
+            btnVariations.AppearanceHovered.Options.UseBackColor = true;
+            btnVariations.Dock = System.Windows.Forms.DockStyle.Top;
+            btnVariations.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnVariations.Location = new System.Drawing.Point(0, 120);
+            btnVariations.Name = "btnVariations";
+            btnVariations.Size = new System.Drawing.Size(248, 40);
+            btnVariations.TabIndex = 20;
+            btnVariations.Text = "Variations";
             // 
-            // simpleButton4
+            // btnSellingPriceGroup
             // 
-            simpleButton4.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton4.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton4.Appearance.Options.UseBackColor = true;
-            simpleButton4.Appearance.Options.UseFont = true;
-            simpleButton4.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton4.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton4.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton4.Location = new System.Drawing.Point(0, 80);
-            simpleButton4.Name = "simpleButton4";
-            simpleButton4.Size = new System.Drawing.Size(248, 40);
-            simpleButton4.TabIndex = 18;
-            simpleButton4.Text = "Update Price";
+            btnSellingPriceGroup.Appearance.BackColor = System.Drawing.Color.White;
+            btnSellingPriceGroup.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnSellingPriceGroup.Appearance.Options.UseBackColor = true;
+            btnSellingPriceGroup.Appearance.Options.UseFont = true;
+            btnSellingPriceGroup.AppearanceHovered.Options.UseBackColor = true;
+            btnSellingPriceGroup.Dock = System.Windows.Forms.DockStyle.Top;
+            btnSellingPriceGroup.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnSellingPriceGroup.Location = new System.Drawing.Point(0, 80);
+            btnSellingPriceGroup.Name = "btnSellingPriceGroup";
+            btnSellingPriceGroup.Size = new System.Drawing.Size(248, 40);
+            btnSellingPriceGroup.TabIndex = 23;
+            btnSellingPriceGroup.Text = "Selling Price Group";
             // 
-            // simpleButton3
+            // btnImportProducts
             // 
-            simpleButton3.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton3.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton3.Appearance.Options.UseBackColor = true;
-            simpleButton3.Appearance.Options.UseFont = true;
-            simpleButton3.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton3.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton3.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton3.Location = new System.Drawing.Point(0, 40);
-            simpleButton3.Name = "simpleButton3";
-            simpleButton3.Size = new System.Drawing.Size(248, 40);
-            simpleButton3.TabIndex = 17;
-            simpleButton3.Text = "Add Products";
+            btnImportProducts.Appearance.BackColor = System.Drawing.Color.White;
+            btnImportProducts.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnImportProducts.Appearance.Options.UseBackColor = true;
+            btnImportProducts.Appearance.Options.UseFont = true;
+            btnImportProducts.AppearanceHovered.Options.UseBackColor = true;
+            btnImportProducts.Dock = System.Windows.Forms.DockStyle.Top;
+            btnImportProducts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnImportProducts.Location = new System.Drawing.Point(0, 40);
+            btnImportProducts.Name = "btnImportProducts";
+            btnImportProducts.Size = new System.Drawing.Size(248, 40);
+            btnImportProducts.TabIndex = 21;
+            btnImportProducts.Text = "Import Products";
             // 
-            // simpleButton2
+            // btnImportOpeningStock
             // 
-            simpleButton2.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton2.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton2.Appearance.Options.UseBackColor = true;
-            simpleButton2.Appearance.Options.UseFont = true;
-            simpleButton2.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton2.Dock = System.Windows.Forms.DockStyle.Top;
-            simpleButton2.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton2.Location = new System.Drawing.Point(0, 0);
-            simpleButton2.Name = "simpleButton2";
-            simpleButton2.Size = new System.Drawing.Size(248, 40);
-            simpleButton2.TabIndex = 16;
-            simpleButton2.Text = "List Products";
+            btnImportOpeningStock.Appearance.BackColor = System.Drawing.Color.White;
+            btnImportOpeningStock.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnImportOpeningStock.Appearance.Options.UseBackColor = true;
+            btnImportOpeningStock.Appearance.Options.UseFont = true;
+            btnImportOpeningStock.AppearanceHovered.Options.UseBackColor = true;
+            btnImportOpeningStock.Dock = System.Windows.Forms.DockStyle.Top;
+            btnImportOpeningStock.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnImportOpeningStock.Location = new System.Drawing.Point(0, 0);
+            btnImportOpeningStock.Name = "btnImportOpeningStock";
+            btnImportOpeningStock.Size = new System.Drawing.Size(248, 40);
+            btnImportOpeningStock.TabIndex = 22;
+            btnImportOpeningStock.Text = "Import Opening Stock";
             // 
             // panelProductsHeader
             // 
@@ -402,7 +421,7 @@
             panelProductsHeader.Dock = System.Windows.Forms.DockStyle.Top;
             panelProductsHeader.Location = new System.Drawing.Point(0, 415);
             panelProductsHeader.Name = "panelProductsHeader";
-            panelProductsHeader.Size = new System.Drawing.Size(248, 40);
+            panelProductsHeader.Size = new System.Drawing.Size(248, 45);
             panelProductsHeader.TabIndex = 5;
             // 
             // btnProducts
@@ -417,7 +436,7 @@
             btnProducts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter;
             btnProducts.Location = new System.Drawing.Point(0, 0);
             btnProducts.Name = "btnProducts";
-            btnProducts.Size = new System.Drawing.Size(248, 40);
+            btnProducts.Size = new System.Drawing.Size(248, 45);
             btnProducts.TabIndex = 16;
             btnProducts.Text = "Products";
             btnProducts.Click += btnProducts_Click;
@@ -425,63 +444,16 @@
             // panelContactSubmenu
             // 
             panelContactSubmenu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelContactSubmenu.Controls.Add(btnImportContacts);
-            panelContactSubmenu.Controls.Add(btnCustomerGroups);
-            panelContactSubmenu.Controls.Add(btnCustomerManagement);
             panelContactSubmenu.Controls.Add(btnSuppliers);
+            panelContactSubmenu.Controls.Add(btnCustomerManagement);
+            panelContactSubmenu.Controls.Add(btnCustomerGroups);
+            panelContactSubmenu.Controls.Add(btnImportContacts);
             panelContactSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             panelContactSubmenu.Location = new System.Drawing.Point(0, 255);
             panelContactSubmenu.Name = "panelContactSubmenu";
             panelContactSubmenu.Size = new System.Drawing.Size(248, 160);
             panelContactSubmenu.TabIndex = 4;
             panelContactSubmenu.Visible = false;
-            // 
-            // btnImportContacts
-            // 
-            btnImportContacts.Appearance.BackColor = System.Drawing.Color.White;
-            btnImportContacts.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnImportContacts.Appearance.Options.UseBackColor = true;
-            btnImportContacts.Appearance.Options.UseFont = true;
-            btnImportContacts.AppearanceHovered.Options.UseBackColor = true;
-            btnImportContacts.Dock = System.Windows.Forms.DockStyle.Top;
-            btnImportContacts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnImportContacts.Location = new System.Drawing.Point(0, 120);
-            btnImportContacts.Name = "btnImportContacts";
-            btnImportContacts.Size = new System.Drawing.Size(248, 40);
-            btnImportContacts.TabIndex = 19;
-            btnImportContacts.Text = "Import Contacts";
-            // 
-            // btnCustomerGroups
-            // 
-            btnCustomerGroups.Appearance.BackColor = System.Drawing.Color.White;
-            btnCustomerGroups.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnCustomerGroups.Appearance.Options.UseBackColor = true;
-            btnCustomerGroups.Appearance.Options.UseFont = true;
-            btnCustomerGroups.AppearanceHovered.Options.UseBackColor = true;
-            btnCustomerGroups.Dock = System.Windows.Forms.DockStyle.Top;
-            btnCustomerGroups.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnCustomerGroups.Location = new System.Drawing.Point(0, 80);
-            btnCustomerGroups.Name = "btnCustomerGroups";
-            btnCustomerGroups.Size = new System.Drawing.Size(248, 40);
-            btnCustomerGroups.TabIndex = 17;
-            btnCustomerGroups.Text = "Customer Groups";
-            btnCustomerGroups.Click += btnCustomerGroups_Click;
-            // 
-            // btnCustomerManagement
-            // 
-            btnCustomerManagement.Appearance.BackColor = System.Drawing.Color.White;
-            btnCustomerManagement.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnCustomerManagement.Appearance.Options.UseBackColor = true;
-            btnCustomerManagement.Appearance.Options.UseFont = true;
-            btnCustomerManagement.AppearanceHovered.Options.UseBackColor = true;
-            btnCustomerManagement.Dock = System.Windows.Forms.DockStyle.Top;
-            btnCustomerManagement.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
-            btnCustomerManagement.Location = new System.Drawing.Point(0, 40);
-            btnCustomerManagement.Name = "btnCustomerManagement";
-            btnCustomerManagement.Size = new System.Drawing.Size(248, 40);
-            btnCustomerManagement.TabIndex = 15;
-            btnCustomerManagement.Text = "Customers";
-            btnCustomerManagement.Click += btnCustomerManagement_Click;
             // 
             // btnSuppliers
             // 
@@ -492,21 +464,68 @@
             btnSuppliers.AppearanceHovered.Options.UseBackColor = true;
             btnSuppliers.Dock = System.Windows.Forms.DockStyle.Top;
             btnSuppliers.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnSuppliers.Location = new System.Drawing.Point(0, 0);
+            btnSuppliers.Location = new System.Drawing.Point(0, 120);
             btnSuppliers.Name = "btnSuppliers";
             btnSuppliers.Size = new System.Drawing.Size(248, 40);
             btnSuppliers.TabIndex = 18;
             btnSuppliers.Text = "Suppliers";
             // 
-            // panelContactsHeader
+            // btnCustomerManagement
             // 
-            panelContactsHeader.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelContactsHeader.Controls.Add(btnContacts);
-            panelContactsHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            panelContactsHeader.Location = new System.Drawing.Point(0, 210);
-            panelContactsHeader.Name = "panelContactsHeader";
-            panelContactsHeader.Size = new System.Drawing.Size(248, 45);
-            panelContactsHeader.TabIndex = 3;
+            btnCustomerManagement.Appearance.BackColor = System.Drawing.Color.White;
+            btnCustomerManagement.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnCustomerManagement.Appearance.Options.UseBackColor = true;
+            btnCustomerManagement.Appearance.Options.UseFont = true;
+            btnCustomerManagement.AppearanceHovered.Options.UseBackColor = true;
+            btnCustomerManagement.Dock = System.Windows.Forms.DockStyle.Top;
+            btnCustomerManagement.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
+            btnCustomerManagement.Location = new System.Drawing.Point(0, 80);
+            btnCustomerManagement.Name = "btnCustomerManagement";
+            btnCustomerManagement.Size = new System.Drawing.Size(248, 40);
+            btnCustomerManagement.TabIndex = 15;
+            btnCustomerManagement.Text = "Customers";
+            btnCustomerManagement.Click += btnCustomerManagement_Click;
+            // 
+            // btnCustomerGroups
+            // 
+            btnCustomerGroups.Appearance.BackColor = System.Drawing.Color.White;
+            btnCustomerGroups.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnCustomerGroups.Appearance.Options.UseBackColor = true;
+            btnCustomerGroups.Appearance.Options.UseFont = true;
+            btnCustomerGroups.AppearanceHovered.Options.UseBackColor = true;
+            btnCustomerGroups.Dock = System.Windows.Forms.DockStyle.Top;
+            btnCustomerGroups.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnCustomerGroups.Location = new System.Drawing.Point(0, 40);
+            btnCustomerGroups.Name = "btnCustomerGroups";
+            btnCustomerGroups.Size = new System.Drawing.Size(248, 40);
+            btnCustomerGroups.TabIndex = 17;
+            btnCustomerGroups.Text = "Customer Groups";
+            btnCustomerGroups.Click += btnCustomerGroups_Click;
+            // 
+            // btnImportContacts
+            // 
+            btnImportContacts.Appearance.BackColor = System.Drawing.Color.White;
+            btnImportContacts.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnImportContacts.Appearance.Options.UseBackColor = true;
+            btnImportContacts.Appearance.Options.UseFont = true;
+            btnImportContacts.AppearanceHovered.Options.UseBackColor = true;
+            btnImportContacts.Dock = System.Windows.Forms.DockStyle.Top;
+            btnImportContacts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnImportContacts.Location = new System.Drawing.Point(0, 0);
+            btnImportContacts.Name = "btnImportContacts";
+            btnImportContacts.Size = new System.Drawing.Size(248, 40);
+            btnImportContacts.TabIndex = 19;
+            btnImportContacts.Text = "Import Contacts";
+            // 
+            // panelContactHeader
+            // 
+            panelContactHeader.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelContactHeader.Controls.Add(btnContacts);
+            panelContactHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            panelContactHeader.Location = new System.Drawing.Point(0, 210);
+            panelContactHeader.Name = "panelContactHeader";
+            panelContactHeader.Size = new System.Drawing.Size(248, 45);
+            panelContactHeader.TabIndex = 3;
             // 
             // btnContacts
             // 
@@ -528,9 +547,9 @@
             // panelUserManagementSubmenu
             // 
             panelUserManagementSubmenu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelUserManagementSubmenu.Controls.Add(btnSalesCommisionAgents);
-            panelUserManagementSubmenu.Controls.Add(btnRoles);
             panelUserManagementSubmenu.Controls.Add(btnUsers);
+            panelUserManagementSubmenu.Controls.Add(btnRoles);
+            panelUserManagementSubmenu.Controls.Add(btnSalesCommisionAgents);
             panelUserManagementSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             panelUserManagementSubmenu.Location = new System.Drawing.Point(0, 90);
             panelUserManagementSubmenu.Name = "panelUserManagementSubmenu";
@@ -538,20 +557,20 @@
             panelUserManagementSubmenu.TabIndex = 2;
             panelUserManagementSubmenu.Visible = false;
             // 
-            // btnSalesCommisionAgents
+            // btnUsers
             // 
-            btnSalesCommisionAgents.Appearance.BackColor = System.Drawing.Color.White;
-            btnSalesCommisionAgents.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnSalesCommisionAgents.Appearance.Options.UseBackColor = true;
-            btnSalesCommisionAgents.Appearance.Options.UseFont = true;
-            btnSalesCommisionAgents.AppearanceHovered.Options.UseBackColor = true;
-            btnSalesCommisionAgents.Dock = System.Windows.Forms.DockStyle.Top;
-            btnSalesCommisionAgents.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
-            btnSalesCommisionAgents.Location = new System.Drawing.Point(0, 80);
-            btnSalesCommisionAgents.Name = "btnSalesCommisionAgents";
-            btnSalesCommisionAgents.Size = new System.Drawing.Size(248, 40);
-            btnSalesCommisionAgents.TabIndex = 20;
-            btnSalesCommisionAgents.Text = "Sales Commision Agents";
+            btnUsers.Appearance.BackColor = System.Drawing.Color.White;
+            btnUsers.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnUsers.Appearance.Options.UseBackColor = true;
+            btnUsers.Appearance.Options.UseFont = true;
+            btnUsers.AppearanceHovered.Options.UseBackColor = true;
+            btnUsers.Dock = System.Windows.Forms.DockStyle.Top;
+            btnUsers.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
+            btnUsers.Location = new System.Drawing.Point(0, 80);
+            btnUsers.Name = "btnUsers";
+            btnUsers.Size = new System.Drawing.Size(248, 40);
+            btnUsers.TabIndex = 18;
+            btnUsers.Text = "Users";
             // 
             // btnRoles
             // 
@@ -568,20 +587,20 @@
             btnRoles.TabIndex = 19;
             btnRoles.Text = "Roles";
             // 
-            // btnUsers
+            // btnSalesCommisionAgents
             // 
-            btnUsers.Appearance.BackColor = System.Drawing.Color.White;
-            btnUsers.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnUsers.Appearance.Options.UseBackColor = true;
-            btnUsers.Appearance.Options.UseFont = true;
-            btnUsers.AppearanceHovered.Options.UseBackColor = true;
-            btnUsers.Dock = System.Windows.Forms.DockStyle.Top;
-            btnUsers.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
-            btnUsers.Location = new System.Drawing.Point(0, 0);
-            btnUsers.Name = "btnUsers";
-            btnUsers.Size = new System.Drawing.Size(248, 40);
-            btnUsers.TabIndex = 18;
-            btnUsers.Text = "Users";
+            btnSalesCommisionAgents.Appearance.BackColor = System.Drawing.Color.White;
+            btnSalesCommisionAgents.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnSalesCommisionAgents.Appearance.Options.UseBackColor = true;
+            btnSalesCommisionAgents.Appearance.Options.UseFont = true;
+            btnSalesCommisionAgents.AppearanceHovered.Options.UseBackColor = true;
+            btnSalesCommisionAgents.Dock = System.Windows.Forms.DockStyle.Top;
+            btnSalesCommisionAgents.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
+            btnSalesCommisionAgents.Location = new System.Drawing.Point(0, 0);
+            btnSalesCommisionAgents.Name = "btnSalesCommisionAgents";
+            btnSalesCommisionAgents.Size = new System.Drawing.Size(248, 40);
+            btnSalesCommisionAgents.TabIndex = 20;
+            btnSalesCommisionAgents.Text = "Sales Commision Agents";
             // 
             // panelUserManagementHeader
             // 
@@ -714,6 +733,7 @@
             // topPanel1
             // 
             topPanel1.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
+            topPanel1.Controls.Add(simpleButton1);
             topPanel1.Controls.Add(labelControl6);
             topPanel1.Controls.Add(labelControl5);
             topPanel1.Controls.Add(btnPOS);
@@ -722,6 +742,20 @@
             topPanel1.Name = "topPanel1";
             topPanel1.Size = new System.Drawing.Size(1671, 49);
             topPanel1.TabIndex = 1;
+            // 
+            // simpleButton1
+            // 
+            simpleButton1.Appearance.BackColor = System.Drawing.Color.White;
+            simpleButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton1.Appearance.Options.UseBackColor = true;
+            simpleButton1.Appearance.Options.UseFont = true;
+            simpleButton1.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            simpleButton1.Location = new System.Drawing.Point(302, 9);
+            simpleButton1.Name = "simpleButton1";
+            simpleButton1.Size = new System.Drawing.Size(48, 30);
+            simpleButton1.TabIndex = 15;
+            simpleButton1.Text = "POS";
             // 
             // label1
             // 
@@ -1103,9 +1137,9 @@
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl1.Controls.Add(chartControl1);
             panelControl1.Controls.Add(label3);
-            panelControl1.Location = new System.Drawing.Point(28, 10);
+            panelControl1.Location = new System.Drawing.Point(651, 10);
             panelControl1.Name = "panelControl1";
-            panelControl1.Size = new System.Drawing.Size(1625, 363);
+            panelControl1.Size = new System.Drawing.Size(1002, 363);
             panelControl1.TabIndex = 12;
             // 
             // chartControl1
@@ -1133,9 +1167,9 @@
             panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl2.Controls.Add(chartControl2);
             panelControl2.Controls.Add(label4);
-            panelControl2.Location = new System.Drawing.Point(28, 388);
+            panelControl2.Location = new System.Drawing.Point(651, 388);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(1625, 363);
+            panelControl2.Size = new System.Drawing.Size(1002, 363);
             panelControl2.TabIndex = 13;
             // 
             // chartControl2
@@ -1182,17 +1216,17 @@
             Size = new System.Drawing.Size(1920, 1050);
             Tag = "";
             sidePanel1.ResumeLayout(false);
-            xtraScrollableControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)panelControl5).EndInit();
-            panelControl5.ResumeLayout(false);
+            scrollSidebar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)panelPurchaseHeader).EndInit();
+            panelPurchaseHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelProductsSubmenu).EndInit();
             panelProductsSubmenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelProductsHeader).EndInit();
             panelProductsHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelContactSubmenu).EndInit();
             panelContactSubmenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)panelContactsHeader).EndInit();
-            panelContactsHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)panelContactHeader).EndInit();
+            panelContactHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelUserManagementSubmenu).EndInit();
             panelUserManagementSubmenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelUserManagementHeader).EndInit();
@@ -1240,23 +1274,7 @@
         private DevExpress.XtraEditors.SidePanel sidePanel1;
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.LabelControl lblBusinessName;
-        private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
-        private DevExpress.XtraEditors.SimpleButton btnHome;
-        private DevExpress.XtraEditors.PanelControl panelControl5;
-        private DevExpress.XtraEditors.PanelControl panelUserManagementHeader;
-        private DevExpress.XtraEditors.PanelControl panelHomeHeader;
-        private DevExpress.XtraEditors.PanelControl panelUserManagementSubmenu;
-        private DevExpress.XtraEditors.SimpleButton btnSalesCommisionAgents;
-        private DevExpress.XtraEditors.SimpleButton btnRoles;
-        private DevExpress.XtraEditors.SimpleButton btnUsers;
-        private DevExpress.XtraEditors.SimpleButton btnUserManagement;
-        private DevExpress.XtraEditors.PanelControl panelContactsHeader;
-        private DevExpress.XtraEditors.SimpleButton btnContacts;
-        private DevExpress.XtraEditors.PanelControl panelContactSubmenu;
-        private DevExpress.XtraEditors.SimpleButton btnSuppliers;
-        private DevExpress.XtraEditors.SimpleButton btnImportContacts;
-        private DevExpress.XtraEditors.SimpleButton btnCustomerGroups;
-        private DevExpress.XtraEditors.SimpleButton btnCustomerManagement;
+        private DevExpress.XtraEditors.XtraScrollableControl scrollSidebar;
         private DevExpress.XtraEditors.SimpleButton btnAcc;
         private DevExpress.XtraEditors.SimpleButton btnPOS;
         private DevExpress.XtraEditors.LabelControl labelControl5;
@@ -1305,20 +1323,38 @@
         private DevExpress.XtraCharts.ChartControl chartControl2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel9;
-        private DevExpress.XtraEditors.PanelControl panelProductsHeader;
+        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton btnWarrenties;
+        private DevExpress.XtraEditors.SimpleButton btnBrands;
+        private DevExpress.XtraEditors.SimpleButton btnCategories;
+        private DevExpress.XtraEditors.SimpleButton btnUnits;
+        private DevExpress.XtraEditors.SimpleButton btnSellingPriceGroup;
+        private DevExpress.XtraEditors.SimpleButton btnImportOpeningStock;
+        private DevExpress.XtraEditors.SimpleButton btnImportProducts;
+        private DevExpress.XtraEditors.SimpleButton btnVariations;
+        private DevExpress.XtraEditors.SimpleButton btnPrintLabels;
+        private DevExpress.XtraEditors.SimpleButton btnUpdatePrice;
+        private DevExpress.XtraEditors.SimpleButton btnAddProducts;
+        private DevExpress.XtraEditors.SimpleButton btnListProducts;
         private DevExpress.XtraEditors.SimpleButton btnProducts;
+        private DevExpress.XtraEditors.SimpleButton btnImportContacts;
+        private DevExpress.XtraEditors.SimpleButton btnCustomerGroups;
+        private DevExpress.XtraEditors.SimpleButton btnCustomerManagement;
+        private DevExpress.XtraEditors.SimpleButton btnSuppliers;
+        private DevExpress.XtraEditors.SimpleButton btnContacts;
+        private DevExpress.XtraEditors.SimpleButton btnSalesCommisionAgents;
+        private DevExpress.XtraEditors.SimpleButton btnRoles;
+        private DevExpress.XtraEditors.SimpleButton btnUsers;
+        private DevExpress.XtraEditors.SimpleButton btnUserManagement;
+        private DevExpress.XtraEditors.SimpleButton btnHome;
+        private DevExpress.XtraEditors.PanelControl panelHomeHeader;
+        private DevExpress.XtraEditors.PanelControl panelUserManagementHeader;
+        private DevExpress.XtraEditors.PanelControl panelUserManagementSubmenu;
+        private DevExpress.XtraEditors.PanelControl panelContactSubmenu;
+        private DevExpress.XtraEditors.PanelControl panelContactHeader;
+        private DevExpress.XtraEditors.PanelControl panelProductsHeader;
         private DevExpress.XtraEditors.PanelControl panelProductsSubmenu;
-        private DevExpress.XtraEditors.SimpleButton simpleButton13;
-        private DevExpress.XtraEditors.SimpleButton simpleButton12;
-        private DevExpress.XtraEditors.SimpleButton simpleButton11;
-        private DevExpress.XtraEditors.SimpleButton simpleButton10;
-        private DevExpress.XtraEditors.SimpleButton simpleButton9;
-        private DevExpress.XtraEditors.SimpleButton simpleButton8;
-        private DevExpress.XtraEditors.SimpleButton simpleButton7;
-        private DevExpress.XtraEditors.SimpleButton simpleButton6;
-        private DevExpress.XtraEditors.SimpleButton simpleButton5;
-        private DevExpress.XtraEditors.SimpleButton simpleButton4;
-        private DevExpress.XtraEditors.SimpleButton simpleButton3;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private DevExpress.XtraEditors.PanelControl panelPurchaseHeader;
+        private DevExpress.XtraEditors.SimpleButton btnPurchases;
     }
 }
