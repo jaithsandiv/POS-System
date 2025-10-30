@@ -66,11 +66,9 @@
             panelControl3 = new DevExpress.XtraEditors.PanelControl();
             lblBusinessName = new DevExpress.XtraEditors.LabelControl();
             btnAcc = new DevExpress.XtraEditors.SimpleButton();
-            btnPOS = new DevExpress.XtraEditors.SimpleButton();
             labelControl5 = new DevExpress.XtraEditors.LabelControl();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             topPanel1 = new System.Windows.Forms.Panel();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             label1 = new System.Windows.Forms.Label();
             totalSalesPanel = new System.Windows.Forms.Panel();
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -114,6 +112,9 @@
             chartControl2 = new DevExpress.XtraCharts.ChartControl();
             label4 = new System.Windows.Forms.Label();
             panel9 = new System.Windows.Forms.Panel();
+            panelPurchaseSidemenu = new DevExpress.XtraEditors.PanelControl();
+            btnPOS = new DevExpress.XtraEditors.SimpleButton();
+            btnListPurchase = new DevExpress.XtraEditors.SimpleButton();
             sidePanel1.SuspendLayout();
             scrollSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelPurchaseHeader).BeginInit();
@@ -152,6 +153,8 @@
             panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl2).BeginInit();
             panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelPurchaseSidemenu).BeginInit();
+            panelPurchaseSidemenu.SuspendLayout();
             SuspendLayout();
             // 
             // sidePanel1
@@ -172,6 +175,7 @@
             // 
             scrollSidebar.Appearance.BackColor = System.Drawing.Color.White;
             scrollSidebar.Appearance.Options.UseBackColor = true;
+            scrollSidebar.Controls.Add(panelPurchaseSidemenu);
             scrollSidebar.Controls.Add(panelPurchaseHeader);
             scrollSidebar.Controls.Add(panelProductsSubmenu);
             scrollSidebar.Controls.Add(panelProductsHeader);
@@ -193,7 +197,7 @@
             panelPurchaseHeader.Dock = System.Windows.Forms.DockStyle.Top;
             panelPurchaseHeader.Location = new System.Drawing.Point(0, 940);
             panelPurchaseHeader.Name = "panelPurchaseHeader";
-            panelPurchaseHeader.Size = new System.Drawing.Size(248, 45);
+            panelPurchaseHeader.Size = new System.Drawing.Size(231, 45);
             panelPurchaseHeader.TabIndex = 7;
             // 
             // btnPurchases
@@ -208,9 +212,10 @@
             btnPurchases.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter;
             btnPurchases.Location = new System.Drawing.Point(0, 0);
             btnPurchases.Name = "btnPurchases";
-            btnPurchases.Size = new System.Drawing.Size(248, 45);
+            btnPurchases.Size = new System.Drawing.Size(231, 45);
             btnPurchases.TabIndex = 16;
             btnPurchases.Text = "Purchases";
+            btnPurchases.Click += btnPurchases_Click;
             // 
             // panelProductsSubmenu
             // 
@@ -230,7 +235,7 @@
             panelProductsSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             panelProductsSubmenu.Location = new System.Drawing.Point(0, 460);
             panelProductsSubmenu.Name = "panelProductsSubmenu";
-            panelProductsSubmenu.Size = new System.Drawing.Size(248, 480);
+            panelProductsSubmenu.Size = new System.Drawing.Size(231, 480);
             panelProductsSubmenu.TabIndex = 6;
             panelProductsSubmenu.Visible = false;
             // 
@@ -245,7 +250,7 @@
             btnWarrenties.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnWarrenties.Location = new System.Drawing.Point(0, 440);
             btnWarrenties.Name = "btnWarrenties";
-            btnWarrenties.Size = new System.Drawing.Size(248, 40);
+            btnWarrenties.Size = new System.Drawing.Size(231, 40);
             btnWarrenties.TabIndex = 27;
             btnWarrenties.Text = "Warrenties";
             // 
@@ -260,7 +265,7 @@
             btnListProducts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnListProducts.Location = new System.Drawing.Point(0, 400);
             btnListProducts.Name = "btnListProducts";
-            btnListProducts.Size = new System.Drawing.Size(248, 40);
+            btnListProducts.Size = new System.Drawing.Size(231, 40);
             btnListProducts.TabIndex = 16;
             btnListProducts.Text = "List Products";
             // 
@@ -275,7 +280,7 @@
             btnAddProducts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnAddProducts.Location = new System.Drawing.Point(0, 360);
             btnAddProducts.Name = "btnAddProducts";
-            btnAddProducts.Size = new System.Drawing.Size(248, 40);
+            btnAddProducts.Size = new System.Drawing.Size(231, 40);
             btnAddProducts.TabIndex = 17;
             btnAddProducts.Text = "Add Products";
             // 
@@ -290,7 +295,7 @@
             btnBrands.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnBrands.Location = new System.Drawing.Point(0, 320);
             btnBrands.Name = "btnBrands";
-            btnBrands.Size = new System.Drawing.Size(248, 40);
+            btnBrands.Size = new System.Drawing.Size(231, 40);
             btnBrands.TabIndex = 26;
             btnBrands.Text = "Brands";
             // 
@@ -305,7 +310,7 @@
             btnUpdatePrice.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnUpdatePrice.Location = new System.Drawing.Point(0, 280);
             btnUpdatePrice.Name = "btnUpdatePrice";
-            btnUpdatePrice.Size = new System.Drawing.Size(248, 40);
+            btnUpdatePrice.Size = new System.Drawing.Size(231, 40);
             btnUpdatePrice.TabIndex = 18;
             btnUpdatePrice.Text = "Update Price";
             // 
@@ -320,7 +325,7 @@
             btnCategories.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnCategories.Location = new System.Drawing.Point(0, 240);
             btnCategories.Name = "btnCategories";
-            btnCategories.Size = new System.Drawing.Size(248, 40);
+            btnCategories.Size = new System.Drawing.Size(231, 40);
             btnCategories.TabIndex = 25;
             btnCategories.Text = "Categories";
             // 
@@ -335,7 +340,7 @@
             btnPrintLabels.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnPrintLabels.Location = new System.Drawing.Point(0, 200);
             btnPrintLabels.Name = "btnPrintLabels";
-            btnPrintLabels.Size = new System.Drawing.Size(248, 40);
+            btnPrintLabels.Size = new System.Drawing.Size(231, 40);
             btnPrintLabels.TabIndex = 19;
             btnPrintLabels.Text = "Print Labels";
             // 
@@ -350,7 +355,7 @@
             btnUnits.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnUnits.Location = new System.Drawing.Point(0, 160);
             btnUnits.Name = "btnUnits";
-            btnUnits.Size = new System.Drawing.Size(248, 40);
+            btnUnits.Size = new System.Drawing.Size(231, 40);
             btnUnits.TabIndex = 24;
             btnUnits.Text = "Units";
             // 
@@ -365,7 +370,7 @@
             btnVariations.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnVariations.Location = new System.Drawing.Point(0, 120);
             btnVariations.Name = "btnVariations";
-            btnVariations.Size = new System.Drawing.Size(248, 40);
+            btnVariations.Size = new System.Drawing.Size(231, 40);
             btnVariations.TabIndex = 20;
             btnVariations.Text = "Variations";
             // 
@@ -380,7 +385,7 @@
             btnSellingPriceGroup.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnSellingPriceGroup.Location = new System.Drawing.Point(0, 80);
             btnSellingPriceGroup.Name = "btnSellingPriceGroup";
-            btnSellingPriceGroup.Size = new System.Drawing.Size(248, 40);
+            btnSellingPriceGroup.Size = new System.Drawing.Size(231, 40);
             btnSellingPriceGroup.TabIndex = 23;
             btnSellingPriceGroup.Text = "Selling Price Group";
             // 
@@ -395,7 +400,7 @@
             btnImportProducts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnImportProducts.Location = new System.Drawing.Point(0, 40);
             btnImportProducts.Name = "btnImportProducts";
-            btnImportProducts.Size = new System.Drawing.Size(248, 40);
+            btnImportProducts.Size = new System.Drawing.Size(231, 40);
             btnImportProducts.TabIndex = 21;
             btnImportProducts.Text = "Import Products";
             // 
@@ -410,7 +415,7 @@
             btnImportOpeningStock.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnImportOpeningStock.Location = new System.Drawing.Point(0, 0);
             btnImportOpeningStock.Name = "btnImportOpeningStock";
-            btnImportOpeningStock.Size = new System.Drawing.Size(248, 40);
+            btnImportOpeningStock.Size = new System.Drawing.Size(231, 40);
             btnImportOpeningStock.TabIndex = 22;
             btnImportOpeningStock.Text = "Import Opening Stock";
             // 
@@ -421,7 +426,7 @@
             panelProductsHeader.Dock = System.Windows.Forms.DockStyle.Top;
             panelProductsHeader.Location = new System.Drawing.Point(0, 415);
             panelProductsHeader.Name = "panelProductsHeader";
-            panelProductsHeader.Size = new System.Drawing.Size(248, 45);
+            panelProductsHeader.Size = new System.Drawing.Size(231, 45);
             panelProductsHeader.TabIndex = 5;
             // 
             // btnProducts
@@ -436,7 +441,7 @@
             btnProducts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter;
             btnProducts.Location = new System.Drawing.Point(0, 0);
             btnProducts.Name = "btnProducts";
-            btnProducts.Size = new System.Drawing.Size(248, 45);
+            btnProducts.Size = new System.Drawing.Size(231, 45);
             btnProducts.TabIndex = 16;
             btnProducts.Text = "Products";
             btnProducts.Click += btnProducts_Click;
@@ -451,7 +456,7 @@
             panelContactSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             panelContactSubmenu.Location = new System.Drawing.Point(0, 255);
             panelContactSubmenu.Name = "panelContactSubmenu";
-            panelContactSubmenu.Size = new System.Drawing.Size(248, 160);
+            panelContactSubmenu.Size = new System.Drawing.Size(231, 160);
             panelContactSubmenu.TabIndex = 4;
             panelContactSubmenu.Visible = false;
             // 
@@ -466,7 +471,7 @@
             btnSuppliers.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnSuppliers.Location = new System.Drawing.Point(0, 120);
             btnSuppliers.Name = "btnSuppliers";
-            btnSuppliers.Size = new System.Drawing.Size(248, 40);
+            btnSuppliers.Size = new System.Drawing.Size(231, 40);
             btnSuppliers.TabIndex = 18;
             btnSuppliers.Text = "Suppliers";
             // 
@@ -481,7 +486,7 @@
             btnCustomerManagement.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
             btnCustomerManagement.Location = new System.Drawing.Point(0, 80);
             btnCustomerManagement.Name = "btnCustomerManagement";
-            btnCustomerManagement.Size = new System.Drawing.Size(248, 40);
+            btnCustomerManagement.Size = new System.Drawing.Size(231, 40);
             btnCustomerManagement.TabIndex = 15;
             btnCustomerManagement.Text = "Customers";
             btnCustomerManagement.Click += btnCustomerManagement_Click;
@@ -497,7 +502,7 @@
             btnCustomerGroups.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnCustomerGroups.Location = new System.Drawing.Point(0, 40);
             btnCustomerGroups.Name = "btnCustomerGroups";
-            btnCustomerGroups.Size = new System.Drawing.Size(248, 40);
+            btnCustomerGroups.Size = new System.Drawing.Size(231, 40);
             btnCustomerGroups.TabIndex = 17;
             btnCustomerGroups.Text = "Customer Groups";
             btnCustomerGroups.Click += btnCustomerGroups_Click;
@@ -513,7 +518,7 @@
             btnImportContacts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             btnImportContacts.Location = new System.Drawing.Point(0, 0);
             btnImportContacts.Name = "btnImportContacts";
-            btnImportContacts.Size = new System.Drawing.Size(248, 40);
+            btnImportContacts.Size = new System.Drawing.Size(231, 40);
             btnImportContacts.TabIndex = 19;
             btnImportContacts.Text = "Import Contacts";
             // 
@@ -524,7 +529,7 @@
             panelContactHeader.Dock = System.Windows.Forms.DockStyle.Top;
             panelContactHeader.Location = new System.Drawing.Point(0, 210);
             panelContactHeader.Name = "panelContactHeader";
-            panelContactHeader.Size = new System.Drawing.Size(248, 45);
+            panelContactHeader.Size = new System.Drawing.Size(231, 45);
             panelContactHeader.TabIndex = 3;
             // 
             // btnContacts
@@ -539,7 +544,7 @@
             btnContacts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter;
             btnContacts.Location = new System.Drawing.Point(0, 0);
             btnContacts.Name = "btnContacts";
-            btnContacts.Size = new System.Drawing.Size(248, 45);
+            btnContacts.Size = new System.Drawing.Size(231, 45);
             btnContacts.TabIndex = 18;
             btnContacts.Text = "Contacts";
             btnContacts.Click += btnContacts_Click;
@@ -553,7 +558,7 @@
             panelUserManagementSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             panelUserManagementSubmenu.Location = new System.Drawing.Point(0, 90);
             panelUserManagementSubmenu.Name = "panelUserManagementSubmenu";
-            panelUserManagementSubmenu.Size = new System.Drawing.Size(248, 120);
+            panelUserManagementSubmenu.Size = new System.Drawing.Size(231, 120);
             panelUserManagementSubmenu.TabIndex = 2;
             panelUserManagementSubmenu.Visible = false;
             // 
@@ -568,7 +573,7 @@
             btnUsers.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
             btnUsers.Location = new System.Drawing.Point(0, 80);
             btnUsers.Name = "btnUsers";
-            btnUsers.Size = new System.Drawing.Size(248, 40);
+            btnUsers.Size = new System.Drawing.Size(231, 40);
             btnUsers.TabIndex = 18;
             btnUsers.Text = "Users";
             // 
@@ -583,7 +588,7 @@
             btnRoles.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
             btnRoles.Location = new System.Drawing.Point(0, 40);
             btnRoles.Name = "btnRoles";
-            btnRoles.Size = new System.Drawing.Size(248, 40);
+            btnRoles.Size = new System.Drawing.Size(231, 40);
             btnRoles.TabIndex = 19;
             btnRoles.Text = "Roles";
             // 
@@ -598,7 +603,7 @@
             btnSalesCommisionAgents.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopLeft;
             btnSalesCommisionAgents.Location = new System.Drawing.Point(0, 0);
             btnSalesCommisionAgents.Name = "btnSalesCommisionAgents";
-            btnSalesCommisionAgents.Size = new System.Drawing.Size(248, 40);
+            btnSalesCommisionAgents.Size = new System.Drawing.Size(231, 40);
             btnSalesCommisionAgents.TabIndex = 20;
             btnSalesCommisionAgents.Text = "Sales Commision Agents";
             // 
@@ -609,7 +614,7 @@
             panelUserManagementHeader.Dock = System.Windows.Forms.DockStyle.Top;
             panelUserManagementHeader.Location = new System.Drawing.Point(0, 45);
             panelUserManagementHeader.Name = "panelUserManagementHeader";
-            panelUserManagementHeader.Size = new System.Drawing.Size(248, 45);
+            panelUserManagementHeader.Size = new System.Drawing.Size(231, 45);
             panelUserManagementHeader.TabIndex = 1;
             // 
             // btnUserManagement
@@ -624,7 +629,7 @@
             btnUserManagement.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.RightCenter;
             btnUserManagement.Location = new System.Drawing.Point(0, 0);
             btnUserManagement.Name = "btnUserManagement";
-            btnUserManagement.Size = new System.Drawing.Size(248, 45);
+            btnUserManagement.Size = new System.Drawing.Size(231, 45);
             btnUserManagement.TabIndex = 18;
             btnUserManagement.Text = "User Management";
             btnUserManagement.Click += btnUserManagement_Click;
@@ -636,7 +641,7 @@
             panelHomeHeader.Dock = System.Windows.Forms.DockStyle.Top;
             panelHomeHeader.Location = new System.Drawing.Point(0, 0);
             panelHomeHeader.Name = "panelHomeHeader";
-            panelHomeHeader.Size = new System.Drawing.Size(248, 45);
+            panelHomeHeader.Size = new System.Drawing.Size(231, 45);
             panelHomeHeader.TabIndex = 0;
             // 
             // btnHome
@@ -651,7 +656,7 @@
             btnHome.Dock = System.Windows.Forms.DockStyle.Fill;
             btnHome.Location = new System.Drawing.Point(0, 0);
             btnHome.Name = "btnHome";
-            btnHome.Size = new System.Drawing.Size(248, 45);
+            btnHome.Size = new System.Drawing.Size(231, 45);
             btnHome.TabIndex = 14;
             btnHome.Text = "Home";
             btnHome.Click += btnHome_Click;
@@ -691,21 +696,6 @@
             btnAcc.Size = new System.Drawing.Size(48, 30);
             btnAcc.TabIndex = 4;
             // 
-            // btnPOS
-            // 
-            btnPOS.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            btnPOS.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnPOS.Appearance.Options.UseBackColor = true;
-            btnPOS.Appearance.Options.UseFont = true;
-            btnPOS.AppearanceHovered.Options.UseBackColor = true;
-            btnPOS.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnPOS.Location = new System.Drawing.Point(1478, 9);
-            btnPOS.Name = "btnPOS";
-            btnPOS.Size = new System.Drawing.Size(48, 30);
-            btnPOS.TabIndex = 5;
-            btnPOS.Text = "POS";
-            btnPOS.Click += btnPOS_Click;
-            // 
             // labelControl5
             // 
             labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
@@ -733,7 +723,6 @@
             // topPanel1
             // 
             topPanel1.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
-            topPanel1.Controls.Add(simpleButton1);
             topPanel1.Controls.Add(labelControl6);
             topPanel1.Controls.Add(labelControl5);
             topPanel1.Controls.Add(btnPOS);
@@ -742,20 +731,6 @@
             topPanel1.Name = "topPanel1";
             topPanel1.Size = new System.Drawing.Size(1671, 49);
             topPanel1.TabIndex = 1;
-            // 
-            // simpleButton1
-            // 
-            simpleButton1.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton1.Appearance.Options.UseBackColor = true;
-            simpleButton1.Appearance.Options.UseFont = true;
-            simpleButton1.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            simpleButton1.Location = new System.Drawing.Point(302, 9);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.Size = new System.Drawing.Size(48, 30);
-            simpleButton1.TabIndex = 15;
-            simpleButton1.Text = "POS";
             // 
             // label1
             // 
@@ -1137,14 +1112,14 @@
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl1.Controls.Add(chartControl1);
             panelControl1.Controls.Add(label3);
-            panelControl1.Location = new System.Drawing.Point(651, 10);
+            panelControl1.Location = new System.Drawing.Point(23, 10);
             panelControl1.Name = "panelControl1";
-            panelControl1.Size = new System.Drawing.Size(1002, 363);
+            panelControl1.Size = new System.Drawing.Size(1630, 363);
             panelControl1.TabIndex = 12;
             // 
             // chartControl1
             // 
-            chartControl1.Location = new System.Drawing.Point(35, 40);
+            chartControl1.Location = new System.Drawing.Point(16, 59);
             chartControl1.Name = "chartControl1";
             chartControl1.Size = new System.Drawing.Size(1590, 287);
             chartControl1.TabIndex = 12;
@@ -1167,9 +1142,9 @@
             panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl2.Controls.Add(chartControl2);
             panelControl2.Controls.Add(label4);
-            panelControl2.Location = new System.Drawing.Point(651, 388);
+            panelControl2.Location = new System.Drawing.Point(23, 388);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(1002, 363);
+            panelControl2.Size = new System.Drawing.Size(1630, 363);
             panelControl2.TabIndex = 13;
             // 
             // chartControl2
@@ -1199,6 +1174,47 @@
             panel9.Name = "panel9";
             panel9.Size = new System.Drawing.Size(1671, 763);
             panel9.TabIndex = 3;
+            // 
+            // panelPurchaseSidemenu
+            // 
+            panelPurchaseSidemenu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelPurchaseSidemenu.Controls.Add(btnListPurchase);
+            panelPurchaseSidemenu.Dock = System.Windows.Forms.DockStyle.Top;
+            panelPurchaseSidemenu.Location = new System.Drawing.Point(0, 985);
+            panelPurchaseSidemenu.Name = "panelPurchaseSidemenu";
+            panelPurchaseSidemenu.Size = new System.Drawing.Size(231, 100);
+            panelPurchaseSidemenu.TabIndex = 8;
+            panelPurchaseSidemenu.Visible = false;
+            // 
+            // btnPOS
+            // 
+            btnPOS.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnPOS.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnPOS.Appearance.Options.UseBackColor = true;
+            btnPOS.Appearance.Options.UseFont = true;
+            btnPOS.AppearanceHovered.Options.UseBackColor = true;
+            btnPOS.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnPOS.Location = new System.Drawing.Point(1478, 9);
+            btnPOS.Name = "btnPOS";
+            btnPOS.Size = new System.Drawing.Size(48, 30);
+            btnPOS.TabIndex = 5;
+            btnPOS.Text = "POS";
+            btnPOS.Click += btnPOS_Click;
+            // 
+            // btnListPurchase
+            // 
+            btnListPurchase.Appearance.BackColor = System.Drawing.Color.White;
+            btnListPurchase.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnListPurchase.Appearance.Options.UseBackColor = true;
+            btnListPurchase.Appearance.Options.UseFont = true;
+            btnListPurchase.AppearanceHovered.Options.UseBackColor = true;
+            btnListPurchase.Dock = System.Windows.Forms.DockStyle.Top;
+            btnListPurchase.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnListPurchase.Location = new System.Drawing.Point(0, 0);
+            btnListPurchase.Name = "btnListPurchase";
+            btnListPurchase.Size = new System.Drawing.Size(231, 40);
+            btnListPurchase.TabIndex = 15;
+            btnListPurchase.Text = "List Purchase";
             // 
             // UC_Dashboard
             // 
@@ -1266,6 +1282,8 @@
             panelControl2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl2).EndInit();
             panel9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)panelPurchaseSidemenu).EndInit();
+            panelPurchaseSidemenu.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1276,7 +1294,6 @@
         private DevExpress.XtraEditors.LabelControl lblBusinessName;
         private DevExpress.XtraEditors.XtraScrollableControl scrollSidebar;
         private DevExpress.XtraEditors.SimpleButton btnAcc;
-        private DevExpress.XtraEditors.SimpleButton btnPOS;
         private DevExpress.XtraEditors.LabelControl labelControl5;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private System.Windows.Forms.Panel topPanel1;
@@ -1323,7 +1340,6 @@
         private DevExpress.XtraCharts.ChartControl chartControl2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel9;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SimpleButton btnWarrenties;
         private DevExpress.XtraEditors.SimpleButton btnBrands;
         private DevExpress.XtraEditors.SimpleButton btnCategories;
@@ -1356,5 +1372,8 @@
         private DevExpress.XtraEditors.PanelControl panelProductsSubmenu;
         private DevExpress.XtraEditors.PanelControl panelPurchaseHeader;
         private DevExpress.XtraEditors.SimpleButton btnPurchases;
+        private DevExpress.XtraEditors.PanelControl panelPurchaseSidemenu;
+        private DevExpress.XtraEditors.SimpleButton btnListPurchase;
+        private DevExpress.XtraEditors.SimpleButton btnPOS;
     }
 }
