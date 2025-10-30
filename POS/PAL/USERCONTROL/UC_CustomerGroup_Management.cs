@@ -17,5 +17,15 @@ namespace POS.PAL.USERCONTROL
         {
             InitializeComponent();
         }
+
+        private void btnAddCustomerGroup_Click(object sender, EventArgs e)
+        {
+            Main.Instance.SwitchToControl(new UC_CustomerGroup_Registration());
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            Main.Instance.SwitchToControl(new UC_Dashboard());
+        }
     }
 }

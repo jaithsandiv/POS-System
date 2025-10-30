@@ -47,5 +47,10 @@ namespace POS.PAL.USERCONTROL
         {
             panelContactSubmenu.Visible = !panelContactSubmenu.Visible;
         }
+
+        private void btnProducts_Click(object sender, EventArgs e)
+        {
+            panelProductsSubmenu.Visible = !panelProductsSubmenu.Visible;
+        }
     }
 }

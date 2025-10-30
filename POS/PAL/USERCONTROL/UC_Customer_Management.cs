@@ -55,5 +55,10 @@ namespace POS.PAL.USERCONTROL
         {
             Main.Instance.SwitchToControl(new UC_Customer_Registration());
         }
+
+        private void btnAddCustomer_Click(object sender, EventArgs e)
+        {
+            Main.Instance.SwitchToControl(new UC_Customer_Registration());
+        }
     }
 }
