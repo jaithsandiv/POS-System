@@ -52,7 +52,7 @@
             xtraScrollableControl3 = new DevExpress.XtraEditors.XtraScrollableControl();
             labelControl16 = new DevExpress.XtraEditors.LabelControl();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            txtBarcode = new DevExpress.XtraEditors.TextEdit();
             xtraScrollableControl2 = new DevExpress.XtraEditors.XtraScrollableControl();
             xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
@@ -104,11 +104,14 @@
             panelControl10 = new DevExpress.XtraEditors.PanelControl();
             separatorControl8 = new DevExpress.XtraEditors.SeparatorControl();
             panel1 = new System.Windows.Forms.Panel();
+            labelControl27 = new DevExpress.XtraEditors.LabelControl();
             txtGrandTotal = new DevExpress.XtraEditors.TextEdit();
             labelControl20 = new DevExpress.XtraEditors.LabelControl();
             labelControl22 = new DevExpress.XtraEditors.LabelControl();
             simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
             panel2 = new System.Windows.Forms.Panel();
+            labelControl19 = new DevExpress.XtraEditors.LabelControl();
+            labelControl17 = new DevExpress.XtraEditors.LabelControl();
             txtDiscount = new DevExpress.XtraEditors.ButtonEdit();
             txtTotal = new DevExpress.XtraEditors.TextEdit();
             labelControl21 = new DevExpress.XtraEditors.LabelControl();
@@ -131,7 +134,7 @@
             panelControl6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl5).BeginInit();
             panelControl5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)textEdit1.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtBarcode.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
             panelControl3.SuspendLayout();
@@ -298,7 +301,7 @@
             panelControl6.Controls.Add(panelControl5);
             panelControl6.Controls.Add(labelControl16);
             panelControl6.Controls.Add(labelControl14);
-            panelControl6.Controls.Add(textEdit1);
+            panelControl6.Controls.Add(txtBarcode);
             panelControl6.Controls.Add(xtraScrollableControl2);
             panelControl6.Controls.Add(xtraScrollableControl1);
             panelControl6.Controls.Add(labelControl8);
@@ -354,15 +357,16 @@
             labelControl14.TabIndex = 107;
             labelControl14.Text = "Product Selection";
             // 
-            // textEdit1
+            // txtBarcode
             // 
-            textEdit1.Location = new System.Drawing.Point(72, 53);
-            textEdit1.Name = "textEdit1";
-            textEdit1.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            textEdit1.Properties.Appearance.Options.UseFont = true;
-            textEdit1.Properties.Padding = new System.Windows.Forms.Padding(10);
-            textEdit1.Size = new System.Drawing.Size(677, 44);
-            textEdit1.TabIndex = 34;
+            txtBarcode.Location = new System.Drawing.Point(72, 53);
+            txtBarcode.Name = "txtBarcode";
+            txtBarcode.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtBarcode.Properties.Appearance.Options.UseFont = true;
+            txtBarcode.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtBarcode.Size = new System.Drawing.Size(677, 44);
+            txtBarcode.TabIndex = 34;
+            txtBarcode.EditValueChanged += txtBarcode_EditValueChanged;
             // 
             // xtraScrollableControl2
             // 
@@ -987,6 +991,7 @@
             // panel1
             // 
             panel1.BackColor = System.Drawing.Color.White;
+            panel1.Controls.Add(labelControl27);
             panel1.Controls.Add(txtGrandTotal);
             panel1.Controls.Add(labelControl20);
             panel1.Controls.Add(labelControl22);
@@ -995,6 +1000,18 @@
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(369, 58);
             panel1.TabIndex = 36;
+            // 
+            // labelControl27
+            // 
+            labelControl27.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl27.Appearance.ForeColor = System.Drawing.Color.Black;
+            labelControl27.Appearance.Options.UseFont = true;
+            labelControl27.Appearance.Options.UseForeColor = true;
+            labelControl27.Location = new System.Drawing.Point(227, 20);
+            labelControl27.Name = "labelControl27";
+            labelControl27.Size = new System.Drawing.Size(17, 17);
+            labelControl27.TabIndex = 41;
+            labelControl27.Text = "Rs.";
             // 
             // txtGrandTotal
             // 
@@ -1049,6 +1066,8 @@
             // panel2
             // 
             panel2.BackColor = System.Drawing.Color.White;
+            panel2.Controls.Add(labelControl19);
+            panel2.Controls.Add(labelControl17);
             panel2.Controls.Add(txtDiscount);
             panel2.Controls.Add(txtTotal);
             panel2.Controls.Add(labelControl21);
@@ -1059,6 +1078,30 @@
             panel2.Name = "panel2";
             panel2.Size = new System.Drawing.Size(369, 98);
             panel2.TabIndex = 37;
+            // 
+            // labelControl19
+            // 
+            labelControl19.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl19.Appearance.ForeColor = System.Drawing.Color.Black;
+            labelControl19.Appearance.Options.UseFont = true;
+            labelControl19.Appearance.Options.UseForeColor = true;
+            labelControl19.Location = new System.Drawing.Point(239, 64);
+            labelControl19.Name = "labelControl19";
+            labelControl19.Size = new System.Drawing.Size(5, 17);
+            labelControl19.TabIndex = 41;
+            labelControl19.Text = "-";
+            // 
+            // labelControl17
+            // 
+            labelControl17.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl17.Appearance.ForeColor = System.Drawing.Color.Black;
+            labelControl17.Appearance.Options.UseFont = true;
+            labelControl17.Appearance.Options.UseForeColor = true;
+            labelControl17.Location = new System.Drawing.Point(227, 16);
+            labelControl17.Name = "labelControl17";
+            labelControl17.Size = new System.Drawing.Size(17, 17);
+            labelControl17.TabIndex = 40;
+            labelControl17.Text = "Rs.";
             // 
             // txtDiscount
             // 
@@ -1073,6 +1116,8 @@
             txtDiscount.Properties.ReadOnly = true;
             txtDiscount.Size = new System.Drawing.Size(115, 44);
             txtDiscount.TabIndex = 38;
+            txtDiscount.ButtonClick += txtDiscount_ButtonClick;
+            txtDiscount.EditValueChanged += txtDiscount_EditValueChanged;
             // 
             // txtTotal
             // 
@@ -1258,7 +1303,7 @@
             panelControl6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl5).EndInit();
             panelControl5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)textEdit1.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtBarcode.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
             panelControl3.ResumeLayout(false);
@@ -1405,5 +1450,9 @@
         private DevExpress.XtraEditors.TextEdit txtTotal;
         private DevExpress.XtraEditors.TextEdit txtGrandTotal;
         private DevExpress.XtraEditors.SeparatorControl separatorControl8;
+        private DevExpress.XtraEditors.TextEdit txtBarcode;
+        private DevExpress.XtraEditors.LabelControl labelControl27;
+        private DevExpress.XtraEditors.LabelControl labelControl19;
+        private DevExpress.XtraEditors.LabelControl labelControl17;
     }
 }

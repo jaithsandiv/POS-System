@@ -118,6 +118,126 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
+        private void CalculateAndUpdateGrandTotal()
+        {
+            if (saleTable.Rows.Count == 0)
+                return;
+
+            DataRow saleRow = saleTable.Rows[0];
+
+            // Get total amount (sum of all item subtotals)
+            decimal totalAmount = 0;
+            if (decimal.TryParse(saleRow["total_amount"]?.ToString(), out decimal parsedTotal))
+            {
+                totalAmount = parsedTotal;
+            }
+
+            // Get sale-level discount details
+            string discountType = saleRow["discount_type"]?.ToString() ?? "PERCENTAGE";
+            decimal discountValue = 0;
+            if (decimal.TryParse(saleRow["discount_value"]?.ToString(), out decimal parsedDiscount))
+            {
+                discountValue = parsedDiscount;
+            }
+
+            // Calculate discount amount
+            decimal discountAmount = 0;
+            if (discountType == "PERCENTAGE")
+            {
+                discountAmount = totalAmount * discountValue / 100m;
+            }
+            else if (discountType == "FIXED_AMOUNT")
+            {
+                discountAmount = discountValue;
+            }
+
+            // Calculate grand total
+            decimal grandTotal = Math.Max(0, totalAmount - discountAmount);
+            saleRow["grand_total"] = grandTotal.ToString("F2");
+            txtGrandTotal.Text = grandTotal.ToString("F2");
+        }
+
+        private void AddProductToSalesItems(DataRow product)
+        {
+            if (product == null)
+                return;
+
+            // Check if the product already exists in the salesItemsTable
+            DataRow existingRow = null;
+            foreach (DataRow row in salesItemsTable.Rows)
+            {
+                if (row["product_id"].ToString() == product["product_id"].ToString())
+                {
+                    existingRow = row;
+                    break;
+                }
+            }
+
+            if (existingRow != null)
+            {
+                // Increase the quantity of the existing product
+                int currentQuantity = Convert.ToInt32(existingRow["quantity"]);
+                existingRow["quantity"] = currentQuantity + 1;
+
+                // Recalculate subtotal
+                decimal price = Convert.ToDecimal(existingRow["unit_price"]);
+                string promotionType = existingRow["discount_type"].ToString();
+                decimal discountValue = Convert.ToDecimal(existingRow["discount_value"]);
+                decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
+                existingRow["subtotal"] = (price - discountAmount) * Convert.ToInt32(existingRow["quantity"]);
+            }
+            else
+            {
+                // Add new product to the salesItemsTable
+                DataRow newRow = salesItemsTable.NewRow();
+                newRow["product_id"] = product["product_id"];
+                newRow["product_name"] = product["product_name"];
+                newRow["unit_price"] = Convert.ToDecimal(product["selling_price"]);
+                newRow["quantity"] = 1;
+
+                // Load discount details from the product
+                string promotionType = product["promotion_type"]?.ToString() ?? "PERCENTAGE";
+                decimal discountValue = 0;
+                if (product["discount_value"] != DBNull.Value && !string.IsNullOrWhiteSpace(product["discount_value"]?.ToString()))
+                {
+                    discountValue = Convert.ToDecimal(product["discount_value"]);
+                }
+
+                newRow["discount_type"] = promotionType;
+                newRow["discount_value"] = discountValue;
+
+                // Calculate subtotal
+                decimal price = Convert.ToDecimal(product["selling_price"]);
+                decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
+                newRow["subtotal"] = price - discountAmount;
+
+                salesItemsTable.Rows.Add(newRow);
+            }
+
+            // Update total amount and total items
+            decimal totalAmount = 0;
+            int totalItems = 0;
+
+            foreach (DataRow row in salesItemsTable.Rows)
+            {
+                totalAmount += Convert.ToDecimal(row["subtotal"]);
+                totalItems += Convert.ToInt32(row["quantity"]);
+            }
+
+            // Update the saleTable with total amount and total items
+            if (saleTable.Rows.Count > 0)
+            {
+                DataRow saleRow = saleTable.Rows[0];
+                saleRow["total_amount"] = totalAmount.ToString("F2");
+                saleRow["total_items"] = totalItems.ToString();
+            }
+
+            // Calculate and update grand total with sale-level discount
+            CalculateAndUpdateGrandTotal();
+
+            gvTransactionSum.GridControl.DataSource = salesItemsTable;
+        }
+
         private void ProductButton_Click(object sender, EventArgs e)
         {
             if (sender is DevExpress.XtraEditors.SimpleButton button)
@@ -129,79 +249,7 @@ namespace POS.PAL.USERCONTROL
 
                 if (productRows.Length > 0)
                 {
-                    DataRow product = productRows[0];
-
-                    // Check if the product already exists in the salesItemsTable
-                    DataRow existingRow = null;
-                    foreach (DataRow row in salesItemsTable.Rows)
-                    {
-                        if (row["product_id"].ToString() == product["product_id"].ToString())
-                        {
-                            existingRow = row;
-                            break;
-                        }
-                    }
-
-                    if (existingRow != null)
-                    {
-                        // Increase the quantity of the existing product
-                        int currentQuantity = Convert.ToInt32(existingRow["quantity"]);
-                        existingRow["quantity"] = currentQuantity + 1;
-
-                        // Recalculate subtotal
-                        decimal price = Convert.ToDecimal(existingRow["unit_price"]);
-                        string promotionType = existingRow["discount_type"].ToString();
-                        decimal discountValue = Convert.ToDecimal(existingRow["discount_value"]);
-                        decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
-                        existingRow["subtotal"] = (price - discountAmount) * Convert.ToInt32(existingRow["quantity"]);
-                    }
-                    else
-                    {
-                        // Add new product to the salesItemsTable
-                        DataRow newRow = salesItemsTable.NewRow();
-                        newRow["product_id"] = product["product_id"];
-                        newRow["product_name"] = product["product_name"];
-                        newRow["unit_price"] = Convert.ToDecimal(product["selling_price"]);
-                        newRow["quantity"] = 1;
-
-                        // Load discount details from the product
-                        string promotionType = product["promotion_type"]?.ToString() ?? "PERCENTAGE";
-                        decimal discountValue = 0;
-                        if (product["discount_value"] != DBNull.Value && !string.IsNullOrWhiteSpace(product["discount_value"]?.ToString()))
-                        {
-                            discountValue = Convert.ToDecimal(product["discount_value"]);
-                        }
-
-                        newRow["discount_type"] = promotionType;
-                        newRow["discount_value"] = discountValue;
-
-                        // Calculate subtotal
-                        decimal price = Convert.ToDecimal(product["selling_price"]);
-                        decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
-                        newRow["subtotal"] = price - discountAmount;
-
-                        salesItemsTable.Rows.Add(newRow);
-                    }
-
-                    // Update total amount and total items
-                    decimal totalAmount = 0;
-                    int totalItems = 0;
-
-                    foreach (DataRow row in salesItemsTable.Rows)
-                    {
-                        totalAmount += Convert.ToDecimal(row["subtotal"]);
-                        totalItems += Convert.ToInt32(row["quantity"]);
-                    }
-
-                    // Update the saleTable with total amount and total items
-                    if (saleTable.Rows.Count > 0)
-                    {
-                        DataRow saleRow = saleTable.Rows[0];
-                        saleRow["total_amount"] = totalAmount.ToString("F2");
-                        saleRow["total_items"] = totalItems.ToString();
-                    }
-
-                    gvTransactionSum.GridControl.DataSource = salesItemsTable;
+                    AddProductToSalesItems(productRows[0]);
                 }
             }
         }
@@ -220,7 +268,7 @@ namespace POS.PAL.USERCONTROL
             var editor = view.Columns["discount_value"].ColumnEdit as DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit;
             if (editor != null)
             {
-                editor.Buttons[0].Caption = newType == "PERCENTAGE" ? "%" : "$";
+                editor.Buttons[0].Caption = newType == "PERCENTAGE" ? "%" : "Rs.";
             }
 
             // Recalculate subtotal
@@ -264,6 +312,9 @@ namespace POS.PAL.USERCONTROL
                     saleRow["total_amount"] = totalAmount.ToString("F2");
                     saleRow["total_items"] = totalItems.ToString();
                 }
+
+                // Recalculate grand total after item discount changes
+                CalculateAndUpdateGrandTotal();
             }
         }
 
@@ -495,33 +546,26 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
-        private void repositoryItemButtonEdit2_Click(object sender, EventArgs e)
-        {
-            var view = gvTransactionSum;
-            int rowHandle = view.FocusedRowHandle;
-
-            if (rowHandle >= 0)
-            {
-                // Get the data source
-                DataTable salesItems = view.GridControl.DataSource as DataTable;
-
-                if (salesItems != null)
-                {
-                    // Remove the row from the data source
-                    salesItems.Rows.RemoveAt(rowHandle);
-
-                    // Refresh the grid view
-                    view.RefreshData();
-                }
-            }
-        }
-
         private void SaleTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
             if (e.Row.Table.Columns.Contains("total_amount"))
             {
                 decimal totalAmount = Convert.ToDecimal(e.Row["total_amount"]);
-                txtTotal.Text = $"{totalAmount:C}";
+                decimal grandTotal = 0;
+                
+                // Get grand_total if available
+                if (e.Row.Table.Columns.Contains("grand_total") && 
+                    decimal.TryParse(e.Row["grand_total"]?.ToString(), out decimal parsedGrandTotal))
+                {
+                    grandTotal = parsedGrandTotal;
+                }
+                else
+                {
+                    grandTotal = totalAmount; // Fallback to total_amount if grand_total not set
+                }
+
+                // Display total and grand total
+                txtTotal.Text = totalAmount.ToString("F2");
             }
         }
 
@@ -577,6 +621,70 @@ namespace POS.PAL.USERCONTROL
             else
             {
                 SetDiscountFieldsEditable(false);
+            }
+        }
+
+        private void txtBarcode_EditValueChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtBarcode.Text))
+                return;
+
+            string scannedBarcode = txtBarcode.Text.Trim();
+
+            // Search for the product by barcode in the global products table
+            DataRow[] productRows = productsTable.Select($"barcode = '{scannedBarcode}'");
+
+            if (productRows.Length > 0)
+            {
+                // Product found - Add to sales items
+                AddProductToSalesItems(productRows[0]);
+
+                // Clear the barcode field for the next scan
+                txtBarcode.Text = string.Empty;
+            }
+        }
+
+        private void txtDiscount_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            if (saleTable.Rows.Count == 0)
+                return;
+
+            DataRow saleRow = saleTable.Rows[0];
+
+            // Get current discount type
+            string currentType = saleRow["discount_type"]?.ToString() ?? "PERCENTAGE";
+            string newType = currentType == "PERCENTAGE" ? "FIXED_AMOUNT" : "PERCENTAGE";
+
+            // Update discount type in saleTable
+            saleRow["discount_type"] = newType;
+
+            // Update button caption on txtDiscount control
+            var txtDiscountControl = (DevExpress.XtraEditors.ButtonEdit)sender;
+            if (txtDiscountControl?.Properties.Buttons.Count > 0)
+            {
+                txtDiscountControl.Properties.Buttons[0].Caption = newType == "PERCENTAGE" ? "%" : "Rs.";
+            }
+
+            // Recalculate grand total with new discount type
+            CalculateAndUpdateGrandTotal();
+        }
+
+        private void txtDiscount_EditValueChanged(object sender, EventArgs e)
+        {
+            if (saleTable.Rows.Count == 0)
+                return;
+
+            DataRow saleRow = saleTable.Rows[0];
+
+            // Get the discount value from the control
+            var txtDiscountControl = (DevExpress.XtraEditors.ButtonEdit)sender;
+            if (txtDiscountControl?.EditValue != null && decimal.TryParse(txtDiscountControl.EditValue.ToString(), out decimal discountValue))
+            {
+                // Update discount value in saleTable
+                saleRow["discount_value"] = discountValue.ToString("F2");
+
+                // Recalculate grand total
+                CalculateAndUpdateGrandTotal();
             }
         }
     }
