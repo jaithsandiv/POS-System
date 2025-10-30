@@ -552,9 +552,9 @@ namespace POS.PAL.USERCONTROL
             {
                 decimal totalAmount = Convert.ToDecimal(e.Row["total_amount"]);
                 decimal grandTotal = 0;
-                
+
                 // Get grand_total if available
-                if (e.Row.Table.Columns.Contains("grand_total") && 
+                if (e.Row.Table.Columns.Contains("grand_total") &&
                     decimal.TryParse(e.Row["grand_total"]?.ToString(), out decimal parsedGrandTotal))
                 {
                     grandTotal = parsedGrandTotal;
@@ -624,8 +624,14 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
-        private void txtBarcode_EditValueChanged(object sender, EventArgs e)
+        private void txtBarcode_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Only process on Enter key press
+            if (e.KeyChar != (char)Keys.Return)
+                return;
+
+            e.Handled = true; // Prevent the beep sound
+
             if (string.IsNullOrWhiteSpace(txtBarcode.Text))
                 return;
 
@@ -640,6 +646,14 @@ namespace POS.PAL.USERCONTROL
                 AddProductToSalesItems(productRows[0]);
 
                 // Clear the barcode field for the next scan
+                txtBarcode.Text = string.Empty;
+            }
+            else
+            {
+                // Product not found - Show warning
+                MessageBox.Show($"Product with barcode '{scannedBarcode}' not found.", "Invalid Barcode", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                // Clear the barcode field
                 txtBarcode.Text = string.Empty;
             }
         }

@@ -366,7 +366,7 @@
             txtBarcode.Properties.Padding = new System.Windows.Forms.Padding(10);
             txtBarcode.Size = new System.Drawing.Size(677, 44);
             txtBarcode.TabIndex = 34;
-            txtBarcode.EditValueChanged += txtBarcode_EditValueChanged;
+            txtBarcode.KeyPress += txtBarcode_KeyPress;
             // 
             // xtraScrollableControl2
             // 
