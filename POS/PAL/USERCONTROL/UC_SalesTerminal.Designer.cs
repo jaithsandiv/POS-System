@@ -127,6 +127,12 @@
             cmbCustomer = new DevExpress.XtraEditors.ComboBoxEdit();
             labelControl10 = new DevExpress.XtraEditors.LabelControl();
             button1 = new System.Windows.Forms.Button();
+            pnlCustomers1 = new DevExpress.XtraEditors.PanelControl();
+            gcCustomers = new DevExpress.XtraGrid.GridControl();
+            gvCustomers = new DevExpress.XtraGrid.Views.Grid.GridView();
+            panelControl7 = new DevExpress.XtraEditors.PanelControl();
+            label1 = new System.Windows.Forms.Label();
+            pnlCustomers = new DevExpress.XtraEditors.PanelControl();
             topPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
@@ -176,6 +182,14 @@
             ((System.ComponentModel.ISupportInitialize)panelControl9).BeginInit();
             panelControl9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cmbCustomer.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pnlCustomers1).BeginInit();
+            pnlCustomers1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gcCustomers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gvCustomers).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl7).BeginInit();
+            panelControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pnlCustomers).BeginInit();
+            pnlCustomers.SuspendLayout();
             SuspendLayout();
             // 
             // topPanel1
@@ -1220,9 +1234,11 @@
             txtStaffPin.Properties.Appearance.Options.UseFont = true;
             txtStaffPin.Properties.Padding = new System.Windows.Forms.Padding(10);
             txtStaffPin.Properties.PasswordChar = '*';
+            txtStaffPin.Properties.ReadOnly = true;
             txtStaffPin.Size = new System.Drawing.Size(362, 44);
             txtStaffPin.TabIndex = 31;
             txtStaffPin.EditValueChanged += txtStaffPin_EditValueChanged;
+            txtStaffPin.DoubleClick += txtStaffPin_DoubleClick;
             // 
             // separatorControl5
             // 
@@ -1252,9 +1268,12 @@
             cmbCustomer.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             cmbCustomer.Properties.Appearance.Options.UseFont = true;
             cmbCustomer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            cmbCustomer.Properties.CycleOnDblClick = false;
+            cmbCustomer.Properties.DropDownRows = 20;
             cmbCustomer.Properties.Padding = new System.Windows.Forms.Padding(10);
             cmbCustomer.Size = new System.Drawing.Size(362, 44);
             cmbCustomer.TabIndex = 0;
+            cmbCustomer.DoubleClick += cmbCustomer_DoubleClick;
             // 
             // labelControl10
             // 
@@ -1280,12 +1299,90 @@
             button1.Text = "+";
             button1.UseVisualStyleBackColor = false;
             // 
+            // pnlCustomers1
+            // 
+            pnlCustomers1.Appearance.BackColor = System.Drawing.Color.White;
+            pnlCustomers1.Appearance.Options.UseBackColor = true;
+            pnlCustomers1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            pnlCustomers1.Controls.Add(gcCustomers);
+            pnlCustomers1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            pnlCustomers1.Location = new System.Drawing.Point(2, 27);
+            pnlCustomers1.Name = "pnlCustomers1";
+            pnlCustomers1.Size = new System.Drawing.Size(827, 465);
+            pnlCustomers1.TabIndex = 0;
+            // 
+            // gcCustomers
+            // 
+            gcCustomers.Location = new System.Drawing.Point(8, 9);
+            gcCustomers.MainView = gvCustomers;
+            gcCustomers.Name = "gcCustomers";
+            gcCustomers.Size = new System.Drawing.Size(811, 448);
+            gcCustomers.TabIndex = 1;
+            gcCustomers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gvCustomers });
+            // 
+            // gvCustomers
+            // 
+            gvCustomers.ActiveFilterEnabled = false;
+            gvCustomers.Appearance.FixedLine.BackColor = System.Drawing.Color.White;
+            gvCustomers.Appearance.FixedLine.Options.UseBackColor = true;
+            gvCustomers.Appearance.HeaderPanel.BackColor = System.Drawing.Color.White;
+            gvCustomers.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            gvCustomers.Appearance.HeaderPanel.Options.UseBackColor = true;
+            gvCustomers.Appearance.HeaderPanel.Options.UseFont = true;
+            gvCustomers.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            gvCustomers.Appearance.Row.Options.UseFont = true;
+            gvCustomers.ColumnPanelRowHeight = 40;
+            gvCustomers.GridControl = gcCustomers;
+            gvCustomers.Name = "gvCustomers";
+            gvCustomers.OptionsFilter.AllowFilterEditor = false;
+            gvCustomers.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
+            gvCustomers.OptionsView.ShowGroupPanel = false;
+            gvCustomers.OptionsView.ShowIndicator = false;
+            gvCustomers.RowHeight = 26;
+            // 
+            // panelControl7
+            // 
+            panelControl7.Appearance.BackColor = System.Drawing.Color.DimGray;
+            panelControl7.Appearance.Options.UseBackColor = true;
+            panelControl7.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl7.Controls.Add(label1);
+            panelControl7.Location = new System.Drawing.Point(0, 0);
+            panelControl7.Name = "panelControl7";
+            panelControl7.Size = new System.Drawing.Size(831, 27);
+            panelControl7.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.BackColor = System.Drawing.Color.DimGray;
+            label1.Cursor = System.Windows.Forms.Cursors.Hand;
+            label1.Font = new System.Drawing.Font("Microsoft New Tai Lue", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label1.ForeColor = System.Drawing.Color.White;
+            label1.Location = new System.Drawing.Point(793, -1);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(38, 29);
+            label1.TabIndex = 0;
+            label1.Text = "✕";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label1.Click += label1_Click;
+            label1.MouseEnter += label1_MouseEnter;
+            label1.MouseLeave += label1_MouseLeave;
+            // 
+            // pnlCustomers
+            // 
+            pnlCustomers.Controls.Add(pnlCustomers1);
+            pnlCustomers.Controls.Add(panelControl7);
+            pnlCustomers.Location = new System.Drawing.Point(521, 297);
+            pnlCustomers.Name = "pnlCustomers";
+            pnlCustomers.Size = new System.Drawing.Size(831, 494);
+            pnlCustomers.TabIndex = 2;
+            // 
             // UC_SalesTerminal
             // 
             Appearance.BackColor = System.Drawing.Color.White;
             Appearance.Options.UseBackColor = true;
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(pnlCustomers);
             Controls.Add(panelControl8);
             Controls.Add(separatorControl3);
             Controls.Add(panelControl3);
@@ -1357,6 +1454,14 @@
             panelControl9.ResumeLayout(false);
             panelControl9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)cmbCustomer.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pnlCustomers1).EndInit();
+            pnlCustomers1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)gcCustomers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gvCustomers).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl7).EndInit();
+            panelControl7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pnlCustomers).EndInit();
+            pnlCustomers.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1380,7 +1485,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl16;
         private DevExpress.XtraEditors.TextEdit textEdit1;
-        private DevExpress.XtraEditors.HScrollBar hScrollBar1;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl2;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl3;
@@ -1454,5 +1558,11 @@
         private DevExpress.XtraEditors.LabelControl labelControl27;
         private DevExpress.XtraEditors.LabelControl labelControl19;
         private DevExpress.XtraEditors.LabelControl labelControl17;
+        private DevExpress.XtraEditors.PanelControl pnlCustomers1;
+        private DevExpress.XtraGrid.GridControl gcCustomers;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvCustomers;
+        private System.Windows.Forms.Label label1;
+        private DevExpress.XtraEditors.PanelControl pnlCustomers;
+        private DevExpress.XtraEditors.PanelControl panelControl7;
     }
 }

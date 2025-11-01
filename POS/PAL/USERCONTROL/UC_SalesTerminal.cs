@@ -41,8 +41,7 @@ namespace POS.PAL.USERCONTROL
             saleTable.Rows.Add(saleTable.NewRow());
             salesItemsTable = ds.SaleItem;
             salesItemsTable.Clear();
-            customersTable = ds.Customer;
-            customersTable.Clear();
+            customersTable = _bllSalesTerminal.GetCustomers();
             tableNosTable = ds.Table;
             tableNosTable.Clear();
 
@@ -55,6 +54,8 @@ namespace POS.PAL.USERCONTROL
             LoadCustomers();
             CheckKotEnabled();
             LoadTableNos();
+
+            pnlCustomers.Visible = false;
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -523,11 +524,9 @@ namespace POS.PAL.USERCONTROL
 
         private void LoadCustomers()
         {
-            DataTable customers = _bllSalesTerminal.GetCustomers();
-
             cmbCustomer.Properties.Items.Clear();
 
-            foreach (DataRow row in customers.Rows)
+            foreach (DataRow row in customersTable.Rows)
             {
                 string customerDisplay = $"{row["full_name"]} ({row["phone"]})";
                 cmbCustomer.Properties.Items.Add(customerDisplay);
@@ -700,6 +699,42 @@ namespace POS.PAL.USERCONTROL
                 // Recalculate grand total
                 CalculateAndUpdateGrandTotal();
             }
+        }
+
+        private void txtStaffPin_DoubleClick(object sender, EventArgs e)
+        {
+            if (txtStaffPin.ReadOnly)
+            {
+                txtStaffPin.ReadOnly = false;
+                txtStaffPin.Text = string.Empty;
+            }
+            else
+            {
+                txtStaffPin.ReadOnly = true;
+                txtStaffPin.Text = string.Empty;
+                SetDiscountFieldsEditable(false);
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            pnlCustomers.Visible = !pnlCustomers.Visible;
+        }
+
+        private void cmbCustomer_DoubleClick(object sender, EventArgs e)
+        {
+            pnlCustomers.Visible = true;
+            gcCustomers.DataSource = customersTable;
+        }
+
+        private void label1_MouseEnter(object sender, EventArgs e)
+        {
+            label1.BackColor = Color.IndianRed;
+        }
+
+        private void label1_MouseLeave(object sender, EventArgs e)
+        {
+            label1.BackColor = Color.DimGray;
         }
     }
 }

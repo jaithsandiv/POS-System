@@ -62,5 +62,33 @@ namespace POS.PAL.USERCONTROL
                 XtraMessageBox.Show("Invalid username or password.", "Authentication Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void txtUsername_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter && txtUsername.Text != "" && txtPassword.Text != "")
+            {
+                btnSignIn.PerformClick();
+                return;
+            }
+            if (e.KeyChar == (char)Keys.Enter && txtUsername.Text != "")
+            {
+                txtPassword.Focus();
+                return;
+            }
+        }
+
+        private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter && txtUsername.Text != "" && txtPassword.Text != "")
+            {
+                btnSignIn.PerformClick();
+                return;
+            }
+            if (e.KeyChar == (char)Keys.Enter && txtPassword.Text != "")
+            {
+                txtUsername.Focus();
+                return;
+            }
+        }
     }
 }

@@ -62,6 +62,7 @@
             txtUsername.Properties.Padding = new System.Windows.Forms.Padding(10);
             txtUsername.Size = new System.Drawing.Size(480, 44);
             txtUsername.TabIndex = 2;
+            txtUsername.KeyPress += txtUsername_KeyPress;
             // 
             // labelControl1
             // 
@@ -116,6 +117,7 @@
             txtPassword.Properties.PasswordChar = '*';
             txtPassword.Size = new System.Drawing.Size(480, 44);
             txtPassword.TabIndex = 10;
+            txtPassword.KeyPress += txtPassword_KeyPress;
             // 
             // UC_Login
             // 
