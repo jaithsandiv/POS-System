@@ -130,6 +130,11 @@
             pnlCustomers1 = new DevExpress.XtraEditors.PanelControl();
             gcCustomers = new DevExpress.XtraGrid.GridControl();
             gvCustomers = new DevExpress.XtraGrid.Views.Grid.GridView();
+            gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn11 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
             panelControl7 = new DevExpress.XtraEditors.PanelControl();
             label1 = new System.Windows.Forms.Label();
             pnlCustomers = new DevExpress.XtraEditors.PanelControl();
@@ -1326,19 +1331,74 @@
             gvCustomers.Appearance.FixedLine.BackColor = System.Drawing.Color.White;
             gvCustomers.Appearance.FixedLine.Options.UseBackColor = true;
             gvCustomers.Appearance.HeaderPanel.BackColor = System.Drawing.Color.White;
-            gvCustomers.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            gvCustomers.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
             gvCustomers.Appearance.HeaderPanel.Options.UseBackColor = true;
             gvCustomers.Appearance.HeaderPanel.Options.UseFont = true;
-            gvCustomers.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            gvCustomers.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            gvCustomers.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            gvCustomers.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+            gvCustomers.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             gvCustomers.Appearance.Row.Options.UseFont = true;
             gvCustomers.ColumnPanelRowHeight = 40;
+            gvCustomers.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn10, gridColumn11, gridColumn12, gridColumn14, gridColumn15 });
             gvCustomers.GridControl = gcCustomers;
             gvCustomers.Name = "gvCustomers";
+            gvCustomers.OptionsBehavior.Editable = false;
+            gvCustomers.OptionsCustomization.AllowColumnMoving = false;
+            gvCustomers.OptionsCustomization.AllowFilter = false;
+            gvCustomers.OptionsCustomization.AllowGroup = false;
+            gvCustomers.OptionsCustomization.AllowQuickHideColumns = false;
+            gvCustomers.OptionsCustomization.AllowSort = false;
             gvCustomers.OptionsFilter.AllowFilterEditor = false;
             gvCustomers.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             gvCustomers.OptionsView.ShowGroupPanel = false;
             gvCustomers.OptionsView.ShowIndicator = false;
             gvCustomers.RowHeight = 26;
+            // 
+            // gridColumn10
+            // 
+            gridColumn10.Caption = "ID";
+            gridColumn10.FieldName = "customer_id";
+            gridColumn10.Name = "gridColumn10";
+            gridColumn10.Visible = true;
+            gridColumn10.VisibleIndex = 0;
+            gridColumn10.Width = 42;
+            // 
+            // gridColumn11
+            // 
+            gridColumn11.Caption = "Group";
+            gridColumn11.FieldName = "group_name";
+            gridColumn11.Name = "gridColumn11";
+            gridColumn11.Visible = true;
+            gridColumn11.VisibleIndex = 4;
+            gridColumn11.Width = 108;
+            // 
+            // gridColumn12
+            // 
+            gridColumn12.Caption = "Name";
+            gridColumn12.FieldName = "full_name";
+            gridColumn12.Name = "gridColumn12";
+            gridColumn12.Visible = true;
+            gridColumn12.VisibleIndex = 1;
+            gridColumn12.Width = 225;
+            // 
+            // gridColumn14
+            // 
+            gridColumn14.Caption = "Email";
+            gridColumn14.FieldName = "email";
+            gridColumn14.Name = "gridColumn14";
+            gridColumn14.Visible = true;
+            gridColumn14.VisibleIndex = 2;
+            gridColumn14.Width = 209;
+            // 
+            // gridColumn15
+            // 
+            gridColumn15.Caption = "Phone";
+            gridColumn15.FieldName = "phone";
+            gridColumn15.Name = "gridColumn15";
+            gridColumn15.Visible = true;
+            gridColumn15.VisibleIndex = 3;
+            gridColumn15.Width = 124;
             // 
             // panelControl7
             // 
@@ -1564,5 +1624,12 @@
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.PanelControl pnlCustomers;
         private DevExpress.XtraEditors.PanelControl panelControl7;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn11;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn15;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn17;
     }
 }
