@@ -38,7 +38,15 @@ namespace POS.PAL.USERCONTROL
             staffPinTable = _bllSalesTerminal.GetStaffPin();
             saleTable = ds.Sale;
             saleTable.Clear();
-            saleTable.Rows.Add(saleTable.NewRow());
+            
+            DataRow newSaleRow = saleTable.NewRow();
+            newSaleRow["total_amount"] = "0.00";
+            newSaleRow["total_items"] = "0";
+            newSaleRow["discount_type"] = "PERCENTAGE";
+            newSaleRow["discount_value"] = "0.00";
+            newSaleRow["grand_total"] = "0.00";
+            saleTable.Rows.Add(newSaleRow);
+            
             salesItemsTable = ds.SaleItem;
             salesItemsTable.Clear();
             customersTable = _bllSalesTerminal.GetCustomers();
@@ -51,7 +59,6 @@ namespace POS.PAL.USERCONTROL
             LoadBrands();
             LoadProducts();
 
-            LoadCustomers();
             CheckKotEnabled();
             LoadTableNos();
 
@@ -211,6 +218,11 @@ namespace POS.PAL.USERCONTROL
                 decimal price = Convert.ToDecimal(product["selling_price"]);
                 decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
                 newRow["subtotal"] = price - discountAmount;
+
+                // Set default values for other SaleItem fields to prevent exceptions
+                newRow["sale_id"] = DBNull.Value;
+                newRow["product_code"] = product["product_code"];
+                newRow["status"] = "A";
 
                 salesItemsTable.Rows.Add(newRow);
             }
@@ -522,17 +534,6 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
-        private void LoadCustomers()
-        {
-            cmbCustomer.Properties.Items.Clear();
-
-            foreach (DataRow row in customersTable.Rows)
-            {
-                string customerDisplay = $"{row["full_name"]} ({row["phone"]})";
-                cmbCustomer.Properties.Items.Add(customerDisplay);
-            }
-        }
-
         private void LoadTableNos()
         {
             DataTable TableNos = _bllSalesTerminal.GetTables();
@@ -735,6 +736,73 @@ namespace POS.PAL.USERCONTROL
         private void label1_MouseLeave(object sender, EventArgs e)
         {
             label1.BackColor = Color.DimGray;
+        }
+
+        private void gvCustomers_RowClick(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
+        {
+            if (e.Clicks == 2)
+            {
+                string customerId = gvCustomers.GetFocusedRowCellValue("customer_id").ToString();
+                
+                // Find the customer row in customersTable
+                DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
+                
+                if (customerRows.Length > 0)
+                {
+                    DataRow selectedCustomer = customerRows[0];
+                    
+                    // Update the saleTable with customer information
+                    if (saleTable.Rows.Count > 0)
+                    {
+                        DataRow saleRow = saleTable.Rows[0];
+                        saleRow["customer_id"] = selectedCustomer["customer_id"];
+                        
+                        // Set discount type to PERCENTAGE
+                        saleRow["discount_type"] = "PERCENTAGE";
+                        
+                        // Set discount value from customer group discount
+                        decimal customerDiscount = 0;
+                        if (selectedCustomer["discount_percent"] != DBNull.Value && 
+                            !string.IsNullOrWhiteSpace(selectedCustomer["discount_percent"]?.ToString()))
+                        {
+                            if (decimal.TryParse(selectedCustomer["discount_percent"].ToString(), out decimal parsedDiscount))
+                            {
+                                customerDiscount = parsedDiscount;
+                            }
+                        }
+                        
+                        saleRow["discount_value"] = customerDiscount.ToString("F2");
+                    }
+                    
+                    // Update txtDiscount control with customer discount
+                    if (txtDiscount != null)
+                    {
+                        decimal customerDiscount = 0;
+                        if (selectedCustomer["discount_percent"] != DBNull.Value && 
+                            !string.IsNullOrWhiteSpace(selectedCustomer["discount_percent"]?.ToString()))
+                        {
+                            if (decimal.TryParse(selectedCustomer["discount_percent"].ToString(), out decimal parsedDiscount))
+                            {
+                                customerDiscount = parsedDiscount;
+                            }
+                        }
+                        
+                        txtDiscount.EditValue = customerDiscount;
+                        
+                        // Update button caption to show PERCENTAGE
+                        if (txtDiscount.Properties.Buttons.Count > 0)
+                        {
+                            txtDiscount.Properties.Buttons[0].Caption = "%";
+                        }
+                    }
+                    
+                    // Recalculate grand total with new customer discount
+                    CalculateAndUpdateGrandTotal();
+                    
+                    pnlCustomers.Visible = false;
+                    txtCustomer.Text = $"{selectedCustomer["full_name"]}";
+                }
+            }
         }
     }
 }

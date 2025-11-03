@@ -124,7 +124,7 @@
             txtStaffPin = new DevExpress.XtraEditors.TextEdit();
             separatorControl5 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl9 = new DevExpress.XtraEditors.PanelControl();
-            cmbCustomer = new DevExpress.XtraEditors.ComboBoxEdit();
+            txtCustomer = new DevExpress.XtraEditors.TextEdit();
             labelControl10 = new DevExpress.XtraEditors.LabelControl();
             button1 = new System.Windows.Forms.Button();
             pnlCustomers1 = new DevExpress.XtraEditors.PanelControl();
@@ -186,7 +186,7 @@
             ((System.ComponentModel.ISupportInitialize)separatorControl5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl9).BeginInit();
             panelControl9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)cmbCustomer.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtCustomer.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pnlCustomers1).BeginInit();
             pnlCustomers1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gcCustomers).BeginInit();
@@ -1257,7 +1257,7 @@
             // panelControl9
             // 
             panelControl9.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl9.Controls.Add(cmbCustomer);
+            panelControl9.Controls.Add(txtCustomer);
             panelControl9.Controls.Add(labelControl10);
             panelControl9.Controls.Add(button1);
             panelControl9.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1266,19 +1266,16 @@
             panelControl9.Size = new System.Drawing.Size(369, 102);
             panelControl9.TabIndex = 3;
             // 
-            // cmbCustomer
+            // txtCustomer
             // 
-            cmbCustomer.Location = new System.Drawing.Point(3, 53);
-            cmbCustomer.Name = "cmbCustomer";
-            cmbCustomer.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            cmbCustomer.Properties.Appearance.Options.UseFont = true;
-            cmbCustomer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            cmbCustomer.Properties.CycleOnDblClick = false;
-            cmbCustomer.Properties.DropDownRows = 20;
-            cmbCustomer.Properties.Padding = new System.Windows.Forms.Padding(10);
-            cmbCustomer.Size = new System.Drawing.Size(362, 44);
-            cmbCustomer.TabIndex = 0;
-            cmbCustomer.DoubleClick += cmbCustomer_DoubleClick;
+            txtCustomer.Location = new System.Drawing.Point(3, 52);
+            txtCustomer.Name = "txtCustomer";
+            txtCustomer.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtCustomer.Properties.Appearance.Options.UseFont = true;
+            txtCustomer.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtCustomer.Size = new System.Drawing.Size(362, 44);
+            txtCustomer.TabIndex = 36;
+            txtCustomer.DoubleClick += cmbCustomer_DoubleClick;
             // 
             // labelControl10
             // 
@@ -1341,6 +1338,7 @@
             gvCustomers.Appearance.Row.Options.UseFont = true;
             gvCustomers.ColumnPanelRowHeight = 40;
             gvCustomers.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn10, gridColumn11, gridColumn12, gridColumn14, gridColumn15 });
+            gvCustomers.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
             gvCustomers.GridControl = gcCustomers;
             gvCustomers.Name = "gvCustomers";
             gvCustomers.OptionsBehavior.Editable = false;
@@ -1354,12 +1352,15 @@
             gvCustomers.OptionsView.ShowGroupPanel = false;
             gvCustomers.OptionsView.ShowIndicator = false;
             gvCustomers.RowHeight = 26;
+            gvCustomers.RowClick += gvCustomers_RowClick;
             // 
             // gridColumn10
             // 
             gridColumn10.Caption = "ID";
             gridColumn10.FieldName = "customer_id";
             gridColumn10.Name = "gridColumn10";
+            gridColumn10.OptionsColumn.AllowEdit = false;
+            gridColumn10.OptionsColumn.AllowFocus = false;
             gridColumn10.Visible = true;
             gridColumn10.VisibleIndex = 0;
             gridColumn10.Width = 42;
@@ -1369,6 +1370,8 @@
             gridColumn11.Caption = "Group";
             gridColumn11.FieldName = "group_name";
             gridColumn11.Name = "gridColumn11";
+            gridColumn11.OptionsColumn.AllowEdit = false;
+            gridColumn11.OptionsColumn.AllowFocus = false;
             gridColumn11.Visible = true;
             gridColumn11.VisibleIndex = 4;
             gridColumn11.Width = 108;
@@ -1378,6 +1381,8 @@
             gridColumn12.Caption = "Name";
             gridColumn12.FieldName = "full_name";
             gridColumn12.Name = "gridColumn12";
+            gridColumn12.OptionsColumn.AllowEdit = false;
+            gridColumn12.OptionsColumn.AllowFocus = false;
             gridColumn12.Visible = true;
             gridColumn12.VisibleIndex = 1;
             gridColumn12.Width = 225;
@@ -1387,6 +1392,8 @@
             gridColumn14.Caption = "Email";
             gridColumn14.FieldName = "email";
             gridColumn14.Name = "gridColumn14";
+            gridColumn14.OptionsColumn.AllowEdit = false;
+            gridColumn14.OptionsColumn.AllowFocus = false;
             gridColumn14.Visible = true;
             gridColumn14.VisibleIndex = 2;
             gridColumn14.Width = 209;
@@ -1396,6 +1403,8 @@
             gridColumn15.Caption = "Phone";
             gridColumn15.FieldName = "phone";
             gridColumn15.Name = "gridColumn15";
+            gridColumn15.OptionsColumn.AllowEdit = false;
+            gridColumn15.OptionsColumn.AllowFocus = false;
             gridColumn15.Visible = true;
             gridColumn15.VisibleIndex = 3;
             gridColumn15.Width = 124;
@@ -1513,7 +1522,7 @@
             ((System.ComponentModel.ISupportInitialize)panelControl9).EndInit();
             panelControl9.ResumeLayout(false);
             panelControl9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)cmbCustomer.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtCustomer.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)pnlCustomers1).EndInit();
             pnlCustomers1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)gcCustomers).EndInit();
@@ -1544,7 +1553,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl8;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl16;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
+        private DevExpress.XtraEditors.TextEdit txtCustomer;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl2;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl3;
@@ -1607,7 +1616,6 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
         private DevExpress.XtraEditors.PanelControl panelControl5;
-        private DevExpress.XtraEditors.ComboBoxEdit cmbCustomer;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
         private DevExpress.XtraEditors.ComboBoxEdit cmbTableNo;
         private DevExpress.XtraEditors.ButtonEdit txtDiscount;
