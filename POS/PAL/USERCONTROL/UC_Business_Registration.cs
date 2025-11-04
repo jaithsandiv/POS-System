@@ -101,13 +101,7 @@ namespace POS.PAL.USERCONTROL
 
             // Navigate to User Registration
             UC_User_Registration userRegistration = new UC_User_Registration();
-            Control parentPanel = this.Parent;
-            if (parentPanel != null)
-            {
-                parentPanel.Controls.Clear();
-                parentPanel.Controls.Add(userRegistration);
-                userRegistration.Dock = DockStyle.Fill;
-            }
+            Main.Instance.LoadUserControl(userRegistration, hideNavigation: true);
         }
 
         private void uploadBtn_Click(object sender, EventArgs e)

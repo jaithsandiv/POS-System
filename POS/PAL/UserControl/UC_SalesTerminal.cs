@@ -65,11 +65,6 @@ namespace POS.PAL.USERCONTROL
             pnlCustomers.Visible = false;
         }
 
-        private void btnDashboard_Click(object sender, EventArgs e)
-        {
-            Main.Instance.SwitchToControl(new UC_Dashboard());
-        }
-
         private void FilterProducts(string brandId, string categoryId)
         {
             DataView filteredView = new DataView(productsTable);

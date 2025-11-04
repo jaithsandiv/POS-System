@@ -38,14 +38,6 @@
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
-            topPanel1 = new System.Windows.Forms.Panel();
-            labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            labelControl5 = new DevExpress.XtraEditors.LabelControl();
-            labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            btnDashboard = new DevExpress.XtraEditors.SimpleButton();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             panelControl6 = new DevExpress.XtraEditors.PanelControl();
             panelControl5 = new DevExpress.XtraEditors.PanelControl();
@@ -138,7 +130,6 @@
             panelControl7 = new DevExpress.XtraEditors.PanelControl();
             label1 = new System.Windows.Forms.Label();
             pnlCustomers = new DevExpress.XtraEditors.PanelControl();
-            topPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl6).BeginInit();
@@ -197,111 +188,6 @@
             pnlCustomers.SuspendLayout();
             SuspendLayout();
             // 
-            // topPanel1
-            // 
-            topPanel1.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
-            topPanel1.Controls.Add(labelControl6);
-            topPanel1.Controls.Add(labelControl5);
-            topPanel1.Controls.Add(labelControl3);
-            topPanel1.Controls.Add(labelControl4);
-            topPanel1.Controls.Add(labelControl2);
-            topPanel1.Controls.Add(labelControl1);
-            topPanel1.Controls.Add(btnDashboard);
-            topPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            topPanel1.Location = new System.Drawing.Point(0, 0);
-            topPanel1.Name = "topPanel1";
-            topPanel1.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            topPanel1.Size = new System.Drawing.Size(1920, 49);
-            topPanel1.TabIndex = 2;
-            // 
-            // labelControl6
-            // 
-            labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl6.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl6.Appearance.Options.UseFont = true;
-            labelControl6.Appearance.Options.UseForeColor = true;
-            labelControl6.Location = new System.Drawing.Point(1706, 16);
-            labelControl6.Name = "labelControl6";
-            labelControl6.Size = new System.Drawing.Size(66, 17);
-            labelControl6.TabIndex = 9;
-            labelControl6.Text = "11:18:00 PM";
-            // 
-            // labelControl5
-            // 
-            labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl5.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl5.Appearance.Options.UseFont = true;
-            labelControl5.Appearance.Options.UseForeColor = true;
-            labelControl5.Location = new System.Drawing.Point(1606, 16);
-            labelControl5.Name = "labelControl5";
-            labelControl5.Size = new System.Drawing.Size(94, 17);
-            labelControl5.TabIndex = 8;
-            labelControl5.Text = "Fri, Oct 17, 2025";
-            // 
-            // labelControl3
-            // 
-            labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl3.Appearance.Options.UseFont = true;
-            labelControl3.Appearance.Options.UseForeColor = true;
-            labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            labelControl3.Location = new System.Drawing.Point(355, 16);
-            labelControl3.Name = "labelControl3";
-            labelControl3.Size = new System.Drawing.Size(232, 17);
-            labelControl3.TabIndex = 6;
-            labelControl3.Text = "ADMINISTRATOR";
-            // 
-            // labelControl4
-            // 
-            labelControl4.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl4.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl4.Appearance.Options.UseFont = true;
-            labelControl4.Appearance.Options.UseForeColor = true;
-            labelControl4.Location = new System.Drawing.Point(315, 16);
-            labelControl4.Name = "labelControl4";
-            labelControl4.Size = new System.Drawing.Size(34, 17);
-            labelControl4.TabIndex = 5;
-            labelControl4.Text = "User: ";
-            // 
-            // labelControl2
-            // 
-            labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl2.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl2.Appearance.Options.UseFont = true;
-            labelControl2.Appearance.Options.UseForeColor = true;
-            labelControl2.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            labelControl2.Location = new System.Drawing.Point(77, 16);
-            labelControl2.Name = "labelControl2";
-            labelControl2.Size = new System.Drawing.Size(232, 17);
-            labelControl2.TabIndex = 4;
-            labelControl2.Text = "QuickSell POS Solutions";
-            // 
-            // labelControl1
-            // 
-            labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl1.Appearance.Options.UseFont = true;
-            labelControl1.Appearance.Options.UseForeColor = true;
-            labelControl1.Location = new System.Drawing.Point(13, 16);
-            labelControl1.Name = "labelControl1";
-            labelControl1.Size = new System.Drawing.Size(58, 17);
-            labelControl1.TabIndex = 3;
-            labelControl1.Text = "Location: ";
-            // 
-            // btnDashboard
-            // 
-            btnDashboard.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            btnDashboard.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnDashboard.Appearance.Options.UseBackColor = true;
-            btnDashboard.Appearance.Options.UseFont = true;
-            btnDashboard.AppearanceHovered.Options.UseBackColor = true;
-            btnDashboard.Location = new System.Drawing.Point(1787, 9);
-            btnDashboard.Name = "btnDashboard";
-            btnDashboard.Size = new System.Drawing.Size(120, 30);
-            btnDashboard.TabIndex = 2;
-            btnDashboard.Text = "Dashboard";
-            btnDashboard.Click += btnDashboard_Click;
-            // 
             // panelControl2
             // 
             panelControl2.Appearance.BackColor = System.Drawing.Color.White;
@@ -309,9 +195,9 @@
             panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl2.Controls.Add(panelControl6);
             panelControl2.Dock = System.Windows.Forms.DockStyle.Left;
-            panelControl2.Location = new System.Drawing.Point(0, 49);
+            panelControl2.Location = new System.Drawing.Point(0, 0);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(752, 1001);
+            panelControl2.Size = new System.Drawing.Size(752, 1050);
             panelControl2.TabIndex = 4;
             // 
             // panelControl6
@@ -329,7 +215,7 @@
             panelControl6.Location = new System.Drawing.Point(0, 0);
             panelControl6.Name = "panelControl6";
             panelControl6.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            panelControl6.Size = new System.Drawing.Size(752, 1001);
+            panelControl6.Size = new System.Drawing.Size(752, 1050);
             panelControl6.TabIndex = 4;
             // 
             // panelControl5
@@ -428,9 +314,9 @@
             separatorControl1.AutoSizeMode = true;
             separatorControl1.Dock = System.Windows.Forms.DockStyle.Left;
             separatorControl1.LineOrientation = System.Windows.Forms.Orientation.Vertical;
-            separatorControl1.Location = new System.Drawing.Point(752, 49);
+            separatorControl1.Location = new System.Drawing.Point(752, 0);
             separatorControl1.Name = "separatorControl1";
-            separatorControl1.Size = new System.Drawing.Size(19, 1001);
+            separatorControl1.Size = new System.Drawing.Size(19, 1050);
             separatorControl1.TabIndex = 0;
             // 
             // panelControl3
@@ -439,9 +325,9 @@
             panelControl3.Controls.Add(labelControl9);
             panelControl3.Controls.Add(gcTransactionSum);
             panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
-            panelControl3.Location = new System.Drawing.Point(771, 49);
+            panelControl3.Location = new System.Drawing.Point(771, 0);
             panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(752, 1001);
+            panelControl3.Size = new System.Drawing.Size(752, 1050);
             panelControl3.TabIndex = 5;
             // 
             // labelControl9
@@ -637,9 +523,9 @@
             separatorControl3.AutoSizeMode = true;
             separatorControl3.Dock = System.Windows.Forms.DockStyle.Left;
             separatorControl3.LineOrientation = System.Windows.Forms.Orientation.Vertical;
-            separatorControl3.Location = new System.Drawing.Point(1523, 49);
+            separatorControl3.Location = new System.Drawing.Point(1523, 0);
             separatorControl3.Name = "separatorControl3";
-            separatorControl3.Size = new System.Drawing.Size(19, 1001);
+            separatorControl3.Size = new System.Drawing.Size(19, 1050);
             separatorControl3.TabIndex = 6;
             // 
             // panelControl8
@@ -655,10 +541,10 @@
             panelControl8.Controls.Add(separatorControl5);
             panelControl8.Controls.Add(panelControl9);
             panelControl8.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelControl8.Location = new System.Drawing.Point(1542, 49);
+            panelControl8.Location = new System.Drawing.Point(1542, 0);
             panelControl8.Name = "panelControl8";
             panelControl8.Padding = new System.Windows.Forms.Padding(0, 0, 9, 0);
-            panelControl8.Size = new System.Drawing.Size(378, 1001);
+            panelControl8.Size = new System.Drawing.Size(378, 1050);
             panelControl8.TabIndex = 7;
             // 
             // separatorControl6
@@ -1457,11 +1343,8 @@
             Controls.Add(panelControl3);
             Controls.Add(separatorControl1);
             Controls.Add(panelControl2);
-            Controls.Add(topPanel1);
             Name = "UC_SalesTerminal";
             Size = new System.Drawing.Size(1920, 1050);
-            topPanel1.ResumeLayout(false);
-            topPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).EndInit();
             panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelControl6).EndInit();
@@ -1535,18 +1418,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel topPanel1;
-        private DevExpress.XtraEditors.SimpleButton btnDashboard;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
-        private DevExpress.XtraEditors.LabelControl labelControl4;
-        private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.LabelControl labelControl6;
-        private DevExpress.XtraEditors.LabelControl labelControl5;
         private DevExpress.XtraEditors.PanelControl panelControl6;
         private DevExpress.XtraGrid.GridControl gcTransactionSum;
         private DevExpress.XtraGrid.Views.Grid.GridView gvTransactionSum;

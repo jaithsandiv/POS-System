@@ -43,13 +43,7 @@ namespace POS.PAL.USERCONTROL
         private void backBtn2_Click(object sender, EventArgs e)
         {
             UC_Business_Registration businessRegistration = new UC_Business_Registration();
-            Control parentPanel = this.Parent;
-            if (parentPanel != null)
-            {
-                parentPanel.Controls.Clear();
-                parentPanel.Controls.Add(businessRegistration);
-                businessRegistration.Dock = DockStyle.Fill;
-            }
+            Main.Instance.LoadUserControl(businessRegistration, hideNavigation: true);
         }
 
         private void regBtn_Click(object sender, EventArgs e)
@@ -109,13 +103,7 @@ namespace POS.PAL.USERCONTROL
                     "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 
                 UC_Business_Registration businessRegistration = new UC_Business_Registration();
-                Control parentPanel = this.Parent;
-                if (parentPanel != null)
-                {
-                    parentPanel.Controls.Clear();
-                    parentPanel.Controls.Add(businessRegistration);
-                    businessRegistration.Dock = DockStyle.Fill;
-                }
+                Main.Instance.LoadUserControl(businessRegistration, hideNavigation: true);
                 return;
             }
 
@@ -150,13 +138,7 @@ namespace POS.PAL.USERCONTROL
 
                 // Navigate to login
                 UC_Login login = new UC_Login();
-                Control parentPanel = this.Parent;
-                if (parentPanel != null)
-                {
-                    parentPanel.Controls.Clear();
-                    parentPanel.Controls.Add(login);
-                    login.Dock = DockStyle.Fill;
-                }
+                Main.Instance.LoadUserControl(login, hideNavigation: true);
             }
             else
             {

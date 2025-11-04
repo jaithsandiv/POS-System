@@ -55,7 +55,7 @@ namespace POS.PAL.USERCONTROL
             if (isAuthenticated)
             {
                 UC_Dashboard dashboard = new UC_Dashboard();
-                Main.Instance.SwitchToControl(dashboard);
+                Main.Instance.LoadUserControl(dashboard, hideNavigation: false);
             }
             else
             {

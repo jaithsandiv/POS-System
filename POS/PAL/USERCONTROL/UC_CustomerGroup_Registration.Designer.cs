@@ -66,7 +66,7 @@
             // 
             labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl7.Appearance.Options.UseFont = true;
-            labelControl7.Location = new System.Drawing.Point(722, 379);
+            labelControl7.Location = new System.Drawing.Point(722, 342);
             labelControl7.Name = "labelControl7";
             labelControl7.Size = new System.Drawing.Size(88, 17);
             labelControl7.TabIndex = 118;
@@ -74,7 +74,7 @@
             // 
             // txtGroupName
             // 
-            txtGroupName.Location = new System.Drawing.Point(720, 404);
+            txtGroupName.Location = new System.Drawing.Point(720, 367);
             txtGroupName.Name = "txtGroupName";
             txtGroupName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtGroupName.Properties.Appearance.Options.UseFont = true;
@@ -88,7 +88,7 @@
             regBtn.FlatAppearance.BorderSize = 0;
             regBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             regBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            regBtn.Location = new System.Drawing.Point(1496, 884);
+            regBtn.Location = new System.Drawing.Point(1496, 847);
             regBtn.Name = "regBtn";
             regBtn.Size = new System.Drawing.Size(250, 44);
             regBtn.TabIndex = 116;
@@ -98,7 +98,7 @@
             // backBtn2
             // 
             backBtn2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            backBtn2.Location = new System.Drawing.Point(175, 884);
+            backBtn2.Location = new System.Drawing.Point(175, 847);
             backBtn2.Name = "backBtn2";
             backBtn2.Size = new System.Drawing.Size(250, 44);
             backBtn2.TabIndex = 109;
@@ -110,7 +110,7 @@
             // 
             labelControl4.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl4.Appearance.Options.UseFont = true;
-            labelControl4.Location = new System.Drawing.Point(722, 465);
+            labelControl4.Location = new System.Drawing.Point(722, 428);
             labelControl4.Name = "labelControl4";
             labelControl4.Size = new System.Drawing.Size(119, 17);
             labelControl4.TabIndex = 108;
@@ -118,7 +118,7 @@
             // 
             // txtDiscountPercentage
             // 
-            txtDiscountPercentage.Location = new System.Drawing.Point(720, 490);
+            txtDiscountPercentage.Location = new System.Drawing.Point(720, 453);
             txtDiscountPercentage.Name = "txtDiscountPercentage";
             txtDiscountPercentage.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             txtDiscountPercentage.Properties.Appearance.Options.UseFont = true;
@@ -130,7 +130,7 @@
             // 
             labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl2.Appearance.Options.UseFont = true;
-            labelControl2.Location = new System.Drawing.Point(187, 259);
+            labelControl2.Location = new System.Drawing.Point(187, 222);
             labelControl2.Name = "labelControl2";
             labelControl2.Size = new System.Drawing.Size(347, 40);
             labelControl2.TabIndex = 106;
@@ -140,7 +140,7 @@
             // 
             labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             labelControl3.Appearance.Options.UseFont = true;
-            labelControl3.Location = new System.Drawing.Point(758, 120);
+            labelControl3.Location = new System.Drawing.Point(758, 83);
             labelControl3.Name = "labelControl3";
             labelControl3.Size = new System.Drawing.Size(404, 40);
             labelControl3.TabIndex = 105;

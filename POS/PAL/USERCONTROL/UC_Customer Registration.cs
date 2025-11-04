@@ -20,7 +20,7 @@ namespace POS.PAL.USERCONTROL
 
         private void backBtn2_Click(object sender, EventArgs e)
         {
-            Main.Instance.SwitchToControl(new UC_Customer_Management());
+            Main.Instance.LoadUserControl(new UC_Customer_Management());
         }
     }
 }

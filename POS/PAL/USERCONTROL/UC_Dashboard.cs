@@ -17,45 +17,5 @@ namespace POS.PAL.USERCONTROL
         {
             InitializeComponent();
         }
-
-        private void btnPOS_Click(object sender, EventArgs e)
-        {
-            Main.Instance.SwitchToControl(new UC_SalesTerminal());
-        }
-
-        private void btnCustomerManagement_Click(object sender, EventArgs e)
-        {
-            Main.Instance.SwitchToControl(new UC_Customer_Management());
-        }
-
-        private void btnCustomerGroups_Click(object sender, EventArgs e)
-        {
-            Main.Instance.SwitchToControl(new UC_CustomerGroup_Management());
-        }
-
-        private void btnHome_Click(object sender, EventArgs e)
-        {
-            Main.Instance.SwitchToControl(new UC_Dashboard());
-        }
-
-        private void btnUserManagement_Click(object sender, EventArgs e)
-        {
-            panelUserManagementSubmenu.Visible = !panelUserManagementSubmenu.Visible;
-        }
-
-        private void btnContacts_Click(object sender, EventArgs e)
-        {
-            panelContactSubmenu.Visible = !panelContactSubmenu.Visible;
-        }
-
-        private void btnProducts_Click(object sender, EventArgs e)
-        {
-            panelProductsSubmenu.Visible = !panelProductsSubmenu.Visible;
-        }
-
-        private void btnPurchases_Click(object sender, EventArgs e)
-        {
-            panelPurchaseSidemenu.Visible = !panelPurchaseSidemenu.Visible;
-        }
     }
 }

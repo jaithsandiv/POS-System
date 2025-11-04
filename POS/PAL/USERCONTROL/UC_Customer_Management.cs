@@ -17,11 +17,6 @@ namespace POS.PAL.USERCONTROL
         {
             InitializeComponent();
         }
-
-        private void btnDashboard_Click(object sender, EventArgs e)
-        {
-            Main.Instance.SwitchToControl(new UC_Dashboard());
-        }
         private void btn25Filter_Click(object sender, EventArgs e)
         {
 
@@ -53,12 +48,12 @@ namespace POS.PAL.USERCONTROL
 
         private void simpleButton2_Click(object sender, EventArgs e)
         {
-            Main.Instance.SwitchToControl(new UC_Customer_Registration());
+            Main.Instance.LoadUserControl(new UC_Customer_Registration());
         }
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            Main.Instance.SwitchToControl(new UC_Customer_Registration());
+            Main.Instance.LoadUserControl(new UC_Customer_Registration());
         }
     }
 }
