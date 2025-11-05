@@ -196,7 +196,7 @@ namespace POS
         {
             LoadUserControl(new UC_SalesTerminal());
         }
-
+        // Sidebar button click handlers
         private void btnHome_Click(object sender, EventArgs e)
         {
             Main.Instance.LoadUserControl(new UC_Dashboard());
