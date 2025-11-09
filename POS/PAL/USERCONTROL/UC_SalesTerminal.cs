@@ -1198,5 +1198,204 @@ namespace POS.PAL.USERCONTROL
 
             return sb.ToString();
         }
+
+        private void btnCreditSale_Click(object sender, EventArgs e)
+        {
+            if (salesItemsTable.Rows.Count == 0)
+            {
+                MessageBox.Show("Cart is empty. Cannot save credit sale.", "Empty Cart",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
+            int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
+            int customerId = 0;
+
+            // Get customer ID from saleTable
+            if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
+            {
+                customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
+            }
+
+            // Validation: Credit sale not allowed for Walk-In Customer (customer_id = 1)
+            if (customerId == 1 || customerId == 0)
+            {
+                MessageBox.Show("Credit sale is not allowed for Walk-In Customer. Please select a registered customer.", 
+                    "Invalid Customer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Find customer details in customersTable
+            DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
+            if (customerRows.Length == 0)
+            {
+                MessageBox.Show("Customer information not found.", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            DataRow selectedCustomer = customerRows[0];
+
+            // Check if customer has credit limit
+            decimal creditLimit = 0;
+            if (selectedCustomer.Table.Columns.Contains("credit_limit") &&
+                selectedCustomer["credit_limit"] != DBNull.Value &&
+                !string.IsNullOrWhiteSpace(selectedCustomer["credit_limit"]?.ToString()))
+            {
+                if (decimal.TryParse(selectedCustomer["credit_limit"].ToString(), out decimal parsedCreditLimit))
+                {
+                    creditLimit = parsedCreditLimit;
+                }
+            }
+
+            // Validation: Credit limit must be set
+            if (creditLimit <= 0)
+            {
+                MessageBox.Show($"Customer '{selectedCustomer["full_name"]}' does not have a credit limit set. Please update customer credit limit.", 
+                    "No Credit Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Get grand total
+            decimal grandTotal = 0;
+            if (decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out decimal parsedGrandTotal))
+            {
+                grandTotal = parsedGrandTotal;
+            }
+
+            // Validation: Grand total must not exceed credit limit
+            if (grandTotal > creditLimit)
+            {
+                MessageBox.Show(
+                    $"Grand Total ({grandTotal:F2}) exceeds customer credit limit ({creditLimit:F2}).\n\n" +
+                    $"Available Credit: {Math.Max(0, creditLimit - grandTotal):F2}", 
+                    "Credit Limit Exceeded", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Get sale data
+            string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
+            decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
+            decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
+            int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
+
+            // Generate credit sale reference
+            string creditSaleId = Guid.NewGuid().ToString();
+            string notes = $"Credit sale created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}\nCredit Limit: {creditLimit:F2}";
+
+            // Update saleTable with credit sale information
+            DataRow saleRow = saleTable.Rows[0];
+            saleRow["sale_id"] = creditSaleId;
+            saleRow["sale_type"] = "CREDIT_SALE";
+            saleRow["customer_id"] = customerId;
+            saleRow["payment_status"] = "PENDING";
+            saleRow["sale_status"] = "COMPLETED";
+            saleRow["notes"] = notes;
+            saleRow["created_by"] = billerId;
+            saleRow["created_date"] = DateTime.Now;
+
+            // Update all salesItems with the credit sale_id
+            foreach (DataRow itemRow in salesItemsTable.Rows)
+            {
+                itemRow["sale_id"] = creditSaleId;
+                itemRow["status"] = "A";
+                itemRow["created_by"] = billerId;
+                itemRow["created_date"] = DateTime.Now;
+            }
+
+            // Generate detailed message with all information
+            string detailedMessage = FormatCreditSaleDetails(saleRow, selectedCustomer, creditLimit, salesItemsTable);
+            MessageBox.Show(detailedMessage, "Credit Sale Saved Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// Formats detailed credit sale information including sale table data, customer details, and all items
+        /// </summary>
+        private string FormatCreditSaleDetails(DataRow saleRow, DataRow customerRow, decimal creditLimit, DataTable salesItems)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            sb.AppendLine("═══════════════════════════════════════════");
+            sb.AppendLine("       CREDIT SALE SAVED SUCCESSFULLY");
+            sb.AppendLine("═══════════════════════════════════════════\n");
+
+            // Customer Information
+            sb.AppendLine("CUSTOMER INFORMATION:");
+            sb.AppendLine($"Customer ID: {FormatValue(customerRow["customer_id"])}");
+            sb.AppendLine($"Customer Name: {FormatValue(customerRow["full_name"])}");
+            sb.AppendLine($"Email: {FormatValue(customerRow["email"])}");
+            sb.AppendLine($"Phone: {FormatValue(customerRow["phone"])}");
+            sb.AppendLine($"Address: {FormatValue(customerRow["address"])}");
+            sb.AppendLine($"Group: {FormatValue(customerRow["group_name"])}");
+
+            // Credit Limit Information
+            sb.AppendLine("\nCREDIT LIMIT INFORMATION:");
+            sb.AppendLine($"Credit Limit: {creditLimit:F2}");
+
+            // Sale Header Information
+            sb.AppendLine("\nSALE INFORMATION:");
+            sb.AppendLine($"Credit Sale ID: {FormatValue(saleRow["sale_id"])}");
+            sb.AppendLine($"Sale Type: {FormatValue(saleRow["sale_type"])}");
+            sb.AppendLine($"Store ID: {FormatValue(saleRow["store_id"])}");
+            sb.AppendLine($"Biller ID: {FormatValue(saleRow["biller_id"])}");
+            sb.AppendLine($"Payment Status: {FormatValue(saleRow["payment_status"])}");
+            sb.AppendLine($"Sale Status: {FormatValue(saleRow["sale_status"])}");
+            sb.AppendLine($"Notes: {FormatValue(saleRow["notes"])}");
+
+            sb.AppendLine("\nDISCOUNT INFORMATION:");
+            sb.AppendLine($"Discount Type: {FormatValue(saleRow["discount_type"])}");
+            sb.AppendLine($"Discount Value: {FormatValue(saleRow["discount_value"])}");
+
+            sb.AppendLine("\nAMOUNT INFORMATION:");
+            sb.AppendLine($"Total Amount: {FormatValue(saleRow["total_amount"])}");
+            sb.AppendLine($"Grand Total: {FormatValue(saleRow["grand_total"])}");
+            sb.AppendLine($"Total Items: {FormatValue(saleRow["total_items"])}");
+
+            decimal grandTotal = 0;
+            if (decimal.TryParse(saleRow["grand_total"]?.ToString(), out decimal parsedGrandTotal))
+            {
+                grandTotal = parsedGrandTotal;
+            }
+            sb.AppendLine($"Remaining Credit: {Math.Max(0, creditLimit - grandTotal):F2}");
+
+            sb.AppendLine("\nTIMESTAMP INFORMATION:");
+            sb.AppendLine($"Created By: {FormatValue(saleRow["created_by"])}");
+            sb.AppendLine($"Created Date: {FormatValue(saleRow["created_date"])}");
+
+            sb.AppendLine($"Status: {FormatValue(saleRow["status"])}");
+
+            // Items Details
+            sb.AppendLine("\n" + new string('═', 45));
+            sb.AppendLine($"ITEMS ({salesItems.Rows.Count} items):");
+            sb.AppendLine(new string('═', 45));
+
+            int itemNumber = 1;
+            foreach (DataRow itemRow in salesItems.Rows)
+            {
+                sb.AppendLine($"\nItem #{itemNumber}:");
+                sb.AppendLine($"  Sale Item ID: {FormatValue(itemRow["sale_item_id"])}");
+                sb.AppendLine($"  Sale ID: {FormatValue(itemRow["sale_id"])}");
+                sb.AppendLine($"  Product ID: {FormatValue(itemRow["product_id"])}");
+                sb.AppendLine($"  Product Name: {FormatValue(itemRow["product_name"])}");
+                sb.AppendLine($"  Product Code: {FormatValue(itemRow["product_code"])}");
+                sb.AppendLine($"  Unit Price: {FormatValue(itemRow["unit_price"])}");
+                sb.AppendLine($"  Quantity: {FormatValue(itemRow["quantity"])}");
+                sb.AppendLine($"  Discount Type: {FormatValue(itemRow["discount_type"])}");
+                sb.AppendLine($"  Discount Value: {FormatValue(itemRow["discount_value"])}");
+                sb.AppendLine($"  Subtotal: {FormatValue(itemRow["subtotal"])}");
+                sb.AppendLine($"  Status: {FormatValue(itemRow["status"])}");
+                sb.AppendLine($"  Created By: {FormatValue(itemRow["created_by"])}");
+                sb.AppendLine($"  Created Date: {FormatValue(itemRow["created_date"])}");
+                sb.AppendLine($"  Updated By: {FormatValue(itemRow["updated_by"])}");
+                sb.AppendLine($"  Updated Date: {FormatValue(itemRow["updated_date"])}");
+
+                itemNumber++;
+            }
+
+            sb.AppendLine("\n" + new string('═', 45));
+
+            return sb.ToString();
+        }
     }
 }

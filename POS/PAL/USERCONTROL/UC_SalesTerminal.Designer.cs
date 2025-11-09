@@ -70,7 +70,7 @@
             panelControl11 = new DevExpress.XtraEditors.PanelControl();
             separatorControl9 = new DevExpress.XtraEditors.SeparatorControl();
             btnCancel = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            btnCreditSale = new DevExpress.XtraEditors.SimpleButton();
             panel3 = new System.Windows.Forms.Panel();
             cmbPM = new DevExpress.XtraEditors.ComboBoxEdit();
             simpleButton11 = new DevExpress.XtraEditors.SimpleButton();
@@ -566,7 +566,7 @@
             panelControl11.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl11.Controls.Add(separatorControl9);
             panelControl11.Controls.Add(btnCancel);
-            panelControl11.Controls.Add(simpleButton1);
+            panelControl11.Controls.Add(btnCreditSale);
             panelControl11.Controls.Add(panel3);
             panelControl11.Controls.Add(btnDraft);
             panelControl11.Controls.Add(btnQuotation);
@@ -599,18 +599,19 @@
             btnCancel.Text = "✕";
             btnCancel.Click += btnCancel_Click;
             // 
-            // simpleButton1
+            // btnCreditSale
             // 
-            simpleButton1.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            simpleButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton1.Appearance.Options.UseBackColor = true;
-            simpleButton1.Appearance.Options.UseFont = true;
-            simpleButton1.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton1.Location = new System.Drawing.Point(224, 119);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.Size = new System.Drawing.Size(101, 30);
-            simpleButton1.TabIndex = 44;
-            simpleButton1.Text = "Credit Sale";
+            btnCreditSale.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnCreditSale.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnCreditSale.Appearance.Options.UseBackColor = true;
+            btnCreditSale.Appearance.Options.UseFont = true;
+            btnCreditSale.AppearanceHovered.Options.UseBackColor = true;
+            btnCreditSale.Location = new System.Drawing.Point(224, 119);
+            btnCreditSale.Name = "btnCreditSale";
+            btnCreditSale.Size = new System.Drawing.Size(101, 30);
+            btnCreditSale.TabIndex = 44;
+            btnCreditSale.Text = "Credit Sale";
+            btnCreditSale.Click += btnCreditSale_Click;
             // 
             // panel3
             // 
@@ -743,6 +744,7 @@
             cmbTableNo.Properties.Appearance.Options.UseFont = true;
             cmbTableNo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             cmbTableNo.Properties.Padding = new System.Windows.Forms.Padding(10);
+            cmbTableNo.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             cmbTableNo.Size = new System.Drawing.Size(118, 44);
             cmbTableNo.TabIndex = 37;
             // 
@@ -1510,7 +1512,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn15;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton btnCreditSale;
         private DevExpress.XtraEditors.SeparatorControl separatorControl9;
         private System.Windows.Forms.Label label2;
         private DevExpress.XtraEditors.PanelControl pnlPM;
