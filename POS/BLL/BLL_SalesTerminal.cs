@@ -46,5 +46,36 @@ namespace POS.BLL
         {
             return _dalSalesTerminal.IsKotEnabled();
         }
+
+        public int SaveDraft(int storeId, int billerId, int? customerId, string discountType,
+                             decimal discountValue, decimal totalAmount, int totalItems, decimal grandTotal,
+                             string orderType, string tableNumber, string notes, DataTable saleItems)
+        {
+            return _dalSalesTerminal.SaveDraft(storeId, billerId, customerId, discountType,
+                discountValue, totalAmount, totalItems, grandTotal, orderType, tableNumber, notes, saleItems);
+        }
+
+        public int SaveQuotation(int storeId, int billerId, int? customerId, string quotationNumber,
+                                 string discountType, decimal discountValue, decimal totalAmount,
+                                 int totalItems, decimal grandTotal, string notes, DataTable saleItems)
+        {
+            return _dalSalesTerminal.SaveQuotation(storeId, billerId, customerId, quotationNumber,
+                discountType, discountValue, totalAmount, totalItems, grandTotal, notes, saleItems);
+        }
+
+        public DataTable GetDrafts(int storeId)
+        {
+            return _dalSalesTerminal.GetDrafts(storeId);
+        }
+
+        public DataTable GetQuotations(int storeId)
+        {
+            return _dalSalesTerminal.GetQuotations(storeId);
+        }
+
+        public DataTable GetSaleItems(int saleId)
+        {
+            return _dalSalesTerminal.GetSaleItems(saleId);
+        }
     }
 }

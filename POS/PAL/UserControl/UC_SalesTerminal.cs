@@ -1,6 +1,7 @@
 ﻿using DevExpress.DataAccess.Native.Excel;
 using DevExpress.XtraEditors;
 using POS.BLL;
+using POS.DAL;
 using POS.DAL.DataSource;
 using System;
 using System.Collections.Generic;
@@ -28,41 +29,58 @@ namespace POS.PAL.USERCONTROL
         public UC_SalesTerminal()
         {
             InitializeComponent();
+            btnCancel_Click(null, null);
+        }
 
-            DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
+        private void ResetUIElements()
+        {
+            // Reset text fields
+            txtTotal.Text = "0.00";
+            txtGrandTotal.Text = "0.00";
+            txtDiscount.EditValue = 0m;
+            txtStaffPin.Text = string.Empty;
+            txtCustomer.Text = string.Empty;
+            txtBarcode.Text = string.Empty;
 
-            // Initialize global DataTables
-            productsTable = _bllSalesTerminal.GetProducts();
-            categoriesTable = _bllSalesTerminal.GetCategories();
-            brandsTable = _bllSalesTerminal.GetBrands();
-            staffPinTable = _bllSalesTerminal.GetStaffPin();
-            saleTable = ds.Sale;
-            saleTable.Clear();
-            
-            DataRow newSaleRow = saleTable.NewRow();
-            newSaleRow["total_amount"] = "0.00";
-            newSaleRow["total_items"] = "0";
-            newSaleRow["discount_type"] = "PERCENTAGE";
-            newSaleRow["discount_value"] = "0.00";
-            newSaleRow["grand_total"] = "0.00";
-            saleTable.Rows.Add(newSaleRow);
-            
-            salesItemsTable = ds.SaleItem;
-            salesItemsTable.Clear();
-            customersTable = _bllSalesTerminal.GetCustomers();
-            tableNosTable = ds.Table;
-            tableNosTable.Clear();
+            // Reset text field properties
+            txtStaffPin.ReadOnly = true;
+            txtDiscount.Properties.ReadOnly = true;
+            txtTotal.Properties.ReadOnly = true;
+            txtGrandTotal.Properties.ReadOnly = true;
 
-            saleTable.RowChanged += SaleTable_RowChanged;
+            // Reset discount button caption
+            if (txtDiscount.Properties.Buttons.Count > 0)
+                txtDiscount.Properties.Buttons[0].Caption = "%";
 
-            LoadCategories();
-            LoadBrands();
-            LoadProducts();
+            // Reset combo boxes
+            cmbPM.SelectedIndex = -1;
+            cmbTableNo.SelectedIndex = -1;
 
-            CheckKotEnabled();
-            LoadTableNos();
+            // Reset discount editing
+            SetDiscountFieldsEditable(false);
 
+            // Reset visible panels
             pnlCustomers.Visible = false;
+            pnlPM.Visible = false;
+
+            // Reset KOT UI
+            CheckKotEnabled();
+            pnlKOTTableNo.Visible = true;
+
+            // Reset dine/takeaway buttons appearance
+            btnDineIn.Appearance.BackColor = Color.FromArgb(4, 181, 152);
+            btnDineIn.Appearance.ForeColor = Color.White;
+            btnTakeAway.Appearance.BackColor = Color.White;
+            btnTakeAway.Appearance.ForeColor = Color.Black;
+
+            // Reset button highlights
+            ResetBrandButtonColors();
+            ResetCategoryButtonColors();
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            Main.Instance.SwitchToControl(new UC_Dashboard());
         }
 
         private void FilterProducts(string brandId, string categoryId)
@@ -193,13 +211,20 @@ namespace POS.PAL.USERCONTROL
             {
                 // Add new product to the salesItemsTable
                 DataRow newRow = salesItemsTable.NewRow();
+                newRow["sale_item_id"] = DBNull.Value;
+                newRow["sale_id"] = DBNull.Value;
                 newRow["product_id"] = product["product_id"];
                 newRow["product_name"] = product["product_name"];
+                newRow["product_code"] = product["product_code"];
                 newRow["unit_price"] = Convert.ToDecimal(product["selling_price"]);
                 newRow["quantity"] = 1;
 
                 // Load discount details from the product
-                string promotionType = product["promotion_type"]?.ToString() ?? "PERCENTAGE";
+                string promotionType = product["promotion_type"]?.ToString();
+                if (string.IsNullOrWhiteSpace(promotionType))
+                {
+                    promotionType = "PERCENTAGE";
+                }
                 decimal discountValue = 0;
                 if (product["discount_value"] != DBNull.Value && !string.IsNullOrWhiteSpace(product["discount_value"]?.ToString()))
                 {
@@ -214,10 +239,12 @@ namespace POS.PAL.USERCONTROL
                 decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
                 newRow["subtotal"] = price - discountAmount;
 
-                // Set default values for other SaleItem fields to prevent exceptions
-                newRow["sale_id"] = DBNull.Value;
-                newRow["product_code"] = product["product_code"];
+                // Set all default values for SaleItem fields
                 newRow["status"] = "A";
+                newRow["created_by"] = DBNull.Value;
+                newRow["created_date"] = DBNull.Value;
+                newRow["updated_by"] = DBNull.Value;
+                newRow["updated_date"] = DBNull.Value;
 
                 salesItemsTable.Rows.Add(newRow);
             }
@@ -239,6 +266,8 @@ namespace POS.PAL.USERCONTROL
                 saleRow["total_amount"] = totalAmount.ToString("F2");
                 saleRow["total_items"] = totalItems.ToString();
             }
+
+            txtTotal.Text = totalAmount.ToString("F2");
 
             // Calculate and update grand total with sale-level discount
             CalculateAndUpdateGrandTotal();
@@ -321,6 +350,8 @@ namespace POS.PAL.USERCONTROL
                     saleRow["total_items"] = totalItems.ToString();
                 }
 
+                txtTotal.Text = totalAmount.ToString("F2");
+
                 // Recalculate grand total after item discount changes
                 CalculateAndUpdateGrandTotal();
             }
@@ -333,7 +364,7 @@ namespace POS.PAL.USERCONTROL
                 string type = gvTransactionSum.GetRowCellValue(e.RowHandle, "discount_type")?.ToString();
                 var editor = repositoryItemButtonEdit1;
 
-                editor.Buttons[0].Caption = type == "FIXED_AMOUNT" ? "$" : "%";
+                editor.Buttons[0].Caption = type == "FIXED_AMOUNT" ? "Rs." : "%";
                 e.RepositoryItem = editor;
             }
         }
@@ -738,26 +769,26 @@ namespace POS.PAL.USERCONTROL
             if (e.Clicks == 2)
             {
                 string customerId = gvCustomers.GetFocusedRowCellValue("customer_id").ToString();
-                
+
                 // Find the customer row in customersTable
                 DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
-                
+
                 if (customerRows.Length > 0)
                 {
                     DataRow selectedCustomer = customerRows[0];
-                    
+
                     // Update the saleTable with customer information
                     if (saleTable.Rows.Count > 0)
                     {
                         DataRow saleRow = saleTable.Rows[0];
                         saleRow["customer_id"] = selectedCustomer["customer_id"];
-                        
+
                         // Set discount type to PERCENTAGE
                         saleRow["discount_type"] = "PERCENTAGE";
-                        
+
                         // Set discount value from customer group discount
                         decimal customerDiscount = 0;
-                        if (selectedCustomer["discount_percent"] != DBNull.Value && 
+                        if (selectedCustomer["discount_percent"] != DBNull.Value &&
                             !string.IsNullOrWhiteSpace(selectedCustomer["discount_percent"]?.ToString()))
                         {
                             if (decimal.TryParse(selectedCustomer["discount_percent"].ToString(), out decimal parsedDiscount))
@@ -765,15 +796,15 @@ namespace POS.PAL.USERCONTROL
                                 customerDiscount = parsedDiscount;
                             }
                         }
-                        
+
                         saleRow["discount_value"] = customerDiscount.ToString("F2");
                     }
-                    
+
                     // Update txtDiscount control with customer discount
                     if (txtDiscount != null)
                     {
                         decimal customerDiscount = 0;
-                        if (selectedCustomer["discount_percent"] != DBNull.Value && 
+                        if (selectedCustomer["discount_percent"] != DBNull.Value &&
                             !string.IsNullOrWhiteSpace(selectedCustomer["discount_percent"]?.ToString()))
                         {
                             if (decimal.TryParse(selectedCustomer["discount_percent"].ToString(), out decimal parsedDiscount))
@@ -781,23 +812,264 @@ namespace POS.PAL.USERCONTROL
                                 customerDiscount = parsedDiscount;
                             }
                         }
-                        
+
                         txtDiscount.EditValue = customerDiscount;
-                        
+
                         // Update button caption to show PERCENTAGE
                         if (txtDiscount.Properties.Buttons.Count > 0)
                         {
                             txtDiscount.Properties.Buttons[0].Caption = "%";
                         }
                     }
-                    
+
                     // Recalculate grand total with new customer discount
                     CalculateAndUpdateGrandTotal();
-                    
+
                     pnlCustomers.Visible = false;
                     txtCustomer.Text = $"{selectedCustomer["full_name"]}";
                 }
             }
+        }
+
+        private void cmbPM_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pnlPM.Visible = !pnlPM.Visible;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
+
+            DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
+
+            // Initialize global DataTables
+            productsTable = _bllSalesTerminal.GetProducts();
+            categoriesTable = _bllSalesTerminal.GetCategories();
+            brandsTable = _bllSalesTerminal.GetBrands();
+            staffPinTable = _bllSalesTerminal.GetStaffPin();
+            customersTable = _bllSalesTerminal.GetCustomers();
+            saleTable = ds.Sale;
+            saleTable.Clear();
+
+            DataRow newSaleRow = saleTable.NewRow();
+            newSaleRow["sale_id"] = DBNull.Value;
+            newSaleRow["store_id"] = Main.DataSetApp.Store[0].store_id;
+            newSaleRow["sale_type"] = DBNull.Value;
+            newSaleRow["invoice_number"] = DBNull.Value;
+            newSaleRow["quotation_number"] = DBNull.Value;
+            newSaleRow["customer_id"] = DBNull.Value;
+            newSaleRow["biller_id"] = Main.DataSetApp.User[0].user_id;
+            newSaleRow["total_items"] = "0";
+            newSaleRow["total_amount"] = "0.00";
+            newSaleRow["discount_type"] = "PERCENTAGE";
+            newSaleRow["discount_value"] = "0.00";
+            newSaleRow["grand_total"] = "0.00";
+            newSaleRow["payment_status"] = DBNull.Value;
+            newSaleRow["sale_status"] = DBNull.Value;
+            newSaleRow["order_type"] = DBNull.Value;
+            newSaleRow["table_number"] = DBNull.Value;
+            newSaleRow["notes"] = DBNull.Value;
+            newSaleRow["status"] = "A";
+            newSaleRow["created_by"] = DBNull.Value;
+            newSaleRow["created_date"] = DBNull.Value;
+            newSaleRow["updated_by"] = DBNull.Value;
+            newSaleRow["updated_date"] = DBNull.Value;
+            saleTable.Rows.Add(newSaleRow);
+
+            salesItemsTable = ds.SaleItem;
+            salesItemsTable.Clear();
+
+            tableNosTable = ds.Table;
+            tableNosTable.Clear();
+
+            ResetUIElements();
+
+            // Reload UI lists
+            LoadCategories();
+            LoadBrands();
+            LoadProducts();
+            LoadTableNos();
+
+            // Bind sales items to grid
+            gvTransactionSum.GridControl.DataSource = salesItemsTable;
+
+            // Recalculate totals
+            CalculateAndUpdateGrandTotal();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            pnlPM.Visible = !pnlPM.Visible;
+        }
+
+        private void label4_MouseEnter(object sender, EventArgs e)
+        {
+            label4.BackColor = Color.IndianRed;
+        }
+
+        private void label4_MouseLeave(object sender, EventArgs e)
+        {
+            label4.BackColor = Color.DimGray;
+        }
+
+        private void btnDraft_Click(object sender, EventArgs e)
+        {
+            if (salesItemsTable.Rows.Count == 0)
+            {
+                MessageBox.Show("Cart is empty. Cannot save draft.", "Empty Cart",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
+            int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
+            int? customerId = null;
+
+            if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
+            {
+                customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
+            }
+
+            string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
+            decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
+            decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
+            int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
+            decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
+
+            string orderType = null;
+            string tableNumber = null;
+
+            if (pnlKOT.Visible)
+            {
+                if (btnDineIn.Appearance.BackColor == Color.FromArgb(4, 181, 152))
+                {
+                    orderType = "DINE_IN";
+                    tableNumber = cmbTableNo.SelectedItem?.ToString();
+                }
+                else if (btnTakeAway.Appearance.BackColor == Color.FromArgb(4, 181, 152))
+                {
+                    orderType = "TAKE_AWAY";
+                }
+            }
+
+            string notes = $"Draft saved on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
+            string draftId = Guid.NewGuid().ToString();
+
+            // Update saleTable with draft information
+            DataRow saleRow = saleTable.Rows[0];
+            saleRow["sale_id"] = draftId;
+            saleRow["sale_type"] = "DRAFT";
+            saleRow["customer_id"] = customerId ?? (object)DBNull.Value;
+            saleRow["payment_status"] = "PENDING";
+            saleRow["sale_status"] = "COMPLETED";
+            saleRow["order_type"] = orderType ?? (object)DBNull.Value;
+            saleRow["table_number"] = tableNumber ?? (object)DBNull.Value;
+            saleRow["notes"] = notes;
+            saleRow["created_by"] = billerId;
+            saleRow["created_date"] = DateTime.Now;
+
+            // Update all salesItems with the draft sale_id
+            foreach (DataRow itemRow in salesItemsTable.Rows)
+            {
+                itemRow["sale_id"] = draftId;
+                itemRow["status"] = "A";
+                itemRow["created_by"] = billerId;
+                itemRow["created_date"] = DateTime.Now;
+            }
+
+            // Generate detailed message with all information
+            string detailedMessage = FormatDraftDetails(saleRow, salesItemsTable);
+            MessageBox.Show(detailedMessage, "Draft Saved Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        /// <summary>
+        /// Formats detailed draft information including sale table data and all items
+        /// </summary>
+        private string FormatDraftDetails(DataRow saleRow, DataTable salesItems)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            sb.AppendLine("═══════════════════════════════════════════");
+            sb.AppendLine("           DRAFT SAVED SUCCESSFULLY");
+            sb.AppendLine("═══════════════════════════════════════════\n");
+
+            // Sale Header Information
+            sb.AppendLine("SALE INFORMATION:");
+            sb.AppendLine($"Draft ID: {FormatValue(saleRow["sale_id"])}");
+            sb.AppendLine($"Sale Type: {FormatValue(saleRow["sale_type"])}");
+            sb.AppendLine($"Store ID: {FormatValue(saleRow["store_id"])}");
+            sb.AppendLine($"Biller ID: {FormatValue(saleRow["biller_id"])}");
+            sb.AppendLine($"Customer ID: {FormatValue(saleRow["customer_id"])}");
+            sb.AppendLine($"Payment Status: {FormatValue(saleRow["payment_status"])}");
+            sb.AppendLine($"Sale Status: {FormatValue(saleRow["sale_status"])}");
+            sb.AppendLine($"Order Type: {FormatValue(saleRow["order_type"])}");
+            sb.AppendLine($"Table Number: {FormatValue(saleRow["table_number"])}");
+            sb.AppendLine($"Notes: {FormatValue(saleRow["notes"])}");
+
+            sb.AppendLine("\nDISCOUNT INFORMATION:");
+            sb.AppendLine($"Discount Type: {FormatValue(saleRow["discount_type"])}");
+            sb.AppendLine($"Discount Value: {FormatValue(saleRow["discount_value"])}");
+
+            sb.AppendLine("\nAMOUNT INFORMATION:");
+            sb.AppendLine($"Total Amount: {FormatValue(saleRow["total_amount"])}");
+            sb.AppendLine($"Grand Total: {FormatValue(saleRow["grand_total"])}");
+            sb.AppendLine($"Total Items: {FormatValue(saleRow["total_items"])}");
+
+            sb.AppendLine("\nTIMESTAMP INFORMATION:");
+            sb.AppendLine($"Created By: {FormatValue(saleRow["created_by"])}");
+            sb.AppendLine($"Created Date: {FormatValue(saleRow["created_date"])}");
+            sb.AppendLine($"Updated By: {FormatValue(saleRow["updated_by"])}");
+            sb.AppendLine($"Updated Date: {FormatValue(saleRow["updated_date"])}");
+
+            sb.AppendLine($"Status: {FormatValue(saleRow["status"])}");
+
+            // Items Details
+            sb.AppendLine("\n" + new string('═', 45));
+            sb.AppendLine($"ITEMS ({salesItems.Rows.Count} items):");
+            sb.AppendLine(new string('═', 45));
+
+            int itemNumber = 1;
+            foreach (DataRow itemRow in salesItems.Rows)
+            {
+                sb.AppendLine($"\nItem #{itemNumber}:");
+                sb.AppendLine($"  Sale Item ID: {FormatValue(itemRow["sale_item_id"])}");
+                sb.AppendLine($"  Sale ID: {FormatValue(itemRow["sale_id"])}");
+                sb.AppendLine($"  Product ID: {FormatValue(itemRow["product_id"])}");
+                sb.AppendLine($"  Product Name: {FormatValue(itemRow["product_name"])}");
+                sb.AppendLine($"  Product Code: {FormatValue(itemRow["product_code"])}");
+                sb.AppendLine($"  Unit Price: {FormatValue(itemRow["unit_price"])}");
+                sb.AppendLine($"  Quantity: {FormatValue(itemRow["quantity"])}");
+                sb.AppendLine($"  Discount Type: {FormatValue(itemRow["discount_type"])}");
+                sb.AppendLine($"  Discount Value: {FormatValue(itemRow["discount_value"])}");
+                sb.AppendLine($"  Subtotal: {FormatValue(itemRow["subtotal"])}");
+                sb.AppendLine($"  Status: {FormatValue(itemRow["status"])}");
+                sb.AppendLine($"  Created By: {FormatValue(itemRow["created_by"])}");
+                sb.AppendLine($"  Created Date: {FormatValue(itemRow["created_date"])}");
+                sb.AppendLine($"  Updated By: {FormatValue(itemRow["updated_by"])}");
+                sb.AppendLine($"  Updated Date: {FormatValue(itemRow["updated_date"])}");
+
+                itemNumber++;
+            }
+
+            sb.AppendLine("\n" + new string('═', 45));
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Formats a value for display, showing (null) for DBNull and (empty string) for empty strings
+        /// </summary>
+        private string FormatValue(object value)
+        {
+            if (value == null || value == DBNull.Value)
+                return "(null)";
+            
+            string stringValue = value.ToString();
+            if (string.IsNullOrWhiteSpace(stringValue))
+                return "(empty string)";
+            
+            return stringValue;
         }
     }
 }

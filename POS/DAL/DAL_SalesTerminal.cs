@@ -258,7 +258,7 @@ namespace POS.DAL
             {
                 DataRow r = dt.NewRow();
                 r["table_id"] = row["table_id"]?.ToString();
-                r["table_name"] = row["table_name"]?.ToString();
+                r["table_number"] = row["table_number"]?.ToString();
                 r["capacity"] = row["capacity"]?.ToString();
                 r["status"] = row["status"]?.ToString();
                 r["created_by"] = row["created_by"]?.ToString();
@@ -288,6 +288,285 @@ namespace POS.DAL
             }
 
             return false;
+        }
+
+        public int SaveDraft(int storeId, int billerId, int? customerId, string discountType,
+                             decimal discountValue, decimal totalAmount, int totalItems, decimal grandTotal,
+                             string orderType, string tableNumber, string notes, DataTable saleItems)
+        {
+            try
+            {
+                string saleQuery = @"
+                    INSERT INTO Sale (
+                        store_id, sale_type, customer_id, biller_id, total_items, total_amount, 
+                        discount_type, discount_value, grand_total, payment_status, sale_status, 
+                        order_type, table_number, notes, status, created_by, created_date
+                    )
+                    VALUES (
+                        @store_id, @sale_type, @customer_id, @biller_id, @total_items, @total_amount,
+                        @discount_type, @discount_value, @grand_total, @payment_status, @sale_status,
+                        @order_type, @table_number, @notes, @status, @created_by, GETDATE()
+                    );
+                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+                var saleParams = new SqlParameter[]
+                {
+                    new SqlParameter("@store_id", storeId),
+                    new SqlParameter("@sale_type", "DRAFT"),
+                    new SqlParameter("@customer_id", customerId ?? (object)DBNull.Value),
+                    new SqlParameter("@biller_id", billerId),
+                    new SqlParameter("@total_items", totalItems),
+                    new SqlParameter("@total_amount", totalAmount),
+                    new SqlParameter("@discount_type", discountType),
+                    new SqlParameter("@discount_value", discountValue),
+                    new SqlParameter("@grand_total", grandTotal),
+                    new SqlParameter("@payment_status", "PENDING"),
+                    new SqlParameter("@sale_status", "COMPLETED"),
+                    new SqlParameter("@order_type", orderType ?? (object)DBNull.Value),
+                    new SqlParameter("@table_number", tableNumber ?? (object)DBNull.Value),
+                    new SqlParameter("@notes", notes ?? (object)DBNull.Value),
+                    new SqlParameter("@status", "A"),
+                    new SqlParameter("@created_by", billerId)
+                };
+
+                DataTable result = Connection.ExecuteQuery(saleQuery, saleParams);
+                if (result.Rows.Count == 0)
+                    throw new Exception("Failed to create draft sale record.");
+
+                int saleId = Convert.ToInt32(result.Rows[0][0]);
+
+                if (saleItems != null && saleItems.Rows.Count > 0)
+                {
+                    foreach (DataRow item in saleItems.Rows)
+                    {
+                        string itemQuery = @"
+                            INSERT INTO SaleItem (
+                                sale_id, product_id, product_name, product_code, unit_price,
+                                quantity, discount_type, discount_value, subtotal, status, created_by, created_date
+                            )
+                            VALUES (
+                                @sale_id, @product_id, @product_name, @product_code, @unit_price,
+                                @quantity, @discount_type, @discount_value, @subtotal, @status, @created_by, GETDATE()
+                            );";
+
+                        var itemParams = new SqlParameter[]
+                        {
+                            new SqlParameter("@sale_id", saleId),
+                            new SqlParameter("@product_id", item["product_id"]),
+                            new SqlParameter("@product_name", item["product_name"] ?? (object)DBNull.Value),
+                            new SqlParameter("@product_code", item["product_code"] ?? (object)DBNull.Value),
+                            new SqlParameter("@unit_price", decimal.Parse(item["unit_price"]?.ToString() ?? "0")),
+                            new SqlParameter("@quantity", decimal.Parse(item["quantity"]?.ToString() ?? "0")),
+                            new SqlParameter("@discount_type", item["discount_type"]?.ToString() ?? "PERCENTAGE"),
+                            new SqlParameter("@discount_value", decimal.Parse(item["discount_value"]?.ToString() ?? "0")),
+                            new SqlParameter("@subtotal", decimal.Parse(item["subtotal"]?.ToString() ?? "0")),
+                            new SqlParameter("@status", "A"),
+                            new SqlParameter("@created_by", billerId)
+                        };
+
+                        Connection.ExecuteNonQuery(itemQuery, itemParams);
+                    }
+                }
+
+                return saleId;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error saving draft: {ex.Message}", ex);
+            }
+        }
+
+        public int SaveQuotation(int storeId, int billerId, int? customerId, string quotationNumber,
+                                 string discountType, decimal discountValue, decimal totalAmount,
+                                 int totalItems, decimal grandTotal, string notes, DataTable saleItems)
+        {
+            try
+            {
+                string saleQuery = @"
+                    INSERT INTO Sale (
+                        store_id, sale_type, quotation_number, customer_id, biller_id, total_items, total_amount, 
+                        discount_type, discount_value, grand_total, payment_status, sale_status, 
+                        notes, status, created_by, created_date
+                    )
+                    VALUES (
+                        @store_id, @sale_type, @quotation_number, @customer_id, @biller_id, @total_items, @total_amount,
+                        @discount_type, @discount_value, @grand_total, @payment_status, @sale_status,
+                        @notes, @status, @created_by, GETDATE()
+                    );
+                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+                var saleParams = new SqlParameter[]
+                {
+                    new SqlParameter("@store_id", storeId),
+                    new SqlParameter("@sale_type", "QUOTATION"),
+                    new SqlParameter("@quotation_number", quotationNumber ?? (object)DBNull.Value),
+                    new SqlParameter("@customer_id", customerId ?? (object)DBNull.Value),
+                    new SqlParameter("@biller_id", billerId),
+                    new SqlParameter("@total_items", totalItems),
+                    new SqlParameter("@total_amount", totalAmount),
+                    new SqlParameter("@discount_type", discountType),
+                    new SqlParameter("@discount_value", discountValue),
+                    new SqlParameter("@grand_total", grandTotal),
+                    new SqlParameter("@payment_status", "PENDING"),
+                    new SqlParameter("@sale_status", "COMPLETED"),
+                    new SqlParameter("@notes", notes ?? (object)DBNull.Value),
+                    new SqlParameter("@status", "A"),
+                    new SqlParameter("@created_by", billerId)
+                };
+
+                DataTable result = Connection.ExecuteQuery(saleQuery, saleParams);
+                if (result.Rows.Count == 0)
+                    throw new Exception("Failed to create quotation record.");
+
+                int saleId = Convert.ToInt32(result.Rows[0][0]);
+
+                // Insert SaleItems
+                if (saleItems != null && saleItems.Rows.Count > 0)
+                {
+                    foreach (DataRow item in saleItems.Rows)
+                    {
+                        string itemQuery = @"
+                            INSERT INTO SaleItem (
+                                sale_id, product_id, product_name, product_code, unit_price,
+                                quantity, discount_type, discount_value, subtotal, status, created_by, created_date
+                            )
+                            VALUES (
+                                @sale_id, @product_id, @product_name, @product_code, @unit_price,
+                                @quantity, @discount_type, @discount_value, @subtotal, @status, @created_by, GETDATE()
+                            );";
+
+                        var itemParams = new SqlParameter[]
+                        {
+                            new SqlParameter("@sale_id", saleId),
+                            new SqlParameter("@product_id", item["product_id"]),
+                            new SqlParameter("@product_name", item["product_name"] ?? (object)DBNull.Value),
+                            new SqlParameter("@product_code", item["product_code"] ?? (object)DBNull.Value),
+                            new SqlParameter("@unit_price", decimal.Parse(item["unit_price"]?.ToString() ?? "0")),
+                            new SqlParameter("@quantity", decimal.Parse(item["quantity"]?.ToString() ?? "0")),
+                            new SqlParameter("@discount_type", item["discount_type"]?.ToString() ?? "PERCENTAGE"),
+                            new SqlParameter("@discount_value", decimal.Parse(item["discount_value"]?.ToString() ?? "0")),
+                            new SqlParameter("@subtotal", decimal.Parse(item["subtotal"]?.ToString() ?? "0")),
+                            new SqlParameter("@status", "A"),
+                            new SqlParameter("@created_by", billerId)
+                        };
+
+                        Connection.ExecuteNonQuery(itemQuery, itemParams);
+                    }
+                }
+
+                return saleId;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error saving quotation: {ex.Message}", ex);
+            }
+        }
+
+        public DataTable GetDrafts(int storeId)
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        sale_id,
+                        sale_type,
+                        customer_id,
+                        biller_id,
+                        total_items,
+                        total_amount,
+                        discount_type,
+                        discount_value,
+                        grand_total,
+                        order_type,
+                        table_number,
+                        notes,
+                        status,
+                        created_by,
+                        CONVERT(varchar, created_date, 23) AS created_date,
+                        updated_by,
+                        CONVERT(varchar, updated_date, 23) AS updated_date
+                    FROM Sale
+                    WHERE store_id = @store_id 
+                      AND sale_type = 'DRAFT'
+                      AND status = 'A'
+                    ORDER BY created_date DESC";
+
+                var parameters = new SqlParameter[] { new SqlParameter("@store_id", storeId) };
+                return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving drafts: {ex.Message}", ex);
+            }
+        }
+        public DataTable GetQuotations(int storeId)
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        sale_id,
+                        quotation_number,
+                        sale_type,
+                        customer_id,
+                        biller_id,
+                        total_items,
+                        total_amount,
+                        discount_type,
+                        discount_value,
+                        grand_total,
+                        notes,
+                        status,
+                        created_by,
+                        CONVERT(varchar, created_date, 23) AS created_date,
+                        updated_by,
+                        CONVERT(varchar, updated_date, 23) AS updated_date
+                    FROM Sale
+                    WHERE store_id = @store_id 
+                      AND sale_type = 'QUOTATION'
+                      AND status = 'A'
+                    ORDER BY created_date DESC";
+
+                var parameters = new SqlParameter[] { new SqlParameter("@store_id", storeId) };
+                return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving quotations: {ex.Message}", ex);
+            }
+        }
+
+        public DataTable GetSaleItems(int saleId)
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        sale_item_id,
+                        sale_id,
+                        product_id,
+                        product_name,
+                        product_code,
+                        unit_price,
+                        quantity,
+                        discount_type,
+                        discount_value,
+                        subtotal,
+                        status,
+                        created_by,
+                        CONVERT(varchar, created_date, 23) AS created_date,
+                        updated_by,
+                        CONVERT(varchar, updated_date, 23) AS updated_date
+                    FROM SaleItem
+                    WHERE sale_id = @sale_id AND status = 'A'";
+
+                var parameters = new SqlParameter[] { new SqlParameter("@sale_id", saleId) };
+                return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving sale items: {ex.Message}", ex);
+            }
         }
     }
 }
