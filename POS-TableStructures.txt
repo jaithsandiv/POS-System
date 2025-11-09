@@ -240,28 +240,32 @@ CREATE TABLE Supplier (
 -- 7. SALES & PAYMENTS (core POS)
 -- ---------------------------
 CREATE TABLE Sale (
-    sale_id        INT IDENTITY(1,1) PRIMARY KEY,
-    store_id       INT NOT NULL FOREIGN KEY REFERENCES Store(store_id),
-    sale_type      NVARCHAR(20) NOT NULL,        -- 'SALE','DRAFT','QUOTATION'
-    invoice_number NVARCHAR(50) NULL,            -- null for drafts
-    quotation_number NVARCHAR(50) NULL,
-    customer_id    INT NULL FOREIGN KEY REFERENCES Customer(customer_id),
-    biller_id      INT NOT NULL FOREIGN KEY REFERENCES [User](user_id), -- cashier
-    total_items    INT NOT NULL,
-    total_amount   DECIMAL(14,2) NOT NULL,       -- Σ(SaleItem.subtotal)
-    discount_type  NVARCHAR(20) NOT NULL,     -- 'PERCENTAGE' or 'FIXED_AMOUNT'
-    discount_value DECIMAL(10,2) NOT NULL,    -- e.g., 15.00 (%) or 100.00 (LKR off) sale-level discount (manual, PIN-authorized)
-    grand_total    DECIMAL(14,2) NOT NULL,       -- total_amount - discount_amount
+    sale_id        INT IDENTITY(1,1) PRIMARY KEY,
+    store_id       INT NOT NULL FOREIGN KEY REFERENCES Store(store_id),
+    sale_type      NVARCHAR(20) NOT NULL,        -- 'SALE','DRAFT','QUOTATION'
+    invoice_number NVARCHAR(50) NULL,    
+    quotation_number NVARCHAR(50) NULL,
+    customer_id    INT NULL FOREIGN KEY REFERENCES Customer(customer_id),
+    biller_id      INT NOT NULL FOREIGN KEY REFERENCES [User](user_id), -- cashier
+    total_items    INT NOT NULL,
+    total_amount   DECIMAL(14,2) NOT NULL,       -- Σ(SaleItem.subtotal)
+    discount_type  NVARCHAR(20) NOT NULL,    
+    discount_value DECIMAL(10,2) NOT NULL,    -- sale-level discount
+    grand_total    DECIMAL(14,2) NOT NULL,       -- total_amount - discount_amount
+    
+    total_paid     DECIMAL(14,2) NOT NULL DEFAULT 0, -- Total amount received from all payments
+    change_due      DECIMAL(14,2) NOT NULL DEFAULT 0, -- Change to be given back (total_paid - grand_total)
+    
     payment_status NVARCHAR(20) DEFAULT 'PENDING', -- 'PAID','PARTIAL','CREDIT'
-    sale_status    NVARCHAR(20) DEFAULT 'COMPLETED', -- 'CANCELLED','CONVERTED'
-    order_type     NVARCHAR(20) NULL,            -- KOT: 'TAKE_AWAY','DINE_IN'
-    table_number   NVARCHAR(20) NULL,            -- KOT table identifier
-    notes          NVARCHAR(MAX) NULL,
-    status         CHAR(1) DEFAULT 'A',
-    created_by     INT NULL,
-    created_date   DATETIME2 NULL DEFAULT GETDATE(),
-    updated_by     INT NULL,
-    updated_date   DATETIME2 NULL DEFAULT GETDATE()
+    sale_status    NVARCHAR(20) DEFAULT 'COMPLETED', -- 'CANCELLED','CONVERTED'
+    order_type     NVARCHAR(20) NULL,            -- KOT: 'TAKE_AWAY','DINE_IN'
+    table_number   NVARCHAR(20) NULL,      
+    notes          NVARCHAR(MAX) NULL,
+    status         CHAR(1) DEFAULT 'A',
+    created_by     INT NULL,
+    created_date   DATETIME2 NULL DEFAULT GETDATE(),
+    updated_by     INT NULL,
+    updated_date   DATETIME2 NULL DEFAULT GETDATE()
 );
 
 CREATE TABLE SaleItem (
@@ -283,17 +287,33 @@ CREATE TABLE SaleItem (
 );
 
 CREATE TABLE Payment (
-    payment_id     INT IDENTITY(1,1) PRIMARY KEY,
-    sale_id        INT NOT NULL FOREIGN KEY REFERENCES Sale(sale_id) ON DELETE CASCADE,
-    payment_method NVARCHAR(50) NOT NULL,       -- 'CASH','CREDIT_CARD','BANK_TRANSFER'
-    amount         DECIMAL(14,2) NOT NULL,
-    cash_received  DECIMAL(14,2) NULL,          -- used for cash payments
-    change_given   DECIMAL(14,2) NULL,
-    status         CHAR(1) DEFAULT 'A',
-    created_by     INT NULL,
-    created_date   DATETIME2 NULL DEFAULT GETDATE(),
-    updated_by     INT NULL,
-    updated_date   DATETIME2 NULL DEFAULT GETDATE()
+    payment_id             INT IDENTITY(1,1) PRIMARY KEY,
+    sale_id                INT NOT NULL FOREIGN KEY REFERENCES Sale(sale_id) ON DELETE CASCADE,
+    
+    -- Core Payment Info
+    payment_method         NVARCHAR(50) NOT NULL,  
+    amount                 DECIMAL(14,2) NOT NULL, -- The amount received for this specific payment     
+    
+    -- Card Specific
+    card_number             NVARCHAR(50) NULL,
+    card_holder_name        NVARCHAR(100) NULL,
+    card_transaction_number NVARCHAR(100) NULL,
+    card_type               NVARCHAR(50) NULL,           
+    card_month              NVARCHAR(2) NULL,
+    card_year               NVARCHAR(4) NULL,
+    card_security           NVARCHAR(4) NULL,
+
+    -- Bank Transfer Specific
+    bank_reference_number   NVARCHAR(100) NULL,        -- Renamed from 'bank_account_number'
+
+    status                 CHAR(1) DEFAULT 'A',
+    created_by             INT NULL,
+    created_date           DATETIME2 NULL DEFAULT GETDATE(),
+    updated_by             INT NULL,
+    updated_date           DATETIME2 NULL DEFAULT GETDATE(),
+
+    -- Constraint
+    CONSTRAINT CHK_PaymentMethod CHECK (payment_method IN ('CASH', 'CARD', 'BANK_TRANSFER'))
 );
 
 -- ---------------------------
