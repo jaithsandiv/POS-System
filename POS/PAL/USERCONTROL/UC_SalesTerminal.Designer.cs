@@ -76,7 +76,7 @@
             simpleButton11 = new DevExpress.XtraEditors.SimpleButton();
             labelControl13 = new DevExpress.XtraEditors.LabelControl();
             btnDraft = new DevExpress.XtraEditors.SimpleButton();
-            simpleButton9 = new DevExpress.XtraEditors.SimpleButton();
+            btnQuotation = new DevExpress.XtraEditors.SimpleButton();
             panelControl12 = new DevExpress.XtraEditors.PanelControl();
             separatorControl4 = new DevExpress.XtraEditors.SeparatorControl();
             pnlKOT = new DevExpress.XtraEditors.PanelControl();
@@ -569,7 +569,7 @@
             panelControl11.Controls.Add(simpleButton1);
             panelControl11.Controls.Add(panel3);
             panelControl11.Controls.Add(btnDraft);
-            panelControl11.Controls.Add(simpleButton9);
+            panelControl11.Controls.Add(btnQuotation);
             panelControl11.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl11.Location = new System.Drawing.Point(0, 654);
             panelControl11.Name = "panelControl11";
@@ -677,17 +677,18 @@
             btnDraft.Text = "Draft";
             btnDraft.Click += btnDraft_Click;
             // 
-            // simpleButton9
+            // btnQuotation
             // 
-            simpleButton9.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            simpleButton9.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton9.Appearance.Options.UseBackColor = true;
-            simpleButton9.Appearance.Options.UseFont = true;
-            simpleButton9.Location = new System.Drawing.Point(114, 119);
-            simpleButton9.Name = "simpleButton9";
-            simpleButton9.Size = new System.Drawing.Size(101, 30);
-            simpleButton9.TabIndex = 41;
-            simpleButton9.Text = "Quotation";
+            btnQuotation.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnQuotation.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnQuotation.Appearance.Options.UseBackColor = true;
+            btnQuotation.Appearance.Options.UseFont = true;
+            btnQuotation.Location = new System.Drawing.Point(114, 119);
+            btnQuotation.Name = "btnQuotation";
+            btnQuotation.Size = new System.Drawing.Size(101, 30);
+            btnQuotation.TabIndex = 41;
+            btnQuotation.Text = "Quotation";
+            btnQuotation.Click += btnQuotation_Click;
             // 
             // panelControl12
             // 
@@ -1479,7 +1480,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl21;
         private DevExpress.XtraEditors.PanelControl pnlKOTTableNo;
         private DevExpress.XtraEditors.LabelControl labelControl23;
-        private DevExpress.XtraEditors.SimpleButton simpleButton9;
+        private DevExpress.XtraEditors.SimpleButton btnQuotation;
         private DevExpress.XtraEditors.SimpleButton btnDraft;
         private System.Windows.Forms.Panel panel3;
         private DevExpress.XtraEditors.SimpleButton simpleButton11;

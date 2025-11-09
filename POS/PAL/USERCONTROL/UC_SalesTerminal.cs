@@ -39,7 +39,7 @@ namespace POS.PAL.USERCONTROL
             txtGrandTotal.Text = "0.00";
             txtDiscount.EditValue = 0m;
             txtStaffPin.Text = string.Empty;
-            txtCustomer.Text = string.Empty;
+            txtCustomer.Text = "Walk-In Customer";
             txtBarcode.Text = string.Empty;
 
             // Reset text field properties
@@ -838,8 +838,6 @@ namespace POS.PAL.USERCONTROL
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
-
             DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
 
             // Initialize global DataTables
@@ -857,7 +855,7 @@ namespace POS.PAL.USERCONTROL
             newSaleRow["sale_type"] = DBNull.Value;
             newSaleRow["invoice_number"] = DBNull.Value;
             newSaleRow["quotation_number"] = DBNull.Value;
-            newSaleRow["customer_id"] = DBNull.Value;
+            newSaleRow["customer_id"] = 1;  // Default to Walk-In Customer (customer_id = 1)
             newSaleRow["biller_id"] = Main.DataSetApp.User[0].user_id;
             newSaleRow["total_items"] = "0";
             newSaleRow["total_amount"] = "0.00";
@@ -1064,12 +1062,141 @@ namespace POS.PAL.USERCONTROL
         {
             if (value == null || value == DBNull.Value)
                 return "(null)";
-            
+
             string stringValue = value.ToString();
             if (string.IsNullOrWhiteSpace(stringValue))
                 return "(empty string)";
-            
+
             return stringValue;
+        }
+
+        private void btnQuotation_Click(object sender, EventArgs e)
+        {
+            if (salesItemsTable.Rows.Count == 0)
+            {
+                MessageBox.Show("Cart is empty. Cannot save quotation.", "Empty Cart",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
+            int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
+            int? customerId = null;
+
+            if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
+            {
+                customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
+            }
+
+            string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
+            decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
+            decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
+            int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
+            decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
+
+            // Generate quotation number
+            string quotationNumber = $"QT-{DateTime.Now:yyyyMMddHHmmss}";
+
+            string notes = $"Quotation created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
+            string quotationId = Guid.NewGuid().ToString();
+
+            // Update saleTable with quotation information
+            DataRow saleRow = saleTable.Rows[0];
+            saleRow["sale_id"] = quotationId;
+            saleRow["sale_type"] = "QUOTATION";
+            saleRow["quotation_number"] = quotationNumber;
+            saleRow["customer_id"] = customerId ?? (object)DBNull.Value;
+            saleRow["payment_status"] = "PENDING";
+            saleRow["sale_status"] = "COMPLETED";
+            saleRow["notes"] = notes;
+            saleRow["created_by"] = billerId;
+            saleRow["created_date"] = DateTime.Now;
+
+            // Update all salesItems with the quotation sale_id
+            foreach (DataRow itemRow in salesItemsTable.Rows)
+            {
+                itemRow["sale_id"] = quotationId;
+                itemRow["status"] = "A";
+                itemRow["created_by"] = billerId;
+                itemRow["created_date"] = DateTime.Now;
+            }
+
+            // Generate detailed message with all information
+            string detailedMessage = FormatQuotationDetails(saleRow, salesItemsTable);
+            MessageBox.Show(detailedMessage, "Quotation Saved Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// Formats detailed quotation information including sale table data and all items
+        /// </summary>
+        private string FormatQuotationDetails(DataRow saleRow, DataTable salesItems)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            sb.AppendLine("═══════════════════════════════════════════");
+            sb.AppendLine("        QUOTATION SAVED SUCCESSFULLY");
+            sb.AppendLine("═══════════════════════════════════════════\n");
+
+            // Sale Header Information
+            sb.AppendLine("SALE INFORMATION:");
+            sb.AppendLine($"Quotation ID: {FormatValue(saleRow["sale_id"])}");
+            sb.AppendLine($"Quotation Number: {FormatValue(saleRow["quotation_number"])}");
+            sb.AppendLine($"Sale Type: {FormatValue(saleRow["sale_type"])}");
+            sb.AppendLine($"Store ID: {FormatValue(saleRow["store_id"])}");
+            sb.AppendLine($"Biller ID: {FormatValue(saleRow["biller_id"])}");
+            sb.AppendLine($"Customer ID: {FormatValue(saleRow["customer_id"])}");
+            sb.AppendLine($"Payment Status: {FormatValue(saleRow["payment_status"])}");
+            sb.AppendLine($"Sale Status: {FormatValue(saleRow["sale_status"])}");
+            sb.AppendLine($"Notes: {FormatValue(saleRow["notes"])}");
+
+            sb.AppendLine("\nDISCOUNT INFORMATION:");
+            sb.AppendLine($"Discount Type: {FormatValue(saleRow["discount_type"])}");
+            sb.AppendLine($"Discount Value: {FormatValue(saleRow["discount_value"])}");
+
+            sb.AppendLine("\nAMOUNT INFORMATION:");
+            sb.AppendLine($"Total Amount: {FormatValue(saleRow["total_amount"])}");
+            sb.AppendLine($"Grand Total: {FormatValue(saleRow["grand_total"])}");
+            sb.AppendLine($"Total Items: {FormatValue(saleRow["total_items"])}");
+
+            sb.AppendLine("\nTIMESTAMP INFORMATION:");
+            sb.AppendLine($"Created By: {FormatValue(saleRow["created_by"])}");
+            sb.AppendLine($"Created Date: {FormatValue(saleRow["created_date"])}");
+            sb.AppendLine($"Updated By: {FormatValue(saleRow["updated_by"])}");
+            sb.AppendLine($"Updated Date: {FormatValue(saleRow["updated_date"])}");
+
+            sb.AppendLine($"Status: {FormatValue(saleRow["status"])}");
+
+            // Items Details
+            sb.AppendLine("\n" + new string('═', 45));
+            sb.AppendLine($"ITEMS ({salesItems.Rows.Count} items):");
+            sb.AppendLine(new string('═', 45));
+
+            int itemNumber = 1;
+            foreach (DataRow itemRow in salesItems.Rows)
+            {
+                sb.AppendLine($"\nItem #{itemNumber}:");
+                sb.AppendLine($"  Sale Item ID: {FormatValue(itemRow["sale_item_id"])}");
+                sb.AppendLine($"  Sale ID: {FormatValue(itemRow["sale_id"])}");
+                sb.AppendLine($"  Product ID: {FormatValue(itemRow["product_id"])}");
+                sb.AppendLine($"  Product Name: {FormatValue(itemRow["product_name"])}");
+                sb.AppendLine($"  Product Code: {FormatValue(itemRow["product_code"])}");
+                sb.AppendLine($"  Unit Price: {FormatValue(itemRow["unit_price"])}");
+                sb.AppendLine($"  Quantity: {FormatValue(itemRow["quantity"])}");
+                sb.AppendLine($"  Discount Type: {FormatValue(itemRow["discount_type"])}");
+                sb.AppendLine($"  Discount Value: {FormatValue(itemRow["discount_value"])}");
+                sb.AppendLine($"  Subtotal: {FormatValue(itemRow["subtotal"])}");
+                sb.AppendLine($"  Status: {FormatValue(itemRow["status"])}");
+                sb.AppendLine($"  Created By: {FormatValue(itemRow["created_by"])}");
+                sb.AppendLine($"  Created Date: {FormatValue(itemRow["created_date"])}");
+                sb.AppendLine($"  Updated By: {FormatValue(itemRow["updated_by"])}");
+                sb.AppendLine($"  Updated Date: {FormatValue(itemRow["updated_date"])}");
+
+                itemNumber++;
+            }
+
+            sb.AppendLine("\n" + new string('═', 45));
+
+            return sb.ToString();
         }
     }
 }
