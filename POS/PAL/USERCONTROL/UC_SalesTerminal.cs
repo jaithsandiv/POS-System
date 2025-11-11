@@ -25,6 +25,9 @@ namespace POS.PAL.USERCONTROL
         private DataTable customersTable;
         private DataTable tableNosTable;
         private DataTable staffPinTable;
+        private DataTable paymentsTable;
+
+        private int paymentEntryCounter = 0;
 
         public UC_SalesTerminal()
         {
@@ -53,6 +56,8 @@ namespace POS.PAL.USERCONTROL
                 txtDiscount.Properties.Buttons[0].Caption = "%";
 
             // Reset combo boxes
+            cmbPM.Properties.Items.Clear();
+            cmbPM.Properties.Items.AddRange(new string[] { "CASH", "CARD", "BANK_TRANSFER", "CREDIT" });
             cmbPM.SelectedIndex = -1;
             cmbTableNo.SelectedIndex = -1;
 
@@ -76,11 +81,6 @@ namespace POS.PAL.USERCONTROL
             // Reset button highlights
             ResetBrandButtonColors();
             ResetCategoryButtonColors();
-        }
-
-        private void btnDashboard_Click(object sender, EventArgs e)
-        {
-            Main.Instance.SwitchToControl(new UC_Dashboard());
         }
 
         private void FilterProducts(string brandId, string categoryId)
@@ -833,7 +833,491 @@ namespace POS.PAL.USERCONTROL
 
         private void cmbPM_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pnlPM.Visible = !pnlPM.Visible;
+            string selectedPaymentMethod = cmbPM.SelectedItem?.ToString();
+            if (string.IsNullOrWhiteSpace(selectedPaymentMethod))
+                return;
+
+            // Show payment panel and initialize it
+            if (!pnlPM.Visible)
+            {
+                InitializePaymentPanel();
+                pnlPM.Visible = true;
+            }
+
+            // Add the first payment entry with the selected method
+            AddPaymentEntry(selectedPaymentMethod);
+        }
+
+        private void InitializePaymentPanel()
+        {
+            // Clear the scrollable control
+            xtraScrollableControl4.Controls.Clear();
+
+            // Initialize payments DataTable
+            DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
+            paymentsTable = ds.Payment;
+            paymentsTable.Clear();
+            paymentEntryCounter = 0;
+        }
+
+        private void btnAddPayment_Click(object sender, EventArgs e)
+        {
+            // Add a new payment entry with no method pre-selected
+            AddPaymentEntry(null);
+        }
+
+        private void AddPaymentEntry(string preselectedMethod = null)
+        {
+            paymentEntryCounter++;
+            int entryId = paymentEntryCounter;
+
+            // Create a panel for this payment entry with DevExpress styling
+            PanelControl paymentEntryPanel = new PanelControl
+            {
+                Name = $"pnlPaymentEntry{entryId}",
+                Width = xtraScrollableControl4.Width - 30,
+                Height = 220,
+                BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple,
+                Location = new Point(10, (entryId - 1) * 230)
+            };
+            paymentEntryPanel.Appearance.BorderColor = Color.LightGray;
+            paymentEntryPanel.Appearance.Options.UseBorderColor = true;
+
+            // Payment method label (matching your existing label style)
+            LabelControl lblMethod = new LabelControl
+            {
+                Text = $"Payment #{entryId} - Method:",
+                Location = new Point(10, 10),
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 160
+            };
+            lblMethod.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblMethod.Appearance.Options.UseFont = true;
+
+            // Payment method combo box (matching cmbPM style)
+            ComboBoxEdit cmbMethod = new ComboBoxEdit
+            {
+                Name = $"cmbMethod{entryId}",
+                Location = new Point(10, 35),
+                Width = paymentEntryPanel.Width - 130,
+                Tag = entryId
+            };
+            cmbMethod.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
+            cmbMethod.Properties.Appearance.Options.UseFont = true;
+            cmbMethod.Properties.Items.AddRange(new string[] { "CASH", "CARD", "BANK_TRANSFER", "CREDIT" });
+            cmbMethod.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            cmbMethod.Properties.Padding = new System.Windows.Forms.Padding(10);
+            cmbMethod.Size = new Size(paymentEntryPanel.Width - 130, 44);
+            
+            if (!string.IsNullOrEmpty(preselectedMethod))
+            {
+                cmbMethod.SelectedItem = preselectedMethod;
+            }
+
+            // Fields panel (will hold method-specific fields)
+            PanelControl pnlFields = new PanelControl
+            {
+                Name = $"pnlFields{entryId}",
+                Location = new Point(10, 85),
+                Width = paymentEntryPanel.Width - 20,
+                Height = 90,
+                BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder,
+                Tag = entryId
+            };
+
+            // Remove button (matching btnCancel style)
+            SimpleButton btnRemove = new SimpleButton
+            {
+                Text = "× Remove",
+                Name = $"btnRemove{entryId}",
+                Width = 100,
+                Height = 30,
+                Location = new Point(paymentEntryPanel.Width - 110, 180),
+                Tag = entryId
+            };
+            btnRemove.Appearance.BackColor = Color.IndianRed;
+            btnRemove.Appearance.ForeColor = Color.White;
+            btnRemove.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            btnRemove.Appearance.Options.UseBackColor = true;
+            btnRemove.Appearance.Options.UseForeColor = true;
+            btnRemove.Appearance.Options.UseFont = true;
+            btnRemove.Click += (s, ev) => RemovePaymentEntry(entryId);
+
+            // Wire up the method selection change event
+            cmbMethod.SelectedIndexChanged += (s, ev) =>
+            {
+                string selectedMethod = cmbMethod.SelectedItem?.ToString();
+                if (!string.IsNullOrEmpty(selectedMethod))
+                {
+                    PopulatePaymentFields(pnlFields, selectedMethod, entryId);
+                }
+            };
+
+            // Add controls to payment entry panel
+            paymentEntryPanel.Controls.Add(lblMethod);
+            paymentEntryPanel.Controls.Add(cmbMethod);
+            paymentEntryPanel.Controls.Add(pnlFields);
+            paymentEntryPanel.Controls.Add(btnRemove);
+
+            // Add payment entry panel to scrollable control
+            xtraScrollableControl4.Controls.Add(paymentEntryPanel);
+
+            // If method is preselected, populate fields immediately
+            if (!string.IsNullOrEmpty(preselectedMethod))
+            {
+                PopulatePaymentFields(pnlFields, preselectedMethod, entryId);
+            }
+
+            // Create a payment row in paymentsTable
+            DataRow paymentRow = paymentsTable.NewRow();
+            paymentRow["payment_id"] = DBNull.Value;
+            paymentRow["sale_id"] = DBNull.Value;
+            paymentRow["payment_method"] = preselectedMethod ?? string.Empty;
+            paymentRow["amount"] = "0.00";
+            paymentRow["status"] = "A";
+            paymentRow["created_by"] = DBNull.Value;
+            paymentRow["created_date"] = DBNull.Value;
+            paymentRow["updated_by"] = DBNull.Value;
+            paymentRow["updated_date"] = DBNull.Value;
+            // Card fields
+            paymentRow["card_number"] = DBNull.Value;
+            paymentRow["card_holder_name"] = DBNull.Value;
+            paymentRow["card_transaction_number"] = DBNull.Value;
+            paymentRow["card_type"] = DBNull.Value;
+            paymentRow["card_month"] = DBNull.Value;
+            paymentRow["card_year"] = DBNull.Value;
+            paymentRow["card_security"] = DBNull.Value;
+            // Bank transfer field
+            paymentRow["bank_reference_number"] = DBNull.Value;
+            
+            paymentsTable.Rows.Add(paymentRow);
+            paymentRow["payment_id"] = entryId; // Use counter as temporary ID
+        }
+
+        private void RemovePaymentEntry(int entryId)
+        {
+            // Find and remove the panel
+            Control panelToRemove = xtraScrollableControl4.Controls[$"pnlPaymentEntry{entryId}"];
+            if (panelToRemove != null)
+            {
+                xtraScrollableControl4.Controls.Remove(panelToRemove);
+                panelToRemove.Dispose();
+            }
+
+            // Remove from payments DataTable
+            DataRow[] rowsToRemove = paymentsTable.Select($"payment_id = {entryId}");
+            foreach (DataRow row in rowsToRemove)
+            {
+                paymentsTable.Rows.Remove(row);
+            }
+
+            // Reposition remaining panels
+            RepositionPaymentEntries();
+        }
+
+        private void RepositionPaymentEntries()
+        {
+            int yPosition = 10;
+            foreach (Control control in xtraScrollableControl4.Controls)
+            {
+                if (control is PanelControl panel && panel.Name.StartsWith("pnlPaymentEntry"))
+                {
+                    panel.Location = new Point(10, yPosition);
+                    yPosition += panel.Height + 10;
+                }
+            }
+        }
+
+        private void PopulatePaymentFields(PanelControl fieldsPanel, string paymentMethod, int entryId)
+        {
+            // Clear existing controls
+            fieldsPanel.Controls.Clear();
+
+            switch (paymentMethod.ToUpper())
+            {
+                case "CASH":
+                    AddCashFieldsToPanel(fieldsPanel, entryId);
+                    break;
+                case "CARD":
+                    AddCardFieldsToPanel(fieldsPanel, entryId);
+                    break;
+                case "BANK_TRANSFER":
+                    AddBankTransferFieldsToPanel(fieldsPanel, entryId);
+                    break;
+                case "CREDIT":
+                    AddCreditFieldsToPanel(fieldsPanel, entryId);
+                    break;
+            }
+        }
+
+        private void AddCashFieldsToPanel(PanelControl panel, int entryId)
+        {
+            // Amount Label (matching your label style)
+            LabelControl lblAmount = new LabelControl
+            {
+                Text = "Amount (Rs.):",
+                Location = new Point(10, 15),
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 100
+            };
+            lblAmount.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblAmount.Appearance.Options.UseFont = true;
+
+            // Amount TextEdit (matching txtTotal, txtGrandTotal style)
+            TextEdit txtAmount = new TextEdit
+            {
+                Name = $"txtCashAmount{entryId}",
+                Location = new Point(120, 2),
+                Width = 200,
+                Tag = entryId
+            };
+            txtAmount.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
+            txtAmount.Properties.Appearance.Options.UseFont = true;
+            txtAmount.Properties.Appearance.Options.UseTextOptions = true;
+            txtAmount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            txtAmount.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtAmount.Size = new Size(200, 44);
+            txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            txtAmount.Properties.Mask.EditMask = "n2";
+            txtAmount.EditValueChanged += (s, e) =>
+            {
+                UpdatePaymentAmount(entryId, txtAmount.Text);
+            };
+
+            panel.Controls.Add(lblAmount);
+            panel.Controls.Add(txtAmount);
+        }
+
+        private void AddCardFieldsToPanel(PanelControl panel, int entryId)
+        {
+            int yPos = 2;
+
+            // Amount
+            LabelControl lblAmount = new LabelControl
+            {
+                Text = "Amount (Rs.):",
+                Location = new Point(10, yPos + 13),
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 120
+            };
+            lblAmount.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblAmount.Appearance.Options.UseFont = true;
+
+            TextEdit txtAmount = new TextEdit
+            {
+                Name = $"txtCardAmount{entryId}",
+                Location = new Point(140, yPos),
+                Tag = entryId
+            };
+            txtAmount.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
+            txtAmount.Properties.Appearance.Options.UseFont = true;
+            txtAmount.Properties.Appearance.Options.UseTextOptions = true;
+            txtAmount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            txtAmount.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtAmount.Size = new Size(150, 44);
+            txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            txtAmount.Properties.Mask.EditMask = "n2";
+            txtAmount.EditValueChanged += (s, e) => UpdatePaymentAmount(entryId, txtAmount.Text);
+
+            yPos += 50;
+
+            // Card Number
+            LabelControl lblCardNumber = new LabelControl
+            {
+                Text = "Card Number:",
+                Location = new Point(300, 15),
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 90
+            };
+            lblCardNumber.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblCardNumber.Appearance.Options.UseFont = true;
+
+            TextEdit txtCardNumber = new TextEdit
+            {
+                Name = $"txtCardNumber{entryId}",
+                Location = new Point(400, 2),
+                Tag = entryId
+            };
+            txtCardNumber.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
+            txtCardNumber.Properties.Appearance.Options.UseFont = true;
+            txtCardNumber.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtCardNumber.Size = new Size(150, 44);
+            txtCardNumber.EditValueChanged += (s, e) => UpdateCardField(entryId, "card_number", txtCardNumber.Text);
+
+            yPos += 50;
+
+            // Card Holder
+            LabelControl lblCardHolder = new LabelControl
+            {
+                Text = "Card Holder:",
+                Location = new Point(10, yPos + 13),
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 120
+            };
+            lblCardHolder.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblCardHolder.Appearance.Options.UseFont = true;
+
+            TextEdit txtCardHolder = new TextEdit
+            {
+                Name = $"txtCardHolder{entryId}",
+                Location = new Point(140, yPos),
+                Tag = entryId
+            };
+            txtCardHolder.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
+            txtCardHolder.Properties.Appearance.Options.UseFont = true;
+            txtCardHolder.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtCardHolder.Size = new Size(410, 44);
+            txtCardHolder.EditValueChanged += (s, e) => UpdateCardField(entryId, "card_holder_name", txtCardHolder.Text);
+
+            panel.Controls.Add(lblAmount);
+            panel.Controls.Add(txtAmount);
+            panel.Controls.Add(lblCardNumber);
+            panel.Controls.Add(txtCardNumber);
+            panel.Controls.Add(lblCardHolder);
+            panel.Controls.Add(txtCardHolder);
+        }
+
+        private void AddBankTransferFieldsToPanel(PanelControl panel, int entryId)
+        {
+            int yPos = 2;
+
+            // Amount
+            LabelControl lblAmount = new LabelControl
+            {
+                Text = "Amount (Rs.):",
+                Location = new Point(10, yPos + 13),
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 120
+            };
+            lblAmount.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblAmount.Appearance.Options.UseFont = true;
+
+            TextEdit txtAmount = new TextEdit
+            {
+                Name = $"txtBankAmount{entryId}",
+                Location = new Point(140, yPos),
+                Tag = entryId
+            };
+            txtAmount.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
+            txtAmount.Properties.Appearance.Options.UseFont = true;
+            txtAmount.Properties.Appearance.Options.UseTextOptions = true;
+            txtAmount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            txtAmount.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtAmount.Size = new Size(150, 44);
+            txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            txtAmount.Properties.Mask.EditMask = "n2";
+            txtAmount.EditValueChanged += (s, e) => UpdatePaymentAmount(entryId, txtAmount.Text);
+
+            yPos += 50;
+
+            // Bank Reference
+            LabelControl lblBankRef = new LabelControl
+            {
+                Text = "Bank Reference:",
+                Location = new Point(10, yPos + 13),
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 120
+            };
+            lblBankRef.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblBankRef.Appearance.Options.UseFont = true;
+
+            TextEdit txtBankRef = new TextEdit
+            {
+                Name = $"txtBankRef{entryId}",
+                Location = new Point(140, yPos),
+                Tag = entryId
+            };
+            txtBankRef.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
+            txtBankRef.Properties.Appearance.Options.UseFont = true;
+            txtBankRef.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtBankRef.Size = new Size(410, 44);
+            txtBankRef.EditValueChanged += (s, e) => UpdateBankField(entryId, "bank_reference_number", txtBankRef.Text);
+
+            panel.Controls.Add(lblAmount);
+            panel.Controls.Add(txtAmount);
+            panel.Controls.Add(lblBankRef);
+            panel.Controls.Add(txtBankRef);
+        }
+
+        private void AddCreditFieldsToPanel(PanelControl panel, int entryId)
+        {
+            // Info Label (matching your label style)
+            LabelControl lblInfo = new LabelControl
+            {
+                Text = "Credit payment will be added to customer's account.\nAmount will be set to Grand Total automatically.",
+                Location = new Point(10, 15),
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical,
+                Width = panel.Width - 20
+            };
+            lblInfo.Appearance.ForeColor = Color.DarkGreen;
+            lblInfo.Appearance.Font = new Font("Segoe UI", 9.75F);
+            lblInfo.Appearance.Options.UseForeColor = true;
+            lblInfo.Appearance.Options.UseFont = true;
+
+            panel.Controls.Add(lblInfo);
+
+            // Auto-set amount to grand total for credit
+            if (saleTable.Rows.Count > 0)
+            {
+                decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
+                UpdatePaymentAmount(entryId, grandTotal.ToString("F2"));
+            }
+        }
+
+        private void UpdatePaymentAmount(int entryId, string amount)
+        {
+            DataRow[] rows = paymentsTable.Select($"payment_id = {entryId}");
+            if (rows.Length > 0)
+            {
+                decimal amountValue = 0;
+                decimal.TryParse(amount, out amountValue);
+                rows[0]["amount"] = amountValue.ToString("F2");
+
+                // Update method in payment row based on the combo box
+                Control methodCombo = FindControlInScrollable($"cmbMethod{entryId}");
+                if (methodCombo is ComboBoxEdit cmb && cmb.SelectedItem != null)
+                {
+                    rows[0]["payment_method"] = cmb.SelectedItem.ToString();
+                }
+            }
+        }
+
+        private void UpdateCardField(int entryId, string fieldName, string value)
+        {
+            DataRow[] rows = paymentsTable.Select($"payment_id = {entryId}");
+            if (rows.Length > 0)
+            {
+                rows[0][fieldName] = string.IsNullOrWhiteSpace(value) ? (object)DBNull.Value : value;
+            }
+        }
+
+        private void UpdateBankField(int entryId, string fieldName, string value)
+        {
+            DataRow[] rows = paymentsTable.Select($"payment_id = {entryId}");
+            if (rows.Length > 0)
+            {
+                rows[0][fieldName] = string.IsNullOrWhiteSpace(value) ? (object)DBNull.Value : value;
+            }
+        }
+
+        private Control FindControlInScrollable(string controlName)
+        {
+            foreach (Control ctrl in xtraScrollableControl4.Controls)
+            {
+                if (ctrl.Name == controlName)
+                    return ctrl;
+
+                // Search within panels
+                if (ctrl is PanelControl panel)
+                {
+                    foreach (Control innerCtrl in panel.Controls)
+                    {
+                        if (innerCtrl.Name == controlName)
+                            return innerCtrl;
+                    }
+                }
+            }
+            return null;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

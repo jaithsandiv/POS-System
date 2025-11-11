@@ -126,10 +126,17 @@
             label1 = new System.Windows.Forms.Label();
             pnlCustomers = new DevExpress.XtraEditors.PanelControl();
             pnlPM = new DevExpress.XtraEditors.PanelControl();
+            btnAddPayment = new DevExpress.XtraEditors.SimpleButton();
+            separatorControl11 = new DevExpress.XtraEditors.SeparatorControl();
+            separatorControl10 = new DevExpress.XtraEditors.SeparatorControl();
+            panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             xtraScrollableControl4 = new DevExpress.XtraEditors.XtraScrollableControl();
             panelControl14 = new DevExpress.XtraEditors.PanelControl();
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
+            panelControl13 = new DevExpress.XtraEditors.PanelControl();
+            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl6).BeginInit();
@@ -188,8 +195,13 @@
             pnlCustomers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pnlPM).BeginInit();
             pnlPM.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)separatorControl11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl10).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl14).BeginInit();
             panelControl14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl13).BeginInit();
+            panelControl13.SuspendLayout();
             SuspendLayout();
             // 
             // panelControl2
@@ -1280,21 +1292,82 @@
             // 
             // pnlPM
             // 
+            pnlPM.Controls.Add(btnAddPayment);
+            pnlPM.Controls.Add(separatorControl11);
+            pnlPM.Controls.Add(separatorControl10);
+            pnlPM.Controls.Add(panelControl1);
+            pnlPM.Controls.Add(simpleButton2);
             pnlPM.Controls.Add(xtraScrollableControl4);
             pnlPM.Controls.Add(panelControl14);
+            pnlPM.Controls.Add(panelControl13);
             pnlPM.Location = new System.Drawing.Point(521, 174);
             pnlPM.Name = "pnlPM";
             pnlPM.Size = new System.Drawing.Size(831, 689);
             pnlPM.TabIndex = 108;
             // 
+            // btnAddPayment
+            // 
+            btnAddPayment.Appearance.BackColor = System.Drawing.Color.White;
+            btnAddPayment.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnAddPayment.Appearance.Options.UseBackColor = true;
+            btnAddPayment.Appearance.Options.UseFont = true;
+            btnAddPayment.Location = new System.Drawing.Point(10, 593);
+            btnAddPayment.Name = "btnAddPayment";
+            btnAddPayment.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            btnAddPayment.Size = new System.Drawing.Size(587, 30);
+            btnAddPayment.TabIndex = 52;
+            btnAddPayment.Text = "Add Payment +";
+            btnAddPayment.Click += btnAddPayment_Click;
+            // 
+            // separatorControl11
+            // 
+            separatorControl11.AutoSizeMode = true;
+            separatorControl11.BackColor = System.Drawing.Color.White;
+            separatorControl11.Location = new System.Drawing.Point(0, 625);
+            separatorControl11.Name = "separatorControl11";
+            separatorControl11.Size = new System.Drawing.Size(829, 19);
+            separatorControl11.TabIndex = 51;
+            // 
+            // separatorControl10
+            // 
+            separatorControl10.AutoSizeMode = true;
+            separatorControl10.BackColor = System.Drawing.Color.White;
+            separatorControl10.LineOrientation = System.Windows.Forms.Orientation.Vertical;
+            separatorControl10.Location = new System.Drawing.Point(597, 28);
+            separatorControl10.Name = "separatorControl10";
+            separatorControl10.Size = new System.Drawing.Size(19, 604);
+            separatorControl10.TabIndex = 50;
+            // 
+            // panelControl1
+            // 
+            panelControl1.Appearance.BackColor = System.Drawing.Color.White;
+            panelControl1.Appearance.Options.UseBackColor = true;
+            panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl1.Location = new System.Drawing.Point(612, 28);
+            panelControl1.Name = "panelControl1";
+            panelControl1.Size = new System.Drawing.Size(217, 604);
+            panelControl1.TabIndex = 49;
+            // 
+            // simpleButton2
+            // 
+            simpleButton2.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            simpleButton2.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton2.Appearance.Options.UseBackColor = true;
+            simpleButton2.Appearance.Options.UseFont = true;
+            simpleButton2.AppearanceHovered.Options.UseBackColor = true;
+            simpleButton2.Location = new System.Drawing.Point(679, 648);
+            simpleButton2.Name = "simpleButton2";
+            simpleButton2.Size = new System.Drawing.Size(141, 30);
+            simpleButton2.TabIndex = 47;
+            simpleButton2.Text = "Finalize Payment";
+            // 
             // xtraScrollableControl4
             // 
             xtraScrollableControl4.Appearance.BackColor = System.Drawing.Color.White;
             xtraScrollableControl4.Appearance.Options.UseBackColor = true;
-            xtraScrollableControl4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            xtraScrollableControl4.Location = new System.Drawing.Point(2, 28);
+            xtraScrollableControl4.Location = new System.Drawing.Point(10, 37);
             xtraScrollableControl4.Name = "xtraScrollableControl4";
-            xtraScrollableControl4.Size = new System.Drawing.Size(827, 659);
+            xtraScrollableControl4.Size = new System.Drawing.Size(584, 556);
             xtraScrollableControl4.TabIndex = 0;
             // 
             // panelControl14
@@ -1336,6 +1409,31 @@
             label4.Click += label4_Click;
             label4.MouseEnter += label4_MouseEnter;
             label4.MouseLeave += label4_MouseLeave;
+            // 
+            // panelControl13
+            // 
+            panelControl13.Appearance.BackColor = System.Drawing.Color.White;
+            panelControl13.Appearance.Options.UseBackColor = true;
+            panelControl13.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl13.Controls.Add(simpleButton1);
+            panelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelControl13.Location = new System.Drawing.Point(2, 2);
+            panelControl13.Name = "panelControl13";
+            panelControl13.Size = new System.Drawing.Size(827, 685);
+            panelControl13.TabIndex = 53;
+            // 
+            // simpleButton1
+            // 
+            simpleButton1.Appearance.BackColor = System.Drawing.Color.White;
+            simpleButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            simpleButton1.Appearance.Options.UseBackColor = true;
+            simpleButton1.Appearance.Options.UseFont = true;
+            simpleButton1.Location = new System.Drawing.Point(577, 646);
+            simpleButton1.Name = "simpleButton1";
+            simpleButton1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            simpleButton1.Size = new System.Drawing.Size(91, 30);
+            simpleButton1.TabIndex = 48;
+            simpleButton1.Text = "Close";
             // 
             // UC_SalesTerminal
             // 
@@ -1422,8 +1520,13 @@
             pnlCustomers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pnlPM).EndInit();
             pnlPM.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)separatorControl11).EndInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl10).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl14).EndInit();
             panelControl14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)panelControl13).EndInit();
+            panelControl13.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1520,5 +1623,12 @@
         private DevExpress.XtraEditors.PanelControl panelControl14;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl11;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl10;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private DevExpress.XtraEditors.SimpleButton btnAddPayment;
+        private DevExpress.XtraEditors.PanelControl panelControl13;
     }
 }
