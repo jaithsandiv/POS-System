@@ -47,35 +47,16 @@ namespace POS.BLL
             return _dalSalesTerminal.IsKotEnabled();
         }
 
-        public int SaveDraft(int storeId, int billerId, int? customerId, string discountType,
-                             decimal discountValue, decimal totalAmount, int totalItems, decimal grandTotal,
-                             string orderType, string tableNumber, string notes, DataTable saleItems)
+        public int SaveSale(int storeId, int billerId, int? customerId, string saleType, 
+                            string discountType, decimal discountValue, decimal totalAmount, 
+                            int totalItems, decimal grandTotal, string notes, DataTable saleItems,
+                            decimal totalPaid = 0, decimal changeDue = 0,
+                            string invoiceNumber = null, string quotationNumber = null, 
+                            string orderType = null, string tableNumber = null)
         {
-            return _dalSalesTerminal.SaveDraft(storeId, billerId, customerId, discountType,
-                discountValue, totalAmount, totalItems, grandTotal, orderType, tableNumber, notes, saleItems);
-        }
-
-        public int SaveQuotation(int storeId, int billerId, int? customerId, string quotationNumber,
-                                 string discountType, decimal discountValue, decimal totalAmount,
-                                 int totalItems, decimal grandTotal, string notes, DataTable saleItems)
-        {
-            return _dalSalesTerminal.SaveQuotation(storeId, billerId, customerId, quotationNumber,
-                discountType, discountValue, totalAmount, totalItems, grandTotal, notes, saleItems);
-        }
-
-        public DataTable GetDrafts(int storeId)
-        {
-            return _dalSalesTerminal.GetDrafts(storeId);
-        }
-
-        public DataTable GetQuotations(int storeId)
-        {
-            return _dalSalesTerminal.GetQuotations(storeId);
-        }
-
-        public DataTable GetSaleItems(int saleId)
-        {
-            return _dalSalesTerminal.GetSaleItems(saleId);
+            return _dalSalesTerminal.SaveSale(storeId, billerId, customerId, saleType, discountType, 
+                discountValue, totalAmount, totalItems, grandTotal, notes, saleItems, 
+                totalPaid, changeDue, invoiceNumber, quotationNumber, orderType, tableNumber);
         }
     }
 }

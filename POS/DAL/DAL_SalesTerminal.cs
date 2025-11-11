@@ -290,29 +290,58 @@ namespace POS.DAL
             return false;
         }
 
-        public int SaveDraft(int storeId, int billerId, int? customerId, string discountType,
-                             decimal discountValue, decimal totalAmount, int totalItems, decimal grandTotal,
-                             string orderType, string tableNumber, string notes, DataTable saleItems)
+        public int SaveSale(int storeId, int billerId, int? customerId, string saleType, 
+                            string discountType, decimal discountValue, decimal totalAmount, 
+                            int totalItems, decimal grandTotal, string notes, DataTable saleItems,
+                            decimal totalPaid = 0, decimal changeDue = 0,
+                            string invoiceNumber = null, string quotationNumber = null, 
+                            string orderType = null, string tableNumber = null)
         {
             try
             {
+                // Build the INSERT query with only the required fields
                 string saleQuery = @"
                     INSERT INTO Sale (
                         store_id, sale_type, customer_id, biller_id, total_items, total_amount, 
-                        discount_type, discount_value, grand_total, payment_status, sale_status, 
-                        order_type, table_number, notes, status, created_by, created_date
+                        discount_type, discount_value, grand_total, total_paid, change_due,
+                        payment_status, sale_status, notes, status, created_by, created_date";
+
+                // Add optional fields to query based on sale type
+                if (!string.IsNullOrEmpty(invoiceNumber))
+                    saleQuery += ", invoice_number";
+                if (!string.IsNullOrEmpty(quotationNumber))
+                    saleQuery += ", quotation_number";
+                if (!string.IsNullOrEmpty(orderType))
+                    saleQuery += ", order_type";
+                if (!string.IsNullOrEmpty(tableNumber))
+                    saleQuery += ", table_number";
+
+                saleQuery += @"
                     )
                     VALUES (
                         @store_id, @sale_type, @customer_id, @biller_id, @total_items, @total_amount,
-                        @discount_type, @discount_value, @grand_total, @payment_status, @sale_status,
-                        @order_type, @table_number, @notes, @status, @created_by, GETDATE()
+                        @discount_type, @discount_value, @grand_total, @total_paid, @change_due,
+                        @payment_status, @sale_status, @notes, @status, @created_by, GETDATE()";
+
+                // Add optional values to query based on sale type
+                if (!string.IsNullOrEmpty(invoiceNumber))
+                    saleQuery += ", @invoice_number";
+                if (!string.IsNullOrEmpty(quotationNumber))
+                    saleQuery += ", @quotation_number";
+                if (!string.IsNullOrEmpty(orderType))
+                    saleQuery += ", @order_type";
+                if (!string.IsNullOrEmpty(tableNumber))
+                    saleQuery += ", @table_number";
+
+                saleQuery += @"
                     );
                     SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
-                var saleParams = new SqlParameter[]
+                // Build parameters list
+                var paramList = new List<SqlParameter>
                 {
                     new SqlParameter("@store_id", storeId),
-                    new SqlParameter("@sale_type", "DRAFT"),
+                    new SqlParameter("@sale_type", saleType),
                     new SqlParameter("@customer_id", customerId ?? (object)DBNull.Value),
                     new SqlParameter("@biller_id", billerId),
                     new SqlParameter("@total_items", totalItems),
@@ -320,93 +349,8 @@ namespace POS.DAL
                     new SqlParameter("@discount_type", discountType),
                     new SqlParameter("@discount_value", discountValue),
                     new SqlParameter("@grand_total", grandTotal),
-                    new SqlParameter("@payment_status", "PENDING"),
-                    new SqlParameter("@sale_status", "COMPLETED"),
-                    new SqlParameter("@order_type", orderType ?? (object)DBNull.Value),
-                    new SqlParameter("@table_number", tableNumber ?? (object)DBNull.Value),
-                    new SqlParameter("@notes", notes ?? (object)DBNull.Value),
-                    new SqlParameter("@status", "A"),
-                    new SqlParameter("@created_by", billerId)
-                };
-
-                DataTable result = Connection.ExecuteQuery(saleQuery, saleParams);
-                if (result.Rows.Count == 0)
-                    throw new Exception("Failed to create draft sale record.");
-
-                int saleId = Convert.ToInt32(result.Rows[0][0]);
-
-                if (saleItems != null && saleItems.Rows.Count > 0)
-                {
-                    foreach (DataRow item in saleItems.Rows)
-                    {
-                        string itemQuery = @"
-                            INSERT INTO SaleItem (
-                                sale_id, product_id, product_name, product_code, unit_price,
-                                quantity, discount_type, discount_value, subtotal, status, created_by, created_date
-                            )
-                            VALUES (
-                                @sale_id, @product_id, @product_name, @product_code, @unit_price,
-                                @quantity, @discount_type, @discount_value, @subtotal, @status, @created_by, GETDATE()
-                            );";
-
-                        var itemParams = new SqlParameter[]
-                        {
-                            new SqlParameter("@sale_id", saleId),
-                            new SqlParameter("@product_id", item["product_id"]),
-                            new SqlParameter("@product_name", item["product_name"] ?? (object)DBNull.Value),
-                            new SqlParameter("@product_code", item["product_code"] ?? (object)DBNull.Value),
-                            new SqlParameter("@unit_price", decimal.Parse(item["unit_price"]?.ToString() ?? "0")),
-                            new SqlParameter("@quantity", decimal.Parse(item["quantity"]?.ToString() ?? "0")),
-                            new SqlParameter("@discount_type", item["discount_type"]?.ToString() ?? "PERCENTAGE"),
-                            new SqlParameter("@discount_value", decimal.Parse(item["discount_value"]?.ToString() ?? "0")),
-                            new SqlParameter("@subtotal", decimal.Parse(item["subtotal"]?.ToString() ?? "0")),
-                            new SqlParameter("@status", "A"),
-                            new SqlParameter("@created_by", billerId)
-                        };
-
-                        Connection.ExecuteNonQuery(itemQuery, itemParams);
-                    }
-                }
-
-                return saleId;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error saving draft: {ex.Message}", ex);
-            }
-        }
-
-        public int SaveQuotation(int storeId, int billerId, int? customerId, string quotationNumber,
-                                 string discountType, decimal discountValue, decimal totalAmount,
-                                 int totalItems, decimal grandTotal, string notes, DataTable saleItems)
-        {
-            try
-            {
-                string saleQuery = @"
-                    INSERT INTO Sale (
-                        store_id, sale_type, quotation_number, customer_id, biller_id, total_items, total_amount, 
-                        discount_type, discount_value, grand_total, payment_status, sale_status, 
-                        notes, status, created_by, created_date
-                    )
-                    VALUES (
-                        @store_id, @sale_type, @quotation_number, @customer_id, @biller_id, @total_items, @total_amount,
-                        @discount_type, @discount_value, @grand_total, @payment_status, @sale_status,
-                        @notes, @status, @created_by, GETDATE()
-                    );
-                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
-
-                var saleParams = new SqlParameter[]
-                {
-                    new SqlParameter("@store_id", storeId),
-                    new SqlParameter("@sale_type", "QUOTATION"),
-                    new SqlParameter("@quotation_number", quotationNumber ?? (object)DBNull.Value),
-                    new SqlParameter("@customer_id", customerId ?? (object)DBNull.Value),
-                    new SqlParameter("@biller_id", billerId),
-                    new SqlParameter("@total_items", totalItems),
-                    new SqlParameter("@total_amount", totalAmount),
-                    new SqlParameter("@discount_type", discountType),
-                    new SqlParameter("@discount_value", discountValue),
-                    new SqlParameter("@grand_total", grandTotal),
+                    new SqlParameter("@total_paid", totalPaid),
+                    new SqlParameter("@change_due", changeDue),
                     new SqlParameter("@payment_status", "PENDING"),
                     new SqlParameter("@sale_status", "COMPLETED"),
                     new SqlParameter("@notes", notes ?? (object)DBNull.Value),
@@ -414,9 +358,21 @@ namespace POS.DAL
                     new SqlParameter("@created_by", billerId)
                 };
 
+                // Add optional parameters based on sale type
+                if (!string.IsNullOrEmpty(invoiceNumber))
+                    paramList.Add(new SqlParameter("@invoice_number", invoiceNumber));
+                if (!string.IsNullOrEmpty(quotationNumber))
+                    paramList.Add(new SqlParameter("@quotation_number", quotationNumber));
+                if (!string.IsNullOrEmpty(orderType))
+                    paramList.Add(new SqlParameter("@order_type", orderType));
+                if (!string.IsNullOrEmpty(tableNumber))
+                    paramList.Add(new SqlParameter("@table_number", tableNumber));
+
+                var saleParams = paramList.ToArray();
+
                 DataTable result = Connection.ExecuteQuery(saleQuery, saleParams);
                 if (result.Rows.Count == 0)
-                    throw new Exception("Failed to create quotation record.");
+                    throw new Exception($"Failed to create {saleType} sale record.");
 
                 int saleId = Convert.ToInt32(result.Rows[0][0]);
 
@@ -458,8 +414,32 @@ namespace POS.DAL
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error saving quotation: {ex.Message}", ex);
+                throw new Exception($"Error saving {saleType} sale: {ex.Message}", ex);
             }
+        }
+
+        public int SaveDraft(int storeId, int billerId, int? customerId, string discountType,
+                             decimal discountValue, decimal totalAmount, int totalItems, decimal grandTotal,
+                             string orderType, string tableNumber, string notes, DataTable saleItems)
+        {
+            return SaveSale(storeId, billerId, customerId, "DRAFT", discountType, discountValue, 
+                totalAmount, totalItems, grandTotal, notes, saleItems, 0m, 0m, null, null, orderType, tableNumber);
+        }
+
+        public int SaveQuotation(int storeId, int billerId, int? customerId, string quotationNumber,
+                                 string discountType, decimal discountValue, decimal totalAmount,
+                                 int totalItems, decimal grandTotal, string notes, DataTable saleItems)
+        {
+            return SaveSale(storeId, billerId, customerId, "QUOTATION", discountType, discountValue, 
+                totalAmount, totalItems, grandTotal, notes, saleItems, 0m, 0m, null, quotationNumber);
+        }
+
+        public int SaveCreditSale(int storeId, int billerId, int? customerId, 
+                                  string discountType, decimal discountValue, decimal totalAmount,
+                                  int totalItems, decimal grandTotal, string notes, DataTable saleItems)
+        {
+            return SaveSale(storeId, billerId, customerId, "CREDIT_SALE", discountType, discountValue, 
+                totalAmount, totalItems, grandTotal, notes, saleItems, 0m, 0m);
         }
 
         public DataTable GetDrafts(int storeId)

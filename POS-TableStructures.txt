@@ -208,6 +208,7 @@ CREATE TABLE Customer (
     country        NVARCHAR(50) NULL,
     postal_code    NVARCHAR(20) NULL,
     credit_limit   DECIMAL(14,2) DEFAULT 0,  -- allowed credit limit
+    credit_balance DECIMAL(14,2) DEFAULT 0,
     status         CHAR(1) DEFAULT 'A',
     created_by     INT NULL,
     created_date   DATETIME2 NULL DEFAULT GETDATE(),
@@ -313,8 +314,20 @@ CREATE TABLE Payment (
     updated_date           DATETIME2 NULL DEFAULT GETDATE(),
 
     -- Constraint
-    CONSTRAINT CHK_PaymentMethod CHECK (payment_method IN ('CASH', 'CARD', 'BANK_TRANSFER'))
+    CONSTRAINT CHK_PaymentMethod CHECK (payment_method IN ('CASH', 'CARD', 'BANK_TRANSFER', 'CREDIT'))
 );
+
+-- Creates a number generator for Invoices
+CREATE SEQUENCE InvoiceNumberSequence
+    AS INT
+    START WITH 1
+    INCREMENT BY 1;
+
+-- Creates a number generator for Quotations
+CREATE SEQUENCE QuotationNumberSequence
+    AS INT
+    START WITH 1
+    INCREMENT BY 1;
 
 -- ---------------------------
 -- 8. RETURNS

@@ -2988,6 +2988,10 @@ namespace POS.DAL.DataSource {
             
             private global::System.Data.DataColumn columnupdated_date;
             
+            private global::System.Data.DataColumn columntotal_paid;
+            
+            private global::System.Data.DataColumn columnchange_due;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public SaleDataTable() {
@@ -3201,6 +3205,22 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn total_paidColumn {
+                get {
+                    return this.columntotal_paid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn change_dueColumn {
+                get {
+                    return this.columnchange_due;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3258,7 +3278,9 @@ namespace POS.DAL.DataSource {
                         string created_by, 
                         string created_date, 
                         string updated_by, 
-                        string updated_date) {
+                        string updated_date, 
+                        string total_paid, 
+                        string change_due) {
                 SaleRow rowSaleRow = ((SaleRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         sale_id,
@@ -3282,7 +3304,9 @@ namespace POS.DAL.DataSource {
                         created_by,
                         created_date,
                         updated_by,
-                        updated_date};
+                        updated_date,
+                        total_paid,
+                        change_due};
                 rowSaleRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSaleRow);
                 return rowSaleRow;
@@ -3327,6 +3351,8 @@ namespace POS.DAL.DataSource {
                 this.columncreated_date = base.Columns["created_date"];
                 this.columnupdated_by = base.Columns["updated_by"];
                 this.columnupdated_date = base.Columns["updated_date"];
+                this.columntotal_paid = base.Columns["total_paid"];
+                this.columnchange_due = base.Columns["change_due"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3376,6 +3402,10 @@ namespace POS.DAL.DataSource {
                 base.Columns.Add(this.columnupdated_by);
                 this.columnupdated_date = new global::System.Data.DataColumn("updated_date", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnupdated_date);
+                this.columntotal_paid = new global::System.Data.DataColumn("total_paid", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntotal_paid);
+                this.columnchange_due = new global::System.Data.DataColumn("change_due", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnchange_due);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3962,10 +3992,6 @@ namespace POS.DAL.DataSource {
             
             private global::System.Data.DataColumn columnamount;
             
-            private global::System.Data.DataColumn columncash_received;
-            
-            private global::System.Data.DataColumn columnchange_given;
-            
             private global::System.Data.DataColumn columnstatus;
             
             private global::System.Data.DataColumn columncreated_by;
@@ -3975,6 +4001,22 @@ namespace POS.DAL.DataSource {
             private global::System.Data.DataColumn columnupdated_by;
             
             private global::System.Data.DataColumn columnupdated_date;
+            
+            private global::System.Data.DataColumn columncard_number;
+            
+            private global::System.Data.DataColumn columncard_holder_name;
+            
+            private global::System.Data.DataColumn columncard_transaction_number;
+            
+            private global::System.Data.DataColumn columncard_type;
+            
+            private global::System.Data.DataColumn columncard_month;
+            
+            private global::System.Data.DataColumn columncard_year;
+            
+            private global::System.Data.DataColumn columncard_security;
+            
+            private global::System.Data.DataColumn columnbank_reference_number;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -4045,22 +4087,6 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn cash_receivedColumn {
-                get {
-                    return this.columncash_received;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn change_givenColumn {
-                get {
-                    return this.columnchange_given;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn statusColumn {
                 get {
                     return this.columnstatus;
@@ -4101,6 +4127,70 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn card_numberColumn {
+                get {
+                    return this.columncard_number;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn card_holder_nameColumn {
+                get {
+                    return this.columncard_holder_name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn card_transaction_numberColumn {
+                get {
+                    return this.columncard_transaction_number;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn card_typeColumn {
+                get {
+                    return this.columncard_type;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn card_monthColumn {
+                get {
+                    return this.columncard_month;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn card_yearColumn {
+                get {
+                    return this.columncard_year;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn card_securityColumn {
+                get {
+                    return this.columncard_security;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn bank_reference_numberColumn {
+                get {
+                    return this.columnbank_reference_number;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4136,20 +4226,43 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PaymentRow AddPaymentRow(string payment_id, string sale_id, string payment_method, string amount, string cash_received, string change_given, string status, string created_by, string created_date, string updated_by, string updated_date) {
+            public PaymentRow AddPaymentRow(
+                        string payment_id, 
+                        string sale_id, 
+                        string payment_method, 
+                        string amount, 
+                        string status, 
+                        string created_by, 
+                        string created_date, 
+                        string updated_by, 
+                        string updated_date, 
+                        string card_number, 
+                        string card_holder_name, 
+                        string card_transaction_number, 
+                        string card_type, 
+                        string card_month, 
+                        string card_year, 
+                        string card_security, 
+                        string bank_reference_number) {
                 PaymentRow rowPaymentRow = ((PaymentRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         payment_id,
                         sale_id,
                         payment_method,
                         amount,
-                        cash_received,
-                        change_given,
                         status,
                         created_by,
                         created_date,
                         updated_by,
-                        updated_date};
+                        updated_date,
+                        card_number,
+                        card_holder_name,
+                        card_transaction_number,
+                        card_type,
+                        card_month,
+                        card_year,
+                        card_security,
+                        bank_reference_number};
                 rowPaymentRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPaymentRow);
                 return rowPaymentRow;
@@ -4176,13 +4289,19 @@ namespace POS.DAL.DataSource {
                 this.columnsale_id = base.Columns["sale_id"];
                 this.columnpayment_method = base.Columns["payment_method"];
                 this.columnamount = base.Columns["amount"];
-                this.columncash_received = base.Columns["cash_received"];
-                this.columnchange_given = base.Columns["change_given"];
                 this.columnstatus = base.Columns["status"];
                 this.columncreated_by = base.Columns["created_by"];
                 this.columncreated_date = base.Columns["created_date"];
                 this.columnupdated_by = base.Columns["updated_by"];
                 this.columnupdated_date = base.Columns["updated_date"];
+                this.columncard_number = base.Columns["card_number"];
+                this.columncard_holder_name = base.Columns["card_holder_name"];
+                this.columncard_transaction_number = base.Columns["card_transaction_number"];
+                this.columncard_type = base.Columns["card_type"];
+                this.columncard_month = base.Columns["card_month"];
+                this.columncard_year = base.Columns["card_year"];
+                this.columncard_security = base.Columns["card_security"];
+                this.columnbank_reference_number = base.Columns["bank_reference_number"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4196,10 +4315,6 @@ namespace POS.DAL.DataSource {
                 base.Columns.Add(this.columnpayment_method);
                 this.columnamount = new global::System.Data.DataColumn("amount", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnamount);
-                this.columncash_received = new global::System.Data.DataColumn("cash_received", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncash_received);
-                this.columnchange_given = new global::System.Data.DataColumn("change_given", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnchange_given);
                 this.columnstatus = new global::System.Data.DataColumn("status", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnstatus);
                 this.columncreated_by = new global::System.Data.DataColumn("created_by", typeof(string), null, global::System.Data.MappingType.Element);
@@ -4210,6 +4325,26 @@ namespace POS.DAL.DataSource {
                 base.Columns.Add(this.columnupdated_by);
                 this.columnupdated_date = new global::System.Data.DataColumn("updated_date", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnupdated_date);
+                this.columncard_number = new global::System.Data.DataColumn("card_number", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_number);
+                this.columncard_holder_name = new global::System.Data.DataColumn("card_holder_name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_holder_name);
+                this.columncard_transaction_number = new global::System.Data.DataColumn("card_transaction_number", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_transaction_number);
+                this.columncard_type = new global::System.Data.DataColumn("card_type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_type);
+                this.columncard_month = new global::System.Data.DataColumn("card_month", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_month);
+                this.columncard_year = new global::System.Data.DataColumn("card_year", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_year);
+                this.columncard_security = new global::System.Data.DataColumn("card_security", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncard_security);
+                this.columnbank_reference_number = new global::System.Data.DataColumn("bank_reference_number", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnbank_reference_number);
+                this.columncard_holder_name.Caption = "card_number";
+                this.columncard_transaction_number.Caption = "card_number";
+                this.columncard_type.Caption = "card_number";
+                this.columncard_month.Caption = "card_number";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6642,6 +6777,38 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string total_paid {
+                get {
+                    try {
+                        return ((string)(this[this.tableSale.total_paidColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'total_paid\' in table \'Sale\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSale.total_paidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string change_due {
+                get {
+                    try {
+                        return ((string)(this[this.tableSale.change_dueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'change_due\' in table \'Sale\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSale.change_dueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Issale_idNull() {
                 return this.IsNull(this.tableSale.sale_idColumn);
             }
@@ -6902,6 +7069,30 @@ namespace POS.DAL.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setupdated_dateNull() {
                 this[this.tableSale.updated_dateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Istotal_paidNull() {
+                return this.IsNull(this.tableSale.total_paidColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Settotal_paidNull() {
+                this[this.tableSale.total_paidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Ischange_dueNull() {
+                return this.IsNull(this.tableSale.change_dueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setchange_dueNull() {
+                this[this.tableSale.change_dueColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -7420,38 +7611,6 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string cash_received {
-                get {
-                    try {
-                        return ((string)(this[this.tablePayment.cash_receivedColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'cash_received\' in table \'Payment\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePayment.cash_receivedColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string change_given {
-                get {
-                    try {
-                        return ((string)(this[this.tablePayment.change_givenColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'change_given\' in table \'Payment\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePayment.change_givenColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string status {
                 get {
                     try {
@@ -7532,6 +7691,134 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string card_number {
+                get {
+                    try {
+                        return ((string)(this[this.tablePayment.card_numberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_number\' in table \'Payment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePayment.card_numberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string card_holder_name {
+                get {
+                    try {
+                        return ((string)(this[this.tablePayment.card_holder_nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_holder_name\' in table \'Payment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePayment.card_holder_nameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string card_transaction_number {
+                get {
+                    try {
+                        return ((string)(this[this.tablePayment.card_transaction_numberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_transaction_number\' in table \'Payment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePayment.card_transaction_numberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string card_type {
+                get {
+                    try {
+                        return ((string)(this[this.tablePayment.card_typeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_type\' in table \'Payment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePayment.card_typeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string card_month {
+                get {
+                    try {
+                        return ((string)(this[this.tablePayment.card_monthColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_month\' in table \'Payment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePayment.card_monthColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string card_year {
+                get {
+                    try {
+                        return ((string)(this[this.tablePayment.card_yearColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_year\' in table \'Payment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePayment.card_yearColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string card_security {
+                get {
+                    try {
+                        return ((string)(this[this.tablePayment.card_securityColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'card_security\' in table \'Payment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePayment.card_securityColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string bank_reference_number {
+                get {
+                    try {
+                        return ((string)(this[this.tablePayment.bank_reference_numberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'bank_reference_number\' in table \'Payment\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePayment.bank_reference_numberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Ispayment_idNull() {
                 return this.IsNull(this.tablePayment.payment_idColumn);
             }
@@ -7576,30 +7863,6 @@ namespace POS.DAL.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetamountNull() {
                 this[this.tablePayment.amountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Iscash_receivedNull() {
-                return this.IsNull(this.tablePayment.cash_receivedColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setcash_receivedNull() {
-                this[this.tablePayment.cash_receivedColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Ischange_givenNull() {
-                return this.IsNull(this.tablePayment.change_givenColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setchange_givenNull() {
-                this[this.tablePayment.change_givenColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7660,6 +7923,102 @@ namespace POS.DAL.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setupdated_dateNull() {
                 this[this.tablePayment.updated_dateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Iscard_numberNull() {
+                return this.IsNull(this.tablePayment.card_numberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setcard_numberNull() {
+                this[this.tablePayment.card_numberColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Iscard_holder_nameNull() {
+                return this.IsNull(this.tablePayment.card_holder_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setcard_holder_nameNull() {
+                this[this.tablePayment.card_holder_nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Iscard_transaction_numberNull() {
+                return this.IsNull(this.tablePayment.card_transaction_numberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setcard_transaction_numberNull() {
+                this[this.tablePayment.card_transaction_numberColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Iscard_typeNull() {
+                return this.IsNull(this.tablePayment.card_typeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setcard_typeNull() {
+                this[this.tablePayment.card_typeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Iscard_monthNull() {
+                return this.IsNull(this.tablePayment.card_monthColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setcard_monthNull() {
+                this[this.tablePayment.card_monthColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Iscard_yearNull() {
+                return this.IsNull(this.tablePayment.card_yearColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setcard_yearNull() {
+                this[this.tablePayment.card_yearColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Iscard_securityNull() {
+                return this.IsNull(this.tablePayment.card_securityColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setcard_securityNull() {
+                this[this.tablePayment.card_securityColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Isbank_reference_numberNull() {
+                return this.IsNull(this.tablePayment.bank_reference_numberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setbank_reference_numberNull() {
+                this[this.tablePayment.bank_reference_numberColumn] = global::System.Convert.DBNull;
             }
         }
         
