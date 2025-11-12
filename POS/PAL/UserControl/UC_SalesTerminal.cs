@@ -871,27 +871,39 @@ namespace POS.PAL.USERCONTROL
             paymentEntryCounter++;
             int entryId = paymentEntryCounter;
 
+            // Determine panel height based on payment method
+            int panelHeight = 180; // Default for CASH/CREDIT (smaller)
+            if (preselectedMethod != null)
+            {
+                if (preselectedMethod.ToUpper() == "CARD")
+                    panelHeight = 380; // Increased for CARD (more fields + better spacing)
+                else if (preselectedMethod.ToUpper() == "BANK_TRANSFER")
+                    panelHeight = 260; // Medium for BANK_TRANSFER
+            }
+
             // Create a panel for this payment entry with DevExpress styling
             PanelControl paymentEntryPanel = new PanelControl
             {
                 Name = $"pnlPaymentEntry{entryId}",
                 Width = xtraScrollableControl4.Width - 30,
-                Height = 220,
+                Height = panelHeight,
                 BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple,
-                Location = new Point(10, (entryId - 1) * 230)
+                Dock = DockStyle.Top // Use docking for automatic positioning
             };
             paymentEntryPanel.Appearance.BorderColor = Color.LightGray;
             paymentEntryPanel.Appearance.Options.UseBorderColor = true;
+            // Add margin/padding between panels
+            paymentEntryPanel.Padding = new System.Windows.Forms.Padding(5, 5, 5, 15); // Top, Left, Right, Bottom margins
 
             // Payment method label (matching your existing label style)
             LabelControl lblMethod = new LabelControl
             {
-                Text = $"Payment #{entryId} - Method:",
+                Text = $"Payment #{entryId}",
                 Location = new Point(10, 10),
                 AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
                 Width = 160
             };
-            lblMethod.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblMethod.Appearance.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
             lblMethod.Appearance.Options.UseFont = true;
 
             // Payment method combo box (matching cmbPM style)
@@ -899,7 +911,6 @@ namespace POS.PAL.USERCONTROL
             {
                 Name = $"cmbMethod{entryId}",
                 Location = new Point(10, 35),
-                Width = paymentEntryPanel.Width - 130,
                 Tag = entryId
             };
             cmbMethod.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
@@ -914,25 +925,25 @@ namespace POS.PAL.USERCONTROL
                 cmbMethod.SelectedItem = preselectedMethod;
             }
 
-            // Fields panel (will hold method-specific fields)
+            // Fields panel (will hold method-specific fields) - INCREASED HEIGHT
             PanelControl pnlFields = new PanelControl
             {
                 Name = $"pnlFields{entryId}",
-                Location = new Point(10, 85),
+                Location = new Point(10, 90),
                 Width = paymentEntryPanel.Width - 20,
-                Height = 90,
+                Height = panelHeight - 140, // Dynamic height based on panel
                 BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder,
                 Tag = entryId
             };
 
-            // Remove button (matching btnCancel style)
+            // Remove button (matching btnCancel style) - DYNAMIC POSITION
             SimpleButton btnRemove = new SimpleButton
             {
                 Text = "× Remove",
                 Name = $"btnRemove{entryId}",
                 Width = 100,
                 Height = 30,
-                Location = new Point(paymentEntryPanel.Width - 110, 180),
+                Location = new Point(paymentEntryPanel.Width - 115, panelHeight - 45),
                 Tag = entryId
             };
             btnRemove.Appearance.BackColor = Color.IndianRed;
@@ -949,6 +960,19 @@ namespace POS.PAL.USERCONTROL
                 string selectedMethod = cmbMethod.SelectedItem?.ToString();
                 if (!string.IsNullOrEmpty(selectedMethod))
                 {
+                    // Update panel height based on selected method
+                    int newHeight = 180;
+                    if (selectedMethod.ToUpper() == "CARD")
+                        newHeight = 380;
+                    else if (selectedMethod.ToUpper() == "BANK_TRANSFER")
+                        newHeight = 260;
+                    else if (selectedMethod.ToUpper() == "CREDIT")
+                        newHeight = 200;
+
+                    paymentEntryPanel.Height = newHeight;
+                    pnlFields.Height = newHeight - 140;
+                    btnRemove.Location = new Point(paymentEntryPanel.Width - 115, newHeight - 45);
+
                     PopulatePaymentFields(pnlFields, selectedMethod, entryId);
                 }
             };
@@ -960,7 +984,9 @@ namespace POS.PAL.USERCONTROL
             paymentEntryPanel.Controls.Add(btnRemove);
 
             // Add payment entry panel to scrollable control
+            // Since we're using Dock.Top, add to the END to maintain visual order (top to bottom)
             xtraScrollableControl4.Controls.Add(paymentEntryPanel);
+            xtraScrollableControl4.Controls.SetChildIndex(paymentEntryPanel, 0); // Move to top
 
             // If method is preselected, populate fields immediately
             if (!string.IsNullOrEmpty(preselectedMethod))
@@ -979,14 +1005,11 @@ namespace POS.PAL.USERCONTROL
             paymentRow["created_date"] = DBNull.Value;
             paymentRow["updated_by"] = DBNull.Value;
             paymentRow["updated_date"] = DBNull.Value;
-            // Card fields
-            paymentRow["card_number"] = DBNull.Value;
+            // Card fields (SECURE: Only last 4 digits)
+            paymentRow["card_last_four_digits"] = DBNull.Value;
             paymentRow["card_holder_name"] = DBNull.Value;
             paymentRow["card_transaction_number"] = DBNull.Value;
             paymentRow["card_type"] = DBNull.Value;
-            paymentRow["card_month"] = DBNull.Value;
-            paymentRow["card_year"] = DBNull.Value;
-            paymentRow["card_security"] = DBNull.Value;
             // Bank transfer field
             paymentRow["bank_reference_number"] = DBNull.Value;
             
@@ -1011,21 +1034,7 @@ namespace POS.PAL.USERCONTROL
                 paymentsTable.Rows.Remove(row);
             }
 
-            // Reposition remaining panels
-            RepositionPaymentEntries();
-        }
-
-        private void RepositionPaymentEntries()
-        {
-            int yPosition = 10;
-            foreach (Control control in xtraScrollableControl4.Controls)
-            {
-                if (control is PanelControl panel && panel.Name.StartsWith("pnlPaymentEntry"))
-                {
-                    panel.Location = new Point(10, yPosition);
-                    yPosition += panel.Height + 10;
-                }
-            }
+            // No need to reposition - Dock.Top handles this automatically
         }
 
         private void PopulatePaymentFields(PanelControl fieldsPanel, string paymentMethod, int entryId)
@@ -1090,15 +1099,17 @@ namespace POS.PAL.USERCONTROL
 
         private void AddCardFieldsToPanel(PanelControl panel, int entryId)
         {
-            int yPos = 2;
+            int yPos = 5;
+            int fieldHeight = 44;
+            int verticalSpacing = 55; // Space between rows
 
-            // Amount
+            // Row 1: Amount and Card Last 4
             LabelControl lblAmount = new LabelControl
             {
                 Text = "Amount (Rs.):",
                 Location = new Point(10, yPos + 13),
                 AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
-                Width = 120
+                Width = 100
             };
             lblAmount.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             lblAmount.Appearance.Options.UseFont = true;
@@ -1106,7 +1117,7 @@ namespace POS.PAL.USERCONTROL
             TextEdit txtAmount = new TextEdit
             {
                 Name = $"txtCardAmount{entryId}",
-                Location = new Point(140, yPos),
+                Location = new Point(115, yPos),
                 Tag = entryId
             };
             txtAmount.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
@@ -1114,45 +1125,45 @@ namespace POS.PAL.USERCONTROL
             txtAmount.Properties.Appearance.Options.UseTextOptions = true;
             txtAmount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             txtAmount.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtAmount.Size = new Size(150, 44);
+            txtAmount.Size = new Size(150, fieldHeight);
             txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             txtAmount.Properties.Mask.EditMask = "n2";
             txtAmount.EditValueChanged += (s, e) => UpdatePaymentAmount(entryId, txtAmount.Text);
 
-            yPos += 50;
-
-            // Card Number
-            LabelControl lblCardNumber = new LabelControl
+            LabelControl lblCardLast4 = new LabelControl
             {
-                Text = "Card Number:",
-                Location = new Point(300, 15),
+                Text = "Last 4 Digits:",
+                Location = new Point(280, yPos + 13),
                 AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
                 Width = 90
             };
-            lblCardNumber.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            lblCardNumber.Appearance.Options.UseFont = true;
+            lblCardLast4.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblCardLast4.Appearance.Options.UseFont = true;
 
-            TextEdit txtCardNumber = new TextEdit
+            TextEdit txtCardLast4 = new TextEdit
             {
-                Name = $"txtCardNumber{entryId}",
-                Location = new Point(400, 2),
+                Name = $"txtCardLast4{entryId}",
+                Location = new Point(375, yPos),
                 Tag = entryId
             };
-            txtCardNumber.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
-            txtCardNumber.Properties.Appearance.Options.UseFont = true;
-            txtCardNumber.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtCardNumber.Size = new Size(150, 44);
-            txtCardNumber.EditValueChanged += (s, e) => UpdateCardField(entryId, "card_number", txtCardNumber.Text);
+            txtCardLast4.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
+            txtCardLast4.Properties.Appearance.Options.UseFont = true;
+            txtCardLast4.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtCardLast4.Size = new Size(150, fieldHeight);
+            txtCardLast4.Properties.MaxLength = 4;
+            txtCardLast4.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            txtCardLast4.Properties.Mask.EditMask = "d4";
+            txtCardLast4.EditValueChanged += (s, e) => UpdateCardField(entryId, "card_last_four_digits", txtCardLast4.Text);
 
-            yPos += 50;
+            yPos += verticalSpacing;
 
-            // Card Holder
+            // Row 2: Card Holder
             LabelControl lblCardHolder = new LabelControl
             {
                 Text = "Card Holder:",
                 Location = new Point(10, yPos + 13),
                 AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
-                Width = 120
+                Width = 100
             };
             lblCardHolder.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             lblCardHolder.Appearance.Options.UseFont = true;
@@ -1160,34 +1171,98 @@ namespace POS.PAL.USERCONTROL
             TextEdit txtCardHolder = new TextEdit
             {
                 Name = $"txtCardHolder{entryId}",
-                Location = new Point(140, yPos),
+                Location = new Point(115, yPos),
                 Tag = entryId
             };
             txtCardHolder.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
             txtCardHolder.Properties.Appearance.Options.UseFont = true;
             txtCardHolder.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtCardHolder.Size = new Size(410, 44);
+            txtCardHolder.Size = new Size(410, fieldHeight);
             txtCardHolder.EditValueChanged += (s, e) => UpdateCardField(entryId, "card_holder_name", txtCardHolder.Text);
+
+            yPos += verticalSpacing;
+
+            // Row 3: Card Type
+            LabelControl lblCardType = new LabelControl
+            {
+                Text = "Card Type:",
+                Location = new Point(10, yPos + 13),
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 100
+            };
+            lblCardType.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblCardType.Appearance.Options.UseFont = true;
+
+            ComboBoxEdit cmbCardType = new ComboBoxEdit
+            {
+                Name = $"cmbCardType{entryId}",
+                Location = new Point(115, yPos),
+                Tag = entryId
+            };
+            cmbCardType.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
+            cmbCardType.Properties.Appearance.Options.UseFont = true;
+            cmbCardType.Properties.Items.AddRange(new string[] { "Visa", "MasterCard", "Amex", "Discover", "Other" });
+            cmbCardType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            cmbCardType.Properties.Padding = new System.Windows.Forms.Padding(10);
+            cmbCardType.Size = new Size(200, fieldHeight);
+            cmbCardType.SelectedIndexChanged += (s, e) =>
+            {
+                if (cmbCardType.SelectedItem != null)
+                {
+                    UpdateCardField(entryId, "card_type", cmbCardType.SelectedItem.ToString());
+                }
+            };
+
+            yPos += verticalSpacing;
+
+            // Row 4: Transaction Number
+            LabelControl lblTransNo = new LabelControl
+            {
+                Text = "Transaction #:",
+                Location = new Point(10, yPos + 13),
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 100
+            };
+            lblTransNo.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            lblTransNo.Appearance.Options.UseFont = true;
+
+            TextEdit txtTransNo = new TextEdit
+            {
+                Name = $"txtTransNo{entryId}",
+                Location = new Point(115, yPos),
+                Tag = entryId
+            };
+            txtTransNo.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
+            txtTransNo.Properties.Appearance.Options.UseFont = true;
+            txtTransNo.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtTransNo.Size = new Size(300, fieldHeight);
+            txtTransNo.EditValueChanged += (s, e) => UpdateCardField(entryId, "card_transaction_number", txtTransNo.Text);
 
             panel.Controls.Add(lblAmount);
             panel.Controls.Add(txtAmount);
-            panel.Controls.Add(lblCardNumber);
-            panel.Controls.Add(txtCardNumber);
+            panel.Controls.Add(lblCardLast4);
+            panel.Controls.Add(txtCardLast4);
             panel.Controls.Add(lblCardHolder);
             panel.Controls.Add(txtCardHolder);
+            panel.Controls.Add(lblCardType);
+            panel.Controls.Add(cmbCardType);
+            panel.Controls.Add(lblTransNo);
+            panel.Controls.Add(txtTransNo);
         }
 
         private void AddBankTransferFieldsToPanel(PanelControl panel, int entryId)
         {
-            int yPos = 2;
+            int yPos = 5;
+            int fieldHeight = 44;
+            int verticalSpacing = 55;
 
-            // Amount
+            // Row 1: Amount
             LabelControl lblAmount = new LabelControl
             {
                 Text = "Amount (Rs.):",
                 Location = new Point(10, yPos + 13),
                 AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
-                Width = 120
+                Width = 100
             };
             lblAmount.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             lblAmount.Appearance.Options.UseFont = true;
@@ -1195,7 +1270,7 @@ namespace POS.PAL.USERCONTROL
             TextEdit txtAmount = new TextEdit
             {
                 Name = $"txtBankAmount{entryId}",
-                Location = new Point(140, yPos),
+                Location = new Point(115, yPos),
                 Tag = entryId
             };
             txtAmount.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
@@ -1203,20 +1278,20 @@ namespace POS.PAL.USERCONTROL
             txtAmount.Properties.Appearance.Options.UseTextOptions = true;
             txtAmount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             txtAmount.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtAmount.Size = new Size(150, 44);
+            txtAmount.Size = new Size(150, fieldHeight);
             txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             txtAmount.Properties.Mask.EditMask = "n2";
             txtAmount.EditValueChanged += (s, e) => UpdatePaymentAmount(entryId, txtAmount.Text);
 
-            yPos += 50;
+            yPos += verticalSpacing;
 
-            // Bank Reference
+            // Row 2: Bank Reference
             LabelControl lblBankRef = new LabelControl
             {
                 Text = "Bank Reference:",
                 Location = new Point(10, yPos + 13),
                 AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
-                Width = 120
+                Width = 100
             };
             lblBankRef.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             lblBankRef.Appearance.Options.UseFont = true;
@@ -1224,13 +1299,13 @@ namespace POS.PAL.USERCONTROL
             TextEdit txtBankRef = new TextEdit
             {
                 Name = $"txtBankRef{entryId}",
-                Location = new Point(140, yPos),
+                Location = new Point(115, yPos),
                 Tag = entryId
             };
             txtBankRef.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
             txtBankRef.Properties.Appearance.Options.UseFont = true;
             txtBankRef.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtBankRef.Size = new Size(410, 44);
+            txtBankRef.Size = new Size(410, fieldHeight);
             txtBankRef.EditValueChanged += (s, e) => UpdateBankField(entryId, "bank_reference_number", txtBankRef.Text);
 
             panel.Controls.Add(lblAmount);

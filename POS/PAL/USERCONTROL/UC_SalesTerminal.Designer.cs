@@ -1314,7 +1314,7 @@
             btnAddPayment.Location = new System.Drawing.Point(10, 593);
             btnAddPayment.Name = "btnAddPayment";
             btnAddPayment.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            btnAddPayment.Size = new System.Drawing.Size(587, 30);
+            btnAddPayment.Size = new System.Drawing.Size(598, 30);
             btnAddPayment.TabIndex = 52;
             btnAddPayment.Text = "Add Payment +";
             btnAddPayment.Click += btnAddPayment_Click;
@@ -1333,7 +1333,7 @@
             separatorControl10.AutoSizeMode = true;
             separatorControl10.BackColor = System.Drawing.Color.White;
             separatorControl10.LineOrientation = System.Windows.Forms.Orientation.Vertical;
-            separatorControl10.Location = new System.Drawing.Point(597, 28);
+            separatorControl10.Location = new System.Drawing.Point(607, 28);
             separatorControl10.Name = "separatorControl10";
             separatorControl10.Size = new System.Drawing.Size(19, 604);
             separatorControl10.TabIndex = 50;
@@ -1343,9 +1343,9 @@
             panelControl1.Appearance.BackColor = System.Drawing.Color.White;
             panelControl1.Appearance.Options.UseBackColor = true;
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl1.Location = new System.Drawing.Point(612, 28);
+            panelControl1.Location = new System.Drawing.Point(626, 28);
             panelControl1.Name = "panelControl1";
-            panelControl1.Size = new System.Drawing.Size(217, 604);
+            panelControl1.Size = new System.Drawing.Size(203, 604);
             panelControl1.TabIndex = 49;
             // 
             // simpleButton2
@@ -1367,7 +1367,7 @@
             xtraScrollableControl4.Appearance.Options.UseBackColor = true;
             xtraScrollableControl4.Location = new System.Drawing.Point(10, 37);
             xtraScrollableControl4.Name = "xtraScrollableControl4";
-            xtraScrollableControl4.Size = new System.Drawing.Size(584, 556);
+            xtraScrollableControl4.Size = new System.Drawing.Size(598, 556);
             xtraScrollableControl4.TabIndex = 0;
             // 
             // panelControl14

@@ -290,31 +290,29 @@ CREATE TABLE SaleItem (
 CREATE TABLE Payment (
     payment_id             INT IDENTITY(1,1) PRIMARY KEY,
     sale_id                INT NOT NULL FOREIGN KEY REFERENCES Sale(sale_id) ON DELETE CASCADE,
-    
-    -- Core Payment Info
-    payment_method         NVARCHAR(50) NOT NULL,  
-    amount                 DECIMAL(14,2) NOT NULL, -- The amount received for this specific payment     
-    
-    -- Card Specific
-    card_number             NVARCHAR(50) NULL,
-    card_holder_name        NVARCHAR(100) NULL,
-    card_transaction_number NVARCHAR(100) NULL,
-    card_type               NVARCHAR(50) NULL,           
-    card_month              NVARCHAR(2) NULL,
-    card_year               NVARCHAR(4) NULL,
-    card_security           NVARCHAR(4) NULL,
+    
+    -- Core Payment Info
+    payment_method         NVARCHAR(50) NOT NULL,  
+    amount                 DECIMAL(14,2) NOT NULL, -- The amount received for this specific payment
+    
+    -- Card Specific (Secure & Auditable)
+    card_last_four_digits   NVARCHAR(4) NULL,     -- RENAMED: Only store last 4 digits
+    card_holder_name        NVARCHAR(100) NULL,   -- KEPT: Non-sensitive
+    card_transaction_number NVARCHAR(100) NULL,   -- KEPT: This is the Auth Code / Transaction ID
+    card_type               NVARCHAR(50) NULL,    -- KEPT: e.g., 'Visa', 'MasterCard'
 
-    -- Bank Transfer Specific
-    bank_reference_number   NVARCHAR(100) NULL,        -- Renamed from 'bank_account_number'
+    -- Bank Transfer Specific
+    bank_reference_number   NVARCHAR(100) NULL,        
 
+    -- Audit
     status                 CHAR(1) DEFAULT 'A',
     created_by             INT NULL,
     created_date           DATETIME2 NULL DEFAULT GETDATE(),
     updated_by             INT NULL,
     updated_date           DATETIME2 NULL DEFAULT GETDATE(),
 
-    -- Constraint
-    CONSTRAINT CHK_PaymentMethod CHECK (payment_method IN ('CASH', 'CARD', 'BANK_TRANSFER', 'CREDIT'))
+    -- Constraint
+    CONSTRAINT CHK_PaymentMethod CHECK (payment_method IN ('CASH', 'CARD', 'BANK_TRANSFER', 'CREDIT'))
 );
 
 -- Creates a number generator for Invoices
