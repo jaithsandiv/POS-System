@@ -477,7 +477,7 @@
             // gridColumn6
             // 
             gridColumn6.AppearanceCell.Options.UseTextOptions = true;
-            gridColumn6.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            gridColumn6.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             gridColumn6.Caption = "Discount";
             gridColumn6.ColumnEdit = repositoryItemButtonEdit1;
             gridColumn6.FieldName = "discount_value";

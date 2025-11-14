@@ -1593,9 +1593,70 @@ namespace POS.PAL.USERCONTROL
             saleRow["total_paid"] = totalPaid.ToString("F2");
             saleRow["change_due"] = changeDue.ToString("F2");
 
-            // Generate detailed message with all information
-            string detailedMessage = FormatQuotationDetails(saleRow, salesItemsTable);
-            MessageBox.Show(detailedMessage, "Quotation Saved Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Get store details (email, phone, address) from Main.DataSetApp
+            string storeEmail = "";
+            string storePhone = "";
+            string storeAddress = "";
+
+            if (Main.DataSetApp.Store.Rows.Count > 0)
+            {
+                var storeRow = Main.DataSetApp.Store[0];
+                storeEmail = storeRow.IsemailNull() ? "" : storeRow.email;
+                storePhone = storeRow.IsphoneNull() ? "" : storeRow.phone;
+                storeAddress = storeRow.IsaddressNull() ? "" : storeRow.address;
+            }
+
+            // Get customer details
+            string customerName = "Walk-In Customer";
+            string customerPhone = "";
+
+            if (customerId.HasValue && customerId.Value > 1) // Skip Walk-In Customer (id = 1)
+            {
+                DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
+                if (customerRows.Length > 0)
+                {
+                    DataRow customerRow = customerRows[0];
+                    customerName = customerRow["full_name"]?.ToString() ?? "Walk-In Customer";
+                    customerPhone = customerRow["phone"]?.ToString() ?? "";
+                }
+            }
+
+            // Calculate discount amount
+            decimal discountAmount = 0;
+            if (discountType == "PERCENTAGE")
+            {
+                discountAmount = totalAmount * discountValue / 100m;
+            }
+            else if (discountType == "FIXED_AMOUNT")
+            {
+                discountAmount = discountValue;
+            }
+
+            // Create and configure the report
+            POS.PAL.REPORT.Quotation quotationReport = new POS.PAL.REPORT.Quotation();
+            
+            // Set datasource for detail items (SaleItem)
+            quotationReport.DataSource = salesItemsTable;
+
+            // Set all parameters
+            quotationReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd");
+            quotationReport.Parameters["p_email"].Value = storeEmail;
+            quotationReport.Parameters["p_contact"].Value = storePhone;
+            quotationReport.Parameters["p_address"].Value = storeAddress;
+            quotationReport.Parameters["p_quotation_no"].Value = quotationNumber;
+            quotationReport.Parameters["p_customer_name"].Value = customerName;
+            quotationReport.Parameters["p_customer_phone"].Value = customerPhone;
+            quotationReport.Parameters["p_total"].Value = totalAmount.ToString("F2");
+            quotationReport.Parameters["p_discount"].Value = discountAmount.ToString("F2");
+            quotationReport.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
+
+            // Show the report preview
+            DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(quotationReport);
+            printTool.ShowPreview();
+
+            // Show success message
+            MessageBox.Show($"Quotation #{quotationNumber} created successfully!", "Quotation Created", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             btnCancel_Click(null, null);
         }
