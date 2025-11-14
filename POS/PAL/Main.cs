@@ -142,12 +142,12 @@ namespace POS
                 animationTimer = null;
             }
 
-            animationTimer = new Timer { Interval = 10 };
+            animationTimer = new Timer { Interval = 30 };
             animationTimer.Tick += (s, e) =>
             {
                 if (expand)
                 {
-                    panelSideBar.Width += 10;
+                    panelSideBar.Width += 30;
                     if (panelSideBar.Width >= expandedWidth)
                     {
                         panelSideBar.Width = expandedWidth; // Ensure exact width
@@ -168,7 +168,7 @@ namespace POS
                 }
                 else
                 {
-                    panelSideBar.Width -= 10;
+                    panelSideBar.Width -= 30;
                     if (panelSideBar.Width <= collapsedWidth)
                     {
                         panelSideBar.Width = collapsedWidth; // Ensure exact width
@@ -220,6 +220,56 @@ namespace POS
         private void btnCustomerGroups_Click(object sender, EventArgs e)
         {
             Main.Instance.LoadUserControl(new UC_CustomerGroup_Management());
+        }
+
+        private void btnProducts_Click(object sender, EventArgs e)
+        {
+            panelProductsSubmenu.Visible = !panelProductsSubmenu.Visible;
+        }
+
+        private void btnPurchases_Click(object sender, EventArgs e)
+        {
+            panelPurchasesSubmenu.Visible = !panelPurchasesSubmenu.Visible;
+        }
+
+        private void btnSell_Click(object sender, EventArgs e)
+        {
+            panelSellSubmenu.Visible = !panelSellSubmenu.Visible;
+        }
+
+        private void btnStockTransfers_Click(object sender, EventArgs e)
+        {
+            panelStockTransfersSubmenu.Visible = !panelStockTransfersSubmenu.Visible;
+        }
+
+        private void btnStockAdjustment_Click(object sender, EventArgs e)
+        {
+            panelStockAdjustmentSubmenu.Visible = !panelStockAdjustmentSubmenu.Visible;
+        }
+
+        private void btnExpenses_Click(object sender, EventArgs e)
+        {
+            panelExpensesSubmenu.Visible = !panelExpensesSubmenu.Visible;
+        }
+
+        private void simpleButton6_Click(object sender, EventArgs e)
+        {
+            panelPaymentAccountsSubmenu.Visible = !panelPaymentAccountsSubmenu.Visible;
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+            panelReportsSubmenu.Visible = !panelReportsSubmenu.Visible;
+        }
+
+        private void simpleButton5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            panelSettingsSubmenu.Visible = !panelSettingsSubmenu.Visible;
         }
     }
 }
