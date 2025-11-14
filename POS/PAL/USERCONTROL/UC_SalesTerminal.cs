@@ -1569,8 +1569,8 @@ namespace POS.PAL.USERCONTROL
             decimal totalPaid = decimal.Parse(saleTable.Rows[0]["total_paid"]?.ToString() ?? "0");
             decimal changeDue = decimal.Parse(saleTable.Rows[0]["change_due"]?.ToString() ?? "0");
 
-            // Generate quotation number
-            string quotationNumber = $"QT-{DateTime.Now:yyyyMMddHHmmss}";
+            // Get quotation number from database sequence
+            string quotationNumber = _bllSalesTerminal.GetNextQuotationNumber();
             string notes = $"Quotation created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
             // Save to database using unified SaveSale method

@@ -58,5 +58,15 @@ namespace POS.BLL
                 discountValue, totalAmount, totalItems, grandTotal, notes, saleItems, 
                 totalPaid, changeDue, invoiceNumber, quotationNumber, orderType, tableNumber);
         }
+
+        public string GetNextQuotationNumber()
+        {
+            return _dalSalesTerminal.GetNextQuotationNumber();
+        }
+
+        public string GetNextInvoiceNumber()
+        {
+            return _dalSalesTerminal.GetNextInvoiceNumber();
+        }
     }
 }

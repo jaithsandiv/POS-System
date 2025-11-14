@@ -548,5 +548,47 @@ namespace POS.DAL
                 throw new Exception($"Error retrieving sale items: {ex.Message}", ex);
             }
         }
+
+        public string GetNextQuotationNumber()
+        {
+            try
+            {
+                string query = "SELECT NEXT VALUE FOR QuotationNumberSequence AS quotation_seq;";
+                DataTable result = Connection.ExecuteQuery(query);
+
+                if (result.Rows.Count > 0)
+                {
+                    int sequenceValue = Convert.ToInt32(result.Rows[0]["quotation_seq"]);
+                    return $"QT-{DateTime.Now:yyyy}-{sequenceValue:D6}";
+                }
+
+                throw new Exception("Failed to generate quotation number from sequence.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error generating quotation number: {ex.Message}", ex);
+            }
+        }
+
+        public string GetNextInvoiceNumber()
+        {
+            try
+            {
+                string query = "SELECT NEXT VALUE FOR InvoiceNumberSequence AS invoice_seq;";
+                DataTable result = Connection.ExecuteQuery(query);
+
+                if (result.Rows.Count > 0)
+                {
+                    int sequenceValue = Convert.ToInt32(result.Rows[0]["invoice_seq"]);
+                    return $"INV-{DateTime.Now:yyyy}-{sequenceValue:D6}";
+                }
+
+                throw new Exception("Failed to generate invoice number from sequence.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error generating invoice number: {ex.Message}", ex);
+            }
+        }
     }
 }
