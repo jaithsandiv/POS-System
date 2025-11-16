@@ -12,5 +12,10 @@ namespace POS.PAL.REPORT
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Public property to access the payment subreport
+        /// </summary>
+        public XRSubreport PaymentSubreport => xrSubreport1;
     }
 }

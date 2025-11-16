@@ -68,5 +68,10 @@ namespace POS.BLL
         {
             return _dalSalesTerminal.GetNextInvoiceNumber();
         }
+
+        public void SavePayments(int saleId, DataTable payments, int createdBy)
+        {
+            _dalSalesTerminal.SavePayments(saleId, payments, createdBy);
+        }
     }
 }

@@ -590,5 +590,64 @@ namespace POS.DAL
                 throw new Exception($"Error generating invoice number: {ex.Message}", ex);
             }
         }
+
+        public void SavePayments(int saleId, DataTable payments, int createdBy)
+        {
+            try
+            {
+                if (payments == null || payments.Rows.Count == 0)
+                    return;
+
+                foreach (DataRow payment in payments.Rows)
+                {
+                    string paymentMethod = payment["payment_method"]?.ToString();
+                    if (string.IsNullOrWhiteSpace(paymentMethod))
+                        continue;
+
+                    decimal amount = 0;
+                    if (payment["amount"] != DBNull.Value)
+                        decimal.TryParse(payment["amount"].ToString(), out amount);
+
+                    if (amount <= 0)
+                        continue;
+
+                    string query = @"
+                        INSERT INTO Payment (
+                            sale_id, payment_method, amount, 
+                            card_last_four_digits, card_holder_name, 
+                            card_transaction_number, card_type, 
+                            bank_reference_number, 
+                            status, created_by, created_date
+                        )
+                        VALUES (
+                            @sale_id, @payment_method, @amount,
+                            @card_last_four_digits, @card_holder_name,
+                            @card_transaction_number, @card_type,
+                            @bank_reference_number,
+                            @status, @created_by, GETDATE()
+                        );";
+
+                    var parameters = new SqlParameter[]
+                    {
+                        new SqlParameter("@sale_id", saleId),
+                        new SqlParameter("@payment_method", paymentMethod),
+                        new SqlParameter("@amount", amount),
+                        new SqlParameter("@card_last_four_digits", payment["card_last_four_digits"] ?? (object)DBNull.Value),
+                        new SqlParameter("@card_holder_name", payment["card_holder_name"] ?? (object)DBNull.Value),
+                        new SqlParameter("@card_transaction_number", payment["card_transaction_number"] ?? (object)DBNull.Value),
+                        new SqlParameter("@card_type", payment["card_type"] ?? (object)DBNull.Value),
+                        new SqlParameter("@bank_reference_number", payment["bank_reference_number"] ?? (object)DBNull.Value),
+                        new SqlParameter("@status", "A"),
+                        new SqlParameter("@created_by", createdBy)
+                    };
+
+                    Connection.ExecuteNonQuery(query, parameters);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error saving payments: {ex.Message}", ex);
+            }
+        }
     }
 }

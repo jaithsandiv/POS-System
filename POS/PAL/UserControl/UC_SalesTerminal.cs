@@ -1741,35 +1741,102 @@ namespace POS.PAL.USERCONTROL
             decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
             decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
             int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
-            decimal totalPaid = decimal.Parse(saleTable.Rows[0]["total_paid"]?.ToString() ?? "0");
-            decimal changeDue = decimal.Parse(saleTable.Rows[0]["change_due"]?.ToString() ?? "0");
 
+            // Get invoice number from database sequence
+            string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
             string notes = $"Credit sale created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}\nCredit Limit: {creditLimit:F2}";
 
-            // Save to database using unified SaveSale method
-            // The database will auto-generate the sale_id
-            int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "CREDIT_SALE",
-                discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                salesItemsTable, totalPaid, changeDue);
+            try
+            {
+                // Save sale to database using unified SaveSale method
+                int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "CREDIT_SALE",
+                    discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
+                    salesItemsTable, 0m, 0m, invoiceNumber, null, null, null);
 
-            // Update saleTable with the returned sale_id from database
-            DataRow saleRow = saleTable.Rows[0];
-            saleRow["sale_id"] = saleId;
-            saleRow["sale_type"] = "CREDIT_SALE";
-            saleRow["customer_id"] = customerId;
-            saleRow["payment_status"] = "PENDING";
-            saleRow["sale_status"] = "COMPLETED";
-            saleRow["notes"] = notes;
-            saleRow["created_by"] = billerId;
-            saleRow["created_date"] = DateTime.Now;
-            saleRow["total_paid"] = totalPaid.ToString("F2");
-            saleRow["change_due"] = changeDue.ToString("F2");
+                // Create CREDIT payment record
+                DataTable creditPaymentTable = new DataTable();
+                creditPaymentTable.Columns.Add("payment_method", typeof(string));
+                creditPaymentTable.Columns.Add("amount", typeof(decimal));
+                creditPaymentTable.Columns.Add("payment_date", typeof(DateTime));
 
-            // Generate detailed message with all information
-            string detailedMessage = FormatCreditSaleDetails(saleRow, selectedCustomer, creditLimit, salesItemsTable);
-            MessageBox.Show(detailedMessage, "Credit Sale Saved Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DataRow creditPayment = creditPaymentTable.NewRow();
+                creditPayment["payment_method"] = "CREDIT";
+                creditPayment["amount"] = grandTotal;
+                creditPayment["payment_date"] = DateTime.Now;
+                creditPaymentTable.Rows.Add(creditPayment);
 
-            btnCancel_Click(null, null);
+                // Save CREDIT payment to database
+                _bllSalesTerminal.SavePayments(saleId, creditPaymentTable, billerId);
+
+                // Update saleTable with the returned sale_id from database
+                DataRow saleRow = saleTable.Rows[0];
+                saleRow["sale_id"] = saleId;
+                saleRow["sale_type"] = "CREDIT_SALE";
+                saleRow["invoice_number"] = invoiceNumber;
+                saleRow["customer_id"] = customerId;
+                saleRow["payment_status"] = "CREDIT";
+                saleRow["sale_status"] = "COMPLETED";
+                saleRow["notes"] = notes;
+                saleRow["created_by"] = billerId;
+                saleRow["created_date"] = DateTime.Now;
+                saleRow["total_paid"] = "0.00";
+                saleRow["change_due"] = "0.00";
+
+                // Generate Invoice Report
+                REPORT.Invoice invoiceReport = new REPORT.Invoice();
+
+                // Bind main report data (sale items)
+                invoiceReport.DataSource = salesItemsTable;
+
+                // Set main invoice parameters
+                invoiceReport.Parameters["p_invoice_no"].Value = invoiceNumber;
+                invoiceReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                invoiceReport.Parameters["p_total"].Value = totalAmount.ToString("F2");
+                invoiceReport.Parameters["p_discount"].Value = discountValue.ToString("F2");
+                invoiceReport.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
+
+                // Get customer details
+                string customerName = selectedCustomer["full_name"]?.ToString() ?? "Customer";
+                string customerEmail = selectedCustomer["email"]?.ToString() ?? "";
+                string customerContact = selectedCustomer["phone"]?.ToString() ?? "";
+                string customerAddress = selectedCustomer["address"]?.ToString() ?? "";
+
+                invoiceReport.Parameters["p_customer_name"].Value = customerName;
+                invoiceReport.Parameters["p_email"].Value = customerEmail;
+                invoiceReport.Parameters["p_contact"].Value = customerContact;
+                invoiceReport.Parameters["p_address"].Value = customerAddress;
+
+                // Configure subreport for payments
+                if (invoiceReport.PaymentSubreport?.ReportSource is REPORT.SUBREPORT.SR_Payment subreport)
+                {
+                    subreport.DataSource = creditPaymentTable;
+                    subreport.Parameters["p_total_paid"].Value = "0.00";
+                    subreport.Parameters["p_due"].Value = grandTotal.ToString("F2");
+                }
+
+                // Show print preview
+                DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
+                printTool.ShowPreview();
+
+                // Success message
+                MessageBox.Show(
+                    $"Credit Sale Created Successfully!\n\n" +
+                    $"Invoice Number: {invoiceNumber}\n" +
+                    $"Customer: {customerName}\n" +
+                    $"Grand Total: {grandTotal:F2}\n" +
+                    $"Credit Limit: {creditLimit:F2}\n" +
+                    $"Remaining Credit: {Math.Max(0, creditLimit - grandTotal):F2}\n" +
+                    $"Due: {grandTotal:F2}",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Reset UI
+                btnCancel_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating credit sale: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
@@ -2023,9 +2090,265 @@ namespace POS.PAL.USERCONTROL
             return stringValue;
         }
 
+        /// <summary>
+        /// Calculates total paid and due amounts from payments table
+        /// </summary>
+        private (decimal totalPaid, decimal due) CalculatePaymentTotals()
+        {
+            if (paymentsTable == null || paymentsTable.Rows.Count == 0)
+                return (0m, 0m);
+
+            decimal totalPaid = 0m;
+            decimal grandTotal = 0m;
+
+            // Calculate total paid (excluding CREDIT payments)
+            foreach (DataRow payment in paymentsTable.Rows)
+            {
+                string paymentMethod = payment["payment_method"]?.ToString();
+                if (string.IsNullOrEmpty(paymentMethod))
+                    continue;
+
+                if (decimal.TryParse(payment["amount"]?.ToString(), out decimal amount))
+                {
+                    // CREDIT is not counted as "paid" - it's still owed
+                    if (paymentMethod != "CREDIT")
+                    {
+                        totalPaid += amount;
+                    }
+                }
+            }
+
+            // Get grand total from sale table
+            if (saleTable.Rows.Count > 0)
+            {
+                if (decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out decimal parsedGrandTotal))
+                {
+                    grandTotal = parsedGrandTotal;
+                }
+            }
+
+            decimal due = Math.Max(0, grandTotal - totalPaid);
+
+            return (totalPaid, due);
+        }
+
+        /// <summary>
+        /// Validates that payments cover the grand total
+        /// </summary>
+        private bool ValidatePayments(out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            if (paymentsTable == null || paymentsTable.Rows.Count == 0)
+            {
+                errorMessage = "No payment methods selected. Please add at least one payment method.";
+                return false;
+            }
+
+            decimal grandTotal = 0m;
+            if (saleTable.Rows.Count > 0)
+            {
+                decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out grandTotal);
+            }
+
+            if (grandTotal <= 0)
+            {
+                errorMessage = "Grand total must be greater than zero.";
+                return false;
+            }
+
+            // Calculate total payment amount
+            decimal totalPaymentAmount = 0m;
+            foreach (DataRow payment in paymentsTable.Rows)
+            {
+                string paymentMethod = payment["payment_method"]?.ToString();
+                if (string.IsNullOrEmpty(paymentMethod))
+                    continue;
+
+                if (decimal.TryParse(payment["amount"]?.ToString(), out decimal amount))
+                {
+                    totalPaymentAmount += amount;
+                }
+            }
+
+            if (totalPaymentAmount < grandTotal)
+            {
+                errorMessage = $"Payment amount ({totalPaymentAmount:F2}) is less than grand total ({grandTotal:F2}).\n\nPlease ensure payments cover the full amount.";
+                return false;
+            }
+
+            if (totalPaymentAmount > grandTotal)
+            {
+                errorMessage = $"Payment amount ({totalPaymentAmount:F2}) exceeds grand total ({grandTotal:F2}).\n\nPlease adjust payment amounts.";
+                return false;
+            }
+
+            return true;
+        }
+
         private void btnPMComplete_Click(object sender, EventArgs e)
         {
-            //implement sale creation and invoice printing logic here
+            // Validation: Check if cart has items
+            if (salesItemsTable.Rows.Count == 0)
+            {
+                MessageBox.Show("Cart is empty. Cannot create sale.", "Empty Cart",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validation: Check payments
+            if (!ValidatePayments(out string errorMessage))
+            {
+                MessageBox.Show(errorMessage, "Payment Validation Failed",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Get sale data
+            int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
+            int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
+            int? customerId = null;
+
+            if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
+            {
+                customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
+            }
+
+            string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
+            decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
+            decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
+            int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
+            decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
+
+            // Calculate payment totals
+            var (totalPaid, due) = CalculatePaymentTotals();
+            decimal changeDue = Math.Max(0, totalPaid - grandTotal);
+
+            // Get order details (if KOT enabled)
+            string orderType = null;
+            string tableNumber = null;
+
+            if (pnlKOT.Visible)
+            {
+                if (btnDineIn.Appearance.BackColor == Color.FromArgb(4, 181, 152))
+                {
+                    orderType = "DINE_IN";
+                    tableNumber = cmbTableNo.SelectedItem?.ToString();
+                }
+                else if (btnTakeAway.Appearance.BackColor == Color.FromArgb(4, 181, 152))
+                {
+                    orderType = "TAKE_AWAY";
+                }
+            }
+
+            // Get invoice number from database sequence
+            string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
+            string notes = $"Invoice created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
+
+            try
+            {
+                // Save sale to database
+                int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
+                    discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
+                    salesItemsTable, totalPaid, changeDue, invoiceNumber, null, orderType, tableNumber);
+
+                // Save payments to database
+                _bllSalesTerminal.SavePayments(saleId, paymentsTable, billerId);
+
+                // Update saleTable with the returned sale_id from database
+                DataRow saleRow = saleTable.Rows[0];
+                saleRow["sale_id"] = saleId;
+                saleRow["sale_type"] = "SALE";
+                saleRow["invoice_number"] = invoiceNumber;
+                saleRow["customer_id"] = customerId ?? (object)DBNull.Value;
+
+                // Determine payment status
+                string paymentStatus;
+                if (due == 0)
+                    paymentStatus = "PAID";
+                else if (due > 0 && due < grandTotal)
+                    paymentStatus = "PARTIAL";
+                else
+                    paymentStatus = "CREDIT";
+
+                saleRow["payment_status"] = paymentStatus;
+                saleRow["sale_status"] = "COMPLETED";
+                saleRow["order_type"] = orderType ?? (object)DBNull.Value;
+                saleRow["table_number"] = tableNumber ?? (object)DBNull.Value;
+                saleRow["notes"] = notes;
+                saleRow["created_by"] = billerId;
+                saleRow["created_date"] = DateTime.Now;
+                saleRow["total_paid"] = totalPaid.ToString("F2");
+                saleRow["change_due"] = changeDue.ToString("F2");
+
+                // Generate Invoice Report
+                REPORT.Invoice invoiceReport = new REPORT.Invoice();
+
+                // Bind main report data (sale items)
+                invoiceReport.DataSource = salesItemsTable;
+
+                // Set main invoice parameters
+                invoiceReport.Parameters["p_invoice_no"].Value = invoiceNumber;
+                invoiceReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                invoiceReport.Parameters["p_total"].Value = totalAmount.ToString("F2");
+                invoiceReport.Parameters["p_discount"].Value = discountValue.ToString("F2");
+                invoiceReport.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
+
+                // Get customer details
+                string customerName = "Walk-In Customer";
+                string customerEmail = "";
+                string customerContact = "";
+                string customerAddress = "";
+
+                if (customerId.HasValue && customerId.Value != 1)
+                {
+                    DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId.Value}'");
+                    if (customerRows.Length > 0)
+                    {
+                        DataRow customer = customerRows[0];
+                        customerName = customer["full_name"]?.ToString() ?? "Walk-In Customer";
+                        customerEmail = customer["email"]?.ToString() ?? "";
+                        customerContact = customer["phone"]?.ToString() ?? "";
+                        customerAddress = customer["address"]?.ToString() ?? "";
+                    }
+                }
+
+                invoiceReport.Parameters["p_customer_name"].Value = customerName;
+                invoiceReport.Parameters["p_email"].Value = customerEmail;
+                invoiceReport.Parameters["p_contact"].Value = customerContact;
+                invoiceReport.Parameters["p_address"].Value = customerAddress;
+
+                // Configure subreport for payments
+                if (invoiceReport.PaymentSubreport?.ReportSource is REPORT.SUBREPORT.SR_Payment subreport)
+                {
+                    subreport.DataSource = paymentsTable;
+                    subreport.Parameters["p_total_paid"].Value = totalPaid.ToString("F2");
+                    subreport.Parameters["p_due"].Value = due.ToString("F2");
+                }
+
+                // Show print preview
+                DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
+                printTool.ShowPreview();
+
+                // Success message
+                MessageBox.Show(
+                    $"Invoice Created Successfully!\n\n" +
+                    $"Invoice Number: {invoiceNumber}\n" +
+                    $"Customer: {customerName}\n" +
+                    $"Grand Total: {grandTotal:F2}\n" +
+                    $"Total Paid: {totalPaid:F2}\n" +
+                    $"Due: {due:F2}\n" +
+                    $"Payment Status: {paymentStatus}",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Reset UI
+                btnCancel_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating invoice: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
