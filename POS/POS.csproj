@@ -24,6 +24,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DAL_DS_SalesTerminal.xsd</DependentUpon>
     </Compile>
+    <Compile Update="PAL\REPORT\Invoice.cs">
+      <SubType>XtraReport</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

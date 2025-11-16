@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             panelControl6 = new DevExpress.XtraEditors.PanelControl();
             panelControl5 = new DevExpress.XtraEditors.PanelControl();
@@ -130,13 +130,13 @@
             separatorControl11 = new DevExpress.XtraEditors.SeparatorControl();
             separatorControl10 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            btnPMComplete = new DevExpress.XtraEditors.SimpleButton();
             xtraScrollableControl4 = new DevExpress.XtraEditors.XtraScrollableControl();
             panelControl14 = new DevExpress.XtraEditors.PanelControl();
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
             panelControl13 = new DevExpress.XtraEditors.PanelControl();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            btnPMClose = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl6).BeginInit();
@@ -501,7 +501,7 @@
             repositoryItemButtonEdit1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             repositoryItemButtonEdit1.Appearance.Options.UseFont = true;
             repositoryItemButtonEdit1.AutoHeight = false;
-            repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            repositoryItemButtonEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
             repositoryItemButtonEdit1.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
             repositoryItemButtonEdit1.Name = "repositoryItemButtonEdit1";
@@ -962,7 +962,7 @@
             txtDiscount.Properties.Appearance.Options.UseFont = true;
             txtDiscount.Properties.Appearance.Options.UseTextOptions = true;
             txtDiscount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            txtDiscount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            txtDiscount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             txtDiscount.Properties.Padding = new System.Windows.Forms.Padding(10);
             txtDiscount.Properties.ReadOnly = true;
             txtDiscount.Size = new System.Drawing.Size(115, 44);
@@ -1296,7 +1296,7 @@
             pnlPM.Controls.Add(separatorControl11);
             pnlPM.Controls.Add(separatorControl10);
             pnlPM.Controls.Add(panelControl1);
-            pnlPM.Controls.Add(simpleButton2);
+            pnlPM.Controls.Add(btnPMComplete);
             pnlPM.Controls.Add(xtraScrollableControl4);
             pnlPM.Controls.Add(panelControl14);
             pnlPM.Controls.Add(panelControl13);
@@ -1348,18 +1348,19 @@
             panelControl1.Size = new System.Drawing.Size(203, 604);
             panelControl1.TabIndex = 49;
             // 
-            // simpleButton2
+            // btnPMComplete
             // 
-            simpleButton2.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            simpleButton2.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton2.Appearance.Options.UseBackColor = true;
-            simpleButton2.Appearance.Options.UseFont = true;
-            simpleButton2.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton2.Location = new System.Drawing.Point(679, 648);
-            simpleButton2.Name = "simpleButton2";
-            simpleButton2.Size = new System.Drawing.Size(141, 30);
-            simpleButton2.TabIndex = 47;
-            simpleButton2.Text = "Finalize Payment";
+            btnPMComplete.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnPMComplete.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnPMComplete.Appearance.Options.UseBackColor = true;
+            btnPMComplete.Appearance.Options.UseFont = true;
+            btnPMComplete.AppearanceHovered.Options.UseBackColor = true;
+            btnPMComplete.Location = new System.Drawing.Point(679, 648);
+            btnPMComplete.Name = "btnPMComplete";
+            btnPMComplete.Size = new System.Drawing.Size(141, 30);
+            btnPMComplete.TabIndex = 47;
+            btnPMComplete.Text = "Finalize Payment";
+            btnPMComplete.Click += btnPMComplete_Click;
             // 
             // xtraScrollableControl4
             // 
@@ -1415,25 +1416,26 @@
             panelControl13.Appearance.BackColor = System.Drawing.Color.White;
             panelControl13.Appearance.Options.UseBackColor = true;
             panelControl13.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl13.Controls.Add(simpleButton1);
+            panelControl13.Controls.Add(btnPMClose);
             panelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
             panelControl13.Location = new System.Drawing.Point(2, 2);
             panelControl13.Name = "panelControl13";
             panelControl13.Size = new System.Drawing.Size(827, 685);
             panelControl13.TabIndex = 53;
             // 
-            // simpleButton1
+            // btnPMClose
             // 
-            simpleButton1.Appearance.BackColor = System.Drawing.Color.White;
-            simpleButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton1.Appearance.Options.UseBackColor = true;
-            simpleButton1.Appearance.Options.UseFont = true;
-            simpleButton1.Location = new System.Drawing.Point(577, 646);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            simpleButton1.Size = new System.Drawing.Size(91, 30);
-            simpleButton1.TabIndex = 48;
-            simpleButton1.Text = "Close";
+            btnPMClose.Appearance.BackColor = System.Drawing.Color.White;
+            btnPMClose.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnPMClose.Appearance.Options.UseBackColor = true;
+            btnPMClose.Appearance.Options.UseFont = true;
+            btnPMClose.Location = new System.Drawing.Point(577, 646);
+            btnPMClose.Name = "btnPMClose";
+            btnPMClose.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            btnPMClose.Size = new System.Drawing.Size(91, 30);
+            btnPMClose.TabIndex = 48;
+            btnPMClose.Text = "Close";
+            btnPMClose.Click += label4_Click;
             // 
             // UC_SalesTerminal
             // 
@@ -1626,8 +1628,8 @@
         private DevExpress.XtraEditors.SeparatorControl separatorControl11;
         private DevExpress.XtraEditors.SeparatorControl separatorControl10;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
+        private DevExpress.XtraEditors.SimpleButton btnPMClose;
+        private DevExpress.XtraEditors.SimpleButton btnPMComplete;
         private DevExpress.XtraEditors.SimpleButton btnAddPayment;
         private DevExpress.XtraEditors.PanelControl panelControl13;
     }

@@ -919,7 +919,7 @@ namespace POS.PAL.USERCONTROL
             cmbMethod.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             cmbMethod.Properties.Padding = new System.Windows.Forms.Padding(10);
             cmbMethod.Size = new Size(paymentEntryPanel.Width - 130, 44);
-            
+
             if (!string.IsNullOrEmpty(preselectedMethod))
             {
                 cmbMethod.SelectedItem = preselectedMethod;
@@ -1012,7 +1012,7 @@ namespace POS.PAL.USERCONTROL
             paymentRow["card_type"] = DBNull.Value;
             // Bank transfer field
             paymentRow["bank_reference_number"] = DBNull.Value;
-            
+
             paymentsTable.Rows.Add(paymentRow);
             paymentRow["payment_id"] = entryId; // Use counter as temporary ID
         }
@@ -1517,8 +1517,8 @@ namespace POS.PAL.USERCONTROL
 
             // Save to database using unified SaveSale method
             // The database will auto-generate the sale_id
-            int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "DRAFT", 
-                discountType, discountValue, totalAmount, totalItems, grandTotal, notes, 
+            int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "DRAFT",
+                discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
                 salesItemsTable, totalPaid, changeDue, null, null, orderType, tableNumber);
 
             // Update saleTable with the returned sale_id from database
@@ -1569,8 +1569,8 @@ namespace POS.PAL.USERCONTROL
             decimal totalPaid = decimal.Parse(saleTable.Rows[0]["total_paid"]?.ToString() ?? "0");
             decimal changeDue = decimal.Parse(saleTable.Rows[0]["change_due"]?.ToString() ?? "0");
 
-            // Generate quotation number
-            string quotationNumber = $"QT-{DateTime.Now:yyyyMMddHHmmss}";
+            // Get quotation number from database sequence
+            string quotationNumber = _bllSalesTerminal.GetNextQuotationNumber();
             string notes = $"Quotation created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
             // Save to database using unified SaveSale method
@@ -1593,9 +1593,70 @@ namespace POS.PAL.USERCONTROL
             saleRow["total_paid"] = totalPaid.ToString("F2");
             saleRow["change_due"] = changeDue.ToString("F2");
 
-            // Generate detailed message with all information
-            string detailedMessage = FormatQuotationDetails(saleRow, salesItemsTable);
-            MessageBox.Show(detailedMessage, "Quotation Saved Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Get store details (email, phone, address) from Main.DataSetApp
+            string storeEmail = "";
+            string storePhone = "";
+            string storeAddress = "";
+
+            if (Main.DataSetApp.Store.Rows.Count > 0)
+            {
+                var storeRow = Main.DataSetApp.Store[0];
+                storeEmail = storeRow.IsemailNull() ? "" : storeRow.email;
+                storePhone = storeRow.IsphoneNull() ? "" : storeRow.phone;
+                storeAddress = storeRow.IsaddressNull() ? "" : storeRow.address;
+            }
+
+            // Get customer details
+            string customerName = "Walk-In Customer";
+            string customerPhone = "";
+
+            if (customerId.HasValue && customerId.Value > 1) // Skip Walk-In Customer (id = 1)
+            {
+                DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
+                if (customerRows.Length > 0)
+                {
+                    DataRow customerRow = customerRows[0];
+                    customerName = customerRow["full_name"]?.ToString() ?? "Walk-In Customer";
+                    customerPhone = customerRow["phone"]?.ToString() ?? "";
+                }
+            }
+
+            // Calculate discount amount
+            decimal discountAmount = 0;
+            if (discountType == "PERCENTAGE")
+            {
+                discountAmount = totalAmount * discountValue / 100m;
+            }
+            else if (discountType == "FIXED_AMOUNT")
+            {
+                discountAmount = discountValue;
+            }
+
+            // Create and configure the report
+            POS.PAL.REPORT.Quotation quotationReport = new POS.PAL.REPORT.Quotation();
+
+            // Set datasource for detail items (SaleItem)
+            quotationReport.DataSource = salesItemsTable;
+
+            // Set all parameters
+            quotationReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd");
+            quotationReport.Parameters["p_email"].Value = storeEmail;
+            quotationReport.Parameters["p_contact"].Value = storePhone;
+            quotationReport.Parameters["p_address"].Value = storeAddress;
+            quotationReport.Parameters["p_quotation_no"].Value = quotationNumber;
+            quotationReport.Parameters["p_customer_name"].Value = customerName;
+            quotationReport.Parameters["p_customer_phone"].Value = customerPhone;
+            quotationReport.Parameters["p_total"].Value = totalAmount.ToString("F2");
+            quotationReport.Parameters["p_discount"].Value = discountAmount.ToString("F2");
+            quotationReport.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
+
+            // Show the report preview
+            DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(quotationReport);
+            printTool.ShowPreview();
+
+            // Show success message
+            MessageBox.Show($"Quotation #{quotationNumber} created successfully!", "Quotation Created",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             btnCancel_Click(null, null);
         }
@@ -1622,7 +1683,7 @@ namespace POS.PAL.USERCONTROL
             // Validation: Credit sale not allowed for Walk-In Customer (customer_id = 1)
             if (customerId == 1 || customerId == 0)
             {
-                MessageBox.Show("Credit sale is not allowed for Walk-In Customer. Please select a registered customer.", 
+                MessageBox.Show("Credit sale is not allowed for Walk-In Customer. Please select a registered customer.",
                     "Invalid Customer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -1631,7 +1692,7 @@ namespace POS.PAL.USERCONTROL
             DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
             if (customerRows.Length == 0)
             {
-                MessageBox.Show("Customer information not found.", "Error", 
+                MessageBox.Show("Customer information not found.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -1653,7 +1714,7 @@ namespace POS.PAL.USERCONTROL
             // Validation: Credit limit must be set
             if (creditLimit <= 0)
             {
-                MessageBox.Show($"Customer '{selectedCustomer["full_name"]}' does not have a credit limit set. Please update customer credit limit.", 
+                MessageBox.Show($"Customer '{selectedCustomer["full_name"]}' does not have a credit limit set. Please update customer credit limit.",
                     "No Credit Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -1670,7 +1731,7 @@ namespace POS.PAL.USERCONTROL
             {
                 MessageBox.Show(
                     $"Grand Total ({grandTotal:F2}) exceeds customer credit limit ({creditLimit:F2}).\n\n" +
-                    $"Available Credit: {Math.Max(0, creditLimit - grandTotal):F2}", 
+                    $"Available Credit: {Math.Max(0, creditLimit - grandTotal):F2}",
                     "Credit Limit Exceeded", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -1688,7 +1749,7 @@ namespace POS.PAL.USERCONTROL
             // Save to database using unified SaveSale method
             // The database will auto-generate the sale_id
             int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "CREDIT_SALE",
-                discountType, discountValue, totalAmount, totalItems, grandTotal, notes, 
+                discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
                 salesItemsTable, totalPaid, changeDue);
 
             // Update saleTable with the returned sale_id from database
@@ -1960,6 +2021,11 @@ namespace POS.PAL.USERCONTROL
                 return "(empty string)";
 
             return stringValue;
+        }
+
+        private void btnPMComplete_Click(object sender, EventArgs e)
+        {
+            //implement sale creation and invoice printing logic here
         }
     }
 }
