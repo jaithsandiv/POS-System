@@ -3,6 +3,8 @@ using DevExpress.XtraEditors;
 using POS.BLL;
 using POS.DAL;
 using POS.DAL.DataSource;
+using POS.PAL.REPORT;
+using POS.PAL.REPORT.SUBREPORT;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -1814,9 +1816,26 @@ namespace POS.PAL.USERCONTROL
                     subreport.Parameters["p_due"].Value = grandTotal.ToString("F2");
                 }
 
-                // Show print preview
-                DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
-                printTool.ShowPreview();
+                // Print invoice based on system settings
+                string printMode = Main.GetSetting("invoice_print_mode", "A4").ToUpper();
+                bool autoPrint = Main.GetSetting("auto_print_invoice", "true")
+                    .Equals("true", StringComparison.OrdinalIgnoreCase);
+
+                // Print thermal invoice if enabled
+                if (printMode == "THERMAL" || printMode == "BOTH")
+                {
+                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, creditPaymentTable);
+                }
+
+                // Print/preview A4 invoice if enabled
+                if (printMode == "A4" || printMode == "BOTH")
+                {
+                    DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
+                    if (autoPrint)
+                        printTool.Print();
+                    else
+                        printTool.ShowPreview();
+                }
 
                 // Success message
                 MessageBox.Show(
@@ -2133,6 +2152,189 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
+        /// Print thermal invoice (80mm receipt)
+        /// </summary>
+        private void PrintThermalInvoice(string invoiceNumber, decimal grandTotal, string customerName, DataTable itemsTable, DataTable paymentsTable)
+        {
+            try
+            {
+                // Create thermal invoice report
+                ThermalInvoice thermalInvoice = new ThermalInvoice();
+                
+                // Set main invoice parameters
+                thermalInvoice.Parameters["p_invoice_no"].Value = invoiceNumber;
+                thermalInvoice.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                thermalInvoice.Parameters["p_customer_name"].Value = customerName;
+                thermalInvoice.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
+                
+                // Get store details from Main.DataSetApp
+                if (Main.DataSetApp.Store.Rows.Count > 0)
+                {
+                    var storeRow = Main.DataSetApp.Store[0];
+                    thermalInvoice.Parameters["p_contact"].Value = storeRow.IsphoneNull() ? "" : storeRow.phone;
+                    thermalInvoice.Parameters["p_email"].Value = storeRow.IsemailNull() ? "" : storeRow.email;
+                    thermalInvoice.Parameters["p_address"].Value = storeRow.IsaddressNull() ? "" : storeRow.address;
+                }
+
+                // Set data source for items
+                thermalInvoice.DataSource = itemsTable;
+
+                // Calculate totals from itemsTable
+                decimal subtotal = 0m;
+                foreach (DataRow item in itemsTable.Rows)
+                {
+                    if (decimal.TryParse(item["total_price"]?.ToString(), out decimal itemTotal))
+                    {
+                        subtotal += itemTotal;
+                    }
+                }
+
+                // Get discount from sale table
+                decimal discount = 0m;
+                if (saleTable.Rows.Count > 0 && decimal.TryParse(saleTable.Rows[0]["discount_value"]?.ToString(), out decimal discountValue))
+                {
+                    discount = discountValue;
+                }
+
+                thermalInvoice.Parameters["p_total"].Value = subtotal.ToString("F2");
+                thermalInvoice.Parameters["p_discount"].Value = discount.ToString("F2");
+
+                // Bind payment subreport (thermal version)
+                if (thermalInvoice.PaymentSubreport != null)
+                {
+                    SR_ThermalPayment paymentReport = new SR_ThermalPayment();
+                    paymentReport.DataSource = paymentsTable;
+                    
+                    // Calculate payment totals
+                    var (totalPaid, due) = CalculatePaymentTotals();
+                    paymentReport.Parameters["p_total_paid"].Value = totalPaid.ToString("F2");
+                    paymentReport.Parameters["p_due"].Value = due.ToString("F2");
+                    
+                    thermalInvoice.PaymentSubreport.ReportSource = paymentReport;
+                }
+
+                // Get thermal printer name from system settings
+                string printerName = Main.GetSetting("thermal_printer_name", null);
+                
+                // Configure printer if specified
+                if (!string.IsNullOrEmpty(printerName))
+                {
+                    thermalInvoice.PrinterName = printerName;
+                }
+
+                // Print without preview
+                thermalInvoice.Print();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error printing thermal invoice: {ex.Message}", "Print Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Test thermal printer with hardcoded placeholder data
+        /// Call this method from a button or during testing
+        /// </summary>
+        public void TestThermalPrint()
+        {
+            try
+            {
+                MessageBox.Show(
+                    "This will print a test invoice to verify thermal printer configuration.\n\n" +
+                    "Current Settings:\n" +
+                    $"Print Mode: {Main.GetSetting("invoice_print_mode", "A4")}\n" +
+                    $"Thermal Printer: {Main.GetSetting("thermal_printer_name", "Default Printer")}\n" +
+                    $"Auto Print: {Main.GetSetting("auto_print_invoice", "true")}",
+                    "Thermal Print Test",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Information);
+
+                // Create thermal invoice report
+                ThermalInvoice thermalInvoice = new ThermalInvoice();
+
+                // Hardcoded test data
+                thermalInvoice.Parameters["p_invoice_no"].Value = "TEST-001";
+                thermalInvoice.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                thermalInvoice.Parameters["p_customer_name"].Value = "Test Customer";
+                thermalInvoice.Parameters["p_grand_total"].Value = "150.00";
+                thermalInvoice.Parameters["p_contact"].Value = "+1234567890";
+                thermalInvoice.Parameters["p_email"].Value = "test@example.com";
+                thermalInvoice.Parameters["p_address"].Value = "123 Test Street, Test City";
+                thermalInvoice.Parameters["p_total"].Value = "130.00";
+                thermalInvoice.Parameters["p_discount"].Value = "10.00";
+
+                // Create test items DataTable
+                DataTable testItems = new DataTable();
+                testItems.Columns.Add("product_name", typeof(string));
+                testItems.Columns.Add("quantity", typeof(int));
+                testItems.Columns.Add("unit_price", typeof(decimal));
+                testItems.Columns.Add("total_price", typeof(decimal));
+
+                testItems.Rows.Add("Test Product 1", 2, 25.00m, 50.00m);
+                testItems.Rows.Add("Test Product 2", 1, 80.00m, 80.00m);
+                testItems.Rows.Add("Test Product 3", 3, 10.00m, 30.00m);
+
+                thermalInvoice.DataSource = testItems;
+
+                // Create test payments DataTable
+                DataTable testPayments = new DataTable();
+                testPayments.Columns.Add("payment_method", typeof(string));
+                testPayments.Columns.Add("amount", typeof(decimal));
+
+                testPayments.Rows.Add("CASH", 150.00m);
+
+                // Bind payment subreport (thermal version)
+                if (thermalInvoice.PaymentSubreport != null)
+                {
+                    SR_ThermalPayment paymentReport = new SR_ThermalPayment();
+                    paymentReport.DataSource = testPayments;
+                    paymentReport.Parameters["p_total_paid"].Value = "150.00";
+                    paymentReport.Parameters["p_due"].Value = "0.00";
+                    thermalInvoice.PaymentSubreport.ReportSource = paymentReport;
+                }
+
+                // Get thermal printer name from system settings
+                string printerName = Main.GetSetting("thermal_printer_name", null);
+
+                // Configure printer if specified
+                if (!string.IsNullOrEmpty(printerName))
+                {
+                    thermalInvoice.PrinterName = printerName;
+                }
+
+                // Print the test invoice
+                thermalInvoice.Print();
+
+                MessageBox.Show(
+                    "Test invoice sent to printer!\n\n" +
+                    "Check your thermal printer for output.\n\n" +
+                    "If nothing printed, verify:\n" +
+                    "1. Printer is powered on and connected\n" +
+                    "2. Printer name in system settings is correct\n" +
+                    "3. Paper is loaded correctly",
+                    "Print Test Complete",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Thermal Print Test Failed!\n\n" +
+                    $"Error: {ex.Message}\n\n" +
+                    $"Stack Trace:\n{ex.StackTrace}\n\n" +
+                    "Possible issues:\n" +
+                    "1. ThermalInvoice report not designed yet\n" +
+                    "2. Parameters not added to report\n" +
+                    "3. Printer driver not installed\n" +
+                    "4. Report controls missing",
+                    "Print Test Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
         /// Validates that payments cover the grand total
         /// </summary>
         private bool ValidatePayments(out string errorMessage)
@@ -2326,9 +2528,26 @@ namespace POS.PAL.USERCONTROL
                     subreport.Parameters["p_due"].Value = due.ToString("F2");
                 }
 
-                // Show print preview
-                DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
-                printTool.ShowPreview();
+                // Print invoice based on system settings
+                string printMode = Main.GetSetting("invoice_print_mode", "A4").ToUpper();
+                bool autoPrint = Main.GetSetting("auto_print_invoice", "true")
+                    .Equals("true", StringComparison.OrdinalIgnoreCase);
+
+                // Print thermal invoice if enabled
+                if (printMode == "THERMAL" || printMode == "BOTH")
+                {
+                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, paymentsTable);
+                }
+
+                // Print/preview A4 invoice if enabled
+                if (printMode == "A4" || printMode == "BOTH")
+                {
+                    DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
+                    if (autoPrint)
+                        printTool.Print();
+                    else
+                        printTool.ShowPreview();
+                }
 
                 // Success message
                 MessageBox.Show(

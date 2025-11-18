@@ -6,6 +6,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace POS
@@ -30,6 +31,7 @@ namespace POS
 
             DataSetApp = new DAL_DS_Initialize();
             LoadBusinessData();
+            LoadSystemSettings();
             UpdateBusinessName();
 
             Instance = this;
@@ -69,6 +71,47 @@ namespace POS
             {
                 MessageBox.Show($"Error loading business data: {ex.Message}", "Initialization Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadSystemSettings()
+        {
+            try
+            {
+                DataSetApp.SystemSetting.Clear();
+                DataSetApp.SystemSetting.Merge(_bllInitialize.GetSystemSettings());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading system settings: {ex.Message}", "Initialization Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Get system setting value by key
+        /// </summary>
+        public static string GetSetting(string key, string defaultValue = "")
+        {
+            try
+            {
+                if (DataSetApp?.SystemSetting == null)
+                    return defaultValue;
+
+                var settingRow = DataSetApp.SystemSetting
+                    .FirstOrDefault(r => !r.Issetting_keyNull() &&
+                                        r.setting_key.Equals(key, StringComparison.OrdinalIgnoreCase) &&
+                                        !r.IsstatusNull() &&
+                                        r.status == "A");
+
+                if (settingRow != null && !settingRow.Issetting_valueNull())
+                    return settingRow.setting_value;
+
+                return defaultValue;
+            }
+            catch
+            {
+                return defaultValue;
             }
         }
 

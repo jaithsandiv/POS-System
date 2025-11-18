@@ -61,5 +61,43 @@ namespace POS.DAL
 
             return dt;
         }
+
+        internal DataTable GetSystemSettings()
+        {
+            DAL_DS_Initialize ds = new DAL_DS_Initialize();
+            DataTable dt = ds.SystemSetting;
+            dt.Clear();
+
+            string query = @"
+                SELECT 
+                    setting_key,
+                    setting_value,
+                    status,
+                    created_by,
+                    CONVERT(varchar, created_date, 23) AS created_date,
+                    updated_by,
+                    CONVERT(varchar, updated_date, 23) AS updated_date
+                FROM SystemSetting
+                WHERE status = 'A'";
+
+            DataTable result = Connection.ExecuteQuery(query);
+
+            foreach (DataRow row in result.Rows)
+            {
+                DataRow r = dt.NewRow();
+
+                r["setting_key"] = row["setting_key"]?.ToString();
+                r["setting_value"] = row["setting_value"]?.ToString();
+                r["status"] = row["status"]?.ToString();
+                r["created_by"] = row["created_by"]?.ToString();
+                r["created_date"] = row["created_date"]?.ToString();
+                r["updated_by"] = row["updated_by"]?.ToString();
+                r["updated_date"] = row["updated_date"]?.ToString();
+
+                dt.Rows.Add(r);
+            }
+
+            return dt;
+        }
     }
 }
