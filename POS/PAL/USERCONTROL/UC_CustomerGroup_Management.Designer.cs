@@ -35,6 +35,8 @@
             panelControl3 = new DevExpress.XtraEditors.PanelControl();
             gridControl1 = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            repositoryItemButtonEdit_Edit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            repositoryItemButtonEdit_Delete = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             searchControl1 = new DevExpress.XtraEditors.SearchControl();
             btnAddCustomerGroup = new DevExpress.XtraEditors.SimpleButton();
             btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
@@ -58,6 +60,8 @@
             panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Edit).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Delete).BeginInit();
             ((System.ComponentModel.ISupportInitialize)searchControl1.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
@@ -133,6 +137,7 @@
             gridControl1.Location = new System.Drawing.Point(28, 78);
             gridControl1.MainView = gridView1;
             gridControl1.Name = "gridControl1";
+            gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemButtonEdit_Edit, repositoryItemButtonEdit_Delete });
             gridControl1.Size = new System.Drawing.Size(1840, 716);
             gridControl1.TabIndex = 18;
             gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
@@ -162,6 +167,20 @@
             gridView1.OptionsView.ShowIndicator = false;
             gridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
             gridView1.RowHeight = 44;
+            // 
+            // repositoryItemButtonEdit_Edit
+            // 
+            repositoryItemButtonEdit_Edit.AutoHeight = false;
+            repositoryItemButtonEdit_Edit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Edit") });
+            repositoryItemButtonEdit_Edit.Name = "repositoryItemButtonEdit_Edit";
+            repositoryItemButtonEdit_Edit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
+            // 
+            // repositoryItemButtonEdit_Delete
+            // 
+            repositoryItemButtonEdit_Delete.AutoHeight = false;
+            repositoryItemButtonEdit_Delete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Delete") });
+            repositoryItemButtonEdit_Delete.Name = "repositoryItemButtonEdit_Delete";
+            repositoryItemButtonEdit_Delete.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
             // searchControl1
             // 
@@ -334,6 +353,8 @@
             panelControl3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gridControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Edit).EndInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Delete).EndInit();
             ((System.ComponentModel.ISupportInitialize)searchControl1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
@@ -350,6 +371,8 @@
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit_Edit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit_Delete;
         private DevExpress.XtraEditors.SearchControl searchControl1;
         private DevExpress.XtraEditors.SimpleButton btnAddCustomerGroup;
         private DevExpress.XtraEditors.SimpleButton btnExportPDF;

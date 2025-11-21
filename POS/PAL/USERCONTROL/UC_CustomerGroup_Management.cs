@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraEditors.Controls;
 
 namespace POS.PAL.USERCONTROL
 {
@@ -75,6 +77,31 @@ namespace POS.PAL.USERCONTROL
             colStatus.OptionsColumn.AllowFocus = false;
             colStatus.OptionsColumn.FixedWidth = true;
 
+            // Add Edit button column
+            var colEdit = gridView1.Columns.AddVisible("Edit", "Edit");
+            colEdit.Caption = "Edit";
+            colEdit.Width = 80;
+            colEdit.ColumnEdit = repositoryItemButtonEdit_Edit;
+            colEdit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colEdit.OptionsColumn.AllowEdit = true;
+            colEdit.OptionsColumn.AllowFocus = true;
+            colEdit.OptionsColumn.FixedWidth = true;
+            colEdit.OptionsColumn.ShowCaption = true;
+
+            // Add Delete button column
+            var colDelete = gridView1.Columns.AddVisible("Delete", "Delete");
+            colDelete.Caption = "Delete";
+            colDelete.Width = 80;
+            colDelete.ColumnEdit = repositoryItemButtonEdit_Delete;
+            colDelete.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colDelete.OptionsColumn.AllowEdit = true;
+            colDelete.OptionsColumn.AllowFocus = true;
+            colDelete.OptionsColumn.FixedWidth = true;
+            colDelete.OptionsColumn.ShowCaption = true;
+
+            // Configure button editors
+            ConfigureButtonEditors();
+
             // Apply Transaction Summary grid appearance styling
             gridView1.Appearance.HeaderPanel.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             gridView1.Appearance.HeaderPanel.Options.UseFont = true;
@@ -95,7 +122,7 @@ namespace POS.PAL.USERCONTROL
             gridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
             gridView1.OptionsView.ShowAutoFilterRow = false;
             
-            gridView1.OptionsBehavior.Editable = false;
+            gridView1.OptionsBehavior.Editable = true; // Changed to true to allow button clicks
             gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
             gridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
             gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
@@ -104,11 +131,54 @@ namespace POS.PAL.USERCONTROL
             gridView1.OptionsCustomization.AllowFilter = false;
             gridView1.OptionsCustomization.AllowGroup = false;
 
+            // Set default sort order by group_id ascending
+            colGroupId.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+
             // Enable double-click to edit
             gridView1.DoubleClick += GridView1_DoubleClick;
 
             // Add context menu for Edit and Delete
             CreateContextMenu();
+        }
+
+        /// <summary>
+        /// Configures the button editors for Edit and Delete columns
+        /// </summary>
+        private void ConfigureButtonEditors()
+        {
+            // Configure Edit button
+            repositoryItemButtonEdit_Edit.Buttons.Clear();
+            var editButton = new EditorButton(ButtonPredefines.Glyph);
+            editButton.Caption = "Edit";
+            editButton.Kind = ButtonPredefines.Glyph;
+            repositoryItemButtonEdit_Edit.Buttons.Add(editButton);
+            repositoryItemButtonEdit_Edit.TextEditStyle = TextEditStyles.HideTextEditor;
+            repositoryItemButtonEdit_Edit.ButtonClick += RepositoryItemButtonEdit_Edit_ButtonClick;
+
+            // Configure Delete button
+            repositoryItemButtonEdit_Delete.Buttons.Clear();
+            var deleteButton = new EditorButton(ButtonPredefines.Glyph);
+            deleteButton.Caption = "Delete";
+            deleteButton.Kind = ButtonPredefines.Glyph;
+            repositoryItemButtonEdit_Delete.Buttons.Add(deleteButton);
+            repositoryItemButtonEdit_Delete.TextEditStyle = TextEditStyles.HideTextEditor;
+            repositoryItemButtonEdit_Delete.ButtonClick += RepositoryItemButtonEdit_Delete_ButtonClick;
+        }
+
+        /// <summary>
+        /// Handle Edit button click in grid
+        /// </summary>
+        private void RepositoryItemButtonEdit_Edit_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            EditSelectedCustomerGroup();
+        }
+
+        /// <summary>
+        /// Handle Delete button click in grid
+        /// </summary>
+        private void RepositoryItemButtonEdit_Delete_ButtonClick(object sender, ButtonPressedEventArgs e)
+        {
+            DeleteSelectedCustomerGroup();
         }
 
         /// <summary>
