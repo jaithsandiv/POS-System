@@ -25,7 +25,7 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
-        /// Configures the grid columns to match database schema
+        /// Configures the grid columns to match database schema with Transaction Summary styling
         /// </summary>
         private void ConfigureGrid()
         {
@@ -38,38 +38,71 @@ namespace POS.PAL.USERCONTROL
             colGroupId.FieldName = "group_id";
             colGroupId.Caption = "Group ID";
             colGroupId.Width = 100;
+            colGroupId.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colGroupId.OptionsColumn.AllowEdit = false;
+            colGroupId.OptionsColumn.AllowFocus = false;
+            colGroupId.OptionsColumn.FixedWidth = true;
 
             // group_name
             var colGroupName = gridView1.Columns.AddVisible("group_name", "Group Name");
             colGroupName.FieldName = "group_name";
             colGroupName.Caption = "Group Name";
-            colGroupName.Width = 200;
+            colGroupName.Width = 300;
+            colGroupName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colGroupName.OptionsColumn.AllowEdit = false;
+            colGroupName.OptionsColumn.AllowFocus = false;
+            colGroupName.OptionsColumn.FixedWidth = true;
 
             // discount_percent
             var colDiscountPercent = gridView1.Columns.AddVisible("discount_percent", "Discount %");
             colDiscountPercent.FieldName = "discount_percent";
             colDiscountPercent.Caption = "Discount %";
-            colDiscountPercent.Width = 120;
+            colDiscountPercent.Width = 150;
             colDiscountPercent.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colDiscountPercent.DisplayFormat.FormatString = "n2";
+            colDiscountPercent.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colDiscountPercent.OptionsColumn.AllowEdit = false;
+            colDiscountPercent.OptionsColumn.AllowFocus = false;
+            colDiscountPercent.OptionsColumn.FixedWidth = true;
 
             // status
             var colStatus = gridView1.Columns.AddVisible("status", "Status");
             colStatus.FieldName = "status";
             colStatus.Caption = "Status";
             colStatus.Width = 100;
+            colStatus.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colStatus.OptionsColumn.AllowEdit = false;
+            colStatus.OptionsColumn.AllowFocus = false;
+            colStatus.OptionsColumn.FixedWidth = true;
 
-            // Grid view options
+            // Apply Transaction Summary grid appearance styling
+            gridView1.Appearance.HeaderPanel.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            gridView1.Appearance.HeaderPanel.Options.UseFont = true;
+            gridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            gridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            gridView1.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
+            
+            gridView1.Appearance.Row.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            gridView1.Appearance.Row.Options.UseFont = true;
+            
+            // Set row and column panel heights to match Transaction Summary
+            gridView1.ColumnPanelRowHeight = 44;
+            gridView1.RowHeight = 44;
+
+            // Grid view options matching Transaction Summary
             gridView1.OptionsView.ShowGroupPanel = false;
-            gridView1.OptionsView.ShowAutoFilterRow = true;
+            gridView1.OptionsView.ShowIndicator = false;
+            gridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
+            gridView1.OptionsView.ShowAutoFilterRow = false;
+            
             gridView1.OptionsBehavior.Editable = false;
             gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+            gridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
             gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             gridView1.OptionsSelection.MultiSelect = false;
+            
+            gridView1.OptionsCustomization.AllowFilter = false;
+            gridView1.OptionsCustomization.AllowGroup = false;
 
             // Enable double-click to edit
             gridView1.DoubleClick += GridView1_DoubleClick;
