@@ -59,33 +59,17 @@ namespace POS
 
         private void LoadBusinessData()
         {
-            try
-            {
-                DataSetApp.Business.Clear();
-                DataSetApp.Business.Merge(_bllInitialize.GetBusiness());
+            DataSetApp.Business.Clear();
+            DataSetApp.Business.Merge(_bllInitialize.GetBusiness());
 
-                if (DataSetApp.Business.Rows.Count == 0)
-                    DataSetApp.Business.AddBusinessRow(DataSetApp.Business.NewBusinessRow());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading business data: {ex.Message}", "Initialization Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            if (DataSetApp.Business.Rows.Count == 0)
+                DataSetApp.Business.AddBusinessRow(DataSetApp.Business.NewBusinessRow());
         }
 
         private void LoadSystemSettings()
         {
-            try
-            {
-                DataSetApp.SystemSetting.Clear();
-                DataSetApp.SystemSetting.Merge(_bllInitialize.GetSystemSettings());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading system settings: {ex.Message}", "Initialization Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            DataSetApp.SystemSetting.Clear();
+            DataSetApp.SystemSetting.Merge(_bllInitialize.GetSystemSettings());
         }
 
         /// <summary>
@@ -93,50 +77,36 @@ namespace POS
         /// </summary>
         public static string GetSetting(string key, string defaultValue = "")
         {
-            try
-            {
-                if (DataSetApp?.SystemSetting == null)
-                    return defaultValue;
-
-                var settingRow = DataSetApp.SystemSetting
-                    .FirstOrDefault(r => !r.Issetting_keyNull() &&
-                                        r.setting_key.Equals(key, StringComparison.OrdinalIgnoreCase) &&
-                                        !r.IsstatusNull() &&
-                                        r.status == "A");
-
-                if (settingRow != null && !settingRow.Issetting_valueNull())
-                    return settingRow.setting_value;
-
+            if (DataSetApp?.SystemSetting == null)
                 return defaultValue;
-            }
-            catch
-            {
-                return defaultValue;
-            }
+
+            var settingRow = DataSetApp.SystemSetting
+                .FirstOrDefault(r => !r.Issetting_keyNull() &&
+                                    r.setting_key.Equals(key, StringComparison.OrdinalIgnoreCase) &&
+                                    !r.IsstatusNull() &&
+                                    r.status == "A");
+
+            if (settingRow != null && !settingRow.Issetting_valueNull())
+                return settingRow.setting_value;
+
+            return defaultValue;
         }
 
         private void UpdateBusinessName()
         {
-            try
+            if (DataSetApp.Business.Rows.Count > 0)
             {
-                if (DataSetApp.Business.Rows.Count > 0)
+                var businessRow = DataSetApp.Business[0];
+                if (!businessRow.Isbusiness_nameNull() && !string.IsNullOrWhiteSpace(businessRow.business_name))
                 {
-                    var businessRow = DataSetApp.Business[0];
-                    if (!businessRow.Isbusiness_nameNull() && !string.IsNullOrWhiteSpace(businessRow.business_name))
-                    {
-                        lblBusinessName.Text = businessRow.business_name;
-                    }
-                    else
-                    {
-                        lblBusinessName.Text = "Business Name";
-                    }
+                    lblBusinessName.Text = businessRow.business_name;
                 }
                 else
                 {
                     lblBusinessName.Text = "Business Name";
                 }
             }
-            catch (Exception ex)
+            else
             {
                 lblBusinessName.Text = "Business Name";
             }

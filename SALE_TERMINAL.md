@@ -7,6 +7,7 @@ Let me explain the complete workflow of the sales terminal system, covering all 
 ## 🎯 **Core Sales Terminal Workflow**
 
 ### **1. Initial State (btnCancel_Click)**
+
 ```
 ┌─────────────────────────────────────────┐
 │  SALES TERMINAL INITIALIZATION          │
@@ -25,6 +26,7 @@ Let me explain the complete workflow of the sales terminal system, covering all 
 ```
 
 **Key Points:**
+
 - Everything starts fresh
 - No database interaction yet (all in-memory DataTables)
 - Walk-In Customer is default
@@ -35,6 +37,7 @@ Let me explain the complete workflow of the sales terminal system, covering all 
 ## 🛒 **2. Building the Cart**
 
 ### **Product Selection Flow:**
+
 ```
 User Action                    System Response
 ─────────────────────────────────────────────────
@@ -59,6 +62,7 @@ Click Product Button     →    AddProductToSalesItems()
 ```
 
 **Key Calculations:**
+
 - **Item Subtotal** = (unit_price - item_discount) × quantity
 - **Total Amount** = Sum of all item subtotals
 - **Grand Total** = total_amount - sale_discount
@@ -100,6 +104,7 @@ Calculation Order:
 ```
 
 **Example:**
+
 ```
 Item 1: Rs. 100 × 2 = Rs. 200 - 10% item discount = Rs. 180
 Item 2: Rs. 50 × 3 = Rs. 150 - Rs. 5 fixed = Rs. 145
@@ -115,9 +120,11 @@ Grand Total: Rs. 308.75
 ## 📝 **4. DRAFT (btnDraft_Click)**
 
 ### **Purpose:**
+
 Save incomplete/pending order for later completion
 
 ### **Process Flow:**
+
 ```
 ┌─────────────────────────────────────────┐
 │         DRAFT CREATION FLOW              │
@@ -155,6 +162,7 @@ Save incomplete/pending order for later completion
 ```
 
 **Key Characteristics:**
+
 - ✅ No payment required
 - ✅ Can be retrieved later
 - ✅ No invoice/quotation number
@@ -162,6 +170,7 @@ Save incomplete/pending order for later completion
 - ❌ Not a financial transaction (no accounting impact)
 
 **Database State After Draft:**
+
 ```
 Sale Table:
   sale_id: 123
@@ -186,9 +195,11 @@ Payment Table:
 ## 📄 **5. QUOTATION (btnQuotation_Click)**
 
 ### **Purpose:**
+
 Generate a formal price quote for customer (no sale yet)
 
 ### **Process Flow:**
+
 ```
 ┌─────────────────────────────────────────┐
 │       QUOTATION CREATION FLOW            │
@@ -231,6 +242,7 @@ Generate a formal price quote for customer (no sale yet)
 ```
 
 **Key Characteristics:**
+
 - ✅ Has quotation number (QT-2025-XXXXXX)
 - ✅ Generates printable quotation document
 - ✅ Valid for specific time period
@@ -239,6 +251,7 @@ Generate a formal price quote for customer (no sale yet)
 - ❌ Not a sale (no inventory impact)
 
 **Database State After Quotation:**
+
 ```
 Sale Table:
   sale_id: 124
@@ -261,9 +274,11 @@ Payment Table:
 ## 💳 **6. FULL SALE (btnPMComplete_Click)**
 
 ### **Purpose:**
+
 Complete sale with full or partial payment
 
 ### **Process Flow:**
+
 ```
 ┌─────────────────────────────────────────────────┐
 │           FULL SALE CREATION FLOW                │
@@ -334,6 +349,7 @@ Complete sale with full or partial payment
 ```
 
 **Key Characteristics:**
+
 - ✅ Has invoice number (INV-2025-XXXXXX)
 - ✅ Multiple payment methods allowed
 - ✅ Can be partial payment (with CREDIT)
@@ -342,6 +358,7 @@ Complete sale with full or partial payment
 - ✅ Inventory impact (reduces stock)
 
 **Payment Validation Rules:**
+
 ```
 Rule 1: Sum of ALL payments = Grand Total
   CASH + CARD + BANK_TRANSFER + CREDIT = grand_total
@@ -359,6 +376,7 @@ Rule 4: Payment Status
 ```
 
 **Database State After Full Sale:**
+
 ```
 Sale Table:
   sale_id: 125
@@ -384,9 +402,11 @@ Payment Table:
 ## 🏦 **7. CREDIT SALE (btnCreditSale_Click)**
 
 ### **Purpose:**
+
 Allow trusted customer to purchase on credit (pay later)
 
 ### **Process Flow:**
+
 ```
 ┌─────────────────────────────────────────────────┐
 │         CREDIT SALE CREATION FLOW                │
@@ -452,6 +472,7 @@ Allow trusted customer to purchase on credit (pay later)
 ```
 
 **Key Characteristics:**
+
 - ✅ Requires registered customer with credit_limit
 - ✅ Validates credit limit before saving
 - ✅ Creates CREDIT payment record automatically
@@ -462,6 +483,7 @@ Allow trusted customer to purchase on credit (pay later)
 - ⚠️ Creates accounts receivable entry
 
 **Validation Example:**
+
 ```
 Customer: John Doe
 Credit Limit: Rs. 5,000.00
@@ -479,6 +501,7 @@ Remaining Credit: Rs. 500.00
 ```
 
 **Database State After Credit Sale:**
+
 ```
 Sale Table:
   sale_id: 126
@@ -502,6 +525,7 @@ Payment Table:
 ## 📊 **8. MIXED PAYMENT SCENARIOS**
 
 ### **Scenario A: Cash + Card (Full Payment)**
+
 ```
 Grand Total: Rs. 500.00
 
@@ -517,6 +541,7 @@ Invoice Shows: Total Paid: 500.00
 ```
 
 ### **Scenario B: Cash + Card + Credit (Partial Payment)**
+
 ```
 Grand Total: Rs. 500.00
 
@@ -538,6 +563,7 @@ Invoice Shows:
 ```
 
 ### **Scenario C: Cash Overpayment**
+
 ```
 Grand Total: Rs. 500.00
 
@@ -616,14 +642,51 @@ Invoice Shows:
 
 ## 📌 **Summary of Sale Types**
 
-| Sale Type | Invoice# | Quotation# | Payment Required | Report | Stock Impact | Accounting Impact |
-|-----------|----------|------------|------------------|--------|--------------|-------------------|
-| **DRAFT** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **QUOTATION** | ❌ | ✅ | ❌ | ✅ Quotation | ❌ | ❌ |
-| **CREDIT_SALE** | ✅ | ❌ | ❌ (full credit) | ✅ Invoice | ✅ | ✅ Receivable |
-| **SALE (Full)** | ✅ | ❌ | ✅ (due = 0) | ✅ Invoice + Payments | ✅ | ✅ Revenue |
-| **SALE (Partial)** | ✅ | ❌ | ✅ (due > 0) | ✅ Invoice + Payments | ✅ | ✅ Revenue + Receivable |
+| Sale Type          | Invoice# | Quotation# | Payment Required | Report                | Stock Impact | Accounting Impact       |
+| ------------------ | -------- | ---------- | ---------------- | --------------------- | ------------ | ----------------------- |
+| **DRAFT**          | ❌       | ❌         | ❌               | ❌                    | ❌           | ❌                      |
+| **QUOTATION**      | ❌       | ✅         | ❌               | ✅ Quotation          | ❌           | ❌                      |
+| **CREDIT_SALE**    | ✅       | ❌         | ❌ (full credit) | ✅ Invoice            | ✅           | ✅ Receivable           |
+| **SALE (Full)**    | ✅       | ❌         | ✅ (due = 0)     | ✅ Invoice + Payments | ✅           | ✅ Revenue              |
+| **SALE (Partial)** | ✅       | ❌         | ✅ (due > 0)     | ✅ Invoice + Payments | ✅           | ✅ Revenue + Receivable |
 
 ---
 
 This comprehensive flow ensures proper handling of all transaction types while maintaining data integrity and providing complete audit trails. Each sale type serves a specific business purpose and follows strict validation rules to prevent errors.
+
+---
+
+## 🖨️ **10. Printing System**
+
+### **Configuration Options:**
+
+The system supports flexible printing configurations based on business needs.
+
+**1. Print Formats:**
+
+- **80mm Thermal Receipt:** Standard POS receipt format
+- **A4 Invoice:** Full-page invoice for corporate/large orders
+- **Both:** Prints both formats simultaneously
+
+**2. System Settings:**
+
+- **ENABLE_THERMAL_PRINT:** (True/False) - Enable 80mm printing
+- **ENABLE_A4_PRINT:** (True/False) - Enable A4 printing
+- **AUTO_PRINT_ON_COMPLETION:** (True/False) - Automatically print without preview dialog
+
+### **Printing Logic Flow:**
+
+```
+On Sale Completion:
+  │
+  ├─ Check AUTO_PRINT_ON_COMPLETION
+  │  ├─ TRUE: Proceed to print directly
+  │  └─ FALSE: Show Print Preview dialog
+  │
+  ├─ Check Print Format Settings
+  │  ├─ If ENABLE_THERMAL_PRINT = TRUE
+  │  │  └─ Generate & Print ThermalInvoice.cs
+  │  │
+  │  └─ If ENABLE_A4_PRINT = TRUE
+  │     └─ Generate & Print Invoice.cs
+```

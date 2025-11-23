@@ -1538,9 +1538,8 @@ namespace POS.PAL.USERCONTROL
             saleRow["total_paid"] = totalPaid.ToString("F2");
             saleRow["change_due"] = changeDue.ToString("F2");
 
-            // Generate detailed message with all information
-            string detailedMessage = FormatDraftDetails(saleRow, salesItemsTable);
-            MessageBox.Show(detailedMessage, "Draft Saved Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Generate simple success message
+            MessageBox.Show($"Draft saved successfully!\nDraft ID: {saleId}", "Draft Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             btnCancel_Click(null, null);
         }
@@ -1703,6 +1702,8 @@ namespace POS.PAL.USERCONTROL
 
             // Check if customer has credit limit
             decimal creditLimit = 0;
+            decimal creditBalance = 0;
+
             if (selectedCustomer.Table.Columns.Contains("credit_limit") &&
                 selectedCustomer["credit_limit"] != DBNull.Value &&
                 !string.IsNullOrWhiteSpace(selectedCustomer["credit_limit"]?.ToString()))
@@ -1710,6 +1711,16 @@ namespace POS.PAL.USERCONTROL
                 if (decimal.TryParse(selectedCustomer["credit_limit"].ToString(), out decimal parsedCreditLimit))
                 {
                     creditLimit = parsedCreditLimit;
+                }
+            }
+
+            if (selectedCustomer.Table.Columns.Contains("credit_balance") &&
+                selectedCustomer["credit_balance"] != DBNull.Value &&
+                !string.IsNullOrWhiteSpace(selectedCustomer["credit_balance"]?.ToString()))
+            {
+                if (decimal.TryParse(selectedCustomer["credit_balance"].ToString(), out decimal parsedCreditBalance))
+                {
+                    creditBalance = parsedCreditBalance;
                 }
             }
 
@@ -1728,12 +1739,15 @@ namespace POS.PAL.USERCONTROL
                 grandTotal = parsedGrandTotal;
             }
 
-            // Validation: Grand total must not exceed credit limit
-            if (grandTotal > creditLimit)
+            // Validation: Grand total must not exceed available credit
+            decimal availableCredit = creditLimit - creditBalance;
+            if (grandTotal > availableCredit)
             {
                 MessageBox.Show(
-                    $"Grand Total ({grandTotal:F2}) exceeds customer credit limit ({creditLimit:F2}).\n\n" +
-                    $"Available Credit: {Math.Max(0, creditLimit - grandTotal):F2}",
+                    $"Grand Total ({grandTotal:F2}) exceeds available credit.\n\n" +
+                    $"Credit Limit: {creditLimit:F2}\n" +
+                    $"Current Balance: {creditBalance:F2}\n" +
+                    $"Available Credit: {availableCredit:F2}",
                     "Credit Limit Exceeded", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -1748,12 +1762,10 @@ namespace POS.PAL.USERCONTROL
             string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
             string notes = $"Credit sale created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}\nCredit Limit: {creditLimit:F2}";
 
-            try
-            {
-                // Save sale to database using unified SaveSale method
-                int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "CREDIT_SALE",
-                    discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                    salesItemsTable, 0m, 0m, invoiceNumber, null, null, null);
+            // Save sale to database using unified SaveSale method
+            int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "CREDIT_SALE",
+                discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
+                salesItemsTable, 0m, 0m, invoiceNumber, null, null, null);
 
                 // Create CREDIT payment record
                 DataTable creditPaymentTable = new DataTable();
@@ -1817,18 +1829,18 @@ namespace POS.PAL.USERCONTROL
                 }
 
                 // Print invoice based on system settings
-                string printMode = Main.GetSetting("invoice_print_mode", "A4").ToUpper();
-                bool autoPrint = Main.GetSetting("auto_print_invoice", "true")
-                    .Equals("true", StringComparison.OrdinalIgnoreCase);
+                bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool autoPrint = Main.GetSetting("AUTO_PRINT_ON_COMPLETION", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
 
                 // Print thermal invoice if enabled
-                if (printMode == "THERMAL" || printMode == "BOTH")
+                if (enableThermal)
                 {
-                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, creditPaymentTable);
+                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, creditPaymentTable, autoPrint);
                 }
 
                 // Print/preview A4 invoice if enabled
-                if (printMode == "A4" || printMode == "BOTH")
+                if (enableA4)
                 {
                     DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
                     if (autoPrint)
@@ -1844,270 +1856,15 @@ namespace POS.PAL.USERCONTROL
                     $"Customer: {customerName}\n" +
                     $"Grand Total: {grandTotal:F2}\n" +
                     $"Credit Limit: {creditLimit:F2}\n" +
-                    $"Remaining Credit: {Math.Max(0, creditLimit - grandTotal):F2}\n" +
+                    $"Remaining Credit: {Math.Max(0, availableCredit - grandTotal):F2}\n" +
                     $"Due: {grandTotal:F2}",
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Reset UI
                 btnCancel_Click(null, null);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error creating credit sale: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
-        /// <summary>
-        /// Formats detailed draft information including sale table data and all items
-        /// </summary>
-        private string FormatDraftDetails(DataRow saleRow, DataTable salesItems)
-        {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
-            sb.AppendLine("═══════════════════════════════════════════");
-            sb.AppendLine("           DRAFT SAVED SUCCESSFULLY");
-            sb.AppendLine("═══════════════════════════════════════════\n");
-
-            // Sale Header Information
-            sb.AppendLine("SALE INFORMATION:");
-            sb.AppendLine($"Draft ID: {FormatValue(saleRow["sale_id"])}");
-            sb.AppendLine($"Sale Type: {FormatValue(saleRow["sale_type"])}");
-            sb.AppendLine($"Store ID: {FormatValue(saleRow["store_id"])}");
-            sb.AppendLine($"Biller ID: {FormatValue(saleRow["biller_id"])}");
-            sb.AppendLine($"Customer ID: {FormatValue(saleRow["customer_id"])}");
-            sb.AppendLine($"Payment Status: {FormatValue(saleRow["payment_status"])}");
-            sb.AppendLine($"Sale Status: {FormatValue(saleRow["sale_status"])}");
-            sb.AppendLine($"Order Type: {FormatValue(saleRow["order_type"])}");
-            sb.AppendLine($"Table Number: {FormatValue(saleRow["table_number"])}");
-            sb.AppendLine($"Notes: {FormatValue(saleRow["notes"])}");
-
-            sb.AppendLine("\nDISCOUNT INFORMATION:");
-            sb.AppendLine($"Discount Type: {FormatValue(saleRow["discount_type"])}");
-            sb.AppendLine($"Discount Value: {FormatValue(saleRow["discount_value"])}");
-
-            sb.AppendLine("\nAMOUNT INFORMATION:");
-            sb.AppendLine($"Total Amount: {FormatValue(saleRow["total_amount"])}");
-            sb.AppendLine($"Grand Total: {FormatValue(saleRow["grand_total"])}");
-            sb.AppendLine($"Total Items: {FormatValue(saleRow["total_items"])}");
-
-            sb.AppendLine("\nTIMESTAMP INFORMATION:");
-            sb.AppendLine($"Created By: {FormatValue(saleRow["created_by"])}");
-            sb.AppendLine($"Created Date: {FormatValue(saleRow["created_date"])}");
-            sb.AppendLine($"Updated By: {FormatValue(saleRow["updated_by"])}");
-            sb.AppendLine($"Updated Date: {FormatValue(saleRow["updated_date"])}");
-
-            sb.AppendLine($"Status: {FormatValue(saleRow["status"])}");
-
-            // Items Details
-            sb.AppendLine("\n" + new string('═', 45));
-            sb.AppendLine($"ITEMS ({salesItems.Rows.Count} items):");
-            sb.AppendLine(new string('═', 45));
-
-            int itemNumber = 1;
-            foreach (DataRow itemRow in salesItems.Rows)
-            {
-                sb.AppendLine($"\nItem #{itemNumber}:");
-                sb.AppendLine($"  Sale Item ID: {FormatValue(itemRow["sale_item_id"])}");
-                sb.AppendLine($"  Sale ID: {FormatValue(itemRow["sale_id"])}");
-                sb.AppendLine($"  Product ID: {FormatValue(itemRow["product_id"])}");
-                sb.AppendLine($"  Product Name: {FormatValue(itemRow["product_name"])}");
-                sb.AppendLine($"  Product Code: {FormatValue(itemRow["product_code"])}");
-                sb.AppendLine($"  Unit Price: {FormatValue(itemRow["unit_price"])}");
-                sb.AppendLine($"  Quantity: {FormatValue(itemRow["quantity"])}");
-                sb.AppendLine($"  Discount Type: {FormatValue(itemRow["discount_type"])}");
-                sb.AppendLine($"  Discount Value: {FormatValue(itemRow["discount_value"])}");
-                sb.AppendLine($"  Subtotal: {FormatValue(itemRow["subtotal"])}");
-                sb.AppendLine($"  Status: {FormatValue(itemRow["status"])}");
-                sb.AppendLine($"  Created By: {FormatValue(itemRow["created_by"])}");
-                sb.AppendLine($"  Created Date: {FormatValue(itemRow["created_date"])}");
-                sb.AppendLine($"  Updated By: {FormatValue(itemRow["updated_by"])}");
-                sb.AppendLine($"  Updated Date: {FormatValue(itemRow["updated_date"])}");
-
-                itemNumber++;
-            }
-
-            sb.AppendLine("\n" + new string('═', 45));
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Formats detailed quotation information including sale table data and all items
-        /// </summary>
-        private string FormatQuotationDetails(DataRow saleRow, DataTable salesItems)
-        {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-            sb.AppendLine("═══════════════════════════════════════════");
-            sb.AppendLine("        QUOTATION SAVED SUCCESSFULLY");
-            sb.AppendLine("═══════════════════════════════════════════\n");
-
-            // Sale Header Information
-            sb.AppendLine("SALE INFORMATION:");
-            sb.AppendLine($"Quotation ID: {FormatValue(saleRow["sale_id"])}");
-            sb.AppendLine($"Quotation Number: {FormatValue(saleRow["quotation_number"])}");
-            sb.AppendLine($"Sale Type: {FormatValue(saleRow["sale_type"])}");
-            sb.AppendLine($"Store ID: {FormatValue(saleRow["store_id"])}");
-            sb.AppendLine($"Biller ID: {FormatValue(saleRow["biller_id"])}");
-            sb.AppendLine($"Customer ID: {FormatValue(saleRow["customer_id"])}");
-            sb.AppendLine($"Payment Status: {FormatValue(saleRow["payment_status"])}");
-            sb.AppendLine($"Sale Status: {FormatValue(saleRow["sale_status"])}");
-            sb.AppendLine($"Notes: {FormatValue(saleRow["notes"])}");
-
-            sb.AppendLine("\nDISCOUNT INFORMATION:");
-            sb.AppendLine($"Discount Type: {FormatValue(saleRow["discount_type"])}");
-            sb.AppendLine($"Discount Value: {FormatValue(saleRow["discount_value"])}");
-
-            sb.AppendLine("\nAMOUNT INFORMATION:");
-            sb.AppendLine($"Total Amount: {FormatValue(saleRow["total_amount"])}");
-            sb.AppendLine($"Grand Total: {FormatValue(saleRow["grand_total"])}");
-            sb.AppendLine($"Total Items: {FormatValue(saleRow["total_items"])}");
-
-            sb.AppendLine("\nTIMESTAMP INFORMATION:");
-            sb.AppendLine($"Created By: {FormatValue(saleRow["created_by"])}");
-            sb.AppendLine($"Created Date: {FormatValue(saleRow["created_date"])}");
-            sb.AppendLine($"Updated By: {FormatValue(saleRow["updated_by"])}");
-            sb.AppendLine($"Updated Date: {FormatValue(saleRow["updated_date"])}");
-
-            sb.AppendLine($"Status: {FormatValue(saleRow["status"])}");
-
-            // Items Details
-            sb.AppendLine("\n" + new string('═', 45));
-            sb.AppendLine($"ITEMS ({salesItems.Rows.Count} items):");
-            sb.AppendLine(new string('═', 45));
-
-            int itemNumber = 1;
-            foreach (DataRow itemRow in salesItems.Rows)
-            {
-                sb.AppendLine($"\nItem #{itemNumber}:");
-                sb.AppendLine($"  Sale Item ID: {FormatValue(itemRow["sale_item_id"])}");
-                sb.AppendLine($"  Sale ID: {FormatValue(itemRow["sale_id"])}");
-                sb.AppendLine($"  Product ID: {FormatValue(itemRow["product_id"])}");
-                sb.AppendLine($"  Product Name: {FormatValue(itemRow["product_name"])}");
-                sb.AppendLine($"  Product Code: {FormatValue(itemRow["product_code"])}");
-                sb.AppendLine($"  Unit Price: {FormatValue(itemRow["unit_price"])}");
-                sb.AppendLine($"  Quantity: {FormatValue(itemRow["quantity"])}");
-                sb.AppendLine($"  Discount Type: {FormatValue(itemRow["discount_type"])}");
-                sb.AppendLine($"  Discount Value: {FormatValue(itemRow["discount_value"])}");
-                sb.AppendLine($"  Subtotal: {FormatValue(itemRow["subtotal"])}");
-                sb.AppendLine($"  Status: {FormatValue(itemRow["status"])}");
-                sb.AppendLine($"  Created By: {FormatValue(itemRow["created_by"])}");
-                sb.AppendLine($"  Created Date: {FormatValue(itemRow["created_date"])}");
-                sb.AppendLine($"  Updated By: {FormatValue(itemRow["updated_by"])}");
-                sb.AppendLine($"  Updated Date: {FormatValue(itemRow["updated_date"])}");
-
-                itemNumber++;
-            }
-
-            sb.AppendLine("\n" + new string('═', 45));
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Formats detailed credit sale information including sale table data, customer details, and all items
-        /// </summary>
-        private string FormatCreditSaleDetails(DataRow saleRow, DataRow customerRow, decimal creditLimit, DataTable salesItems)
-        {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-            sb.AppendLine("═══════════════════════════════════════════");
-            sb.AppendLine("       CREDIT SALE SAVED SUCCESSFULLY");
-            sb.AppendLine("═══════════════════════════════════════════\n");
-
-            // Customer Information
-            sb.AppendLine("CUSTOMER INFORMATION:");
-            sb.AppendLine($"Customer ID: {FormatValue(customerRow["customer_id"])}");
-            sb.AppendLine($"Customer Name: {FormatValue(customerRow["full_name"])}");
-            sb.AppendLine($"Email: {FormatValue(customerRow["email"])}");
-            sb.AppendLine($"Phone: {FormatValue(customerRow["phone"])}");
-            sb.AppendLine($"Address: {FormatValue(customerRow["address"])}");
-            sb.AppendLine($"Group: {FormatValue(customerRow["group_name"])}");
-
-            // Credit Limit Information
-            sb.AppendLine("\nCREDIT LIMIT INFORMATION:");
-            sb.AppendLine($"Credit Limit: {creditLimit:F2}");
-
-            // Sale Header Information
-            sb.AppendLine("\nSALE INFORMATION:");
-            sb.AppendLine($"Credit Sale ID: {FormatValue(saleRow["sale_id"])}");
-            sb.AppendLine($"Sale Type: {FormatValue(saleRow["sale_type"])}");
-            sb.AppendLine($"Store ID: {FormatValue(saleRow["store_id"])}");
-            sb.AppendLine($"Biller ID: {FormatValue(saleRow["biller_id"])}");
-            sb.AppendLine($"Payment Status: {FormatValue(saleRow["payment_status"])}");
-            sb.AppendLine($"Sale Status: {FormatValue(saleRow["sale_status"])}");
-            sb.AppendLine($"Notes: {FormatValue(saleRow["notes"])}");
-
-            sb.AppendLine("\nDISCOUNT INFORMATION:");
-            sb.AppendLine($"Discount Type: {FormatValue(saleRow["discount_type"])}");
-            sb.AppendLine($"Discount Value: {FormatValue(saleRow["discount_value"])}");
-
-            sb.AppendLine("\nAMOUNT INFORMATION:");
-            sb.AppendLine($"Total Amount: {FormatValue(saleRow["total_amount"])}");
-            sb.AppendLine($"Grand Total: {FormatValue(saleRow["grand_total"])}");
-            sb.AppendLine($"Total Items: {FormatValue(saleRow["total_items"])}");
-
-            decimal grandTotal = 0;
-            if (decimal.TryParse(saleRow["grand_total"]?.ToString(), out decimal parsedGrandTotal))
-            {
-                grandTotal = parsedGrandTotal;
-            }
-            sb.AppendLine($"Remaining Credit: {Math.Max(0, creditLimit - grandTotal):F2}");
-
-            sb.AppendLine("\nTIMESTAMP INFORMATION:");
-            sb.AppendLine($"Created By: {FormatValue(saleRow["created_by"])}");
-            sb.AppendLine($"Created Date: {FormatValue(saleRow["created_date"])}");
-
-            sb.AppendLine($"Status: {FormatValue(saleRow["status"])}");
-
-            // Items Details
-            sb.AppendLine("\n" + new string('═', 45));
-            sb.AppendLine($"ITEMS ({salesItems.Rows.Count} items):");
-            sb.AppendLine(new string('═', 45));
-
-            int itemNumber = 1;
-            foreach (DataRow itemRow in salesItems.Rows)
-            {
-                sb.AppendLine($"\nItem #{itemNumber}:");
-                sb.AppendLine($"  Sale Item ID: {FormatValue(itemRow["sale_item_id"])}");
-                sb.AppendLine($"  Sale ID: {FormatValue(itemRow["sale_id"])}");
-                sb.AppendLine($"  Product ID: {FormatValue(itemRow["product_id"])}");
-                sb.AppendLine($"  Product Name: {FormatValue(itemRow["product_name"])}");
-                sb.AppendLine($"  Product Code: {FormatValue(itemRow["product_code"])}");
-                sb.AppendLine($"  Unit Price: {FormatValue(itemRow["unit_price"])}");
-                sb.AppendLine($"  Quantity: {FormatValue(itemRow["quantity"])}");
-                sb.AppendLine($"  Discount Type: {FormatValue(itemRow["discount_type"])}");
-                sb.AppendLine($"  Discount Value: {FormatValue(itemRow["discount_value"])}");
-                sb.AppendLine($"  Subtotal: {FormatValue(itemRow["subtotal"])}");
-                sb.AppendLine($"  Status: {FormatValue(itemRow["status"])}");
-                sb.AppendLine($"  Created By: {FormatValue(itemRow["created_by"])}");
-                sb.AppendLine($"  Created Date: {FormatValue(itemRow["created_date"])}");
-                sb.AppendLine($"  Updated By: {FormatValue(itemRow["updated_by"])}");
-                sb.AppendLine($"  Updated Date: {FormatValue(itemRow["updated_date"])}");
-
-                itemNumber++;
-            }
-
-            sb.AppendLine("\n" + new string('═', 45));
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Formats a value for display, showing (null) for DBNull and (empty string) for empty strings
-        /// </summary>
-        private string FormatValue(object value)
-        {
-            if (value == null || value == DBNull.Value)
-                return "(null)";
-
-            string stringValue = value.ToString();
-            if (string.IsNullOrWhiteSpace(stringValue))
-                return "(empty string)";
-
-            return stringValue;
-        }
 
         /// <summary>
         /// Calculates total paid and due amounts from payments table
@@ -2154,12 +1911,10 @@ namespace POS.PAL.USERCONTROL
         /// <summary>
         /// Print thermal invoice (80mm receipt)
         /// </summary>
-        private void PrintThermalInvoice(string invoiceNumber, decimal grandTotal, string customerName, DataTable itemsTable, DataTable paymentsTable)
+        private void PrintThermalInvoice(string invoiceNumber, decimal grandTotal, string customerName, DataTable itemsTable, DataTable paymentsTable, bool autoPrint)
         {
-            try
-            {
-                // Create thermal invoice report
-                ThermalInvoice thermalInvoice = new ThermalInvoice();
+            // Create thermal invoice report
+            ThermalInvoice thermalInvoice = new ThermalInvoice();
 
                 // Set main invoice parameters
                 thermalInvoice.Parameters["p_invoice_no"].Value = invoiceNumber;
@@ -2183,21 +1938,33 @@ namespace POS.PAL.USERCONTROL
                 decimal subtotal = 0m;
                 foreach (DataRow item in itemsTable.Rows)
                 {
-                    if (decimal.TryParse(item["total_price"]?.ToString(), out decimal itemTotal))
+                    if (decimal.TryParse(item["subtotal"]?.ToString(), out decimal itemTotal))
                     {
                         subtotal += itemTotal;
                     }
                 }
 
                 // Get discount from sale table
-                decimal discount = 0m;
-                if (saleTable.Rows.Count > 0 && decimal.TryParse(saleTable.Rows[0]["discount_value"]?.ToString(), out decimal discountValue))
+                decimal discountAmount = 0m;
+                if (saleTable.Rows.Count > 0)
                 {
-                    discount = discountValue;
+                    DataRow saleRow = saleTable.Rows[0];
+                    if (decimal.TryParse(saleRow["discount_value"]?.ToString(), out decimal discountValue))
+                    {
+                        string discountType = saleRow["discount_type"]?.ToString();
+                        if (discountType == "PERCENTAGE")
+                        {
+                            discountAmount = subtotal * (discountValue / 100m);
+                        }
+                        else
+                        {
+                            discountAmount = discountValue;
+                        }
+                    }
                 }
 
                 thermalInvoice.Parameters["p_total"].Value = subtotal.ToString("F2");
-                thermalInvoice.Parameters["p_discount"].Value = discount.ToString("F2");
+                thermalInvoice.Parameters["p_discount"].Value = "-" + discountAmount.ToString("F2");
 
                 // Bind payment subreport (thermal version)
                 if (thermalInvoice.PaymentSubreport != null)
@@ -2207,8 +1974,11 @@ namespace POS.PAL.USERCONTROL
 
                     // Calculate payment totals
                     var (totalPaid, due) = CalculatePaymentTotals();
+                    decimal change = Math.Max(0, totalPaid - grandTotal);
+                    
                     paymentReport.Parameters["p_total_paid"].Value = totalPaid.ToString("F2");
                     paymentReport.Parameters["p_due"].Value = due.ToString("F2");
+                    paymentReport.Parameters["p_change"].Value = change.ToString("F2");
 
                     thermalInvoice.PaymentSubreport.ReportSource = paymentReport;
                 }
@@ -2222,116 +1992,11 @@ namespace POS.PAL.USERCONTROL
                     thermalInvoice.PrinterName = printerName;
                 }
 
-                // Print without preview
+            // Print based on autoPrint setting
+            if (autoPrint)
                 thermalInvoice.Print();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error printing thermal invoice: {ex.Message}", "Print Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Test thermal printer with hardcoded placeholder data
-        /// Call this method from a button or during testing
-        /// </summary>/
-        public void TestThermalPrint()
-        {
-            try
-            {
-                MessageBox.Show(
-                    "This will print a test invoice to verify thermal printer configuration.\n\n" +
-                    "Current Settings:\n" +
-                    $"Print Mode: {Main.GetSetting("invoice_print_mode", "A4")}\n" +
-                    $"Thermal Printer: {Main.GetSetting("thermal_printer_name", "Default Printer")}\n" +
-                    $"Auto Print: {Main.GetSetting("auto_print_invoice", "true")}",
-                    "Thermal Print Test",
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Information);
-
-                // Create thermal invoice report
-                ThermalInvoice thermalInvoice = new ThermalInvoice();
-
-                // Hardcoded test data
-                thermalInvoice.Parameters["p_invoice_no"].Value = "TEST-001";
-                thermalInvoice.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                thermalInvoice.Parameters["p_customer_name"].Value = "Test Customer";
-                thermalInvoice.Parameters["p_grand_total"].Value = "150.00";
-                thermalInvoice.Parameters["p_contact"].Value = "+1234567890";
-                thermalInvoice.Parameters["p_email"].Value = "test@example.com";
-                thermalInvoice.Parameters["p_address"].Value = "123 Test Street, Test City";
-                thermalInvoice.Parameters["p_total"].Value = "130.00";
-                thermalInvoice.Parameters["p_discount"].Value = "10.00";
-
-                // Create test items DataTable
-                DataTable testItems = new DataTable();
-                testItems.Columns.Add("product_name", typeof(string));
-                testItems.Columns.Add("quantity", typeof(int));
-                testItems.Columns.Add("unit_price", typeof(decimal));
-                testItems.Columns.Add("total_price", typeof(decimal));
-
-                testItems.Rows.Add("Test Product 1", 2, 25.00m, 50.00m);
-                testItems.Rows.Add("Test Product 2", 1, 80.00m, 80.00m);
-                testItems.Rows.Add("Test Product 3", 3, 10.00m, 30.00m);
-
-                thermalInvoice.DataSource = testItems;
-
-                // Create test payments DataTable
-                DataTable testPayments = new DataTable();
-                testPayments.Columns.Add("payment_method", typeof(string));
-                testPayments.Columns.Add("amount", typeof(decimal));
-
-                testPayments.Rows.Add("CASH", 150.00m);
-
-                // Bind payment subreport (thermal version)
-                if (thermalInvoice.PaymentSubreport != null)
-                {
-                    SR_ThermalPayment paymentReport = new SR_ThermalPayment();
-                    paymentReport.DataSource = testPayments;
-                    paymentReport.Parameters["p_total_paid"].Value = "150.00";
-                    paymentReport.Parameters["p_due"].Value = "0.00";
-                    thermalInvoice.PaymentSubreport.ReportSource = paymentReport;
-                }
-
-                // Get thermal printer name from system settings
-                string printerName = Main.GetSetting("thermal_printer_name", null);
-
-                // Configure printer if specified
-                if (!string.IsNullOrEmpty(printerName))
-                {
-                    thermalInvoice.PrinterName = printerName;
-                }
-
-                // Print the test invoice
-                thermalInvoice.Print();
-
-                MessageBox.Show(
-                    "Test invoice sent to printer!\n\n" +
-                    "Check your thermal printer for output.\n\n" +
-                    "If nothing printed, verify:\n" +
-                    "1. Printer is powered on and connected\n" +
-                    "2. Printer name in system settings is correct\n" +
-                    "3. Paper is loaded correctly",
-                    "Print Test Complete",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    $"Thermal Print Test Failed!\n\n" +
-                    $"Error: {ex.Message}\n\n" +
-                    $"Stack Trace:\n{ex.StackTrace}\n\n" +
-                    "Possible issues:\n" +
-                    "1. ThermalInvoice report not designed yet\n" +
-                    "2. Parameters not added to report\n" +
-                    "3. Printer driver not installed\n" +
-                    "4. Report controls missing",
-                    "Print Test Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
+            else
+                new DevExpress.XtraReports.UI.ReportPrintTool(thermalInvoice).ShowPreview();
         }
 
         /// <summary>
@@ -2375,14 +2040,49 @@ namespace POS.PAL.USERCONTROL
 
             if (totalPaymentAmount < grandTotal)
             {
-                errorMessage = $"Payment amount ({totalPaymentAmount:F2}) is less than grand total ({grandTotal:F2}).\n\nPlease ensure payments cover the full amount.";
-                return false;
+                decimal remainder = grandTotal - totalPaymentAmount;
+
+                // Check if customer is selected (not Walk-In)
+                int? customerId = null;
+                if (saleTable.Rows.Count > 0 && saleTable.Rows[0]["customer_id"] != DBNull.Value)
+                {
+                    customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
+                }
+
+                if (customerId == null || customerId == 1)
+                {
+                    errorMessage = "Walk-In customers cannot have credit/partial payment. Please select a registered customer.";
+                    return false;
+                }
+
+                // Check credit limit
+                if (customersTable != null)
+                {
+                    DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
+                    if (customerRows.Length > 0)
+                    {
+                        DataRow customer = customerRows[0];
+                        decimal creditLimit = 0m;
+                        decimal creditBalance = 0m;
+
+                        decimal.TryParse(customer["credit_limit"]?.ToString(), out creditLimit);
+                        decimal.TryParse(customer["credit_balance"]?.ToString(), out creditBalance);
+
+                        decimal availableCredit = creditLimit - creditBalance;
+
+                        if (remainder > availableCredit)
+                        {
+                            errorMessage = $"Credit limit exceeded.\n\nRequired: {remainder:F2}\nAvailable Credit: {availableCredit:F2}";
+                            return false;
+                        }
+                    }
+                }
             }
 
+            // Allow overpayment (change due)
             if (totalPaymentAmount > grandTotal)
             {
-                errorMessage = $"Payment amount ({totalPaymentAmount:F2}) exceeds grand total ({grandTotal:F2}).\n\nPlease adjust payment amounts.";
-                return false;
+                // This is valid, change will be calculated
             }
 
             return true;
@@ -2401,9 +2101,12 @@ namespace POS.PAL.USERCONTROL
             // Validation: Check payments
             if (!ValidatePayments(out string errorMessage))
             {
-                MessageBox.Show(errorMessage, "Payment Validation Failed",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                // If validation fails (e.g. no payments), show error
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    MessageBox.Show(errorMessage, "Payment Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
 
             // Get sale data
@@ -2424,6 +2127,17 @@ namespace POS.PAL.USERCONTROL
 
             // Calculate payment totals
             var (totalPaid, due) = CalculatePaymentTotals();
+
+            // If there is a due amount, add it as a CREDIT payment
+            if (due > 0)
+            {
+                DataRow creditPayment = paymentsTable.NewRow();
+                creditPayment["payment_method"] = "CREDIT";
+                creditPayment["amount"] = due;
+                creditPayment["payment_date"] = DateTime.Now;
+                paymentsTable.Rows.Add(creditPayment);
+            }
+
             decimal changeDue = Math.Max(0, totalPaid - grandTotal);
 
             // Get order details (if KOT enabled)
@@ -2436,10 +2150,23 @@ namespace POS.PAL.USERCONTROL
                 {
                     orderType = "DINE_IN";
                     tableNumber = cmbTableNo.SelectedItem?.ToString();
+
+                    if (string.IsNullOrEmpty(tableNumber))
+                    {
+                        MessageBox.Show("Please select a table number for Dine-In order.", "Table Required",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                 }
                 else if (btnTakeAway.Appearance.BackColor == Color.FromArgb(4, 181, 152))
                 {
                     orderType = "TAKE_AWAY";
+                }
+                else
+                {
+                    MessageBox.Show("Please select an order type (Dine-In or Take-Away).", "Order Type Required",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
             }
 
@@ -2447,12 +2174,10 @@ namespace POS.PAL.USERCONTROL
             string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
             string notes = $"Invoice created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
-            try
-            {
-                // Save sale to database
-                int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
-                    discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                    salesItemsTable, totalPaid, changeDue, invoiceNumber, null, orderType, tableNumber);
+            // Save sale to database
+            int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
+                discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
+                salesItemsTable, totalPaid, changeDue, invoiceNumber, null, orderType, tableNumber);
 
                 // Save payments to database
                 _bllSalesTerminal.SavePayments(saleId, paymentsTable, billerId);
@@ -2529,18 +2254,18 @@ namespace POS.PAL.USERCONTROL
                 }
 
                 // Print invoice based on system settings
-                string printMode = Main.GetSetting("invoice_print_mode", "A4").ToUpper();
-                bool autoPrint = Main.GetSetting("auto_print_invoice", "true")
-                    .Equals("true", StringComparison.OrdinalIgnoreCase);
+                bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool autoPrint = Main.GetSetting("AUTO_PRINT_ON_COMPLETION", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
 
                 // Print thermal invoice if enabled
-                if (printMode == "THERMAL" || printMode == "BOTH")
+                if (enableThermal)
                 {
-                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, paymentsTable);
+                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, paymentsTable, autoPrint);
                 }
 
                 // Print/preview A4 invoice if enabled
-                if (printMode == "A4" || printMode == "BOTH")
+                if (enableA4)
                 {
                     DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
                     if (autoPrint)
@@ -2562,17 +2287,8 @@ namespace POS.PAL.USERCONTROL
 
                 // Reset UI
                 btnCancel_Click(null, null);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error creating invoice: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
-        private void simpleButton1_Click(object sender, EventArgs e)
-        {
-            TestThermalPrint();
-        }
+
     }
 }

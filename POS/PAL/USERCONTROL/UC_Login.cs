@@ -26,8 +26,7 @@ namespace POS.PAL.USERCONTROL
         {
             if (Main.DataSetApp?.Business.Rows.Count > 0 && !Main.DataSetApp.Business[0].IslogoNull())
             {
-                byte[] logoBytes = Main.DataSetApp.Business[0].logo;
-                using (MemoryStream ms = new MemoryStream(logoBytes))
+                using (MemoryStream ms = new MemoryStream(Main.DataSetApp.Business[0].logo))
                 {
                     pictureEdit1.Image = Image.FromStream(ms);
                 }

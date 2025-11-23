@@ -66,7 +66,6 @@
             gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             separatorControl3 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl8 = new DevExpress.XtraEditors.PanelControl();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             separatorControl6 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl11 = new DevExpress.XtraEditors.PanelControl();
             separatorControl9 = new DevExpress.XtraEditors.SeparatorControl();
@@ -548,7 +547,6 @@
             // panelControl8
             // 
             panelControl8.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl8.Controls.Add(simpleButton1);
             panelControl8.Controls.Add(separatorControl6);
             panelControl8.Controls.Add(panelControl11);
             panelControl8.Controls.Add(panelControl12);
@@ -564,20 +562,6 @@
             panelControl8.Padding = new System.Windows.Forms.Padding(0, 0, 9, 0);
             panelControl8.Size = new System.Drawing.Size(378, 1050);
             panelControl8.TabIndex = 7;
-            // 
-            // simpleButton1
-            // 
-            simpleButton1.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            simpleButton1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton1.Appearance.Options.UseBackColor = true;
-            simpleButton1.Appearance.Options.UseFont = true;
-            simpleButton1.AppearanceHovered.Options.UseBackColor = true;
-            simpleButton1.Location = new System.Drawing.Point(188, 861);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.Size = new System.Drawing.Size(101, 30);
-            simpleButton1.TabIndex = 41;
-            simpleButton1.Text = "TEST";
-            simpleButton1.Click += simpleButton1_Click;
             // 
             // separatorControl6
             // 
@@ -1648,6 +1632,5 @@
         private DevExpress.XtraEditors.SimpleButton btnPMComplete;
         private DevExpress.XtraEditors.SimpleButton btnAddPayment;
         private DevExpress.XtraEditors.PanelControl panelControl13;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
     }
 }

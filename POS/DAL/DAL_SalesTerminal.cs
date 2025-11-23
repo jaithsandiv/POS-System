@@ -188,10 +188,6 @@ namespace POS.DAL
 
         public DataTable GetCustomers()
         {
-            DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
-            DataTable dt = ds.Customer;
-            dt.Clear();
-
             string query = @"
                 SELECT 
                     c.customer_id,
@@ -199,6 +195,8 @@ namespace POS.DAL
                     c.email,
                     c.phone,
                     c.address,
+                    c.credit_limit,
+                    c.credit_balance,
                     c.status,
                     c.created_by,
                     CONVERT(varchar, c.created_date, 23) AS created_date,
@@ -213,28 +211,7 @@ namespace POS.DAL
                     AND cg.status = 'A'
                 WHERE c.status = 'A'";
 
-            DataTable result = Connection.ExecuteQuery(query);
-
-            foreach (DataRow row in result.Rows)
-            {
-                DataRow r = dt.NewRow();
-                r["customer_id"] = row["customer_id"]?.ToString();
-                r["full_name"] = row["full_name"]?.ToString();
-                r["email"] = row["email"]?.ToString();
-                r["phone"] = row["phone"]?.ToString();
-                r["address"] = row["address"]?.ToString();
-                r["status"] = row["status"]?.ToString();
-                r["created_by"] = row["created_by"]?.ToString();
-                r["created_date"] = row["created_date"]?.ToString();
-                r["updated_by"] = row["updated_by"]?.ToString();
-                r["updated_date"] = row["updated_date"]?.ToString();
-                r["group_id"] = row["group_id"]?.ToString();
-                r["group_name"] = row["group_name"]?.ToString();
-                r["discount_percent"] = row["discount_percent"]?.ToString();
-                dt.Rows.Add(r);
-            }
-
-            return dt;
+            return Connection.ExecuteQuery(query);
         }
         public DataTable GetTables()
         {
@@ -642,6 +619,27 @@ namespace POS.DAL
                     };
 
                     Connection.ExecuteNonQuery(query, parameters);
+
+                    // Update customer credit balance if payment is CREDIT
+                    if (paymentMethod == "CREDIT")
+                    {
+                        // Update the customer's credit balance in the database
+                        string updateCreditQuery = @"
+                            UPDATE Customer
+                            SET credit_balance = ISNULL(credit_balance, 0) + @amount,
+                                updated_by = @updated_by,
+                                updated_date = GETDATE()
+                            WHERE customer_id = (SELECT customer_id FROM Sale WHERE sale_id = @sale_id)";
+
+                        var creditParams = new SqlParameter[]
+                        {
+                            new SqlParameter("@amount", amount),
+                            new SqlParameter("@updated_by", createdBy),
+                            new SqlParameter("@sale_id", saleId)
+                        };
+
+                        Connection.ExecuteNonQuery(updateCreditQuery, creditParams);
+                    }
                 }
             }
             catch (Exception ex)

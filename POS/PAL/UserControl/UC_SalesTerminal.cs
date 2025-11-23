@@ -1817,18 +1817,18 @@ namespace POS.PAL.USERCONTROL
                 }
 
                 // Print invoice based on system settings
-                string printMode = Main.GetSetting("invoice_print_mode", "A4").ToUpper();
-                bool autoPrint = Main.GetSetting("auto_print_invoice", "true")
-                    .Equals("true", StringComparison.OrdinalIgnoreCase);
+                bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool autoPrint = Main.GetSetting("AUTO_PRINT_ON_COMPLETION", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
 
                 // Print thermal invoice if enabled
-                if (printMode == "THERMAL" || printMode == "BOTH")
+                if (enableThermal)
                 {
-                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, creditPaymentTable);
+                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, creditPaymentTable, autoPrint);
                 }
 
                 // Print/preview A4 invoice if enabled
-                if (printMode == "A4" || printMode == "BOTH")
+                if (enableA4)
                 {
                     DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
                     if (autoPrint)
@@ -2154,7 +2154,7 @@ namespace POS.PAL.USERCONTROL
         /// <summary>
         /// Print thermal invoice (80mm receipt)
         /// </summary>
-        private void PrintThermalInvoice(string invoiceNumber, decimal grandTotal, string customerName, DataTable itemsTable, DataTable paymentsTable)
+        private void PrintThermalInvoice(string invoiceNumber, decimal grandTotal, string customerName, DataTable itemsTable, DataTable paymentsTable, bool autoPrint)
         {
             try
             {
@@ -2222,8 +2222,11 @@ namespace POS.PAL.USERCONTROL
                     thermalInvoice.PrinterName = printerName;
                 }
 
-                // Print without preview
-                thermalInvoice.Print();
+                // Print based on autoPrint setting
+                if (autoPrint)
+                    thermalInvoice.Print();
+                else
+                    new DevExpress.XtraReports.UI.ReportPrintTool(thermalInvoice).ShowPreview();
             }
             catch (Exception ex)
             {
@@ -2243,9 +2246,10 @@ namespace POS.PAL.USERCONTROL
                 MessageBox.Show(
                     "This will print a test invoice to verify thermal printer configuration.\n\n" +
                     "Current Settings:\n" +
-                    $"Print Mode: {Main.GetSetting("invoice_print_mode", "A4")}\n" +
+                    $"Enable Thermal: {Main.GetSetting("ENABLE_THERMAL_PRINT", "False")}\n" +
+                    $"Enable A4: {Main.GetSetting("ENABLE_A4_PRINT", "True")}\n" +
                     $"Thermal Printer: {Main.GetSetting("thermal_printer_name", "Default Printer")}\n" +
-                    $"Auto Print: {Main.GetSetting("auto_print_invoice", "true")}",
+                    $"Auto Print: {Main.GetSetting("AUTO_PRINT_ON_COMPLETION", "True")}",
                     "Thermal Print Test",
                     MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Information);
@@ -2261,15 +2265,15 @@ namespace POS.PAL.USERCONTROL
                 thermalInvoice.Parameters["p_contact"].Value = "+1234567890";
                 thermalInvoice.Parameters["p_email"].Value = "test@example.com";
                 thermalInvoice.Parameters["p_address"].Value = "123 Test Street, Test City";
-                thermalInvoice.Parameters["p_total"].Value = "130.00";
-                thermalInvoice.Parameters["p_discount"].Value = "10.00";
+                thermalInvoice.Parameters["p_total"].Value = "160.00";
+                thermalInvoice.Parameters["p_discount"].Value = "- 10.00";
 
                 // Create test items DataTable
                 DataTable testItems = new DataTable();
                 testItems.Columns.Add("product_name", typeof(string));
                 testItems.Columns.Add("quantity", typeof(int));
                 testItems.Columns.Add("unit_price", typeof(decimal));
-                testItems.Columns.Add("total_price", typeof(decimal));
+                testItems.Columns.Add("subtotal", typeof(decimal));
 
                 testItems.Rows.Add("Test Product 1", 2, 25.00m, 50.00m);
                 testItems.Rows.Add("Test Product 2", 1, 80.00m, 80.00m);
@@ -2529,18 +2533,18 @@ namespace POS.PAL.USERCONTROL
                 }
 
                 // Print invoice based on system settings
-                string printMode = Main.GetSetting("invoice_print_mode", "A4").ToUpper();
-                bool autoPrint = Main.GetSetting("auto_print_invoice", "true")
-                    .Equals("true", StringComparison.OrdinalIgnoreCase);
+                bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool autoPrint = Main.GetSetting("AUTO_PRINT_ON_COMPLETION", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
 
                 // Print thermal invoice if enabled
-                if (printMode == "THERMAL" || printMode == "BOTH")
+                if (enableThermal)
                 {
-                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, paymentsTable);
+                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, paymentsTable, autoPrint);
                 }
 
                 // Print/preview A4 invoice if enabled
-                if (printMode == "A4" || printMode == "BOTH")
+                if (enableA4)
                 {
                     DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
                     if (autoPrint)
