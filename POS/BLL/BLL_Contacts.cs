@@ -115,5 +115,65 @@ namespace POS.BLL
         {
             return _dalContacts.DeleteSupplier(supplierId, updatedBy);
         }
+
+        /// <summary>
+        /// Gets all active Customers
+        /// </summary>
+        public DataTable GetCustomers()
+        {
+            return _dalContacts.GetCustomers();
+        }
+
+        /// <summary>
+        /// Gets a specific Customer by ID
+        /// </summary>
+        public DataTable GetCustomerById(int customerId)
+        {
+            return _dalContacts.GetCustomerById(customerId);
+        }
+
+        /// <summary>
+        /// Inserts a new Customer
+        /// </summary>
+        public int InsertCustomer(int? groupId, string fullName, string companyName, string email, 
+                                   string phone, string address, string city, string state, 
+                                   string country, string postalCode, int createdBy)
+        {
+            // Validation
+            if (string.IsNullOrWhiteSpace(fullName))
+                throw new ArgumentException("Full name is required.", nameof(fullName));
+
+            if (string.IsNullOrWhiteSpace(phone))
+                throw new ArgumentException("Phone number is required.", nameof(phone));
+
+            return _dalContacts.InsertCustomer(groupId, fullName, companyName, email, 
+                                                phone, address, city, state, country, postalCode, createdBy);
+        }
+
+        /// <summary>
+        /// Updates an existing Customer
+        /// </summary>
+        public bool UpdateCustomer(int customerId, int? groupId, string fullName, string companyName, 
+                                    string email, string phone, string address, string city, 
+                                    string state, string country, string postalCode, int updatedBy)
+        {
+            // Validation
+            if (string.IsNullOrWhiteSpace(fullName))
+                throw new ArgumentException("Full name is required.", nameof(fullName));
+
+            if (string.IsNullOrWhiteSpace(phone))
+                throw new ArgumentException("Phone number is required.", nameof(phone));
+
+            return _dalContacts.UpdateCustomer(customerId, groupId, fullName, companyName, 
+                                                email, phone, address, city, state, country, postalCode, updatedBy);
+        }
+
+        /// <summary>
+        /// Soft deletes a Customer
+        /// </summary>
+        public bool DeleteCustomer(int customerId, int updatedBy)
+        {
+            return _dalContacts.DeleteCustomer(customerId, updatedBy);
+        }
     }
 }

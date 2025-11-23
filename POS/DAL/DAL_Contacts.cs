@@ -415,5 +415,309 @@ namespace POS.DAL
                 throw new Exception($"Error deleting Supplier: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Gets all active Customers from the database with their group information
+        /// </summary>
+        public DataTable GetCustomers()
+        {
+            DataTable dt = new DataTable("Customer");
+            
+            // Define columns
+            dt.Columns.Add("customer_id", typeof(string));
+            dt.Columns.Add("group_id", typeof(string));
+            dt.Columns.Add("full_name", typeof(string));
+            dt.Columns.Add("company_name", typeof(string));
+            dt.Columns.Add("email", typeof(string));
+            dt.Columns.Add("phone", typeof(string));
+            dt.Columns.Add("address", typeof(string));
+            dt.Columns.Add("city", typeof(string));
+            dt.Columns.Add("state", typeof(string));
+            dt.Columns.Add("country", typeof(string));
+            dt.Columns.Add("postal_code", typeof(string));
+            dt.Columns.Add("credit_limit", typeof(string));
+            dt.Columns.Add("credit_balance", typeof(string));
+            dt.Columns.Add("group_name", typeof(string));
+            dt.Columns.Add("status", typeof(string));
+            dt.Columns.Add("created_by", typeof(string));
+            dt.Columns.Add("created_date", typeof(string));
+            dt.Columns.Add("updated_by", typeof(string));
+            dt.Columns.Add("updated_date", typeof(string));
+
+            string query = @"
+                SELECT 
+                    c.customer_id,
+                    c.group_id,
+                    c.full_name,
+                    c.company_name,
+                    c.email,
+                    c.phone,
+                    c.address,
+                    c.city,
+                    c.state,
+                    c.country,
+                    c.postal_code,
+                    c.credit_limit,
+                    c.credit_balance,
+                    cg.group_name,
+                    c.status,
+                    c.created_by,
+                    CONVERT(varchar, c.created_date, 23) AS created_date,
+                    c.updated_by,
+                    CONVERT(varchar, c.updated_date, 23) AS updated_date
+                FROM Customer c
+                LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id AND cg.status = 'A'
+                WHERE c.status = 'A'
+                ORDER BY c.full_name";
+
+            DataTable result = Connection.ExecuteQuery(query);
+
+            foreach (DataRow row in result.Rows)
+            {
+                DataRow r = dt.NewRow();
+
+                r["customer_id"] = row["customer_id"]?.ToString();
+                r["group_id"] = row["group_id"]?.ToString();
+                r["full_name"] = row["full_name"]?.ToString();
+                r["company_name"] = row["company_name"]?.ToString();
+                r["email"] = row["email"]?.ToString();
+                r["phone"] = row["phone"]?.ToString();
+                r["address"] = row["address"]?.ToString();
+                r["city"] = row["city"]?.ToString();
+                r["state"] = row["state"]?.ToString();
+                r["country"] = row["country"]?.ToString();
+                r["postal_code"] = row["postal_code"]?.ToString();
+                r["credit_limit"] = row["credit_limit"]?.ToString();
+                r["credit_balance"] = row["credit_balance"]?.ToString();
+                r["group_name"] = row["group_name"]?.ToString();
+                r["status"] = row["status"]?.ToString();
+                r["created_by"] = row["created_by"]?.ToString();
+                r["created_date"] = row["created_date"]?.ToString();
+                r["updated_by"] = row["updated_by"]?.ToString();
+                r["updated_date"] = row["updated_date"]?.ToString();
+
+                dt.Rows.Add(r);
+            }
+
+            return dt;
+        }
+
+        /// <summary>
+        /// Gets a specific Customer by ID
+        /// </summary>
+        public DataTable GetCustomerById(int customerId)
+        {
+            DataTable dt = new DataTable("Customer");
+            
+            // Define columns
+            dt.Columns.Add("customer_id", typeof(string));
+            dt.Columns.Add("group_id", typeof(string));
+            dt.Columns.Add("full_name", typeof(string));
+            dt.Columns.Add("company_name", typeof(string));
+            dt.Columns.Add("email", typeof(string));
+            dt.Columns.Add("phone", typeof(string));
+            dt.Columns.Add("address", typeof(string));
+            dt.Columns.Add("city", typeof(string));
+            dt.Columns.Add("state", typeof(string));
+            dt.Columns.Add("country", typeof(string));
+            dt.Columns.Add("postal_code", typeof(string));
+            dt.Columns.Add("credit_limit", typeof(string));
+            dt.Columns.Add("credit_balance", typeof(string));
+            dt.Columns.Add("group_name", typeof(string));
+            dt.Columns.Add("status", typeof(string));
+            dt.Columns.Add("created_by", typeof(string));
+            dt.Columns.Add("created_date", typeof(string));
+            dt.Columns.Add("updated_by", typeof(string));
+            dt.Columns.Add("updated_date", typeof(string));
+
+            string query = @"
+                SELECT 
+                    c.customer_id,
+                    c.group_id,
+                    c.full_name,
+                    c.company_name,
+                    c.email,
+                    c.phone,
+                    c.address,
+                    c.city,
+                    c.state,
+                    c.country,
+                    c.postal_code,
+                    c.credit_limit,
+                    c.credit_balance,
+                    cg.group_name,
+                    c.status,
+                    c.created_by,
+                    CONVERT(varchar, c.created_date, 23) AS created_date,
+                    c.updated_by,
+                    CONVERT(varchar, c.updated_date, 23) AS updated_date
+                FROM Customer c
+                LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id AND cg.status = 'A'
+                WHERE c.customer_id = @customer_id AND c.status = 'A'";
+
+            var parameters = new SqlParameter[] { new SqlParameter("@customer_id", customerId) };
+            DataTable result = Connection.ExecuteQuery(query, parameters);
+
+            foreach (DataRow row in result.Rows)
+            {
+                DataRow r = dt.NewRow();
+
+                r["customer_id"] = row["customer_id"]?.ToString();
+                r["group_id"] = row["group_id"]?.ToString();
+                r["full_name"] = row["full_name"]?.ToString();
+                r["company_name"] = row["company_name"]?.ToString();
+                r["email"] = row["email"]?.ToString();
+                r["phone"] = row["phone"]?.ToString();
+                r["address"] = row["address"]?.ToString();
+                r["city"] = row["city"]?.ToString();
+                r["state"] = row["state"]?.ToString();
+                r["country"] = row["country"]?.ToString();
+                r["postal_code"] = row["postal_code"]?.ToString();
+                r["credit_limit"] = row["credit_limit"]?.ToString();
+                r["credit_balance"] = row["credit_balance"]?.ToString();
+                r["group_name"] = row["group_name"]?.ToString();
+                r["status"] = row["status"]?.ToString();
+                r["created_by"] = row["created_by"]?.ToString();
+                r["created_date"] = row["created_date"]?.ToString();
+                r["updated_by"] = row["updated_by"]?.ToString();
+                r["updated_date"] = row["updated_date"]?.ToString();
+
+                dt.Rows.Add(r);
+            }
+
+            return dt;
+        }
+
+        /// <summary>
+        /// Inserts a new Customer into the database
+        /// </summary>
+        public int InsertCustomer(int? groupId, string fullName, string companyName, string email, 
+                                   string phone, string address, string city, string state, 
+                                   string country, string postalCode, int createdBy)
+        {
+            try
+            {
+                string query = @"
+                    INSERT INTO Customer (
+                        group_id, full_name, company_name, email, phone, address, 
+                        city, state, country, postal_code, credit_limit, credit_balance,
+                        status, created_by, created_date
+                    )
+                    VALUES (
+                        @group_id, @full_name, @company_name, @email, @phone, @address,
+                        @city, @state, @country, @postal_code, 0, 0,
+                        'A', @created_by, GETDATE()
+                    );
+                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+                var parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@group_id", groupId.HasValue ? (object)groupId.Value : DBNull.Value),
+                    new SqlParameter("@full_name", fullName),
+                    new SqlParameter("@company_name", string.IsNullOrWhiteSpace(companyName) ? (object)DBNull.Value : companyName),
+                    new SqlParameter("@email", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email),
+                    new SqlParameter("@phone", string.IsNullOrWhiteSpace(phone) ? (object)DBNull.Value : phone),
+                    new SqlParameter("@address", string.IsNullOrWhiteSpace(address) ? (object)DBNull.Value : address),
+                    new SqlParameter("@city", string.IsNullOrWhiteSpace(city) ? (object)DBNull.Value : city),
+                    new SqlParameter("@state", string.IsNullOrWhiteSpace(state) ? (object)DBNull.Value : state),
+                    new SqlParameter("@country", string.IsNullOrWhiteSpace(country) ? (object)DBNull.Value : country),
+                    new SqlParameter("@postal_code", string.IsNullOrWhiteSpace(postalCode) ? (object)DBNull.Value : postalCode),
+                    new SqlParameter("@created_by", createdBy)
+                };
+
+                DataTable result = Connection.ExecuteQuery(query, parameters);
+                if (result.Rows.Count > 0)
+                {
+                    return Convert.ToInt32(result.Rows[0][0]);
+                }
+
+                throw new Exception("Failed to insert Customer.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error inserting Customer: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Updates an existing Customer
+        /// </summary>
+        public bool UpdateCustomer(int customerId, int? groupId, string fullName, string companyName, 
+                                    string email, string phone, string address, string city, 
+                                    string state, string country, string postalCode, int updatedBy)
+        {
+            try
+            {
+                string query = @"
+                    UPDATE Customer
+                    SET 
+                        group_id = @group_id,
+                        full_name = @full_name,
+                        company_name = @company_name,
+                        email = @email,
+                        phone = @phone,
+                        address = @address,
+                        city = @city,
+                        state = @state,
+                        country = @country,
+                        postal_code = @postal_code,
+                        updated_by = @updated_by,
+                        updated_date = GETDATE()
+                    WHERE customer_id = @customer_id AND status = 'A'";
+
+                var parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@customer_id", customerId),
+                    new SqlParameter("@group_id", groupId.HasValue ? (object)groupId.Value : DBNull.Value),
+                    new SqlParameter("@full_name", fullName),
+                    new SqlParameter("@company_name", string.IsNullOrWhiteSpace(companyName) ? (object)DBNull.Value : companyName),
+                    new SqlParameter("@email", string.IsNullOrWhiteSpace(email) ? (object)DBNull.Value : email),
+                    new SqlParameter("@phone", string.IsNullOrWhiteSpace(phone) ? (object)DBNull.Value : phone),
+                    new SqlParameter("@address", string.IsNullOrWhiteSpace(address) ? (object)DBNull.Value : address),
+                    new SqlParameter("@city", string.IsNullOrWhiteSpace(city) ? (object)DBNull.Value : city),
+                    new SqlParameter("@state", string.IsNullOrWhiteSpace(state) ? (object)DBNull.Value : state),
+                    new SqlParameter("@country", string.IsNullOrWhiteSpace(country) ? (object)DBNull.Value : country),
+                    new SqlParameter("@postal_code", string.IsNullOrWhiteSpace(postalCode) ? (object)DBNull.Value : postalCode),
+                    new SqlParameter("@updated_by", updatedBy)
+                };
+
+                int rowsAffected = Connection.ExecuteNonQuery(query, parameters);
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error updating Customer: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Soft deletes a Customer (sets status to 'I')
+        /// </summary>
+        public bool DeleteCustomer(int customerId, int updatedBy)
+        {
+            try
+            {
+                string query = @"
+                    UPDATE Customer
+                    SET 
+                        status = 'I',
+                        updated_by = @updated_by,
+                        updated_date = GETDATE()
+                    WHERE customer_id = @customer_id";
+
+                var parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@customer_id", customerId),
+                    new SqlParameter("@updated_by", updatedBy)
+                };
+
+                int rowsAffected = Connection.ExecuteNonQuery(query, parameters);
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting Customer: {ex.Message}", ex);
+            }
+        }
     }
 }
