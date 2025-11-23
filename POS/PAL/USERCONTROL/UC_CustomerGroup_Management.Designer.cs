@@ -35,22 +35,8 @@
             panelControl3 = new DevExpress.XtraEditors.PanelControl();
             gridControl1 = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn11 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
-            gridColumn16 = new DevExpress.XtraGrid.Columns.GridColumn();
+            repositoryItemButtonEdit_Edit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            repositoryItemButtonEdit_Delete = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             searchControl1 = new DevExpress.XtraEditors.SearchControl();
             btnAddCustomerGroup = new DevExpress.XtraEditors.SimpleButton();
             btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
@@ -74,6 +60,8 @@
             panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Edit).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Delete).BeginInit();
             ((System.ComponentModel.ISupportInitialize)searchControl1.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
@@ -149,128 +137,50 @@
             gridControl1.Location = new System.Drawing.Point(28, 78);
             gridControl1.MainView = gridView1;
             gridControl1.Name = "gridControl1";
+            gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemButtonEdit_Edit, repositoryItemButtonEdit_Delete });
             gridControl1.Size = new System.Drawing.Size(1840, 716);
             gridControl1.TabIndex = 18;
             gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
             // 
             // gridView1
             // 
-            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1, gridColumn2, gridColumn3, gridColumn4, gridColumn5, gridColumn6, gridColumn7, gridColumn8, gridColumn9, gridColumn10, gridColumn11, gridColumn12, gridColumn13, gridColumn14, gridColumn15, gridColumn16 });
+            gridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            gridView1.Appearance.HeaderPanel.Options.UseFont = true;
+            gridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            gridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            gridView1.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
+            gridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            gridView1.Appearance.Row.Options.UseFont = true;
+            gridView1.ColumnPanelRowHeight = 44;
+            gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             gridView1.GridControl = gridControl1;
             gridView1.Name = "gridView1";
+            gridView1.OptionsBehavior.Editable = false;
+            gridView1.OptionsCustomization.AllowFilter = false;
+            gridView1.OptionsCustomization.AllowGroup = false;
+            gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+            gridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
+            gridView1.OptionsSelection.MultiSelect = false;
+            gridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.False;
+            gridView1.OptionsView.ShowAutoFilterRow = false;
             gridView1.OptionsView.ShowGroupPanel = false;
+            gridView1.OptionsView.ShowIndicator = false;
+            gridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
+            gridView1.RowHeight = 44;
             // 
-            // gridColumn1
+            // repositoryItemButtonEdit_Edit
             // 
-            gridColumn1.Caption = "gridColumn1";
-            gridColumn1.Name = "gridColumn1";
-            gridColumn1.Visible = true;
-            gridColumn1.VisibleIndex = 0;
+            repositoryItemButtonEdit_Edit.AutoHeight = false;
+            repositoryItemButtonEdit_Edit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Edit") });
+            repositoryItemButtonEdit_Edit.Name = "repositoryItemButtonEdit_Edit";
+            repositoryItemButtonEdit_Edit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
-            // gridColumn2
+            // repositoryItemButtonEdit_Delete
             // 
-            gridColumn2.Caption = "gridColumn2";
-            gridColumn2.Name = "gridColumn2";
-            gridColumn2.Visible = true;
-            gridColumn2.VisibleIndex = 1;
-            // 
-            // gridColumn3
-            // 
-            gridColumn3.Caption = "gridColumn3";
-            gridColumn3.Name = "gridColumn3";
-            gridColumn3.Visible = true;
-            gridColumn3.VisibleIndex = 2;
-            // 
-            // gridColumn4
-            // 
-            gridColumn4.Caption = "gridColumn4";
-            gridColumn4.Name = "gridColumn4";
-            gridColumn4.Visible = true;
-            gridColumn4.VisibleIndex = 3;
-            // 
-            // gridColumn5
-            // 
-            gridColumn5.Caption = "gridColumn5";
-            gridColumn5.Name = "gridColumn5";
-            gridColumn5.Visible = true;
-            gridColumn5.VisibleIndex = 4;
-            // 
-            // gridColumn6
-            // 
-            gridColumn6.Caption = "gridColumn6";
-            gridColumn6.Name = "gridColumn6";
-            gridColumn6.Visible = true;
-            gridColumn6.VisibleIndex = 5;
-            // 
-            // gridColumn7
-            // 
-            gridColumn7.Caption = "gridColumn7";
-            gridColumn7.Name = "gridColumn7";
-            gridColumn7.Visible = true;
-            gridColumn7.VisibleIndex = 6;
-            // 
-            // gridColumn8
-            // 
-            gridColumn8.Caption = "gridColumn8";
-            gridColumn8.Name = "gridColumn8";
-            gridColumn8.Visible = true;
-            gridColumn8.VisibleIndex = 7;
-            // 
-            // gridColumn9
-            // 
-            gridColumn9.Caption = "gridColumn9";
-            gridColumn9.Name = "gridColumn9";
-            gridColumn9.Visible = true;
-            gridColumn9.VisibleIndex = 8;
-            // 
-            // gridColumn10
-            // 
-            gridColumn10.Caption = "gridColumn10";
-            gridColumn10.Name = "gridColumn10";
-            gridColumn10.Visible = true;
-            gridColumn10.VisibleIndex = 9;
-            // 
-            // gridColumn11
-            // 
-            gridColumn11.Caption = "gridColumn11";
-            gridColumn11.Name = "gridColumn11";
-            gridColumn11.Visible = true;
-            gridColumn11.VisibleIndex = 10;
-            // 
-            // gridColumn12
-            // 
-            gridColumn12.Caption = "gridColumn12";
-            gridColumn12.Name = "gridColumn12";
-            gridColumn12.Visible = true;
-            gridColumn12.VisibleIndex = 11;
-            // 
-            // gridColumn13
-            // 
-            gridColumn13.Caption = "gridColumn13";
-            gridColumn13.Name = "gridColumn13";
-            gridColumn13.Visible = true;
-            gridColumn13.VisibleIndex = 12;
-            // 
-            // gridColumn14
-            // 
-            gridColumn14.Caption = "gridColumn14";
-            gridColumn14.Name = "gridColumn14";
-            gridColumn14.Visible = true;
-            gridColumn14.VisibleIndex = 13;
-            // 
-            // gridColumn15
-            // 
-            gridColumn15.Caption = "gridColumn15";
-            gridColumn15.Name = "gridColumn15";
-            gridColumn15.Visible = true;
-            gridColumn15.VisibleIndex = 14;
-            // 
-            // gridColumn16
-            // 
-            gridColumn16.Caption = "gridColumn16";
-            gridColumn16.Name = "gridColumn16";
-            gridColumn16.Visible = true;
-            gridColumn16.VisibleIndex = 15;
+            repositoryItemButtonEdit_Delete.AutoHeight = false;
+            repositoryItemButtonEdit_Delete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Delete") });
+            repositoryItemButtonEdit_Delete.Name = "repositoryItemButtonEdit_Delete";
+            repositoryItemButtonEdit_Delete.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
             // searchControl1
             // 
@@ -443,6 +353,8 @@
             panelControl3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gridControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Edit).EndInit();
+            ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Delete).EndInit();
             ((System.ComponentModel.ISupportInitialize)searchControl1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
@@ -459,22 +371,8 @@
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn11;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn13;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn15;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn16;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit_Edit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit_Delete;
         private DevExpress.XtraEditors.SearchControl searchControl1;
         private DevExpress.XtraEditors.SimpleButton btnAddCustomerGroup;
         private DevExpress.XtraEditors.SimpleButton btnExportPDF;

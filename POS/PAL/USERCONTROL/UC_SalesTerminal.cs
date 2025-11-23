@@ -2160,13 +2160,13 @@ namespace POS.PAL.USERCONTROL
             {
                 // Create thermal invoice report
                 ThermalInvoice thermalInvoice = new ThermalInvoice();
-                
+
                 // Set main invoice parameters
                 thermalInvoice.Parameters["p_invoice_no"].Value = invoiceNumber;
                 thermalInvoice.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 thermalInvoice.Parameters["p_customer_name"].Value = customerName;
                 thermalInvoice.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
-                
+
                 // Get store details from Main.DataSetApp
                 if (Main.DataSetApp.Store.Rows.Count > 0)
                 {
@@ -2204,18 +2204,18 @@ namespace POS.PAL.USERCONTROL
                 {
                     SR_ThermalPayment paymentReport = new SR_ThermalPayment();
                     paymentReport.DataSource = paymentsTable;
-                    
+
                     // Calculate payment totals
                     var (totalPaid, due) = CalculatePaymentTotals();
                     paymentReport.Parameters["p_total_paid"].Value = totalPaid.ToString("F2");
                     paymentReport.Parameters["p_due"].Value = due.ToString("F2");
-                    
+
                     thermalInvoice.PaymentSubreport.ReportSource = paymentReport;
                 }
 
                 // Get thermal printer name from system settings
                 string printerName = Main.GetSetting("thermal_printer_name", null);
-                
+
                 // Configure printer if specified
                 if (!string.IsNullOrEmpty(printerName))
                 {
@@ -2235,7 +2235,7 @@ namespace POS.PAL.USERCONTROL
         /// <summary>
         /// Test thermal printer with hardcoded placeholder data
         /// Call this method from a button or during testing
-        /// </summary>
+        /// </summary>/
         public void TestThermalPrint()
         {
             try
@@ -2568,6 +2568,11 @@ namespace POS.PAL.USERCONTROL
                 MessageBox.Show($"Error creating invoice: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            TestThermalPrint();
         }
     }
 }
