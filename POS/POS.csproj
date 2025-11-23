@@ -29,7 +29,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DAL_DS_Contacts.xsd</DependentUpon>
     </Compile>
+    <Compile Update="PAL\REPORT\ThermalInvoice.cs">
+      <SubType>XtraReport</SubType>
+    </Compile>
     <Compile Update="PAL\REPORT\Invoice.cs">
+      <SubType>XtraReport</SubType>
+    </Compile>
+    <Compile Update="PAL\REPORT\SUBREPORT\SR_ThermalPayment.cs">
       <SubType>XtraReport</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
