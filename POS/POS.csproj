@@ -29,6 +29,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DAL_DS_Contacts.xsd</DependentUpon>
     </Compile>
+    <Compile Update="DAL\DataSource\DAL_DS_SystemSettings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DAL_DS_SystemSettings.xsd</DependentUpon>
+    </Compile>
     <Compile Update="PAL\REPORT\ThermalInvoice.cs">
       <SubType>XtraReport</SubType>
     </Compile>
@@ -69,6 +74,10 @@
     <None Update="DAL\DataSource\DAL_DS_Contacts.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DAL_DS_Contacts.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="DAL\DataSource\DAL_DS_SystemSettings.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DAL_DS_SystemSettings.Designer.cs</LastGenOutput>
     </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -55,6 +55,12 @@ namespace POS
                 UC_Business_Registration businessRegistration = new UC_Business_Registration();
                 LoadUserControl(businessRegistration, hideNavigation: true);
             }
+
+            // Wire up settings button
+            if (btnBusinessSettings != null)
+            {
+                btnBusinessSettings.Click += btnBusinessSettings_Click;
+            }
         }
 
         private void LoadBusinessData()
@@ -66,7 +72,7 @@ namespace POS
                 DataSetApp.Business.AddBusinessRow(DataSetApp.Business.NewBusinessRow());
         }
 
-        private void LoadSystemSettings()
+        public void LoadSystemSettings()
         {
             DataSetApp.SystemSetting.Clear();
             DataSetApp.SystemSetting.Merge(_bllInitialize.GetSystemSettings());
@@ -283,6 +289,11 @@ namespace POS
         private void btnSettings_Click(object sender, EventArgs e)
         {
             panelSettingsSubmenu.Visible = !panelSettingsSubmenu.Visible;
+        }
+
+        private void btnBusinessSettings_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_SystemSettings());
         }
     }
 }

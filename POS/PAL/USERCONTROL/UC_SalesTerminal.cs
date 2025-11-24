@@ -1831,22 +1831,18 @@ namespace POS.PAL.USERCONTROL
                 // Print invoice based on system settings
                 bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
                 bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
-                bool autoPrint = Main.GetSetting("AUTO_PRINT_ON_COMPLETION", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool autoPrint = true; // Enforce auto print by default
 
                 // Print thermal invoice if enabled
                 if (enableThermal)
                 {
                     PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, creditPaymentTable, autoPrint);
                 }
-
-                // Print/preview A4 invoice if enabled
-                if (enableA4)
+                // Print A4 invoice if enabled (Mutually exclusive)
+                else if (enableA4)
                 {
                     DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
-                    if (autoPrint)
-                        printTool.Print();
-                    else
-                        printTool.ShowPreview();
+                    printTool.Print();
                 }
 
                 // Success message
@@ -2256,22 +2252,18 @@ namespace POS.PAL.USERCONTROL
                 // Print invoice based on system settings
                 bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
                 bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
-                bool autoPrint = Main.GetSetting("AUTO_PRINT_ON_COMPLETION", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool autoPrint = true; // Enforce auto print by default
 
                 // Print thermal invoice if enabled
                 if (enableThermal)
                 {
                     PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, paymentsTable, autoPrint);
                 }
-
-                // Print/preview A4 invoice if enabled
-                if (enableA4)
+                // Print A4 invoice if enabled (Mutually exclusive)
+                else if (enableA4)
                 {
                     DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
-                    if (autoPrint)
-                        printTool.Print();
-                    else
-                        printTool.ShowPreview();
+                    printTool.Print();
                 }
 
                 // Success message
