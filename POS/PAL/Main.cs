@@ -63,13 +63,15 @@ namespace POS
             }
         }
 
-        private void LoadBusinessData()
+        public void LoadBusinessData()
         {
             DataSetApp.Business.Clear();
             DataSetApp.Business.Merge(_bllInitialize.GetBusiness());
 
             if (DataSetApp.Business.Rows.Count == 0)
                 DataSetApp.Business.AddBusinessRow(DataSetApp.Business.NewBusinessRow());
+                
+            UpdateBusinessName();
         }
 
         public void LoadSystemSettings()

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,6 +59,25 @@ namespace POS.PAL.USERCONTROL
                     cmbThermalPrinter.SelectedItem = printerName;
                 }
             }
+
+            // Load Business Settings
+            if (Main.DataSetApp.Business.Rows.Count > 0)
+            {
+                var businessRow = Main.DataSetApp.Business[0];
+                txtBusinessName.Text = businessRow.Isbusiness_nameNull() ? "" : businessRow.business_name;
+                
+                if (!businessRow.IslogoNull())
+                {
+                    using (MemoryStream ms = new MemoryStream(businessRow.logo))
+                    {
+                        picLogo.Image = Image.FromStream(ms);
+                    }
+                }
+                else
+                {
+                    picLogo.Image = null;
+                }
+            }
         }
 
         private bool GetBooleanSetting(string key)
@@ -101,10 +121,26 @@ namespace POS.PAL.USERCONTROL
                     _bllSystemSettings.UpdateSystemSetting("thermal_printer_name", cmbThermalPrinter.SelectedItem.ToString(), userId);
                 }
 
+                // Save Business Settings
+                string businessName = txtBusinessName.Text.Trim();
+                byte[] logoBytes = null;
+
+                if (picLogo.Image != null)
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        picLogo.Image.Save(ms, picLogo.Image.RawFormat);
+                        logoBytes = ms.ToArray();
+                    }
+                }
+
+                _bllSystemSettings.UpdateBusinessSettings(businessName, logoBytes, userId);
+
                 // Reload settings in Main to apply changes immediately
                 if (Main.Instance != null)
                 {
                     Main.Instance.LoadSystemSettings();
+                    Main.Instance.LoadBusinessData();
                 }
                 
                 // Refresh the local table
@@ -116,6 +152,23 @@ namespace POS.PAL.USERCONTROL
             {
                 MessageBox.Show($"Error saving settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnBrowseLogo_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    picLogo.Image = Image.FromFile(ofd.FileName);
+                }
+            }
+        }
+
+        private void btnClearLogo_Click(object sender, EventArgs e)
+        {
+            picLogo.Image = null;
         }
     }
 }

@@ -78,5 +78,38 @@ namespace POS.DAL
                 throw new Exception($"Error updating system setting '{key}': {ex.Message}", ex);
             }
         }
+
+        public bool UpdateBusinessSettings(string businessName, byte[] logo, int updatedBy)
+        {
+            try
+            {
+                // We assume there is only one active business row, usually with ID 1
+                // If not exists, we might need to insert, but usually it exists from initialization.
+                // We'll update the first active record.
+
+                string query = @"
+                    UPDATE Business
+                    SET business_name = @business_name,
+                        logo = @logo,
+                        updated_by = @updated_by,
+                        updated_date = GETDATE()
+                    WHERE status = 'A'"; 
+                    // Ideally WHERE business_id = 1, but status='A' is safer if id changed.
+                    // Assuming single tenant.
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@business_name", businessName),
+                    new SqlParameter("@logo", logo ?? (object)DBNull.Value),
+                    new SqlParameter("@updated_by", updatedBy)
+                };
+
+                int rowsAffected = Connection.ExecuteNonQuery(query, parameters);
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error updating business settings: {ex.Message}", ex);
+            }
+        }
     }
 }

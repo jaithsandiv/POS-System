@@ -36,6 +36,13 @@ namespace POS.PAL.USERCONTROL
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.tsKOT = new DevExpress.XtraEditors.ToggleSwitch();
             this.rgPrintFormat = new DevExpress.XtraEditors.RadioGroup();
+            this.grpBusiness = new DevExpress.XtraEditors.GroupControl();
+            this.lblBusinessName = new DevExpress.XtraEditors.LabelControl();
+            this.txtBusinessName = new DevExpress.XtraEditors.TextEdit();
+            this.lblLogo = new DevExpress.XtraEditors.LabelControl();
+            this.picLogo = new DevExpress.XtraEditors.PictureEdit();
+            this.btnBrowseLogo = new DevExpress.XtraEditors.SimpleButton();
+            this.btnClearLogo = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -43,6 +50,10 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)(this.cmbThermalPrinter.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tsKOT.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rgPrintFormat.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpBusiness)).BeginInit();
+            this.grpBusiness.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtBusinessName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -136,10 +147,81 @@ namespace POS.PAL.USERCONTROL
             this.rgPrintFormat.Size = new System.Drawing.Size(400, 80);
             this.rgPrintFormat.TabIndex = 0;
             // 
+            // grpBusiness
+            // 
+            this.grpBusiness.Controls.Add(this.lblBusinessName);
+            this.grpBusiness.Controls.Add(this.txtBusinessName);
+            this.grpBusiness.Controls.Add(this.lblLogo);
+            this.grpBusiness.Controls.Add(this.picLogo);
+            this.grpBusiness.Controls.Add(this.btnBrowseLogo);
+            this.grpBusiness.Controls.Add(this.btnClearLogo);
+            this.grpBusiness.Location = new System.Drawing.Point(640, 80);
+            this.grpBusiness.Name = "grpBusiness";
+            this.grpBusiness.Size = new System.Drawing.Size(340, 400);
+            this.grpBusiness.TabIndex = 2;
+            this.grpBusiness.Text = "Business Settings";
+            // 
+            // lblBusinessName
+            // 
+            this.lblBusinessName.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.lblBusinessName.Appearance.Options.UseFont = true;
+            this.lblBusinessName.Location = new System.Drawing.Point(20, 40);
+            this.lblBusinessName.Name = "lblBusinessName";
+            this.lblBusinessName.Size = new System.Drawing.Size(92, 17);
+            this.lblBusinessName.TabIndex = 0;
+            this.lblBusinessName.Text = "Business Name:";
+            // 
+            // txtBusinessName
+            // 
+            this.txtBusinessName.Location = new System.Drawing.Point(20, 65);
+            this.txtBusinessName.Name = "txtBusinessName";
+            this.txtBusinessName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtBusinessName.Properties.Appearance.Options.UseFont = true;
+            this.txtBusinessName.Size = new System.Drawing.Size(300, 24);
+            this.txtBusinessName.TabIndex = 1;
+            // 
+            // lblLogo
+            // 
+            this.lblLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.lblLogo.Appearance.Options.UseFont = true;
+            this.lblLogo.Location = new System.Drawing.Point(20, 110);
+            this.lblLogo.Name = "lblLogo";
+            this.lblLogo.Size = new System.Drawing.Size(87, 17);
+            this.lblLogo.TabIndex = 2;
+            this.lblLogo.Text = "Business Logo:";
+            // 
+            // picLogo
+            // 
+            this.picLogo.Location = new System.Drawing.Point(20, 135);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.picLogo.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
+            this.picLogo.Size = new System.Drawing.Size(150, 150);
+            this.picLogo.TabIndex = 3;
+            // 
+            // btnBrowseLogo
+            // 
+            this.btnBrowseLogo.Location = new System.Drawing.Point(180, 135);
+            this.btnBrowseLogo.Name = "btnBrowseLogo";
+            this.btnBrowseLogo.Size = new System.Drawing.Size(100, 30);
+            this.btnBrowseLogo.TabIndex = 4;
+            this.btnBrowseLogo.Text = "Browse...";
+            this.btnBrowseLogo.Click += new System.EventHandler(this.btnBrowseLogo_Click);
+            // 
+            // btnClearLogo
+            // 
+            this.btnClearLogo.Location = new System.Drawing.Point(180, 175);
+            this.btnClearLogo.Name = "btnClearLogo";
+            this.btnClearLogo.Size = new System.Drawing.Size(100, 30);
+            this.btnClearLogo.TabIndex = 5;
+            this.btnClearLogo.Text = "Clear";
+            this.btnClearLogo.Click += new System.EventHandler(this.btnClearLogo_Click);
+            // 
             // UC_SystemSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.grpBusiness);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.panelControl1);
             this.Name = "UC_SystemSettings";
@@ -153,6 +235,11 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)(this.cmbThermalPrinter.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tsKOT.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rgPrintFormat.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpBusiness)).EndInit();
+            this.grpBusiness.ResumeLayout(false);
+            this.grpBusiness.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtBusinessName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -167,5 +254,12 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.ComboBoxEdit cmbThermalPrinter;
         private DevExpress.XtraEditors.SimpleButton btnSave;
+        private DevExpress.XtraEditors.GroupControl grpBusiness;
+        private DevExpress.XtraEditors.LabelControl lblBusinessName;
+        private DevExpress.XtraEditors.TextEdit txtBusinessName;
+        private DevExpress.XtraEditors.LabelControl lblLogo;
+        private DevExpress.XtraEditors.PictureEdit picLogo;
+        private DevExpress.XtraEditors.SimpleButton btnBrowseLogo;
+        private DevExpress.XtraEditors.SimpleButton btnClearLogo;
     }
 }
