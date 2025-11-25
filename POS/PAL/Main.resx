@@ -139,42 +139,7 @@
         ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="simpleButton6.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
-        zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
-        ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="btnExpenses.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
-        zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
-        ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="btnStockAdjustment.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
-        zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
-        ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="btnStockTransfers.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
-        zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
-        ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="btnSell.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
-        zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
-        ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="btnPurchases.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
         zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
@@ -215,6 +180,41 @@
         0TEKg0AURVEr92TnjlyO27OYRdjIDVNIxjsh8jMhEvCUznsP4Xfd7W8AC0+L35sUwwfOfQRIHi4k58O8
         aM6HedCcD9Nx7TvH9urOuSY6dvtxfwLogRlYi7/f5W/5rXfvFDAAmxffyNnBOy8Bk9sBk/cqbkR5r+JC
         lPcqLkR5rwKMLgWM3rtd7wGOPmXJZtqNRQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="simpleButton6.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
+        zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
+        ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnExpenses.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
+        zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
+        ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnStockAdjustment.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
+        zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
+        ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnStockTransfers.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
+        zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
+        ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnPurchases.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEpJREFUSEvt
+        zzEKACAMQ9HM3v+o7kqHgEipFhUc8sZavwiISKQAqPPQYTu2m2YX2+KRnZ1QFIjOUryQNzsyBq/HieEn
+        ceIPROQnHUjGHwMngULlAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="Main.IconOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

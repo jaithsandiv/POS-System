@@ -1,6 +1,6 @@
 ﻿namespace POS.PAL.USERCONTROL
 {
-    partial class UC_CustomerGroup_Management
+    partial class UC_Supplier_Management
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_CustomerGroup_Management));
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Supplier_Management));
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
-            panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            gridCustomerGroup = new DevExpress.XtraGrid.GridControl();
+            panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            gridSuppliers = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -54,7 +54,7 @@
             repositoryItemButtonEdit_Edit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             repositoryItemButtonEdit_Delete = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             searchControl1 = new DevExpress.XtraEditors.SearchControl();
-            btnAddCustomerGroup = new DevExpress.XtraEditors.SimpleButton();
+            btnAddCustomer = new DevExpress.XtraEditors.SimpleButton();
             btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
             btnColumnVisibilty = new DevExpress.XtraEditors.SimpleButton();
             btnPrint = new DevExpress.XtraEditors.SimpleButton();
@@ -65,23 +65,23 @@
             popupContainerEdit1 = new DevExpress.XtraEditors.PopupContainerEdit();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            panelControl3 = new DevExpress.XtraEditors.PanelControl();
             simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
-            panelControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)gridCustomerGroup).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
+            panelControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gridSuppliers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Edit).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Delete).BeginInit();
             ((System.ComponentModel.ISupportInitialize)searchControl1.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
-            panelControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
+            panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             SuspendLayout();
             // 
@@ -94,7 +94,7 @@
             panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             panelControl1.Location = new System.Drawing.Point(0, 0);
             panelControl1.Name = "panelControl1";
-            panelControl1.Size = new System.Drawing.Size(1920, 1050);
+            panelControl1.Size = new System.Drawing.Size(1920, 1001);
             panelControl1.TabIndex = 0;
             // 
             // panelControl2
@@ -103,16 +103,16 @@
             panelControl2.Appearance.Options.UseBackColor = true;
             panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl2.Controls.Add(labelControl8);
-            panelControl2.Controls.Add(panelControl3);
+            panelControl2.Controls.Add(panelControl4);
             panelControl2.Controls.Add(labelControl7);
             panelControl2.Controls.Add(labelControl14);
-            panelControl2.Controls.Add(panelControl4);
+            panelControl2.Controls.Add(panelControl3);
             panelControl2.Controls.Add(separatorControl1);
             panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             panelControl2.Location = new System.Drawing.Point(0, 0);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(1920, 1050);
-            panelControl2.TabIndex = 5;
+            panelControl2.Size = new System.Drawing.Size(1920, 1001);
+            panelControl2.TabIndex = 12;
             // 
             // labelControl8
             // 
@@ -121,42 +121,42 @@
             labelControl8.Location = new System.Drawing.Point(13, 126);
             labelControl8.Name = "labelControl8";
             labelControl8.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            labelControl8.Size = new System.Drawing.Size(166, 40);
+            labelControl8.Size = new System.Drawing.Size(114, 40);
             labelControl8.TabIndex = 117;
-            labelControl8.Text = "All your customer groups";
+            labelControl8.Text = "All your suppliers";
             // 
-            // panelControl3
+            // panelControl4
             // 
-            panelControl3.Appearance.BackColor = System.Drawing.Color.White;
-            panelControl3.Appearance.BorderColor = System.Drawing.Color.Black;
-            panelControl3.Appearance.Options.UseBackColor = true;
-            panelControl3.Appearance.Options.UseBorderColor = true;
-            panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl3.Controls.Add(gridCustomerGroup);
-            panelControl3.Controls.Add(searchControl1);
-            panelControl3.Controls.Add(btnAddCustomerGroup);
-            panelControl3.Controls.Add(btnExportPDF);
-            panelControl3.Controls.Add(btnColumnVisibilty);
-            panelControl3.Controls.Add(btnPrint);
-            panelControl3.Controls.Add(btnExportExcel);
-            panelControl3.Controls.Add(btnExportCSV);
-            panelControl3.Controls.Add(labelControl10);
-            panelControl3.Controls.Add(labelControl9);
-            panelControl3.Controls.Add(popupContainerEdit1);
-            panelControl3.Location = new System.Drawing.Point(14, 172);
-            panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(1894, 818);
-            panelControl3.TabIndex = 116;
+            panelControl4.Appearance.BackColor = System.Drawing.Color.White;
+            panelControl4.Appearance.BorderColor = System.Drawing.Color.Black;
+            panelControl4.Appearance.Options.UseBackColor = true;
+            panelControl4.Appearance.Options.UseBorderColor = true;
+            panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl4.Controls.Add(gridSuppliers);
+            panelControl4.Controls.Add(searchControl1);
+            panelControl4.Controls.Add(btnAddCustomer);
+            panelControl4.Controls.Add(btnExportPDF);
+            panelControl4.Controls.Add(btnColumnVisibilty);
+            panelControl4.Controls.Add(btnPrint);
+            panelControl4.Controls.Add(btnExportExcel);
+            panelControl4.Controls.Add(btnExportCSV);
+            panelControl4.Controls.Add(labelControl10);
+            panelControl4.Controls.Add(labelControl9);
+            panelControl4.Controls.Add(popupContainerEdit1);
+            panelControl4.Location = new System.Drawing.Point(14, 172);
+            panelControl4.Name = "panelControl4";
+            panelControl4.Size = new System.Drawing.Size(1894, 818);
+            panelControl4.TabIndex = 116;
             // 
-            // gridCustomerGroup
+            // gridSuppliers
             // 
-            gridCustomerGroup.Location = new System.Drawing.Point(28, 78);
-            gridCustomerGroup.MainView = gridView1;
-            gridCustomerGroup.Name = "gridCustomerGroup";
-            gridCustomerGroup.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemButtonEdit_Edit, repositoryItemButtonEdit_Delete });
-            gridCustomerGroup.Size = new System.Drawing.Size(1840, 716);
-            gridCustomerGroup.TabIndex = 18;
-            gridCustomerGroup.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
+            gridSuppliers.Location = new System.Drawing.Point(28, 78);
+            gridSuppliers.MainView = gridView1;
+            gridSuppliers.Name = "gridSuppliers";
+            gridSuppliers.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemButtonEdit_Edit, repositoryItemButtonEdit_Delete });
+            gridSuppliers.Size = new System.Drawing.Size(1840, 716);
+            gridSuppliers.TabIndex = 18;
+            gridSuppliers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
             // 
             // gridView1
             // 
@@ -170,7 +170,7 @@
             gridView1.ColumnPanelRowHeight = 44;
             gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1, gridColumn2, gridColumn3, gridColumn4, gridColumn5, gridColumn6 });
             gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-            gridView1.GridControl = gridCustomerGroup;
+            gridView1.GridControl = gridSuppliers;
             gridView1.Name = "gridView1";
             gridView1.OptionsBehavior.Editable = true;
             gridView1.OptionsCustomization.AllowFilter = false;
@@ -230,14 +230,14 @@
             // repositoryItemButtonEdit_Edit
             // 
             repositoryItemButtonEdit_Edit.AutoHeight = false;
-            repositoryItemButtonEdit_Edit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "Edit", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            repositoryItemButtonEdit_Edit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "Edit", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             repositoryItemButtonEdit_Edit.Name = "repositoryItemButtonEdit_Edit";
             repositoryItemButtonEdit_Edit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
             // repositoryItemButtonEdit_Delete
             // 
             repositoryItemButtonEdit_Delete.AutoHeight = false;
-            repositoryItemButtonEdit_Delete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "Delete", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            repositoryItemButtonEdit_Delete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "Delete", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             repositoryItemButtonEdit_Delete.Name = "repositoryItemButtonEdit_Delete";
             repositoryItemButtonEdit_Delete.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
@@ -249,21 +249,20 @@
             searchControl1.Size = new System.Drawing.Size(123, 20);
             searchControl1.TabIndex = 17;
             // 
-            // btnAddCustomerGroup
+            // btnAddCustomer
             // 
-            btnAddCustomerGroup.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            btnAddCustomerGroup.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnAddCustomerGroup.Appearance.Options.UseBackColor = true;
-            btnAddCustomerGroup.Appearance.Options.UseFont = true;
-            btnAddCustomerGroup.AppearanceHovered.Options.UseBackColor = true;
-            btnAddCustomerGroup.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnAddCustomerGroup.ImageOptions.Image");
-            btnAddCustomerGroup.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            btnAddCustomerGroup.Location = new System.Drawing.Point(1779, 5);
-            btnAddCustomerGroup.Name = "btnAddCustomerGroup";
-            btnAddCustomerGroup.Size = new System.Drawing.Size(89, 29);
-            btnAddCustomerGroup.TabIndex = 10;
-            btnAddCustomerGroup.Text = "Add";
-            btnAddCustomerGroup.Click += btnAddCustomerGroup_Click;
+            btnAddCustomer.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnAddCustomer.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnAddCustomer.Appearance.Options.UseBackColor = true;
+            btnAddCustomer.Appearance.Options.UseFont = true;
+            btnAddCustomer.AppearanceHovered.Options.UseBackColor = true;
+            btnAddCustomer.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnAddCustomer.ImageOptions.Image");
+            btnAddCustomer.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            btnAddCustomer.Location = new System.Drawing.Point(1779, 5);
+            btnAddCustomer.Name = "btnAddCustomer";
+            btnAddCustomer.Size = new System.Drawing.Size(89, 29);
+            btnAddCustomer.TabIndex = 10;
+            btnAddCustomer.Text = "Add";
             // 
             // btnExportPDF
             // 
@@ -345,12 +344,12 @@
             // 
             labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl7.Appearance.Options.UseFont = true;
-            labelControl7.Location = new System.Drawing.Point(204, 18);
+            labelControl7.Location = new System.Drawing.Point(123, 18);
             labelControl7.Name = "labelControl7";
             labelControl7.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            labelControl7.Size = new System.Drawing.Size(202, 40);
+            labelControl7.Size = new System.Drawing.Size(150, 40);
             labelControl7.TabIndex = 115;
-            labelControl7.Text = "Manage your customer groups";
+            labelControl7.Text = "Manage your suppliers";
             // 
             // labelControl14
             // 
@@ -359,20 +358,20 @@
             labelControl14.Location = new System.Drawing.Point(14, 10);
             labelControl14.Name = "labelControl14";
             labelControl14.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
-            labelControl14.Size = new System.Drawing.Size(171, 50);
+            labelControl14.Size = new System.Drawing.Size(91, 50);
             labelControl14.TabIndex = 114;
-            labelControl14.Text = "Customer Groups";
+            labelControl14.Text = "Suppliers";
             // 
-            // panelControl4
+            // panelControl3
             // 
-            panelControl4.Appearance.BackColor = System.Drawing.Color.White;
-            panelControl4.Appearance.Options.UseBackColor = true;
-            panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl4.Controls.Add(simpleButton1);
-            panelControl4.Location = new System.Drawing.Point(14, 59);
-            panelControl4.Name = "panelControl4";
-            panelControl4.Size = new System.Drawing.Size(1894, 61);
-            panelControl4.TabIndex = 113;
+            panelControl3.Appearance.BackColor = System.Drawing.Color.White;
+            panelControl3.Appearance.Options.UseBackColor = true;
+            panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl3.Controls.Add(simpleButton1);
+            panelControl3.Location = new System.Drawing.Point(14, 59);
+            panelControl3.Name = "panelControl3";
+            panelControl3.Size = new System.Drawing.Size(1894, 61);
+            panelControl3.TabIndex = 113;
             // 
             // simpleButton1
             // 
@@ -390,34 +389,34 @@
             // separatorControl1
             // 
             separatorControl1.BackColor = System.Drawing.Color.Transparent;
-            separatorControl1.Location = new System.Drawing.Point(185, 135);
+            separatorControl1.Location = new System.Drawing.Point(141, 135);
             separatorControl1.Name = "separatorControl1";
-            separatorControl1.Size = new System.Drawing.Size(1723, 23);
+            separatorControl1.Size = new System.Drawing.Size(1767, 23);
             separatorControl1.TabIndex = 118;
             // 
-            // UC_CustomerGroup_Management
+            // UC_Supplier_Management
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(panelControl1);
-            Name = "UC_CustomerGroup_Management";
-            Size = new System.Drawing.Size(1920, 1050);
+            Name = "UC_Supplier_Management";
+            Size = new System.Drawing.Size(1920, 1001);
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelControl2).EndInit();
             panelControl2.ResumeLayout(false);
             panelControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
-            panelControl3.ResumeLayout(false);
-            panelControl3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)gridCustomerGroup).EndInit();
+            ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
+            panelControl4.ResumeLayout(false);
+            panelControl4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)gridSuppliers).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Edit).EndInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Delete).EndInit();
             ((System.ComponentModel.ISupportInitialize)searchControl1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
-            panelControl4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
+            panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ResumeLayout(false);
         }
@@ -427,8 +426,8 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl8;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
-        private DevExpress.XtraGrid.GridControl gridCustomerGroup;
+        private DevExpress.XtraEditors.PanelControl panelControl4;
+        private DevExpress.XtraGrid.GridControl gridSuppliers;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
@@ -439,7 +438,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit_Edit;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit_Delete;
         private DevExpress.XtraEditors.SearchControl searchControl1;
-        private DevExpress.XtraEditors.SimpleButton btnAddCustomerGroup;
+        private DevExpress.XtraEditors.SimpleButton btnAddCustomer;
         private DevExpress.XtraEditors.SimpleButton btnExportPDF;
         private DevExpress.XtraEditors.SimpleButton btnColumnVisibilty;
         private DevExpress.XtraEditors.SimpleButton btnPrint;
@@ -450,7 +449,7 @@
         private DevExpress.XtraEditors.PopupContainerEdit popupContainerEdit1;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl14;
-        private DevExpress.XtraEditors.PanelControl panelControl4;
+        private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
     }

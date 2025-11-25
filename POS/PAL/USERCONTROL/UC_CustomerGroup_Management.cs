@@ -200,7 +200,7 @@ namespace POS.PAL.USERCONTROL
             refreshMenuItem.Click += (s, e) => LoadCustomerGroups();
             contextMenu.Items.Add(refreshMenuItem);
 
-            gridControl1.ContextMenuStrip = contextMenu;
+            gridCustomerGroup.ContextMenuStrip = contextMenu;
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace POS.PAL.USERCONTROL
             try
             {
                 customerGroupsTable = _bllContacts.GetCustomerGroups();
-                gridControl1.DataSource = customerGroupsTable;
+                gridCustomerGroup.DataSource = customerGroupsTable;
                 gridView1.BestFitColumns();
             }
             catch (Exception ex)

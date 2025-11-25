@@ -75,7 +75,7 @@ namespace POS
 
             if (DataSetApp.Business.Rows.Count == 0)
                 DataSetApp.Business.AddBusinessRow(DataSetApp.Business.NewBusinessRow());
-                
+
             UpdateBusinessName();
         }
 
@@ -315,6 +315,11 @@ namespace POS
         private void btnBusinessLocations_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UC_Store_Management());
+        }
+
+        private void btnSuppliers_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Supplier_Management());
         }
     }
 }

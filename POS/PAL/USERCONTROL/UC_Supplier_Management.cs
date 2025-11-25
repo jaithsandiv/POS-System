@@ -14,19 +14,17 @@ using DevExpress.XtraEditors.Controls;
 
 namespace POS.PAL.USERCONTROL
 {
-    public partial class UC_Customer_Management : DevExpress.XtraEditors.XtraUserControl
+    public partial class UC_Supplier_Management : DevExpress.XtraEditors.XtraUserControl
     {
         private readonly BLL_Contacts _bllContacts = new BLL_Contacts();
-        private DataTable customersTable;
-        private RepositoryItemButtonEdit repositoryItemButtonEdit_Edit;
-        private RepositoryItemButtonEdit repositoryItemButtonEdit_Delete;
+        private DataTable suppliersTable;
 
-        public UC_Customer_Management()
+        public UC_Supplier_Management()
         {
             InitializeComponent();
             InitializeRepositoryItems();
             ConfigureGrid();
-            LoadCustomers();
+            LoadSuppliers();
         }
 
         /// <summary>
@@ -34,10 +32,8 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void InitializeRepositoryItems()
         {
-            repositoryItemButtonEdit_Edit = new RepositoryItemButtonEdit();
-            repositoryItemButtonEdit_Delete = new RepositoryItemButtonEdit();
-            gridCustomers.RepositoryItems.Add(repositoryItemButtonEdit_Edit);
-            gridCustomers.RepositoryItems.Add(repositoryItemButtonEdit_Delete);
+            // Repository items are already created in Designer.cs, just configure them
+            // No need to create new instances or add them to gridSuppliers.RepositoryItems
         }
 
         /// <summary>
@@ -49,23 +45,23 @@ namespace POS.PAL.USERCONTROL
             gridView1.Columns.Clear();
 
             // Add columns matching the database schema
-            var colCustomerId = gridView1.Columns.AddVisible("customer_id", "Customer ID");
-            colCustomerId.FieldName = "customer_id";
-            colCustomerId.Caption = "Customer ID";
-            colCustomerId.Width = 100;
-            colCustomerId.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            colCustomerId.OptionsColumn.AllowEdit = false;
-            colCustomerId.OptionsColumn.AllowFocus = false;
-            colCustomerId.OptionsColumn.FixedWidth = true;
+            var colSupplierId = gridView1.Columns.AddVisible("supplier_id", "Supplier ID");
+            colSupplierId.FieldName = "supplier_id";
+            colSupplierId.Caption = "Supplier ID";
+            colSupplierId.Width = 100;
+            colSupplierId.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colSupplierId.OptionsColumn.AllowEdit = false;
+            colSupplierId.OptionsColumn.AllowFocus = false;
+            colSupplierId.OptionsColumn.FixedWidth = true;
 
-            var colFullName = gridView1.Columns.AddVisible("full_name", "Full Name");
-            colFullName.FieldName = "full_name";
-            colFullName.Caption = "Full Name";
-            colFullName.Width = 200;
-            colFullName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            colFullName.OptionsColumn.AllowEdit = false;
-            colFullName.OptionsColumn.AllowFocus = false;
-            colFullName.OptionsColumn.FixedWidth = true;
+            var colSupplierName = gridView1.Columns.AddVisible("supplier_name", "Supplier Name");
+            colSupplierName.FieldName = "supplier_name";
+            colSupplierName.Caption = "Supplier Name";
+            colSupplierName.Width = 200;
+            colSupplierName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colSupplierName.OptionsColumn.AllowEdit = false;
+            colSupplierName.OptionsColumn.AllowFocus = false;
+            colSupplierName.OptionsColumn.FixedWidth = true;
 
             var colCompanyName = gridView1.Columns.AddVisible("company_name", "Company Name");
             colCompanyName.FieldName = "company_name";
@@ -102,24 +98,6 @@ namespace POS.PAL.USERCONTROL
             colAddress.OptionsColumn.AllowEdit = false;
             colAddress.OptionsColumn.AllowFocus = false;
             colAddress.OptionsColumn.FixedWidth = true;
-
-            var colCity = gridView1.Columns.AddVisible("city", "City");
-            colCity.FieldName = "city";
-            colCity.Caption = "City";
-            colCity.Width = 120;
-            colCity.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            colCity.OptionsColumn.AllowEdit = false;
-            colCity.OptionsColumn.AllowFocus = false;
-            colCity.OptionsColumn.FixedWidth = true;
-
-            var colGroupName = gridView1.Columns.AddVisible("group_name", "Customer Group");
-            colGroupName.FieldName = "group_name";
-            colGroupName.Caption = "Customer Group";
-            colGroupName.Width = 150;
-            colGroupName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            colGroupName.OptionsColumn.AllowEdit = false;
-            colGroupName.OptionsColumn.AllowFocus = false;
-            colGroupName.OptionsColumn.FixedWidth = true;
 
             var colStatus = gridView1.Columns.AddVisible("status", "Status");
             colStatus.FieldName = "status";
@@ -184,8 +162,8 @@ namespace POS.PAL.USERCONTROL
             gridView1.OptionsCustomization.AllowFilter = false;
             gridView1.OptionsCustomization.AllowGroup = false;
 
-            // Set default sort order by customer_id ascending
-            colCustomerId.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+            // Set default sort order by supplier_id ascending
+            colSupplierId.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
 
             // Enable double-click to edit
             gridView1.DoubleClick += GridView1_DoubleClick;
@@ -223,7 +201,7 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void RepositoryItemButtonEdit_Edit_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
-            EditSelectedCustomer();
+            EditSelectedSupplier();
         }
 
         /// <summary>
@@ -231,7 +209,7 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void RepositoryItemButtonEdit_Delete_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
-            DeleteSelectedCustomer();
+            DeleteSelectedSupplier();
         }
 
         /// <summary>
@@ -250,27 +228,27 @@ namespace POS.PAL.USERCONTROL
             contextMenu.Items.Add(deleteMenuItem);
 
             var refreshMenuItem = new ToolStripMenuItem("Refresh");
-            refreshMenuItem.Click += (s, e) => LoadCustomers();
+            refreshMenuItem.Click += (s, e) => LoadSuppliers();
             contextMenu.Items.Add(refreshMenuItem);
 
-            gridCustomers.ContextMenuStrip = contextMenu;
+            gridSuppliers.ContextMenuStrip = contextMenu;
         }
 
         /// <summary>
-        /// Loads all customers from database
+        /// Loads all suppliers from database
         /// </summary>
-        public void LoadCustomers()
+        public void LoadSuppliers()
         {
             try
             {
-                customersTable = _bllContacts.GetCustomers();
-                gridCustomers.DataSource = customersTable;
+                suppliersTable = _bllContacts.GetSuppliers();
+                gridSuppliers.DataSource = suppliersTable;
                 gridView1.BestFitColumns();
             }
             catch (Exception ex)
             {
                 XtraMessageBox.Show(
-                    $"Error loading customers: {ex.Message}",
+                    $"Error loading suppliers: {ex.Message}",
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -283,7 +261,7 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void GridView1_DoubleClick(object sender, EventArgs e)
         {
-            EditSelectedCustomer();
+            EditSelectedSupplier();
         }
 
         /// <summary>
@@ -291,7 +269,7 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void EditMenuItem_Click(object sender, EventArgs e)
         {
-            EditSelectedCustomer();
+            EditSelectedSupplier();
         }
 
         /// <summary>
@@ -299,19 +277,19 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void DeleteMenuItem_Click(object sender, EventArgs e)
         {
-            DeleteSelectedCustomer();
+            DeleteSelectedSupplier();
         }
 
         /// <summary>
-        /// Edits the selected customer
+        /// Edits the selected supplier
         /// </summary>
-        private void EditSelectedCustomer()
+        private void EditSelectedSupplier()
         {
             try
             {
                 if (gridView1.FocusedRowHandle < 0)
                 {
-                    XtraMessageBox.Show("Please select a customer to edit.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    XtraMessageBox.Show("Please select a supplier to edit.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -319,16 +297,23 @@ namespace POS.PAL.USERCONTROL
                 if (selectedRow == null)
                     return;
 
-                int customerId = Convert.ToInt32(selectedRow["customer_id"]);
+                int supplierId = Convert.ToInt32(selectedRow["supplier_id"]);
 
-                // Navigate to registration form in edit mode
-                var registrationForm = new UC_Customer_Registration(customerId);
-                Main.Instance.LoadUserControl(registrationForm);
+                // TODO: Navigate to registration form in edit mode when UC_Supplier_Registration is created
+                // var registrationForm = new UC_Supplier_Registration(supplierId);
+                // Main.Instance.LoadUserControl(registrationForm);
+                
+                XtraMessageBox.Show(
+                    "Supplier registration form is not yet implemented.",
+                    "Information",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
             }
             catch (Exception ex)
             {
                 XtraMessageBox.Show(
-                    $"Error editing customer: {ex.Message}",
+                    $"Error editing supplier: {ex.Message}",
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -337,15 +322,15 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
-        /// Deletes the selected customer
+        /// Deletes the selected supplier
         /// </summary>
-        private void DeleteSelectedCustomer()
+        private void DeleteSelectedSupplier()
         {
             try
             {
                 if (gridView1.FocusedRowHandle < 0)
                 {
-                    XtraMessageBox.Show("Please select a customer to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    XtraMessageBox.Show("Please select a supplier to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -353,12 +338,12 @@ namespace POS.PAL.USERCONTROL
                 if (selectedRow == null)
                     return;
 
-                int customerId = Convert.ToInt32(selectedRow["customer_id"]);
-                string fullName = selectedRow["full_name"]?.ToString();
+                int supplierId = Convert.ToInt32(selectedRow["supplier_id"]);
+                string supplierName = selectedRow["supplier_name"]?.ToString();
 
                 // Confirm deletion
                 var result = XtraMessageBox.Show(
-                    $"Are you sure you want to delete the customer '{fullName}'?\n\nThis will mark the customer as inactive.",
+                    $"Are you sure you want to delete the supplier '{supplierName}'?\n\nThis will mark the supplier as inactive.",
                     "Confirm Delete",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question
@@ -374,25 +359,25 @@ namespace POS.PAL.USERCONTROL
                     currentUserId = Convert.ToInt32(Main.DataSetApp.User[0]["user_id"]);
                 }
 
-                // Delete the customer (soft delete)
-                bool success = _bllContacts.DeleteCustomer(customerId, currentUserId);
+                // Delete the supplier (soft delete)
+                bool success = _bllContacts.DeleteSupplier(supplierId, currentUserId);
 
                 if (success)
                 {
                     XtraMessageBox.Show(
-                        $"Customer '{fullName}' deleted successfully.",
+                        $"Supplier '{supplierName}' deleted successfully.",
                         "Success",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
 
                     // Reload the grid
-                    LoadCustomers();
+                    LoadSuppliers();
                 }
                 else
                 {
                     XtraMessageBox.Show(
-                        "Failed to delete customer.",
+                        "Failed to delete supplier.",
                         "Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
@@ -402,51 +387,12 @@ namespace POS.PAL.USERCONTROL
             catch (Exception ex)
             {
                 XtraMessageBox.Show(
-                    $"Error deleting customer: {ex.Message}",
+                    $"Error deleting supplier: {ex.Message}",
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
             }
-        }
-
-        private void btn25Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btn50Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btn100Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btn200Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btn500Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btn1000Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btnAllFilter_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void simpleButton2_Click(object sender, EventArgs e)
-        {
-            Main.Instance.LoadUserControl(new UC_Customer_Registration());
-        }
-
-        private void btnAddCustomer_Click(object sender, EventArgs e)
-        {
-            Main.Instance.LoadUserControl(new UC_Customer_Registration());
         }
     }
 }

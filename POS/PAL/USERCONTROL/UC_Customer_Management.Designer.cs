@@ -39,7 +39,7 @@
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
-            gridControl1 = new DevExpress.XtraGrid.GridControl();
+            gridCustomers = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -76,7 +76,7 @@
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)gridControl1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gridCustomers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)searchControl1.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).BeginInit();
@@ -169,7 +169,7 @@
             panelControl2.Appearance.Options.UseBackColor = true;
             panelControl2.Appearance.Options.UseBorderColor = true;
             panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl2.Controls.Add(gridControl1);
+            panelControl2.Controls.Add(gridCustomers);
             panelControl2.Controls.Add(searchControl1);
             panelControl2.Controls.Add(btnAddCustomer);
             panelControl2.Controls.Add(btnExportPDF);
@@ -185,21 +185,39 @@
             panelControl2.Size = new System.Drawing.Size(1894, 818);
             panelControl2.TabIndex = 116;
             // 
-            // gridControl1
+            // gridCustomers
             // 
-            gridControl1.Location = new System.Drawing.Point(28, 78);
-            gridControl1.MainView = gridView1;
-            gridControl1.Name = "gridControl1";
-            gridControl1.Size = new System.Drawing.Size(1840, 716);
-            gridControl1.TabIndex = 18;
-            gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
+            gridCustomers.Location = new System.Drawing.Point(28, 78);
+            gridCustomers.MainView = gridView1;
+            gridCustomers.Name = "gridCustomers";
+            gridCustomers.Size = new System.Drawing.Size(1840, 716);
+            gridCustomers.TabIndex = 18;
+            gridCustomers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
             // 
             // gridView1
             // 
+            gridView1.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            gridView1.Appearance.HeaderPanel.Options.UseFont = true;
+            gridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            gridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            gridView1.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
+            gridView1.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            gridView1.Appearance.Row.Options.UseFont = true;
+            gridView1.ColumnPanelRowHeight = 44;
             gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1, gridColumn2, gridColumn3, gridColumn4, gridColumn5, gridColumn6, gridColumn7, gridColumn8, gridColumn9, gridColumn10, gridColumn11, gridColumn12, gridColumn13, gridColumn14, gridColumn15, gridColumn16 });
-            gridView1.GridControl = gridControl1;
+            gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            gridView1.GridControl = gridCustomers;
             gridView1.Name = "gridView1";
+            gridView1.OptionsBehavior.Editable = false;
+            gridView1.OptionsCustomization.AllowFilter = false;
+            gridView1.OptionsCustomization.AllowGroup = false;
+            gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+            gridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
+            gridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.False;
             gridView1.OptionsView.ShowGroupPanel = false;
+            gridView1.OptionsView.ShowIndicator = false;
+            gridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
+            gridView1.RowHeight = 44;
             // 
             // gridColumn1
             // 
@@ -482,7 +500,7 @@
             ((System.ComponentModel.ISupportInitialize)panelControl2).EndInit();
             panelControl2.ResumeLayout(false);
             panelControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)gridControl1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gridCustomers).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)searchControl1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).EndInit();
@@ -504,7 +522,7 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl8;
         private DevExpress.XtraEditors.PanelControl panelControl2;
-        private DevExpress.XtraGrid.GridControl gridControl1;
+        private DevExpress.XtraGrid.GridControl gridCustomers;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            comboboxCustomerGroup = new DevExpress.XtraEditors.ComboBoxEdit();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             txtCustomerGroup = new DevExpress.XtraEditors.TextEdit();
             labelControl12 = new DevExpress.XtraEditors.LabelControl();
@@ -53,6 +54,7 @@
             labelControl3 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)comboboxCustomerGroup.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtCustomerGroup.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtPostalCode.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtUEmail.Properties).BeginInit();
@@ -69,6 +71,7 @@
             panelControl1.Appearance.BackColor = System.Drawing.Color.White;
             panelControl1.Appearance.Options.UseBackColor = true;
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl1.Controls.Add(comboboxCustomerGroup);
             panelControl1.Controls.Add(labelControl7);
             panelControl1.Controls.Add(txtCustomerGroup);
             panelControl1.Controls.Add(labelControl12);
@@ -96,6 +99,19 @@
             panelControl1.Size = new System.Drawing.Size(1920, 1050);
             panelControl1.TabIndex = 0;
             // 
+            // comboboxCustomerGroup
+            // 
+            comboboxCustomerGroup.Location = new System.Drawing.Point(381, 366);
+            comboboxCustomerGroup.Name = "comboboxCustomerGroup";
+            comboboxCustomerGroup.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            comboboxCustomerGroup.Properties.Appearance.Options.UseFont = true;
+            comboboxCustomerGroup.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            comboboxCustomerGroup.Properties.Padding = new System.Windows.Forms.Padding(10);
+            comboboxCustomerGroup.Properties.Sorted = true;
+            comboboxCustomerGroup.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            comboboxCustomerGroup.Size = new System.Drawing.Size(480, 44);
+            comboboxCustomerGroup.TabIndex = 97;
+            // 
             // labelControl7
             // 
             labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
@@ -104,7 +120,7 @@
             labelControl7.Name = "labelControl7";
             labelControl7.Size = new System.Drawing.Size(103, 17);
             labelControl7.TabIndex = 96;
-            labelControl7.Text = "Cutomer Group: *";
+            labelControl7.Text = "Customer Group:";
             // 
             // txtCustomerGroup
             // 
@@ -115,6 +131,7 @@
             txtCustomerGroup.Properties.Padding = new System.Windows.Forms.Padding(10);
             txtCustomerGroup.Size = new System.Drawing.Size(480, 44);
             txtCustomerGroup.TabIndex = 95;
+            txtCustomerGroup.Visible = false;
             // 
             // labelControl12
             // 
@@ -332,6 +349,7 @@
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
             panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)comboboxCustomerGroup.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtCustomerGroup.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtPostalCode.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtUEmail.Properties).EndInit();
@@ -373,5 +391,6 @@
         private DevExpress.XtraEditors.TextEdit txtCity;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.TextEdit txtCustomerGroup;
+        private DevExpress.XtraEditors.ComboBoxEdit comboboxCustomerGroup;
     }
 }

@@ -57,7 +57,7 @@ namespace POS.PAL.USERCONTROL
             // Load customer groups for dropdown
             LoadCustomerGroups();
 
-            // Configure customer group dropdown as a LookUpEdit
+            // Configure customer group dropdown
             ConfigureCustomerGroupLookup();
 
             // Wire up the register/update button click event
@@ -75,6 +75,28 @@ namespace POS.PAL.USERCONTROL
             try
             {
                 customerGroupsTable = _bllContacts.GetCustomerGroups();
+                
+                // Clear existing items
+                comboboxCustomerGroup.Properties.Items.Clear();
+                
+                // Add empty option
+                comboboxCustomerGroup.Properties.Items.Add(new CustomerGroupItem { GroupId = null, GroupName = "" });
+                
+                // Add customer groups to the combobox
+                if (customerGroupsTable != null && customerGroupsTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in customerGroupsTable.Rows)
+                    {
+                        int groupId = Convert.ToInt32(row["group_id"]);
+                        string groupName = row["group_name"]?.ToString();
+                        
+                        comboboxCustomerGroup.Properties.Items.Add(new CustomerGroupItem 
+                        { 
+                            GroupId = groupId, 
+                            GroupName = groupName 
+                        });
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -88,15 +110,16 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
-        /// Configure the customer group dropdown (convert TextEdit to LookUpEdit behavior)
+        /// Configure the customer group dropdown
         /// </summary>
         private void ConfigureCustomerGroupLookup()
         {
-            // Since txtCustomerGroup is a TextEdit in the designer, we'll add autocomplete
-            // For a better implementation, consider changing it to LookUpEdit in the designer
-            
-            // For now, we'll use it as a simple text field
-            // In a production scenario, replace txtCustomerGroup with a LookUpEdit or ComboBoxEdit
+            // The combobox is already configured in the designer
+            // Set the selected index to the first item (empty option)
+            if (comboboxCustomerGroup.Properties.Items.Count > 0)
+            {
+                comboboxCustomerGroup.SelectedIndex = 0;
+            }
         }
 
         /// <summary>
@@ -120,7 +143,27 @@ namespace POS.PAL.USERCONTROL
                     txtCity.Text = row["city"]?.ToString();
                     txtState.Text = row["state"]?.ToString();
                     txtPostalCode.Text = row["postal_code"]?.ToString();
-                    txtCustomerGroup.Text = row["group_name"]?.ToString();
+                    
+                    // Set the customer group in the combobox
+                    if (row["group_id"] != DBNull.Value)
+                    {
+                        int groupId = Convert.ToInt32(row["group_id"]);
+                        
+                        // Find and select the matching customer group
+                        for (int i = 0; i < comboboxCustomerGroup.Properties.Items.Count; i++)
+                        {
+                            var item = comboboxCustomerGroup.Properties.Items[i] as CustomerGroupItem;
+                            if (item != null && item.GroupId.HasValue && item.GroupId.Value == groupId)
+                            {
+                                comboboxCustomerGroup.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        comboboxCustomerGroup.SelectedIndex = 0; // Select empty option
+                    }
                 }
             }
             catch (Exception ex)
@@ -197,30 +240,15 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
-        /// Get the selected customer group ID from the text
+        /// Get the selected customer group ID from the combobox
         /// </summary>
         private int? GetSelectedCustomerGroupId()
         {
-            if (string.IsNullOrWhiteSpace(txtCustomerGroup.Text))
-                return null;
-
-            try
+            if (comboboxCustomerGroup.SelectedItem is CustomerGroupItem selectedItem)
             {
-                // Find the group by name
-                if (customerGroupsTable != null)
-                {
-                    DataRow[] rows = customerGroupsTable.Select($"group_name = '{txtCustomerGroup.Text.Replace("'", "''")}'");
-                    if (rows.Length > 0)
-                    {
-                        return Convert.ToInt32(rows[0]["group_id"]);
-                    }
-                }
+                return selectedItem.GroupId;
             }
-            catch
-            {
-                // If group name not found, return null
-            }
-
+            
             return null;
         }
 
@@ -379,7 +407,7 @@ namespace POS.PAL.USERCONTROL
             txtCity.Text = string.Empty;
             txtState.Text = string.Empty;
             txtPostalCode.Text = string.Empty;
-            txtCustomerGroup.Text = string.Empty;
+            comboboxCustomerGroup.SelectedIndex = 0;
             txtfullName.Focus();
         }
 
@@ -401,6 +429,20 @@ namespace POS.PAL.USERCONTROL
             }
 
             Main.Instance.LoadUserControl(new UC_Customer_Management());
+        }
+    }
+    
+    /// <summary>
+    /// Helper class to store customer group information in the combobox
+    /// </summary>
+    internal class CustomerGroupItem
+    {
+        public int? GroupId { get; set; }
+        public string GroupName { get; set; }
+        
+        public override string ToString()
+        {
+            return GroupName ?? string.Empty;
         }
     }
 }
