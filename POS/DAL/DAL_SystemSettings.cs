@@ -111,5 +111,45 @@ namespace POS.DAL
                 throw new Exception($"Error updating business settings: {ex.Message}", ex);
             }
         }
+
+        public bool UpdateStoreSettings(int storeId, string storeName, string phone, string email, string address, string city, string state, string country, string postalCode, int updatedBy)
+        {
+            try
+            {
+                string query = @"
+                    UPDATE Store
+                    SET store_name = @store_name,
+                        phone = @phone,
+                        email = @email,
+                        address = @address,
+                        city = @city,
+                        state = @state,
+                        country = @country,
+                        postal_code = @postal_code,
+                        updated_by = @updated_by,
+                        updated_date = GETDATE()
+                    WHERE store_id = @store_id";
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@store_id", storeId),
+                    new SqlParameter("@store_name", storeName),
+                    new SqlParameter("@phone", phone ?? (object)DBNull.Value),
+                    new SqlParameter("@email", email ?? (object)DBNull.Value),
+                    new SqlParameter("@address", address ?? (object)DBNull.Value),
+                    new SqlParameter("@city", city ?? (object)DBNull.Value),
+                    new SqlParameter("@state", state ?? (object)DBNull.Value),
+                    new SqlParameter("@country", country ?? (object)DBNull.Value),
+                    new SqlParameter("@postal_code", postalCode ?? (object)DBNull.Value),
+                    new SqlParameter("@updated_by", updatedBy)
+                };
+
+                int rowsAffected = Connection.ExecuteNonQuery(query, parameters);
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error updating store settings: {ex.Message}", ex);
+            }
+        }
     }
 }

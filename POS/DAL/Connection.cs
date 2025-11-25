@@ -57,5 +57,21 @@ namespace POS.DAL
                 }
             }
         }
+
+        public static object ExecuteScalar(string query, SqlParameter[] parameters = null)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    if (parameters != null)
+                    {
+                        command.Parameters.AddRange(parameters);
+                    }
+
+                    return command.ExecuteScalar();
+                }
+            }
+        }
     }
 }

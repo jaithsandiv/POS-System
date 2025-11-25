@@ -283,21 +283,10 @@
             // 
             panelSideBar.Controls.Add(panelSettingsSubmenu);
             panelSideBar.Controls.Add(panelSettingsHeader);
-            panelSideBar.Controls.Add(panelNotificationTemplatesHeader);
             panelSideBar.Controls.Add(panelReportsSubmenu);
             panelSideBar.Controls.Add(panelReportsHeader);
-            panelSideBar.Controls.Add(panelPaymentAccountsSubmenu);
-            panelSideBar.Controls.Add(panelPaymentAccountsHeader);
-            panelSideBar.Controls.Add(panelExpensesSubmenu);
-            panelSideBar.Controls.Add(panelExpensesHeader);
-            panelSideBar.Controls.Add(panelStockAdjustmentSubmenu);
-            panelSideBar.Controls.Add(panelStockAdjustmentHeader);
-            panelSideBar.Controls.Add(panelStockTransfersSubmenu);
-            panelSideBar.Controls.Add(panelStockTransferHeader);
             panelSideBar.Controls.Add(panelSellSubmenu);
             panelSideBar.Controls.Add(panelSellHeader);
-            panelSideBar.Controls.Add(panelPurchasesSubmenu);
-            panelSideBar.Controls.Add(panelPurchasesHeader);
             panelSideBar.Controls.Add(panelProductsSubmenu);
             panelSideBar.Controls.Add(panelProductsHeader);
             panelSideBar.Controls.Add(panelContactsSubmenu);
@@ -315,10 +304,6 @@
             // 
             panelSettingsSubmenu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelSettingsSubmenu.Controls.Add(btnTables);
-            panelSettingsSubmenu.Controls.Add(btnTaxRates);
-            panelSettingsSubmenu.Controls.Add(btnReceiptPrinters);
-            panelSettingsSubmenu.Controls.Add(btnBarcodeSettings);
-            panelSettingsSubmenu.Controls.Add(btnInvoiceSettings);
             panelSettingsSubmenu.Controls.Add(btnBusinessLocations);
             panelSettingsSubmenu.Controls.Add(btnBusinessSettings);
             panelSettingsSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
@@ -476,20 +461,13 @@
             panelReportsSubmenu.Controls.Add(btnActivityLog);
             panelReportsSubmenu.Controls.Add(btnTableReport);
             panelReportsSubmenu.Controls.Add(btnSalesRepresentativeReport);
-            panelReportsSubmenu.Controls.Add(btnRegisterReport);
-            panelReportsSubmenu.Controls.Add(btnExpenseReport);
             panelReportsSubmenu.Controls.Add(btnSellPaymentReport);
-            panelReportsSubmenu.Controls.Add(btnPurchasePaymentReport);
             panelReportsSubmenu.Controls.Add(btnProductSellReport);
-            panelReportsSubmenu.Controls.Add(btnProductPurchaseReport);
             panelReportsSubmenu.Controls.Add(btnItemsReport);
             panelReportsSubmenu.Controls.Add(btnTrendingProducts);
-            panelReportsSubmenu.Controls.Add(btnStockAdjustmentReport);
             panelReportsSubmenu.Controls.Add(btnStockReport);
             panelReportsSubmenu.Controls.Add(btnCustomerGroupReport);
             panelReportsSubmenu.Controls.Add(btnSupplierAndCustomerReport);
-            panelReportsSubmenu.Controls.Add(btnTaxReport);
-            panelReportsSubmenu.Controls.Add(btnPurchaseAndSales);
             panelReportsSubmenu.Controls.Add(btnProfitLossReport);
             panelReportsSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             panelReportsSubmenu.Location = new System.Drawing.Point(0, 2335);
@@ -1148,15 +1126,12 @@
             // panelSellSubmenu
             // 
             panelSellSubmenu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelSellSubmenu.Controls.Add(btnImportSales);
             panelSellSubmenu.Controls.Add(btnDiscounts);
-            panelSellSubmenu.Controls.Add(btnShipments);
             panelSellSubmenu.Controls.Add(btnSellReturns);
             panelSellSubmenu.Controls.Add(btnListQuotations);
             panelSellSubmenu.Controls.Add(btnAddQuotation);
             panelSellSubmenu.Controls.Add(btnListDrafts);
             panelSellSubmenu.Controls.Add(btnAddDraft);
-            panelSellSubmenu.Controls.Add(btnPOS2);
             panelSellSubmenu.Controls.Add(btnListPOS);
             panelSellSubmenu.Controls.Add(btnAddSale);
             panelSellSubmenu.Controls.Add(btnAllSales);
@@ -1466,16 +1441,10 @@
             // panelProductsSubmenu
             // 
             panelProductsSubmenu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelProductsSubmenu.Controls.Add(btnWarranties);
             panelProductsSubmenu.Controls.Add(btnBrands);
             panelProductsSubmenu.Controls.Add(btnCategories);
             panelProductsSubmenu.Controls.Add(btnUnits);
-            panelProductsSubmenu.Controls.Add(btnSellingPriceGroup);
-            panelProductsSubmenu.Controls.Add(btnImportOpeningStock);
-            panelProductsSubmenu.Controls.Add(btnImportProducts);
-            panelProductsSubmenu.Controls.Add(btnVariations);
             panelProductsSubmenu.Controls.Add(btnPrintLabels);
-            panelProductsSubmenu.Controls.Add(btnUpdatePrice);
             panelProductsSubmenu.Controls.Add(btnAddProducts);
             panelProductsSubmenu.Controls.Add(btnListProducts);
             panelProductsSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1697,7 +1666,6 @@
             // panelContactsSubmenu
             // 
             panelContactsSubmenu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelContactsSubmenu.Controls.Add(btnImportContacts);
             panelContactsSubmenu.Controls.Add(btnCustomerGroups);
             panelContactsSubmenu.Controls.Add(btnCustomers);
             panelContactsSubmenu.Controls.Add(btnSuppliers);
@@ -1802,7 +1770,6 @@
             // panelUserManagementSubmenu
             // 
             panelUserManagementSubmenu.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelUserManagementSubmenu.Controls.Add(btnSalesCommisionAgents);
             panelUserManagementSubmenu.Controls.Add(btnRoles);
             panelUserManagementSubmenu.Controls.Add(btnUsers);
             panelUserManagementSubmenu.Dock = System.Windows.Forms.DockStyle.Top;

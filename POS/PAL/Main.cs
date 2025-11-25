@@ -31,6 +31,7 @@ namespace POS
 
             DataSetApp = new DAL_DS_Initialize();
             LoadBusinessData();
+            LoadStoreData();
             LoadSystemSettings();
             UpdateBusinessName();
 
@@ -61,6 +62,10 @@ namespace POS
             {
                 btnBusinessSettings.Click += btnBusinessSettings_Click;
             }
+            if (btnBusinessLocations != null)
+            {
+                btnBusinessLocations.Click += btnBusinessLocations_Click;
+            }
         }
 
         public void LoadBusinessData()
@@ -72,6 +77,15 @@ namespace POS
                 DataSetApp.Business.AddBusinessRow(DataSetApp.Business.NewBusinessRow());
                 
             UpdateBusinessName();
+        }
+
+        public void LoadStoreData()
+        {
+            DataSetApp.Store.Clear();
+            DataSetApp.Store.Merge(_bllInitialize.GetStore());
+
+            if (DataSetApp.Store.Rows.Count == 0)
+                DataSetApp.Store.AddStoreRow(DataSetApp.Store.NewStoreRow());
         }
 
         public void LoadSystemSettings()
@@ -296,6 +310,11 @@ namespace POS
         private void btnBusinessSettings_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UC_SystemSettings());
+        }
+
+        private void btnBusinessLocations_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Store_Management());
         }
     }
 }

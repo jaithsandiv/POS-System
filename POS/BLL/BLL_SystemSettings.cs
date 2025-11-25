@@ -26,5 +26,10 @@ namespace POS.BLL
         {
             return _dalSystemSettings.UpdateBusinessSettings(businessName, logo, updatedBy);
         }
+
+        public bool UpdateStoreSettings(int storeId, string storeName, string phone, string email, string address, string city, string state, string country, string postalCode, int updatedBy)
+        {
+            return _dalSystemSettings.UpdateStoreSettings(storeId, storeName, phone, email, address, city, state, country, postalCode, updatedBy);
+        }
     }
 }

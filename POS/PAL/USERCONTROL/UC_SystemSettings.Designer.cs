@@ -43,6 +43,23 @@ namespace POS.PAL.USERCONTROL
             this.picLogo = new DevExpress.XtraEditors.PictureEdit();
             this.btnBrowseLogo = new DevExpress.XtraEditors.SimpleButton();
             this.btnClearLogo = new DevExpress.XtraEditors.SimpleButton();
+            this.grpStore = new DevExpress.XtraEditors.GroupControl();
+            this.lblStoreName = new DevExpress.XtraEditors.LabelControl();
+            this.txtStoreName = new DevExpress.XtraEditors.TextEdit();
+            this.lblPhone = new DevExpress.XtraEditors.LabelControl();
+            this.txtPhone = new DevExpress.XtraEditors.TextEdit();
+            this.lblEmail = new DevExpress.XtraEditors.LabelControl();
+            this.txtEmail = new DevExpress.XtraEditors.TextEdit();
+            this.lblAddress = new DevExpress.XtraEditors.LabelControl();
+            this.txtAddress = new DevExpress.XtraEditors.TextEdit();
+            this.lblCity = new DevExpress.XtraEditors.LabelControl();
+            this.txtCity = new DevExpress.XtraEditors.TextEdit();
+            this.lblState = new DevExpress.XtraEditors.LabelControl();
+            this.txtState = new DevExpress.XtraEditors.TextEdit();
+            this.lblCountry = new DevExpress.XtraEditors.LabelControl();
+            this.txtCountry = new DevExpress.XtraEditors.TextEdit();
+            this.lblPostalCode = new DevExpress.XtraEditors.LabelControl();
+            this.txtPostalCode = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -54,6 +71,16 @@ namespace POS.PAL.USERCONTROL
             this.grpBusiness.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtBusinessName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpStore)).BeginInit();
+            this.grpStore.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtStoreName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPhone.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAddress.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCity.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtState.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCountry.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPostalCode.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -217,10 +244,155 @@ namespace POS.PAL.USERCONTROL
             this.btnClearLogo.Text = "Clear";
             this.btnClearLogo.Click += new System.EventHandler(this.btnClearLogo_Click);
             // 
+            // grpStore
+            // 
+            this.grpStore.Controls.Add(this.lblStoreName);
+            this.grpStore.Controls.Add(this.txtStoreName);
+            this.grpStore.Controls.Add(this.lblPhone);
+            this.grpStore.Controls.Add(this.txtPhone);
+            this.grpStore.Controls.Add(this.lblEmail);
+            this.grpStore.Controls.Add(this.txtEmail);
+            this.grpStore.Controls.Add(this.lblAddress);
+            this.grpStore.Controls.Add(this.txtAddress);
+            this.grpStore.Controls.Add(this.lblCity);
+            this.grpStore.Controls.Add(this.txtCity);
+            this.grpStore.Controls.Add(this.lblState);
+            this.grpStore.Controls.Add(this.txtState);
+            this.grpStore.Controls.Add(this.lblCountry);
+            this.grpStore.Controls.Add(this.txtCountry);
+            this.grpStore.Controls.Add(this.lblPostalCode);
+            this.grpStore.Controls.Add(this.txtPostalCode);
+            this.grpStore.Location = new System.Drawing.Point(20, 490);
+            this.grpStore.Name = "grpStore";
+            this.grpStore.Size = new System.Drawing.Size(960, 200);
+            this.grpStore.TabIndex = 3;
+            this.grpStore.Text = "Store Settings";
+            // 
+            // lblStoreName
+            // 
+            this.lblStoreName.Location = new System.Drawing.Point(20, 40);
+            this.lblStoreName.Name = "lblStoreName";
+            this.lblStoreName.Size = new System.Drawing.Size(60, 13);
+            this.lblStoreName.TabIndex = 0;
+            this.lblStoreName.Text = "Store Name:";
+            // 
+            // txtStoreName
+            // 
+            this.txtStoreName.Location = new System.Drawing.Point(100, 37);
+            this.txtStoreName.Name = "txtStoreName";
+            this.txtStoreName.Size = new System.Drawing.Size(200, 20);
+            this.txtStoreName.TabIndex = 1;
+            // 
+            // lblPhone
+            // 
+            this.lblPhone.Location = new System.Drawing.Point(330, 40);
+            this.lblPhone.Name = "lblPhone";
+            this.lblPhone.Size = new System.Drawing.Size(34, 13);
+            this.lblPhone.TabIndex = 2;
+            this.lblPhone.Text = "Phone:";
+            // 
+            // txtPhone
+            // 
+            this.txtPhone.Location = new System.Drawing.Point(400, 37);
+            this.txtPhone.Name = "txtPhone";
+            this.txtPhone.Size = new System.Drawing.Size(200, 20);
+            this.txtPhone.TabIndex = 3;
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.Location = new System.Drawing.Point(640, 40);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(28, 13);
+            this.lblEmail.TabIndex = 4;
+            this.lblEmail.Text = "Email:";
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(700, 37);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(200, 20);
+            this.txtEmail.TabIndex = 5;
+            // 
+            // lblAddress
+            // 
+            this.lblAddress.Location = new System.Drawing.Point(20, 80);
+            this.lblAddress.Name = "lblAddress";
+            this.lblAddress.Size = new System.Drawing.Size(43, 13);
+            this.lblAddress.TabIndex = 6;
+            this.lblAddress.Text = "Address:";
+            // 
+            // txtAddress
+            // 
+            this.txtAddress.Location = new System.Drawing.Point(100, 77);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(500, 20);
+            this.txtAddress.TabIndex = 7;
+            // 
+            // lblCity
+            // 
+            this.lblCity.Location = new System.Drawing.Point(640, 80);
+            this.lblCity.Name = "lblCity";
+            this.lblCity.Size = new System.Drawing.Size(23, 13);
+            this.lblCity.TabIndex = 8;
+            this.lblCity.Text = "City:";
+            // 
+            // txtCity
+            // 
+            this.txtCity.Location = new System.Drawing.Point(700, 77);
+            this.txtCity.Name = "txtCity";
+            this.txtCity.Size = new System.Drawing.Size(200, 20);
+            this.txtCity.TabIndex = 9;
+            // 
+            // lblState
+            // 
+            this.lblState.Location = new System.Drawing.Point(20, 120);
+            this.lblState.Name = "lblState";
+            this.lblState.Size = new System.Drawing.Size(30, 13);
+            this.lblState.TabIndex = 10;
+            this.lblState.Text = "State:";
+            // 
+            // txtState
+            // 
+            this.txtState.Location = new System.Drawing.Point(100, 117);
+            this.txtState.Name = "txtState";
+            this.txtState.Size = new System.Drawing.Size(200, 20);
+            this.txtState.TabIndex = 11;
+            // 
+            // lblCountry
+            // 
+            this.lblCountry.Location = new System.Drawing.Point(330, 120);
+            this.lblCountry.Name = "lblCountry";
+            this.lblCountry.Size = new System.Drawing.Size(43, 13);
+            this.lblCountry.TabIndex = 12;
+            this.lblCountry.Text = "Country:";
+            // 
+            // txtCountry
+            // 
+            this.txtCountry.Location = new System.Drawing.Point(400, 117);
+            this.txtCountry.Name = "txtCountry";
+            this.txtCountry.Size = new System.Drawing.Size(200, 20);
+            this.txtCountry.TabIndex = 13;
+            // 
+            // lblPostalCode
+            // 
+            this.lblPostalCode.Location = new System.Drawing.Point(640, 120);
+            this.lblPostalCode.Name = "lblPostalCode";
+            this.lblPostalCode.Size = new System.Drawing.Size(61, 13);
+            this.lblPostalCode.TabIndex = 14;
+            this.lblPostalCode.Text = "Postal Code:";
+            // 
+            // txtPostalCode
+            // 
+            this.txtPostalCode.Location = new System.Drawing.Point(700, 117);
+            this.txtPostalCode.Name = "txtPostalCode";
+            this.txtPostalCode.Size = new System.Drawing.Size(200, 20);
+            this.txtPostalCode.TabIndex = 15;
+            // 
             // UC_SystemSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.grpStore);
             this.Controls.Add(this.grpBusiness);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.panelControl1);
@@ -261,5 +433,22 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.PictureEdit picLogo;
         private DevExpress.XtraEditors.SimpleButton btnBrowseLogo;
         private DevExpress.XtraEditors.SimpleButton btnClearLogo;
+        private DevExpress.XtraEditors.GroupControl grpStore;
+        private DevExpress.XtraEditors.LabelControl lblStoreName;
+        private DevExpress.XtraEditors.TextEdit txtStoreName;
+        private DevExpress.XtraEditors.LabelControl lblPhone;
+        private DevExpress.XtraEditors.TextEdit txtPhone;
+        private DevExpress.XtraEditors.LabelControl lblEmail;
+        private DevExpress.XtraEditors.TextEdit txtEmail;
+        private DevExpress.XtraEditors.LabelControl lblAddress;
+        private DevExpress.XtraEditors.TextEdit txtAddress;
+        private DevExpress.XtraEditors.LabelControl lblCity;
+        private DevExpress.XtraEditors.TextEdit txtCity;
+        private DevExpress.XtraEditors.LabelControl lblState;
+        private DevExpress.XtraEditors.TextEdit txtState;
+        private DevExpress.XtraEditors.LabelControl lblCountry;
+        private DevExpress.XtraEditors.TextEdit txtCountry;
+        private DevExpress.XtraEditors.LabelControl lblPostalCode;
+        private DevExpress.XtraEditors.TextEdit txtPostalCode;
     }
 }

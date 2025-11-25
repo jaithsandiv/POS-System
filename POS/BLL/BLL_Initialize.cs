@@ -20,5 +20,10 @@ namespace POS.BLL
         {
             return dal.GetSystemSettings();
         }
+
+        internal DataTable GetStore()
+        {
+            return dal.GetStore();
+        }
     }
 }
