@@ -29,7 +29,12 @@ namespace POS.PAL.USERCONTROL
         private void InitializeComponent()
         {
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
+            this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.cmbThermalPrinter = new DevExpress.XtraEditors.ComboBoxEdit();
@@ -43,25 +48,12 @@ namespace POS.PAL.USERCONTROL
             this.picLogo = new DevExpress.XtraEditors.PictureEdit();
             this.btnBrowseLogo = new DevExpress.XtraEditors.SimpleButton();
             this.btnClearLogo = new DevExpress.XtraEditors.SimpleButton();
-            this.grpStore = new DevExpress.XtraEditors.GroupControl();
-            this.lblStoreName = new DevExpress.XtraEditors.LabelControl();
-            this.txtStoreName = new DevExpress.XtraEditors.TextEdit();
-            this.lblPhone = new DevExpress.XtraEditors.LabelControl();
-            this.txtPhone = new DevExpress.XtraEditors.TextEdit();
-            this.lblEmail = new DevExpress.XtraEditors.LabelControl();
-            this.txtEmail = new DevExpress.XtraEditors.TextEdit();
-            this.lblAddress = new DevExpress.XtraEditors.LabelControl();
-            this.txtAddress = new DevExpress.XtraEditors.TextEdit();
-            this.lblCity = new DevExpress.XtraEditors.LabelControl();
-            this.txtCity = new DevExpress.XtraEditors.TextEdit();
-            this.lblState = new DevExpress.XtraEditors.LabelControl();
-            this.txtState = new DevExpress.XtraEditors.TextEdit();
-            this.lblCountry = new DevExpress.XtraEditors.LabelControl();
-            this.txtCountry = new DevExpress.XtraEditors.TextEdit();
-            this.lblPostalCode = new DevExpress.XtraEditors.LabelControl();
-            this.txtPostalCode = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
+            this.panelControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbThermalPrinter.Properties)).BeginInit();
@@ -71,36 +63,88 @@ namespace POS.PAL.USERCONTROL
             this.grpBusiness.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtBusinessName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpStore)).BeginInit();
-            this.grpStore.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtStoreName.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPhone.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAddress.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCity.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtState.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCountry.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPostalCode.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl1
             // 
-            this.panelControl1.Controls.Add(this.labelControl1);
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl1.Appearance.BackColor = System.Drawing.Color.White;
+            this.panelControl1.Appearance.Options.UseBackColor = true;
+            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl1.Controls.Add(this.panelControl2);
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1000, 60);
+            this.panelControl1.Size = new System.Drawing.Size(1000, 700);
             this.panelControl1.TabIndex = 0;
             // 
-            // labelControl1
+            // panelControl2
             // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(20, 18);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(145, 25);
-            this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "System Settings";
+            this.panelControl2.Appearance.BackColor = System.Drawing.Color.White;
+            this.panelControl2.Appearance.Options.UseBackColor = true;
+            this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl2.Controls.Add(this.labelControl8);
+            this.panelControl2.Controls.Add(this.groupControl1);
+            this.panelControl2.Controls.Add(this.grpBusiness);
+            this.panelControl2.Controls.Add(this.labelControl7);
+            this.panelControl2.Controls.Add(this.labelControl14);
+            this.panelControl2.Controls.Add(this.panelControl3);
+            this.panelControl2.Controls.Add(this.separatorControl1);
+            this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl2.Location = new System.Drawing.Point(0, 0);
+            this.panelControl2.Name = "panelControl2";
+            this.panelControl2.Size = new System.Drawing.Size(1000, 700);
+            this.panelControl2.TabIndex = 1;
+            // 
+            // labelControl14
+            // 
+            this.labelControl14.Appearance.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl14.Appearance.Options.UseFont = true;
+            this.labelControl14.Location = new System.Drawing.Point(14, 10);
+            this.labelControl14.Name = "labelControl14";
+            this.labelControl14.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.labelControl14.Size = new System.Drawing.Size(170, 50);
+            this.labelControl14.TabIndex = 0;
+            this.labelControl14.Text = "Business Settings";
+            // 
+            // labelControl7
+            // 
+            this.labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl7.Appearance.Options.UseFont = true;
+            this.labelControl7.Location = new System.Drawing.Point(200, 18);
+            this.labelControl7.Name = "labelControl7";
+            this.labelControl7.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.labelControl7.Size = new System.Drawing.Size(190, 40);
+            this.labelControl7.TabIndex = 1;
+            this.labelControl7.Text = "Manage your business settings";
+            // 
+            // panelControl3
+            // 
+            this.panelControl3.Appearance.BackColor = System.Drawing.Color.White;
+            this.panelControl3.Appearance.Options.UseBackColor = true;
+            this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl3.Location = new System.Drawing.Point(14, 59);
+            this.panelControl3.Name = "panelControl3";
+            this.panelControl3.Size = new System.Drawing.Size(970, 61);
+            this.panelControl3.TabIndex = 2;
+            // 
+            // separatorControl1
+            // 
+            this.separatorControl1.BackColor = System.Drawing.Color.Transparent;
+            this.separatorControl1.Location = new System.Drawing.Point(14, 135);
+            this.separatorControl1.Name = "separatorControl1";
+            this.separatorControl1.Size = new System.Drawing.Size(970, 23);
+            this.separatorControl1.TabIndex = 3;
+            // 
+            // labelControl8
+            // 
+            this.labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl8.Appearance.Options.UseFont = true;
+            this.labelControl8.Location = new System.Drawing.Point(13, 126);
+            this.labelControl8.Name = "labelControl8";
+            this.labelControl8.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.labelControl8.Size = new System.Drawing.Size(170, 40);
+            this.labelControl8.TabIndex = 4;
+            this.labelControl8.Text = "General & Business Settings";
             // 
             // groupControl1
             // 
@@ -109,10 +153,10 @@ namespace POS.PAL.USERCONTROL
             this.groupControl1.Controls.Add(this.labelControl2);
             this.groupControl1.Controls.Add(this.tsKOT);
             this.groupControl1.Controls.Add(this.rgPrintFormat);
-            this.groupControl1.Location = new System.Drawing.Point(20, 80);
+            this.groupControl1.Location = new System.Drawing.Point(14, 172);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(600, 400);
-            this.groupControl1.TabIndex = 1;
+            this.groupControl1.Size = new System.Drawing.Size(600, 500);
+            this.groupControl1.TabIndex = 5;
             this.groupControl1.Text = "General Settings";
             // 
             // btnSave
@@ -123,7 +167,7 @@ namespace POS.PAL.USERCONTROL
             this.btnSave.Appearance.Options.UseBackColor = true;
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Appearance.Options.UseForeColor = true;
-            this.btnSave.Location = new System.Drawing.Point(450, 340);
+            this.btnSave.Location = new System.Drawing.Point(450, 440);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(120, 40);
             this.btnSave.TabIndex = 6;
@@ -182,9 +226,9 @@ namespace POS.PAL.USERCONTROL
             this.grpBusiness.Controls.Add(this.picLogo);
             this.grpBusiness.Controls.Add(this.btnBrowseLogo);
             this.grpBusiness.Controls.Add(this.btnClearLogo);
-            this.grpBusiness.Location = new System.Drawing.Point(640, 80);
+            this.grpBusiness.Location = new System.Drawing.Point(630, 172);
             this.grpBusiness.Name = "grpBusiness";
-            this.grpBusiness.Size = new System.Drawing.Size(340, 400);
+            this.grpBusiness.Size = new System.Drawing.Size(340, 500);
             this.grpBusiness.TabIndex = 2;
             this.grpBusiness.Text = "Business Settings";
             // 
@@ -244,163 +288,20 @@ namespace POS.PAL.USERCONTROL
             this.btnClearLogo.Text = "Clear";
             this.btnClearLogo.Click += new System.EventHandler(this.btnClearLogo_Click);
             // 
-            // grpStore
-            // 
-            this.grpStore.Controls.Add(this.lblStoreName);
-            this.grpStore.Controls.Add(this.txtStoreName);
-            this.grpStore.Controls.Add(this.lblPhone);
-            this.grpStore.Controls.Add(this.txtPhone);
-            this.grpStore.Controls.Add(this.lblEmail);
-            this.grpStore.Controls.Add(this.txtEmail);
-            this.grpStore.Controls.Add(this.lblAddress);
-            this.grpStore.Controls.Add(this.txtAddress);
-            this.grpStore.Controls.Add(this.lblCity);
-            this.grpStore.Controls.Add(this.txtCity);
-            this.grpStore.Controls.Add(this.lblState);
-            this.grpStore.Controls.Add(this.txtState);
-            this.grpStore.Controls.Add(this.lblCountry);
-            this.grpStore.Controls.Add(this.txtCountry);
-            this.grpStore.Controls.Add(this.lblPostalCode);
-            this.grpStore.Controls.Add(this.txtPostalCode);
-            this.grpStore.Location = new System.Drawing.Point(20, 490);
-            this.grpStore.Name = "grpStore";
-            this.grpStore.Size = new System.Drawing.Size(960, 200);
-            this.grpStore.TabIndex = 3;
-            this.grpStore.Text = "Store Settings";
-            // 
-            // lblStoreName
-            // 
-            this.lblStoreName.Location = new System.Drawing.Point(20, 40);
-            this.lblStoreName.Name = "lblStoreName";
-            this.lblStoreName.Size = new System.Drawing.Size(60, 13);
-            this.lblStoreName.TabIndex = 0;
-            this.lblStoreName.Text = "Store Name:";
-            // 
-            // txtStoreName
-            // 
-            this.txtStoreName.Location = new System.Drawing.Point(100, 37);
-            this.txtStoreName.Name = "txtStoreName";
-            this.txtStoreName.Size = new System.Drawing.Size(200, 20);
-            this.txtStoreName.TabIndex = 1;
-            // 
-            // lblPhone
-            // 
-            this.lblPhone.Location = new System.Drawing.Point(330, 40);
-            this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(34, 13);
-            this.lblPhone.TabIndex = 2;
-            this.lblPhone.Text = "Phone:";
-            // 
-            // txtPhone
-            // 
-            this.txtPhone.Location = new System.Drawing.Point(400, 37);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(200, 20);
-            this.txtPhone.TabIndex = 3;
-            // 
-            // lblEmail
-            // 
-            this.lblEmail.Location = new System.Drawing.Point(640, 40);
-            this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(28, 13);
-            this.lblEmail.TabIndex = 4;
-            this.lblEmail.Text = "Email:";
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.Location = new System.Drawing.Point(700, 37);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(200, 20);
-            this.txtEmail.TabIndex = 5;
-            // 
-            // lblAddress
-            // 
-            this.lblAddress.Location = new System.Drawing.Point(20, 80);
-            this.lblAddress.Name = "lblAddress";
-            this.lblAddress.Size = new System.Drawing.Size(43, 13);
-            this.lblAddress.TabIndex = 6;
-            this.lblAddress.Text = "Address:";
-            // 
-            // txtAddress
-            // 
-            this.txtAddress.Location = new System.Drawing.Point(100, 77);
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(500, 20);
-            this.txtAddress.TabIndex = 7;
-            // 
-            // lblCity
-            // 
-            this.lblCity.Location = new System.Drawing.Point(640, 80);
-            this.lblCity.Name = "lblCity";
-            this.lblCity.Size = new System.Drawing.Size(23, 13);
-            this.lblCity.TabIndex = 8;
-            this.lblCity.Text = "City:";
-            // 
-            // txtCity
-            // 
-            this.txtCity.Location = new System.Drawing.Point(700, 77);
-            this.txtCity.Name = "txtCity";
-            this.txtCity.Size = new System.Drawing.Size(200, 20);
-            this.txtCity.TabIndex = 9;
-            // 
-            // lblState
-            // 
-            this.lblState.Location = new System.Drawing.Point(20, 120);
-            this.lblState.Name = "lblState";
-            this.lblState.Size = new System.Drawing.Size(30, 13);
-            this.lblState.TabIndex = 10;
-            this.lblState.Text = "State:";
-            // 
-            // txtState
-            // 
-            this.txtState.Location = new System.Drawing.Point(100, 117);
-            this.txtState.Name = "txtState";
-            this.txtState.Size = new System.Drawing.Size(200, 20);
-            this.txtState.TabIndex = 11;
-            // 
-            // lblCountry
-            // 
-            this.lblCountry.Location = new System.Drawing.Point(330, 120);
-            this.lblCountry.Name = "lblCountry";
-            this.lblCountry.Size = new System.Drawing.Size(43, 13);
-            this.lblCountry.TabIndex = 12;
-            this.lblCountry.Text = "Country:";
-            // 
-            // txtCountry
-            // 
-            this.txtCountry.Location = new System.Drawing.Point(400, 117);
-            this.txtCountry.Name = "txtCountry";
-            this.txtCountry.Size = new System.Drawing.Size(200, 20);
-            this.txtCountry.TabIndex = 13;
-            // 
-            // lblPostalCode
-            // 
-            this.lblPostalCode.Location = new System.Drawing.Point(640, 120);
-            this.lblPostalCode.Name = "lblPostalCode";
-            this.lblPostalCode.Size = new System.Drawing.Size(61, 13);
-            this.lblPostalCode.TabIndex = 14;
-            this.lblPostalCode.Text = "Postal Code:";
-            // 
-            // txtPostalCode
-            // 
-            this.txtPostalCode.Location = new System.Drawing.Point(700, 117);
-            this.txtPostalCode.Name = "txtPostalCode";
-            this.txtPostalCode.Size = new System.Drawing.Size(200, 20);
-            this.txtPostalCode.TabIndex = 15;
-            // 
             // UC_SystemSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.grpStore);
-            this.Controls.Add(this.grpBusiness);
-            this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.panelControl1);
             this.Name = "UC_SystemSettings";
             this.Size = new System.Drawing.Size(1000, 700);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            this.panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
+            this.panelControl2.ResumeLayout(false);
+            this.panelControl2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
@@ -419,7 +320,12 @@ namespace POS.PAL.USERCONTROL
         #endregion
 
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.PanelControl panelControl2;
+        private DevExpress.XtraEditors.LabelControl labelControl14;
+        private DevExpress.XtraEditors.LabelControl labelControl7;
+        private DevExpress.XtraEditors.PanelControl panelControl3;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl8;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.RadioGroup rgPrintFormat;
         private DevExpress.XtraEditors.ToggleSwitch tsKOT;
@@ -433,22 +339,5 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.PictureEdit picLogo;
         private DevExpress.XtraEditors.SimpleButton btnBrowseLogo;
         private DevExpress.XtraEditors.SimpleButton btnClearLogo;
-        private DevExpress.XtraEditors.GroupControl grpStore;
-        private DevExpress.XtraEditors.LabelControl lblStoreName;
-        private DevExpress.XtraEditors.TextEdit txtStoreName;
-        private DevExpress.XtraEditors.LabelControl lblPhone;
-        private DevExpress.XtraEditors.TextEdit txtPhone;
-        private DevExpress.XtraEditors.LabelControl lblEmail;
-        private DevExpress.XtraEditors.TextEdit txtEmail;
-        private DevExpress.XtraEditors.LabelControl lblAddress;
-        private DevExpress.XtraEditors.TextEdit txtAddress;
-        private DevExpress.XtraEditors.LabelControl lblCity;
-        private DevExpress.XtraEditors.TextEdit txtCity;
-        private DevExpress.XtraEditors.LabelControl lblState;
-        private DevExpress.XtraEditors.TextEdit txtState;
-        private DevExpress.XtraEditors.LabelControl lblCountry;
-        private DevExpress.XtraEditors.TextEdit txtCountry;
-        private DevExpress.XtraEditors.LabelControl lblPostalCode;
-        private DevExpress.XtraEditors.TextEdit txtPostalCode;
     }
 }

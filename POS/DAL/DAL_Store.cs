@@ -124,5 +124,29 @@ namespace POS.DAL
 
             return Connection.ExecuteNonQuery(query, parameters) > 0;
         }
+
+        public DataTable GetStoreById(int storeId)
+        {
+            string query = @"
+                SELECT 
+                    store_id, 
+                    store_name, 
+                    phone, 
+                    email, 
+                    address, 
+                    city, 
+                    state, 
+                    country, 
+                    postal_code, 
+                    status
+                FROM Store
+                WHERE store_id = @store_id";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@store_id", storeId)
+            };
+
+            return Connection.ExecuteQuery(query, parameters);
+        }
     }
 }

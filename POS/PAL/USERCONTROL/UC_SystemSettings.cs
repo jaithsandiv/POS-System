@@ -78,20 +78,6 @@ namespace POS.PAL.USERCONTROL
                     picLogo.Image = null;
                 }
             }
-
-            // Load Store Settings
-            if (Main.DataSetApp.Store.Rows.Count > 0)
-            {
-                var storeRow = Main.DataSetApp.Store[0];
-                txtStoreName.Text = storeRow.Isstore_nameNull() ? "" : storeRow.store_name;
-                txtPhone.Text = storeRow.IsphoneNull() ? "" : storeRow.phone;
-                txtEmail.Text = storeRow.IsemailNull() ? "" : storeRow.email;
-                txtAddress.Text = storeRow.IsaddressNull() ? "" : storeRow.address;
-                txtCity.Text = storeRow.IscityNull() ? "" : storeRow.city;
-                txtState.Text = storeRow.IsstateNull() ? "" : storeRow.state;
-                txtCountry.Text = storeRow.IscountryNull() ? "" : storeRow.country;
-                txtPostalCode.Text = storeRow.Ispostal_codeNull() ? "" : storeRow.postal_code;
-            }
         }
 
         private bool GetBooleanSetting(string key)
@@ -150,34 +136,11 @@ namespace POS.PAL.USERCONTROL
 
                 _bllSystemSettings.UpdateBusinessSettings(businessName, logoBytes, userId);
 
-                // Save Store Settings
-                int storeId = 1; // Default
-                if (Main.DataSetApp.Store.Rows.Count > 0)
-                {
-                    var storeRow = Main.DataSetApp.Store[0];
-                    if (!storeRow.Isstore_idNull())
-                    {
-                        storeId = int.Parse(storeRow.store_id);
-                    }
-                }
-
-                string storeName = txtStoreName.Text.Trim();
-                string phone = txtPhone.Text.Trim();
-                string email = txtEmail.Text.Trim();
-                string address = txtAddress.Text.Trim();
-                string city = txtCity.Text.Trim();
-                string state = txtState.Text.Trim();
-                string country = txtCountry.Text.Trim();
-                string postalCode = txtPostalCode.Text.Trim();
-
-                _bllSystemSettings.UpdateStoreSettings(storeId, storeName, phone, email, address, city, state, country, postalCode, userId);
-
                 // Reload settings in Main to apply changes immediately
                 if (Main.Instance != null)
                 {
                     Main.Instance.LoadSystemSettings();
                     Main.Instance.LoadBusinessData();
-                    Main.Instance.LoadStoreData();
                 }
                 
                 // Refresh the local table

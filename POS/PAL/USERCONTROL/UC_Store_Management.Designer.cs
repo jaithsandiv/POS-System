@@ -28,294 +28,553 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlInput = new System.Windows.Forms.Panel();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.txtPostalCode = new System.Windows.Forms.TextBox();
-            this.lblPostalCode = new System.Windows.Forms.Label();
-            this.txtCountry = new System.Windows.Forms.TextBox();
-            this.lblCountry = new System.Windows.Forms.Label();
-            this.txtState = new System.Windows.Forms.TextBox();
-            this.lblState = new System.Windows.Forms.Label();
-            this.txtCity = new System.Windows.Forms.TextBox();
-            this.lblCity = new System.Windows.Forms.Label();
-            this.txtAddress = new System.Windows.Forms.TextBox();
-            this.lblAddress = new System.Windows.Forms.Label();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.lblEmail = new System.Windows.Forms.Label();
-            this.txtPhone = new System.Windows.Forms.TextBox();
-            this.lblPhone = new System.Windows.Forms.Label();
-            this.txtStoreName = new System.Windows.Forms.TextBox();
-            this.lblStoreName = new System.Windows.Forms.Label();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.dgvStores = new System.Windows.Forms.DataGridView();
-            this.pnlInput.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStores)).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Store_Management));
+            this.btn25Filtre = new DevExpress.XtraEditors.SimpleButton();
+            this.btn50Filtre = new DevExpress.XtraEditors.SimpleButton();
+            this.btn100Filtre = new DevExpress.XtraEditors.SimpleButton();
+            this.btn200Filtre = new DevExpress.XtraEditors.SimpleButton();
+            this.btn500Filtre = new DevExpress.XtraEditors.SimpleButton();
+            this.btn1000Filtre = new DevExpress.XtraEditors.SimpleButton();
+            this.btnAllFiltre = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.gridControlStores = new DevExpress.XtraGrid.GridControl();
+            this.gridViewStores = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn11 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn12 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn13 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn16 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.searchControl1 = new DevExpress.XtraEditors.SearchControl();
+            this.btnAddStore = new DevExpress.XtraEditors.SimpleButton();
+            this.btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
+            this.btnColumnVisibilty = new DevExpress.XtraEditors.SimpleButton();
+            this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
+            this.btnExportExcel = new DevExpress.XtraEditors.SimpleButton();
+            this.btnExportCSV = new DevExpress.XtraEditors.SimpleButton();
+            this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
+            this.popupContainerEdit1 = new DevExpress.XtraEditors.PopupContainerEdit();
+            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
+            this.panelControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlStores)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewStores)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchControl1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupContainerEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            this.panelControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
             this.SuspendLayout();
             // 
-            // pnlInput
+            // btn25Filtre
             // 
-            this.pnlInput.Controls.Add(this.btnReset);
-            this.pnlInput.Controls.Add(this.btnDelete);
-            this.pnlInput.Controls.Add(this.btnUpdate);
-            this.pnlInput.Controls.Add(this.btnAdd);
-            this.pnlInput.Controls.Add(this.txtPostalCode);
-            this.pnlInput.Controls.Add(this.lblPostalCode);
-            this.pnlInput.Controls.Add(this.txtCountry);
-            this.pnlInput.Controls.Add(this.lblCountry);
-            this.pnlInput.Controls.Add(this.txtState);
-            this.pnlInput.Controls.Add(this.lblState);
-            this.pnlInput.Controls.Add(this.txtCity);
-            this.pnlInput.Controls.Add(this.lblCity);
-            this.pnlInput.Controls.Add(this.txtAddress);
-            this.pnlInput.Controls.Add(this.lblAddress);
-            this.pnlInput.Controls.Add(this.txtEmail);
-            this.pnlInput.Controls.Add(this.lblEmail);
-            this.pnlInput.Controls.Add(this.txtPhone);
-            this.pnlInput.Controls.Add(this.lblPhone);
-            this.pnlInput.Controls.Add(this.txtStoreName);
-            this.pnlInput.Controls.Add(this.lblStoreName);
-            this.pnlInput.Controls.Add(this.lblTitle);
-            this.pnlInput.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlInput.Location = new System.Drawing.Point(0, 0);
-            this.pnlInput.Name = "pnlInput";
-            this.pnlInput.Size = new System.Drawing.Size(1000, 250);
-            this.pnlInput.TabIndex = 0;
+            this.btn25Filtre.Location = new System.Drawing.Point(0, 0);
+            this.btn25Filtre.Name = "btn25Filtre";
+            this.btn25Filtre.Size = new System.Drawing.Size(55, 35);
+            this.btn25Filtre.TabIndex = 2;
             // 
-            // btnReset
+            // btn50Filtre
             // 
-            this.btnReset.Location = new System.Drawing.Point(380, 200);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(80, 30);
-            this.btnReset.TabIndex = 20;
-            this.btnReset.Text = "Reset";
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            this.btn50Filtre.Location = new System.Drawing.Point(0, 35);
+            this.btn50Filtre.Name = "btn50Filtre";
+            this.btn50Filtre.Size = new System.Drawing.Size(55, 35);
+            this.btn50Filtre.TabIndex = 3;
             // 
-            // btnDelete
+            // btn100Filtre
             // 
-            this.btnDelete.Location = new System.Drawing.Point(290, 200);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(80, 30);
-            this.btnDelete.TabIndex = 19;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btn100Filtre.Location = new System.Drawing.Point(0, 70);
+            this.btn100Filtre.Name = "btn100Filtre";
+            this.btn100Filtre.Size = new System.Drawing.Size(55, 35);
+            this.btn100Filtre.TabIndex = 4;
             // 
-            // btnUpdate
+            // btn200Filtre
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(200, 200);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(80, 30);
-            this.btnUpdate.TabIndex = 18;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.btn200Filtre.Location = new System.Drawing.Point(0, 105);
+            this.btn200Filtre.Name = "btn200Filtre";
+            this.btn200Filtre.Size = new System.Drawing.Size(55, 35);
+            this.btn200Filtre.TabIndex = 5;
             // 
-            // btnAdd
+            // btn500Filtre
             // 
-            this.btnAdd.Location = new System.Drawing.Point(110, 200);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(80, 30);
-            this.btnAdd.TabIndex = 17;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btn500Filtre.Location = new System.Drawing.Point(0, 140);
+            this.btn500Filtre.Name = "btn500Filtre";
+            this.btn500Filtre.Size = new System.Drawing.Size(55, 35);
+            this.btn500Filtre.TabIndex = 6;
             // 
-            // txtPostalCode
+            // btn1000Filtre
             // 
-            this.txtPostalCode.Location = new System.Drawing.Point(450, 150);
-            this.txtPostalCode.Name = "txtPostalCode";
-            this.txtPostalCode.Size = new System.Drawing.Size(200, 20);
-            this.txtPostalCode.TabIndex = 16;
+            this.btn1000Filtre.Location = new System.Drawing.Point(0, 175);
+            this.btn1000Filtre.Name = "btn1000Filtre";
+            this.btn1000Filtre.Size = new System.Drawing.Size(55, 35);
+            this.btn1000Filtre.TabIndex = 7;
             // 
-            // lblPostalCode
+            // btnAllFiltre
             // 
-            this.lblPostalCode.AutoSize = true;
-            this.lblPostalCode.Location = new System.Drawing.Point(370, 153);
-            this.lblPostalCode.Name = "lblPostalCode";
-            this.lblPostalCode.Size = new System.Drawing.Size(67, 13);
-            this.lblPostalCode.TabIndex = 15;
-            this.lblPostalCode.Text = "Postal Code:";
+            this.btnAllFiltre.Location = new System.Drawing.Point(0, 210);
+            this.btnAllFiltre.Name = "btnAllFiltre";
+            this.btnAllFiltre.Size = new System.Drawing.Size(55, 35);
+            this.btnAllFiltre.TabIndex = 8;
             // 
-            // txtCountry
+            // panelControl1
             // 
-            this.txtCountry.Location = new System.Drawing.Point(110, 150);
-            this.txtCountry.Name = "txtCountry";
-            this.txtCountry.Size = new System.Drawing.Size(200, 20);
-            this.txtCountry.TabIndex = 14;
+            this.panelControl1.Appearance.BackColor = System.Drawing.Color.White;
+            this.panelControl1.Appearance.Options.UseBackColor = true;
+            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl1.Controls.Add(this.labelControl8);
+            this.panelControl1.Controls.Add(this.panelControl2);
+            this.panelControl1.Controls.Add(this.labelControl7);
+            this.panelControl1.Controls.Add(this.labelControl14);
+            this.panelControl1.Controls.Add(this.panelControl3);
+            this.panelControl1.Controls.Add(this.separatorControl1);
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl1.Location = new System.Drawing.Point(0, 0);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(1920, 1050);
+            this.panelControl1.TabIndex = 4;
             // 
-            // lblCountry
+            // labelControl8
             // 
-            this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(30, 153);
-            this.lblCountry.Name = "lblCountry";
-            this.lblCountry.Size = new System.Drawing.Size(46, 13);
-            this.lblCountry.TabIndex = 13;
-            this.lblCountry.Text = "Country:";
+            this.labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl8.Appearance.Options.UseFont = true;
+            this.labelControl8.Location = new System.Drawing.Point(13, 126);
+            this.labelControl8.Name = "labelControl8";
+            this.labelControl8.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.labelControl8.Size = new System.Drawing.Size(93, 40);
+            this.labelControl8.TabIndex = 117;
+            this.labelControl8.Text = "All your stores";
             // 
-            // txtState
+            // panelControl2
             // 
-            this.txtState.Location = new System.Drawing.Point(790, 110);
-            this.txtState.Name = "txtState";
-            this.txtState.Size = new System.Drawing.Size(200, 20);
-            this.txtState.TabIndex = 12;
+            this.panelControl2.Appearance.BackColor = System.Drawing.Color.White;
+            this.panelControl2.Appearance.BorderColor = System.Drawing.Color.Black;
+            this.panelControl2.Appearance.Options.UseBackColor = true;
+            this.panelControl2.Appearance.Options.UseBorderColor = true;
+            this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl2.Controls.Add(this.gridControlStores);
+            this.panelControl2.Controls.Add(this.searchControl1);
+            this.panelControl2.Controls.Add(this.btnAddStore);
+            this.panelControl2.Controls.Add(this.btnExportPDF);
+            this.panelControl2.Controls.Add(this.btnColumnVisibilty);
+            this.panelControl2.Controls.Add(this.btnPrint);
+            this.panelControl2.Controls.Add(this.btnExportExcel);
+            this.panelControl2.Controls.Add(this.btnExportCSV);
+            this.panelControl2.Controls.Add(this.labelControl10);
+            this.panelControl2.Controls.Add(this.labelControl9);
+            this.panelControl2.Controls.Add(this.popupContainerEdit1);
+            this.panelControl2.Location = new System.Drawing.Point(14, 172);
+            this.panelControl2.Name = "panelControl2";
+            this.panelControl2.Size = new System.Drawing.Size(1894, 818);
+            this.panelControl2.TabIndex = 116;
             // 
-            // lblState
+            // gridControlStores
             // 
-            this.lblState.AutoSize = true;
-            this.lblState.Location = new System.Drawing.Point(710, 113);
-            this.lblState.Name = "lblState";
-            this.lblState.Size = new System.Drawing.Size(35, 13);
-            this.lblState.TabIndex = 11;
-            this.lblState.Text = "State:";
+            this.gridControlStores.Location = new System.Drawing.Point(28, 78);
+            this.gridControlStores.MainView = this.gridViewStores;
+            this.gridControlStores.Name = "gridControlStores";
+            this.gridControlStores.Size = new System.Drawing.Size(1840, 716);
+            this.gridControlStores.TabIndex = 18;
+            this.gridControlStores.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewStores});
             // 
-            // txtCity
+            // gridViewStores
             // 
-            this.txtCity.Location = new System.Drawing.Point(450, 110);
-            this.txtCity.Name = "txtCity";
-            this.txtCity.Size = new System.Drawing.Size(200, 20);
-            this.txtCity.TabIndex = 10;
+            this.gridViewStores.Appearance.HeaderPanel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.gridViewStores.Appearance.HeaderPanel.Options.UseFont = true;
+            this.gridViewStores.Appearance.HeaderPanel.Options.UseTextOptions = true;
+            this.gridViewStores.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridViewStores.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
+            this.gridViewStores.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gridViewStores.Appearance.Row.Options.UseFont = true;
+            this.gridViewStores.ColumnPanelRowHeight = 44;
+            this.gridViewStores.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn1,
+            this.gridColumn2,
+            this.gridColumn3,
+            this.gridColumn4,
+            this.gridColumn5,
+            this.gridColumn6,
+            this.gridColumn7,
+            this.gridColumn8,
+            this.gridColumn9,
+            this.gridColumn10,
+            this.gridColumn11,
+            this.gridColumn12,
+            this.gridColumn13,
+            this.gridColumn14,
+            this.gridColumn15,
+            this.gridColumn16});
+            this.gridViewStores.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridViewStores.GridControl = this.gridControlStores;
+            this.gridViewStores.Name = "gridViewStores";
+            this.gridViewStores.OptionsBehavior.Editable = false;
+            this.gridViewStores.OptionsCustomization.AllowFilter = false;
+            this.gridViewStores.OptionsCustomization.AllowGroup = false;
+            this.gridViewStores.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridViewStores.OptionsSelection.EnableAppearanceFocusedRow = false;
+            this.gridViewStores.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewStores.OptionsView.ShowGroupPanel = false;
+            this.gridViewStores.OptionsView.ShowIndicator = false;
+            this.gridViewStores.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
+            this.gridViewStores.RowHeight = 44;
             // 
-            // lblCity
+            // gridColumn1
             // 
-            this.lblCity.AutoSize = true;
-            this.lblCity.Location = new System.Drawing.Point(370, 113);
-            this.lblCity.Name = "lblCity";
-            this.lblCity.Size = new System.Drawing.Size(27, 13);
-            this.lblCity.TabIndex = 9;
-            this.lblCity.Text = "City:";
+            this.gridColumn1.Caption = "gridColumn1";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 0;
             // 
-            // txtAddress
+            // gridColumn2
             // 
-            this.txtAddress.Location = new System.Drawing.Point(110, 110);
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(200, 20);
-            this.txtAddress.TabIndex = 8;
+            this.gridColumn2.Caption = "gridColumn2";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 1;
             // 
-            // lblAddress
+            // gridColumn3
             // 
-            this.lblAddress.AutoSize = true;
-            this.lblAddress.Location = new System.Drawing.Point(30, 113);
-            this.lblAddress.Name = "lblAddress";
-            this.lblAddress.Size = new System.Drawing.Size(48, 13);
-            this.lblAddress.TabIndex = 7;
-            this.lblAddress.Text = "Address:";
+            this.gridColumn3.Caption = "gridColumn3";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.Visible = true;
+            this.gridColumn3.VisibleIndex = 2;
             // 
-            // txtEmail
+            // gridColumn4
             // 
-            this.txtEmail.Location = new System.Drawing.Point(790, 70);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(200, 20);
-            this.txtEmail.TabIndex = 6;
+            this.gridColumn4.Caption = "gridColumn4";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 3;
             // 
-            // lblEmail
+            // gridColumn5
             // 
-            this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(710, 73);
-            this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(35, 13);
-            this.lblEmail.TabIndex = 5;
-            this.lblEmail.Text = "Email:";
+            this.gridColumn5.Caption = "gridColumn5";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.Visible = true;
+            this.gridColumn5.VisibleIndex = 4;
             // 
-            // txtPhone
+            // gridColumn6
             // 
-            this.txtPhone.Location = new System.Drawing.Point(450, 70);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(200, 20);
-            this.txtPhone.TabIndex = 4;
+            this.gridColumn6.Caption = "gridColumn6";
+            this.gridColumn6.Name = "gridColumn6";
+            this.gridColumn6.Visible = true;
+            this.gridColumn6.VisibleIndex = 5;
             // 
-            // lblPhone
+            // gridColumn7
             // 
-            this.lblPhone.AutoSize = true;
-            this.lblPhone.Location = new System.Drawing.Point(370, 73);
-            this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(41, 13);
-            this.lblPhone.TabIndex = 3;
-            this.lblPhone.Text = "Phone:";
+            this.gridColumn7.Caption = "gridColumn7";
+            this.gridColumn7.Name = "gridColumn7";
+            this.gridColumn7.Visible = true;
+            this.gridColumn7.VisibleIndex = 6;
             // 
-            // txtStoreName
+            // gridColumn8
             // 
-            this.txtStoreName.Location = new System.Drawing.Point(110, 70);
-            this.txtStoreName.Name = "txtStoreName";
-            this.txtStoreName.Size = new System.Drawing.Size(200, 20);
-            this.txtStoreName.TabIndex = 2;
+            this.gridColumn8.Caption = "gridColumn8";
+            this.gridColumn8.Name = "gridColumn8";
+            this.gridColumn8.Visible = true;
+            this.gridColumn8.VisibleIndex = 7;
             // 
-            // lblStoreName
+            // gridColumn9
             // 
-            this.lblStoreName.AutoSize = true;
-            this.lblStoreName.Location = new System.Drawing.Point(30, 73);
-            this.lblStoreName.Name = "lblStoreName";
-            this.lblStoreName.Size = new System.Drawing.Size(66, 13);
-            this.lblStoreName.TabIndex = 1;
-            this.lblStoreName.Text = "Store Name:";
+            this.gridColumn9.Caption = "gridColumn9";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.Visible = true;
+            this.gridColumn9.VisibleIndex = 8;
             // 
-            // lblTitle
+            // gridColumn10
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(20, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(183, 25);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Store Management";
+            this.gridColumn10.Caption = "gridColumn10";
+            this.gridColumn10.Name = "gridColumn10";
+            this.gridColumn10.Visible = true;
+            this.gridColumn10.VisibleIndex = 9;
             // 
-            // dgvStores
+            // gridColumn11
             // 
-            this.dgvStores.AllowUserToAddRows = false;
-            this.dgvStores.AllowUserToDeleteRows = false;
-            this.dgvStores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvStores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvStores.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvStores.Location = new System.Drawing.Point(0, 250);
-            this.dgvStores.Name = "dgvStores";
-            this.dgvStores.ReadOnly = true;
-            this.dgvStores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStores.Size = new System.Drawing.Size(1000, 450);
-            this.dgvStores.TabIndex = 1;
-            this.dgvStores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStores_CellClick);
+            this.gridColumn11.Caption = "gridColumn11";
+            this.gridColumn11.Name = "gridColumn11";
+            this.gridColumn11.Visible = true;
+            this.gridColumn11.VisibleIndex = 10;
+            // 
+            // gridColumn12
+            // 
+            this.gridColumn12.Caption = "gridColumn12";
+            this.gridColumn12.Name = "gridColumn12";
+            this.gridColumn12.Visible = true;
+            this.gridColumn12.VisibleIndex = 11;
+            // 
+            // gridColumn13
+            // 
+            this.gridColumn13.Caption = "gridColumn13";
+            this.gridColumn13.Name = "gridColumn13";
+            this.gridColumn13.Visible = true;
+            this.gridColumn13.VisibleIndex = 12;
+            // 
+            // gridColumn14
+            // 
+            this.gridColumn14.Caption = "gridColumn14";
+            this.gridColumn14.Name = "gridColumn14";
+            this.gridColumn14.Visible = true;
+            this.gridColumn14.VisibleIndex = 13;
+            // 
+            // gridColumn15
+            // 
+            this.gridColumn15.Caption = "gridColumn15";
+            this.gridColumn15.Name = "gridColumn15";
+            this.gridColumn15.Visible = true;
+            this.gridColumn15.VisibleIndex = 14;
+            // 
+            // gridColumn16
+            // 
+            this.gridColumn16.Caption = "gridColumn16";
+            this.gridColumn16.Name = "gridColumn16";
+            this.gridColumn16.Visible = true;
+            this.gridColumn16.VisibleIndex = 15;
+            // 
+            // searchControl1
+            // 
+            this.searchControl1.Location = new System.Drawing.Point(1745, 40);
+            this.searchControl1.Name = "searchControl1";
+            this.searchControl1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Repository.ClearButton(),
+            new DevExpress.XtraEditors.Repository.SearchButton()});
+            this.searchControl1.Size = new System.Drawing.Size(123, 20);
+            this.searchControl1.TabIndex = 17;
+            // 
+            // btnAddStore
+            // 
+            this.btnAddStore.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(181)))), ((int)(((byte)(152)))));
+            this.btnAddStore.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddStore.Appearance.Options.UseBackColor = true;
+            this.btnAddStore.Appearance.Options.UseFont = true;
+            this.btnAddStore.AppearanceHovered.Options.UseBackColor = true;
+            this.btnAddStore.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnAddCustomer.ImageOptions.Image")));
+            this.btnAddStore.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnAddStore.Location = new System.Drawing.Point(1779, 5);
+            this.btnAddStore.Name = "btnAddStore";
+            this.btnAddStore.Size = new System.Drawing.Size(89, 29);
+            this.btnAddStore.TabIndex = 10;
+            this.btnAddStore.Text = "Add";
+            this.btnAddStore.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnExportPDF
+            // 
+            this.btnExportPDF.Location = new System.Drawing.Point(1033, 37);
+            this.btnExportPDF.Name = "btnExportPDF";
+            this.btnExportPDF.Size = new System.Drawing.Size(75, 23);
+            this.btnExportPDF.TabIndex = 16;
+            this.btnExportPDF.Text = "Export PDF";
+            // 
+            // btnColumnVisibilty
+            // 
+            this.btnColumnVisibilty.Location = new System.Drawing.Point(928, 37);
+            this.btnColumnVisibilty.Name = "btnColumnVisibilty";
+            this.btnColumnVisibilty.Size = new System.Drawing.Size(99, 23);
+            this.btnColumnVisibilty.TabIndex = 15;
+            this.btnColumnVisibilty.Text = "Column Visibilty";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(872, 37);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(50, 23);
+            this.btnPrint.TabIndex = 14;
+            this.btnPrint.Text = "Print";
+            // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.Location = new System.Drawing.Point(791, 37);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(75, 23);
+            this.btnExportExcel.TabIndex = 13;
+            this.btnExportExcel.Text = "Export Excel";
+            // 
+            // btnExportCSV
+            // 
+            this.btnExportCSV.Location = new System.Drawing.Point(710, 37);
+            this.btnExportCSV.Name = "btnExportCSV";
+            this.btnExportCSV.Size = new System.Drawing.Size(75, 23);
+            this.btnExportCSV.TabIndex = 12;
+            this.btnExportCSV.Text = "Export CSV";
+            // 
+            // labelControl10
+            // 
+            this.labelControl10.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl10.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.labelControl10.Appearance.Options.UseFont = true;
+            this.labelControl10.Appearance.Options.UseForeColor = true;
+            this.labelControl10.Location = new System.Drawing.Point(127, 43);
+            this.labelControl10.Name = "labelControl10";
+            this.labelControl10.Size = new System.Drawing.Size(41, 17);
+            this.labelControl10.TabIndex = 11;
+            this.labelControl10.Text = "entries";
+            // 
+            // labelControl9
+            // 
+            this.labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl9.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.labelControl9.Appearance.Options.UseFont = true;
+            this.labelControl9.Appearance.Options.UseForeColor = true;
+            this.labelControl9.Location = new System.Drawing.Point(28, 43);
+            this.labelControl9.Name = "labelControl9";
+            this.labelControl9.Size = new System.Drawing.Size(33, 17);
+            this.labelControl9.TabIndex = 10;
+            this.labelControl9.Text = "Show";
+            // 
+            // popupContainerEdit1
+            // 
+            this.popupContainerEdit1.Location = new System.Drawing.Point(67, 43);
+            this.popupContainerEdit1.Name = "popupContainerEdit1";
+            this.popupContainerEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.popupContainerEdit1.Properties.PopupFormMinSize = new System.Drawing.Size(43, 184);
+            this.popupContainerEdit1.Properties.PopupFormSize = new System.Drawing.Size(43, 184);
+            this.popupContainerEdit1.Properties.PopupSizeable = false;
+            this.popupContainerEdit1.Properties.UsePopupControlMinSize = true;
+            this.popupContainerEdit1.Size = new System.Drawing.Size(54, 20);
+            this.popupContainerEdit1.TabIndex = 1;
+            // 
+            // labelControl7
+            // 
+            this.labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl7.Appearance.Options.UseFont = true;
+            this.labelControl7.Location = new System.Drawing.Point(123, 18);
+            this.labelControl7.Name = "labelControl7";
+            this.labelControl7.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.labelControl7.Size = new System.Drawing.Size(129, 40);
+            this.labelControl7.TabIndex = 115;
+            this.labelControl7.Text = "Manage your stores";
+            // 
+            // labelControl14
+            // 
+            this.labelControl14.Appearance.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl14.Appearance.Options.UseFont = true;
+            this.labelControl14.Location = new System.Drawing.Point(14, 10);
+            this.labelControl14.Name = "labelControl14";
+            this.labelControl14.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            this.labelControl14.Size = new System.Drawing.Size(62, 50);
+            this.labelControl14.TabIndex = 114;
+            this.labelControl14.Text = "Stores";
+            // 
+            // panelControl3
+            // 
+            this.panelControl3.Appearance.BackColor = System.Drawing.Color.White;
+            this.panelControl3.Appearance.Options.UseBackColor = true;
+            this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl3.Controls.Add(this.simpleButton1);
+            this.panelControl3.Location = new System.Drawing.Point(14, 59);
+            this.panelControl3.Name = "panelControl3";
+            this.panelControl3.Size = new System.Drawing.Size(1894, 61);
+            this.panelControl3.TabIndex = 113;
+            // 
+            // simpleButton1
+            // 
+            this.simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButton1.Appearance.Options.UseFont = true;
+            this.simpleButton1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.simpleButton1.Location = new System.Drawing.Point(10, 5);
+            this.simpleButton1.Name = "simpleButton1";
+            this.simpleButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.simpleButton1.Size = new System.Drawing.Size(231, 51);
+            this.simpleButton1.TabIndex = 0;
+            this.simpleButton1.Text = "Filter";
+            // 
+            // separatorControl1
+            // 
+            this.separatorControl1.BackColor = System.Drawing.Color.Transparent;
+            this.separatorControl1.Location = new System.Drawing.Point(141, 135);
+            this.separatorControl1.Name = "separatorControl1";
+            this.separatorControl1.Size = new System.Drawing.Size(1767, 23);
+            this.separatorControl1.TabIndex = 118;
             // 
             // UC_Store_Management
             // 
+            this.Appearance.BackColor = System.Drawing.Color.White;
+            this.Appearance.Options.UseBackColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dgvStores);
-            this.Controls.Add(this.pnlInput);
+            this.Controls.Add(this.panelControl1);
             this.Name = "UC_Store_Management";
-            this.Size = new System.Drawing.Size(1000, 700);
-            this.pnlInput.ResumeLayout(false);
-            this.pnlInput.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStores)).EndInit();
+            this.Size = new System.Drawing.Size(1920, 1050);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
+            this.panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
+            this.panelControl2.ResumeLayout(false);
+            this.panelControl2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlStores)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewStores)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchControl1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.popupContainerEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            this.panelControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pnlInput;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label lblStoreName;
-        private System.Windows.Forms.TextBox txtStoreName;
-        private System.Windows.Forms.TextBox txtPhone;
-        private System.Windows.Forms.Label lblPhone;
-        private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.Label lblEmail;
-        private System.Windows.Forms.TextBox txtAddress;
-        private System.Windows.Forms.Label lblAddress;
-        private System.Windows.Forms.TextBox txtCity;
-        private System.Windows.Forms.Label lblCity;
-        private System.Windows.Forms.TextBox txtState;
-        private System.Windows.Forms.Label lblState;
-        private System.Windows.Forms.TextBox txtCountry;
-        private System.Windows.Forms.Label lblCountry;
-        private System.Windows.Forms.TextBox txtPostalCode;
-        private System.Windows.Forms.Label lblPostalCode;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.DataGridView dgvStores;
+        private DevExpress.XtraEditors.SimpleButton btn25Filtre;
+        private DevExpress.XtraEditors.SimpleButton btn50Filtre;
+        private DevExpress.XtraEditors.SimpleButton btn100Filtre;
+        private DevExpress.XtraEditors.SimpleButton btn200Filtre;
+        private DevExpress.XtraEditors.SimpleButton btn500Filtre;
+        private DevExpress.XtraEditors.SimpleButton btn1000Filtre;
+        private DevExpress.XtraEditors.SimpleButton btnAllFiltre;
+        private DevExpress.XtraEditors.SimpleButton simpleButton4;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.PanelControl panelControl2;
+        private DevExpress.XtraGrid.GridControl gridControlStores;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridViewStores;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn11;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn13;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn15;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn16;
+        private DevExpress.XtraEditors.SearchControl searchControl1;
+        private DevExpress.XtraEditors.SimpleButton btnAddStore;
+        private DevExpress.XtraEditors.SimpleButton btnExportPDF;
+        private DevExpress.XtraEditors.SimpleButton btnColumnVisibilty;
+        private DevExpress.XtraEditors.SimpleButton btnPrint;
+        private DevExpress.XtraEditors.SimpleButton btnExportExcel;
+        private DevExpress.XtraEditors.SimpleButton btnExportCSV;
+        private DevExpress.XtraEditors.LabelControl labelControl10;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private DevExpress.XtraEditors.PopupContainerEdit popupContainerEdit1;
+        private DevExpress.XtraEditors.LabelControl labelControl7;
+        private DevExpress.XtraEditors.LabelControl labelControl14;
+        private DevExpress.XtraEditors.PanelControl panelControl3;
+        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl1;
     }
 }
