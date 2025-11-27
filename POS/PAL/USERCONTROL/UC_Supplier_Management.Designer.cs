@@ -54,7 +54,7 @@
             repositoryItemButtonEdit_Edit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             repositoryItemButtonEdit_Delete = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             searchControl1 = new DevExpress.XtraEditors.SearchControl();
-            btnAddCustomer = new DevExpress.XtraEditors.SimpleButton();
+            btnAddSupplier = new DevExpress.XtraEditors.SimpleButton();
             btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
             btnColumnVisibilty = new DevExpress.XtraEditors.SimpleButton();
             btnPrint = new DevExpress.XtraEditors.SimpleButton();
@@ -134,7 +134,7 @@
             panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl4.Controls.Add(gridSuppliers);
             panelControl4.Controls.Add(searchControl1);
-            panelControl4.Controls.Add(btnAddCustomer);
+            panelControl4.Controls.Add(btnAddSupplier);
             panelControl4.Controls.Add(btnExportPDF);
             panelControl4.Controls.Add(btnColumnVisibilty);
             panelControl4.Controls.Add(btnPrint);
@@ -172,14 +172,11 @@
             gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             gridView1.GridControl = gridSuppliers;
             gridView1.Name = "gridView1";
-            gridView1.OptionsBehavior.Editable = true;
             gridView1.OptionsCustomization.AllowFilter = false;
             gridView1.OptionsCustomization.AllowGroup = false;
             gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
             gridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
-            gridView1.OptionsSelection.MultiSelect = false;
             gridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.False;
-            gridView1.OptionsView.ShowAutoFilterRow = false;
             gridView1.OptionsView.ShowGroupPanel = false;
             gridView1.OptionsView.ShowIndicator = false;
             gridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
@@ -249,20 +246,21 @@
             searchControl1.Size = new System.Drawing.Size(123, 20);
             searchControl1.TabIndex = 17;
             // 
-            // btnAddCustomer
+            // btnAddSupplier
             // 
-            btnAddCustomer.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            btnAddCustomer.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnAddCustomer.Appearance.Options.UseBackColor = true;
-            btnAddCustomer.Appearance.Options.UseFont = true;
-            btnAddCustomer.AppearanceHovered.Options.UseBackColor = true;
-            btnAddCustomer.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnAddCustomer.ImageOptions.Image");
-            btnAddCustomer.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            btnAddCustomer.Location = new System.Drawing.Point(1779, 5);
-            btnAddCustomer.Name = "btnAddCustomer";
-            btnAddCustomer.Size = new System.Drawing.Size(89, 29);
-            btnAddCustomer.TabIndex = 10;
-            btnAddCustomer.Text = "Add";
+            btnAddSupplier.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnAddSupplier.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnAddSupplier.Appearance.Options.UseBackColor = true;
+            btnAddSupplier.Appearance.Options.UseFont = true;
+            btnAddSupplier.AppearanceHovered.Options.UseBackColor = true;
+            btnAddSupplier.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnAddCustomer.ImageOptions.Image");
+            btnAddSupplier.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            btnAddSupplier.Location = new System.Drawing.Point(1779, 5);
+            btnAddSupplier.Name = "btnAddSupplier";
+            btnAddSupplier.Size = new System.Drawing.Size(89, 29);
+            btnAddSupplier.TabIndex = 10;
+            btnAddSupplier.Text = "Add";
+            btnAddSupplier.Click += btnAddSupplier_Click;
             // 
             // btnExportPDF
             // 
@@ -438,7 +436,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit_Edit;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit repositoryItemButtonEdit_Delete;
         private DevExpress.XtraEditors.SearchControl searchControl1;
-        private DevExpress.XtraEditors.SimpleButton btnAddCustomer;
+        private DevExpress.XtraEditors.SimpleButton btnAddSupplier;
         private DevExpress.XtraEditors.SimpleButton btnExportPDF;
         private DevExpress.XtraEditors.SimpleButton btnColumnVisibilty;
         private DevExpress.XtraEditors.SimpleButton btnPrint;

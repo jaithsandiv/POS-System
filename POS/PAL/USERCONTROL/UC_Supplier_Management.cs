@@ -139,10 +139,10 @@ namespace POS.PAL.USERCONTROL
             gridView1.Appearance.HeaderPanel.Options.UseTextOptions = true;
             gridView1.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             gridView1.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
-            
+
             gridView1.Appearance.Row.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             gridView1.Appearance.Row.Options.UseFont = true;
-            
+
             // Set row and column panel heights
             gridView1.ColumnPanelRowHeight = 44;
             gridView1.RowHeight = 44;
@@ -152,13 +152,13 @@ namespace POS.PAL.USERCONTROL
             gridView1.OptionsView.ShowIndicator = false;
             gridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
             gridView1.OptionsView.ShowAutoFilterRow = false;
-            
+
             gridView1.OptionsBehavior.Editable = true;
             gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
             gridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
             gridView1.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             gridView1.OptionsSelection.MultiSelect = false;
-            
+
             gridView1.OptionsCustomization.AllowFilter = false;
             gridView1.OptionsCustomization.AllowGroup = false;
 
@@ -299,16 +299,9 @@ namespace POS.PAL.USERCONTROL
 
                 int supplierId = Convert.ToInt32(selectedRow["supplier_id"]);
 
-                // TODO: Navigate to registration form in edit mode when UC_Supplier_Registration is created
-                // var registrationForm = new UC_Supplier_Registration(supplierId);
-                // Main.Instance.LoadUserControl(registrationForm);
-                
-                XtraMessageBox.Show(
-                    "Supplier registration form is not yet implemented.",
-                    "Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                // Navigate to registration form in edit mode
+                var registrationForm = new UC_Supplier_Registration(supplierId);
+                Main.Instance.LoadUserControl(registrationForm);
             }
             catch (Exception ex)
             {
@@ -393,6 +386,11 @@ namespace POS.PAL.USERCONTROL
                     MessageBoxIcon.Error
                 );
             }
+        }
+
+        private void btnAddSupplier_Click(object sender, EventArgs e)
+        {
+            Main.Instance.LoadUserControl(new UC_Supplier_Registration());
         }
     }
 }
