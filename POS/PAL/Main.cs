@@ -74,6 +74,10 @@ namespace POS
             {
                 btnAllSales.Click += btnAllSales_Click;
             }
+            if (btnDiscounts != null)
+            {
+                btnDiscounts.Click += btnDiscounts_Click;
+            }
         }
 
         public void LoadBusinessData()
@@ -348,6 +352,11 @@ namespace POS
         private void btnListQuotations_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UC_Quotation_Management());
+        }
+
+        private void btnDiscounts_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Discount_Management());
         }
 
         private void btnUsers_Click(object sender, EventArgs e)
