@@ -46,6 +46,33 @@
     <Compile Update="PAL\USERCONTROL\UC_Sales_Management.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Category_Registration.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Category_Management.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Brand_Registration.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Brand_Management.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Unit_Registration.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Unit_Management.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Product_Registration.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Product_Management.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_BarcodePrint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
