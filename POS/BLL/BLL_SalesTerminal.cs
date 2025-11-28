@@ -73,5 +73,10 @@ namespace POS.BLL
         {
             _dalSalesTerminal.SavePayments(saleId, payments, createdBy);
         }
+
+        public DataTable GetSales(string saleType)
+        {
+            return _dalSalesTerminal.GetSales(saleType);
+        }
     }
 }

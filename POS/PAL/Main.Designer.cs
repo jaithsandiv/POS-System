@@ -608,16 +608,12 @@
             panelSellSubmenu.Controls.Add(btnDiscounts);
             panelSellSubmenu.Controls.Add(btnSellReturns);
             panelSellSubmenu.Controls.Add(btnListQuotations);
-            panelSellSubmenu.Controls.Add(btnAddQuotation);
             panelSellSubmenu.Controls.Add(btnListDrafts);
-            panelSellSubmenu.Controls.Add(btnAddDraft);
-            panelSellSubmenu.Controls.Add(btnListPOS);
-            panelSellSubmenu.Controls.Add(btnAddSale);
             panelSellSubmenu.Controls.Add(btnAllSales);
             panelSellSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             panelSellSubmenu.Location = new System.Drawing.Point(0, 665);
             panelSellSubmenu.Name = "panelSellSubmenu";
-            panelSellSubmenu.Size = new System.Drawing.Size(233, 360);
+            panelSellSubmenu.Size = new System.Drawing.Size(233, 200);
             panelSellSubmenu.TabIndex = 10;
             panelSellSubmenu.Visible = false;
             // 
@@ -630,7 +626,7 @@
             btnDiscounts.AppearanceHovered.Options.UseBackColor = true;
             btnDiscounts.Dock = System.Windows.Forms.DockStyle.Top;
             btnDiscounts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnDiscounts.Location = new System.Drawing.Point(0, 320);
+            btnDiscounts.Location = new System.Drawing.Point(0, 160);
             btnDiscounts.Name = "btnDiscounts";
             btnDiscounts.Size = new System.Drawing.Size(233, 40);
             btnDiscounts.TabIndex = 39;
@@ -645,11 +641,11 @@
             btnSellReturns.AppearanceHovered.Options.UseBackColor = true;
             btnSellReturns.Dock = System.Windows.Forms.DockStyle.Top;
             btnSellReturns.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnSellReturns.Location = new System.Drawing.Point(0, 280);
+            btnSellReturns.Location = new System.Drawing.Point(0, 120);
             btnSellReturns.Name = "btnSellReturns";
             btnSellReturns.Size = new System.Drawing.Size(233, 40);
             btnSellReturns.TabIndex = 37;
-            btnSellReturns.Text = "List Sell Return ";
+            btnSellReturns.Text = "Sell Returns";
             // 
             // btnListQuotations
             // 
@@ -660,11 +656,11 @@
             btnListQuotations.AppearanceHovered.Options.UseBackColor = true;
             btnListQuotations.Dock = System.Windows.Forms.DockStyle.Top;
             btnListQuotations.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnListQuotations.Location = new System.Drawing.Point(0, 240);
+            btnListQuotations.Location = new System.Drawing.Point(0, 80);
             btnListQuotations.Name = "btnListQuotations";
             btnListQuotations.Size = new System.Drawing.Size(233, 40);
             btnListQuotations.TabIndex = 36;
-            btnListQuotations.Text = "List Quotations";
+            btnListQuotations.Text = "Quotations";
             // 
             // btnAddQuotation
             // 
@@ -690,11 +686,11 @@
             btnListDrafts.AppearanceHovered.Options.UseBackColor = true;
             btnListDrafts.Dock = System.Windows.Forms.DockStyle.Top;
             btnListDrafts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnListDrafts.Location = new System.Drawing.Point(0, 160);
+            btnListDrafts.Location = new System.Drawing.Point(0, 40);
             btnListDrafts.Name = "btnListDrafts";
             btnListDrafts.Size = new System.Drawing.Size(233, 40);
             btnListDrafts.TabIndex = 34;
-            btnListDrafts.Text = "List Drafts";
+            btnListDrafts.Text = "Drafts";
             // 
             // btnAddDraft
             // 
@@ -754,7 +750,7 @@
             btnAllSales.Name = "btnAllSales";
             btnAllSales.Size = new System.Drawing.Size(233, 40);
             btnAllSales.TabIndex = 29;
-            btnAllSales.Text = "All Sales";
+            btnAllSales.Text = "Sales";
             // 
             // panelSellHeader
             // 

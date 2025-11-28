@@ -43,6 +43,9 @@
     <Compile Update="PAL\REPORT\SUBREPORT\SR_ThermalPayment.cs">
       <SubType>XtraReport</SubType>
     </Compile>
+    <Compile Update="PAL\USERCONTROL\UC_Sales_Management.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

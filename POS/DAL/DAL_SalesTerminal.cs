@@ -647,5 +647,26 @@ namespace POS.DAL
                 throw new Exception($"Error saving payments: {ex.Message}", ex);
             }
         }
+
+        public DataTable GetSales(string saleType)
+        {
+            string query = @"
+                SELECT 
+                    s.sale_id,
+                    s.invoice_number,
+                    c.full_name as customer_name,
+                    s.created_date as sale_date,
+                    s.grand_total,
+                    s.payment_status,
+                    s.sale_status,
+                    u.full_name as biller_name
+                FROM Sale s
+                LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                LEFT JOIN [User] u ON s.biller_id = u.user_id
+                WHERE s.status = 'A' AND s.sale_type = '" + saleType + @"'
+                ORDER BY s.sale_id DESC";
+
+            return Connection.ExecuteQuery(query);
+        }
     }
 }
