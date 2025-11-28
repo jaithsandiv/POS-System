@@ -989,6 +989,7 @@
             btnUsers.Size = new System.Drawing.Size(233, 40);
             btnUsers.TabIndex = 19;
             btnUsers.Text = "Users";
+            btnUsers.Click += btnUsers_Click;
             // 
             // panelUserManagementHeader
             // 
