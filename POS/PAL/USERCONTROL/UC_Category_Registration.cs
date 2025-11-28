@@ -25,11 +25,13 @@ namespace POS.PAL.USERCONTROL
             if (_categoryId.HasValue)
             {
                 lblTitle.Text = "Edit Category";
+                lblSubtitle.Text = "Edit category details";
                 LoadCategoryData();
             }
             else
             {
-                lblTitle.Text = "Add Category";
+                lblTitle.Text = "Category Registration";
+                lblSubtitle.Text = "Add a new category";
             }
         }
 

@@ -25,11 +25,13 @@ namespace POS.PAL.USERCONTROL
             if (_unitId.HasValue)
             {
                 lblTitle.Text = "Edit Unit";
+                lblSubtitle.Text = "Edit unit details";
                 LoadUnitData();
             }
             else
             {
-                lblTitle.Text = "Add Unit";
+                lblTitle.Text = "Unit Registration";
+                lblSubtitle.Text = "Add a new unit";
             }
         }
 

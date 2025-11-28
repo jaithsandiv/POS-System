@@ -26,11 +26,13 @@ namespace POS.PAL.USERCONTROL
             if (_productId.HasValue)
             {
                 lblTitle.Text = "Edit Product";
+                lblSubtitle.Text = "Edit product details";
                 LoadProductData();
             }
             else
             {
-                lblTitle.Text = "Add Product";
+                lblTitle.Text = "Product Registration";
+                lblSubtitle.Text = "Add a new product";
             }
         }
 
@@ -174,9 +176,6 @@ namespace POS.PAL.USERCONTROL
 
         private void ReturnToManagement()
         {
-            // If we came from List Products, go back there.
-            // If we came from Add Product sidebar, maybe go to List Products or empty dashboard?
-            // Usually going to List is safe.
             Main.Instance.LoadUserControl(new UC_Product_Management());
         }
     }

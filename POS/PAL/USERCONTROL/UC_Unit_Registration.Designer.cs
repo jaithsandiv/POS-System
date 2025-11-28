@@ -17,90 +17,125 @@ namespace POS.PAL.USERCONTROL
 
         private void InitializeComponent()
         {
-            this.lblTitle = new DevExpress.XtraEditors.LabelControl();
-            this.lblUnitCode = new DevExpress.XtraEditors.LabelControl();
-            this.txtUnitCode = new DevExpress.XtraEditors.TextEdit();
-            this.lblUnitName = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.txtUnitName = new DevExpress.XtraEditors.TextEdit();
-            this.btnSave = new DevExpress.XtraEditors.SimpleButton();
-            this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
-            ((System.ComponentModel.ISupportInitialize)(this.txtUnitCode.Properties)).BeginInit();
+            this.lblUnitName = new DevExpress.XtraEditors.LabelControl();
+            this.txtUnitCode = new DevExpress.XtraEditors.TextEdit();
+            this.lblUnitCode = new DevExpress.XtraEditors.LabelControl();
+            this.lblTitle = new DevExpress.XtraEditors.LabelControl();
+            this.lblSubtitle = new DevExpress.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtUnitName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUnitCode.Properties)).BeginInit();
             this.SuspendLayout();
             //
-            // lblTitle
+            // panelControl1
             //
-            this.lblTitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Appearance.Options.UseFont = true;
-            this.lblTitle.Location = new System.Drawing.Point(30, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(155, 25);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Unit Registration";
+            this.panelControl1.Appearance.BackColor = System.Drawing.Color.White;
+            this.panelControl1.Appearance.Options.UseBackColor = true;
+            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl1.Controls.Add(this.btnSave);
+            this.panelControl1.Controls.Add(this.btnCancel);
+            this.panelControl1.Controls.Add(this.txtUnitName);
+            this.panelControl1.Controls.Add(this.lblUnitName);
+            this.panelControl1.Controls.Add(this.txtUnitCode);
+            this.panelControl1.Controls.Add(this.lblUnitCode);
+            this.panelControl1.Controls.Add(this.lblTitle);
+            this.panelControl1.Controls.Add(this.lblSubtitle);
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl1.Location = new System.Drawing.Point(0, 0);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(1920, 1050);
+            this.panelControl1.TabIndex = 0;
             //
-            // lblUnitCode
+            // btnSave
             //
-            this.lblUnitCode.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblUnitCode.Appearance.Options.UseFont = true;
-            this.lblUnitCode.Location = new System.Drawing.Point(30, 70);
-            this.lblUnitCode.Name = "lblUnitCode";
-            this.lblUnitCode.Size = new System.Drawing.Size(71, 17);
-            this.lblUnitCode.TabIndex = 1;
-            this.lblUnitCode.Text = "Unit Code *";
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(167)))), ((int)(((byte)(140)))));
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.btnSave.ForeColor = System.Drawing.Color.White;
+            this.btnSave.Location = new System.Drawing.Point(1496, 860);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(250, 44);
+            this.btnSave.TabIndex = 5;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             //
-            // txtUnitCode
+            // btnCancel
             //
-            this.txtUnitCode.Location = new System.Drawing.Point(30, 95);
-            this.txtUnitCode.Name = "txtUnitCode";
-            this.txtUnitCode.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtUnitCode.Properties.Appearance.Options.UseFont = true;
-            this.txtUnitCode.Size = new System.Drawing.Size(300, 24);
-            this.txtUnitCode.TabIndex = 2;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.btnCancel.Location = new System.Drawing.Point(175, 860);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(250, 44);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Back";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            //
+            // txtUnitName
+            //
+            this.txtUnitName.Location = new System.Drawing.Point(381, 452);
+            this.txtUnitName.Name = "txtUnitName";
+            this.txtUnitName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtUnitName.Properties.Appearance.Options.UseFont = true;
+            this.txtUnitName.Properties.Padding = new System.Windows.Forms.Padding(10);
+            this.txtUnitName.Size = new System.Drawing.Size(480, 44);
+            this.txtUnitName.TabIndex = 4;
             //
             // lblUnitName
             //
             this.lblUnitName.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lblUnitName.Appearance.Options.UseFont = true;
-            this.lblUnitName.Location = new System.Drawing.Point(30, 135);
+            this.lblUnitName.Location = new System.Drawing.Point(381, 429);
             this.lblUnitName.Name = "lblUnitName";
             this.lblUnitName.Size = new System.Drawing.Size(75, 17);
             this.lblUnitName.TabIndex = 3;
             this.lblUnitName.Text = "Unit Name *";
             //
-            // txtUnitName
+            // txtUnitCode
             //
-            this.txtUnitName.Location = new System.Drawing.Point(30, 160);
-            this.txtUnitName.Name = "txtUnitName";
-            this.txtUnitName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtUnitName.Properties.Appearance.Options.UseFont = true;
-            this.txtUnitName.Size = new System.Drawing.Size(300, 24);
-            this.txtUnitName.TabIndex = 4;
+            this.txtUnitCode.Location = new System.Drawing.Point(381, 366);
+            this.txtUnitCode.Name = "txtUnitCode";
+            this.txtUnitCode.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtUnitCode.Properties.Appearance.Options.UseFont = true;
+            this.txtUnitCode.Properties.Padding = new System.Windows.Forms.Padding(10);
+            this.txtUnitCode.Size = new System.Drawing.Size(480, 44);
+            this.txtUnitCode.TabIndex = 2;
             //
-            // btnSave
+            // lblUnitCode
             //
-            this.btnSave.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(181)))), ((int)(((byte)(152)))));
-            this.btnSave.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnSave.Appearance.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Appearance.Options.UseBackColor = true;
-            this.btnSave.Appearance.Options.UseFont = true;
-            this.btnSave.Appearance.Options.UseForeColor = true;
-            this.btnSave.Location = new System.Drawing.Point(30, 210);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 35);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "Save";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.lblUnitCode.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.lblUnitCode.Appearance.Options.UseFont = true;
+            this.lblUnitCode.Location = new System.Drawing.Point(381, 343);
+            this.lblUnitCode.Name = "lblUnitCode";
+            this.lblUnitCode.Size = new System.Drawing.Size(71, 17);
+            this.lblUnitCode.TabIndex = 1;
+            this.lblUnitCode.Text = "Unit Code *";
             //
-            // btnCancel
+            // lblTitle
             //
-            this.btnCancel.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.btnCancel.Appearance.Options.UseFont = true;
-            this.btnCancel.Location = new System.Drawing.Point(140, 210);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(100, 35);
-            this.btnCancel.TabIndex = 6;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.lblTitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Appearance.Options.UseFont = true;
+            this.lblTitle.Location = new System.Drawing.Point(806, 98);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(240, 40);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "Unit Registration";
+            //
+            // lblSubtitle
+            //
+            this.lblSubtitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F);
+            this.lblSubtitle.Appearance.Options.UseFont = true;
+            this.lblSubtitle.Location = new System.Drawing.Point(189, 237);
+            this.lblSubtitle.Name = "lblSubtitle";
+            this.lblSubtitle.Size = new System.Drawing.Size(200, 40);
+            this.lblSubtitle.TabIndex = 5;
+            this.lblSubtitle.Text = "Add a new unit";
             //
             // UC_Unit_Registration
             //
@@ -108,30 +143,28 @@ namespace POS.PAL.USERCONTROL
             this.Appearance.Options.UseBackColor = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.txtUnitName);
-            this.Controls.Add(this.lblUnitName);
-            this.Controls.Add(this.txtUnitCode);
-            this.Controls.Add(this.lblUnitCode);
-            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.panelControl1);
             this.Name = "UC_Unit_Registration";
-            this.Size = new System.Drawing.Size(800, 600);
-            ((System.ComponentModel.ISupportInitialize)(this.txtUnitCode.Properties)).EndInit();
+            this.Size = new System.Drawing.Size(1920, 1050);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
+            this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtUnitName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUnitCode.Properties)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private DevExpress.XtraEditors.LabelControl lblTitle;
-        private DevExpress.XtraEditors.LabelControl lblUnitCode;
-        private DevExpress.XtraEditors.TextEdit txtUnitCode;
-        private DevExpress.XtraEditors.LabelControl lblUnitName;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnCancel;
         private DevExpress.XtraEditors.TextEdit txtUnitName;
-        private DevExpress.XtraEditors.SimpleButton btnSave;
-        private DevExpress.XtraEditors.SimpleButton btnCancel;
+        private DevExpress.XtraEditors.LabelControl lblUnitName;
+        private DevExpress.XtraEditors.TextEdit txtUnitCode;
+        private DevExpress.XtraEditors.LabelControl lblUnitCode;
+        private DevExpress.XtraEditors.LabelControl lblTitle;
+        private DevExpress.XtraEditors.LabelControl lblSubtitle;
     }
 }

@@ -27,11 +27,13 @@ namespace POS.PAL.USERCONTROL
             if (_brandId.HasValue)
             {
                 lblTitle.Text = "Edit Brand";
+                lblSubtitle.Text = "Edit brand details";
                 LoadBrandData();
             }
             else
             {
-                lblTitle.Text = "Add Brand";
+                lblTitle.Text = "Brand Registration";
+                lblSubtitle.Text = "Add a new brand";
             }
         }
 
@@ -44,14 +46,11 @@ namespace POS.PAL.USERCONTROL
                 lueSupplier.Properties.DisplayMember = "supplier_name";
                 lueSupplier.Properties.ValueMember = "supplier_id";
 
-                // Add "None" column or allow null if needed, but LookUpEdit usually handles it via Ctrl+Del
-                // Or we can populate columns manually to show name only
                 lueSupplier.Properties.Columns.Clear();
                 lueSupplier.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo("supplier_name", "Supplier"));
             }
             catch (Exception ex)
             {
-                // Suppress error if contacts module fails, just log or ignore
                 Console.WriteLine(ex.Message);
             }
         }
