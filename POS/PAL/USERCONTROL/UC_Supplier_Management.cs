@@ -25,6 +25,9 @@ namespace POS.PAL.USERCONTROL
             InitializeRepositoryItems();
             ConfigureGrid();
             LoadSuppliers();
+            
+            // Wire up search textbox events
+            txtSearch.KeyDown += TxtSearch_KeyDown;
         }
 
         /// <summary>
@@ -257,6 +260,61 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
+        /// Searches suppliers based on the search text
+        /// </summary>
+        private void SearchSuppliers()
+        {
+            try
+            {
+                string searchKeyword = txtSearch.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(searchKeyword))
+                {
+                    // If search is empty, load all suppliers
+                    LoadSuppliers();
+                    return;
+                }
+
+                suppliersTable = _bllContacts.SearchSuppliers(searchKeyword);
+                gridSuppliers.DataSource = suppliersTable;
+                gridView1.BestFitColumns();
+
+                // Show message if no results found
+                if (suppliersTable.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show(
+                        $"No suppliers found matching '{searchKeyword}'.",
+                        "Search Results",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error searching suppliers: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Handle Enter key press in search textbox
+        /// </summary>
+        private void TxtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SearchSuppliers();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        /// <summary>
         /// Handle double-click to edit
         /// </summary>
         private void GridView1_DoubleClick(object sender, EventArgs e)
@@ -391,6 +449,11 @@ namespace POS.PAL.USERCONTROL
         private void btnAddSupplier_Click(object sender, EventArgs e)
         {
             Main.Instance.LoadUserControl(new UC_Supplier_Registration());
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            SearchSuppliers();
         }
     }
 }
