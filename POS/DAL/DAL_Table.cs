@@ -78,5 +78,23 @@ namespace POS.DAL
 
             return Connection.ExecuteNonQuery(query, parameters) > 0;
         }
+
+        public DataTable GetTableById(int tableId)
+        {
+            string query = @"
+                SELECT 
+                    table_id, 
+                    table_number, 
+                    capacity, 
+                    status
+                FROM [Table]
+                WHERE table_id = @table_id";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@table_id", tableId)
+            };
+
+            return Connection.ExecuteQuery(query, parameters);
+        }
     }
 }

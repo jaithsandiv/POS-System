@@ -31,5 +31,10 @@ namespace POS.BLL
         {
             return _dalTable.DeleteTable(tableId, updatedBy);
         }
+
+        public DataTable GetTableById(int tableId)
+        {
+            return _dalTable.GetTableById(tableId);
+        }
     }
 }
