@@ -78,6 +78,14 @@ namespace POS
             {
                 btnDiscounts.Click += btnDiscounts_Click;
             }
+
+            // Products Submenu
+            if (btnBrands != null) btnBrands.Click += btnBrands_Click;
+            if (btnCategories != null) btnCategories.Click += btnCategories_Click;
+            if (btnUnits != null) btnUnits.Click += btnUnits_Click;
+            if (btnPrintLabels != null) btnPrintLabels.Click += btnPrintLabels_Click;
+            if (btnAddProducts != null) btnAddProducts.Click += btnAddProducts_Click;
+            if (btnListProducts != null) btnListProducts.Click += btnListProducts_Click;
         }
 
         public void LoadBusinessData()
@@ -362,6 +370,36 @@ namespace POS
         private void btnUsers_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UC_User_Management());
+        }
+
+        private void btnBrands_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Brand_Management());
+        }
+
+        private void btnCategories_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Category_Management());
+        }
+
+        private void btnUnits_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Unit_Management());
+        }
+
+        private void btnPrintLabels_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_BarcodePrint());
+        }
+
+        private void btnAddProducts_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Product_Registration());
+        }
+
+        private void btnListProducts_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Product_Management());
         }
     }
 }
