@@ -110,6 +110,68 @@ namespace POS.DAL
         }
 
         /// <summary>
+        /// Searches suppliers by keyword in multiple fields
+        /// </summary>
+        public DataTable SearchSuppliers(string searchKeyword)
+        {
+            DAL_DS_Contacts ds = new DAL_DS_Contacts();
+            DataTable dt = ds.Supplier;
+            dt.Clear();
+
+            string query = @"
+                SELECT 
+                    supplier_id,
+                    supplier_name,
+                    company_name,
+                    email,
+                    phone,
+                    address,
+                    status,
+                    created_by,
+                    CONVERT(varchar, created_date, 23) AS created_date,
+                    updated_by,
+                    CONVERT(varchar, updated_date, 23) AS updated_date
+                FROM Supplier
+                WHERE status = 'A' 
+                    AND (
+                        supplier_name LIKE @searchKeyword 
+                        OR company_name LIKE @searchKeyword
+                        OR email LIKE @searchKeyword
+                        OR phone LIKE @searchKeyword
+                        OR address LIKE @searchKeyword
+                    )
+                ORDER BY supplier_name";
+
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@searchKeyword", "%" + searchKeyword + "%")
+            };
+
+            DataTable result = Connection.ExecuteQuery(query, parameters);
+
+            foreach (DataRow row in result.Rows)
+            {
+                DataRow r = dt.NewRow();
+
+                r["supplier_id"] = row["supplier_id"]?.ToString();
+                r["supplier_name"] = row["supplier_name"]?.ToString();
+                r["company_name"] = row["company_name"]?.ToString();
+                r["email"] = row["email"]?.ToString();
+                r["phone"] = row["phone"]?.ToString();
+                r["address"] = row["address"]?.ToString();
+                r["status"] = row["status"]?.ToString();
+                r["created_by"] = row["created_by"]?.ToString();
+                r["created_date"] = row["created_date"]?.ToString();
+                r["updated_by"] = row["updated_by"]?.ToString();
+                r["updated_date"] = row["updated_date"]?.ToString();
+
+                dt.Rows.Add(r);
+            }
+
+            return dt;
+        }
+
+        /// <summary>
         /// Gets a specific CustomerGroup by ID
         /// </summary>
         public DataTable GetCustomerGroupById(int groupId)

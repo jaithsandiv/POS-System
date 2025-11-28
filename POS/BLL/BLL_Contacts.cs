@@ -29,6 +29,20 @@ namespace POS.BLL
         }
 
         /// <summary>
+        /// Searches suppliers by keyword
+        /// </summary>
+        public DataTable SearchSuppliers(string searchKeyword)
+        {
+            if (string.IsNullOrWhiteSpace(searchKeyword))
+            {
+                // If search is empty, return all suppliers
+                return GetSuppliers();
+            }
+
+            return _dalContacts.SearchSuppliers(searchKeyword.Trim());
+        }
+
+        /// <summary>
         /// Gets a specific CustomerGroup by ID
         /// </summary>
         public DataTable GetCustomerGroupById(int groupId)
