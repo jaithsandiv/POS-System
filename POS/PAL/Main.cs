@@ -339,5 +339,10 @@ namespace POS
         {
             LoadUserControl(new UC_Sales_Management());
         }
+
+        private void btnListDrafts_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Draft_Management());
+        }
     }
 }
