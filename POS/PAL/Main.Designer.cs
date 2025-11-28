@@ -661,6 +661,7 @@
             btnListQuotations.Size = new System.Drawing.Size(233, 40);
             btnListQuotations.TabIndex = 36;
             btnListQuotations.Text = "Quotations";
+            btnListQuotations.Click += btnListQuotations_Click;
             // 
             // btnListDrafts
             // 

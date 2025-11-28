@@ -344,5 +344,10 @@ namespace POS
         {
             LoadUserControl(new UC_Draft_Management());
         }
+
+        private void btnListQuotations_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Quotation_Management());
+        }
     }
 }
