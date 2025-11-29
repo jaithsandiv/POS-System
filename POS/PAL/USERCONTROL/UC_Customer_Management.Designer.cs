@@ -57,32 +57,29 @@
             gridColumn14 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn15 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn16 = new DevExpress.XtraGrid.Columns.GridColumn();
-            searchControl1 = new DevExpress.XtraEditors.SearchControl();
             btnAddCustomer = new DevExpress.XtraEditors.SimpleButton();
             btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
             btnColumnVisibilty = new DevExpress.XtraEditors.SimpleButton();
             btnPrint = new DevExpress.XtraEditors.SimpleButton();
             btnExportExcel = new DevExpress.XtraEditors.SimpleButton();
             btnExportCSV = new DevExpress.XtraEditors.SimpleButton();
-            labelControl10 = new DevExpress.XtraEditors.LabelControl();
-            labelControl9 = new DevExpress.XtraEditors.LabelControl();
-            popupContainerEdit1 = new DevExpress.XtraEditors.PopupContainerEdit();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
             panelControl3 = new DevExpress.XtraEditors.PanelControl();
             simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
+            txtSearch = new DevExpress.XtraEditors.TextEdit();
+            btnSearch = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridCustomers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)searchControl1.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
             panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).BeginInit();
             SuspendLayout();
             // 
             // btn25Filtre
@@ -169,17 +166,15 @@
             panelControl2.Appearance.Options.UseBackColor = true;
             panelControl2.Appearance.Options.UseBorderColor = true;
             panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl2.Controls.Add(txtSearch);
+            panelControl2.Controls.Add(btnSearch);
             panelControl2.Controls.Add(gridCustomers);
-            panelControl2.Controls.Add(searchControl1);
             panelControl2.Controls.Add(btnAddCustomer);
             panelControl2.Controls.Add(btnExportPDF);
             panelControl2.Controls.Add(btnColumnVisibilty);
             panelControl2.Controls.Add(btnPrint);
             panelControl2.Controls.Add(btnExportExcel);
             panelControl2.Controls.Add(btnExportCSV);
-            panelControl2.Controls.Add(labelControl10);
-            panelControl2.Controls.Add(labelControl9);
-            panelControl2.Controls.Add(popupContainerEdit1);
             panelControl2.Location = new System.Drawing.Point(14, 172);
             panelControl2.Name = "panelControl2";
             panelControl2.Size = new System.Drawing.Size(1894, 818);
@@ -331,14 +326,6 @@
             gridColumn16.Visible = true;
             gridColumn16.VisibleIndex = 15;
             // 
-            // searchControl1
-            // 
-            searchControl1.Location = new System.Drawing.Point(1745, 40);
-            searchControl1.Name = "searchControl1";
-            searchControl1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Repository.ClearButton(), new DevExpress.XtraEditors.Repository.SearchButton() });
-            searchControl1.Size = new System.Drawing.Size(123, 20);
-            searchControl1.TabIndex = 17;
-            // 
             // btnAddCustomer
             // 
             btnAddCustomer.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
@@ -348,7 +335,7 @@
             btnAddCustomer.AppearanceHovered.Options.UseBackColor = true;
             btnAddCustomer.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnAddCustomer.ImageOptions.Image");
             btnAddCustomer.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            btnAddCustomer.Location = new System.Drawing.Point(1779, 5);
+            btnAddCustomer.Location = new System.Drawing.Point(1779, 28);
             btnAddCustomer.Name = "btnAddCustomer";
             btnAddCustomer.Size = new System.Drawing.Size(89, 29);
             btnAddCustomer.TabIndex = 10;
@@ -394,42 +381,6 @@
             btnExportCSV.Size = new System.Drawing.Size(75, 23);
             btnExportCSV.TabIndex = 12;
             btnExportCSV.Text = "Export CSV";
-            // 
-            // labelControl10
-            // 
-            labelControl10.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl10.Appearance.ForeColor = System.Drawing.Color.Black;
-            labelControl10.Appearance.Options.UseFont = true;
-            labelControl10.Appearance.Options.UseForeColor = true;
-            labelControl10.Location = new System.Drawing.Point(127, 43);
-            labelControl10.Name = "labelControl10";
-            labelControl10.Size = new System.Drawing.Size(41, 17);
-            labelControl10.TabIndex = 11;
-            labelControl10.Text = "entries";
-            // 
-            // labelControl9
-            // 
-            labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl9.Appearance.ForeColor = System.Drawing.Color.Black;
-            labelControl9.Appearance.Options.UseFont = true;
-            labelControl9.Appearance.Options.UseForeColor = true;
-            labelControl9.Location = new System.Drawing.Point(28, 43);
-            labelControl9.Name = "labelControl9";
-            labelControl9.Size = new System.Drawing.Size(33, 17);
-            labelControl9.TabIndex = 10;
-            labelControl9.Text = "Show";
-            // 
-            // popupContainerEdit1
-            // 
-            popupContainerEdit1.Location = new System.Drawing.Point(67, 43);
-            popupContainerEdit1.Name = "popupContainerEdit1";
-            popupContainerEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            popupContainerEdit1.Properties.PopupFormMinSize = new System.Drawing.Size(43, 184);
-            popupContainerEdit1.Properties.PopupFormSize = new System.Drawing.Size(43, 184);
-            popupContainerEdit1.Properties.PopupSizeable = false;
-            popupContainerEdit1.Properties.UsePopupControlMinSize = true;
-            popupContainerEdit1.Size = new System.Drawing.Size(54, 20);
-            popupContainerEdit1.TabIndex = 1;
             // 
             // labelControl7
             // 
@@ -485,6 +436,30 @@
             separatorControl1.Size = new System.Drawing.Size(1767, 23);
             separatorControl1.TabIndex = 118;
             // 
+            // txtSearch
+            // 
+            txtSearch.Location = new System.Drawing.Point(27, 23);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtSearch.Properties.Appearance.Options.UseFont = true;
+            txtSearch.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtSearch.Size = new System.Drawing.Size(343, 44);
+            txtSearch.TabIndex = 114;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnSearch.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnSearch.Appearance.Options.UseBackColor = true;
+            btnSearch.Appearance.Options.UseFont = true;
+            btnSearch.AppearanceHovered.Options.UseBackColor = true;
+            btnSearch.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnSearch.ImageOptions.Image");
+            btnSearch.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            btnSearch.Location = new System.Drawing.Point(370, 23);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new System.Drawing.Size(60, 44);
+            btnSearch.TabIndex = 113;
+            // 
             // UC_Customer_Management
             // 
             Appearance.BackColor = System.Drawing.Color.White;
@@ -499,14 +474,12 @@
             panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).EndInit();
             panelControl2.ResumeLayout(false);
-            panelControl2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)gridCustomers).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)searchControl1.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
             panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).EndInit();
             ResumeLayout(false);
         }
 
@@ -540,20 +513,18 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn15;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn16;
-        private DevExpress.XtraEditors.SearchControl searchControl1;
         private DevExpress.XtraEditors.SimpleButton btnAddCustomer;
         private DevExpress.XtraEditors.SimpleButton btnExportPDF;
         private DevExpress.XtraEditors.SimpleButton btnColumnVisibilty;
         private DevExpress.XtraEditors.SimpleButton btnPrint;
         private DevExpress.XtraEditors.SimpleButton btnExportExcel;
         private DevExpress.XtraEditors.SimpleButton btnExportCSV;
-        private DevExpress.XtraEditors.LabelControl labelControl10;
-        private DevExpress.XtraEditors.LabelControl labelControl9;
-        private DevExpress.XtraEditors.PopupContainerEdit popupContainerEdit1;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl14;
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
+        private DevExpress.XtraEditors.TextEdit txtSearch;
+        private DevExpress.XtraEditors.SimpleButton btnSearch;
     }
 }

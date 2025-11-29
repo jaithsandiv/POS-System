@@ -24,6 +24,7 @@ namespace POS.PAL.USERCONTROL
             InitializeComponent();
             ConfigureGrid();
             LoadCustomerGroups();
+            InitializeSearchControl();
         }
 
         /// <summary>
@@ -219,6 +220,109 @@ namespace POS.PAL.USERCONTROL
                 XtraMessageBox.Show(
                     $"Error loading customer groups: {ex.Message}",
                     "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Initializes the search control event handlers
+        /// </summary>
+        private void InitializeSearchControl()
+        {
+            txtSearch.Properties.NullValuePrompt = "Search customer groups...";
+            txtSearch.Properties.ShowNullValuePromptWhenFocused = true;
+            txtSearch.EditValueChanged += TxtSearch_EditValueChanged;
+            txtSearch.KeyPress += TxtSearch_KeyPress;
+            btnSearch.Click += BtnSearch_Click;
+        }
+
+        /// <summary>
+        /// Handles the search text box value change event
+        /// </summary>
+        private void TxtSearch_EditValueChanged(object sender, EventArgs e)
+        {
+            // Optional: Real-time search as user types
+            // Uncomment if you want search to happen while typing
+            // PerformSearch(txtSearch.Text);
+        }
+
+        /// <summary>
+        /// Handles the Enter key press in search text box
+        /// </summary>
+        private void TxtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                PerformSearch(txtSearch.Text);
+            }
+        }
+
+        /// <summary>
+        /// Handles the search button click event
+        /// </summary>
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            PerformSearch(txtSearch.Text);
+        }
+
+        /// <summary>
+        /// Performs search filtering on the customer group grid
+        /// </summary>
+        private void PerformSearch(string searchText)
+        {
+            try
+            {
+                if (customerGroupsTable == null || customerGroupsTable.Rows.Count == 0)
+                    return;
+
+                if (string.IsNullOrWhiteSpace(searchText))
+                {
+                    // If search is empty, show all records
+                    gridCustomerGroup.DataSource = customerGroupsTable;
+                    gridView1.RefreshData();
+                    return;
+                }
+
+                // Escape special characters for LIKE expression
+                searchText = searchText.Replace("'", "''").Replace("[", "[[]").Replace("%", "[%]").Replace("_", "[_]");
+
+                // Create a filtered view based on search text
+                DataView dataView = new DataView(customerGroupsTable);
+                
+                // Build filter expression to search across multiple columns
+                StringBuilder filterExpression = new StringBuilder();
+                
+                // Add conditions for each searchable column
+                List<string> conditions = new List<string>();
+                
+                conditions.Add($"CONVERT(group_id, 'System.String') LIKE '%{searchText}%'");
+                conditions.Add($"group_name LIKE '%{searchText}%'");
+                conditions.Add($"CONVERT(discount_percent, 'System.String') LIKE '%{searchText}%'");
+                conditions.Add($"status LIKE '%{searchText}%'");
+
+                // Join all conditions with OR
+                filterExpression.Append(string.Join(" OR ", conditions));
+
+                // Apply filter
+                dataView.RowFilter = filterExpression.ToString();
+                
+                // Create a new DataTable from the filtered view
+                DataTable filteredTable = dataView.ToTable();
+                
+                // Update grid data source
+                gridCustomerGroup.DataSource = filteredTable;
+                
+                // Refresh the grid view
+                gridView1.RefreshData();
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error performing search: {ex.Message}",
+                    "Search Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );

@@ -27,6 +27,7 @@ namespace POS.PAL.USERCONTROL
             InitializeRepositoryItems();
             ConfigureGrid();
             LoadCustomers();
+            InitializeSearchControl();
         }
 
         /// <summary>
@@ -192,6 +193,114 @@ namespace POS.PAL.USERCONTROL
 
             // Add context menu for Edit and Delete
             CreateContextMenu();
+        }
+
+        /// <summary>
+        /// Initializes the search control event handlers
+        /// </summary>
+        private void InitializeSearchControl()
+        {
+            txtSearch.Properties.NullValuePrompt = "Search customers...";
+            txtSearch.Properties.ShowNullValuePromptWhenFocused = true;
+            txtSearch.EditValueChanged += TxtSearch_EditValueChanged;
+            txtSearch.KeyPress += TxtSearch_KeyPress;
+            btnSearch.Click += BtnSearch_Click;
+        }
+
+        /// <summary>
+        /// Handles the search text box value change event
+        /// </summary>
+        private void TxtSearch_EditValueChanged(object sender, EventArgs e)
+        {
+            // Optional: Real-time search as user types
+            // Uncomment if you want search to happen while typing
+            // PerformSearch(txtSearch.Text);
+        }
+
+        /// <summary>
+        /// Handles the Enter key press in search text box
+        /// </summary>
+        private void TxtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                PerformSearch(txtSearch.Text);
+            }
+        }
+
+        /// <summary>
+        /// Handles the search button click event
+        /// </summary>
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            PerformSearch(txtSearch.Text);
+        }
+
+        /// <summary>
+        /// Performs search filtering on the customer grid
+        /// </summary>
+        private void PerformSearch(string searchText)
+        {
+            try
+            {
+                if (customersTable == null || customersTable.Rows.Count == 0)
+                    return;
+
+                if (string.IsNullOrWhiteSpace(searchText))
+                {
+                    // If search is empty, show all records
+                    gridCustomers.DataSource = customersTable;
+                    gridView1.RefreshData();
+                    return;
+                }
+
+                // Escape special characters for LIKE expression
+                searchText = searchText.Replace("'", "''").Replace("[", "[[]").Replace("%", "[%]").Replace("_", "[_]");
+
+                // Create a filtered view based on search text
+                DataView dataView = new DataView(customersTable);
+                
+                // Build filter expression to search across multiple columns
+                StringBuilder filterExpression = new StringBuilder();
+                
+                // Add conditions for each searchable column
+                List<string> conditions = new List<string>();
+                
+                conditions.Add($"CONVERT(customer_id, 'System.String') LIKE '%{searchText}%'");
+                conditions.Add($"full_name LIKE '%{searchText}%'");
+                conditions.Add($"company_name LIKE '%{searchText}%'");
+                conditions.Add($"email LIKE '%{searchText}%'");
+                conditions.Add($"phone LIKE '%{searchText}%'");
+                conditions.Add($"address LIKE '%{searchText}%'");
+                conditions.Add($"city LIKE '%{searchText}%'");
+                conditions.Add($"group_name LIKE '%{searchText}%'");
+                conditions.Add($"status LIKE '%{searchText}%'");
+
+                // Join all conditions with OR
+                filterExpression.Append(string.Join(" OR ", conditions));
+
+                // Apply filter
+                dataView.RowFilter = filterExpression.ToString();
+                
+                // Create a new DataTable from the filtered view
+                DataTable filteredTable = dataView.ToTable();
+                
+                // Update grid data source
+                gridCustomers.DataSource = filteredTable;
+                
+                // Refresh the grid view
+                gridView1.RefreshData();
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error performing search: {ex.Message}",
+                    "Search Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         /// <summary>
