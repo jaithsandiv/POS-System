@@ -30,7 +30,7 @@ namespace POS.PAL.USERCONTROL
         {
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.labelControlTitle = new DevExpress.XtraEditors.LabelControl();
-            this.btnBack = new System.Windows.Forms.Button();
+            this.btnBack = new DevExpress.XtraEditors.SimpleButton();
             this.groupControlAdd = new DevExpress.XtraEditors.GroupControl();
             this.btnAddProduct = new DevExpress.XtraEditors.SimpleButton();
             this.txtDiscountValue = new DevExpress.XtraEditors.TextEdit();
@@ -87,7 +87,6 @@ namespace POS.PAL.USERCONTROL
             this.btnBack.Size = new System.Drawing.Size(150, 44);
             this.btnBack.TabIndex = 16;
             this.btnBack.Text = "Back";
-            this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             //
             // groupControlAdd
