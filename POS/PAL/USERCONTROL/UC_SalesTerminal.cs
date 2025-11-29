@@ -1,4 +1,4 @@
-﻿using DevExpress.DataAccess.Native.Excel;
+using DevExpress.DataAccess.Native.Excel;
 using DevExpress.XtraEditors;
 using POS.BLL;
 using POS.DAL;
@@ -18,6 +18,7 @@ namespace POS.PAL.USERCONTROL
     public partial class UC_SalesTerminal : DevExpress.XtraEditors.XtraUserControl
     {
         private readonly BLL_SalesTerminal _bllSalesTerminal = new BLL_SalesTerminal();
+        private readonly BLL_Discount _bllDiscount = new BLL_Discount();
 
         private DataTable productsTable;
         private DataTable categoriesTable;
@@ -31,10 +32,48 @@ namespace POS.PAL.USERCONTROL
 
         private int paymentEntryCounter = 0;
 
+        // Labels for Payment Summary
+        private LabelControl lblTotalPaid;
+        private LabelControl lblBalance;
+
         public UC_SalesTerminal()
         {
             InitializeComponent();
+            InitializePaymentSummaryControls();
             btnCancel_Click(null, null);
+        }
+
+        private void InitializePaymentSummaryControls()
+        {
+            // Total Paid Label
+            lblTotalPaid = new LabelControl
+            {
+                Text = "Total Paid: Rs. 0.00",
+                Appearance = { Font = new Font("Segoe UI", 12F, FontStyle.Bold), ForeColor = Color.FromArgb(4, 181, 152) },
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 300,
+                Height = 30,
+                Location = new Point(10, 520) // Adjust position as needed within pnlPM or relative to btnAddPayment
+            };
+
+            // Balance Label
+            lblBalance = new LabelControl
+            {
+                Text = "Balance: Rs. 0.00",
+                Appearance = { Font = new Font("Segoe UI", 12F, FontStyle.Bold), ForeColor = Color.Red },
+                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
+                Width = 300,
+                Height = 30,
+                Location = new Point(10, 550) // Below Total Paid
+            };
+
+            // Add to pnlPM
+            // Note: Since pnlPM uses manual layout with ScrollableControl and bottom buttons,
+            // we should place these above the 'Add Payment' button or in a visible area.
+            // Let's place them just above the 'Add Payment' button.
+            // But 'Add Payment' is at 593. So 520 and 550 are fine.
+            pnlPM.Controls.Add(lblTotalPaid);
+            pnlPM.Controls.Add(lblBalance);
         }
 
         private void ResetUIElements()
@@ -221,17 +260,41 @@ namespace POS.PAL.USERCONTROL
                 newRow["unit_price"] = Convert.ToDecimal(product["selling_price"]);
                 newRow["quantity"] = 1;
 
-                // Load discount details from the product
-                string promotionType = product["promotion_type"]?.ToString();
-                if (string.IsNullOrWhiteSpace(promotionType))
-                {
-                    promotionType = "PERCENTAGE";
-                }
+                // Load discount details from the product (fetch active promotion)
+                string promotionType = "PERCENTAGE";
                 decimal discountValue = 0;
-                if (product["discount_value"] != DBNull.Value && !string.IsNullOrWhiteSpace(product["discount_value"]?.ToString()))
+
+                // Check for active promotions for this product
+                // Note: In a real scenario, we might want to cache this or fetch in bulk, but for now we fetch per add
+                // We need to iterate through active promotions and find if this product is in one
+                try
                 {
-                    discountValue = Convert.ToDecimal(product["discount_value"]);
+                    DataTable activePromos = _bllDiscount.GetDiscounts(); // Gets active promotions
+                    bool promoFound = false;
+                    foreach(DataRow promo in activePromos.Rows)
+                    {
+                        int promoId = Convert.ToInt32(promo["discount_id"]);
+                        // Check if current date is within range
+                        DateTime start = Convert.ToDateTime(promo["start_date"]);
+                        DateTime end = Convert.ToDateTime(promo["end_date"]);
+                        if (DateTime.Now >= start && DateTime.Now <= end)
+                        {
+                            DataTable promoProducts = _bllDiscount.GetProductsByPromotionID(promoId);
+                            foreach(DataRow pp in promoProducts.Rows)
+                            {
+                                if (pp["product_id"].ToString() == product["product_id"].ToString())
+                                {
+                                    promotionType = pp["promotion_type"].ToString();
+                                    discountValue = Convert.ToDecimal(pp["discount_value"]);
+                                    promoFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (promoFound) break;
+                    }
                 }
+                catch { /* Ignore errors in promo fetching for stability */ }
 
                 newRow["discount_type"] = promotionType;
                 newRow["discount_value"] = discountValue;
@@ -247,16 +310,24 @@ namespace POS.PAL.USERCONTROL
                 newRow["created_date"] = DBNull.Value;
                 newRow["updated_by"] = DBNull.Value;
                 newRow["updated_date"] = DBNull.Value;
+                newRow["remove_action"] = "X"; // Set button text
 
                 salesItemsTable.Rows.Add(newRow);
             }
 
+            RecalculateTotals();
+        }
+
+        private void RecalculateTotals()
+        {
             // Update total amount and total items
             decimal totalAmount = 0;
             int totalItems = 0;
 
             foreach (DataRow row in salesItemsTable.Rows)
             {
+                if (row.RowState == DataRowState.Deleted) continue;
+
                 totalAmount += Convert.ToDecimal(row["subtotal"]);
                 totalItems += Convert.ToInt32(row["quantity"]);
             }
@@ -293,81 +364,34 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
-        private void repositoryItemButtonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        private void gvTransactionSum_RowCellClick(object sender, DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs e)
         {
             var view = gvTransactionSum;
-            int row = view.FocusedRowHandle;
+            int rowHandle = e.RowHandle;
 
-            string currentType = view.GetRowCellValue(row, "discount_type")?.ToString() ?? "PERCENTAGE";
-            string newType = currentType == "PERCENTAGE" ? "FIXED_AMOUNT" : "PERCENTAGE";
+            if (rowHandle < 0) return;
 
-            view.SetRowCellValue(row, "discount_type", newType);
-
-            // Access the RepositoryItemButtonEdit directly from the column's repository item
-            var editor = view.Columns["discount_value"].ColumnEdit as DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit;
-            if (editor != null)
+            if (e.Column.Name == "colRemove") // Remove column
             {
-                editor.Buttons[0].Caption = newType == "PERCENTAGE" ? "%" : "Rs.";
+                view.DeleteRow(rowHandle);
+                RecalculateTotals();
             }
-
-            // Recalculate subtotal
-            decimal price = Convert.ToDecimal(view.GetRowCellValue(row, "unit_price"));
-            decimal qty = Convert.ToDecimal(view.GetRowCellValue(row, "quantity"));
-            decimal discountValue = Convert.ToDecimal(view.GetRowCellValue(row, "discount_value"));
-
-            decimal discountAmount = newType == "PERCENTAGE" ? (price * qty * discountValue / 100m) : discountValue;
-            view.SetRowCellValue(row, "subtotal", price * qty - discountAmount);
-
-            view.RefreshRow(row);
-        }
-
-        private void gvTransactionSum_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
-        {
-            if (e.Column.FieldName == "quantity" ||
-                e.Column.FieldName == "discount_value" ||
-                e.Column.FieldName == "discount_type")
+            else if (e.Column.FieldName == "discount_type") // Discount Type column
             {
-                decimal price = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "unit_price"));
-                decimal qty = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "quantity"));
-                decimal discountValue = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "discount_value"));
-                string type = gvTransactionSum.GetRowCellValue(e.RowHandle, "discount_type")?.ToString() ?? "PERCENTAGE";
+                string currentType = view.GetRowCellValue(rowHandle, "discount_type")?.ToString() ?? "PERCENTAGE";
+                string newType = currentType == "PERCENTAGE" ? "FIXED_AMOUNT" : "PERCENTAGE";
 
-                decimal discountAmount = type == "PERCENTAGE" ? (price * qty * discountValue / 100m) : discountValue;
-                gvTransactionSum.SetRowCellValue(e.RowHandle, "subtotal", price * qty - discountAmount);
+                view.SetRowCellValue(rowHandle, "discount_type", newType);
 
-                // Update total amount and total items in the saleTable
-                decimal totalAmount = 0;
-                int totalItems = 0;
+                // Recalculate subtotal for this row
+                decimal price = Convert.ToDecimal(view.GetRowCellValue(rowHandle, "unit_price"));
+                decimal qty = Convert.ToDecimal(view.GetRowCellValue(rowHandle, "quantity"));
+                decimal discountValue = Convert.ToDecimal(view.GetRowCellValue(rowHandle, "discount_value"));
 
-                foreach (DataRow row in salesItemsTable.Rows)
-                {
-                    totalAmount += Convert.ToDecimal(row["subtotal"]);
-                    totalItems += Convert.ToInt32(row["quantity"]);
-                }
+                decimal discountAmount = newType == "PERCENTAGE" ? (price * qty * discountValue / 100m) : discountValue;
+                view.SetRowCellValue(rowHandle, "subtotal", price * qty - discountAmount);
 
-                if (saleTable.Rows.Count > 0)
-                {
-                    DataRow saleRow = saleTable.Rows[0];
-                    saleRow["total_amount"] = totalAmount.ToString("F2");
-                    saleRow["total_items"] = totalItems.ToString();
-                }
-
-                txtTotal.Text = totalAmount.ToString("F2");
-
-                // Recalculate grand total after item discount changes
-                CalculateAndUpdateGrandTotal();
-            }
-        }
-
-        private void gvTransactionSum_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
-        {
-            if (e.Column.FieldName == "discount_value")
-            {
-                string type = gvTransactionSum.GetRowCellValue(e.RowHandle, "discount_type")?.ToString();
-                var editor = repositoryItemButtonEdit1;
-
-                editor.Buttons[0].Caption = type == "FIXED_AMOUNT" ? "Rs." : "%";
-                e.RepositoryItem = editor;
+                RecalculateTotals();
             }
         }
 
@@ -618,10 +642,14 @@ namespace POS.PAL.USERCONTROL
         private void SetDiscountFieldsEditable(bool isEditable)
         {
             // Product discount in grid (discount_value column)
+            // Note: Now we allow editing only by click for discount type, but value editing might still need pin
+            // Assuming "Normal Text Edit Repos" means standard editing, we might need to enable editing for value.
+            // For now, let's keep logic as is but on the new column structure if applicable.
+            // Since we removed button edit, it's a standard text edit now.
             gvTransactionSum.Columns["discount_value"].OptionsColumn.AllowEdit = isEditable;
             gvTransactionSum.Columns["discount_value"].OptionsColumn.AllowFocus = isEditable;
 
-            // Sale discount field (txtDiscount)sat
+            // Sale discount field (txtDiscount)
             if (txtDiscount != null)
             {
                 txtDiscount.Properties.ReadOnly = !isEditable;
@@ -860,6 +888,9 @@ namespace POS.PAL.USERCONTROL
             paymentsTable = ds.Payment;
             paymentsTable.Clear();
             paymentEntryCounter = 0;
+
+            // Reset labels
+            UpdatePaymentSummaryUI();
         }
 
         private void btnAddPayment_Click(object sender, EventArgs e)
@@ -1036,7 +1067,7 @@ namespace POS.PAL.USERCONTROL
                 paymentsTable.Rows.Remove(row);
             }
 
-            // No need to reposition - Dock.Top handles this automatically
+            UpdatePaymentSummaryUI();
         }
 
         private void PopulatePaymentFields(PanelControl fieldsPanel, string paymentMethod, int entryId)
@@ -1357,6 +1388,8 @@ namespace POS.PAL.USERCONTROL
                     rows[0]["payment_method"] = cmb.SelectedItem.ToString();
                 }
             }
+
+            UpdatePaymentSummaryUI();
         }
 
         private void UpdateCardField(int entryId, string fieldName, string value)
@@ -1439,6 +1472,10 @@ namespace POS.PAL.USERCONTROL
 
             salesItemsTable = ds.SaleItem;
             salesItemsTable.Clear();
+            if (!salesItemsTable.Columns.Contains("remove_action"))
+            {
+                salesItemsTable.Columns.Add("remove_action", typeof(string));
+            }
 
             tableNosTable = ds.Table;
             tableNosTable.Clear();
@@ -1902,6 +1939,13 @@ namespace POS.PAL.USERCONTROL
             decimal due = Math.Max(0, grandTotal - totalPaid);
 
             return (totalPaid, due);
+        }
+
+        private void UpdatePaymentSummaryUI()
+        {
+            var (totalPaid, due) = CalculatePaymentTotals();
+            if (lblTotalPaid != null) lblTotalPaid.Text = $"Total Paid: Rs. {totalPaid:N2}";
+            if (lblBalance != null) lblBalance.Text = $"Balance: Rs. {due:N2}";
         }
 
         /// <summary>
