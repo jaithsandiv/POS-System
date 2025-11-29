@@ -28,211 +28,209 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.labelControlTitle = new DevExpress.XtraEditors.LabelControl();
-            this.btnBack = new DevExpress.XtraEditors.SimpleButton();
-            this.groupControlAdd = new DevExpress.XtraEditors.GroupControl();
-            this.btnAddProduct = new DevExpress.XtraEditors.SimpleButton();
-            this.txtDiscountValue = new DevExpress.XtraEditors.TextEdit();
-            this.labelControlValue = new DevExpress.XtraEditors.LabelControl();
-            this.cmbDiscountType = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControlType = new DevExpress.XtraEditors.LabelControl();
-            this.lookupProduct = new DevExpress.XtraEditors.LookUpEdit();
-            this.labelControlProduct = new DevExpress.XtraEditors.LabelControl();
-            this.gridControlProducts = new DevExpress.XtraGrid.GridControl();
-            this.gridViewProducts = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.btnRemove = new DevExpress.XtraEditors.SimpleButton();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
-            this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControlAdd)).BeginInit();
-            this.groupControlAdd.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDiscountValue.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbDiscountType.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookupProduct.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlProducts)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewProducts)).BeginInit();
-            this.SuspendLayout();
-            //
+            panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            btnRemove = new DevExpress.XtraEditors.SimpleButton();
+            gridControlProducts = new DevExpress.XtraGrid.GridControl();
+            gridViewProducts = new DevExpress.XtraGrid.Views.Grid.GridView();
+            groupControlAdd = new DevExpress.XtraEditors.GroupControl();
+            btnAddProduct = new DevExpress.XtraEditors.SimpleButton();
+            txtDiscountValue = new DevExpress.XtraEditors.TextEdit();
+            labelControlValue = new DevExpress.XtraEditors.LabelControl();
+            cmbDiscountType = new DevExpress.XtraEditors.ComboBoxEdit();
+            labelControlType = new DevExpress.XtraEditors.LabelControl();
+            lookupProduct = new DevExpress.XtraEditors.LookUpEdit();
+            labelControlProduct = new DevExpress.XtraEditors.LabelControl();
+            btnBack = new DevExpress.XtraEditors.SimpleButton();
+            labelControlTitle = new DevExpress.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
+            panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gridControlProducts).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gridViewProducts).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)groupControlAdd).BeginInit();
+            groupControlAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtDiscountValue.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbDiscountType.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)lookupProduct.Properties).BeginInit();
+            SuspendLayout();
+            // 
             // panelControl1
-            //
-            this.panelControl1.Appearance.BackColor = System.Drawing.Color.White;
-            this.panelControl1.Appearance.Options.UseBackColor = true;
-            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Controls.Add(this.btnRemove);
-            this.panelControl1.Controls.Add(this.gridControlProducts);
-            this.panelControl1.Controls.Add(this.groupControlAdd);
-            this.panelControl1.Controls.Add(this.btnBack);
-            this.panelControl1.Controls.Add(this.labelControlTitle);
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl1.Location = new System.Drawing.Point(0, 0);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1920, 1050);
-            this.panelControl1.TabIndex = 0;
-            //
-            // labelControlTitle
-            //
-            this.labelControlTitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControlTitle.Appearance.Options.UseFont = true;
-            this.labelControlTitle.Location = new System.Drawing.Point(30, 30);
-            this.labelControlTitle.Name = "labelControlTitle";
-            this.labelControlTitle.Size = new System.Drawing.Size(309, 40);
-            this.labelControlTitle.TabIndex = 1;
-            this.labelControlTitle.Text = "Manage Products: [Promotion Name]";
-            //
-            // btnBack
-            //
-            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.Location = new System.Drawing.Point(30, 980);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(150, 44);
-            this.btnBack.TabIndex = 16;
-            this.btnBack.Text = "Back";
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            //
-            // groupControlAdd
-            //
-            this.groupControlAdd.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.groupControlAdd.AppearanceCaption.Options.UseFont = true;
-            this.groupControlAdd.Controls.Add(this.btnAddProduct);
-            this.groupControlAdd.Controls.Add(this.txtDiscountValue);
-            this.groupControlAdd.Controls.Add(this.labelControlValue);
-            this.groupControlAdd.Controls.Add(this.cmbDiscountType);
-            this.groupControlAdd.Controls.Add(this.labelControlType);
-            this.groupControlAdd.Controls.Add(this.lookupProduct);
-            this.groupControlAdd.Controls.Add(this.labelControlProduct);
-            this.groupControlAdd.Location = new System.Drawing.Point(30, 100);
-            this.groupControlAdd.Name = "groupControlAdd";
-            this.groupControlAdd.Size = new System.Drawing.Size(1860, 120);
-            this.groupControlAdd.TabIndex = 17;
-            this.groupControlAdd.Text = "Add Product to Promotion";
-            //
-            // btnAddProduct
-            //
-            this.btnAddProduct.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(181)))), ((int)(((byte)(152)))));
-            this.btnAddProduct.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnAddProduct.Appearance.Options.UseBackColor = true;
-            this.btnAddProduct.Appearance.Options.UseFont = true;
-            this.btnAddProduct.Location = new System.Drawing.Point(1710, 50);
-            this.btnAddProduct.Name = "btnAddProduct";
-            this.btnAddProduct.Size = new System.Drawing.Size(120, 40);
-            this.btnAddProduct.TabIndex = 6;
-            this.btnAddProduct.Text = "Add / Update";
-            this.btnAddProduct.Click += new System.EventHandler(this.btnAddProduct_Click);
-            //
-            // txtDiscountValue
-            //
-            this.txtDiscountValue.Location = new System.Drawing.Point(1450, 55);
-            this.txtDiscountValue.Name = "txtDiscountValue";
-            this.txtDiscountValue.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtDiscountValue.Properties.Appearance.Options.UseFont = true;
-            this.txtDiscountValue.Size = new System.Drawing.Size(200, 26);
-            this.txtDiscountValue.TabIndex = 5;
-            //
-            // labelControlValue
-            //
-            this.labelControlValue.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControlValue.Appearance.Options.UseFont = true;
-            this.labelControlValue.Location = new System.Drawing.Point(1450, 32);
-            this.labelControlValue.Name = "labelControlValue";
-            this.labelControlValue.Size = new System.Drawing.Size(32, 17);
-            this.labelControlValue.TabIndex = 4;
-            this.labelControlValue.Text = "Value";
-            //
-            // cmbDiscountType
-            //
-            this.cmbDiscountType.Location = new System.Drawing.Point(1200, 55);
-            this.cmbDiscountType.Name = "cmbDiscountType";
-            this.cmbDiscountType.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.cmbDiscountType.Properties.Appearance.Options.UseFont = true;
-            this.cmbDiscountType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbDiscountType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cmbDiscountType.Size = new System.Drawing.Size(200, 26);
-            this.cmbDiscountType.TabIndex = 3;
-            //
-            // labelControlType
-            //
-            this.labelControlType.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControlType.Appearance.Options.UseFont = true;
-            this.labelControlType.Location = new System.Drawing.Point(1200, 32);
-            this.labelControlType.Name = "labelControlType";
-            this.labelControlType.Size = new System.Drawing.Size(83, 17);
-            this.labelControlType.TabIndex = 2;
-            this.labelControlType.Text = "Discount Type";
-            //
-            // lookupProduct
-            //
-            this.lookupProduct.Location = new System.Drawing.Point(20, 55);
-            this.lookupProduct.Name = "lookupProduct";
-            this.lookupProduct.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lookupProduct.Properties.Appearance.Options.UseFont = true;
-            this.lookupProduct.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookupProduct.Properties.NullText = "Select a Product...";
-            this.lookupProduct.Size = new System.Drawing.Size(1150, 26);
-            this.lookupProduct.TabIndex = 1;
-            //
-            // labelControlProduct
-            //
-            this.labelControlProduct.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControlProduct.Appearance.Options.UseFont = true;
-            this.labelControlProduct.Location = new System.Drawing.Point(20, 32);
-            this.labelControlProduct.Name = "labelControlProduct";
-            this.labelControlProduct.Size = new System.Drawing.Size(46, 17);
-            this.labelControlProduct.TabIndex = 0;
-            this.labelControlProduct.Text = "Product";
-            //
-            // gridControlProducts
-            //
-            this.gridControlProducts.Location = new System.Drawing.Point(30, 240);
-            this.gridControlProducts.MainView = this.gridViewProducts;
-            this.gridControlProducts.Name = "gridControlProducts";
-            this.gridControlProducts.Size = new System.Drawing.Size(1860, 720);
-            this.gridControlProducts.TabIndex = 18;
-            this.gridControlProducts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewProducts});
-            //
-            // gridViewProducts
-            //
-            this.gridViewProducts.GridControl = this.gridControlProducts;
-            this.gridViewProducts.Name = "gridViewProducts";
-            this.gridViewProducts.OptionsBehavior.Editable = false;
-            this.gridViewProducts.OptionsView.ShowGroupPanel = false;
-            //
+            // 
+            panelControl1.Appearance.BackColor = System.Drawing.Color.White;
+            panelControl1.Appearance.Options.UseBackColor = true;
+            panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl1.Controls.Add(btnRemove);
+            panelControl1.Controls.Add(gridControlProducts);
+            panelControl1.Controls.Add(groupControlAdd);
+            panelControl1.Controls.Add(btnBack);
+            panelControl1.Controls.Add(labelControlTitle);
+            panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelControl1.Location = new System.Drawing.Point(0, 0);
+            panelControl1.Name = "panelControl1";
+            panelControl1.Size = new System.Drawing.Size(1920, 1050);
+            panelControl1.TabIndex = 0;
+            // 
             // btnRemove
-            //
-            this.btnRemove.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.btnRemove.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnRemove.Appearance.Options.UseBackColor = true;
-            this.btnRemove.Appearance.Options.UseFont = true;
-            this.btnRemove.Location = new System.Drawing.Point(1740, 980);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(150, 44);
-            this.btnRemove.TabIndex = 19;
-            this.btnRemove.Text = "Remove Selected";
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            //
+            // 
+            btnRemove.Appearance.BackColor = System.Drawing.Color.FromArgb(255, 80, 80);
+            btnRemove.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnRemove.Appearance.Options.UseBackColor = true;
+            btnRemove.Appearance.Options.UseFont = true;
+            btnRemove.Location = new System.Drawing.Point(1740, 933);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new System.Drawing.Size(150, 44);
+            btnRemove.TabIndex = 19;
+            btnRemove.Text = "Remove Selected";
+            btnRemove.Click += btnRemove_Click;
+            // 
+            // gridControlProducts
+            // 
+            gridControlProducts.Location = new System.Drawing.Point(30, 240);
+            gridControlProducts.MainView = gridViewProducts;
+            gridControlProducts.Name = "gridControlProducts";
+            gridControlProducts.Size = new System.Drawing.Size(1860, 671);
+            gridControlProducts.TabIndex = 18;
+            gridControlProducts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridViewProducts });
+            // 
+            // gridViewProducts
+            // 
+            gridViewProducts.GridControl = gridControlProducts;
+            gridViewProducts.Name = "gridViewProducts";
+            gridViewProducts.OptionsBehavior.Editable = false;
+            gridViewProducts.OptionsView.ShowGroupPanel = false;
+            // 
+            // groupControlAdd
+            // 
+            groupControlAdd.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            groupControlAdd.AppearanceCaption.Options.UseFont = true;
+            groupControlAdd.Controls.Add(btnAddProduct);
+            groupControlAdd.Controls.Add(txtDiscountValue);
+            groupControlAdd.Controls.Add(labelControlValue);
+            groupControlAdd.Controls.Add(cmbDiscountType);
+            groupControlAdd.Controls.Add(labelControlType);
+            groupControlAdd.Controls.Add(lookupProduct);
+            groupControlAdd.Controls.Add(labelControlProduct);
+            groupControlAdd.Location = new System.Drawing.Point(30, 100);
+            groupControlAdd.Name = "groupControlAdd";
+            groupControlAdd.Size = new System.Drawing.Size(1860, 120);
+            groupControlAdd.TabIndex = 17;
+            groupControlAdd.Text = "Add Product to Promotion";
+            // 
+            // btnAddProduct
+            // 
+            btnAddProduct.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnAddProduct.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnAddProduct.Appearance.Options.UseBackColor = true;
+            btnAddProduct.Appearance.Options.UseFont = true;
+            btnAddProduct.Location = new System.Drawing.Point(1710, 50);
+            btnAddProduct.Name = "btnAddProduct";
+            btnAddProduct.Size = new System.Drawing.Size(120, 40);
+            btnAddProduct.TabIndex = 6;
+            btnAddProduct.Text = "Add / Update";
+            btnAddProduct.Click += btnAddProduct_Click;
+            // 
+            // txtDiscountValue
+            // 
+            txtDiscountValue.Location = new System.Drawing.Point(1450, 55);
+            txtDiscountValue.Name = "txtDiscountValue";
+            txtDiscountValue.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
+            txtDiscountValue.Properties.Appearance.Options.UseFont = true;
+            txtDiscountValue.Size = new System.Drawing.Size(200, 26);
+            txtDiscountValue.TabIndex = 5;
+            // 
+            // labelControlValue
+            // 
+            labelControlValue.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControlValue.Appearance.Options.UseFont = true;
+            labelControlValue.Location = new System.Drawing.Point(1450, 32);
+            labelControlValue.Name = "labelControlValue";
+            labelControlValue.Size = new System.Drawing.Size(32, 17);
+            labelControlValue.TabIndex = 4;
+            labelControlValue.Text = "Value";
+            // 
+            // cmbDiscountType
+            // 
+            cmbDiscountType.Location = new System.Drawing.Point(1200, 55);
+            cmbDiscountType.Name = "cmbDiscountType";
+            cmbDiscountType.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
+            cmbDiscountType.Properties.Appearance.Options.UseFont = true;
+            cmbDiscountType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            cmbDiscountType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            cmbDiscountType.Size = new System.Drawing.Size(200, 26);
+            cmbDiscountType.TabIndex = 3;
+            // 
+            // labelControlType
+            // 
+            labelControlType.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControlType.Appearance.Options.UseFont = true;
+            labelControlType.Location = new System.Drawing.Point(1200, 32);
+            labelControlType.Name = "labelControlType";
+            labelControlType.Size = new System.Drawing.Size(82, 17);
+            labelControlType.TabIndex = 2;
+            labelControlType.Text = "Discount Type";
+            // 
+            // lookupProduct
+            // 
+            lookupProduct.Location = new System.Drawing.Point(20, 55);
+            lookupProduct.Name = "lookupProduct";
+            lookupProduct.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F);
+            lookupProduct.Properties.Appearance.Options.UseFont = true;
+            lookupProduct.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            lookupProduct.Properties.NullText = "Select a Product...";
+            lookupProduct.Size = new System.Drawing.Size(1150, 26);
+            lookupProduct.TabIndex = 1;
+            // 
+            // labelControlProduct
+            // 
+            labelControlProduct.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControlProduct.Appearance.Options.UseFont = true;
+            labelControlProduct.Location = new System.Drawing.Point(20, 32);
+            labelControlProduct.Name = "labelControlProduct";
+            labelControlProduct.Size = new System.Drawing.Size(45, 17);
+            labelControlProduct.TabIndex = 0;
+            labelControlProduct.Text = "Product";
+            // 
+            // btnBack
+            // 
+            btnBack.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnBack.Appearance.Options.UseFont = true;
+            btnBack.Location = new System.Drawing.Point(30, 933);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new System.Drawing.Size(150, 44);
+            btnBack.TabIndex = 16;
+            btnBack.Text = "Back";
+            btnBack.Click += btnBack_Click;
+            // 
+            // labelControlTitle
+            // 
+            labelControlTitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControlTitle.Appearance.Options.UseFont = true;
+            labelControlTitle.Location = new System.Drawing.Point(30, 30);
+            labelControlTitle.Name = "labelControlTitle";
+            labelControlTitle.Size = new System.Drawing.Size(518, 40);
+            labelControlTitle.TabIndex = 1;
+            labelControlTitle.Text = "Manage Products: [Promotion Name]";
+            // 
             // UC_Promotion_Products
-            //
-            this.Appearance.BackColor = System.Drawing.Color.White;
-            this.Appearance.Options.UseBackColor = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panelControl1);
-            this.Name = "UC_Promotion_Products";
-            this.Size = new System.Drawing.Size(1920, 1050);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
-            this.panelControl1.ResumeLayout(false);
-            this.panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControlAdd)).EndInit();
-            this.groupControlAdd.ResumeLayout(false);
-            this.groupControlAdd.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDiscountValue.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbDiscountType.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookupProduct.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControlProducts)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewProducts)).EndInit();
-            this.ResumeLayout(false);
+            // 
+            Appearance.BackColor = System.Drawing.Color.White;
+            Appearance.Options.UseBackColor = true;
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(panelControl1);
+            Name = "UC_Promotion_Products";
+            Size = new System.Drawing.Size(1920, 1050);
+            ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
+            panelControl1.ResumeLayout(false);
+            panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)gridControlProducts).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gridViewProducts).EndInit();
+            ((System.ComponentModel.ISupportInitialize)groupControlAdd).EndInit();
+            groupControlAdd.ResumeLayout(false);
+            groupControlAdd.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)txtDiscountValue.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbDiscountType.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)lookupProduct.Properties).EndInit();
+            ResumeLayout(false);
 
         }
 
