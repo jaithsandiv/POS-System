@@ -52,22 +52,6 @@ namespace POS.PAL.USERCONTROL
             colName.OptionsColumn.AllowEdit = false;
             colName.OptionsColumn.AllowFocus = false;
 
-            var colType = gridViewDiscounts.Columns.AddVisible("type", "Type");
-            colType.FieldName = "type";
-            colType.Width = 100;
-            colType.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            colType.OptionsColumn.AllowEdit = false;
-            colType.OptionsColumn.AllowFocus = false;
-
-            var colValue = gridViewDiscounts.Columns.AddVisible("value", "Value");
-            colValue.FieldName = "value";
-            colValue.Width = 100;
-            colValue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            colValue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            colValue.DisplayFormat.FormatString = "n2";
-            colValue.OptionsColumn.AllowEdit = false;
-            colValue.OptionsColumn.AllowFocus = false;
-
             var colStartDate = gridViewDiscounts.Columns.AddVisible("start_date", "Start Date");
             colStartDate.FieldName = "start_date";
             colStartDate.Width = 120;
@@ -111,7 +95,7 @@ namespace POS.PAL.USERCONTROL
             
             gridViewDiscounts.OptionsBehavior.Editable = true;
             gridViewDiscounts.OptionsSelection.EnableAppearanceFocusedCell = false;
-            gridViewDiscounts.OptionsSelection.EnableAppearanceFocusedRow = false;
+            gridViewDiscounts.OptionsSelection.EnableAppearanceFocusedRow = true;
             gridViewDiscounts.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             gridViewDiscounts.OptionsSelection.MultiSelect = false;
             
@@ -144,6 +128,22 @@ namespace POS.PAL.USERCONTROL
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Main.Instance.LoadUserControl(new UC_Discount_Registration());
+        }
+
+        private void btnAssignProducts_Click(object sender, EventArgs e)
+        {
+            var selectedRows = gridViewDiscounts.GetSelectedRows();
+            if (selectedRows.Length == 0)
+            {
+                XtraMessageBox.Show("Please select a discount to assign products.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int rowHandle = selectedRows[0];
+            int discountId = Convert.ToInt32(gridViewDiscounts.GetRowCellValue(rowHandle, "discount_id"));
+            string discountName = gridViewDiscounts.GetRowCellValue(rowHandle, "name").ToString();
+
+            Main.Instance.LoadUserControl(new UC_Promotion_Products(discountId, discountName));
         }
     }
 }

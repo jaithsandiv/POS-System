@@ -33,10 +33,6 @@ namespace POS.PAL.USERCONTROL
             this.labelControlSubtitle = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.txtName = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.cmbType = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.txtValue = new DevExpress.XtraEditors.TextEdit();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.dtStartDate = new DevExpress.XtraEditors.DateEdit();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
@@ -48,8 +44,6 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbType.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtValue.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtStartDate.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtStartDate.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtEndDate.Properties.CalendarTimeProperties)).BeginInit();
@@ -70,10 +64,6 @@ namespace POS.PAL.USERCONTROL
             this.panelControl1.Controls.Add(this.labelControl5);
             this.panelControl1.Controls.Add(this.dtStartDate);
             this.panelControl1.Controls.Add(this.labelControl4);
-            this.panelControl1.Controls.Add(this.txtValue);
-            this.panelControl1.Controls.Add(this.labelControl3);
-            this.panelControl1.Controls.Add(this.cmbType);
-            this.panelControl1.Controls.Add(this.labelControl2);
             this.panelControl1.Controls.Add(this.txtName);
             this.panelControl1.Controls.Add(this.labelControl1);
             this.panelControl1.Controls.Add(this.labelControlSubtitle);
@@ -123,49 +113,6 @@ namespace POS.PAL.USERCONTROL
             this.txtName.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.txtName.Size = new System.Drawing.Size(480, 44);
             this.txtName.TabIndex = 3;
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl2.Appearance.Options.UseFont = true;
-            this.labelControl2.Location = new System.Drawing.Point(381, 429);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(83, 17);
-            this.labelControl2.TabIndex = 4;
-            this.labelControl2.Text = "Discount Type";
-            // 
-            // cmbType
-            // 
-            this.cmbType.Location = new System.Drawing.Point(381, 452);
-            this.cmbType.Name = "cmbType";
-            this.cmbType.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.cmbType.Properties.Appearance.Options.UseFont = true;
-            this.cmbType.Properties.Padding = new System.Windows.Forms.Padding(10);
-            this.cmbType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cmbType.Size = new System.Drawing.Size(480, 44);
-            this.cmbType.TabIndex = 5;
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Location = new System.Drawing.Point(381, 515);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(32, 17);
-            this.labelControl3.TabIndex = 6;
-            this.labelControl3.Text = "Value";
-            // 
-            // txtValue
-            // 
-            this.txtValue.Location = new System.Drawing.Point(381, 538);
-            this.txtValue.Name = "txtValue";
-            this.txtValue.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtValue.Properties.Appearance.Options.UseFont = true;
-            this.txtValue.Properties.Padding = new System.Windows.Forms.Padding(10);
-            this.txtValue.Size = new System.Drawing.Size(480, 44);
-            this.txtValue.TabIndex = 7;
             // 
             // labelControl4
             // 
@@ -221,7 +168,7 @@ namespace POS.PAL.USERCONTROL
             // 
             this.labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl6.Appearance.Options.UseFont = true;
-            this.labelControl6.Location = new System.Drawing.Point(995, 515);
+            this.labelControl6.Location = new System.Drawing.Point(381, 429);
             this.labelControl6.Name = "labelControl6";
             this.labelControl6.Size = new System.Drawing.Size(35, 17);
             this.labelControl6.TabIndex = 12;
@@ -229,7 +176,7 @@ namespace POS.PAL.USERCONTROL
             // 
             // cmbStatus
             // 
-            this.cmbStatus.Location = new System.Drawing.Point(995, 538);
+            this.cmbStatus.Location = new System.Drawing.Point(381, 452);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.cmbStatus.Properties.Appearance.Options.UseFont = true;
@@ -279,8 +226,6 @@ namespace POS.PAL.USERCONTROL
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbType.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtValue.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtStartDate.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtStartDate.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtEndDate.Properties.CalendarTimeProperties)).EndInit();
@@ -297,10 +242,6 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.LabelControl labelControlSubtitle;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.TextEdit txtName;
-        private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.ComboBoxEdit cmbType;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
-        private DevExpress.XtraEditors.TextEdit txtValue;
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.DateEdit dtStartDate;
         private DevExpress.XtraEditors.LabelControl labelControl5;

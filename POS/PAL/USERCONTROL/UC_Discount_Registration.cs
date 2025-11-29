@@ -25,9 +25,6 @@ namespace POS.PAL.USERCONTROL
         private void InitializeControls()
         {
             // Set default values
-            cmbType.Properties.Items.AddRange(new string[] { "Percentage", "Fixed Amount" });
-            cmbType.SelectedIndex = 0;
-
             cmbStatus.Properties.Items.AddRange(new string[] { "Active", "Inactive" });
             cmbStatus.SelectedIndex = 0;
 
@@ -43,19 +40,15 @@ namespace POS.PAL.USERCONTROL
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtValue.Text) || !decimal.TryParse(txtValue.Text, out decimal value))
-            {
-                XtraMessageBox.Show("Please enter a valid discount value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             string name = txtName.Text.Trim();
-            string type = cmbType.Text;
+            // Description can be optional now or we can use it for notes.
+            // For now, let's keep it empty or simple description if we had a field for it, but we don't.
+            string description = "";
             DateTime startDate = dtStartDate.DateTime;
             DateTime endDate = dtEndDate.DateTime;
             string status = cmbStatus.Text;
 
-            bool success = _bllDiscount.InsertDiscount(name, type, value, startDate, endDate, status);
+            bool success = _bllDiscount.InsertDiscount(name, description, startDate, endDate, status);
 
             if (success)
             {
