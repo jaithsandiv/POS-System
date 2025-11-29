@@ -126,8 +126,8 @@ namespace POS.PAL.USERCONTROL
             this.searchControl1.Location = new System.Drawing.Point(1745, 40);
             this.searchControl1.Name = "searchControl1";
             this.searchControl1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Repository.ClearButton.Kind),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Repository.SearchButton.Kind)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Clear),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Search)});
             this.searchControl1.Size = new System.Drawing.Size(123, 20);
             this.searchControl1.TabIndex = 17;
             //
