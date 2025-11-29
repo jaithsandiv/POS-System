@@ -17,9 +17,24 @@ namespace POS.BLL
             return _dalDiscount.GetDiscounts();
         }
 
-        public bool InsertDiscount(string name, string type, decimal value, DateTime startDate, DateTime endDate, string status)
+        public bool InsertDiscount(string name, string description, DateTime startDate, DateTime endDate, string status)
         {
-            return _dalDiscount.InsertDiscount(name, type, value, startDate, endDate, status);
+            return _dalDiscount.InsertDiscount(name, description, startDate, endDate, status);
+        }
+
+        public DataTable GetProductsByPromotionID(int promotionId)
+        {
+            return _dalDiscount.GetProductsByPromotionID(promotionId);
+        }
+
+        public bool AddProductToPromotion(int promotionId, int productId, string type, decimal value)
+        {
+            return _dalDiscount.AddProductToPromotion(promotionId, productId, type, value);
+        }
+
+        public bool RemoveProductFromPromotion(int promotionProductId)
+        {
+            return _dalDiscount.RemoveProductFromPromotion(promotionProductId);
         }
     }
 }

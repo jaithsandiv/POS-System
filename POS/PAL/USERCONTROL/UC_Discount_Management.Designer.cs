@@ -32,6 +32,7 @@ namespace POS.PAL.USERCONTROL
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            this.btnAssignProducts = new DevExpress.XtraEditors.SimpleButton();
             this.gridControlDiscounts = new DevExpress.XtraGrid.GridControl();
             this.gridViewDiscounts = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.searchControl1 = new DevExpress.XtraEditors.SearchControl();
@@ -97,6 +98,7 @@ namespace POS.PAL.USERCONTROL
             this.panelControl2.Appearance.Options.UseBackColor = true;
             this.panelControl2.Appearance.Options.UseBorderColor = true;
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl2.Controls.Add(this.btnAssignProducts);
             this.panelControl2.Controls.Add(this.gridControlDiscounts);
             this.panelControl2.Controls.Add(this.searchControl1);
             this.panelControl2.Controls.Add(this.btnAddDiscount);
@@ -113,6 +115,23 @@ namespace POS.PAL.USERCONTROL
             this.panelControl2.Size = new System.Drawing.Size(1894, 818);
             this.panelControl2.TabIndex = 116;
             // 
+            // btnAssignProducts
+            //
+            this.btnAssignProducts.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
+            this.btnAssignProducts.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAssignProducts.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnAssignProducts.Appearance.Options.UseBackColor = true;
+            this.btnAssignProducts.Appearance.Options.UseFont = true;
+            this.btnAssignProducts.Appearance.Options.UseForeColor = true;
+            this.btnAssignProducts.AppearanceHovered.Options.UseBackColor = true;
+            this.btnAssignProducts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnAssignProducts.Location = new System.Drawing.Point(1640, 5);
+            this.btnAssignProducts.Name = "btnAssignProducts";
+            this.btnAssignProducts.Size = new System.Drawing.Size(130, 29);
+            this.btnAssignProducts.TabIndex = 19;
+            this.btnAssignProducts.Text = "Assign Products";
+            this.btnAssignProducts.Click += new System.EventHandler(this.btnAssignProducts_Click);
+            //
             // gridControlDiscounts
             // 
             this.gridControlDiscounts.Location = new System.Drawing.Point(28, 78);
@@ -140,7 +159,7 @@ namespace POS.PAL.USERCONTROL
             this.gridViewDiscounts.OptionsCustomization.AllowFilter = false;
             this.gridViewDiscounts.OptionsCustomization.AllowGroup = false;
             this.gridViewDiscounts.OptionsSelection.EnableAppearanceFocusedCell = false;
-            this.gridViewDiscounts.OptionsSelection.EnableAppearanceFocusedRow = false;
+            this.gridViewDiscounts.OptionsSelection.EnableAppearanceFocusedRow = true;
             this.gridViewDiscounts.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewDiscounts.OptionsView.ShowGroupPanel = false;
             this.gridViewDiscounts.OptionsView.ShowIndicator = false;
@@ -336,6 +355,7 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewDiscounts;
         private DevExpress.XtraEditors.SearchControl searchControl1;
         private DevExpress.XtraEditors.SimpleButton btnAddDiscount;
+        private DevExpress.XtraEditors.SimpleButton btnAssignProducts;
         private DevExpress.XtraEditors.SimpleButton btnExportPDF;
         private DevExpress.XtraEditors.SimpleButton btnColumnVisibilty;
         private DevExpress.XtraEditors.SimpleButton btnPrint;

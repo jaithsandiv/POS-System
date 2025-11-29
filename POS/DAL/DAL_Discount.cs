@@ -15,8 +15,7 @@ namespace POS.DAL
             DataTable dt = new DataTable();
             dt.Columns.Add("discount_id", typeof(int));
             dt.Columns.Add("name", typeof(string));
-            dt.Columns.Add("type", typeof(string));
-            dt.Columns.Add("value", typeof(decimal));
+            dt.Columns.Add("description", typeof(string));
             dt.Columns.Add("start_date", typeof(DateTime));
             dt.Columns.Add("end_date", typeof(DateTime));
             dt.Columns.Add("status", typeof(string));
@@ -40,24 +39,7 @@ namespace POS.DAL
                 DataRow r = dt.NewRow();
                 r["discount_id"] = row["promotion_id"];
                 r["name"] = row["promotion_name"];
-                
-                // Parse description for type and value
-                string desc = row["description"]?.ToString() ?? "";
-                string type = "Percentage";
-                decimal value = 0;
-                
-                if (!string.IsNullOrEmpty(desc) && desc.Contains(":"))
-                {
-                    var parts = desc.Split(':');
-                    if (parts.Length == 2)
-                    {
-                        type = parts[0];
-                        decimal.TryParse(parts[1], out value);
-                    }
-                }
-
-                r["type"] = type;
-                r["value"] = value;
+                r["description"] = row["description"];
                 r["start_date"] = row["start_date"];
                 r["end_date"] = row["end_date"];
                 r["status"] = row["status"].ToString() == "A" ? "Active" : "Inactive";
@@ -68,9 +50,8 @@ namespace POS.DAL
             return dt;
         }
 
-        public bool InsertDiscount(string name, string type, decimal value, DateTime startDate, DateTime endDate, string status)
+        public bool InsertDiscount(string name, string description, DateTime startDate, DateTime endDate, string status)
         {
-            string description = $"{type}:{value}";
             string query = @"
                 INSERT INTO Promotion (promotion_name, description, start_date, end_date, status, created_date)
                 VALUES (@name, @description, @start_date, @end_date, @status, GETDATE())";
@@ -85,5 +66,89 @@ namespace POS.DAL
 
             return Connection.ExecuteNonQuery(query, parameters) > 0;
         }
+
+        #region Product Promotion Methods
+
+        public DataTable GetProductsByPromotionID(int promotionId)
+        {
+            string query = @"
+                SELECT
+                    pp.promotion_product_id,
+                    pp.promotion_id,
+                    pp.product_id,
+                    p.product_name,
+                    p.product_code,
+                    pp.promotion_type,
+                    pp.discount_value
+                FROM ProductPromotion pp
+                JOIN Product p ON pp.product_id = p.product_id
+                WHERE pp.promotion_id = @promotion_id AND pp.status = 'A'
+                ORDER BY p.product_name";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@promotion_id", promotionId)
+            };
+
+            return Connection.ExecuteQuery(query, parameters);
+        }
+
+        public bool AddProductToPromotion(int promotionId, int productId, string type, decimal value)
+        {
+            // Check if exists first to avoid exception or update existing
+            string checkQuery = "SELECT COUNT(*) FROM ProductPromotion WHERE promotion_id = @promotion_id AND product_id = @product_id";
+            SqlParameter[] checkParams = {
+                new SqlParameter("@promotion_id", promotionId),
+                new SqlParameter("@product_id", productId)
+            };
+
+            int count = Convert.ToInt32(Connection.ExecuteQuery(checkQuery, checkParams).Rows[0][0]);
+
+            if (count > 0)
+            {
+                // Update existing
+                string updateQuery = @"
+                    UPDATE ProductPromotion
+                    SET promotion_type = @type,
+                        discount_value = @value,
+                        status = 'A',
+                        updated_date = GETDATE()
+                    WHERE promotion_id = @promotion_id AND product_id = @product_id";
+
+                SqlParameter[] updateParams = {
+                    new SqlParameter("@promotion_id", promotionId),
+                    new SqlParameter("@product_id", productId),
+                    new SqlParameter("@type", type),
+                    new SqlParameter("@value", value)
+                };
+                return Connection.ExecuteNonQuery(updateQuery, updateParams) > 0;
+            }
+            else
+            {
+                // Insert new
+                string insertQuery = @"
+                    INSERT INTO ProductPromotion (promotion_id, product_id, promotion_type, discount_value, status, created_date)
+                    VALUES (@promotion_id, @product_id, @type, @value, 'A', GETDATE())";
+
+                SqlParameter[] insertParams = {
+                    new SqlParameter("@promotion_id", promotionId),
+                    new SqlParameter("@product_id", productId),
+                    new SqlParameter("@type", type),
+                    new SqlParameter("@value", value)
+                };
+                return Connection.ExecuteNonQuery(insertQuery, insertParams) > 0;
+            }
+        }
+
+        public bool RemoveProductFromPromotion(int promotionProductId)
+        {
+            string query = "DELETE FROM ProductPromotion WHERE promotion_product_id = @id";
+            SqlParameter[] parameters = {
+                new SqlParameter("@id", promotionProductId)
+            };
+
+            return Connection.ExecuteNonQuery(query, parameters) > 0;
+        }
+
+        #endregion
     }
 }
