@@ -37,6 +37,9 @@ namespace POS
 
             Instance = this;
 
+            // Set current date
+            lblDate.Text = DateTime.Now.ToString("ddd, MMM dd, yyyy");
+
             if (DataSetApp.Business.Rows.Count > 0)
             {
                 var firstBusinessRow = DataSetApp.Business[0];
@@ -400,6 +403,11 @@ namespace POS
         private void btnListProducts_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UC_Product_Management());
+        }
+
+        private void btnRoles_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Role_Management());
         }
     }
 }

@@ -90,8 +90,8 @@
             btnToggleMenu = new DevExpress.XtraEditors.SimpleButton();
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
             lblBusinessName = new DevExpress.XtraEditors.LabelControl();
-            labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            lblTime = new DevExpress.XtraEditors.LabelControl();
+            lblDate = new DevExpress.XtraEditors.LabelControl();
             btnPOS = new DevExpress.XtraEditors.SimpleButton();
             btnAcc = new DevExpress.XtraEditors.SimpleButton();
             btnAddQuotation = new DevExpress.XtraEditors.SimpleButton();
@@ -974,6 +974,7 @@
             btnRoles.Size = new System.Drawing.Size(233, 40);
             btnRoles.TabIndex = 20;
             btnRoles.Text = "Roles";
+            btnRoles.Click += btnRoles_Click;
             // 
             // btnUsers
             // 
@@ -1057,8 +1058,8 @@
             panelTopBar.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelTopBar.Controls.Add(panelControl2);
             panelTopBar.Controls.Add(panelControl1);
-            panelTopBar.Controls.Add(labelControl6);
-            panelTopBar.Controls.Add(labelControl5);
+            panelTopBar.Controls.Add(lblTime);
+            panelTopBar.Controls.Add(lblDate);
             panelTopBar.Controls.Add(btnPOS);
             panelTopBar.Controls.Add(btnAcc);
             panelTopBar.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1120,29 +1121,29 @@
             lblBusinessName.TabIndex = 20;
             lblBusinessName.Text = "Business Name";
             // 
-            // labelControl6
+            // lblTime
             // 
-            labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl6.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl6.Appearance.Options.UseFont = true;
-            labelControl6.Appearance.Options.UseForeColor = true;
-            labelControl6.Location = new System.Drawing.Point(1660, 16);
-            labelControl6.Name = "labelControl6";
-            labelControl6.Size = new System.Drawing.Size(73, 17);
-            labelControl6.TabIndex = 18;
-            labelControl6.Text = "09:56:00 AM";
+            lblTime.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblTime.Appearance.ForeColor = System.Drawing.Color.White;
+            lblTime.Appearance.Options.UseFont = true;
+            lblTime.Appearance.Options.UseForeColor = true;
+            lblTime.Location = new System.Drawing.Point(1660, 16);
+            lblTime.Name = "lblTime";
+            lblTime.Size = new System.Drawing.Size(73, 17);
+            lblTime.TabIndex = 18;
+            lblTime.Text = "09:56:00 AM";
             // 
-            // labelControl5
+            // lblDate
             // 
-            labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl5.Appearance.ForeColor = System.Drawing.Color.White;
-            labelControl5.Appearance.Options.UseFont = true;
-            labelControl5.Appearance.Options.UseForeColor = true;
-            labelControl5.Location = new System.Drawing.Point(1553, 16);
-            labelControl5.Name = "labelControl5";
-            labelControl5.Size = new System.Drawing.Size(98, 17);
-            labelControl5.TabIndex = 17;
-            labelControl5.Text = "Sat, Oct 18, 2025";
+            lblDate.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblDate.Appearance.ForeColor = System.Drawing.Color.White;
+            lblDate.Appearance.Options.UseFont = true;
+            lblDate.Appearance.Options.UseForeColor = true;
+            lblDate.Location = new System.Drawing.Point(1529, 16);
+            lblDate.Name = "lblDate";
+            lblDate.Size = new System.Drawing.Size(98, 17);
+            lblDate.TabIndex = 17;
+            lblDate.Text = "Sat, Oct 18, 2025";
             // 
             // btnPOS
             // 
@@ -2118,8 +2119,8 @@
         private DevExpress.XtraEditors.SimpleButton btnToggleMenu;
         private DevExpress.XtraEditors.PanelControl panelHomeHeader;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
-        private DevExpress.XtraEditors.LabelControl labelControl6;
-        private DevExpress.XtraEditors.LabelControl labelControl5;
+        private DevExpress.XtraEditors.LabelControl lblTime;
+        private DevExpress.XtraEditors.LabelControl lblDate;
         private DevExpress.XtraEditors.SimpleButton btnPOS;
         private DevExpress.XtraEditors.SimpleButton btnAcc;
         private DevExpress.XtraEditors.PanelControl panelUserManagementSubmenu;
