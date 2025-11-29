@@ -16,7 +16,6 @@ namespace POS.PAL.USERCONTROL
 {
     public partial class UC_User_Management : DevExpress.XtraEditors.XtraUserControl
     {
-        private readonly BLL_User _bllUser = new BLL_User();
         private DataTable usersTable;
 
         public UC_User_Management()
@@ -24,11 +23,20 @@ namespace POS.PAL.USERCONTROL
             InitializeComponent();
             ConfigureGrid();
             LoadUsers();
-            
+
             // Wire up the Add button click event
             if (btnAddUsers != null)
             {
-                btnAddUsers.Click += btnAddUsers_Click;
+                btnAddUsers.Click += BtnAddUsers_Click;
+            }
+
+            // Wire up search textbox events
+            txtSearch.KeyDown += TxtSearch_KeyDown;
+
+            // Wire up search button click event
+            if (btnSearch != null)
+            {
+                btnSearch.Click += BtnSearch_Click;
             }
         }
 
@@ -220,7 +228,7 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
-                usersTable = _bllUser.GetUsers();
+                usersTable = BLL_User.GetUsers();
                 gridUsers.DataSource = usersTable;
                 gridView1.BestFitColumns();
             }
@@ -278,17 +286,9 @@ namespace POS.PAL.USERCONTROL
 
                 int userId = Convert.ToInt32(selectedRow["user_id"]);
 
-                // TODO: Navigate to user edit form when implemented
-                XtraMessageBox.Show(
-                    $"User edit functionality for User ID {userId} will be implemented in the user registration form.",
-                    "Information",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
-
-                // Uncomment when user registration form is ready:
-                // var registrationForm = new UC_User_Registration(userId);
-                // Main.Instance.LoadUserControl(registrationForm);
+                // Navigate to user edit form
+                var registrationForm = new UC_User_RegistrationSub(userId);
+                Main.Instance.LoadUserControl(registrationForm);
             }
             catch (Exception ex)
             {
@@ -340,7 +340,7 @@ namespace POS.PAL.USERCONTROL
                 }
 
                 // Delete the user (soft delete)
-                bool success = _bllUser.DeleteUser(userId, currentUserId);
+                bool success = BLL_User.DeleteUser(userId, currentUserId);
 
                 if (success)
                 {
@@ -378,18 +378,72 @@ namespace POS.PAL.USERCONTROL
         /// <summary>
         /// Handle Add Users button click
         /// </summary>
-        private void btnAddUsers_Click(object sender, EventArgs e)
+        private void BtnAddUsers_Click(object sender, EventArgs e)
         {
-            // TODO: Navigate to user registration form when ready
-            XtraMessageBox.Show(
-                "User registration functionality will be implemented in the user registration form.",
-                "Information",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
-            
-            // Uncomment when user registration form is ready:
-            // Main.Instance.LoadUserControl(new UC_User_Registration());
+            Main.Instance.LoadUserControl(new UC_User_RegistrationSub());
+        }
+
+        /// <summary>
+        /// Searches users based on the search text
+        /// </summary>
+        private void SearchUsers()
+        {
+            try
+            {
+                string searchKeyword = txtSearch.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(searchKeyword))
+                {
+                    // If search is empty, load all users
+                    LoadUsers();
+                    return;
+                }
+
+                usersTable = BLL_User.SearchUsers(searchKeyword);
+                gridUsers.DataSource = usersTable;
+                gridView1.BestFitColumns();
+
+                // Show message if no results found
+                if (usersTable.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show(
+                        $"No users found matching '{searchKeyword}'.",
+                        "Search Results",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error searching users: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Handle Enter key press in search textbox
+        /// </summary>
+        private void TxtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SearchUsers();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        /// <summary>
+        /// Handle search button click
+        /// </summary>
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            SearchUsers();
         }
     }
 }
