@@ -132,6 +132,21 @@ namespace POS.PAL.USERCONTROL
             label4 = new System.Windows.Forms.Label();
             panelControl13 = new DevExpress.XtraEditors.PanelControl();
             btnPMClose = new DevExpress.XtraEditors.SimpleButton();
+            pnlLoadSaved = new DevExpress.XtraEditors.PanelControl();
+            panelControl15 = new DevExpress.XtraEditors.PanelControl();
+            label5 = new System.Windows.Forms.Label();
+            label6 = new System.Windows.Forms.Label();
+            xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
+            xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
+            xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
+            xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
+            gcDrafts = new DevExpress.XtraGrid.GridControl();
+            gvDrafts = new DevExpress.XtraGrid.Views.Grid.GridView();
+            gcQuotations = new DevExpress.XtraGrid.GridControl();
+            gvQuotations = new DevExpress.XtraGrid.Views.Grid.GridView();
+            gcSales = new DevExpress.XtraGrid.GridControl();
+            gvSales = new DevExpress.XtraGrid.Views.Grid.GridView();
+            btnLoadSaved = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl6).BeginInit();
@@ -1325,6 +1340,148 @@ namespace POS.PAL.USERCONTROL
             pnlCustomers.Name = "pnlCustomers";
             pnlCustomers.Size = new System.Drawing.Size(831, 494);
             pnlCustomers.TabIndex = 2;
+            // 
+            // 
+            // pnlLoadSaved
+            // 
+            pnlLoadSaved.Controls.Add(xtraTabControl1);
+            pnlLoadSaved.Controls.Add(panelControl15);
+            pnlLoadSaved.Location = new System.Drawing.Point(400, 200);
+            pnlLoadSaved.Name = "pnlLoadSaved";
+            pnlLoadSaved.Size = new System.Drawing.Size(900, 600);
+            pnlLoadSaved.TabIndex = 100;
+            pnlLoadSaved.Visible = false;
+            // 
+            // panelControl15
+            // 
+            panelControl15.Appearance.BackColor = System.Drawing.Color.DimGray;
+            panelControl15.Appearance.Options.UseBackColor = true;
+            panelControl15.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl15.Controls.Add(label5);
+            panelControl15.Controls.Add(label6);
+            panelControl15.Dock = System.Windows.Forms.DockStyle.Top;
+            panelControl15.Location = new System.Drawing.Point(2, 2);
+            panelControl15.Name = "panelControl15";
+            panelControl15.Size = new System.Drawing.Size(896, 30);
+            panelControl15.TabIndex = 0;
+            // 
+            // label5
+            // 
+            label5.BackColor = System.Drawing.Color.DimGray;
+            label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label5.ForeColor = System.Drawing.Color.White;
+            label5.Location = new System.Drawing.Point(0, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(150, 30);
+            label5.TabIndex = 1;
+            label5.Text = "Load Saved Records";
+            label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            label6.BackColor = System.Drawing.Color.DimGray;
+            label6.Cursor = System.Windows.Forms.Cursors.Hand;
+            label6.Dock = System.Windows.Forms.DockStyle.Right;
+            label6.Font = new System.Drawing.Font("Microsoft New Tai Lue", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label6.ForeColor = System.Drawing.Color.White;
+            label6.Location = new System.Drawing.Point(866, 0);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(30, 30);
+            label6.TabIndex = 0;
+            label6.Text = "✕";
+            label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label6.Click += btnCloseLoadSaved_Click;
+            // 
+            // xtraTabControl1
+            // 
+            xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            xtraTabControl1.Location = new System.Drawing.Point(2, 32);
+            xtraTabControl1.Name = "xtraTabControl1";
+            xtraTabControl1.SelectedTabPage = xtraTabPage1;
+            xtraTabControl1.Size = new System.Drawing.Size(896, 566);
+            xtraTabControl1.TabIndex = 1;
+            xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
+            xtraTabPage1,
+            xtraTabPage2,
+            xtraTabPage3});
+            // 
+            // xtraTabPage1
+            // 
+            xtraTabPage1.Controls.Add(gcDrafts);
+            xtraTabPage1.Name = "xtraTabPage1";
+            xtraTabPage1.Size = new System.Drawing.Size(894, 541);
+            xtraTabPage1.Text = "Drafts";
+            // 
+            // gcDrafts
+            // 
+            gcDrafts.Dock = System.Windows.Forms.DockStyle.Fill;
+            gcDrafts.Location = new System.Drawing.Point(0, 0);
+            gcDrafts.MainView = gvDrafts;
+            gcDrafts.Name = "gcDrafts";
+            gcDrafts.Size = new System.Drawing.Size(894, 541);
+            gcDrafts.TabIndex = 0;
+            gcDrafts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            gvDrafts});
+            // 
+            // gvDrafts
+            // 
+            gvDrafts.GridControl = gcDrafts;
+            gvDrafts.Name = "gvDrafts";
+            gvDrafts.OptionsBehavior.Editable = false;
+            gvDrafts.OptionsView.ShowGroupPanel = false;
+            gvDrafts.RowClick += LoadSelectedSale;
+            // 
+            // xtraTabPage2
+            // 
+            xtraTabPage2.Controls.Add(gcQuotations);
+            xtraTabPage2.Name = "xtraTabPage2";
+            xtraTabPage2.Size = new System.Drawing.Size(894, 541);
+            xtraTabPage2.Text = "Quotations";
+            // 
+            // gcQuotations
+            // 
+            gcQuotations.Dock = System.Windows.Forms.DockStyle.Fill;
+            gcQuotations.Location = new System.Drawing.Point(0, 0);
+            gcQuotations.MainView = gvQuotations;
+            gcQuotations.Name = "gcQuotations";
+            gcQuotations.Size = new System.Drawing.Size(894, 541);
+            gcQuotations.TabIndex = 0;
+            gcQuotations.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            gvQuotations});
+            // 
+            // gvQuotations
+            // 
+            gvQuotations.GridControl = gcQuotations;
+            gvQuotations.Name = "gvQuotations";
+            gvQuotations.OptionsBehavior.Editable = false;
+            gvQuotations.OptionsView.ShowGroupPanel = false;
+            gvQuotations.RowClick += LoadSelectedSale;
+            // 
+            // xtraTabPage3
+            // 
+            xtraTabPage3.Controls.Add(gcSales);
+            xtraTabPage3.Name = "xtraTabPage3";
+            xtraTabPage3.Size = new System.Drawing.Size(894, 541);
+            xtraTabPage3.Text = "Recent Sales";
+            // 
+            // gcSales
+            // 
+            gcSales.Dock = System.Windows.Forms.DockStyle.Fill;
+            gcSales.Location = new System.Drawing.Point(0, 0);
+            gcSales.MainView = gvSales;
+            gcSales.Name = "gcSales";
+            gcSales.Size = new System.Drawing.Size(894, 541);
+            gcSales.TabIndex = 0;
+            gcSales.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            gvSales});
+            // 
+            // gvSales
+            // 
+            gvSales.GridControl = gcSales;
+            gvSales.Name = "gvSales";
+            gvSales.OptionsBehavior.Editable = false;
+            gvSales.OptionsView.ShowGroupPanel = false;
+            gvSales.RowClick += LoadSelectedSale;
             // 
             // pnlPM
             // 
