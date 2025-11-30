@@ -104,7 +104,7 @@ namespace POS.DAL
                     p.category_id,
                     p.brand_id,
                     p.unit_id,
-                    u.name as unit_name,
+                    u.code as unit_name,
                     p.purchase_cost,
                     p.selling_price,
                     p.stock_quantity,
@@ -363,11 +363,11 @@ namespace POS.DAL
                     {
                         string itemQuery = @"
                             INSERT INTO SaleItem (
-                                sale_id, product_id, product_name, product_code, unit_price,
+                                sale_id, product_id, product_name, product_code, unit, unit_price,
                                 quantity, discount_type, discount_value, subtotal, status, created_by, created_date
                             )
                             VALUES (
-                                @sale_id, @product_id, @product_name, @product_code, @unit_price,
+                                @sale_id, @product_id, @product_name, @product_code, @unit, @unit_price,
                                 @quantity, @discount_type, @discount_value, @subtotal, @status, @created_by, GETDATE()
                             );";
 
@@ -377,6 +377,7 @@ namespace POS.DAL
                             new SqlParameter("@product_id", item["product_id"]),
                             new SqlParameter("@product_name", item["product_name"] ?? (object)DBNull.Value),
                             new SqlParameter("@product_code", item["product_code"] ?? (object)DBNull.Value),
+                            new SqlParameter("@unit", item["unit"] ?? (object)DBNull.Value),
                             new SqlParameter("@unit_price", decimal.Parse(item["unit_price"]?.ToString() ?? "0")),
                             new SqlParameter("@quantity", decimal.Parse(item["quantity"]?.ToString() ?? "0")),
                             new SqlParameter("@discount_type", item["discount_type"]?.ToString() ?? "PERCENTAGE"),
@@ -507,6 +508,7 @@ namespace POS.DAL
                         product_id,
                         product_name,
                         product_code,
+                        unit,
                         unit_price,
                         quantity,
                         discount_type,
