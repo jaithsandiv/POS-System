@@ -2443,9 +2443,6 @@ namespace POS.PAL.USERCONTROL
                 btnCancel_Click(null, null);
         }
 
-
-    }
-}
         private void btnLoadSaved_Click(object sender, EventArgs e)
         {
             // Initialize panel visibility and grids
@@ -2676,3 +2673,5 @@ namespace POS.PAL.USERCONTROL
                 MessageBox.Show($"Error loading sale: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+    }
+}
