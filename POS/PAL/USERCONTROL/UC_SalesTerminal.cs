@@ -40,6 +40,7 @@ namespace POS.PAL.USERCONTROL
         {
             InitializeComponent();
             InitializePaymentSummaryControls();
+            gvTransactionSum.CustomColumnDisplayText += gvTransactionSum_CustomColumnDisplayText;
             btnCancel_Click(null, null);
         }
 
@@ -392,6 +393,35 @@ namespace POS.PAL.USERCONTROL
                 view.SetRowCellValue(rowHandle, "subtotal", price * qty - discountAmount);
 
                 RecalculateTotals();
+            }
+        }
+
+        private void gvTransactionSum_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            if (e.Column.FieldName == "quantity" ||
+                e.Column.FieldName == "discount_value")
+            {
+                decimal price = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "unit_price"));
+                decimal qty = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "quantity"));
+                decimal discountValue = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "discount_value"));
+                string type = gvTransactionSum.GetRowCellValue(e.RowHandle, "discount_type")?.ToString() ?? "PERCENTAGE";
+
+                decimal discountAmount = type == "PERCENTAGE" ? (price * qty * discountValue / 100m) : discountValue;
+                gvTransactionSum.SetRowCellValue(e.RowHandle, "subtotal", price * qty - discountAmount);
+
+                RecalculateTotals();
+            }
+        }
+
+        private void gvTransactionSum_CustomColumnDisplayText(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDisplayTextEventArgs e)
+        {
+            if (e.Column.FieldName == "discount_type")
+            {
+                string value = e.Value?.ToString();
+                if (value == "PERCENTAGE")
+                    e.DisplayText = "%";
+                else if (value == "FIXED_AMOUNT")
+                    e.DisplayText = "Rs.";
             }
         }
 
