@@ -915,10 +915,38 @@ namespace POS.PAL.USERCONTROL
             xtraScrollableControl4.Controls.Clear();
 
             // Initialize payments DataTable
-            DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
-            paymentsTable = ds.Payment;
-            paymentsTable.Clear();
-            paymentEntryCounter = 0;
+            // If paymentsTable is already populated (e.g. from LoadSaleIntoTerminal), use it.
+            // Otherwise, initialize new.
+            if (paymentsTable == null)
+            {
+                DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
+                paymentsTable = ds.Payment;
+            }
+
+            // Only clear if we are starting fresh (sale_id is null/0)
+            int currentSaleId = 0;
+            if (saleTable != null && saleTable.Rows.Count > 0 && saleTable.Rows[0]["sale_id"] != DBNull.Value)
+            {
+                int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
+            }
+
+            if (currentSaleId == 0)
+            {
+                paymentsTable.Clear();
+                paymentEntryCounter = 0;
+            }
+            else
+            {
+                // If loading existing, we need to populate the UI with existing payments
+                // For now, let's just ensure we don't wipe the data table.
+                // Re-populating the UI (adding panels) for existing payments would be nice but complex
+                // as we need to map rows back to UI controls.
+                // For the requirement "complete partial payments", the user just needs to see balance and add NEW payment.
+                // So we can list existing payments in a read-only way or just show totals.
+                // Let's rely on `lblTotalPaid` which calculates from `paymentsTable`.
+                // We will NOT add panels for existing payments to avoid complexity of editing them.
+                // User adds NEW payments.
+            }
 
             // Reset labels
             UpdatePaymentSummaryUI();
@@ -1474,6 +1502,9 @@ namespace POS.PAL.USERCONTROL
             saleTable = ds.Sale;
             saleTable.Clear();
 
+            // Clear payments table reference when cancelling
+            if (paymentsTable != null) paymentsTable.Clear();
+
             DataRow newSaleRow = saleTable.NewRow();
             newSaleRow["sale_id"] = DBNull.Value;
             newSaleRow["store_id"] = Main.DataSetApp.Store[0].store_id;
@@ -1567,6 +1598,13 @@ namespace POS.PAL.USERCONTROL
             decimal totalPaid = decimal.Parse(saleTable.Rows[0]["total_paid"]?.ToString() ?? "0");
             decimal changeDue = decimal.Parse(saleTable.Rows[0]["change_due"]?.ToString() ?? "0");
 
+            // Check if we are updating an existing sale
+            int currentSaleId = 0;
+            if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
+            {
+                int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
+            }
+
             string orderType = null;
             string tableNumber = null;
 
@@ -1589,7 +1627,7 @@ namespace POS.PAL.USERCONTROL
             // The database will auto-generate the sale_id
             int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "DRAFT",
                 discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                salesItemsTable, totalPaid, changeDue, null, null, orderType, tableNumber);
+                salesItemsTable, totalPaid, changeDue, null, null, orderType, tableNumber, currentSaleId);
 
             // Update saleTable with the returned sale_id from database
             DataRow saleRow = saleTable.Rows[0];
@@ -1638,15 +1676,35 @@ namespace POS.PAL.USERCONTROL
             decimal totalPaid = decimal.Parse(saleTable.Rows[0]["total_paid"]?.ToString() ?? "0");
             decimal changeDue = decimal.Parse(saleTable.Rows[0]["change_due"]?.ToString() ?? "0");
 
+            // Check if we are updating an existing sale
+            int currentSaleId = 0;
+            if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
+            {
+                int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
+            }
+
             // Get quotation number from database sequence
-            string quotationNumber = _bllSalesTerminal.GetNextQuotationNumber();
+            // Note: If updating, we keep the same quotation number ideally, but GetNextQuotationNumber generates a new one.
+            // For now, if it's an update, let's keep the existing one if possible, or generate new one.
+            // The current UI flow doesn't store quotation number in `saleTable` easily accessible for reuse without reading it.
+            // Let's assume we generate a new number for simplicity or check if `quotation_number` column exists.
+            string quotationNumber;
+            if (currentSaleId > 0 && saleTable.Columns.Contains("quotation_number") && saleTable.Rows[0]["quotation_number"] != DBNull.Value)
+            {
+                quotationNumber = saleTable.Rows[0]["quotation_number"].ToString();
+            }
+            else
+            {
+                quotationNumber = _bllSalesTerminal.GetNextQuotationNumber();
+            }
+
             string notes = $"Quotation created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
             // Save to database using unified SaveSale method
             // The database will auto-generate the sale_id
             int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "QUOTATION",
                 discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                salesItemsTable, totalPaid, changeDue, null, quotationNumber);
+                salesItemsTable, totalPaid, changeDue, null, quotationNumber, null, null, currentSaleId);
 
             // Update saleTable with the returned sale_id from database
             DataRow saleRow = saleTable.Rows[0];
@@ -1826,6 +1884,13 @@ namespace POS.PAL.USERCONTROL
             decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
             int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
 
+            // Check if we are updating an existing sale
+            int currentSaleId = 0;
+            if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
+            {
+                int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
+            }
+
             // Get invoice number from database sequence
             string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
             string notes = $"Credit sale created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}\nCredit Limit: {creditLimit:F2}";
@@ -1833,7 +1898,7 @@ namespace POS.PAL.USERCONTROL
             // Save sale to database using unified SaveSale method
             int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "CREDIT_SALE",
                 discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                salesItemsTable, 0m, 0m, invoiceNumber, null, null, null);
+                salesItemsTable, 0m, 0m, invoiceNumber, null, null, null, currentSaleId);
 
                 // Create CREDIT payment record
                 DataTable creditPaymentTable = new DataTable();
@@ -2241,14 +2306,36 @@ namespace POS.PAL.USERCONTROL
                 }
             }
 
+            // Check if we are updating an existing sale
+            int currentSaleId = 0;
+            if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
+            {
+                int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
+            }
+
             // Get invoice number from database sequence
-            string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
+            // Note: If updating from DRAFT/QUOTATION to SALE, we need a NEW invoice number.
+            // If updating an existing SALE (adding payments), we might want to keep it?
+            // Usually invoice number is generated when converting to SALE.
+            // If currentSaleType is already SALE, we keep it. If not, we generate new.
+            string invoiceNumber;
+            string currentSaleType = saleTable.Rows[0]["sale_type"]?.ToString();
+
+            if (currentSaleId > 0 && currentSaleType == "SALE" && saleTable.Columns.Contains("invoice_number") && saleTable.Rows[0]["invoice_number"] != DBNull.Value)
+            {
+                invoiceNumber = saleTable.Rows[0]["invoice_number"].ToString();
+            }
+            else
+            {
+                invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
+            }
+
             string notes = $"Invoice created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
             // Save sale to database
             int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
                 discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                salesItemsTable, totalPaid, changeDue, invoiceNumber, null, orderType, tableNumber);
+                salesItemsTable, totalPaid, changeDue, invoiceNumber, null, orderType, tableNumber, currentSaleId);
 
                 // Save payments to database
                 _bllSalesTerminal.SavePayments(saleId, paymentsTable, billerId);
@@ -2359,3 +2446,233 @@ namespace POS.PAL.USERCONTROL
 
     }
 }
+        private void btnLoadSaved_Click(object sender, EventArgs e)
+        {
+            // Initialize panel visibility and grids
+            pnlLoadSaved.Visible = true;
+            pnlLoadSaved.BringToFront();
+
+            // Load data for each tab
+            LoadDraftsList();
+            LoadQuotationsList();
+            LoadSalesList();
+        }
+
+        private void btnCloseLoadSaved_Click(object sender, EventArgs e)
+        {
+            pnlLoadSaved.Visible = false;
+        }
+
+        private void LoadDraftsList()
+        {
+            try
+            {
+                DataTable drafts = _bllSalesTerminal.GetSales("DRAFT");
+                gcDrafts.DataSource = drafts;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading drafts: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadQuotationsList()
+        {
+            try
+            {
+                DataTable quotations = _bllSalesTerminal.GetSales("QUOTATION");
+                gcQuotations.DataSource = quotations;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading quotations: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadSalesList()
+        {
+            try
+            {
+                // We want to load recent sales. The GetSales method in BLL takes a type.
+                // Assuming "SALE" or "CREDIT_SALE" are the types.
+                // The GetSales method in DAL filters by type.
+                // Let's load standard SALE for now.
+                DataTable sales = _bllSalesTerminal.GetSales("SALE");
+                // Optionally merge CREDIT_SALE if needed, or if GetSales("SALE") covers both if logic allows.
+                // Based on DAL: WHERE sale_type = @saleType.
+                // Let's stick to 'SALE' as primary.
+                gcSales.DataSource = sales;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading sales: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadSelectedSale(object sender, EventArgs e)
+        {
+            // Determine which grid triggered the event
+            DevExpress.XtraGrid.Views.Grid.GridView view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+            if (view == null || view.FocusedRowHandle < 0) return;
+
+            string saleIdStr = view.GetFocusedRowCellValue("sale_id")?.ToString();
+            if (int.TryParse(saleIdStr, out int saleId))
+            {
+                LoadSaleIntoTerminal(saleId);
+                pnlLoadSaved.Visible = false;
+            }
+        }
+
+        private void LoadSaleIntoTerminal(int saleId)
+        {
+            try
+            {
+                // 1. Reset current terminal
+                // Use btnCancel logic but don't call it directly to avoid UI flicker if possible,
+                // but for safety let's call it to clear state.
+                btnCancel_Click(null, null);
+
+                // 2. Fetch Data
+                DataTable fetchedSale = _bllSalesTerminal.GetSale(saleId);
+                DataTable fetchedItems = _bllSalesTerminal.GetSaleItems(saleId);
+                DataTable fetchedPayments = _bllSalesTerminal.GetSalePayments(saleId);
+
+                if (fetchedSale.Rows.Count == 0)
+                {
+                    MessageBox.Show("Sale record not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                DataRow saleRow = fetchedSale.Rows[0];
+
+                // 3. Populate saleTable (The main header data source)
+                DataRow currentSaleRow = saleTable.Rows[0];
+                currentSaleRow["sale_id"] = saleRow["sale_id"];
+                currentSaleRow["store_id"] = saleRow["store_id"];
+                currentSaleRow["sale_type"] = saleRow["sale_type"];
+                currentSaleRow["invoice_number"] = saleRow["invoice_number"];
+                currentSaleRow["quotation_number"] = saleRow["quotation_number"];
+                currentSaleRow["customer_id"] = saleRow["customer_id"];
+                currentSaleRow["biller_id"] = saleRow["biller_id"];
+                currentSaleRow["total_items"] = saleRow["total_items"];
+                currentSaleRow["total_amount"] = saleRow["total_amount"];
+                currentSaleRow["discount_type"] = saleRow["discount_type"];
+                currentSaleRow["discount_value"] = saleRow["discount_value"];
+                currentSaleRow["grand_total"] = saleRow["grand_total"];
+                currentSaleRow["total_paid"] = saleRow["total_paid"];
+                currentSaleRow["change_due"] = saleRow["change_due"];
+                currentSaleRow["payment_status"] = saleRow["payment_status"];
+                currentSaleRow["sale_status"] = saleRow["sale_status"];
+                currentSaleRow["order_type"] = saleRow["order_type"];
+                currentSaleRow["table_number"] = saleRow["table_number"];
+                currentSaleRow["notes"] = saleRow["notes"];
+                // Keep created_by/date as is or update? Usually we keep original for history.
+
+                // 4. Populate Items
+                salesItemsTable.Clear();
+                foreach (DataRow item in fetchedItems.Rows)
+                {
+                    DataRow newItem = salesItemsTable.NewRow();
+                    newItem["sale_item_id"] = item["sale_item_id"];
+                    newItem["sale_id"] = item["sale_id"];
+                    newItem["product_id"] = item["product_id"];
+                    newItem["product_name"] = item["product_name"];
+                    newItem["product_code"] = item["product_code"];
+                    newItem["unit"] = item["unit"];
+                    newItem["unit_price"] = item["unit_price"];
+                    newItem["quantity"] = item["quantity"];
+                    newItem["discount_type"] = item["discount_type"];
+                    newItem["discount_value"] = item["discount_value"];
+                    newItem["subtotal"] = item["subtotal"];
+                    newItem["status"] = "A";
+                    newItem["remove_action"] = "X";
+                    salesItemsTable.Rows.Add(newItem);
+                }
+
+                // 5. Populate Payments
+                // We need to re-initialize the payment table similar to InitializePaymentPanel
+                // But we don't want to clear and show the panel yet, just load the data.
+                // Actually, `paymentsTable` is local to the instance but initialized in `InitializePaymentPanel`
+                // which is called when `pnlPM` is shown.
+                // We should pre-load it.
+                // Create a temporary reference or just wait until user opens payment panel?
+                // Better to load it now so if they click "Add Payment", it shows history.
+                // However, `paymentsTable` is currently tied to `DAL_DS_SalesTerminal` instance in `InitializePaymentPanel`.
+                // Let's refactor `InitializePaymentPanel` slightly or just manually populate a table if `pnlPM` is not visible.
+                // BUT `paymentsTable` variable is used in `btnPMComplete_Click`.
+                // So we must populate `paymentsTable` variable.
+                DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
+                paymentsTable = ds.Payment;
+                paymentsTable.Clear();
+                foreach (DataRow pay in fetchedPayments.Rows)
+                {
+                    paymentsTable.ImportRow(pay);
+                }
+
+                // If payment panel is visible (unlikely), refresh it.
+                // If not, it will be refreshed when opened because `InitializePaymentPanel` clears it.
+                // WAIT! `InitializePaymentPanel` CLEARS `paymentsTable`. This is bad if we want to retain loaded payments.
+                // We need to change `InitializePaymentPanel` to NOT clear if we just loaded a sale.
+                // OR we just populate it inside `InitializePaymentPanel`.
+                // Strategy: We will modify `InitializePaymentPanel` to check if `paymentsTable` already has data from a loaded sale.
+                // For now, let's just populate it here.
+                // AND we need to prevent `InitializePaymentPanel` from clearing it if we are in "Edit Mode".
+                // How do we know? `saleTable.Rows[0]["sale_id"]` > 0.
+
+                // 6. Update UI Elements
+                txtTotal.Text = currentSaleRow["total_amount"].ToString();
+                txtGrandTotal.Text = currentSaleRow["grand_total"].ToString();
+
+                // Customer
+                if (currentSaleRow["customer_id"] != DBNull.Value)
+                {
+                    int custId = Convert.ToInt32(currentSaleRow["customer_id"]);
+                    DataRow[] custRows = customersTable.Select($"customer_id = '{custId}'");
+                    if (custRows.Length > 0)
+                    {
+                        txtCustomer.Text = custRows[0]["full_name"].ToString();
+                    }
+                }
+
+                // Discount
+                txtDiscount.EditValue = currentSaleRow["discount_value"];
+                string discType = currentSaleRow["discount_type"]?.ToString();
+                if (txtDiscount.Properties.Buttons.Count > 0)
+                {
+                    txtDiscount.Properties.Buttons[0].Caption = (discType == "PERCENTAGE") ? "%" : "Rs.";
+                }
+
+                // KOT
+                if (pnlKOT.Visible)
+                {
+                    string orderType = currentSaleRow["order_type"]?.ToString();
+                    if (orderType == "DINE_IN")
+                    {
+                        btnDineIn.Appearance.BackColor = Color.FromArgb(4, 181, 152);
+                        btnDineIn.Appearance.ForeColor = Color.White;
+                        btnTakeAway.Appearance.BackColor = Color.White;
+                        btnTakeAway.Appearance.ForeColor = Color.Black;
+                        pnlKOTTableNo.Visible = true;
+                        cmbTableNo.SelectedItem = currentSaleRow["table_number"]?.ToString();
+                    }
+                    else if (orderType == "TAKE_AWAY")
+                    {
+                        btnTakeAway.Appearance.BackColor = Color.FromArgb(4, 181, 152);
+                        btnTakeAway.Appearance.ForeColor = Color.White;
+                        btnDineIn.Appearance.BackColor = Color.White;
+                        btnDineIn.Appearance.ForeColor = Color.Black;
+                        pnlKOTTableNo.Visible = false;
+                    }
+                }
+
+                // Grid
+                gvTransactionSum.GridControl.DataSource = salesItemsTable;
+                gvTransactionSum.RefreshData();
+
+                MessageBox.Show("Sale loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading sale: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }

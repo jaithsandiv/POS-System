@@ -151,6 +151,21 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)panelControl11).BeginInit();
             panelControl11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl9).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pnlLoadSaved).BeginInit();
+            pnlLoadSaved.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl15).BeginInit();
+            panelControl15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)xtraTabControl1).BeginInit();
+            xtraTabControl1.SuspendLayout();
+            xtraTabPage1.SuspendLayout();
+            xtraTabPage2.SuspendLayout();
+            xtraTabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gcDrafts).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gvDrafts).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gcQuotations).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gvQuotations).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gcSales).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gvSales).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cmbPM.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl12).BeginInit();
@@ -588,6 +603,7 @@ namespace POS.PAL.USERCONTROL
             panelControl11.Controls.Add(btnCreditSale);
             panelControl11.Controls.Add(panel3);
             panelControl11.Controls.Add(btnDraft);
+            panelControl11.Controls.Add(btnLoadSaved);
             panelControl11.Controls.Add(btnQuotation);
             panelControl11.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl11.Location = new System.Drawing.Point(0, 654);
@@ -692,22 +708,35 @@ namespace POS.PAL.USERCONTROL
             btnDraft.AppearanceHovered.Options.UseBackColor = true;
             btnDraft.Location = new System.Drawing.Point(3, 119);
             btnDraft.Name = "btnDraft";
-            btnDraft.Size = new System.Drawing.Size(101, 30);
+            btnDraft.Size = new System.Drawing.Size(70, 30);
             btnDraft.TabIndex = 40;
             btnDraft.Text = "Draft";
             btnDraft.Click += btnDraft_Click;
             // 
+            // btnLoadSaved
+            //
+            btnLoadSaved.Appearance.BackColor = System.Drawing.Color.FromArgb(255, 128, 0);
+            btnLoadSaved.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnLoadSaved.Appearance.Options.UseBackColor = true;
+            btnLoadSaved.Appearance.Options.UseFont = true;
+            btnLoadSaved.Location = new System.Drawing.Point(76, 119);
+            btnLoadSaved.Name = "btnLoadSaved";
+            btnLoadSaved.Size = new System.Drawing.Size(70, 30);
+            btnLoadSaved.TabIndex = 45;
+            btnLoadSaved.Text = "Load";
+            btnLoadSaved.Click += btnLoadSaved_Click;
+            //
             // btnQuotation
             // 
             btnQuotation.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
             btnQuotation.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             btnQuotation.Appearance.Options.UseBackColor = true;
             btnQuotation.Appearance.Options.UseFont = true;
-            btnQuotation.Location = new System.Drawing.Point(114, 119);
+            btnQuotation.Location = new System.Drawing.Point(149, 119);
             btnQuotation.Name = "btnQuotation";
-            btnQuotation.Size = new System.Drawing.Size(101, 30);
+            btnQuotation.Size = new System.Drawing.Size(70, 30);
             btnQuotation.TabIndex = 41;
-            btnQuotation.Text = "Quotation";
+            btnQuotation.Text = "Quote";
             btnQuotation.Click += btnQuotation_Click;
             // 
             // panelControl12
@@ -1450,6 +1479,7 @@ namespace POS.PAL.USERCONTROL
             Appearance.Options.UseBackColor = true;
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(pnlLoadSaved);
             Controls.Add(pnlPM);
             Controls.Add(pnlCustomers);
             Controls.Add(panelControl8);
@@ -1534,6 +1564,21 @@ namespace POS.PAL.USERCONTROL
             panelControl14.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelControl13).EndInit();
             panelControl13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pnlLoadSaved).EndInit();
+            pnlLoadSaved.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)panelControl15).EndInit();
+            panelControl15.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)xtraTabControl1).EndInit();
+            xtraTabControl1.ResumeLayout(false);
+            xtraTabPage1.ResumeLayout(false);
+            xtraTabPage2.ResumeLayout(false);
+            xtraTabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)gcDrafts).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gvDrafts).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gcQuotations).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gvQuotations).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gcSales).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gvSales).EndInit();
             ResumeLayout(false);
 
         }
@@ -1620,6 +1665,21 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn12;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn14;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn15;
+        private DevExpress.XtraEditors.PanelControl pnlLoadSaved;
+        private DevExpress.XtraEditors.PanelControl panelControl15;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage3;
+        private DevExpress.XtraGrid.GridControl gcDrafts;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvDrafts;
+        private DevExpress.XtraGrid.GridControl gcQuotations;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvQuotations;
+        private DevExpress.XtraGrid.GridControl gcSales;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvSales;
+        private DevExpress.XtraEditors.SimpleButton btnLoadSaved;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
         private DevExpress.XtraEditors.SimpleButton btnCreditSale;
         private DevExpress.XtraEditors.SeparatorControl separatorControl9;

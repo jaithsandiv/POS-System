@@ -52,11 +52,12 @@ namespace POS.BLL
                             int totalItems, decimal grandTotal, string notes, DataTable saleItems,
                             decimal totalPaid = 0, decimal changeDue = 0,
                             string invoiceNumber = null, string quotationNumber = null, 
-                            string orderType = null, string tableNumber = null)
+                            string orderType = null, string tableNumber = null,
+                            int saleId = 0)
         {
             return _dalSalesTerminal.SaveSale(storeId, billerId, customerId, saleType, discountType, 
                 discountValue, totalAmount, totalItems, grandTotal, notes, saleItems, 
-                totalPaid, changeDue, invoiceNumber, quotationNumber, orderType, tableNumber);
+                totalPaid, changeDue, invoiceNumber, quotationNumber, orderType, tableNumber, saleId);
         }
 
         public string GetNextQuotationNumber()
@@ -77,6 +78,21 @@ namespace POS.BLL
         public DataTable GetSales(string saleType)
         {
             return _dalSalesTerminal.GetSales(saleType);
+        }
+
+        public DataTable GetSale(int saleId)
+        {
+            return _dalSalesTerminal.GetSale(saleId);
+        }
+
+        public DataTable GetSaleItems(int saleId)
+        {
+            return _dalSalesTerminal.GetSaleItems(saleId);
+        }
+
+        public DataTable GetSalePayments(int saleId)
+        {
+            return _dalSalesTerminal.GetSalePayments(saleId);
         }
     }
 }
