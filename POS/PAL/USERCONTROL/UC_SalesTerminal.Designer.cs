@@ -28,11 +28,11 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             panelControl6 = new DevExpress.XtraEditors.PanelControl();
             panelControl5 = new DevExpress.XtraEditors.PanelControl();
@@ -54,6 +54,7 @@ namespace POS.PAL.USERCONTROL
             gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
             gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -368,7 +369,7 @@ namespace POS.PAL.USERCONTROL
             gvTransactionSum.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             gvTransactionSum.Appearance.Row.Options.UseFont = true;
             gvTransactionSum.ColumnPanelRowHeight = 44;
-            gvTransactionSum.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1, gridColumn2, gridColumn3, gridColumn4, gridColumn5, gridColumn6, gridColumn9, gridColumn7, colRemove });
+            gvTransactionSum.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1, gridColumn2, gridColumn3, gridColumn4, gridColumn5, gridColumn8, gridColumn6, gridColumn9, gridColumn7, colRemove });
             gvTransactionSum.GridControl = gcTransactionSum;
             gvTransactionSum.Name = "gvTransactionSum";
             gvTransactionSum.OptionsCustomization.AllowFilter = false;
@@ -456,6 +457,18 @@ namespace POS.PAL.USERCONTROL
             gridColumn5.VisibleIndex = 2;
             gridColumn5.Width = 101;
             // 
+            // gridColumn8
+            // 
+            gridColumn8.Caption = " ";
+            gridColumn8.FieldName = "unit";
+            gridColumn8.Name = "gridColumn8";
+            gridColumn8.OptionsColumn.AllowEdit = false;
+            gridColumn8.OptionsColumn.AllowFocus = false;
+            gridColumn8.OptionsColumn.FixedWidth = true;
+            gridColumn8.Visible = true;
+            gridColumn8.VisibleIndex = 3;
+            gridColumn8.Width = 40;
+            // 
             // gridColumn6
             // 
             gridColumn6.AppearanceCell.Options.UseTextOptions = true;
@@ -474,7 +487,7 @@ namespace POS.PAL.USERCONTROL
             gridColumn6.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             gridColumn6.OptionsColumn.FixedWidth = true;
             gridColumn6.Visible = true;
-            gridColumn6.VisibleIndex = 3;
+            gridColumn6.VisibleIndex = 4;
             gridColumn6.Width = 80;
             // 
             // gridColumn9
@@ -486,7 +499,7 @@ namespace POS.PAL.USERCONTROL
             gridColumn9.OptionsColumn.AllowFocus = false;
             gridColumn9.OptionsColumn.FixedWidth = true;
             gridColumn9.Visible = true;
-            gridColumn9.VisibleIndex = 4;
+            gridColumn9.VisibleIndex = 5;
             gridColumn9.Width = 40;
             // 
             // gridColumn7
@@ -507,7 +520,7 @@ namespace POS.PAL.USERCONTROL
             gridColumn7.OptionsColumn.FixedWidth = true;
             gridColumn7.OptionsColumn.ReadOnly = true;
             gridColumn7.Visible = true;
-            gridColumn7.VisibleIndex = 5;
+            gridColumn7.VisibleIndex = 6;
             gridColumn7.Width = 108;
             // 
             // colRemove
@@ -525,7 +538,7 @@ namespace POS.PAL.USERCONTROL
             colRemove.OptionsColumn.FixedWidth = true;
             colRemove.UnboundType = DevExpress.Data.UnboundColumnType.String;
             colRemove.Visible = true;
-            colRemove.VisibleIndex = 6;
+            colRemove.VisibleIndex = 7;
             colRemove.Width = 40;
             // 
             // separatorControl3
@@ -956,7 +969,7 @@ namespace POS.PAL.USERCONTROL
             txtDiscount.Properties.Appearance.Options.UseFont = true;
             txtDiscount.Properties.Appearance.Options.UseTextOptions = true;
             txtDiscount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            txtDiscount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            txtDiscount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             txtDiscount.Properties.Padding = new System.Windows.Forms.Padding(10);
             txtDiscount.Properties.ReadOnly = true;
             txtDiscount.Size = new System.Drawing.Size(115, 44);
@@ -1624,5 +1637,6 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.SimpleButton btnAddPayment;
         private DevExpress.XtraEditors.PanelControl panelControl13;
         private DevExpress.XtraGrid.Columns.GridColumn colRemove;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
     }
 }

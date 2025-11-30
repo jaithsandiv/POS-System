@@ -38,6 +38,7 @@
               <xs:element name="promotion_id" msprop:Generator_ColumnPropNameInTable="promotion_idColumn" msprop:Generator_ColumnPropNameInRow="promotion_id" msprop:Generator_UserColumnName="promotion_id" msprop:Generator_ColumnVarNameInTable="columnpromotion_id" type="xs:string" minOccurs="0" />
               <xs:element name="promotion_type" msprop:Generator_ColumnPropNameInTable="promotion_typeColumn" msprop:Generator_ColumnPropNameInRow="promotion_type" msprop:Generator_UserColumnName="promotion_type" msprop:Generator_ColumnVarNameInTable="columnpromotion_type" type="xs:string" minOccurs="0" />
               <xs:element name="discount_value" msprop:Generator_ColumnPropNameInTable="discount_valueColumn" msprop:Generator_ColumnPropNameInRow="discount_value" msprop:Generator_UserColumnName="discount_value" msprop:Generator_ColumnVarNameInTable="columndiscount_value" type="xs:string" minOccurs="0" />
+              <xs:element name="unit_name" msprop:Generator_ColumnPropNameInTable="unit_nameColumn" msprop:Generator_ColumnPropNameInRow="unit_name" msprop:Generator_UserColumnName="unit_name" msprop:Generator_ColumnVarNameInTable="columnunit_name" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -162,6 +163,7 @@
               <xs:element name="created_date" msprop:Generator_ColumnPropNameInTable="created_dateColumn" msprop:Generator_ColumnPropNameInRow="created_date" msprop:Generator_UserColumnName="created_date" msprop:Generator_ColumnVarNameInTable="columncreated_date" type="xs:string" minOccurs="0" />
               <xs:element name="updated_by" msprop:Generator_ColumnPropNameInTable="updated_byColumn" msprop:Generator_ColumnPropNameInRow="updated_by" msprop:Generator_UserColumnName="updated_by" msprop:Generator_ColumnVarNameInTable="columnupdated_by" type="xs:string" minOccurs="0" />
               <xs:element name="updated_date" msprop:Generator_ColumnPropNameInTable="updated_dateColumn" msprop:Generator_ColumnPropNameInRow="updated_date" msprop:Generator_UserColumnName="updated_date" msprop:Generator_ColumnVarNameInTable="columnupdated_date" type="xs:string" minOccurs="0" />
+              <xs:element name="unit" msprop:Generator_ColumnPropNameInTable="unitColumn" msprop:Generator_ColumnPropNameInRow="unit" msprop:Generator_UserColumnName="unit" msprop:Generator_ColumnVarNameInTable="columnunit" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

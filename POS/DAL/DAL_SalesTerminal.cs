@@ -104,6 +104,7 @@ namespace POS.DAL
                     p.category_id,
                     p.brand_id,
                     p.unit_id,
+                    u.name as unit_name,
                     p.purchase_cost,
                     p.selling_price,
                     p.stock_quantity,
@@ -119,6 +120,7 @@ namespace POS.DAL
                     pp.promotion_type,
                     pp.discount_value
                 FROM Product p
+                LEFT JOIN Unit u ON p.unit_id = u.unit_id
                 LEFT JOIN ProductPromotion pp
                     ON p.product_id = pp.product_id
                     AND pp.status = 'A'
@@ -140,6 +142,7 @@ namespace POS.DAL
                 r["category_id"] = row["category_id"]?.ToString();
                 r["brand_id"] = row["brand_id"]?.ToString();
                 r["unit_id"] = row["unit_id"]?.ToString();
+                r["unit_name"] = row["unit_name"]?.ToString();
                 r["purchase_cost"] = row["purchase_cost"]?.ToString();
                 r["selling_price"] = row["selling_price"]?.ToString();
                 r["stock_quantity"] = row["stock_quantity"]?.ToString();

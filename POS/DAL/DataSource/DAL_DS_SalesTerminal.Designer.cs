@@ -606,6 +606,8 @@ namespace POS.DAL.DataSource {
             private global::System.Data.DataColumn columnpromotion_type;
             
             private global::System.Data.DataColumn columndiscount_value;
+
+            private global::System.Data.DataColumn columnunit_name;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -957,6 +959,7 @@ namespace POS.DAL.DataSource {
                 this.columnpromotion_id = base.Columns["promotion_id"];
                 this.columnpromotion_type = base.Columns["promotion_type"];
                 this.columndiscount_value = base.Columns["discount_value"];
+                this.columnunit_name = base.Columns["unit_name"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1008,6 +1011,8 @@ namespace POS.DAL.DataSource {
                 base.Columns.Add(this.columnpromotion_type);
                 this.columndiscount_value = new global::System.Data.DataColumn("discount_value", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndiscount_value);
+                this.columnunit_name = new global::System.Data.DataColumn("unit_name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnunit_name);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3568,6 +3573,8 @@ namespace POS.DAL.DataSource {
             private global::System.Data.DataColumn columnupdated_by;
             
             private global::System.Data.DataColumn columnupdated_date;
+
+            private global::System.Data.DataColumn columnunit;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -3816,6 +3823,7 @@ namespace POS.DAL.DataSource {
                 this.columncreated_date = base.Columns["created_date"];
                 this.columnupdated_by = base.Columns["updated_by"];
                 this.columnupdated_date = base.Columns["updated_date"];
+                this.columnunit = base.Columns["unit"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3851,6 +3859,8 @@ namespace POS.DAL.DataSource {
                 base.Columns.Add(this.columnupdated_by);
                 this.columnupdated_date = new global::System.Data.DataColumn("updated_date", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnupdated_date);
+                this.columnunit = new global::System.Data.DataColumn("unit", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnunit);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

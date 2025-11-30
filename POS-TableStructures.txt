@@ -278,6 +278,7 @@ CREATE TABLE SaleItem (
     product_id     INT NOT NULL FOREIGN KEY REFERENCES Product(product_id),
     product_name   NVARCHAR(200) NOT NULL,      -- denormalized snapshot
     product_code   NVARCHAR(50) NULL,
+    unit           NVARCHAR(50) NULL,
     unit_price     DECIMAL(14,2) NOT NULL,      -- base selling_price (inclusive, pre-discount)
     quantity       DECIMAL(10,3) NOT NULL,
     discount_type  NVARCHAR(20) NOT NULL,     -- 'PERCENTAGE' or 'FIXED_AMOUNT'

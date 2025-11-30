@@ -312,6 +312,7 @@ namespace POS.PAL.USERCONTROL
                 newRow["updated_by"] = DBNull.Value;
                 newRow["updated_date"] = DBNull.Value;
                 newRow["remove_action"] = "X"; // Set button text
+                newRow["unit"] = product["unit_name"];
 
                 salesItemsTable.Rows.Add(newRow);
             }
