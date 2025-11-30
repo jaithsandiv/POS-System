@@ -275,88 +275,158 @@ namespace POS.DAL
                             int totalItems, decimal grandTotal, string notes, DataTable saleItems,
                             decimal totalPaid = 0, decimal changeDue = 0,
                             string invoiceNumber = null, string quotationNumber = null, 
-                            string orderType = null, string tableNumber = null)
+                            string orderType = null, string tableNumber = null,
+                            int saleId = 0)
         {
             try
             {
-                // Build the INSERT query with only the required fields
-                string saleQuery = @"
-                    INSERT INTO Sale (
-                        store_id, sale_type, customer_id, biller_id, total_items, total_amount, 
-                        discount_type, discount_value, grand_total, total_paid, change_due,
-                        payment_status, sale_status, notes, status, created_by, created_date";
-
-                // Add optional fields to query based on sale type
-                if (!string.IsNullOrEmpty(invoiceNumber))
-                    saleQuery += ", invoice_number";
-                if (!string.IsNullOrEmpty(quotationNumber))
-                    saleQuery += ", quotation_number";
-                if (!string.IsNullOrEmpty(orderType))
-                    saleQuery += ", order_type";
-                if (!string.IsNullOrEmpty(tableNumber))
-                    saleQuery += ", table_number";
-
-                saleQuery += @"
-                    )
-                    VALUES (
-                        @store_id, @sale_type, @customer_id, @biller_id, @total_items, @total_amount,
-                        @discount_type, @discount_value, @grand_total, @total_paid, @change_due,
-                        @payment_status, @sale_status, @notes, @status, @created_by, GETDATE()";
-
-                // Add optional values to query based on sale type
-                if (!string.IsNullOrEmpty(invoiceNumber))
-                    saleQuery += ", @invoice_number";
-                if (!string.IsNullOrEmpty(quotationNumber))
-                    saleQuery += ", @quotation_number";
-                if (!string.IsNullOrEmpty(orderType))
-                    saleQuery += ", @order_type";
-                if (!string.IsNullOrEmpty(tableNumber))
-                    saleQuery += ", @table_number";
-
-                saleQuery += @"
-                    );
-                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
-
-                // Build parameters list
-                var paramList = new List<SqlParameter>
+                if (saleId > 0)
                 {
-                    new SqlParameter("@store_id", storeId),
-                    new SqlParameter("@sale_type", saleType),
-                    new SqlParameter("@customer_id", customerId ?? (object)DBNull.Value),
-                    new SqlParameter("@biller_id", billerId),
-                    new SqlParameter("@total_items", totalItems),
-                    new SqlParameter("@total_amount", totalAmount),
-                    new SqlParameter("@discount_type", discountType),
-                    new SqlParameter("@discount_value", discountValue),
-                    new SqlParameter("@grand_total", grandTotal),
-                    new SqlParameter("@total_paid", totalPaid),
-                    new SqlParameter("@change_due", changeDue),
-                    new SqlParameter("@payment_status", "PENDING"),
-                    new SqlParameter("@sale_status", "COMPLETED"),
-                    new SqlParameter("@notes", notes ?? (object)DBNull.Value),
-                    new SqlParameter("@status", "A"),
-                    new SqlParameter("@created_by", billerId)
-                };
+                    // UPDATE Logic
+                    string updateQuery = @"
+                        UPDATE Sale SET
+                            store_id = @store_id,
+                            sale_type = @sale_type,
+                            customer_id = @customer_id,
+                            biller_id = @biller_id,
+                            total_items = @total_items,
+                            total_amount = @total_amount,
+                            discount_type = @discount_type,
+                            discount_value = @discount_value,
+                            grand_total = @grand_total,
+                            total_paid = @total_paid,
+                            change_due = @change_due,
+                            notes = @notes,
+                            updated_by = @created_by,
+                            updated_date = GETDATE()
+                        WHERE sale_id = @sale_id";
 
-                // Add optional parameters based on sale type
-                if (!string.IsNullOrEmpty(invoiceNumber))
-                    paramList.Add(new SqlParameter("@invoice_number", invoiceNumber));
-                if (!string.IsNullOrEmpty(quotationNumber))
-                    paramList.Add(new SqlParameter("@quotation_number", quotationNumber));
-                if (!string.IsNullOrEmpty(orderType))
-                    paramList.Add(new SqlParameter("@order_type", orderType));
-                if (!string.IsNullOrEmpty(tableNumber))
-                    paramList.Add(new SqlParameter("@table_number", tableNumber));
+                     // Build parameters list
+                    var paramList = new List<SqlParameter>
+                    {
+                        new SqlParameter("@sale_id", saleId),
+                        new SqlParameter("@store_id", storeId),
+                        new SqlParameter("@sale_type", saleType),
+                        new SqlParameter("@customer_id", customerId ?? (object)DBNull.Value),
+                        new SqlParameter("@biller_id", billerId),
+                        new SqlParameter("@total_items", totalItems),
+                        new SqlParameter("@total_amount", totalAmount),
+                        new SqlParameter("@discount_type", discountType),
+                        new SqlParameter("@discount_value", discountValue),
+                        new SqlParameter("@grand_total", grandTotal),
+                        new SqlParameter("@total_paid", totalPaid),
+                        new SqlParameter("@change_due", changeDue),
+                        new SqlParameter("@notes", notes ?? (object)DBNull.Value),
+                        new SqlParameter("@created_by", billerId)
+                    };
 
-                var saleParams = paramList.ToArray();
+                    // For optional fields, we only update if they are provided, OR we can overwrite.
+                    // To be safe and simple, let's update them if provided or null out if not?
+                    // Usually invoice_number is generated once.
+                    if (!string.IsNullOrEmpty(invoiceNumber))
+                    {
+                        updateQuery += "; UPDATE Sale SET invoice_number = @invoice_number WHERE sale_id = @sale_id";
+                        paramList.Add(new SqlParameter("@invoice_number", invoiceNumber));
+                    }
+                    if (!string.IsNullOrEmpty(quotationNumber))
+                    {
+                        updateQuery += "; UPDATE Sale SET quotation_number = @quotation_number WHERE sale_id = @sale_id";
+                        paramList.Add(new SqlParameter("@quotation_number", quotationNumber));
+                    }
 
-                DataTable result = Connection.ExecuteQuery(saleQuery, saleParams);
-                if (result.Rows.Count == 0)
-                    throw new Exception($"Failed to create {saleType} sale record.");
+                    // OrderType and TableNumber are updatable
+                    updateQuery += "; UPDATE Sale SET order_type = @order_type, table_number = @table_number WHERE sale_id = @sale_id";
+                    paramList.Add(new SqlParameter("@order_type", orderType ?? (object)DBNull.Value));
+                    paramList.Add(new SqlParameter("@table_number", tableNumber ?? (object)DBNull.Value));
 
-                int saleId = Convert.ToInt32(result.Rows[0][0]);
+                    Connection.ExecuteNonQuery(updateQuery, paramList.ToArray());
 
-                // Insert SaleItems
+                    // Delete existing SaleItems to replace with new ones
+                    string deleteItemsQuery = "DELETE FROM SaleItem WHERE sale_id = @sale_id";
+                    Connection.ExecuteNonQuery(deleteItemsQuery, new SqlParameter[] { new SqlParameter("@sale_id", saleId) });
+                }
+                else
+                {
+                    // INSERT Logic
+                    // Build the INSERT query with only the required fields
+                    string saleQuery = @"
+                        INSERT INTO Sale (
+                            store_id, sale_type, customer_id, biller_id, total_items, total_amount,
+                            discount_type, discount_value, grand_total, total_paid, change_due,
+                            payment_status, sale_status, notes, status, created_by, created_date";
+
+                    // Add optional fields to query based on sale type
+                    if (!string.IsNullOrEmpty(invoiceNumber))
+                        saleQuery += ", invoice_number";
+                    if (!string.IsNullOrEmpty(quotationNumber))
+                        saleQuery += ", quotation_number";
+                    if (!string.IsNullOrEmpty(orderType))
+                        saleQuery += ", order_type";
+                    if (!string.IsNullOrEmpty(tableNumber))
+                        saleQuery += ", table_number";
+
+                    saleQuery += @"
+                        )
+                        VALUES (
+                            @store_id, @sale_type, @customer_id, @biller_id, @total_items, @total_amount,
+                            @discount_type, @discount_value, @grand_total, @total_paid, @change_due,
+                            @payment_status, @sale_status, @notes, @status, @created_by, GETDATE()";
+
+                    // Add optional values to query based on sale type
+                    if (!string.IsNullOrEmpty(invoiceNumber))
+                        saleQuery += ", @invoice_number";
+                    if (!string.IsNullOrEmpty(quotationNumber))
+                        saleQuery += ", @quotation_number";
+                    if (!string.IsNullOrEmpty(orderType))
+                        saleQuery += ", @order_type";
+                    if (!string.IsNullOrEmpty(tableNumber))
+                        saleQuery += ", @table_number";
+
+                    saleQuery += @"
+                        );
+                        SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+                    // Build parameters list
+                    var paramList = new List<SqlParameter>
+                    {
+                        new SqlParameter("@store_id", storeId),
+                        new SqlParameter("@sale_type", saleType),
+                        new SqlParameter("@customer_id", customerId ?? (object)DBNull.Value),
+                        new SqlParameter("@biller_id", billerId),
+                        new SqlParameter("@total_items", totalItems),
+                        new SqlParameter("@total_amount", totalAmount),
+                        new SqlParameter("@discount_type", discountType),
+                        new SqlParameter("@discount_value", discountValue),
+                        new SqlParameter("@grand_total", grandTotal),
+                        new SqlParameter("@total_paid", totalPaid),
+                        new SqlParameter("@change_due", changeDue),
+                        new SqlParameter("@payment_status", "PENDING"),
+                        new SqlParameter("@sale_status", "COMPLETED"),
+                        new SqlParameter("@notes", notes ?? (object)DBNull.Value),
+                        new SqlParameter("@status", "A"),
+                        new SqlParameter("@created_by", billerId)
+                    };
+
+                    // Add optional parameters based on sale type
+                    if (!string.IsNullOrEmpty(invoiceNumber))
+                        paramList.Add(new SqlParameter("@invoice_number", invoiceNumber));
+                    if (!string.IsNullOrEmpty(quotationNumber))
+                        paramList.Add(new SqlParameter("@quotation_number", quotationNumber));
+                    if (!string.IsNullOrEmpty(orderType))
+                        paramList.Add(new SqlParameter("@order_type", orderType));
+                    if (!string.IsNullOrEmpty(tableNumber))
+                        paramList.Add(new SqlParameter("@table_number", tableNumber));
+
+                    var saleParams = paramList.ToArray();
+
+                    DataTable result = Connection.ExecuteQuery(saleQuery, saleParams);
+                    if (result.Rows.Count == 0)
+                        throw new Exception($"Failed to create {saleType} sale record.");
+
+                    saleId = Convert.ToInt32(result.Rows[0][0]);
+                }
+
+                // Insert SaleItems (New or Re-insert)
                 if (saleItems != null && saleItems.Rows.Count > 0)
                 {
                     foreach (DataRow item in saleItems.Rows)
@@ -650,6 +720,36 @@ namespace POS.DAL
             catch (Exception ex)
             {
                 throw new Exception($"Error saving payments: {ex.Message}", ex);
+            }
+        }
+
+        public DataTable GetSale(int saleId)
+        {
+            try
+            {
+                string query = @"
+                    SELECT * FROM Sale WHERE sale_id = @sale_id";
+                var parameters = new SqlParameter[] { new SqlParameter("@sale_id", saleId) };
+                return Connection.ExecuteQuery(query, parameters);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving sale: {ex.Message}", ex);
+            }
+        }
+
+        public DataTable GetSalePayments(int saleId)
+        {
+            try
+            {
+                string query = @"
+                    SELECT * FROM Payment WHERE sale_id = @sale_id AND status = 'A'";
+                var parameters = new SqlParameter[] { new SqlParameter("@sale_id", saleId) };
+                return Connection.ExecuteQuery(query, parameters);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving sale payments: {ex.Message}", ex);
             }
         }
 
