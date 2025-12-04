@@ -2017,7 +2017,8 @@ namespace POS.PAL.USERCONTROL
         {
             var (totalPaid, due) = CalculatePaymentTotals();
             
-            if (saleTable.Rows.Count > 0 && decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out decimal grandTotal))
+            decimal grandTotal = 0;
+            if (saleTable.Rows.Count > 0 && decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out grandTotal))
             {
                 lblPaymentTotalValue.Text = grandTotal.ToString("N2");
             }
@@ -2028,6 +2029,14 @@ namespace POS.PAL.USERCONTROL
 
             lblPaymentPaidValue.Text = totalPaid.ToString("N2");
             lblPaymentBalanceValue.Text = due.ToString("N2");
+
+            // Calculate Change
+            decimal change = 0;
+            if (totalPaid > grandTotal)
+            {
+                change = totalPaid - grandTotal;
+            }
+            lblPaymentChangeValue.Text = change.ToString("N2");
 
             if (due > 0)
                 lblPaymentBalanceValue.Appearance.ForeColor = Color.IndianRed;

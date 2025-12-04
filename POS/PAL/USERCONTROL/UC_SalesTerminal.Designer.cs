@@ -28,11 +28,11 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             panelControl6 = new DevExpress.XtraEditors.PanelControl();
             panelControl5 = new DevExpress.XtraEditors.PanelControl();
@@ -131,6 +131,8 @@ namespace POS.PAL.USERCONTROL
             pnlPaymentSum = new DevExpress.XtraEditors.PanelControl();
             lblPaymentBalanceValue = new DevExpress.XtraEditors.LabelControl();
             lblPaymentBalanceTitle = new DevExpress.XtraEditors.LabelControl();
+            lblPaymentChangeValue = new DevExpress.XtraEditors.LabelControl();
+            lblPaymentChangeTitle = new DevExpress.XtraEditors.LabelControl();
             lblPaymentPaidValue = new DevExpress.XtraEditors.LabelControl();
             lblPaymentPaidTitle = new DevExpress.XtraEditors.LabelControl();
             lblPaymentTotalValue = new DevExpress.XtraEditors.LabelControl();
@@ -1016,7 +1018,7 @@ namespace POS.PAL.USERCONTROL
             txtDiscount.Properties.Appearance.Options.UseFont = true;
             txtDiscount.Properties.Appearance.Options.UseTextOptions = true;
             txtDiscount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            txtDiscount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            txtDiscount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "%", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             txtDiscount.Properties.Padding = new System.Windows.Forms.Padding(10);
             txtDiscount.Properties.ReadOnly = true;
             txtDiscount.Size = new System.Drawing.Size(115, 44);
@@ -1362,7 +1364,7 @@ namespace POS.PAL.USERCONTROL
             pnlPayment.Dock = System.Windows.Forms.DockStyle.Fill;
             pnlPayment.Location = new System.Drawing.Point(2, 79);
             pnlPayment.Name = "pnlPayment";
-            pnlPayment.Size = new System.Drawing.Size(827, 458);
+            pnlPayment.Size = new System.Drawing.Size(827, 475);
             pnlPayment.TabIndex = 0;
             // 
             // pnlPMControls
@@ -1441,6 +1443,8 @@ namespace POS.PAL.USERCONTROL
             pnlPaymentSum.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             pnlPaymentSum.Controls.Add(lblPaymentBalanceValue);
             pnlPaymentSum.Controls.Add(lblPaymentBalanceTitle);
+            pnlPaymentSum.Controls.Add(lblPaymentChangeValue);
+            pnlPaymentSum.Controls.Add(lblPaymentChangeTitle);
             pnlPaymentSum.Controls.Add(lblPaymentPaidValue);
             pnlPaymentSum.Controls.Add(lblPaymentPaidTitle);
             pnlPaymentSum.Controls.Add(lblPaymentTotalValue);
@@ -1448,9 +1452,9 @@ namespace POS.PAL.USERCONTROL
             pnlPaymentSum.Controls.Add(btnPMComplete);
             pnlPaymentSum.Controls.Add(btnPMClose);
             pnlPaymentSum.Dock = System.Windows.Forms.DockStyle.Bottom;
-            pnlPaymentSum.Location = new System.Drawing.Point(2, 537);
+            pnlPaymentSum.Location = new System.Drawing.Point(2, 554);
             pnlPaymentSum.Name = "pnlPaymentSum";
-            pnlPaymentSum.Size = new System.Drawing.Size(827, 150);
+            pnlPaymentSum.Size = new System.Drawing.Size(827, 133);
             pnlPaymentSum.TabIndex = 49;
             // 
             // lblPaymentBalanceValue
@@ -1459,7 +1463,7 @@ namespace POS.PAL.USERCONTROL
             lblPaymentBalanceValue.Appearance.ForeColor = System.Drawing.Color.IndianRed;
             lblPaymentBalanceValue.Appearance.Options.UseFont = true;
             lblPaymentBalanceValue.Appearance.Options.UseForeColor = true;
-            lblPaymentBalanceValue.Location = new System.Drawing.Point(150, 90);
+            lblPaymentBalanceValue.Location = new System.Drawing.Point(134, 90);
             lblPaymentBalanceValue.Name = "lblPaymentBalanceValue";
             lblPaymentBalanceValue.Size = new System.Drawing.Size(38, 25);
             lblPaymentBalanceValue.TabIndex = 5;
@@ -1475,13 +1479,35 @@ namespace POS.PAL.USERCONTROL
             lblPaymentBalanceTitle.TabIndex = 4;
             lblPaymentBalanceTitle.Text = "Balance:";
             // 
+            // lblPaymentChangeValue
+            // 
+            lblPaymentChangeValue.Appearance.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblPaymentChangeValue.Appearance.ForeColor = System.Drawing.Color.SeaGreen;
+            lblPaymentChangeValue.Appearance.Options.UseFont = true;
+            lblPaymentChangeValue.Appearance.Options.UseForeColor = true;
+            lblPaymentChangeValue.Location = new System.Drawing.Point(382, 90);
+            lblPaymentChangeValue.Name = "lblPaymentChangeValue";
+            lblPaymentChangeValue.Size = new System.Drawing.Size(38, 25);
+            lblPaymentChangeValue.TabIndex = 7;
+            lblPaymentChangeValue.Text = "0.00";
+            // 
+            // lblPaymentChangeTitle
+            // 
+            lblPaymentChangeTitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblPaymentChangeTitle.Appearance.Options.UseFont = true;
+            lblPaymentChangeTitle.Location = new System.Drawing.Point(232, 90);
+            lblPaymentChangeTitle.Name = "lblPaymentChangeTitle";
+            lblPaymentChangeTitle.Size = new System.Drawing.Size(138, 25);
+            lblPaymentChangeTitle.TabIndex = 6;
+            lblPaymentChangeTitle.Text = "Change Return:";
+            // 
             // lblPaymentPaidValue
             // 
             lblPaymentPaidValue.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             lblPaymentPaidValue.Appearance.ForeColor = System.Drawing.Color.SeaGreen;
             lblPaymentPaidValue.Appearance.Options.UseFont = true;
             lblPaymentPaidValue.Appearance.Options.UseForeColor = true;
-            lblPaymentPaidValue.Location = new System.Drawing.Point(150, 50);
+            lblPaymentPaidValue.Location = new System.Drawing.Point(134, 50);
             lblPaymentPaidValue.Name = "lblPaymentPaidValue";
             lblPaymentPaidValue.Size = new System.Drawing.Size(31, 21);
             lblPaymentPaidValue.TabIndex = 3;
@@ -1501,7 +1527,7 @@ namespace POS.PAL.USERCONTROL
             // 
             lblPaymentTotalValue.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             lblPaymentTotalValue.Appearance.Options.UseFont = true;
-            lblPaymentTotalValue.Location = new System.Drawing.Point(150, 20);
+            lblPaymentTotalValue.Location = new System.Drawing.Point(134, 20);
             lblPaymentTotalValue.Name = "lblPaymentTotalValue";
             lblPaymentTotalValue.Size = new System.Drawing.Size(31, 21);
             lblPaymentTotalValue.TabIndex = 1;
@@ -1525,7 +1551,7 @@ namespace POS.PAL.USERCONTROL
             btnPMComplete.Appearance.Options.UseBackColor = true;
             btnPMComplete.Appearance.Options.UseFont = true;
             btnPMComplete.AppearanceHovered.Options.UseBackColor = true;
-            btnPMComplete.Location = new System.Drawing.Point(1277, 140);
+            btnPMComplete.Location = new System.Drawing.Point(648, 75);
             btnPMComplete.Name = "btnPMComplete";
             btnPMComplete.Size = new System.Drawing.Size(160, 40);
             btnPMComplete.TabIndex = 47;
@@ -1539,7 +1565,7 @@ namespace POS.PAL.USERCONTROL
             btnPMClose.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             btnPMClose.Appearance.Options.UseBackColor = true;
             btnPMClose.Appearance.Options.UseFont = true;
-            btnPMClose.Location = new System.Drawing.Point(1157, 140);
+            btnPMClose.Location = new System.Drawing.Point(533, 75);
             btnPMClose.Name = "btnPMClose";
             btnPMClose.Size = new System.Drawing.Size(100, 40);
             btnPMClose.TabIndex = 48;
@@ -1910,5 +1936,7 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.LabelControl lblPaymentPaidValue;
         private DevExpress.XtraEditors.LabelControl lblPaymentBalanceTitle;
         private DevExpress.XtraEditors.LabelControl lblPaymentBalanceValue;
+        private DevExpress.XtraEditors.LabelControl lblPaymentChangeTitle;
+        private DevExpress.XtraEditors.LabelControl lblPaymentChangeValue;
     }
 }
