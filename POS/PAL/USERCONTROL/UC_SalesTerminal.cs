@@ -32,10 +32,6 @@ namespace POS.PAL.USERCONTROL
 
         private int paymentEntryCounter = 0;
 
-        // Labels for Payment Summary
-        private LabelControl lblTotalPaid;
-        private LabelControl lblBalance;
-
         public UC_SalesTerminal()
         {
             InitializeComponent();
@@ -46,35 +42,11 @@ namespace POS.PAL.USERCONTROL
 
         private void InitializePaymentSummaryControls()
         {
-            // Total Paid Label
-            lblTotalPaid = new LabelControl
-            {
-                Text = "Total Paid: Rs. 0.00",
-                Appearance = { Font = new Font("Segoe UI", 12F, FontStyle.Bold), ForeColor = Color.FromArgb(4, 181, 152) },
-                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
-                Width = 300,
-                Height = 30,
-                Location = new Point(10, 520) // Adjust position as needed within pnlPM or relative to btnAddPayment
-            };
-
-            // Balance Label
-            lblBalance = new LabelControl
-            {
-                Text = "Balance: Rs. 0.00",
-                Appearance = { Font = new Font("Segoe UI", 12F, FontStyle.Bold), ForeColor = Color.Red },
-                AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None,
-                Width = 300,
-                Height = 30,
-                Location = new Point(10, 550) // Below Total Paid
-            };
-
-            // Add to pnlPM
-            // Note: Since pnlPM uses manual layout with ScrollableControl and bottom buttons,
-            // we should place these above the 'Add Payment' button or in a visible area.
-            // Let's place them just above the 'Add Payment' button.
-            // But 'Add Payment' is at 593. So 520 and 550 are fine.
-            pnlPM.Controls.Add(lblTotalPaid);
-            pnlPM.Controls.Add(lblBalance);
+            // Reset labels
+            lblPaymentTotalValue.Text = "0.00";
+            lblPaymentPaidValue.Text = "0.00";
+            lblPaymentBalanceValue.Text = "0.00";
+            lblPaymentBalanceValue.Appearance.ForeColor = Color.IndianRed;
         }
 
         private void ResetUIElements()
@@ -907,12 +879,15 @@ namespace POS.PAL.USERCONTROL
 
             // Add the first payment entry with the selected method
             AddPaymentEntry(selectedPaymentMethod);
+
+            // Reset selection so it can be selected again if needed
+            cmbPM.EditValue = null;
         }
 
         private void InitializePaymentPanel()
         {
             // Clear the scrollable control
-            xtraScrollableControl4.Controls.Clear();
+            pnlPayment.Controls.Clear();
 
             // Initialize payments DataTable
             // If paymentsTable is already populated (e.g. from LoadSaleIntoTerminal), use it.
@@ -977,7 +952,7 @@ namespace POS.PAL.USERCONTROL
             PanelControl paymentEntryPanel = new PanelControl
             {
                 Name = $"pnlPaymentEntry{entryId}",
-                Width = xtraScrollableControl4.Width - 30,
+                Width = pnlPayment.Width - 30,
                 Height = panelHeight,
                 BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple,
                 Dock = DockStyle.Top // Use docking for automatic positioning
@@ -1036,7 +1011,8 @@ namespace POS.PAL.USERCONTROL
                 Width = 100,
                 Height = 30,
                 Location = new Point(paymentEntryPanel.Width - 115, panelHeight - 45),
-                Tag = entryId
+                Tag = entryId,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
             };
             btnRemove.Appearance.BackColor = Color.IndianRed;
             btnRemove.Appearance.ForeColor = Color.White;
@@ -1077,8 +1053,8 @@ namespace POS.PAL.USERCONTROL
 
             // Add payment entry panel to scrollable control
             // Since we're using Dock.Top, add to the END to maintain visual order (top to bottom)
-            xtraScrollableControl4.Controls.Add(paymentEntryPanel);
-            xtraScrollableControl4.Controls.SetChildIndex(paymentEntryPanel, 0); // Move to top
+            pnlPayment.Controls.Add(paymentEntryPanel);
+            paymentEntryPanel.SendToBack(); // Move to bottom of z-order so it appears below existing panels
 
             // If method is preselected, populate fields immediately
             if (!string.IsNullOrEmpty(preselectedMethod))
@@ -1112,10 +1088,10 @@ namespace POS.PAL.USERCONTROL
         private void RemovePaymentEntry(int entryId)
         {
             // Find and remove the panel
-            Control panelToRemove = xtraScrollableControl4.Controls[$"pnlPaymentEntry{entryId}"];
+            Control panelToRemove = pnlPayment.Controls[$"pnlPaymentEntry{entryId}"];
             if (panelToRemove != null)
             {
-                xtraScrollableControl4.Controls.Remove(panelToRemove);
+                pnlPayment.Controls.Remove(panelToRemove);
                 panelToRemove.Dispose();
             }
 
@@ -1471,7 +1447,7 @@ namespace POS.PAL.USERCONTROL
 
         private Control FindControlInScrollable(string controlName)
         {
-            foreach (Control ctrl in xtraScrollableControl4.Controls)
+            foreach (Control ctrl in pnlPayment.Controls)
             {
                 if (ctrl.Name == controlName)
                     return ctrl;
@@ -2040,8 +2016,23 @@ namespace POS.PAL.USERCONTROL
         private void UpdatePaymentSummaryUI()
         {
             var (totalPaid, due) = CalculatePaymentTotals();
-            if (lblTotalPaid != null) lblTotalPaid.Text = $"Total Paid: Rs. {totalPaid:N2}";
-            if (lblBalance != null) lblBalance.Text = $"Balance: Rs. {due:N2}";
+            
+            if (saleTable.Rows.Count > 0 && decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out decimal grandTotal))
+            {
+                lblPaymentTotalValue.Text = grandTotal.ToString("N2");
+            }
+            else
+            {
+                lblPaymentTotalValue.Text = "0.00";
+            }
+
+            lblPaymentPaidValue.Text = totalPaid.ToString("N2");
+            lblPaymentBalanceValue.Text = due.ToString("N2");
+
+            if (due > 0)
+                lblPaymentBalanceValue.Appearance.ForeColor = Color.IndianRed;
+            else
+                lblPaymentBalanceValue.Appearance.ForeColor = Color.SeaGreen;
         }
 
         /// <summary>
@@ -2591,13 +2582,7 @@ namespace POS.PAL.USERCONTROL
                 // But we don't want to clear and show the panel yet, just load the data.
                 // Actually, `paymentsTable` is local to the instance but initialized in `InitializePaymentPanel`
                 // which is called when `pnlPM` is shown.
-                // We should pre-load it.
-                // Create a temporary reference or just wait until user opens payment panel?
-                // Better to load it now so if they click "Add Payment", it shows history.
-                // However, `paymentsTable` is currently tied to `DAL_DS_SalesTerminal` instance in `InitializePaymentPanel`.
-                // Let's refactor `InitializePaymentPanel` slightly or just manually populate a table if `pnlPM` is not visible.
-                // BUT `paymentsTable` variable is used in `btnPMComplete_Click`.
-                // So we must populate `paymentsTable` variable.
+                // Let's pre-load it now so if they click "Add Payment", it shows history.
                 DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
                 paymentsTable = ds.Payment;
                 paymentsTable.Clear();
@@ -2613,8 +2598,6 @@ namespace POS.PAL.USERCONTROL
                 // OR we just populate it inside `InitializePaymentPanel`.
                 // Strategy: We will modify `InitializePaymentPanel` to check if `paymentsTable` already has data from a loaded sale.
                 // For now, let's just populate it here.
-                // AND we need to prevent `InitializePaymentPanel` from clearing it if we are in "Edit Mode".
-                // How do we know? `saleTable.Rows[0]["sale_id"]` > 0.
 
                 // 6. Update UI Elements
                 txtTotal.Text = currentSaleRow["total_amount"].ToString();
