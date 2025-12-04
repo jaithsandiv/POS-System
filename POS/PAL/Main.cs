@@ -24,6 +24,7 @@ namespace POS
         private const int collapsedWidth = 0;
         private const int expandedWidth = 250;
         private Timer animationTimer;
+        private Timer clockTimer;
 
         public Main()
         {
@@ -37,8 +38,14 @@ namespace POS
 
             Instance = this;
 
-            // Set current date
-            lblDate.Text = DateTime.Now.ToString("ddd, MMM dd, yyyy");
+            // Set current date and time
+            UpdateDateTime();
+
+            // Setup timer for real-time clock updates
+            clockTimer = new Timer();
+            clockTimer.Interval = 1000; // Update every second
+            clockTimer.Tick += ClockTimer_Tick;
+            clockTimer.Start();
 
             if (DataSetApp.Business.Rows.Count > 0)
             {
@@ -89,6 +96,17 @@ namespace POS
             if (btnPrintLabels != null) btnPrintLabels.Click += btnPrintLabels_Click;
             if (btnAddProducts != null) btnAddProducts.Click += btnAddProducts_Click;
             if (btnListProducts != null) btnListProducts.Click += btnListProducts_Click;
+        }
+
+        private void ClockTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateDateTime();
+        }
+
+        private void UpdateDateTime()
+        {
+            lblDate.Text = DateTime.Now.ToString("ddd, MMM dd, yyyy");
+            lblTime.Text = DateTime.Now.ToString("hh:mm:ss tt");
         }
 
         public void LoadBusinessData()
