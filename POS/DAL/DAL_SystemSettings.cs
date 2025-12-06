@@ -58,11 +58,17 @@ namespace POS.DAL
             try
             {
                 string query = @"
-                    UPDATE SystemSetting
-                    SET setting_value = @setting_value,
-                        updated_by = @updated_by,
-                        updated_date = GETDATE()
-                    WHERE setting_key = @setting_key";
+                    MERGE SystemSetting AS target
+                    USING (SELECT @setting_key AS setting_key) AS source
+                    ON (target.setting_key = source.setting_key)
+                    WHEN MATCHED THEN
+                        UPDATE SET 
+                            setting_value = @setting_value,
+                            updated_by = @updated_by,
+                            updated_date = GETDATE()
+                    WHEN NOT MATCHED THEN
+                        INSERT (setting_key, setting_value, status, created_by, created_date, updated_by, updated_date)
+                        VALUES (@setting_key, @setting_value, 'A', @updated_by, GETDATE(), @updated_by, GETDATE());";
 
                 SqlParameter[] parameters = {
                     new SqlParameter("@setting_key", key),
