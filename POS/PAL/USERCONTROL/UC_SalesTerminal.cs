@@ -878,7 +878,8 @@ namespace POS.PAL.USERCONTROL
             }
 
             // Add the first payment entry with the selected method
-            AddPaymentEntry(selectedPaymentMethod);
+            var (totalPaid, due) = CalculatePaymentTotals();
+            AddPaymentEntry(selectedPaymentMethod, due);
 
             // Reset selection so it can be selected again if needed
             cmbPM.EditValue = null;
@@ -930,16 +931,17 @@ namespace POS.PAL.USERCONTROL
         private void btnAddPayment_Click(object sender, EventArgs e)
         {
             // Add a new payment entry with no method pre-selected
-            AddPaymentEntry(null);
+            var (totalPaid, due) = CalculatePaymentTotals();
+            AddPaymentEntry(null, due > 0 ? due : (decimal?)null);
         }
 
-        private void AddPaymentEntry(string preselectedMethod = null)
+        private void AddPaymentEntry(string preselectedMethod = null, decimal? prefilledAmount = null)
         {
             paymentEntryCounter++;
             int entryId = paymentEntryCounter;
 
             // Determine panel height based on payment method
-            int panelHeight = 180; // Default for CASH/CREDIT (smaller)
+            int panelHeight = 200;//180; // Default for CASH/CREDIT (smaller)
             if (preselectedMethod != null)
             {
                 if (preselectedMethod.ToUpper() == "CARD")
@@ -1029,7 +1031,7 @@ namespace POS.PAL.USERCONTROL
                 if (!string.IsNullOrEmpty(selectedMethod))
                 {
                     // Update panel height based on selected method
-                    int newHeight = 180;
+                    int newHeight = 200;
                     if (selectedMethod.ToUpper() == "CARD")
                         newHeight = 380;
                     else if (selectedMethod.ToUpper() == "BANK_TRANSFER")
@@ -1041,7 +1043,17 @@ namespace POS.PAL.USERCONTROL
                     pnlFields.Height = newHeight - 140;
                     btnRemove.Location = new Point(paymentEntryPanel.Width - 115, newHeight - 45);
 
-                    PopulatePaymentFields(pnlFields, selectedMethod, entryId);
+                    // When changing method within an existing entry, we might want to preserve the amount if possible
+                    // But for now, let's just repopulate. If we want to preserve amount, we'd need to read it from current fields.
+                    // Let's try to read the current amount from the data table
+                    decimal? currentAmount = null;
+                    DataRow[] rows = paymentsTable.Select($"payment_id = {entryId}");
+                    if (rows.Length > 0 && decimal.TryParse(rows[0]["amount"]?.ToString(), out decimal amt))
+                    {
+                        currentAmount = amt;
+                    }
+
+                    PopulatePaymentFields(pnlFields, selectedMethod, entryId, currentAmount);
                 }
             };
 
@@ -1059,7 +1071,7 @@ namespace POS.PAL.USERCONTROL
             // If method is preselected, populate fields immediately
             if (!string.IsNullOrEmpty(preselectedMethod))
             {
-                PopulatePaymentFields(pnlFields, preselectedMethod, entryId);
+                PopulatePaymentFields(pnlFields, preselectedMethod, entryId, prefilledAmount);
             }
 
             // Create a payment row in paymentsTable
@@ -1067,7 +1079,7 @@ namespace POS.PAL.USERCONTROL
             paymentRow["payment_id"] = DBNull.Value;
             paymentRow["sale_id"] = DBNull.Value;
             paymentRow["payment_method"] = preselectedMethod ?? string.Empty;
-            paymentRow["amount"] = "0.00";
+            paymentRow["amount"] = prefilledAmount.HasValue ? prefilledAmount.Value.ToString("F2") : "0.00";
             paymentRow["status"] = "A";
             paymentRow["created_by"] = DBNull.Value;
             paymentRow["created_date"] = DBNull.Value;
@@ -1083,6 +1095,8 @@ namespace POS.PAL.USERCONTROL
 
             paymentsTable.Rows.Add(paymentRow);
             paymentRow["payment_id"] = entryId; // Use counter as temporary ID
+
+            UpdatePaymentSummaryUI();
         }
 
         private void RemovePaymentEntry(int entryId)
@@ -1105,7 +1119,7 @@ namespace POS.PAL.USERCONTROL
             UpdatePaymentSummaryUI();
         }
 
-        private void PopulatePaymentFields(PanelControl fieldsPanel, string paymentMethod, int entryId)
+        private void PopulatePaymentFields(PanelControl fieldsPanel, string paymentMethod, int entryId, decimal? amount = null)
         {
             // Clear existing controls
             fieldsPanel.Controls.Clear();
@@ -1113,13 +1127,13 @@ namespace POS.PAL.USERCONTROL
             switch (paymentMethod.ToUpper())
             {
                 case "CASH":
-                    AddCashFieldsToPanel(fieldsPanel, entryId);
+                    AddCashFieldsToPanel(fieldsPanel, entryId, amount);
                     break;
                 case "CARD":
-                    AddCardFieldsToPanel(fieldsPanel, entryId);
+                    AddCardFieldsToPanel(fieldsPanel, entryId, amount);
                     break;
                 case "BANK_TRANSFER":
-                    AddBankTransferFieldsToPanel(fieldsPanel, entryId);
+                    AddBankTransferFieldsToPanel(fieldsPanel, entryId, amount);
                     break;
                 case "CREDIT":
                     AddCreditFieldsToPanel(fieldsPanel, entryId);
@@ -1127,7 +1141,7 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
-        private void AddCashFieldsToPanel(PanelControl panel, int entryId)
+        private void AddCashFieldsToPanel(PanelControl panel, int entryId, decimal? amount = null)
         {
             // Amount Label (matching your label style)
             LabelControl lblAmount = new LabelControl
@@ -1156,6 +1170,10 @@ namespace POS.PAL.USERCONTROL
             txtAmount.Size = new Size(200, 44);
             txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             txtAmount.Properties.Mask.EditMask = "n2";
+            if (amount.HasValue)
+            {
+                txtAmount.Text = amount.Value.ToString("F2");
+            }
             txtAmount.EditValueChanged += (s, e) =>
             {
                 UpdatePaymentAmount(entryId, txtAmount.Text);
@@ -1165,7 +1183,7 @@ namespace POS.PAL.USERCONTROL
             panel.Controls.Add(txtAmount);
         }
 
-        private void AddCardFieldsToPanel(PanelControl panel, int entryId)
+        private void AddCardFieldsToPanel(PanelControl panel, int entryId, decimal? amount = null)
         {
             int yPos = 5;
             int fieldHeight = 44;
@@ -1196,6 +1214,10 @@ namespace POS.PAL.USERCONTROL
             txtAmount.Size = new Size(150, fieldHeight);
             txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             txtAmount.Properties.Mask.EditMask = "n2";
+            if (amount.HasValue)
+            {
+                txtAmount.Text = amount.Value.ToString("F2");
+            }
             txtAmount.EditValueChanged += (s, e) => UpdatePaymentAmount(entryId, txtAmount.Text);
 
             LabelControl lblCardLast4 = new LabelControl
@@ -1318,7 +1340,7 @@ namespace POS.PAL.USERCONTROL
             panel.Controls.Add(txtTransNo);
         }
 
-        private void AddBankTransferFieldsToPanel(PanelControl panel, int entryId)
+        private void AddBankTransferFieldsToPanel(PanelControl panel, int entryId, decimal? amount = null)
         {
             int yPos = 5;
             int fieldHeight = 44;
@@ -1349,6 +1371,10 @@ namespace POS.PAL.USERCONTROL
             txtAmount.Size = new Size(150, fieldHeight);
             txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             txtAmount.Properties.Mask.EditMask = "n2";
+            if (amount.HasValue)
+            {
+                txtAmount.Text = amount.Value.ToString("F2");
+            }
             txtAmount.EditValueChanged += (s, e) => UpdatePaymentAmount(entryId, txtAmount.Text);
 
             yPos += verticalSpacing;
@@ -1976,25 +2002,25 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private (decimal totalPaid, decimal due) CalculatePaymentTotals()
         {
-            if (paymentsTable == null || paymentsTable.Rows.Count == 0)
-                return (0m, 0m);
-
             decimal totalPaid = 0m;
             decimal grandTotal = 0m;
 
-            // Calculate total paid (excluding CREDIT payments)
-            foreach (DataRow payment in paymentsTable.Rows)
+            if (paymentsTable != null && paymentsTable.Rows.Count > 0)
             {
-                string paymentMethod = payment["payment_method"]?.ToString();
-                if (string.IsNullOrEmpty(paymentMethod))
-                    continue;
-
-                if (decimal.TryParse(payment["amount"]?.ToString(), out decimal amount))
+                // Calculate total paid (excluding CREDIT payments)
+                foreach (DataRow payment in paymentsTable.Rows)
                 {
-                    // CREDIT is not counted as "paid" - it's still owed
-                    if (paymentMethod != "CREDIT")
+                    string paymentMethod = payment["payment_method"]?.ToString();
+                    if (string.IsNullOrEmpty(paymentMethod))
+                        continue;
+
+                    if (decimal.TryParse(payment["amount"]?.ToString(), out decimal amount))
                     {
-                        totalPaid += amount;
+                        // CREDIT is not counted as "paid" - it's still owed
+                        if (paymentMethod != "CREDIT")
+                        {
+                            totalPaid += amount;
+                        }
                     }
                 }
             }
