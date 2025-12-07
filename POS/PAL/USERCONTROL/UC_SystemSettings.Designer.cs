@@ -70,6 +70,8 @@ namespace POS.PAL.USERCONTROL
             this.rgPrintFormat = new DevExpress.XtraEditors.RadioGroup();
             this.cmbThermalPrinter = new DevExpress.XtraEditors.ComboBoxEdit();
             this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
+            this.cmbKOTPrinter = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControlKOT = new DevExpress.XtraEditors.LabelControl();
             this.tabTax = new DevExpress.XtraTab.XtraTabPage();
             this.grpTax = new DevExpress.XtraEditors.GroupControl();
             this.txtTaxRegNo = new DevExpress.XtraEditors.TextEdit();
@@ -121,6 +123,7 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)(this.tsAutoPrint.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rgPrintFormat.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbThermalPrinter.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbKOTPrinter.Properties)).BeginInit();
             this.tabTax.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grpTax)).BeginInit();
             this.grpTax.SuspendLayout();
@@ -553,36 +556,38 @@ namespace POS.PAL.USERCONTROL
             this.grpPrinting.Controls.Add(this.rgPrintFormat);
             this.grpPrinting.Controls.Add(this.cmbThermalPrinter);
             this.grpPrinting.Controls.Add(this.labelControl15);
+            this.grpPrinting.Controls.Add(this.cmbKOTPrinter);
+            this.grpPrinting.Controls.Add(this.labelControlKOT);
             this.grpPrinting.Location = new System.Drawing.Point(20, 20);
             this.grpPrinting.Name = "grpPrinting";
-            this.grpPrinting.Size = new System.Drawing.Size(450, 210);
+            this.grpPrinting.Size = new System.Drawing.Size(450, 230);
             this.grpPrinting.TabIndex = 0;
             this.grpPrinting.Text = "Printing Configuration";
             // 
             // tsAutoPrint
             // 
-            this.tsAutoPrint.Location = new System.Drawing.Point(120, 160);
+            this.tsAutoPrint.Location = new System.Drawing.Point(120, 190);
             this.tsAutoPrint.Name = "tsAutoPrint";
             this.tsAutoPrint.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.tsAutoPrint.Properties.Appearance.Options.UseFont = true;
             this.tsAutoPrint.Properties.OffText = "Off";
             this.tsAutoPrint.Properties.OnText = "On";
             this.tsAutoPrint.Size = new System.Drawing.Size(95, 22);
-            this.tsAutoPrint.TabIndex = 4;
+            this.tsAutoPrint.TabIndex = 6;
             // 
             // labelControl12
             // 
             this.labelControl12.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.labelControl12.Appearance.Options.UseFont = true;
-            this.labelControl12.Location = new System.Drawing.Point(20, 162);
+            this.labelControl12.Location = new System.Drawing.Point(20, 192);
             this.labelControl12.Name = "labelControl12";
             this.labelControl12.Size = new System.Drawing.Size(63, 17);
-            this.labelControl12.TabIndex = 3;
+            this.labelControl12.TabIndex = 5;
             this.labelControl12.Text = "Auto Print:";
             // 
             // rgPrintFormat
             // 
-            this.rgPrintFormat.Location = new System.Drawing.Point(20, 80);
+            this.rgPrintFormat.Location = new System.Drawing.Point(20, 120);
             this.rgPrintFormat.Name = "rgPrintFormat";
             this.rgPrintFormat.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.rgPrintFormat.Properties.Appearance.Options.UseFont = true;
@@ -590,7 +595,7 @@ namespace POS.PAL.USERCONTROL
             new DevExpress.XtraEditors.Controls.RadioGroupItem("THERMAL", "Thermal (80mm)"),
             new DevExpress.XtraEditors.Controls.RadioGroupItem("A4", "A4 Standard")});
             this.rgPrintFormat.Size = new System.Drawing.Size(400, 60);
-            this.rgPrintFormat.TabIndex = 2;
+            this.rgPrintFormat.TabIndex = 4;
             // 
             // cmbThermalPrinter
             // 
@@ -614,6 +619,29 @@ namespace POS.PAL.USERCONTROL
             this.labelControl15.Size = new System.Drawing.Size(94, 17);
             this.labelControl15.TabIndex = 0;
             this.labelControl15.Text = "Thermal Printer:";
+            // 
+            // cmbKOTPrinter
+            // 
+            this.cmbKOTPrinter.Location = new System.Drawing.Point(120, 80);
+            this.cmbKOTPrinter.Name = "cmbKOTPrinter";
+            this.cmbKOTPrinter.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.cmbKOTPrinter.Properties.Appearance.Options.UseFont = true;
+            this.cmbKOTPrinter.Properties.AutoHeight = false;
+            this.cmbKOTPrinter.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cmbKOTPrinter.Properties.Padding = new System.Windows.Forms.Padding(5);
+            this.cmbKOTPrinter.Size = new System.Drawing.Size(300, 30);
+            this.cmbKOTPrinter.TabIndex = 3;
+            // 
+            // labelControlKOT
+            // 
+            this.labelControlKOT.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.labelControlKOT.Appearance.Options.UseFont = true;
+            this.labelControlKOT.Location = new System.Drawing.Point(20, 86);
+            this.labelControlKOT.Name = "labelControlKOT";
+            this.labelControlKOT.Size = new System.Drawing.Size(71, 17);
+            this.labelControlKOT.TabIndex = 2;
+            this.labelControlKOT.Text = "KOT Printer:";
             // 
             // tabTax
             // 
@@ -924,6 +952,8 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.GroupControl grpPrinting;
         private DevExpress.XtraEditors.LabelControl labelControl15;
         private DevExpress.XtraEditors.ComboBoxEdit cmbThermalPrinter;
+        private DevExpress.XtraEditors.LabelControl labelControlKOT;
+        private DevExpress.XtraEditors.ComboBoxEdit cmbKOTPrinter;
         private DevExpress.XtraEditors.RadioGroup rgPrintFormat;
         private DevExpress.XtraEditors.LabelControl labelControl12;
         private DevExpress.XtraEditors.ToggleSwitch tsAutoPrint;

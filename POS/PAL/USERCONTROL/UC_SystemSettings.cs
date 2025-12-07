@@ -30,9 +30,11 @@ namespace POS.PAL.USERCONTROL
         private void LoadPrinters()
         {
             cmbThermalPrinter.Properties.Items.Clear();
+            cmbKOTPrinter.Properties.Items.Clear();
             foreach (string printer in PrinterSettings.InstalledPrinters)
             {
                 cmbThermalPrinter.Properties.Items.Add(printer);
+                cmbKOTPrinter.Properties.Items.Add(printer);
             }
         }
 
@@ -58,6 +60,10 @@ namespace POS.PAL.USERCONTROL
 
                     // Features
                     tsKOT.IsOn = GetBooleanSetting("kot_enabled");
+                    string kotPrinter = GetStringSetting("kot_printer_name");
+                    if (!string.IsNullOrEmpty(kotPrinter))
+                        cmbKOTPrinter.SelectedItem = kotPrinter;
+
                     tsStockCheck.IsOn = GetBooleanSetting("stock_check_enabled");
 
                     // Regional
@@ -151,6 +157,7 @@ namespace POS.PAL.USERCONTROL
                 _bllSystemSettings.UpdateSystemSetting("invoice_footer", txtInvoiceFooter.Text, userId);
                 
                 _bllSystemSettings.UpdateSystemSetting("kot_enabled", tsKOT.IsOn.ToString(), userId);
+                _bllSystemSettings.UpdateSystemSetting("kot_printer_name", cmbKOTPrinter.Text, userId);
                 _bllSystemSettings.UpdateSystemSetting("stock_check_enabled", tsStockCheck.IsOn.ToString(), userId);
                 
                 _bllSystemSettings.UpdateSystemSetting("currency_symbol", txtCurrencySymbol.Text, userId);

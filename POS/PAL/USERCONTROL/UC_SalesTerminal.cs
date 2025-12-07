@@ -1980,6 +1980,9 @@ namespace POS.PAL.USERCONTROL
                     printTool.Print();
                 }
 
+                // Print KOT if enabled
+                PrintKOT(invoiceNumber, null, null, customerName, salesItemsTable, autoPrint);
+
                 // Success message
                 MessageBox.Show(
                     $"Credit Sale Created Successfully!\n\n" +
@@ -2159,6 +2162,41 @@ namespace POS.PAL.USERCONTROL
                 thermalInvoice.Print();
             else
                 new DevExpress.XtraReports.UI.ReportPrintTool(thermalInvoice).ShowPreview();
+        }
+
+        private void PrintKOT(string invoiceNumber, string orderType, string tableNumber, string customerName, DataTable itemsTable, bool autoPrint)
+        {
+            // Check if KOT is enabled
+            bool isKotEnabled = _bllSalesTerminal.IsKotEnabled();
+            if (!isKotEnabled) return;
+
+            // Create KOT report
+            KOT kotReport = new KOT();
+
+            // Set parameters
+            kotReport.Parameters["p_invoice_no"].Value = invoiceNumber;
+            kotReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            kotReport.Parameters["p_table_no"].Value = tableNumber ?? "";
+            kotReport.Parameters["p_order_type"].Value = orderType ?? "";
+            kotReport.Parameters["p_customer_name"].Value = customerName;
+
+            // Set data source
+            kotReport.DataSource = itemsTable;
+
+            // Get KOT printer name
+            string printerName = Main.GetSetting("kot_printer_name", null);
+
+            // Configure printer if specified
+            if (!string.IsNullOrEmpty(printerName))
+            {
+                kotReport.PrinterName = printerName;
+            }
+
+            // Print
+            if (autoPrint)
+                kotReport.Print();
+            else
+                new DevExpress.XtraReports.UI.ReportPrintTool(kotReport).ShowPreview();
         }
 
         /// <summary>
@@ -2453,6 +2491,9 @@ namespace POS.PAL.USERCONTROL
                     DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
                     printTool.Print();
                 }
+
+                // Print KOT if enabled
+                PrintKOT(invoiceNumber, orderType, tableNumber, customerName, salesItemsTable, autoPrint);
 
                 // Success message
                 MessageBox.Show(
