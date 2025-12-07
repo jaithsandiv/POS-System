@@ -2180,6 +2180,17 @@ namespace POS.PAL.USERCONTROL
             kotReport.Parameters["p_order_type"].Value = orderType ?? "";
             kotReport.Parameters["p_customer_name"].Value = customerName;
 
+            // Calculate total items
+            int totalItems = 0;
+            foreach (DataRow item in itemsTable.Rows)
+            {
+                if (decimal.TryParse(item["quantity"]?.ToString(), out decimal qty))
+                {
+                    totalItems += (int)qty;
+                }
+            }
+            kotReport.Parameters["p_total_items"].Value = totalItems.ToString();
+
             // Set data source
             kotReport.DataSource = itemsTable;
 
