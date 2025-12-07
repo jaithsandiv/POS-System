@@ -34,6 +34,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DAL_DS_SystemSettings.xsd</DependentUpon>
     </Compile>
+    <Compile Update="PAL\REPORT\KOT.cs">
+      <SubType>XtraReport</SubType>
+    </Compile>
     <Compile Update="PAL\REPORT\ThermalInvoice.cs">
       <SubType>XtraReport</SubType>
     </Compile>
