@@ -270,9 +270,9 @@
             labelControl14.Appearance.Options.UseFont = true;
             labelControl14.Location = new System.Drawing.Point(108, 18);
             labelControl14.Name = "labelControl14";
-            labelControl14.Size = new System.Drawing.Size(130, 30);
+            labelControl14.Size = new System.Drawing.Size(139, 30);
             labelControl14.TabIndex = 0;
-            labelControl14.Text = "View Contact";
+            labelControl14.Text = "View Contacts";
             // 
             // UC_Customer_Details
             // 

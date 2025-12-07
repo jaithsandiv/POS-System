@@ -64,8 +64,10 @@ namespace POS.PAL.USERCONTROL
             colFullName.Caption = "Full Name";
             colFullName.Width = 200;
             colFullName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colFullName.AppearanceCell.ForeColor = Color.FromArgb(3, 167, 140);
+            colFullName.AppearanceCell.Font = new Font("Segoe UI", 9.75F, FontStyle.Underline);
             colFullName.OptionsColumn.AllowEdit = false;
-            colFullName.OptionsColumn.AllowFocus = false;
+            colFullName.OptionsColumn.AllowFocus = true;
             colFullName.OptionsColumn.FixedWidth = true;
 
             var colCompanyName = gridView1.Columns.AddVisible("company_name", "Company Name");
@@ -190,6 +192,9 @@ namespace POS.PAL.USERCONTROL
 
             // Enable double-click to edit
             gridView1.DoubleClick += GridView1_DoubleClick;
+
+            // Handle single-click on customer name to view details
+            gridView1.Click += GridView1_Click;
 
             // Add context menu for Edit and Delete
             CreateContextMenu();
@@ -396,6 +401,37 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
+        /// Handle single-click on customer name to view details
+        /// </summary>
+        private void GridView1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var view = gridView1;
+                var hitInfo = view.CalcHitInfo((e as MouseEventArgs).Location);
+
+                // Check if the click was on a cell
+                if (hitInfo.InRowCell)
+                {
+                    // Check if the clicked column is the full_name column
+                    if (hitInfo.Column != null && hitInfo.Column.FieldName == "full_name")
+                    {
+                        ViewCustomerDetails();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error handling click: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
         /// Handle Edit menu item click
         /// </summary>
         private void EditMenuItem_Click(object sender, EventArgs e)
@@ -438,6 +474,40 @@ namespace POS.PAL.USERCONTROL
             {
                 XtraMessageBox.Show(
                     $"Error editing customer: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Views the selected customer details
+        /// </summary>
+        private void ViewCustomerDetails()
+        {
+            try
+            {
+                if (gridView1.FocusedRowHandle < 0)
+                {
+                    XtraMessageBox.Show("Please select a customer to view.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DataRow selectedRow = gridView1.GetDataRow(gridView1.FocusedRowHandle);
+                if (selectedRow == null)
+                    return;
+
+                int customerId = Convert.ToInt32(selectedRow["customer_id"]);
+
+                // Navigate to customer details form
+                var detailsForm = new UC_Customer_Details(customerId);
+                Main.Instance.LoadUserControl(detailsForm);
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error viewing customer details: {ex.Message}",
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
