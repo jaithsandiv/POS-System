@@ -211,7 +211,7 @@ namespace POS.PAL.USERCONTROL
             if (existingRow != null)
             {
                 // Increase the quantity of the existing product
-                int currentQuantity = Convert.ToInt32(existingRow["quantity"]);
+                decimal currentQuantity = Convert.ToDecimal(existingRow["quantity"]);
                 existingRow["quantity"] = currentQuantity + 1;
 
                 // Recalculate subtotal
@@ -219,7 +219,7 @@ namespace POS.PAL.USERCONTROL
                 string promotionType = existingRow["discount_type"].ToString();
                 decimal discountValue = Convert.ToDecimal(existingRow["discount_value"]);
                 decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
-                existingRow["subtotal"] = (price - discountAmount) * Convert.ToInt32(existingRow["quantity"]);
+                existingRow["subtotal"] = (price - discountAmount) * Convert.ToDecimal(existingRow["quantity"]);
             }
             else
             {
@@ -303,7 +303,7 @@ namespace POS.PAL.USERCONTROL
                 if (row.RowState == DataRowState.Deleted) continue;
 
                 totalAmount += Convert.ToDecimal(row["subtotal"]);
-                totalItems += Convert.ToInt32(row["quantity"]);
+                totalItems += (int)Convert.ToDecimal(row["quantity"]);
             }
 
             // Update the saleTable with total amount and total items
@@ -591,7 +591,7 @@ namespace POS.PAL.USERCONTROL
 
         private void LoadTableNos()
         {
-            DataTable TableNos = _bllSalesTerminal.GetTables();
+            DataTable TableNos = _bllSalesTerminal.GetAvailableTables();
 
             cmbTableNo.Properties.Items.Clear();
 
@@ -1649,7 +1649,49 @@ namespace POS.PAL.USERCONTROL
             // Generate simple success message
             MessageBox.Show($"Draft saved successfully!\nDraft ID: {saleId}", "Draft Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            // Print KOT
+            string customerName = txtCustomer.Text;
+            PrintKOT($"DRAFT-{saleId}", orderType, tableNumber, customerName, salesItemsTable, true);
+
             btnCancel_Click(null, null);
+        }
+
+        private void btnPrintKOT_Click(object sender, EventArgs e)
+        {
+            if (salesItemsTable.Rows.Count == 0)
+            {
+                MessageBox.Show("Cart is empty.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string orderType = null;
+            string tableNumber = null;
+
+            if (pnlKOT.Visible)
+            {
+                if (btnDineIn.Appearance.BackColor == Color.FromArgb(4, 181, 152))
+                {
+                    orderType = "DINE_IN";
+                    tableNumber = cmbTableNo.SelectedItem?.ToString();
+                }
+                else if (btnTakeAway.Appearance.BackColor == Color.FromArgb(4, 181, 152))
+                {
+                    orderType = "TAKE_AWAY";
+                }
+            }
+
+            string customerName = txtCustomer.Text;
+            string invoiceNo = "KOT-PREVIEW";
+
+            // If it's a loaded sale/draft, use its number
+            if (saleTable.Rows.Count > 0 && saleTable.Rows[0]["sale_id"] != DBNull.Value)
+            {
+                invoiceNo = saleTable.Rows[0]["invoice_number"]?.ToString();
+                if (string.IsNullOrEmpty(invoiceNo))
+                    invoiceNo = $"DRAFT-{saleTable.Rows[0]["sale_id"]}";
+            }
+
+            PrintKOT(invoiceNo, orderType, tableNumber, customerName, salesItemsTable, true);
         }
 
         private void btnQuotation_Click(object sender, EventArgs e)
@@ -2720,7 +2762,15 @@ namespace POS.PAL.USERCONTROL
                         btnTakeAway.Appearance.BackColor = Color.White;
                         btnTakeAway.Appearance.ForeColor = Color.Black;
                         pnlKOTTableNo.Visible = true;
-                        cmbTableNo.SelectedItem = currentSaleRow["table_number"]?.ToString();
+                        string tableNum = currentSaleRow["table_number"]?.ToString();
+                        if (!string.IsNullOrEmpty(tableNum))
+                        {
+                            if (!cmbTableNo.Properties.Items.Contains(tableNum))
+                            {
+                                cmbTableNo.Properties.Items.Add(tableNum);
+                            }
+                            cmbTableNo.SelectedItem = tableNum;
+                        }
                     }
                     else if (orderType == "TAKE_AWAY")
                     {

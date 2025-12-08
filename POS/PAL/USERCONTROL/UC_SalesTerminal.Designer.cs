@@ -81,6 +81,7 @@ namespace POS.PAL.USERCONTROL
             labelControl23 = new DevExpress.XtraEditors.LabelControl();
             btnDineIn = new DevExpress.XtraEditors.SimpleButton();
             btnTakeAway = new DevExpress.XtraEditors.SimpleButton();
+            btnPrintKOT = new DevExpress.XtraEditors.SimpleButton();
             labelControl15 = new DevExpress.XtraEditors.LabelControl();
             separatorControl7 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl10 = new DevExpress.XtraEditors.PanelControl();
@@ -787,6 +788,7 @@ namespace POS.PAL.USERCONTROL
             pnlKOT.Controls.Add(pnlKOTTableNo);
             pnlKOT.Controls.Add(btnDineIn);
             pnlKOT.Controls.Add(btnTakeAway);
+            pnlKOT.Controls.Add(btnPrintKOT);
             pnlKOT.Controls.Add(labelControl15);
             pnlKOT.Dock = System.Windows.Forms.DockStyle.Top;
             pnlKOT.Location = new System.Drawing.Point(0, 0);
@@ -852,6 +854,19 @@ namespace POS.PAL.USERCONTROL
             btnTakeAway.TabIndex = 36;
             btnTakeAway.Text = "Take Away";
             btnTakeAway.Click += btnTakeAway_Click;
+            // 
+            // btnPrintKOT
+            // 
+            btnPrintKOT.Appearance.BackColor = System.Drawing.Color.FromArgb(255, 128, 0);
+            btnPrintKOT.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnPrintKOT.Appearance.Options.UseBackColor = true;
+            btnPrintKOT.Appearance.Options.UseFont = true;
+            btnPrintKOT.Location = new System.Drawing.Point(265, 12);
+            btnPrintKOT.Name = "btnPrintKOT";
+            btnPrintKOT.Size = new System.Drawing.Size(100, 30);
+            btnPrintKOT.TabIndex = 39;
+            btnPrintKOT.Text = "Print KOT";
+            btnPrintKOT.Click += btnPrintKOT_Click;
             // 
             // labelControl15
             // 
@@ -1938,5 +1953,6 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.LabelControl lblPaymentBalanceValue;
         private DevExpress.XtraEditors.LabelControl lblPaymentChangeTitle;
         private DevExpress.XtraEditors.LabelControl lblPaymentChangeValue;
+        private DevExpress.XtraEditors.SimpleButton btnPrintKOT;
     }
 }

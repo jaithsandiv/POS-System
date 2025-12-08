@@ -42,6 +42,11 @@ namespace POS.BLL
             return _dalSalesTerminal.GetTables();
         }
 
+        public DataTable GetAvailableTables()
+        {
+            return _dalSalesTerminal.GetAvailableTables();
+        }
+
         public bool IsKotEnabled()
         {
             return _dalSalesTerminal.IsKotEnabled();

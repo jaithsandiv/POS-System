@@ -250,6 +250,47 @@ namespace POS.DAL
             return dt;
         }
 
+        public DataTable GetAvailableTables()
+        {
+            DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
+            DataTable dt = ds.Table;
+            dt.Clear();
+            string query = @"
+                SELECT 
+                    table_id,
+                    table_number,
+                    capacity,
+                    status,
+                    created_by,
+                    CONVERT(varchar, created_date, 23) AS created_date,
+                    updated_by,
+                    CONVERT(varchar, updated_date, 23) AS updated_date
+                FROM [Table]
+                WHERE status = 'A'
+                AND table_number NOT IN (
+                    SELECT table_number 
+                    FROM Sale 
+                    WHERE sale_type = 'DRAFT' 
+                    AND status = 'A' 
+                    AND table_number IS NOT NULL
+                )";
+            DataTable result = Connection.ExecuteQuery(query);
+            foreach (DataRow row in result.Rows)
+            {
+                DataRow r = dt.NewRow();
+                r["table_id"] = row["table_id"]?.ToString();
+                r["table_number"] = row["table_number"]?.ToString();
+                r["capacity"] = row["capacity"]?.ToString();
+                r["status"] = row["status"]?.ToString();
+                r["created_by"] = row["created_by"]?.ToString();
+                r["created_date"] = row["created_date"]?.ToString();
+                r["updated_by"] = row["updated_by"]?.ToString();
+                r["updated_date"] = row["updated_date"]?.ToString();
+                dt.Rows.Add(r);
+            }
+            return dt;
+        }
+
         public bool IsKotEnabled()
         {
             string query = @"
