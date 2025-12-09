@@ -96,5 +96,28 @@ namespace POS.DAL
 
             return Connection.ExecuteQuery(query, parameters);
         }
+
+        public DataTable SearchTables(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return GetTables();
+            }
+
+            string query = @"
+                SELECT 
+                    table_id, 
+                    table_number, 
+                    capacity, 
+                    status
+                FROM [Table]
+                WHERE status = 'A' AND (table_number LIKE @keyword)";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@keyword", "%" + keyword + "%")
+            };
+
+            return Connection.ExecuteQuery(query, parameters);
+        }
     }
 }

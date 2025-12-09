@@ -97,6 +97,19 @@ namespace POS.DAL
             return Connection.ExecuteNonQuery(query, parameters) > 0;
         }
 
+        public DataTable SearchCategories(string keyword)
+        {
+            string query = @"
+                SELECT * FROM Category
+                WHERE status = 'A' AND (
+                    category_name LIKE @keyword
+                )
+                ORDER BY category_name";
+
+            SqlParameter[] parameters = { new SqlParameter("@keyword", "%" + keyword + "%") };
+            return Connection.ExecuteQuery(query, parameters);
+        }
+
         #endregion
 
         #region Brand Methods
@@ -177,6 +190,22 @@ namespace POS.DAL
             return Connection.ExecuteNonQuery(query, parameters) > 0;
         }
 
+        public DataTable SearchBrands(string keyword)
+        {
+            string query = @"
+                SELECT b.*, s.supplier_name
+                FROM Brand b
+                LEFT JOIN Supplier s ON b.supplier_id = s.supplier_id
+                WHERE b.status = 'A' AND (
+                    b.brand_name LIKE @keyword OR
+                    s.supplier_name LIKE @keyword
+                )
+                ORDER BY b.brand_name";
+
+            SqlParameter[] parameters = { new SqlParameter("@keyword", "%" + keyword + "%") };
+            return Connection.ExecuteQuery(query, parameters);
+        }
+
         #endregion
 
         #region Unit Methods
@@ -249,6 +278,20 @@ namespace POS.DAL
             };
 
             return Connection.ExecuteNonQuery(query, parameters) > 0;
+        }
+
+        public DataTable SearchUnits(string keyword)
+        {
+            string query = @"
+                SELECT * FROM Unit 
+                WHERE status = 'A' AND (
+                    code LIKE @keyword OR
+                    name LIKE @keyword
+                )
+                ORDER BY name";
+
+            SqlParameter[] parameters = { new SqlParameter("@keyword", "%" + keyword + "%") };
+            return Connection.ExecuteQuery(query, parameters);
         }
 
         #endregion
@@ -393,6 +436,31 @@ namespace POS.DAL
             return Connection.ExecuteNonQuery(query, parameters) > 0;
         }
 
+        public DataTable SearchProducts(string keyword)
+        {
+            string query = @"
+                SELECT
+                    p.*,
+                    c.category_name,
+                    b.brand_name,
+                    u.code as unit_code
+                FROM Product p
+                LEFT JOIN Category c ON p.category_id = c.category_id
+                LEFT JOIN Brand b ON p.brand_id = b.brand_id
+                JOIN Unit u ON p.unit_id = u.unit_id
+                WHERE p.status = 'A' AND (
+                    p.product_name LIKE @keyword OR
+                    p.product_code LIKE @keyword OR
+                    p.barcode LIKE @keyword OR
+                    c.category_name LIKE @keyword OR
+                    b.brand_name LIKE @keyword
+                )
+                ORDER BY p.product_name";
+
+            SqlParameter[] parameters = { new SqlParameter("@keyword", "%" + keyword + "%") };
+            return Connection.ExecuteQuery(query, parameters);
+        }
+
         #endregion
 
         #region Barcode Print Methods
@@ -405,6 +473,26 @@ namespace POS.DAL
                 JOIN Product p ON bp.product_id = p.product_id
                 WHERE bp.status = 'A'";
             return Connection.ExecuteQuery(query);
+        }
+
+        public DataTable SearchBarcodePrints(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return GetBarcodePrints();
+            }
+
+            string query = @"
+                SELECT bp.*, p.product_name, p.product_code
+                FROM BarcodePrint bp
+                JOIN Product p ON bp.product_id = p.product_id
+                WHERE bp.status = 'A' AND (p.product_name LIKE @keyword OR p.product_code LIKE @keyword)";
+            
+            SqlParameter[] parameters = {
+                new SqlParameter("@keyword", "%" + keyword + "%")
+            };
+
+            return Connection.ExecuteQuery(query, parameters);
         }
 
         public int InsertBarcodePrint(int productId, int quantity, bool includeName, bool includePrice,

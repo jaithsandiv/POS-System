@@ -25,6 +25,32 @@ namespace POS.PAL.USERCONTROL
             InitializeComponent();
             ConfigureGrid();
             LoadDiscounts();
+
+            // Wire up search events
+            if (searchControl1 != null)
+                searchControl1.KeyDown += searchControl1_KeyDown;
+        }
+
+        private void searchControl1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                PerformSearch();
+            }
+        }
+
+        private void PerformSearch()
+        {
+            try
+            {
+                string keyword = searchControl1.Text.Trim();
+                discountsTable = _bllDiscount.SearchDiscounts(keyword);
+                gridControlDiscounts.DataSource = discountsTable;
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error searching data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>

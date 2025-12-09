@@ -36,5 +36,10 @@ namespace POS.BLL
         {
             return _dalTable.GetTableById(tableId);
         }
+
+        public DataTable SearchTables(string keyword)
+        {
+            return _dalTable.SearchTables(keyword);
+        }
     }
 }

@@ -28,6 +28,32 @@ namespace POS.PAL.USERCONTROL
             
             // Hide old controls if they still exist in the designer file (best effort)
             HideOldControls();
+
+            // Wire up search events
+            if (searchControl1 != null)
+                searchControl1.KeyDown += searchControl1_KeyDown;
+        }
+
+        private void searchControl1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                PerformSearch();
+            }
+        }
+
+        private void PerformSearch()
+        {
+            try
+            {
+                string keyword = searchControl1.Text.Trim();
+                quotationsTable = _bllSalesTerminal.SearchSales("QUOTATION", keyword);
+                gridControlQuotations.DataSource = quotationsTable;
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error searching data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void HideOldControls()

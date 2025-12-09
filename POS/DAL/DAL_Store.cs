@@ -148,5 +148,56 @@ namespace POS.DAL
 
             return Connection.ExecuteQuery(query, parameters);
         }
+
+        public DataTable SearchStores(string keyword)
+        {
+            DAL_DS_Initialize ds = new DAL_DS_Initialize();
+            DataTable dt = ds.Store;
+            dt.Clear();
+
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return GetStores();
+            }
+
+            string query = @"
+                SELECT 
+                    store_id, 
+                    store_name, 
+                    phone, 
+                    email, 
+                    address, 
+                    city, 
+                    state, 
+                    country, 
+                    postal_code, 
+                    status
+                FROM Store
+                WHERE status = 'A' AND (store_name LIKE @keyword OR phone LIKE @keyword OR email LIKE @keyword OR city LIKE @keyword)";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@keyword", "%" + keyword + "%")
+            };
+
+            DataTable result = Connection.ExecuteQuery(query, parameters);
+
+            foreach (DataRow row in result.Rows)
+            {
+                DataRow r = dt.NewRow();
+                r["store_id"] = row["store_id"]?.ToString();
+                r["store_name"] = row["store_name"]?.ToString();
+                r["phone"] = row["phone"]?.ToString();
+                r["email"] = row["email"]?.ToString();
+                r["address"] = row["address"]?.ToString();
+                r["city"] = row["city"]?.ToString();
+                r["state"] = row["state"]?.ToString();
+                r["country"] = row["country"]?.ToString();
+                r["postal_code"] = row["postal_code"]?.ToString();
+                r["status"] = row["status"]?.ToString();
+                dt.Rows.Add(r);
+            }
+
+            return dt;
+        }
     }
 }

@@ -85,6 +85,11 @@ namespace POS.BLL
             return _dalSalesTerminal.GetSales(saleType);
         }
 
+        public DataTable SearchSales(string saleType, string keyword)
+        {
+            return _dalSalesTerminal.SearchSales(saleType, keyword);
+        }
+
         public DataTable GetSale(int saleId)
         {
             return _dalSalesTerminal.GetSale(saleId);

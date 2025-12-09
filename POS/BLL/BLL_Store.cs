@@ -36,5 +36,10 @@ namespace POS.BLL
         {
             return _dalStore.GetStoreById(storeId);
         }
+
+        public DataTable SearchStores(string keyword)
+        {
+            return _dalStore.SearchStores(keyword);
+        }
     }
 }

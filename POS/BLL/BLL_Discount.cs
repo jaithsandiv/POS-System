@@ -17,6 +17,11 @@ namespace POS.BLL
             return _dalDiscount.GetDiscounts();
         }
 
+        public DataTable SearchDiscounts(string keyword)
+        {
+            return _dalDiscount.SearchDiscounts(keyword);
+        }
+
         public bool InsertDiscount(string name, string description, DateTime startDate, DateTime endDate, string status)
         {
             return _dalDiscount.InsertDiscount(name, description, startDate, endDate, status);

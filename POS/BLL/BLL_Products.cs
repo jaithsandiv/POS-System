@@ -45,6 +45,11 @@ namespace POS.BLL
             return _dalProducts.DeleteCategory(categoryId, updatedBy);
         }
 
+        public DataTable SearchCategories(string keyword)
+        {
+            return _dalProducts.SearchCategories(keyword);
+        }
+
         #endregion
 
         #region Brand
@@ -78,6 +83,11 @@ namespace POS.BLL
         public bool DeleteBrand(int brandId, int updatedBy)
         {
             return _dalProducts.DeleteBrand(brandId, updatedBy);
+        }
+
+        public DataTable SearchBrands(string keyword)
+        {
+            return _dalProducts.SearchBrands(keyword);
         }
 
         #endregion
@@ -117,6 +127,11 @@ namespace POS.BLL
         public bool DeleteUnit(int unitId, int updatedBy)
         {
             return _dalProducts.DeleteUnit(unitId, updatedBy);
+        }
+
+        public DataTable SearchUnits(string keyword)
+        {
+            return _dalProducts.SearchUnits(keyword);
         }
 
         #endregion
@@ -182,6 +197,11 @@ namespace POS.BLL
             return _dalProducts.DeleteProduct(productId, updatedBy);
         }
 
+        public DataTable SearchProducts(string keyword)
+        {
+            return _dalProducts.SearchProducts(keyword);
+        }
+
         #endregion
 
         #region Barcode Print
@@ -189,6 +209,11 @@ namespace POS.BLL
         public DataTable GetBarcodePrints()
         {
             return _dalProducts.GetBarcodePrints();
+        }
+
+        public DataTable SearchBarcodePrints(string keyword)
+        {
+            return _dalProducts.SearchBarcodePrints(keyword);
         }
 
         public int InsertBarcodePrint(int productId, int quantity, bool includeName, bool includePrice,

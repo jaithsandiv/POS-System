@@ -50,6 +50,55 @@ namespace POS.DAL
             return dt;
         }
 
+        public DataTable SearchDiscounts(string keyword)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("discount_id", typeof(int));
+            dt.Columns.Add("name", typeof(string));
+            dt.Columns.Add("description", typeof(string));
+            dt.Columns.Add("start_date", typeof(DateTime));
+            dt.Columns.Add("end_date", typeof(DateTime));
+            dt.Columns.Add("status", typeof(string));
+
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return GetDiscounts();
+            }
+
+            string query = @"
+                SELECT 
+                    promotion_id,
+                    promotion_name,
+                    description,
+                    start_date,
+                    end_date,
+                    status
+                FROM Promotion
+                WHERE status = 'A' AND (promotion_name LIKE @keyword OR description LIKE @keyword)
+                ORDER BY promotion_name";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@keyword", "%" + keyword + "%")
+            };
+
+            DataTable result = Connection.ExecuteQuery(query, parameters);
+
+            foreach (DataRow row in result.Rows)
+            {
+                DataRow r = dt.NewRow();
+                r["discount_id"] = row["promotion_id"];
+                r["name"] = row["promotion_name"];
+                r["description"] = row["description"];
+                r["start_date"] = row["start_date"];
+                r["end_date"] = row["end_date"];
+                r["status"] = row["status"].ToString() == "A" ? "Active" : "Inactive";
+
+                dt.Rows.Add(r);
+            }
+
+            return dt;
+        }
+
         public bool InsertDiscount(string name, string description, DateTime startDate, DateTime endDate, string status)
         {
             string query = @"

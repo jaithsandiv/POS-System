@@ -814,5 +814,37 @@ namespace POS.DAL
 
             return Connection.ExecuteQuery(query);
         }
+
+        public DataTable SearchSales(string saleType, string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return GetSales(saleType);
+            }
+
+            string query = @"
+                SELECT 
+                    s.sale_id,
+                    s.invoice_number,
+                    c.full_name as customer_name,
+                    s.created_date as sale_date,
+                    s.grand_total,
+                    s.payment_status,
+                    s.sale_status,
+                    u.full_name as biller_name
+                FROM Sale s
+                LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                LEFT JOIN [User] u ON s.biller_id = u.user_id
+                WHERE s.status = 'A' AND s.sale_type = @saleType
+                AND (s.invoice_number LIKE @keyword OR c.full_name LIKE @keyword OR u.full_name LIKE @keyword)
+                ORDER BY s.sale_id DESC";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@saleType", saleType),
+                new SqlParameter("@keyword", "%" + keyword + "%")
+            };
+
+            return Connection.ExecuteQuery(query, parameters);
+        }
     }
 }

@@ -32,6 +32,32 @@ namespace POS.PAL.USERCONTROL
             // Hide the old input controls if they exist and are visible
             // This is a best-effort attempt since we can't modify the designer file directly to remove them
             HideOldControls();
+
+            // Wire up search events
+            if (searchControl1 != null)
+                searchControl1.KeyDown += searchControl1_KeyDown;
+        }
+
+        private void searchControl1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                PerformSearch();
+            }
+        }
+
+        private void PerformSearch()
+        {
+            try
+            {
+                string keyword = searchControl1.Text.Trim();
+                storesTable = _bllStore.SearchStores(keyword);
+                gridControlStores.DataSource = storesTable;
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error searching data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void HideOldControls()
