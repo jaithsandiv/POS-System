@@ -51,7 +51,7 @@ namespace POS.PAL.USERCONTROL
 
                     // Update labels with supplier information
                     lblCustomerName.Text = row["supplier_name"]?.ToString() ?? "N/A";
-                    lblTableName.Text = row["company_name"]?.ToString() ?? "N/A";
+                    lblTableName.Text = supplierData.TableName;
                     lblSupplierAddress.Text = row["address"]?.ToString() ?? "N/A";
                     lblSupplierPhoneNo.Text = row["phone"]?.ToString() ?? "N/A";
                     lblCustomerEmail.Text = row["email"]?.ToString() ?? "N/A";
@@ -87,12 +87,25 @@ namespace POS.PAL.USERCONTROL
             {
                 DataTable suppliers = _bllContacts.GetSuppliers();
                 
+                if (suppliers == null || suppliers.Rows.Count == 0)
+                {
+                    return;
+                }
+
+                // Wire up selection changed event BEFORE setting data source
+                comboboxSuppliers.SelectedIndexChanged -= ComboboxSuppliers_SelectedIndexChanged;
+                comboboxSuppliers.SelectedIndexChanged += ComboboxSuppliers_SelectedIndexChanged;
+
+                // Use data binding instead of manually adding items
                 comboboxSuppliers.Properties.Items.Clear();
                 
                 foreach (DataRow row in suppliers.Rows)
                 {
                     string supplierName = row["supplier_name"]?.ToString();
-                    comboboxSuppliers.Properties.Items.Add(supplierName);
+                    if (!string.IsNullOrWhiteSpace(supplierName))
+                    {
+                        comboboxSuppliers.Properties.Items.Add(supplierName);
+                    }
                 }
 
                 // Find and select current supplier
@@ -100,11 +113,18 @@ namespace POS.PAL.USERCONTROL
                 if (currentSupplier != null && currentSupplier.Rows.Count > 0)
                 {
                     string currentName = currentSupplier.Rows[0]["supplier_name"]?.ToString();
-                    comboboxSuppliers.Text = currentName;
+                    
+                    // Find the index of the current supplier in the dropdown
+                    int index = comboboxSuppliers.Properties.Items.IndexOf(currentName);
+                    if (index >= 0)
+                    {
+                        comboboxSuppliers.SelectedIndex = index;
+                    }
+                    else
+                    {
+                        comboboxSuppliers.Text = currentName;
+                    }
                 }
-
-                // Wire up selection changed event
-                comboboxSuppliers.SelectedIndexChanged += ComboboxSuppliers_SelectedIndexChanged;
             }
             catch (Exception ex)
             {
@@ -124,25 +144,34 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
-                if (comboboxSuppliers.SelectedIndex >= 0)
+                // Check if an item is selected
+                if (comboboxSuppliers.SelectedIndex < 0 || string.IsNullOrWhiteSpace(comboboxSuppliers.Text))
                 {
-                    string selectedName = comboboxSuppliers.Text;
-                    
-                    // Find supplier by name
-                    DataTable suppliers = _bllContacts.GetSuppliers();
-                    foreach (DataRow row in suppliers.Rows)
+                    return;
+                }
+
+                string selectedName = comboboxSuppliers.Text.Trim();
+                
+                // Find supplier by name
+                DataTable suppliers = _bllContacts.GetSuppliers();
+                if (suppliers == null || suppliers.Rows.Count == 0)
+                {
+                    return;
+                }
+
+                foreach (DataRow row in suppliers.Rows)
+                {
+                    if (row["supplier_name"]?.ToString()?.Trim() == selectedName)
                     {
-                        if (row["supplier_name"]?.ToString() == selectedName)
+                        int newSupplierId = Convert.ToInt32(row["supplier_id"]);
+                        
+                        // Only reload if it's a different supplier
+                        if (newSupplierId != _supplierId)
                         {
-                            int newSupplierId = Convert.ToInt32(row["supplier_id"]);
-                            
-                            if (newSupplierId != _supplierId)
-                            {
-                                _supplierId = newSupplierId;
-                                LoadSupplierDetails();
-                            }
-                            break;
+                            _supplierId = newSupplierId;
+                            LoadSupplierDetails();
                         }
+                        break;
                     }
                 }
             }

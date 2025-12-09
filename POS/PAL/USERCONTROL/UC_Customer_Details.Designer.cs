@@ -184,7 +184,7 @@
             // 
             lblTableName.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             lblTableName.Appearance.Options.UseFont = true;
-            lblTableName.Location = new System.Drawing.Point(245, 38);
+            lblTableName.Location = new System.Drawing.Point(73, 59);
             lblTableName.Name = "lblTableName";
             lblTableName.Size = new System.Drawing.Size(71, 17);
             lblTableName.TabIndex = 3;

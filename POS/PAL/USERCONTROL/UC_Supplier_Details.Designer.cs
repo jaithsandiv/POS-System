@@ -36,6 +36,7 @@
             btnSave = new DevExpress.XtraEditors.SimpleButton();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            btnPayDueAmount = new DevExpress.XtraEditors.SimpleButton();
             btnAddDiscount = new DevExpress.XtraEditors.SimpleButton();
             lblCustomerEmail = new DevExpress.XtraEditors.LabelControl();
             lblSupplierPhoneNo = new DevExpress.XtraEditors.LabelControl();
@@ -47,7 +48,6 @@
             lblCustomerName = new DevExpress.XtraEditors.LabelControl();
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
             xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
-            btnPayDueAmount = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
@@ -155,6 +155,20 @@
             panelControl2.Size = new System.Drawing.Size(1848, 306);
             panelControl2.TabIndex = 129;
             // 
+            // btnPayDueAmount
+            // 
+            btnPayDueAmount.Appearance.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
+            btnPayDueAmount.Appearance.BorderColor = System.Drawing.Color.Transparent;
+            btnPayDueAmount.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            btnPayDueAmount.Appearance.Options.UseBackColor = true;
+            btnPayDueAmount.Appearance.Options.UseBorderColor = true;
+            btnPayDueAmount.Appearance.Options.UseFont = true;
+            btnPayDueAmount.Location = new System.Drawing.Point(1703, 201);
+            btnPayDueAmount.Name = "btnPayDueAmount";
+            btnPayDueAmount.Size = new System.Drawing.Size(126, 40);
+            btnPayDueAmount.TabIndex = 11;
+            btnPayDueAmount.Text = "Pay Due Amount";
+            // 
             // btnAddDiscount
             // 
             btnAddDiscount.Appearance.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
@@ -242,7 +256,7 @@
             // 
             lblTableName.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             lblTableName.Appearance.Options.UseFont = true;
-            lblTableName.Location = new System.Drawing.Point(245, 38);
+            lblTableName.Location = new System.Drawing.Point(73, 60);
             lblTableName.Name = "lblTableName";
             lblTableName.Size = new System.Drawing.Size(71, 17);
             lblTableName.TabIndex = 3;
@@ -274,20 +288,6 @@
             xtraScrollableControl1.Name = "xtraScrollableControl1";
             xtraScrollableControl1.Size = new System.Drawing.Size(1848, 574);
             xtraScrollableControl1.TabIndex = 130;
-            // 
-            // btnPayDueAmount
-            // 
-            btnPayDueAmount.Appearance.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
-            btnPayDueAmount.Appearance.BorderColor = System.Drawing.Color.Transparent;
-            btnPayDueAmount.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            btnPayDueAmount.Appearance.Options.UseBackColor = true;
-            btnPayDueAmount.Appearance.Options.UseBorderColor = true;
-            btnPayDueAmount.Appearance.Options.UseFont = true;
-            btnPayDueAmount.Location = new System.Drawing.Point(1703, 201);
-            btnPayDueAmount.Name = "btnPayDueAmount";
-            btnPayDueAmount.Size = new System.Drawing.Size(126, 40);
-            btnPayDueAmount.TabIndex = 11;
-            btnPayDueAmount.Text = "Pay Due Amount";
             // 
             // UC_Supplier_Details
             // 
