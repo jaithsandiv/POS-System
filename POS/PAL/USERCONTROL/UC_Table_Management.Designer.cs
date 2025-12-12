@@ -34,7 +34,8 @@ namespace POS.PAL.USERCONTROL
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.gridControlTables = new DevExpress.XtraGrid.GridControl();
             this.gridViewTables = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.searchControl1 = new DevExpress.XtraEditors.SearchControl();
+            this.txtSearch = new DevExpress.XtraEditors.TextEdit();
+            this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.btnAddTable = new DevExpress.XtraEditors.SimpleButton();
             this.btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
             this.btnColumnVisibilty = new DevExpress.XtraEditors.SimpleButton();
@@ -55,7 +56,6 @@ namespace POS.PAL.USERCONTROL
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlTables)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewTables)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.searchControl1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupContainerEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
@@ -98,7 +98,8 @@ namespace POS.PAL.USERCONTROL
             this.panelControl2.Appearance.Options.UseBorderColor = true;
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl2.Controls.Add(this.gridControlTables);
-            this.panelControl2.Controls.Add(this.searchControl1);
+            this.panelControl2.Controls.Add(this.txtSearch);
+            this.panelControl2.Controls.Add(this.btnSearch);
             this.panelControl2.Controls.Add(this.btnAddTable);
             this.panelControl2.Controls.Add(this.btnExportPDF);
             this.panelControl2.Controls.Add(this.btnColumnVisibilty);
@@ -147,15 +148,29 @@ namespace POS.PAL.USERCONTROL
             this.gridViewTables.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
             this.gridViewTables.RowHeight = 44;
             // 
-            // searchControl1
+            // txtSearch
             // 
-            this.searchControl1.Location = new System.Drawing.Point(1745, 40);
-            this.searchControl1.Name = "searchControl1";
-            this.searchControl1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Repository.ClearButton(),
-            new DevExpress.XtraEditors.Repository.SearchButton()});
-            this.searchControl1.Size = new System.Drawing.Size(123, 20);
-            this.searchControl1.TabIndex = 17;
+            this.txtSearch.Location = new System.Drawing.Point(27, 23);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Properties.Appearance.Options.UseFont = true;
+            this.txtSearch.Properties.Padding = new System.Windows.Forms.Padding(10);
+            this.txtSearch.Size = new System.Drawing.Size(343, 44);
+            this.txtSearch.TabIndex = 114;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(181)))), ((int)(((byte)(152)))));
+            this.btnSearch.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Appearance.Options.UseBackColor = true;
+            this.btnSearch.Appearance.Options.UseFont = true;
+            this.btnSearch.AppearanceHovered.Options.UseBackColor = true;
+            this.btnSearch.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnSearch.Location = new System.Drawing.Point(370, 23);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(60, 44);
+            this.btnSearch.TabIndex = 113;
+            this.btnSearch.Text = "Search";
             // 
             // btnAddTable
             // 
@@ -321,7 +336,7 @@ namespace POS.PAL.USERCONTROL
             this.panelControl2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlTables)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewTables)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.searchControl1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupContainerEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
@@ -336,7 +351,8 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraGrid.GridControl gridControlTables;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewTables;
-        private DevExpress.XtraEditors.SearchControl searchControl1;
+        private DevExpress.XtraEditors.TextEdit txtSearch;
+        private DevExpress.XtraEditors.SimpleButton btnSearch;
         private DevExpress.XtraEditors.SimpleButton btnAddTable;
         private DevExpress.XtraEditors.SimpleButton btnExportPDF;
         private DevExpress.XtraEditors.SimpleButton btnColumnVisibilty;

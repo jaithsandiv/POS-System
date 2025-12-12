@@ -34,6 +34,8 @@ namespace POS.PAL.USERCONTROL
             this.btnPrint = new System.Windows.Forms.Button();
             this.gridBarcodePrints = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.txtSearch = new DevExpress.XtraEditors.TextEdit();
+            this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
 
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -46,6 +48,7 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)(this.chkPromo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridBarcodePrints)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).BeginInit();
             this.SuspendLayout();
 
             // panelControl1 (Top Input Area)
@@ -68,6 +71,8 @@ namespace POS.PAL.USERCONTROL
             this.panelControl1.Controls.Add(this.lblProduct);
             this.panelControl1.Controls.Add(this.lblSubtitle);
             this.panelControl1.Controls.Add(this.lblTitle);
+            this.panelControl1.Controls.Add(this.txtSearch);
+            this.panelControl1.Controls.Add(this.btnSearch);
 
             // Title
             this.lblTitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold);
@@ -185,6 +190,31 @@ namespace POS.PAL.USERCONTROL
             this.gridView1.ColumnPanelRowHeight = 44;
             this.gridView1.RowHeight = 44;
 
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(500, 220);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Properties.Appearance.Options.UseFont = true;
+            this.txtSearch.Properties.Padding = new System.Windows.Forms.Padding(10);
+            this.txtSearch.Size = new System.Drawing.Size(200, 44);
+            this.txtSearch.TabIndex = 114;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(181)))), ((int)(((byte)(152)))));
+            this.btnSearch.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Appearance.Options.UseBackColor = true;
+            this.btnSearch.Appearance.Options.UseFont = true;
+            this.btnSearch.AppearanceHovered.Options.UseBackColor = true;
+            this.btnSearch.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnSearch.Location = new System.Drawing.Point(710, 220);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(60, 44);
+            this.btnSearch.TabIndex = 113;
+            this.btnSearch.Text = "Search";
+
             // Main
             this.Appearance.BackColor = System.Drawing.Color.White;
             this.Appearance.Options.UseBackColor = true;
@@ -227,5 +257,7 @@ namespace POS.PAL.USERCONTROL
         private System.Windows.Forms.Button btnPrint;
         private DevExpress.XtraGrid.GridControl gridBarcodePrints;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraEditors.TextEdit txtSearch;
+        private DevExpress.XtraEditors.SimpleButton btnSearch;
     }
 }

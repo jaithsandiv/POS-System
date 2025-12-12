@@ -23,11 +23,18 @@ namespace POS.PAL.USERCONTROL
             LoadData();
 
             // Wire up search events
-            if (searchControl1 != null)
-                searchControl1.KeyDown += searchControl1_KeyDown;
+            if (btnSearch != null)
+                btnSearch.Click += btnSearch_Click;
+            if (txtSearch != null)
+                txtSearch.KeyDown += txtSearch_KeyDown;
         }
 
-        private void searchControl1_KeyDown(object sender, KeyEventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            PerformSearch();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -39,7 +46,7 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
-                string keyword = searchControl1.Text.Trim();
+                string keyword = txtSearch.Text.Trim();
                 DataTable dt = _bllProducts.SearchCategories(keyword);
                 gridCategories.DataSource = dt;
             }

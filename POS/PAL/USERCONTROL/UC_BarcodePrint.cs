@@ -22,6 +22,39 @@ namespace POS.PAL.USERCONTROL
             LoadProducts();
             ConfigureGrid();
             LoadData();
+
+            // Wire up search events
+            if (btnSearch != null)
+                btnSearch.Click += btnSearch_Click;
+            if (txtSearch != null)
+                txtSearch.KeyDown += txtSearch_KeyDown;
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            PerformSearch();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                PerformSearch();
+            }
+        }
+
+        private void PerformSearch()
+        {
+            try
+            {
+                string keyword = txtSearch.Text.Trim();
+                DataTable dt = _bllProducts.SearchBarcodePrints(keyword);
+                gridBarcodePrints.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error searching data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadProducts()
