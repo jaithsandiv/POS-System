@@ -428,3 +428,123 @@ INSERT INTO SystemSetting (setting_key, setting_value, status) VALUES
 ('AUTO_PRINT_ON_COMPLETION', 'True', 'A'),
 ('thermal_printer_name', 'Microsoft Print to PDF', 'A'),
 ('kot_enabled', 'False', 'A');
+
+
+
+
+
+
+USE [POS-db]
+GO
+
+-- =============================================
+-- 1. Dashboard KPI Cards
+-- =============================================
+CREATE OR ALTER PROCEDURE usp_GetDashboardKpis
+    @FromDate DATETIME2,
+    @ToDate DATETIME2
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @TotalSales DECIMAL(14,2);
+    DECLARE @TotalTransactions INT;
+    DECLARE @TotalSalesReturn DECIMAL(14,2);
+    DECLARE @InvoiceDue DECIMAL(14,2);
+    DECLARE @TotalCashSales DECIMAL(14,2);
+    DECLARE @LowStockCount INT;
+
+    -- 1. Total Sales & Transactions (Active Sales)
+    SELECT 
+        @TotalSales = ISNULL(SUM(grand_total), 0),
+        @TotalTransactions = COUNT(sale_id)
+    FROM Sale
+    WHERE sale_type = 'SALE' 
+      AND status = 'A' 
+      AND created_date BETWEEN @FromDate AND @ToDate;
+
+    -- 2. Total Sales Return
+    SELECT 
+        @TotalSalesReturn = ISNULL(SUM(total_amount), 0)
+    FROM SaleReturn
+    WHERE status = 'A' 
+      AND created_date BETWEEN @FromDate AND @ToDate;
+
+    -- 3. Invoice Due (Outstanding balance for sales generated in this period)
+    SELECT 
+        @InvoiceDue = ISNULL(SUM(grand_total - total_paid), 0)
+    FROM Sale
+    WHERE sale_type = 'SALE' 
+      AND status = 'A' 
+      AND payment_status IN ('PENDING', 'PARTIAL', 'CREDIT')
+      AND created_date BETWEEN @FromDate AND @ToDate;
+
+    -- 4. Total Cash Sales (Actual Cash received in this period)
+    SELECT 
+        @TotalCashSales = ISNULL(SUM(amount), 0)
+    FROM Payment
+    WHERE payment_method = 'CASH'
+      AND status = 'A'
+      AND created_date BETWEEN @FromDate AND @ToDate;
+
+    -- 5. Low Stock Items (Snapshot - items with <= 10 qty)
+    SELECT 
+        @LowStockCount = COUNT(product_id)
+    FROM Product
+    WHERE status = 'A' 
+      AND stock_quantity <= 10;
+
+    -- Return Single Row Result
+    SELECT 
+        @TotalSales AS TotalSales,
+        @TotalTransactions AS TotalTransactions,
+        (@TotalSales - @TotalSalesReturn) AS NetSales,
+        @InvoiceDue AS InvoiceDue,
+        @TotalSalesReturn AS TotalSalesReturn,
+        @TotalCashSales AS TotalCashSales,
+        CASE WHEN @TotalTransactions > 0 THEN @TotalSales / @TotalTransactions ELSE 0 END AS AvgSaleValue,
+        @LowStockCount AS LowStockCount;
+END;
+GO
+
+-- =============================================
+-- 2. Sales Trend Chart (Daily Sales)
+-- =============================================
+CREATE OR ALTER PROCEDURE usp_GetDashboardSalesTrend
+    @FromDate DATETIME2,
+    @ToDate DATETIME2
+AS
+BEGIN
+    SELECT 
+        CAST(created_date AS DATE) AS Argument, -- Date for X-Axis
+        SUM(grand_total) AS Value               -- Amount for Y-Axis
+    FROM Sale
+    WHERE sale_type = 'SALE' 
+      AND status = 'A' 
+      AND created_date BETWEEN @FromDate AND @ToDate
+    GROUP BY CAST(created_date AS DATE)
+    ORDER BY Argument;
+END;
+GO
+
+-- =============================================
+-- 3. Top Products Chart (Top 5 by Qty)
+-- =============================================
+CREATE OR ALTER PROCEDURE usp_GetDashboardTopProducts
+    @FromDate DATETIME2,
+    @ToDate DATETIME2
+AS
+BEGIN
+    SELECT TOP 5
+        p.product_name AS Argument,
+        SUM(si.quantity) AS Value
+    FROM SaleItem si
+    JOIN Sale s ON si.sale_id = s.sale_id
+    JOIN Product p ON si.product_id = p.product_id
+    WHERE s.sale_type = 'SALE' 
+      AND s.status = 'A' 
+      AND s.created_date BETWEEN @FromDate AND @ToDate
+    GROUP BY p.product_name
+    ORDER BY Value DESC;
+END;
+GO
