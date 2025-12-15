@@ -30,31 +30,35 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Customer_Details));
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
-            labelControl29 = new DevExpress.XtraEditors.LabelControl();
+            xtraScrollableControlCustomerDetails = new DevExpress.XtraEditors.XtraScrollableControl();
+            lblEndDate = new DevExpress.XtraEditors.LabelControl();
+            labelControl32 = new DevExpress.XtraEditors.LabelControl();
+            lblStartDate = new DevExpress.XtraEditors.LabelControl();
+            labelControl30 = new DevExpress.XtraEditors.LabelControl();
+            lblCustomerPhoneNumber = new DevExpress.XtraEditors.LabelControl();
             labelControl28 = new DevExpress.XtraEditors.LabelControl();
-            labelControl27 = new DevExpress.XtraEditors.LabelControl();
+            lblCustomerName1 = new DevExpress.XtraEditors.LabelControl();
             panelControl5 = new DevExpress.XtraEditors.PanelControl();
             labelControl26 = new DevExpress.XtraEditors.LabelControl();
-            labelControl21 = new DevExpress.XtraEditors.LabelControl();
-            labelControl22 = new DevExpress.XtraEditors.LabelControl();
-            labelControl23 = new DevExpress.XtraEditors.LabelControl();
-            labelControl24 = new DevExpress.XtraEditors.LabelControl();
-            labelControl25 = new DevExpress.XtraEditors.LabelControl();
+            lblBalanceDueC = new DevExpress.XtraEditors.LabelControl();
+            lblAdvanceBalanceC = new DevExpress.XtraEditors.LabelControl();
+            lblTotalPaidC = new DevExpress.XtraEditors.LabelControl();
+            lblTotalInvoiceC = new DevExpress.XtraEditors.LabelControl();
+            lblOpeningBalanceC = new DevExpress.XtraEditors.LabelControl();
             labelControl20 = new DevExpress.XtraEditors.LabelControl();
             labelControl19 = new DevExpress.XtraEditors.LabelControl();
             labelControl18 = new DevExpress.XtraEditors.LabelControl();
             labelControl17 = new DevExpress.XtraEditors.LabelControl();
             labelControl16 = new DevExpress.XtraEditors.LabelControl();
             labelControl15 = new DevExpress.XtraEditors.LabelControl();
-            labelControl13 = new DevExpress.XtraEditors.LabelControl();
-            labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            lblStartDate1 = new DevExpress.XtraEditors.LabelControl();
+            lblEndDate1 = new DevExpress.XtraEditors.LabelControl();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             panelControl4 = new DevExpress.XtraEditors.PanelControl();
             labelControl11 = new DevExpress.XtraEditors.LabelControl();
-            labelControl10 = new DevExpress.XtraEditors.LabelControl();
-            labelControl9 = new DevExpress.XtraEditors.LabelControl();
-            labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            lblStoreCountryC = new DevExpress.XtraEditors.LabelControl();
+            lblStoreAddressC = new DevExpress.XtraEditors.LabelControl();
+            lblBusinesName = new DevExpress.XtraEditors.LabelControl();
             gridControl1 = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
@@ -81,7 +85,7 @@
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
-            xtraScrollableControl1.SuspendLayout();
+            xtraScrollableControlCustomerDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl5).BeginInit();
             panelControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
@@ -104,7 +108,7 @@
             panelControl1.Appearance.BackColor = System.Drawing.Color.White;
             panelControl1.Appearance.Options.UseBackColor = true;
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
-            panelControl1.Controls.Add(xtraScrollableControl1);
+            panelControl1.Controls.Add(xtraScrollableControlCustomerDetails);
             panelControl1.Controls.Add(panelControl2);
             panelControl1.Controls.Add(panelControl3);
             panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -113,51 +117,103 @@
             panelControl1.Size = new System.Drawing.Size(1920, 1001);
             panelControl1.TabIndex = 0;
             // 
-            // xtraScrollableControl1
+            // xtraScrollableControlCustomerDetails
             // 
-            xtraScrollableControl1.Controls.Add(labelControl29);
-            xtraScrollableControl1.Controls.Add(labelControl28);
-            xtraScrollableControl1.Controls.Add(labelControl27);
-            xtraScrollableControl1.Controls.Add(panelControl5);
-            xtraScrollableControl1.Controls.Add(labelControl21);
-            xtraScrollableControl1.Controls.Add(labelControl22);
-            xtraScrollableControl1.Controls.Add(labelControl23);
-            xtraScrollableControl1.Controls.Add(labelControl24);
-            xtraScrollableControl1.Controls.Add(labelControl25);
-            xtraScrollableControl1.Controls.Add(labelControl20);
-            xtraScrollableControl1.Controls.Add(labelControl19);
-            xtraScrollableControl1.Controls.Add(labelControl18);
-            xtraScrollableControl1.Controls.Add(labelControl17);
-            xtraScrollableControl1.Controls.Add(labelControl16);
-            xtraScrollableControl1.Controls.Add(labelControl15);
-            xtraScrollableControl1.Controls.Add(labelControl13);
-            xtraScrollableControl1.Controls.Add(labelControl12);
-            xtraScrollableControl1.Controls.Add(separatorControl1);
-            xtraScrollableControl1.Controls.Add(panelControl4);
-            xtraScrollableControl1.Controls.Add(labelControl10);
-            xtraScrollableControl1.Controls.Add(labelControl9);
-            xtraScrollableControl1.Controls.Add(labelControl8);
-            xtraScrollableControl1.Controls.Add(gridControl1);
-            xtraScrollableControl1.Controls.Add(labelControl7);
-            xtraScrollableControl1.Controls.Add(comboBoxStoreLocation);
-            xtraScrollableControl1.Controls.Add(labelControl6);
-            xtraScrollableControl1.Controls.Add(comboBoxEndDateFilter);
-            xtraScrollableControl1.Controls.Add(labelControl5);
-            xtraScrollableControl1.Controls.Add(comboBoxStartDateFilter);
-            xtraScrollableControl1.Location = new System.Drawing.Point(37, 261);
-            xtraScrollableControl1.Name = "xtraScrollableControl1";
-            xtraScrollableControl1.Size = new System.Drawing.Size(1848, 722);
-            xtraScrollableControl1.TabIndex = 127;
+            xtraScrollableControlCustomerDetails.Controls.Add(lblEndDate);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl32);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblStartDate);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl30);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblCustomerPhoneNumber);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl28);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblCustomerName1);
+            xtraScrollableControlCustomerDetails.Controls.Add(panelControl5);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblBalanceDueC);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblAdvanceBalanceC);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblTotalPaidC);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblTotalInvoiceC);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblOpeningBalanceC);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl20);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl19);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl18);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl17);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl16);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl15);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblStartDate1);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblEndDate1);
+            xtraScrollableControlCustomerDetails.Controls.Add(separatorControl1);
+            xtraScrollableControlCustomerDetails.Controls.Add(panelControl4);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblStoreCountryC);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblStoreAddressC);
+            xtraScrollableControlCustomerDetails.Controls.Add(lblBusinesName);
+            xtraScrollableControlCustomerDetails.Controls.Add(gridControl1);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl7);
+            xtraScrollableControlCustomerDetails.Controls.Add(comboBoxStoreLocation);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl6);
+            xtraScrollableControlCustomerDetails.Controls.Add(comboBoxEndDateFilter);
+            xtraScrollableControlCustomerDetails.Controls.Add(labelControl5);
+            xtraScrollableControlCustomerDetails.Controls.Add(comboBoxStartDateFilter);
+            xtraScrollableControlCustomerDetails.Location = new System.Drawing.Point(37, 261);
+            xtraScrollableControlCustomerDetails.Name = "xtraScrollableControlCustomerDetails";
+            xtraScrollableControlCustomerDetails.Size = new System.Drawing.Size(1848, 722);
+            xtraScrollableControlCustomerDetails.TabIndex = 127;
             // 
-            // labelControl29
+            // lblEndDate
             // 
-            labelControl29.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl29.Appearance.Options.UseFont = true;
-            labelControl29.Location = new System.Drawing.Point(162, 257);
-            labelControl29.Name = "labelControl29";
-            labelControl29.Size = new System.Drawing.Size(62, 17);
-            labelControl29.TabIndex = 11;
-            labelControl29.Text = "07xxxxxxxx";
+            lblEndDate.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblEndDate.Appearance.Options.UseFont = true;
+            lblEndDate.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            lblEndDate.ImageOptions.DisabledImage = (System.Drawing.Image)resources.GetObject("lblEndDate.ImageOptions.DisabledImage");
+            lblEndDate.Location = new System.Drawing.Point(1073, 387);
+            lblEndDate.Name = "lblEndDate";
+            lblEndDate.Size = new System.Drawing.Size(82, 23);
+            lblEndDate.TabIndex = 156;
+            lblEndDate.Text = "21/12/2025";
+            // 
+            // labelControl32
+            // 
+            labelControl32.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl32.Appearance.Options.UseFont = true;
+            labelControl32.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            labelControl32.ImageOptions.DisabledImage = (System.Drawing.Image)resources.GetObject("labelControl32.ImageOptions.DisabledImage");
+            labelControl32.Location = new System.Drawing.Point(1038, 387);
+            labelControl32.Name = "labelControl32";
+            labelControl32.Size = new System.Drawing.Size(29, 23);
+            labelControl32.TabIndex = 155;
+            labelControl32.Text = "and";
+            // 
+            // lblStartDate
+            // 
+            lblStartDate.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblStartDate.Appearance.Options.UseFont = true;
+            lblStartDate.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            lblStartDate.ImageOptions.DisabledImage = (System.Drawing.Image)resources.GetObject("lblStartDate.ImageOptions.DisabledImage");
+            lblStartDate.Location = new System.Drawing.Point(950, 387);
+            lblStartDate.Name = "lblStartDate";
+            lblStartDate.Size = new System.Drawing.Size(82, 23);
+            lblStartDate.TabIndex = 154;
+            lblStartDate.Text = "21/12/2025";
+            // 
+            // labelControl30
+            // 
+            labelControl30.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl30.Appearance.Options.UseFont = true;
+            labelControl30.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            labelControl30.ImageOptions.DisabledImage = (System.Drawing.Image)resources.GetObject("labelControl30.ImageOptions.DisabledImage");
+            labelControl30.Location = new System.Drawing.Point(605, 387);
+            labelControl30.Name = "labelControl30";
+            labelControl30.Size = new System.Drawing.Size(339, 23);
+            labelControl30.TabIndex = 153;
+            labelControl30.Text = "Showing all invoices and payments between";
+            // 
+            // lblCustomerPhoneNumber
+            // 
+            lblCustomerPhoneNumber.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblCustomerPhoneNumber.Appearance.Options.UseFont = true;
+            lblCustomerPhoneNumber.Location = new System.Drawing.Point(162, 257);
+            lblCustomerPhoneNumber.Name = "lblCustomerPhoneNumber";
+            lblCustomerPhoneNumber.Size = new System.Drawing.Size(62, 17);
+            lblCustomerPhoneNumber.TabIndex = 11;
+            lblCustomerPhoneNumber.Text = "07xxxxxxxx";
             // 
             // labelControl28
             // 
@@ -171,15 +227,15 @@
             labelControl28.TabIndex = 11;
             labelControl28.Text = "Phone Number:";
             // 
-            // labelControl27
+            // lblCustomerName1
             // 
-            labelControl27.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl27.Appearance.Options.UseFont = true;
-            labelControl27.Location = new System.Drawing.Point(35, 218);
-            labelControl27.Name = "labelControl27";
-            labelControl27.Size = new System.Drawing.Size(156, 30);
-            labelControl27.TabIndex = 11;
-            labelControl27.Text = "Customer Name";
+            lblCustomerName1.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblCustomerName1.Appearance.Options.UseFont = true;
+            lblCustomerName1.Location = new System.Drawing.Point(35, 218);
+            lblCustomerName1.Name = "lblCustomerName1";
+            lblCustomerName1.Size = new System.Drawing.Size(156, 30);
+            lblCustomerName1.TabIndex = 11;
+            lblCustomerName1.Text = "Customer Name";
             // 
             // panelControl5
             // 
@@ -206,67 +262,67 @@
             labelControl26.TabIndex = 139;
             labelControl26.Text = "To";
             // 
-            // labelControl21
+            // lblBalanceDueC
             // 
-            labelControl21.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl21.Appearance.Options.UseFont = true;
-            labelControl21.Appearance.Options.UseTextOptions = true;
-            labelControl21.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            labelControl21.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            labelControl21.ImageOptions.DisabledImage = (System.Drawing.Image)resources.GetObject("labelControl21.ImageOptions.DisabledImage");
-            labelControl21.Location = new System.Drawing.Point(1718, 346);
-            labelControl21.Name = "labelControl21";
-            labelControl21.Size = new System.Drawing.Size(83, 23);
-            labelControl21.TabIndex = 152;
-            labelControl21.Text = "Rs. 1000.00";
+            lblBalanceDueC.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblBalanceDueC.Appearance.Options.UseFont = true;
+            lblBalanceDueC.Appearance.Options.UseTextOptions = true;
+            lblBalanceDueC.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            lblBalanceDueC.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            lblBalanceDueC.ImageOptions.DisabledImage = (System.Drawing.Image)resources.GetObject("lblBalanceDueC.ImageOptions.DisabledImage");
+            lblBalanceDueC.Location = new System.Drawing.Point(1718, 346);
+            lblBalanceDueC.Name = "lblBalanceDueC";
+            lblBalanceDueC.Size = new System.Drawing.Size(83, 23);
+            lblBalanceDueC.TabIndex = 152;
+            lblBalanceDueC.Text = "Rs. 1000.00";
             // 
-            // labelControl22
+            // lblAdvanceBalanceC
             // 
-            labelControl22.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl22.Appearance.Options.UseFont = true;
-            labelControl22.Appearance.Options.UseTextOptions = true;
-            labelControl22.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            labelControl22.Location = new System.Drawing.Point(1735, 323);
-            labelControl22.Name = "labelControl22";
-            labelControl22.Size = new System.Drawing.Size(66, 17);
-            labelControl22.TabIndex = 151;
-            labelControl22.Text = "Rs. 1000.00";
+            lblAdvanceBalanceC.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblAdvanceBalanceC.Appearance.Options.UseFont = true;
+            lblAdvanceBalanceC.Appearance.Options.UseTextOptions = true;
+            lblAdvanceBalanceC.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            lblAdvanceBalanceC.Location = new System.Drawing.Point(1735, 323);
+            lblAdvanceBalanceC.Name = "lblAdvanceBalanceC";
+            lblAdvanceBalanceC.Size = new System.Drawing.Size(66, 17);
+            lblAdvanceBalanceC.TabIndex = 151;
+            lblAdvanceBalanceC.Text = "Rs. 1000.00";
             // 
-            // labelControl23
+            // lblTotalPaidC
             // 
-            labelControl23.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl23.Appearance.Options.UseFont = true;
-            labelControl23.Appearance.Options.UseTextOptions = true;
-            labelControl23.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            labelControl23.Location = new System.Drawing.Point(1735, 300);
-            labelControl23.Name = "labelControl23";
-            labelControl23.Size = new System.Drawing.Size(66, 17);
-            labelControl23.TabIndex = 150;
-            labelControl23.Text = "Rs. 1000.00";
+            lblTotalPaidC.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblTotalPaidC.Appearance.Options.UseFont = true;
+            lblTotalPaidC.Appearance.Options.UseTextOptions = true;
+            lblTotalPaidC.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            lblTotalPaidC.Location = new System.Drawing.Point(1735, 300);
+            lblTotalPaidC.Name = "lblTotalPaidC";
+            lblTotalPaidC.Size = new System.Drawing.Size(66, 17);
+            lblTotalPaidC.TabIndex = 150;
+            lblTotalPaidC.Text = "Rs. 1000.00";
             // 
-            // labelControl24
+            // lblTotalInvoiceC
             // 
-            labelControl24.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl24.Appearance.Options.UseFont = true;
-            labelControl24.Appearance.Options.UseTextOptions = true;
-            labelControl24.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            labelControl24.Location = new System.Drawing.Point(1735, 277);
-            labelControl24.Name = "labelControl24";
-            labelControl24.Size = new System.Drawing.Size(66, 17);
-            labelControl24.TabIndex = 149;
-            labelControl24.Text = "Rs. 1000.00";
+            lblTotalInvoiceC.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblTotalInvoiceC.Appearance.Options.UseFont = true;
+            lblTotalInvoiceC.Appearance.Options.UseTextOptions = true;
+            lblTotalInvoiceC.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            lblTotalInvoiceC.Location = new System.Drawing.Point(1735, 277);
+            lblTotalInvoiceC.Name = "lblTotalInvoiceC";
+            lblTotalInvoiceC.Size = new System.Drawing.Size(66, 17);
+            lblTotalInvoiceC.TabIndex = 149;
+            lblTotalInvoiceC.Text = "Rs. 1000.00";
             // 
-            // labelControl25
+            // lblOpeningBalanceC
             // 
-            labelControl25.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl25.Appearance.Options.UseFont = true;
-            labelControl25.Appearance.Options.UseTextOptions = true;
-            labelControl25.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            labelControl25.Location = new System.Drawing.Point(1735, 254);
-            labelControl25.Name = "labelControl25";
-            labelControl25.Size = new System.Drawing.Size(66, 17);
-            labelControl25.TabIndex = 148;
-            labelControl25.Text = "Rs. 1000.00";
+            lblOpeningBalanceC.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblOpeningBalanceC.Appearance.Options.UseFont = true;
+            lblOpeningBalanceC.Appearance.Options.UseTextOptions = true;
+            lblOpeningBalanceC.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            lblOpeningBalanceC.Location = new System.Drawing.Point(1735, 254);
+            lblOpeningBalanceC.Name = "lblOpeningBalanceC";
+            lblOpeningBalanceC.Size = new System.Drawing.Size(66, 17);
+            lblOpeningBalanceC.TabIndex = 148;
+            lblOpeningBalanceC.Text = "Rs. 1000.00";
             // 
             // labelControl20
             // 
@@ -330,25 +386,25 @@
             labelControl15.TabIndex = 142;
             labelControl15.Text = "to";
             // 
-            // labelControl13
+            // lblStartDate1
             // 
-            labelControl13.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl13.Appearance.Options.UseFont = true;
-            labelControl13.Location = new System.Drawing.Point(1651, 208);
-            labelControl13.Name = "labelControl13";
-            labelControl13.Size = new System.Drawing.Size(58, 17);
-            labelControl13.TabIndex = 141;
-            labelControl13.Text = "Start Date";
+            lblStartDate1.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblStartDate1.Appearance.Options.UseFont = true;
+            lblStartDate1.Location = new System.Drawing.Point(1663, 208);
+            lblStartDate1.Name = "lblStartDate1";
+            lblStartDate1.Size = new System.Drawing.Size(66, 17);
+            lblStartDate1.TabIndex = 141;
+            lblStartDate1.Text = "29/12/2025";
             // 
-            // labelControl12
+            // lblEndDate1
             // 
-            labelControl12.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl12.Appearance.Options.UseFont = true;
-            labelControl12.Location = new System.Drawing.Point(1763, 208);
-            labelControl12.Name = "labelControl12";
-            labelControl12.Size = new System.Drawing.Size(53, 17);
-            labelControl12.TabIndex = 140;
-            labelControl12.Text = "End Date";
+            lblEndDate1.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblEndDate1.Appearance.Options.UseFont = true;
+            lblEndDate1.Location = new System.Drawing.Point(1753, 208);
+            lblEndDate1.Name = "lblEndDate1";
+            lblEndDate1.Size = new System.Drawing.Size(66, 17);
+            lblEndDate1.TabIndex = 140;
+            lblEndDate1.Text = "13/12/2025";
             // 
             // separatorControl1
             // 
@@ -384,44 +440,49 @@
             labelControl11.TabIndex = 139;
             labelControl11.Text = "Account Summary";
             // 
-            // labelControl10
+            // lblStoreCountryC
             // 
-            labelControl10.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl10.Appearance.Options.UseFont = true;
-            labelControl10.Location = new System.Drawing.Point(1686, 129);
-            labelControl10.Name = "labelControl10";
-            labelControl10.Size = new System.Drawing.Size(133, 17);
-            labelControl10.TabIndex = 137;
-            labelControl10.Text = "Store Location Country";
+            lblStoreCountryC.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblStoreCountryC.Appearance.Options.UseFont = true;
+            lblStoreCountryC.Appearance.Options.UseTextOptions = true;
+            lblStoreCountryC.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            lblStoreCountryC.Location = new System.Drawing.Point(1686, 129);
+            lblStoreCountryC.Name = "lblStoreCountryC";
+            lblStoreCountryC.Size = new System.Drawing.Size(133, 17);
+            lblStoreCountryC.TabIndex = 137;
+            lblStoreCountryC.Text = "Store Location Country";
             // 
-            // labelControl9
+            // lblStoreAddressC
             // 
-            labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl9.Appearance.Options.UseFont = true;
-            labelControl9.Location = new System.Drawing.Point(1683, 106);
-            labelControl9.Name = "labelControl9";
-            labelControl9.Size = new System.Drawing.Size(136, 17);
-            labelControl9.TabIndex = 136;
-            labelControl9.Text = "Store Location Address";
+            lblStoreAddressC.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lblStoreAddressC.Appearance.Options.UseFont = true;
+            lblStoreAddressC.Appearance.Options.UseTextOptions = true;
+            lblStoreAddressC.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            lblStoreAddressC.Location = new System.Drawing.Point(1683, 106);
+            lblStoreAddressC.Name = "lblStoreAddressC";
+            lblStoreAddressC.Size = new System.Drawing.Size(136, 17);
+            lblStoreAddressC.TabIndex = 136;
+            lblStoreAddressC.Text = "Store Location Address";
             // 
-            // labelControl8
+            // lblBusinesName
             // 
-            labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            labelControl8.ImageOptions.DisabledImage = (System.Drawing.Image)resources.GetObject("labelControl8.ImageOptions.DisabledImage");
-            labelControl8.Location = new System.Drawing.Point(1704, 77);
-            labelControl8.Name = "labelControl8";
-            labelControl8.Size = new System.Drawing.Size(115, 23);
-            labelControl8.TabIndex = 11;
-            labelControl8.Text = "Business Name";
+            lblBusinesName.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblBusinesName.Appearance.Options.UseFont = true;
+            lblBusinesName.Appearance.Options.UseTextOptions = true;
+            lblBusinesName.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            lblBusinesName.ImageOptions.DisabledImage = (System.Drawing.Image)resources.GetObject("lblBusinesName.ImageOptions.DisabledImage");
+            lblBusinesName.Location = new System.Drawing.Point(1704, 77);
+            lblBusinesName.Name = "lblBusinesName";
+            lblBusinesName.Size = new System.Drawing.Size(115, 23);
+            lblBusinesName.TabIndex = 11;
+            lblBusinesName.Text = "Business Name";
             // 
             // gridControl1
             // 
-            gridControl1.Location = new System.Drawing.Point(27, 399);
+            gridControl1.Location = new System.Drawing.Point(27, 416);
             gridControl1.MainView = gridView1;
             gridControl1.Name = "gridControl1";
-            gridControl1.Size = new System.Drawing.Size(1802, 435);
+            gridControl1.Size = new System.Drawing.Size(1802, 418);
             gridControl1.TabIndex = 135;
             gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
             // 
@@ -706,8 +767,8 @@
             Size = new System.Drawing.Size(1920, 1001);
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
-            xtraScrollableControl1.ResumeLayout(false);
-            xtraScrollableControl1.PerformLayout();
+            xtraScrollableControlCustomerDetails.ResumeLayout(false);
+            xtraScrollableControlCustomerDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl5).EndInit();
             panelControl5.ResumeLayout(false);
             panelControl5.PerformLayout();
@@ -750,7 +811,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.SimpleButton btnAddDiscount;
-        private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
+        private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControlCustomerDetails;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxStoreLocation;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEndDateFilter;
@@ -759,29 +820,33 @@
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraEditors.LabelControl labelControl7;
-        private DevExpress.XtraEditors.LabelControl labelControl10;
-        private DevExpress.XtraEditors.LabelControl labelControl9;
-        private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.LabelControl lblStoreCountryC;
+        private DevExpress.XtraEditors.LabelControl lblStoreAddressC;
+        private DevExpress.XtraEditors.LabelControl lblBusinesName;
         private DevExpress.XtraEditors.PanelControl panelControl4;
         private DevExpress.XtraEditors.LabelControl labelControl11;
         private DevExpress.XtraEditors.LabelControl labelControl15;
-        private DevExpress.XtraEditors.LabelControl labelControl13;
-        private DevExpress.XtraEditors.LabelControl labelControl12;
+        private DevExpress.XtraEditors.LabelControl lblStartDate1;
+        private DevExpress.XtraEditors.LabelControl lblEndDate1;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
         private DevExpress.XtraEditors.PanelControl panelControl5;
         private DevExpress.XtraEditors.LabelControl labelControl26;
-        private DevExpress.XtraEditors.LabelControl labelControl21;
-        private DevExpress.XtraEditors.LabelControl labelControl22;
-        private DevExpress.XtraEditors.LabelControl labelControl23;
-        private DevExpress.XtraEditors.LabelControl labelControl24;
-        private DevExpress.XtraEditors.LabelControl labelControl25;
+        private DevExpress.XtraEditors.LabelControl lblBalanceDueC;
+        private DevExpress.XtraEditors.LabelControl lblAdvanceBalanceC;
+        private DevExpress.XtraEditors.LabelControl lblTotalPaidC;
+        private DevExpress.XtraEditors.LabelControl lblTotalInvoiceC;
+        private DevExpress.XtraEditors.LabelControl lblOpeningBalanceC;
         private DevExpress.XtraEditors.LabelControl labelControl20;
         private DevExpress.XtraEditors.LabelControl labelControl19;
         private DevExpress.XtraEditors.LabelControl labelControl18;
         private DevExpress.XtraEditors.LabelControl labelControl17;
         private DevExpress.XtraEditors.LabelControl labelControl16;
-        private DevExpress.XtraEditors.LabelControl labelControl29;
+        private DevExpress.XtraEditors.LabelControl lblCustomerPhoneNumber;
         private DevExpress.XtraEditors.LabelControl labelControl28;
-        private DevExpress.XtraEditors.LabelControl labelControl27;
+        private DevExpress.XtraEditors.LabelControl lblCustomerName1;
+        private DevExpress.XtraEditors.LabelControl lblEndDate;
+        private DevExpress.XtraEditors.LabelControl labelControl32;
+        private DevExpress.XtraEditors.LabelControl lblStartDate;
+        private DevExpress.XtraEditors.LabelControl labelControl30;
     }
 }
