@@ -23,7 +23,6 @@ namespace POS
         private bool isCollapsed = false;
         private const int collapsedWidth = 0;
         private const int expandedWidth = 250;
-        private Timer animationTimer;
         private Timer clockTimer;
 
         public Main()
@@ -202,70 +201,40 @@ namespace POS
 
         private void btnToggleMenu_Click(object sender, EventArgs e)
         {
-            if (isCollapsed)
-                AnimateSidebar(true);
-            else
-                AnimateSidebar(false);
+            ToggleSidebar();
         }
 
-        private void AnimateSidebar(bool expand)
+        private void ToggleSidebar()
         {
-            // Stop any existing animation
-            if (animationTimer != null)
+            if (isCollapsed)
             {
-                animationTimer.Stop();
-                animationTimer.Dispose();
-                animationTimer = null;
+                panelSideBar.Width = expandedWidth;
+                isCollapsed = false;
+
+                // Restore button text after expansion
+                foreach (Control ctrl in panelSideBar.Controls)
+                {
+                    if (ctrl is SimpleButton btn)
+                    {
+                        btn.Text = btn.Tag?.ToString();
+                    }
+                }
             }
-
-            animationTimer = new Timer { Interval = 30 };
-            animationTimer.Tick += (s, e) =>
+            else
             {
-                if (expand)
-                {
-                    panelSideBar.Width += 30;
-                    if (panelSideBar.Width >= expandedWidth)
-                    {
-                        panelSideBar.Width = expandedWidth; // Ensure exact width
-                        animationTimer.Stop();
-                        animationTimer.Dispose();
-                        animationTimer = null;
-                        isCollapsed = false;
+                panelSideBar.Width = collapsedWidth;
+                isCollapsed = true;
 
-                        // Restore button text after expansion
-                        foreach (Control ctrl in panelSideBar.Controls)
-                        {
-                            if (ctrl is SimpleButton btn)
-                            {
-                                btn.Text = btn.Tag?.ToString();
-                            }
-                        }
+                // Hide button text after collapse
+                foreach (Control ctrl in panelSideBar.Controls)
+                {
+                    if (ctrl is SimpleButton btn)
+                    {
+                        btn.Text = "";
+                        btn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
                     }
                 }
-                else
-                {
-                    panelSideBar.Width -= 30;
-                    if (panelSideBar.Width <= collapsedWidth)
-                    {
-                        panelSideBar.Width = collapsedWidth; // Ensure exact width
-                        animationTimer.Stop();
-                        animationTimer.Dispose();
-                        animationTimer = null;
-                        isCollapsed = true;
-
-                        // Hide button text after collapse
-                        foreach (Control ctrl in panelSideBar.Controls)
-                        {
-                            if (ctrl is SimpleButton btn)
-                            {
-                                btn.Text = "";
-                                btn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-                            }
-                        }
-                    }
-                }
-            };
-            animationTimer.Start();
+            }
         }
 
         private void btnPOS_Click(object sender, EventArgs e)
