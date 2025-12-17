@@ -39,6 +39,8 @@
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            txtSearch = new DevExpress.XtraEditors.TextEdit();
+            btnSearch = new DevExpress.XtraEditors.SimpleButton();
             gridCustomers = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -59,7 +61,6 @@
             gridColumn16 = new DevExpress.XtraGrid.Columns.GridColumn();
             btnAddCustomer = new DevExpress.XtraEditors.SimpleButton();
             btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
-            btnColumnVisibilty = new DevExpress.XtraEditors.SimpleButton();
             btnPrint = new DevExpress.XtraEditors.SimpleButton();
             btnExportExcel = new DevExpress.XtraEditors.SimpleButton();
             btnExportCSV = new DevExpress.XtraEditors.SimpleButton();
@@ -68,18 +69,16 @@
             panelControl3 = new DevExpress.XtraEditors.PanelControl();
             simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
-            txtSearch = new DevExpress.XtraEditors.TextEdit();
-            btnSearch = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridCustomers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
             panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).BeginInit();
             SuspendLayout();
             // 
             // btn25Filtre
@@ -171,7 +170,6 @@
             panelControl2.Controls.Add(gridCustomers);
             panelControl2.Controls.Add(btnAddCustomer);
             panelControl2.Controls.Add(btnExportPDF);
-            panelControl2.Controls.Add(btnColumnVisibilty);
             panelControl2.Controls.Add(btnPrint);
             panelControl2.Controls.Add(btnExportExcel);
             panelControl2.Controls.Add(btnExportCSV);
@@ -179,6 +177,30 @@
             panelControl2.Name = "panelControl2";
             panelControl2.Size = new System.Drawing.Size(1894, 818);
             panelControl2.TabIndex = 116;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new System.Drawing.Point(27, 23);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtSearch.Properties.Appearance.Options.UseFont = true;
+            txtSearch.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtSearch.Size = new System.Drawing.Size(343, 44);
+            txtSearch.TabIndex = 114;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnSearch.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnSearch.Appearance.Options.UseBackColor = true;
+            btnSearch.Appearance.Options.UseFont = true;
+            btnSearch.AppearanceHovered.Options.UseBackColor = true;
+            btnSearch.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnSearch.ImageOptions.Image");
+            btnSearch.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            btnSearch.Location = new System.Drawing.Point(370, 23);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new System.Drawing.Size(60, 44);
+            btnSearch.TabIndex = 113;
             // 
             // gridCustomers
             // 
@@ -344,41 +366,58 @@
             // 
             // btnExportPDF
             // 
-            btnExportPDF.Location = new System.Drawing.Point(1033, 37);
+            btnExportPDF.Appearance.BackColor = System.Drawing.Color.White;
+            btnExportPDF.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnExportPDF.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnExportPDF.Appearance.Options.UseBackColor = true;
+            btnExportPDF.Appearance.Options.UseFont = true;
+            btnExportPDF.Appearance.Options.UseForeColor = true;
+            btnExportPDF.Location = new System.Drawing.Point(1668, 28);
             btnExportPDF.Name = "btnExportPDF";
-            btnExportPDF.Size = new System.Drawing.Size(75, 23);
+            btnExportPDF.Size = new System.Drawing.Size(100, 29);
             btnExportPDF.TabIndex = 16;
             btnExportPDF.Text = "Export PDF";
             // 
-            // btnColumnVisibilty
-            // 
-            btnColumnVisibilty.Location = new System.Drawing.Point(928, 37);
-            btnColumnVisibilty.Name = "btnColumnVisibilty";
-            btnColumnVisibilty.Size = new System.Drawing.Size(99, 23);
-            btnColumnVisibilty.TabIndex = 15;
-            btnColumnVisibilty.Text = "Column Visibilty";
-            // 
             // btnPrint
             // 
-            btnPrint.Location = new System.Drawing.Point(872, 37);
+            btnPrint.Appearance.BackColor = System.Drawing.Color.White;
+            btnPrint.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnPrint.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnPrint.Appearance.Options.UseBackColor = true;
+            btnPrint.Appearance.Options.UseFont = true;
+            btnPrint.Appearance.Options.UseForeColor = true;
+            btnPrint.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            btnPrint.Location = new System.Drawing.Point(1350, 28);
             btnPrint.Name = "btnPrint";
-            btnPrint.Size = new System.Drawing.Size(50, 23);
+            btnPrint.Size = new System.Drawing.Size(100, 29);
             btnPrint.TabIndex = 14;
             btnPrint.Text = "Print";
             // 
             // btnExportExcel
             // 
-            btnExportExcel.Location = new System.Drawing.Point(791, 37);
+            btnExportExcel.Appearance.BackColor = System.Drawing.Color.White;
+            btnExportExcel.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnExportExcel.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnExportExcel.Appearance.Options.UseBackColor = true;
+            btnExportExcel.Appearance.Options.UseFont = true;
+            btnExportExcel.Appearance.Options.UseForeColor = true;
+            btnExportExcel.Location = new System.Drawing.Point(1562, 28);
             btnExportExcel.Name = "btnExportExcel";
-            btnExportExcel.Size = new System.Drawing.Size(75, 23);
+            btnExportExcel.Size = new System.Drawing.Size(100, 29);
             btnExportExcel.TabIndex = 13;
             btnExportExcel.Text = "Export Excel";
             // 
             // btnExportCSV
             // 
-            btnExportCSV.Location = new System.Drawing.Point(710, 37);
+            btnExportCSV.Appearance.BackColor = System.Drawing.Color.White;
+            btnExportCSV.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnExportCSV.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnExportCSV.Appearance.Options.UseBackColor = true;
+            btnExportCSV.Appearance.Options.UseFont = true;
+            btnExportCSV.Appearance.Options.UseForeColor = true;
+            btnExportCSV.Location = new System.Drawing.Point(1456, 28);
             btnExportCSV.Name = "btnExportCSV";
-            btnExportCSV.Size = new System.Drawing.Size(75, 23);
+            btnExportCSV.Size = new System.Drawing.Size(100, 29);
             btnExportCSV.TabIndex = 12;
             btnExportCSV.Text = "Export CSV";
             // 
@@ -436,30 +475,6 @@
             separatorControl1.Size = new System.Drawing.Size(1767, 23);
             separatorControl1.TabIndex = 118;
             // 
-            // txtSearch
-            // 
-            txtSearch.Location = new System.Drawing.Point(27, 23);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            txtSearch.Properties.Appearance.Options.UseFont = true;
-            txtSearch.Properties.Padding = new System.Windows.Forms.Padding(10);
-            txtSearch.Size = new System.Drawing.Size(343, 44);
-            txtSearch.TabIndex = 114;
-            // 
-            // btnSearch
-            // 
-            btnSearch.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            btnSearch.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnSearch.Appearance.Options.UseBackColor = true;
-            btnSearch.Appearance.Options.UseFont = true;
-            btnSearch.AppearanceHovered.Options.UseBackColor = true;
-            btnSearch.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnSearch.ImageOptions.Image");
-            btnSearch.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            btnSearch.Location = new System.Drawing.Point(370, 23);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new System.Drawing.Size(60, 44);
-            btnSearch.TabIndex = 113;
-            // 
             // UC_Customer_Management
             // 
             Appearance.BackColor = System.Drawing.Color.White;
@@ -474,12 +489,12 @@
             panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).EndInit();
             panelControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridCustomers).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
             panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).EndInit();
             ResumeLayout(false);
         }
 
@@ -515,7 +530,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn16;
         private DevExpress.XtraEditors.SimpleButton btnAddCustomer;
         private DevExpress.XtraEditors.SimpleButton btnExportPDF;
-        private DevExpress.XtraEditors.SimpleButton btnColumnVisibilty;
         private DevExpress.XtraEditors.SimpleButton btnPrint;
         private DevExpress.XtraEditors.SimpleButton btnExportExcel;
         private DevExpress.XtraEditors.SimpleButton btnExportCSV;

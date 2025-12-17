@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.Controls;
+using System.IO;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraPrinting;
 
 namespace POS.PAL.USERCONTROL
 {
@@ -26,8 +29,442 @@ namespace POS.PAL.USERCONTROL
             ConfigureGrid();
             LoadSuppliers();
             
-            // Wire up search textbox events
-            txtSearch.KeyDown += TxtSearch_KeyDown;
+            // Initialize search control
+            InitializeSearchControl();
+            
+            // Initialize export buttons
+            InitializeExportButtons();
+        }
+
+        /// <summary>
+        /// Initializes the search control event handlers
+        /// </summary>
+        private void InitializeSearchControl()
+        {
+            txtSearch.Properties.NullValuePrompt = "Search suppliers...";
+            txtSearch.Properties.ShowNullValuePromptWhenFocused = true;
+            txtSearch.EditValueChanged += TxtSearch_EditValueChanged;
+            txtSearch.KeyPress += TxtSearch_KeyPress;
+            btnSearch.Click += BtnSearch_Click;
+        }
+
+        /// <summary>
+        /// Handles the search text box value change event
+        /// </summary>
+        private void TxtSearch_EditValueChanged(object sender, EventArgs e)
+        {
+            // Optional: Real-time search as user types
+            // Uncomment if you want search to happen while typing
+            // PerformSearch(txtSearch.Text);
+        }
+
+        /// <summary>
+        /// Handles the Enter key press in search text box
+        /// </summary>
+        private void TxtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                PerformSearch(txtSearch.Text);
+            }
+        }
+
+        /// <summary>
+        /// Initializes the export button event handlers
+        /// </summary>
+        private void InitializeExportButtons()
+        {
+            // Wire up export button events
+            if (btnExportCSV != null)
+                btnExportCSV.Click += BtnExportCSV_Click;
+            
+            if (btnExportExcel != null)
+                btnExportExcel.Click += BtnExportExcel_Click;
+            
+            if (btnExportPDF != null)
+                btnExportPDF.Click += BtnExportPDF_Click;
+            
+            if (btnPrint != null)
+                btnPrint.Click += BtnPrint_Click;
+        }
+
+        /// <summary>
+        /// Exports supplier data to CSV format
+        /// </summary>
+        private void BtnExportCSV_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (suppliersTable == null || suppliersTable.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show(
+                        "No supplier data to export.",
+                        "Export CSV",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "CSV files (*.csv)|*.csv",
+                    FileName = $"Suppliers_{DateTime.Now:yyyyMMdd_HHmmss}.csv",
+                    DefaultExt = "csv"
+                };
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Temporarily hide Edit and Delete columns
+                    var editColumn = gridView1.Columns["Edit"];
+                    var deleteColumn = gridView1.Columns["Delete"];
+                    bool editVisible = editColumn?.Visible ?? false;
+                    bool deleteVisible = deleteColumn?.Visible ?? false;
+
+                    if (editColumn != null) editColumn.Visible = false;
+                    if (deleteColumn != null) deleteColumn.Visible = false;
+
+                    try
+                    {
+                        // Export grid to CSV using DevExpress export functionality
+                        gridView1.ExportToCsv(saveFileDialog.FileName);
+
+                        XtraMessageBox.Show(
+                            $"Supplier data exported successfully to:\n{saveFileDialog.FileName}",
+                            "Export CSV",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                    finally
+                    {
+                        // Restore column visibility
+                        if (editColumn != null) editColumn.Visible = editVisible;
+                        if (deleteColumn != null) deleteColumn.Visible = deleteVisible;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error exporting to CSV: {ex.Message}",
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Exports supplier data to Excel format
+        /// </summary>
+        private void BtnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (suppliersTable == null || suppliersTable.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show(
+                        "No supplier data to export.",
+                        "Export Excel",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel files (*.xlsx)|*.xlsx",
+                    FileName = $"Suppliers_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx",
+                    DefaultExt = "xlsx"
+                };
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Temporarily hide Edit and Delete columns
+                    var editColumn = gridView1.Columns["Edit"];
+                    var deleteColumn = gridView1.Columns["Delete"];
+                    bool editVisible = editColumn?.Visible ?? false;
+                    bool deleteVisible = deleteColumn?.Visible ?? false;
+
+                    if (editColumn != null) editColumn.Visible = false;
+                    if (deleteColumn != null) deleteColumn.Visible = false;
+
+                    try
+                    {
+                        // Export grid to Excel using DevExpress export functionality
+                        gridView1.ExportToXlsx(saveFileDialog.FileName);
+
+                        XtraMessageBox.Show(
+                            $"Supplier data exported successfully to:\n{saveFileDialog.FileName}",
+                            "Export Excel",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                    finally
+                    {
+                        // Restore column visibility
+                        if (editColumn != null) editColumn.Visible = editVisible;
+                        if (deleteColumn != null) deleteColumn.Visible = deleteVisible;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error exporting to Excel: {ex.Message}",
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Exports supplier data to PDF format
+        /// </summary>
+        private void BtnExportPDF_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (suppliersTable == null || suppliersTable.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show(
+                        "No supplier data to export.",
+                        "Export PDF",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "PDF files (*.pdf)|*.pdf",
+                    FileName = $"Suppliers_{DateTime.Now:yyyyMMdd_HHmmss}.pdf",
+                    DefaultExt = "pdf"
+                };
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Temporarily hide Edit and Delete columns
+                    var editColumn = gridView1.Columns["Edit"];
+                    var deleteColumn = gridView1.Columns["Delete"];
+                    bool editVisible = editColumn?.Visible ?? false;
+                    bool deleteVisible = deleteColumn?.Visible ?? false;
+
+                    if (editColumn != null) editColumn.Visible = false;
+                    if (deleteColumn != null) deleteColumn.Visible = false;
+
+                    try
+                    {
+                        // Export grid to PDF using DevExpress export functionality
+                        gridView1.ExportToPdf(saveFileDialog.FileName);
+
+                        XtraMessageBox.Show(
+                            $"Supplier data exported successfully to:\n{saveFileDialog.FileName}",
+                            "Export PDF",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                    finally
+                    {
+                        // Restore column visibility
+                        if (editColumn != null) editColumn.Visible = editVisible;
+                        if (deleteColumn != null) deleteColumn.Visible = deleteVisible;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error exporting to PDF: {ex.Message}",
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Prints the supplier data using Windows default print dialog with preview
+        /// </summary>
+        private void BtnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (suppliersTable == null || suppliersTable.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show(
+                        "No supplier data to print.",
+                        "Print",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                // Temporarily hide Edit and Delete columns
+                var editColumn = gridView1.Columns["Edit"];
+                var deleteColumn = gridView1.Columns["Delete"];
+                bool editVisible = editColumn?.Visible ?? false;
+                bool deleteVisible = deleteColumn?.Visible ?? false;
+
+                if (editColumn != null) editColumn.Visible = false;
+                if (deleteColumn != null) deleteColumn.Visible = false;
+
+                try
+                {
+                    // Create a PrintableComponentLink to print the grid
+                    DevExpress.XtraPrinting.PrintableComponentLink printLink = 
+                        new DevExpress.XtraPrinting.PrintableComponentLink(new DevExpress.XtraPrinting.PrintingSystem());
+                    
+                    printLink.Component = gridSuppliers;
+                    
+                    // Configure print settings
+                    printLink.Landscape = true;
+                    printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
+                    
+                    // Set margins
+                    printLink.Margins.Left = 50;
+                    printLink.Margins.Right = 50;
+                    printLink.Margins.Top = 50;
+                    printLink.Margins.Bottom = 50;
+                    
+                    // Create document
+                    printLink.CreateDocument();
+                    printLink.PrintingSystem.Document.AutoFitToPagesWidth = 1;
+                    
+                    // Add header
+                    DevExpress.XtraPrinting.PageHeaderFooter header = printLink.PageHeaderFooter as DevExpress.XtraPrinting.PageHeaderFooter;
+                    if (header != null)
+                    {
+                        header.Header.Content.Clear();
+                        header.Header.Content.AddRange(new string[] {
+                            "Supplier List",
+                            "",
+                            $"Printed: {DateTime.Now:dd/MM/yyyy HH:mm}"
+                        });
+                        header.Header.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+                        header.Header.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
+                    }
+                    
+                    // Add footer with page numbers
+                    if (header != null)
+                    {
+                        header.Footer.Content.Clear();
+                        header.Footer.Content.AddRange(new string[] {
+                            "",
+                            "[Page # of Pages #]",
+                            ""
+                        });
+                        header.Footer.Font = new Font("Segoe UI", 9);
+                        header.Footer.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
+                    }
+
+                    // Show print preview dialog with print options
+                    // This allows users to preview, select printer, adjust settings, etc.
+                    printLink.ShowPreviewDialog();
+                }
+                finally
+                {
+                    // Restore column visibility
+                    if (editColumn != null) editColumn.Visible = editVisible;
+                    if (deleteColumn != null) deleteColumn.Visible = deleteVisible;
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error printing supplier data: {ex.Message}",
+                    "Print Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void btnAddSupplier_Click(object sender, EventArgs e)
+        {
+            Main.Instance.LoadUserControl(new UC_Supplier_Registration());
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            PerformSearch(txtSearch.Text);
+        }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            PerformSearch(txtSearch.Text);
+        }
+
+        /// <summary>
+        /// Performs search filtering on the supplier grid
+        /// </summary>
+        private void PerformSearch(string searchText)
+        {
+            try
+            {
+                if (suppliersTable == null || suppliersTable.Rows.Count == 0)
+                    return;
+
+                if (string.IsNullOrWhiteSpace(searchText))
+                {
+                    // If search is empty, show all records
+                    gridSuppliers.DataSource = suppliersTable;
+                    gridView1.RefreshData();
+                    return;
+                }
+
+                // Escape special characters for LIKE expression
+                searchText = searchText.Replace("'", "''").Replace("[", "[[]").Replace("%", "[%]").Replace("_", "[_]");
+
+                // Create a filtered view based on search text
+                DataView dataView = new DataView(suppliersTable);
+                
+                // Build filter expression to search across multiple columns
+                StringBuilder filterExpression = new StringBuilder();
+                
+                // Add conditions for each searchable column
+                List<string> conditions = new List<string>();
+                
+                conditions.Add($"CONVERT(supplier_id, 'System.String') LIKE '%{searchText}%'");
+                conditions.Add($"supplier_name LIKE '%{searchText}%'");
+                conditions.Add($"company_name LIKE '%{searchText}%'");
+                conditions.Add($"email LIKE '%{searchText}%'");
+                conditions.Add($"phone LIKE '%{searchText}%'");
+                conditions.Add($"address LIKE '%{searchText}%'");
+                conditions.Add($"status LIKE '%{searchText}%'");
+
+                // Join all conditions with OR
+                filterExpression.Append(string.Join(" OR ", conditions));
+
+                // Apply filter
+                dataView.RowFilter = filterExpression.ToString();
+                
+                // Create a new DataTable from the filtered view
+                DataTable filteredTable = dataView.ToTable();
+                
+                // Update grid data source
+                gridSuppliers.DataSource = filteredTable;
+                
+                // Refresh the grid view
+                gridView1.RefreshData();
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error performing search: {ex.Message}",
+                    "Search Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         /// <summary>
@@ -265,61 +702,6 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
-        /// Searches suppliers based on the search text
-        /// </summary>
-        private void SearchSuppliers()
-        {
-            try
-            {
-                string searchKeyword = txtSearch.Text.Trim();
-
-                if (string.IsNullOrWhiteSpace(searchKeyword))
-                {
-                    // If search is empty, load all suppliers
-                    LoadSuppliers();
-                    return;
-                }
-
-                suppliersTable = _bllContacts.SearchSuppliers(searchKeyword);
-                gridSuppliers.DataSource = suppliersTable;
-                gridView1.BestFitColumns();
-
-                // Show message if no results found
-                if (suppliersTable.Rows.Count == 0)
-                {
-                    XtraMessageBox.Show(
-                        $"No suppliers found matching '{searchKeyword}'.",
-                        "Search Results",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-                }
-            }
-            catch (Exception ex)
-            {
-                XtraMessageBox.Show(
-                    $"Error searching suppliers: {ex.Message}",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-        }
-
-        /// <summary>
-        /// Handle Enter key press in search textbox
-        /// </summary>
-        private void TxtSearch_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                SearchSuppliers();
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        /// <summary>
         /// Handle double-click to edit
         /// </summary>
         private void GridView1_DoubleClick(object sender, EventArgs e)
@@ -508,16 +890,6 @@ namespace POS.PAL.USERCONTROL
                     MessageBoxIcon.Error
                 );
             }
-        }
-
-        private void btnAddSupplier_Click(object sender, EventArgs e)
-        {
-            Main.Instance.LoadUserControl(new UC_Supplier_Registration());
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            SearchSuppliers();
         }
     }
 }
