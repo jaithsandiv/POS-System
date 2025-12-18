@@ -12,6 +12,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraPrinting;
 
 namespace POS.PAL.USERCONTROL
 {
@@ -34,6 +35,251 @@ namespace POS.PAL.USERCONTROL
                 btnSearch.Click += btnSearch_Click;
             if (txtSearch != null)
                 txtSearch.KeyDown += txtSearch_KeyDown;
+
+            // Wire up export button events
+            InitializeExportButtons();
+        }
+
+        /// <summary>
+        /// Initializes the export button event handlers
+        /// </summary>
+        private void InitializeExportButtons()
+        {
+            // Wire up export button events
+            if (btnExportCSV != null)
+                btnExportCSV.Click += BtnExportCSV_Click;
+            
+            if (btnExportExcel != null)
+                btnExportExcel.Click += BtnExportExcel_Click;
+            
+            if (btnExportPDF != null)
+                btnExportPDF.Click += BtnExportPDF_Click;
+            
+            if (btnPrint != null)
+                btnPrint.Click += BtnPrint_Click;
+        }
+
+        /// <summary>
+        /// Exports quotation data to CSV format
+        /// </summary>
+        private void BtnExportCSV_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (quotationsTable == null || quotationsTable.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show(
+                        "No quotation data to export.",
+                        "Export CSV",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "CSV files (*.csv)|*.csv",
+                    FileName = $"Quotations_{DateTime.Now:yyyyMMdd_HHmmss}.csv",
+                    DefaultExt = "csv"
+                };
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    gridViewQuotations.ExportToCsv(saveFileDialog.FileName);
+
+                    XtraMessageBox.Show(
+                        $"Quotation data exported successfully to:\n{saveFileDialog.FileName}",
+                        "Export CSV",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error exporting to CSV: {ex.Message}",
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Exports quotation data to Excel format
+        /// </summary>
+        private void BtnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (quotationsTable == null || quotationsTable.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show(
+                        "No quotation data to export.",
+                        "Export Excel",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel files (*.xlsx)|*.xlsx",
+                    FileName = $"Quotations_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx",
+                    DefaultExt = "xlsx"
+                };
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    gridViewQuotations.ExportToXlsx(saveFileDialog.FileName);
+
+                    XtraMessageBox.Show(
+                        $"Quotation data exported successfully to:\n{saveFileDialog.FileName}",
+                        "Export Excel",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error exporting to Excel: {ex.Message}",
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Exports quotation data to PDF format
+        /// </summary>
+        private void BtnExportPDF_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (quotationsTable == null || quotationsTable.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show(
+                        "No quotation data to export.",
+                        "Export PDF",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "PDF files (*.pdf)|*.pdf",
+                    FileName = $"Quotations_{DateTime.Now:yyyyMMdd_HHmmss}.pdf",
+                    DefaultExt = "pdf"
+                };
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    gridViewQuotations.ExportToPdf(saveFileDialog.FileName);
+
+                    XtraMessageBox.Show(
+                        $"Quotation data exported successfully to:\n{saveFileDialog.FileName}",
+                        "Export PDF",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error exporting to PDF: {ex.Message}",
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Prints the quotation data using Windows default print dialog with preview
+        /// </summary>
+        private void BtnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (quotationsTable == null || quotationsTable.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show(
+                        "No quotation data to print.",
+                        "Print",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                // Create a PrintableComponentLink to print the grid
+                DevExpress.XtraPrinting.PrintableComponentLink printLink = 
+                    new DevExpress.XtraPrinting.PrintableComponentLink(new DevExpress.XtraPrinting.PrintingSystem());
+                
+                printLink.Component = gridControlQuotations;
+                
+                // Configure print settings
+                printLink.Landscape = true;
+                printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
+                
+                // Set margins
+                printLink.Margins.Left = 50;
+                printLink.Margins.Right = 50;
+                printLink.Margins.Top = 50;
+                printLink.Margins.Bottom = 50;
+                
+                // Create document
+                printLink.CreateDocument();
+                printLink.PrintingSystem.Document.AutoFitToPagesWidth = 1;
+                
+                // Add header
+                DevExpress.XtraPrinting.PageHeaderFooter header = printLink.PageHeaderFooter as DevExpress.XtraPrinting.PageHeaderFooter;
+                if (header != null)
+                {
+                    header.Header.Content.Clear();
+                    header.Header.Content.AddRange(new string[] {
+                        "Quotation List",
+                        "",
+                        $"Printed: {DateTime.Now:dd/MM/yyyy HH:mm}"
+                    });
+                    header.Header.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+                    header.Header.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
+                }
+                
+                // Add footer with page numbers
+                if (header != null)
+                {
+                    header.Footer.Content.Clear();
+                    header.Footer.Content.AddRange(new string[] {
+                        "",
+                        "[Page # of Pages #]",
+                        ""
+                    });
+                    header.Footer.Font = new Font("Segoe UI", 9);
+                    header.Footer.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
+                }
+
+                // Show print preview dialog with print options
+                printLink.ShowPreviewDialog();
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error printing quotation data: {ex.Message}",
+                    "Print Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
