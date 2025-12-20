@@ -204,5 +204,48 @@ namespace POS.DAL
             int rowsAffected = Connection.ExecuteNonQuery(query, parameters);
             return rowsAffected > 0;
         }
+
+        /// <summary>
+        /// Gets user password hash for verification
+        /// </summary>
+        public string GetUserPasswordHash(int userId)
+        {
+            string query = @"
+                SELECT password_hash
+                FROM [User]
+                WHERE user_id = @userId AND status = 'A'";
+
+            SqlParameter[] parameters = [new SqlParameter("@userId", userId)];
+            DataTable result = Connection.ExecuteQuery(query, parameters);
+
+            if (result.Rows.Count > 0)
+            {
+                return result.Rows[0]["password_hash"]?.ToString();
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Updates user PIN code
+        /// </summary>
+        public bool UpdateUserPin(int userId, string pinCode, int updatedBy)
+        {
+            string query = @"
+                UPDATE [User]
+                SET pin_code = @pinCode,
+                    updated_by = @updatedBy,
+                    updated_date = GETDATE()
+                WHERE user_id = @userId";
+
+            SqlParameter[] parameters = [
+                new("@userId", userId),
+                new("@pinCode", pinCode ?? (object)DBNull.Value),
+                new("@updatedBy", updatedBy)
+            ];
+
+            int rowsAffected = Connection.ExecuteNonQuery(query, parameters);
+            return rowsAffected > 0;
+        }
     }
 }

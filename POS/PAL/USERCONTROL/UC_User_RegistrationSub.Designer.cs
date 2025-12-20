@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            comboboxUserRole = new DevExpress.XtraEditors.ComboBoxEdit();
+            labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            labelControl3 = new DevExpress.XtraEditors.LabelControl();
             regBtn = new System.Windows.Forms.Button();
             labelControl11 = new DevExpress.XtraEditors.LabelControl();
             txtPin = new DevExpress.XtraEditors.TextEdit();
@@ -45,12 +49,9 @@
             backBtn2 = new System.Windows.Forms.Button();
             labelControl4 = new DevExpress.XtraEditors.LabelControl();
             txtfullName = new DevExpress.XtraEditors.TextEdit();
-            labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            comboboxUserRole = new DevExpress.XtraEditors.ComboBoxEdit();
-            labelControl7 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)comboboxUserRole.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtPin.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtConfirmPassword.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtPassword.Properties).BeginInit();
@@ -58,7 +59,6 @@
             ((System.ComponentModel.ISupportInitialize)txtUPhoneNumber.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtUsername.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtfullName.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)comboboxUserRole.Properties).BeginInit();
             SuspendLayout();
             // 
             // panelControl1
@@ -91,6 +91,49 @@
             panelControl1.Name = "panelControl1";
             panelControl1.Size = new System.Drawing.Size(1920, 1001);
             panelControl1.TabIndex = 0;
+            // 
+            // comboboxUserRole
+            // 
+            comboboxUserRole.Location = new System.Drawing.Point(1025, 596);
+            comboboxUserRole.Name = "comboboxUserRole";
+            comboboxUserRole.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            comboboxUserRole.Properties.Appearance.Options.UseFont = true;
+            comboboxUserRole.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            comboboxUserRole.Properties.Padding = new System.Windows.Forms.Padding(10);
+            comboboxUserRole.Properties.Sorted = true;
+            comboboxUserRole.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            comboboxUserRole.Size = new System.Drawing.Size(480, 44);
+            comboboxUserRole.TabIndex = 99;
+            // 
+            // labelControl7
+            // 
+            labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl7.Appearance.Options.UseFont = true;
+            labelControl7.Location = new System.Drawing.Point(1025, 573);
+            labelControl7.Name = "labelControl7";
+            labelControl7.Size = new System.Drawing.Size(29, 17);
+            labelControl7.TabIndex = 98;
+            labelControl7.Text = "Role:";
+            // 
+            // labelControl2
+            // 
+            labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl2.Appearance.Options.UseFont = true;
+            labelControl2.Location = new System.Drawing.Point(175, 200);
+            labelControl2.Name = "labelControl2";
+            labelControl2.Size = new System.Drawing.Size(262, 40);
+            labelControl2.TabIndex = 80;
+            labelControl2.Text = "Add a new customer";
+            // 
+            // labelControl3
+            // 
+            labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl3.Appearance.Options.UseFont = true;
+            labelControl3.Location = new System.Drawing.Point(833, 80);
+            labelControl3.Name = "labelControl3";
+            labelControl3.Size = new System.Drawing.Size(254, 40);
+            labelControl3.TabIndex = 79;
+            labelControl3.Text = "User Management";
             // 
             // regBtn
             // 
@@ -259,49 +302,6 @@
             txtfullName.Size = new System.Drawing.Size(480, 44);
             txtfullName.TabIndex = 55;
             // 
-            // labelControl2
-            // 
-            labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl2.Appearance.Options.UseFont = true;
-            labelControl2.Location = new System.Drawing.Point(175, 200);
-            labelControl2.Name = "labelControl2";
-            labelControl2.Size = new System.Drawing.Size(262, 40);
-            labelControl2.TabIndex = 80;
-            labelControl2.Text = "Add a new customer";
-            // 
-            // labelControl3
-            // 
-            labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl3.Appearance.Options.UseFont = true;
-            labelControl3.Location = new System.Drawing.Point(806, 80);
-            labelControl3.Name = "labelControl3";
-            labelControl3.Size = new System.Drawing.Size(309, 40);
-            labelControl3.TabIndex = 79;
-            labelControl3.Text = "Customer Registration";
-            // 
-            // comboboxUserRole
-            // 
-            comboboxUserRole.Location = new System.Drawing.Point(1025, 596);
-            comboboxUserRole.Name = "comboboxUserRole";
-            comboboxUserRole.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            comboboxUserRole.Properties.Appearance.Options.UseFont = true;
-            comboboxUserRole.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            comboboxUserRole.Properties.Padding = new System.Windows.Forms.Padding(10);
-            comboboxUserRole.Properties.Sorted = true;
-            comboboxUserRole.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            comboboxUserRole.Size = new System.Drawing.Size(480, 44);
-            comboboxUserRole.TabIndex = 99;
-            // 
-            // labelControl7
-            // 
-            labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl7.Appearance.Options.UseFont = true;
-            labelControl7.Location = new System.Drawing.Point(1025, 573);
-            labelControl7.Name = "labelControl7";
-            labelControl7.Size = new System.Drawing.Size(29, 17);
-            labelControl7.TabIndex = 98;
-            labelControl7.Text = "Role:";
-            // 
             // UC_User_RegistrationSub
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -312,6 +312,7 @@
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
             panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)comboboxUserRole.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtPin.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtConfirmPassword.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtPassword.Properties).EndInit();
@@ -319,7 +320,6 @@
             ((System.ComponentModel.ISupportInitialize)txtUPhoneNumber.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtUsername.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtfullName.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)comboboxUserRole.Properties).EndInit();
             ResumeLayout(false);
         }
 

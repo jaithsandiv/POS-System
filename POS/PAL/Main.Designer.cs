@@ -35,6 +35,9 @@
             simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
             simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             panelSideBar = new DevExpress.XtraEditors.XtraScrollableControl();
+            panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            btnProfile = new DevExpress.XtraEditors.SimpleButton();
+            btnSignOut = new DevExpress.XtraEditors.SimpleButton();
             panelSettingsSubmenu = new DevExpress.XtraEditors.PanelControl();
             btnTables = new DevExpress.XtraEditors.SimpleButton();
             btnBusinessLocations = new DevExpress.XtraEditors.SimpleButton();
@@ -86,6 +89,7 @@
             panelHomeHeader = new DevExpress.XtraEditors.PanelControl();
             simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             panelTopBar = new DevExpress.XtraEditors.PanelControl();
+            lblUserFirstname = new DevExpress.XtraEditors.LabelControl();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             btnToggleMenu = new DevExpress.XtraEditors.SimpleButton();
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
@@ -93,7 +97,6 @@
             lblTime = new DevExpress.XtraEditors.LabelControl();
             lblDate = new DevExpress.XtraEditors.LabelControl();
             btnPOS = new DevExpress.XtraEditors.SimpleButton();
-            btnAcc = new DevExpress.XtraEditors.SimpleButton();
             btnAddQuotation = new DevExpress.XtraEditors.SimpleButton();
             btnAddDraft = new DevExpress.XtraEditors.SimpleButton();
             btnListPOS = new DevExpress.XtraEditors.SimpleButton();
@@ -158,6 +161,8 @@
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
             panelSideBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)panelControl4).BeginInit();
+            panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelSettingsSubmenu).BeginInit();
             panelSettingsSubmenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelSettingsHeader).BeginInit();
@@ -281,6 +286,7 @@
             // 
             // panelSideBar
             // 
+            panelSideBar.Controls.Add(panelControl4);
             panelSideBar.Controls.Add(panelSettingsSubmenu);
             panelSideBar.Controls.Add(panelSettingsHeader);
             panelSideBar.Controls.Add(panelReportsSubmenu);
@@ -299,6 +305,50 @@
             panelSideBar.Name = "panelSideBar";
             panelSideBar.Size = new System.Drawing.Size(250, 997);
             panelSideBar.TabIndex = 1;
+            // 
+            // panelControl4
+            // 
+            panelControl4.Appearance.BackColor = System.Drawing.Color.Transparent;
+            panelControl4.Appearance.Options.UseBackColor = true;
+            panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl4.Controls.Add(btnProfile);
+            panelControl4.Controls.Add(btnSignOut);
+            panelControl4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panelControl4.Location = new System.Drawing.Point(0, 1515);
+            panelControl4.Name = "panelControl4";
+            panelControl4.Size = new System.Drawing.Size(233, 380);
+            panelControl4.TabIndex = 24;
+            // 
+            // btnProfile
+            // 
+            btnProfile.Appearance.BackColor = System.Drawing.Color.White;
+            btnProfile.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnProfile.Appearance.Options.UseBackColor = true;
+            btnProfile.Appearance.Options.UseFont = true;
+            btnProfile.AppearanceHovered.Options.UseBackColor = true;
+            btnProfile.Dock = System.Windows.Forms.DockStyle.Bottom;
+            btnProfile.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnProfile.Location = new System.Drawing.Point(0, 300);
+            btnProfile.Name = "btnProfile";
+            btnProfile.Size = new System.Drawing.Size(233, 40);
+            btnProfile.TabIndex = 28;
+            btnProfile.Text = "Profile";
+            btnProfile.Click += btnProfile_Click;
+            // 
+            // btnSignOut
+            // 
+            btnSignOut.Appearance.BackColor = System.Drawing.Color.White;
+            btnSignOut.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnSignOut.Appearance.Options.UseBackColor = true;
+            btnSignOut.Appearance.Options.UseFont = true;
+            btnSignOut.AppearanceHovered.Options.UseBackColor = true;
+            btnSignOut.Dock = System.Windows.Forms.DockStyle.Bottom;
+            btnSignOut.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            btnSignOut.Location = new System.Drawing.Point(0, 340);
+            btnSignOut.Name = "btnSignOut";
+            btnSignOut.Size = new System.Drawing.Size(233, 40);
+            btnSignOut.TabIndex = 27;
+            btnSignOut.Text = "Sign Out";
             // 
             // panelSettingsSubmenu
             // 
@@ -1056,17 +1106,34 @@
             panelTopBar.Appearance.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
             panelTopBar.Appearance.Options.UseBackColor = true;
             panelTopBar.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelTopBar.Controls.Add(lblUserFirstname);
             panelTopBar.Controls.Add(panelControl2);
             panelTopBar.Controls.Add(panelControl1);
             panelTopBar.Controls.Add(lblTime);
             panelTopBar.Controls.Add(lblDate);
             panelTopBar.Controls.Add(btnPOS);
-            panelTopBar.Controls.Add(btnAcc);
             panelTopBar.Dock = System.Windows.Forms.DockStyle.Top;
             panelTopBar.Location = new System.Drawing.Point(2, 2);
             panelTopBar.Name = "panelTopBar";
             panelTopBar.Size = new System.Drawing.Size(1916, 49);
             panelTopBar.TabIndex = 0;
+            // 
+            // lblUserFirstname
+            // 
+            lblUserFirstname.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblUserFirstname.Appearance.ForeColor = System.Drawing.Color.White;
+            lblUserFirstname.Appearance.Options.UseFont = true;
+            lblUserFirstname.Appearance.Options.UseForeColor = true;
+            lblUserFirstname.Appearance.Options.UseTextOptions = true;
+            lblUserFirstname.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            lblUserFirstname.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter;
+            lblUserFirstname.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
+            lblUserFirstname.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            lblUserFirstname.Location = new System.Drawing.Point(1727, 16);
+            lblUserFirstname.Name = "lblUserFirstname";
+            lblUserFirstname.Size = new System.Drawing.Size(122, 17);
+            lblUserFirstname.TabIndex = 21;
+            lblUserFirstname.Text = "User";
             // 
             // panelControl2
             // 
@@ -1127,7 +1194,7 @@
             lblTime.Appearance.ForeColor = System.Drawing.Color.White;
             lblTime.Appearance.Options.UseFont = true;
             lblTime.Appearance.Options.UseForeColor = true;
-            lblTime.Location = new System.Drawing.Point(1660, 16);
+            lblTime.Location = new System.Drawing.Point(1592, 16);
             lblTime.Name = "lblTime";
             lblTime.Size = new System.Drawing.Size(73, 17);
             lblTime.TabIndex = 18;
@@ -1139,7 +1206,7 @@
             lblDate.Appearance.ForeColor = System.Drawing.Color.White;
             lblDate.Appearance.Options.UseFont = true;
             lblDate.Appearance.Options.UseForeColor = true;
-            lblDate.Location = new System.Drawing.Point(1529, 16);
+            lblDate.Location = new System.Drawing.Point(1461, 16);
             lblDate.Name = "lblDate";
             lblDate.Size = new System.Drawing.Size(98, 17);
             lblDate.TabIndex = 17;
@@ -1153,26 +1220,12 @@
             btnPOS.Appearance.Options.UseFont = true;
             btnPOS.AppearanceHovered.Options.UseBackColor = true;
             btnPOS.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnPOS.Location = new System.Drawing.Point(1741, 9);
+            btnPOS.Location = new System.Drawing.Point(1673, 9);
             btnPOS.Name = "btnPOS";
             btnPOS.Size = new System.Drawing.Size(48, 30);
             btnPOS.TabIndex = 16;
             btnPOS.Text = "POS";
             btnPOS.Click += btnPOS_Click;
-            // 
-            // btnAcc
-            // 
-            btnAcc.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
-            btnAcc.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnAcc.Appearance.Options.UseBackColor = true;
-            btnAcc.Appearance.Options.UseFont = true;
-            btnAcc.AppearanceHovered.Options.UseBackColor = true;
-            btnAcc.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnAcc.ImageOptions.Image");
-            btnAcc.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnAcc.Location = new System.Drawing.Point(1804, 9);
-            btnAcc.Name = "btnAcc";
-            btnAcc.Size = new System.Drawing.Size(48, 30);
-            btnAcc.TabIndex = 15;
             // 
             // btnAddQuotation
             // 
@@ -2050,6 +2103,8 @@
             pnlContent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
             panelSideBar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)panelControl4).EndInit();
+            panelControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelSettingsSubmenu).EndInit();
             panelSettingsSubmenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)panelSettingsHeader).EndInit();
@@ -2122,7 +2177,6 @@
         private DevExpress.XtraEditors.LabelControl lblTime;
         private DevExpress.XtraEditors.LabelControl lblDate;
         private DevExpress.XtraEditors.SimpleButton btnPOS;
-        private DevExpress.XtraEditors.SimpleButton btnAcc;
         private DevExpress.XtraEditors.PanelControl panelUserManagementSubmenu;
         private DevExpress.XtraEditors.PanelControl panelUserManagementHeader;
         private DevExpress.XtraEditors.SimpleButton btnUserManagement;
@@ -2166,7 +2220,6 @@
         private DevExpress.XtraEditors.PanelControl panelExpensesHeader;
         private DevExpress.XtraEditors.PanelControl panelStockAdjustmentSubmenu;
         private DevExpress.XtraEditors.PanelControl panelStockAdjustmentHeader;
-        private DevExpress.XtraEditors.PanelControl panelSettingsSubmenu;
         private DevExpress.XtraEditors.PanelControl panelSettingsHeader;
         private DevExpress.XtraEditors.SimpleButton btnWarranties;
         private DevExpress.XtraEditors.SimpleButton btnBrands;
@@ -2176,7 +2229,6 @@
         private DevExpress.XtraEditors.SimpleButton btnImportOpeningStock;
         private DevExpress.XtraEditors.SimpleButton btnImportProducts;
         private DevExpress.XtraEditors.SimpleButton btnVariations;
-        private DevExpress.XtraEditors.SimpleButton btnBusinessSettings;
         private DevExpress.XtraEditors.SimpleButton btnListPurchaseReturn;
         private DevExpress.XtraEditors.SimpleButton btnAddPurchase;
         private DevExpress.XtraEditors.SimpleButton btnSell;
@@ -2228,13 +2280,19 @@
         private DevExpress.XtraEditors.SimpleButton btnTaxReport;
         private DevExpress.XtraEditors.SimpleButton btnPurchaseAndSales;
         private DevExpress.XtraEditors.SimpleButton btnNotificationTemplates;
-        private DevExpress.XtraEditors.SimpleButton btnTables;
         private DevExpress.XtraEditors.SimpleButton btnTaxRates;
         private DevExpress.XtraEditors.SimpleButton btnReceiptPrinters;
         private DevExpress.XtraEditors.SimpleButton btnBarcodeSettings;
         private DevExpress.XtraEditors.SimpleButton btnInvoiceSettings;
-        private DevExpress.XtraEditors.SimpleButton btnBusinessLocations;
         private DevExpress.XtraEditors.SimpleButton btnSettings;
+        private DevExpress.XtraEditors.LabelControl lblUserFirstname;
+        private DevExpress.XtraEditors.PanelControl panelSettingsSubmenu;
+        private DevExpress.XtraEditors.SimpleButton btnTables;
+        private DevExpress.XtraEditors.SimpleButton btnBusinessLocations;
+        private DevExpress.XtraEditors.SimpleButton btnBusinessSettings;
+        private DevExpress.XtraEditors.PanelControl panelControl4;
+        private DevExpress.XtraEditors.SimpleButton btnProfile;
+        private DevExpress.XtraEditors.SimpleButton btnSignOut;
     }
 }
 

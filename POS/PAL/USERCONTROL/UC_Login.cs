@@ -53,6 +53,9 @@ namespace POS.PAL.USERCONTROL
             bool isAuthenticated = _bllLogin.Authenticate(username, password);
             if (isAuthenticated)
             {
+                // Update user first name in the main form
+                Main.Instance.UpdateUserFirstName();
+                
                 UC_Dashboard dashboard = new UC_Dashboard();
                 Main.Instance.LoadUserControl(dashboard, hideNavigation: false);
             }

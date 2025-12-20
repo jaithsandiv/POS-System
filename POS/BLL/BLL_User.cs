@@ -103,5 +103,36 @@ namespace POS.BLL
 
             return _dalUser.UpdateUserPassword(userId, passwordHash, updatedBy);
         }
+
+        /// <summary>
+        /// Verifies if the current password is correct
+        /// </summary>
+        public static bool VerifyCurrentPassword(int userId, string currentPassword)
+        {
+            if (string.IsNullOrWhiteSpace(currentPassword))
+                return false;
+
+            string passwordHash = _dalUser.GetUserPasswordHash(userId);
+            
+            if (string.IsNullOrEmpty(passwordHash))
+                return false;
+
+            return BCrypt.Net.BCrypt.Verify(currentPassword, passwordHash);
+        }
+
+        /// <summary>
+        /// Updates user PIN code
+        /// </summary>
+        public static bool UpdateUserPin(int userId, string pinCode, int updatedBy)
+        {
+            // Validate PIN format (4 digits)
+            if (!string.IsNullOrWhiteSpace(pinCode))
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(pinCode, @"^\d{4}$"))
+                    throw new ArgumentException("PIN must be exactly 4 digits.");
+            }
+
+            return _dalUser.UpdateUserPin(userId, pinCode, updatedBy);
+        }
     }
 }

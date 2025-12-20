@@ -95,6 +95,10 @@ namespace POS
             if (btnPrintLabels != null) btnPrintLabels.Click += btnPrintLabels_Click;
             if (btnAddProducts != null) btnAddProducts.Click += btnAddProducts_Click;
             if (btnListProducts != null) btnListProducts.Click += btnListProducts_Click;
+            
+            // Profile and Sign Out
+            if (btnProfile != null) btnProfile.Click += btnProfile_Click;
+            if (btnSignOut != null) btnSignOut.Click += btnSignOut_Click;
         }
 
         private void ClockTimer_Tick(object sender, EventArgs e)
@@ -175,6 +179,32 @@ namespace POS
         }
 
         /// <summary>
+        /// Update the user's first name in the top bar
+        /// </summary>
+        public void UpdateUserFirstName()
+        {
+            if (DataSetApp?.User != null && DataSetApp.User.Rows.Count > 0)
+            {
+                var userRow = DataSetApp.User[0];
+                if (!userRow.Isfull_nameNull() && !string.IsNullOrWhiteSpace(userRow.full_name))
+                {
+                    // Extract first name from full name
+                    string fullName = userRow.full_name;
+                    string firstName = fullName.Split(' ')[0];
+                    lblUserFirstname.Text = firstName;
+                }
+                else
+                {
+                    lblUserFirstname.Text = "User";
+                }
+            }
+            else
+            {
+                lblUserFirstname.Text = "User";
+            }
+        }
+
+        /// <summary>
         /// Loads a UserControl into the content panel while keeping topbar and sidebar persistent
         /// </summary>
         /// <param name="control">The UserControl to load</param>
@@ -188,6 +218,12 @@ namespace POS
             // Show/hide navigation based on the parameter
             panelTopBar.Visible = !hideNavigation;
             panelSideBar.Visible = !hideNavigation;
+
+            // Update user name when navigation is shown
+            if (!hideNavigation)
+            {
+                UpdateUserFirstName();
+            }
         }
 
         /// <summary>
@@ -395,6 +431,33 @@ namespace POS
         private void btnRoles_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UC_Role_Management());
+        }
+
+        private void btnProfile_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Profile_Management());
+        }
+
+        private void btnSignOut_Click(object sender, EventArgs e)
+        {
+            // Confirm sign out
+            var result = XtraMessageBox.Show(
+                "Are you sure you want to sign out?",
+                "Confirm Sign Out",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                // Clear user data
+                DataSetApp.User.Clear();
+                DataSetApp.RolePermission.Clear();
+
+                // Load login screen
+                UC_Login login = new UC_Login();
+                LoadUserControl(login, hideNavigation: true);
+            }
         }
     }
 }
