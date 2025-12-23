@@ -696,6 +696,7 @@
             btnSellReturns.Size = new System.Drawing.Size(233, 40);
             btnSellReturns.TabIndex = 37;
             btnSellReturns.Text = "Sell Returns";
+            btnSellReturns.Click += btnSellReturns_Click;
             // 
             // btnListQuotations
             // 

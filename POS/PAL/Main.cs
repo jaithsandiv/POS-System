@@ -95,7 +95,7 @@ namespace POS
             if (btnPrintLabels != null) btnPrintLabels.Click += btnPrintLabels_Click;
             if (btnAddProducts != null) btnAddProducts.Click += btnAddProducts_Click;
             if (btnListProducts != null) btnListProducts.Click += btnListProducts_Click;
-            
+
             // Profile and Sign Out
             if (btnProfile != null) btnProfile.Click += btnProfile_Click;
             if (btnSignOut != null) btnSignOut.Click += btnSignOut_Click;
@@ -458,6 +458,11 @@ namespace POS
                 UC_Login login = new UC_Login();
                 LoadUserControl(login, hideNavigation: true);
             }
+        }
+
+        private void btnSellReturns_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_SellReturn_Management());
         }
     }
 }
