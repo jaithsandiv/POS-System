@@ -918,5 +918,92 @@ namespace POS.DAL
                 throw new Exception($"Error searching table sales report: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Gets sale payments report - all sales with payment details grouped by customer
+        /// </summary>
+        public DataTable GetSalePayments()
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        s.sale_id,
+                        s.invoice_number AS reference_number,
+                        s.created_date AS paid_on,
+                        s.grand_total AS amount,
+                        ISNULL(c.full_name, 'Walk-In Customer') AS customer,
+                        ISNULL(cg.group_name, 'None') AS customer_group,
+                        STUFF((
+                            SELECT DISTINCT ', ' + p.payment_method
+                            FROM Payment p
+                            WHERE p.sale_id = s.sale_id AND p.status = 'A'
+                            FOR XML PATH(''), TYPE
+                        ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS payment_method
+                    FROM Sale s
+                    LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                    LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
+                    WHERE s.status = 'A' 
+                      AND s.sale_type = 'SALE'
+                    ORDER BY s.created_date DESC";
+
+                return Connection.ExecuteQuery(query) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving sale payments: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Searches sale payments report by keyword
+        /// </summary>
+        public DataTable SearchSalePayments(string keyword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    return GetSalePayments();
+                }
+
+                string query = @"
+                    SELECT 
+                        s.sale_id,
+                        s.invoice_number AS reference_number,
+                        s.created_date AS paid_on,
+                        s.grand_total AS amount,
+                        ISNULL(c.full_name, 'Walk-In Customer') AS customer,
+                        ISNULL(cg.group_name, 'None') AS customer_group,
+                        STUFF((
+                            SELECT DISTINCT ', ' + p.payment_method
+                            FROM Payment p
+                            WHERE p.sale_id = s.sale_id AND p.status = 'A'
+                            FOR XML PATH(''), TYPE
+                        ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS payment_method
+                    FROM Sale s
+                    LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                    LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
+                    WHERE s.status = 'A' 
+                      AND s.sale_type = 'SALE'
+                      AND (
+                        s.invoice_number LIKE @keyword
+                        OR ISNULL(c.full_name, 'Walk-In Customer') LIKE @keyword
+                        OR ISNULL(cg.group_name, 'None') LIKE @keyword
+                        OR CONVERT(VARCHAR, s.grand_total) LIKE @keyword
+                      )
+                    ORDER BY s.created_date DESC";
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@keyword", "%" + keyword + "%")
+                };
+
+                return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error searching sale payments: {ex.Message}", ex);
+            }
+        }
     }
 }

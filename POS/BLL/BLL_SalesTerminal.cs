@@ -120,5 +120,21 @@ namespace POS.BLL
         {
             return _dalSalesTerminal.SearchTableSalesReport(keyword);
         }
+
+        /// <summary>
+        /// Gets sale payments report - all sales with payment details
+        /// </summary>
+        public DataTable GetSalePayments()
+        {
+            return _dalSalesTerminal.GetSalePayments();
+        }
+
+        /// <summary>
+        /// Searches sale payments report by keyword
+        /// </summary>
+        public DataTable SearchSalePayments(string keyword)
+        {
+            return _dalSalesTerminal.SearchSalePayments(keyword);
+        }
     }
 }
