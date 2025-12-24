@@ -464,5 +464,60 @@ namespace POS
         {
             LoadUserControl(new UC_SellReturn_Management());
         }
+
+        private void btnProfitLossReport_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_ProfitLoss_Report());
+        }
+
+        private void btnSupplierAndCustomerReport_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_SupplierCustomer_Report());
+        }
+
+        private void btnCustomerGroupReport_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_CustomerGroup_Report());
+        }
+
+        private void btnStockReport_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Stock_Report());
+        }
+
+        private void btnTrendingProducts_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_TrendingProducts_Report());
+        }
+
+        private void btnItemsReport_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Items_Report());
+        }
+
+        private void btnProductSellReport_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_ProductSell_Report());
+        }
+
+        private void btnSellPaymentReport_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_SellPayment_Report());
+        }
+
+        private void btnSalesRepresentativeReport_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_SalesRepresentative_Report());
+        }
+
+        private void btnTableReport_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_Table_Report());
+        }
+
+        private void btnActivityLog_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new UC_ActivityLog_Report());
+        }
     }
 }

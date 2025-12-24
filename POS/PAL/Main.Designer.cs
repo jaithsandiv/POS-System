@@ -316,7 +316,7 @@
             panelControl4.Dock = System.Windows.Forms.DockStyle.Bottom;
             panelControl4.Location = new System.Drawing.Point(0, 1515);
             panelControl4.Name = "panelControl4";
-            panelControl4.Size = new System.Drawing.Size(233, 380);
+            panelControl4.Size = new System.Drawing.Size(233, 105);
             panelControl4.TabIndex = 24;
             // 
             // btnProfile
@@ -328,7 +328,7 @@
             btnProfile.AppearanceHovered.Options.UseBackColor = true;
             btnProfile.Dock = System.Windows.Forms.DockStyle.Bottom;
             btnProfile.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnProfile.Location = new System.Drawing.Point(0, 300);
+            btnProfile.Location = new System.Drawing.Point(0, 25);
             btnProfile.Name = "btnProfile";
             btnProfile.Size = new System.Drawing.Size(233, 40);
             btnProfile.TabIndex = 28;
@@ -344,7 +344,7 @@
             btnSignOut.AppearanceHovered.Options.UseBackColor = true;
             btnSignOut.Dock = System.Windows.Forms.DockStyle.Bottom;
             btnSignOut.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnSignOut.Location = new System.Drawing.Point(0, 340);
+            btnSignOut.Location = new System.Drawing.Point(0, 65);
             btnSignOut.Name = "btnSignOut";
             btnSignOut.Size = new System.Drawing.Size(233, 40);
             btnSignOut.TabIndex = 27;
@@ -472,6 +472,7 @@
             btnActivityLog.Size = new System.Drawing.Size(233, 40);
             btnActivityLog.TabIndex = 48;
             btnActivityLog.Text = "Activity Log";
+            btnActivityLog.Click += btnActivityLog_Click;
             // 
             // btnTableReport
             // 
@@ -487,6 +488,7 @@
             btnTableReport.Size = new System.Drawing.Size(233, 40);
             btnTableReport.TabIndex = 47;
             btnTableReport.Text = "Table Report";
+            btnTableReport.Click += btnTableReport_Click;
             // 
             // btnSalesRepresentativeReport
             // 
@@ -502,6 +504,7 @@
             btnSalesRepresentativeReport.Size = new System.Drawing.Size(233, 40);
             btnSalesRepresentativeReport.TabIndex = 46;
             btnSalesRepresentativeReport.Text = "Sales Representative Report";
+            btnSalesRepresentativeReport.Click += btnSalesRepresentativeReport_Click;
             // 
             // btnSellPaymentReport
             // 
@@ -517,6 +520,7 @@
             btnSellPaymentReport.Size = new System.Drawing.Size(233, 40);
             btnSellPaymentReport.TabIndex = 43;
             btnSellPaymentReport.Text = "Sell Payment Report";
+            btnSellPaymentReport.Click += btnSellPaymentReport_Click;
             // 
             // btnProductSellReport
             // 
@@ -532,6 +536,7 @@
             btnProductSellReport.Size = new System.Drawing.Size(233, 40);
             btnProductSellReport.TabIndex = 41;
             btnProductSellReport.Text = "Product Sell Report";
+            btnProductSellReport.Click += btnProductSellReport_Click;
             // 
             // btnItemsReport
             // 
@@ -547,6 +552,7 @@
             btnItemsReport.Size = new System.Drawing.Size(233, 40);
             btnItemsReport.TabIndex = 39;
             btnItemsReport.Text = "Items Report";
+            btnItemsReport.Click += btnItemsReport_Click;
             // 
             // btnTrendingProducts
             // 
@@ -562,6 +568,7 @@
             btnTrendingProducts.Size = new System.Drawing.Size(233, 40);
             btnTrendingProducts.TabIndex = 38;
             btnTrendingProducts.Text = "Trending Products";
+            btnTrendingProducts.Click += btnTrendingProducts_Click;
             // 
             // btnStockReport
             // 
@@ -577,6 +584,7 @@
             btnStockReport.Size = new System.Drawing.Size(233, 40);
             btnStockReport.TabIndex = 36;
             btnStockReport.Text = "Stock Report";
+            btnStockReport.Click += btnStockReport_Click;
             // 
             // btnCustomerGroupReport
             // 
@@ -592,6 +600,7 @@
             btnCustomerGroupReport.Size = new System.Drawing.Size(233, 40);
             btnCustomerGroupReport.TabIndex = 35;
             btnCustomerGroupReport.Text = "Customer Group Report ";
+            btnCustomerGroupReport.Click += btnCustomerGroupReport_Click;
             // 
             // btnSupplierAndCustomerReport
             // 
@@ -607,6 +616,7 @@
             btnSupplierAndCustomerReport.Size = new System.Drawing.Size(233, 40);
             btnSupplierAndCustomerReport.TabIndex = 34;
             btnSupplierAndCustomerReport.Text = "Supplier and Customer Report";
+            btnSupplierAndCustomerReport.Click += btnSupplierAndCustomerReport_Click;
             // 
             // btnProfitLossReport
             // 
@@ -622,6 +632,7 @@
             btnProfitLossReport.Size = new System.Drawing.Size(233, 40);
             btnProfitLossReport.TabIndex = 31;
             btnProfitLossReport.Text = "Profit / Loss Report";
+            btnProfitLossReport.Click += btnProfitLossReport_Click;
             // 
             // panelReportsHeader
             // 
