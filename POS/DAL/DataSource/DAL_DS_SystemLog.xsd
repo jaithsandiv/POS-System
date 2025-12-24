@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DAL_DS_SystemLog" targetNamespace="http://tempuri.org/DAL_DS_SystemLog.xsd" xmlns:mstns="http://tempuri.org/DAL_DS_SystemLog.xsd" xmlns="http://tempuri.org/DAL_DS_SystemLog.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DAL_DS_SystemLog" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DAL_DS_SystemLog" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DAL_DS_SystemLog">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SystemLog" msprop:Generator_RowEvHandlerName="SystemLogRowChangeEventHandler" msprop:Generator_RowDeletedName="SystemLogRowDeleted" msprop:Generator_RowDeletingName="SystemLogRowDeleting" msprop:Generator_RowEvArgName="SystemLogRowChangeEvent" msprop:Generator_TablePropName="SystemLog" msprop:Generator_RowChangedName="SystemLogRowChanged" msprop:Generator_UserTableName="SystemLog" msprop:Generator_RowChangingName="SystemLogRowChanging" msprop:Generator_RowClassName="SystemLogRow" msprop:Generator_TableClassName="SystemLogDataTable" msprop:Generator_TableVarName="tableSystemLog">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="log_id" msprop:Generator_ColumnPropNameInTable="log_idColumn" msprop:Generator_ColumnPropNameInRow="log_id" msprop:Generator_UserColumnName="log_id" msprop:Generator_ColumnVarNameInTable="columnlog_id" type="xs:string" minOccurs="0" />
+              <xs:element name="log_type" msprop:Generator_ColumnPropNameInTable="log_typeColumn" msprop:Generator_ColumnPropNameInRow="log_type" msprop:Generator_UserColumnName="log_type" msprop:Generator_ColumnVarNameInTable="columnlog_type" type="xs:string" minOccurs="0" />
+              <xs:element name="source" msprop:Generator_ColumnPropNameInTable="sourceColumn" msprop:Generator_ColumnPropNameInRow="source" msprop:Generator_UserColumnName="source" msprop:Generator_ColumnVarNameInTable="columnsource" type="xs:string" minOccurs="0" />
+              <xs:element name="reference_id" msprop:Generator_ColumnPropNameInTable="reference_idColumn" msprop:Generator_ColumnPropNameInRow="reference_id" msprop:Generator_UserColumnName="reference_id" msprop:Generator_ColumnVarNameInTable="columnreference_id" type="xs:string" minOccurs="0" />
+              <xs:element name="message" msprop:Generator_ColumnPropNameInTable="messageColumn" msprop:Generator_ColumnPropNameInRow="message" msprop:Generator_UserColumnName="message" msprop:Generator_ColumnVarNameInTable="columnmessage" type="xs:string" minOccurs="0" />
+              <xs:element name="stack_trace" msprop:Generator_ColumnPropNameInTable="stack_traceColumn" msprop:Generator_ColumnPropNameInRow="stack_trace" msprop:Generator_UserColumnName="stack_trace" msprop:Generator_ColumnVarNameInTable="columnstack_trace" type="xs:string" minOccurs="0" />
+              <xs:element name="user_id" msprop:Generator_ColumnPropNameInTable="user_idColumn" msprop:Generator_ColumnPropNameInRow="user_id" msprop:Generator_UserColumnName="user_id" msprop:Generator_ColumnVarNameInTable="columnuser_id" type="xs:string" minOccurs="0" />
+              <xs:element name="username" msprop:Generator_ColumnPropNameInTable="usernameColumn" msprop:Generator_ColumnPropNameInRow="username" msprop:Generator_UserColumnName="username" msprop:Generator_ColumnVarNameInTable="columnusername" type="xs:string" minOccurs="0" />
+              <xs:element name="created_date" msprop:Generator_ColumnPropNameInTable="created_dateColumn" msprop:Generator_ColumnPropNameInRow="created_date" msprop:Generator_UserColumnName="created_date" msprop:Generator_ColumnVarNameInTable="columncreated_date" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

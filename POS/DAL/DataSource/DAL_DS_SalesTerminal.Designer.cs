@@ -606,7 +606,7 @@ namespace POS.DAL.DataSource {
             private global::System.Data.DataColumn columnpromotion_type;
             
             private global::System.Data.DataColumn columndiscount_value;
-
+            
             private global::System.Data.DataColumn columnunit_name;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -830,6 +830,14 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn unit_nameColumn {
+                get {
+                    return this.columnunit_name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -888,7 +896,8 @@ namespace POS.DAL.DataSource {
                         string updated_date, 
                         string promotion_id, 
                         string promotion_type, 
-                        string discount_value) {
+                        string discount_value, 
+                        string unit_name) {
                 ProductRow rowProductRow = ((ProductRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         product_id,
@@ -913,7 +922,8 @@ namespace POS.DAL.DataSource {
                         updated_date,
                         promotion_id,
                         promotion_type,
-                        discount_value};
+                        discount_value,
+                        unit_name};
                 rowProductRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProductRow);
                 return rowProductRow;
@@ -3573,7 +3583,7 @@ namespace POS.DAL.DataSource {
             private global::System.Data.DataColumn columnupdated_by;
             
             private global::System.Data.DataColumn columnupdated_date;
-
+            
             private global::System.Data.DataColumn columnunit;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3733,6 +3743,14 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn unitColumn {
+                get {
+                    return this.columnunit;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3768,7 +3786,23 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public SaleItemRow AddSaleItemRow(string sale_item_id, string sale_id, string product_id, string product_name, string product_code, string unit_price, string quantity, string discount_type, string discount_value, string subtotal, string status, string created_by, string created_date, string updated_by, string updated_date) {
+            public SaleItemRow AddSaleItemRow(
+                        string sale_item_id, 
+                        string sale_id, 
+                        string product_id, 
+                        string product_name, 
+                        string product_code, 
+                        string unit_price, 
+                        string quantity, 
+                        string discount_type, 
+                        string discount_value, 
+                        string subtotal, 
+                        string status, 
+                        string created_by, 
+                        string created_date, 
+                        string updated_by, 
+                        string updated_date, 
+                        string unit) {
                 SaleItemRow rowSaleItemRow = ((SaleItemRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         sale_item_id,
@@ -3785,7 +3819,8 @@ namespace POS.DAL.DataSource {
                         created_by,
                         created_date,
                         updated_by,
-                        updated_date};
+                        updated_date,
+                        unit};
                 rowSaleItemRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSaleItemRow);
                 return rowSaleItemRow;
@@ -4802,6 +4837,22 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string unit_name {
+                get {
+                    try {
+                        return ((string)(this[this.tableProduct.unit_nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'unit_name\' in table \'Product\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProduct.unit_nameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Isproduct_idNull() {
                 return this.IsNull(this.tableProduct.product_idColumn);
             }
@@ -5074,6 +5125,18 @@ namespace POS.DAL.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setdiscount_valueNull() {
                 this[this.tableProduct.discount_valueColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool Isunit_nameNull() {
+                return this.IsNull(this.tableProduct.unit_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void Setunit_nameNull() {
+                this[this.tableProduct.unit_nameColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -7299,6 +7362,22 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string unit {
+                get {
+                    try {
+                        return ((string)(this[this.tableSaleItem.unitColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'unit\' in table \'SaleItem\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSaleItem.unitColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool Issale_item_idNull() {
                 return this.IsNull(this.tableSaleItem.sale_item_idColumn);
             }
@@ -7475,6 +7554,18 @@ namespace POS.DAL.DataSource {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void Setupdated_dateNull() {
                 this[this.tableSaleItem.updated_dateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsunitNull() {
+                return this.IsNull(this.tableSaleItem.unitColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetunitNull() {
+                this[this.tableSaleItem.unitColumn] = global::System.Convert.DBNull;
             }
         }
         

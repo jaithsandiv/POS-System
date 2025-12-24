@@ -104,5 +104,21 @@ namespace POS.BLL
         {
             return _dalSalesTerminal.GetSalePayments(saleId);
         }
+
+        /// <summary>
+        /// Gets table sales report - total sales grouped by table number
+        /// </summary>
+        public DataTable GetTableSalesReport()
+        {
+            return _dalSalesTerminal.GetTableSalesReport();
+        }
+
+        /// <summary>
+        /// Searches table sales report by keyword
+        /// </summary>
+        public DataTable SearchTableSalesReport(string keyword)
+        {
+            return _dalSalesTerminal.SearchTableSalesReport(keyword);
+        }
     }
 }

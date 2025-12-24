@@ -846,5 +846,77 @@ namespace POS.DAL
 
             return Connection.ExecuteQuery(query, parameters);
         }
+
+        /// <summary>
+        /// Gets table sales report - total sales grouped by table number
+        /// </summary>
+        public DataTable GetTableSalesReport()
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        ISNULL(s.table_number, 'No Table') AS table_number,
+                        COUNT(s.sale_id) AS total_orders,
+                        SUM(s.total_items) AS total_items,
+                        SUM(s.total_amount) AS total_amount,
+                        SUM(s.grand_total) AS grand_total,
+                        MIN(s.created_date) AS first_order_date,
+                        MAX(s.created_date) AS last_order_date
+                    FROM Sale s
+                    WHERE s.status = 'A' 
+                      AND s.sale_type = 'SALE'
+                      AND s.table_number IS NOT NULL
+                    GROUP BY s.table_number
+                    ORDER BY grand_total DESC";
+
+                return Connection.ExecuteQuery(query) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving table sales report: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Searches table sales report by keyword
+        /// </summary>
+        public DataTable SearchTableSalesReport(string keyword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    return GetTableSalesReport();
+                }
+
+                string query = @"
+                    SELECT 
+                        ISNULL(s.table_number, 'No Table') AS table_number,
+                        COUNT(s.sale_id) AS total_orders,
+                        SUM(s.total_items) AS total_items,
+                        SUM(s.total_amount) AS total_amount,
+                        SUM(s.grand_total) AS grand_total,
+                        MIN(s.created_date) AS first_order_date,
+                        MAX(s.created_date) AS last_order_date
+                    FROM Sale s
+                    WHERE s.status = 'A' 
+                      AND s.sale_type = 'SALE'
+                      AND s.table_number IS NOT NULL
+                      AND s.table_number LIKE @keyword
+                    GROUP BY s.table_number
+                    ORDER BY grand_total DESC";
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@keyword", "%" + keyword + "%")
+                };
+
+                return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error searching table sales report: {ex.Message}", ex);
+            }
+        }
     }
 }
