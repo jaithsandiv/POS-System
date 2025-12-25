@@ -781,5 +781,75 @@ namespace POS.DAL
                 throw new Exception($"Error deleting Customer: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Gets customer group sales report - total sales grouped by customer group
+        /// </summary>
+        public DataTable GetCustomerGroupSalesReport()
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        ISNULL(cg.group_name, 'No Group') AS customer_group,
+                        SUM(s.grand_total) AS total_sales
+                    FROM Sale s
+                    LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                    LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
+                    WHERE s.status = 'A' 
+                      AND s.sale_type = 'SALE'
+                    GROUP BY cg.group_name
+                    ORDER BY total_sales DESC";
+
+                return Connection.ExecuteQuery(query) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving customer group sales report: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Searches customer group sales report by keyword
+        /// </summary>
+        public DataTable SearchCustomerGroupSalesReport(string keyword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    return GetCustomerGroupSalesReport();
+                }
+
+                string query = @"
+                    SELECT 
+                        customer_group,
+                        total_sales
+                    FROM (
+                        SELECT 
+                            ISNULL(cg.group_name, 'No Group') AS customer_group,
+                            SUM(s.grand_total) AS total_sales
+                        FROM Sale s
+                        LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                        LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
+                        WHERE s.status = 'A' 
+                          AND s.sale_type = 'SALE'
+                        GROUP BY cg.group_name
+                    ) AS GroupedSales
+                    WHERE customer_group LIKE @keyword
+                       OR CONVERT(VARCHAR, total_sales) LIKE @keyword
+                    ORDER BY total_sales DESC";
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@keyword", "%" + keyword + "%")
+                };
+
+                return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error searching customer group sales report: {ex.Message}", ex);
+            }
+        }
     }
 }

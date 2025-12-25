@@ -189,5 +189,26 @@ namespace POS.BLL
         {
             return _dalContacts.DeleteCustomer(customerId, updatedBy);
         }
+
+        /// <summary>
+        /// Gets customer group sales report - total sales grouped by customer group
+        /// </summary>
+        public DataTable GetCustomerGroupSalesReport()
+        {
+            return _dalContacts.GetCustomerGroupSalesReport();
+        }
+
+        /// <summary>
+        /// Searches customer group sales report by keyword
+        /// </summary>
+        public DataTable SearchCustomerGroupSalesReport(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return GetCustomerGroupSalesReport();
+            }
+
+            return _dalContacts.SearchCustomerGroupSalesReport(keyword.Trim());
+        }
     }
 }
