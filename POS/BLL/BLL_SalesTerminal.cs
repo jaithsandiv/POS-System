@@ -152,5 +152,21 @@ namespace POS.BLL
         {
             return _dalSalesTerminal.SearchProductSalesReport(keyword);
         }
+
+        /// <summary>
+        /// Gets items report - all sold products with purchase and customer details
+        /// </summary>
+        public DataTable GetItemsReport()
+        {
+            return _dalSalesTerminal.GetItemsReport();
+        }
+
+        /// <summary>
+        /// Searches items report by keyword
+        /// </summary>
+        public DataTable SearchItemsReport(string keyword)
+        {
+            return _dalSalesTerminal.SearchItemsReport(keyword);
+        }
     }
 }

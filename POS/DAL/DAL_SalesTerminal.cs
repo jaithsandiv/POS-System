@@ -1113,5 +1113,112 @@ namespace POS.DAL
                 throw new Exception($"Error searching product sales report: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Gets items report - all sold products with purchase and customer details
+        /// </summary>
+        public DataTable GetItemsReport()
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        si.product_id,
+                        si.product_name AS Product,
+                        p.manufacture_date AS PurchaseDate,
+                        b.brand_name AS Purchase,
+                        ISNULL(s.supplier_name, 'N/A') AS Supplier,
+                        p.purchase_cost AS PurchasePrice,
+                        sale.created_date AS SellDate,
+                        sale.sale_id AS SaleID,
+                        ISNULL(c.full_name, 'Walk-In Customer') AS CustomerName,
+                        ISNULL(st.store_name, 'Main Store') AS Location,
+                        si.quantity AS SellQuantity,
+                        si.unit_price AS SellPrice,
+                        si.subtotal AS TotalAmount
+                    FROM SaleItem si
+                    INNER JOIN Sale sale ON si.sale_id = sale.sale_id
+                    INNER JOIN Product p ON si.product_id = p.product_id
+                    LEFT JOIN Customer c ON sale.customer_id = c.customer_id
+                    LEFT JOIN Store st ON sale.store_id = st.store_id
+                    LEFT JOIN Brand b ON p.brand_id = b.brand_id
+                    LEFT JOIN Supplier s ON b.supplier_id = s.supplier_id
+                    WHERE sale.status = 'A' 
+                      AND sale.sale_type = 'SALE'
+                      AND si.status = 'A'
+                    ORDER BY sale.created_date DESC, si.product_name";
+
+                return Connection.ExecuteQuery(query) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving items report: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Searches items report by keyword
+        /// </summary>
+        public DataTable SearchItemsReport(string keyword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    return GetItemsReport();
+                }
+
+                string query = @"
+                    SELECT 
+                        si.product_id,
+                        si.product_name AS Product,
+                        p.manufacture_date AS PurchaseDate,
+                        b.brand_name AS Purchase,
+                        ISNULL(s.supplier_name, 'N/A') AS Supplier,
+                        p.purchase_cost AS PurchasePrice,
+                        sale.created_date AS SellDate,
+                        sale.sale_id AS SaleID,
+                        ISNULL(c.full_name, 'Walk-In Customer') AS CustomerName,
+                        ISNULL(st.store_name, 'Main Store') AS Location,
+                        si.quantity AS SellQuantity,
+                        si.unit_price AS SellPrice,
+                        si.subtotal AS TotalAmount
+                    FROM SaleItem si
+                    INNER JOIN Sale sale ON si.sale_id = sale.sale_id
+                    INNER JOIN Product p ON si.product_id = p.product_id
+                    LEFT JOIN Customer c ON sale.customer_id = c.customer_id
+                    LEFT JOIN Store st ON sale.store_id = st.store_id
+                    LEFT JOIN Brand b ON p.brand_id = b.brand_id
+                    LEFT JOIN Supplier s ON b.supplier_id = s.supplier_id
+                    WHERE sale.status = 'A' 
+                      AND sale.sale_type = 'SALE'
+                      AND si.status = 'A'
+                      AND (
+                        si.product_name LIKE @keyword
+                        OR b.brand_name LIKE @keyword
+                        OR ISNULL(s.supplier_name, 'N/A') LIKE @keyword
+                        OR ISNULL(c.full_name, 'Walk-In Customer') LIKE @keyword
+                        OR ISNULL(st.store_name, 'Main Store') LIKE @keyword
+                        OR CONVERT(VARCHAR, p.manufacture_date, 120) LIKE @keyword
+                        OR CONVERT(VARCHAR, sale.created_date, 120) LIKE @keyword
+                        OR CONVERT(VARCHAR, sale.sale_id) LIKE @keyword
+                        OR CONVERT(VARCHAR, p.purchase_cost) LIKE @keyword
+                        OR CONVERT(VARCHAR, si.quantity) LIKE @keyword
+                        OR CONVERT(VARCHAR, si.unit_price) LIKE @keyword
+                        OR CONVERT(VARCHAR, si.subtotal) LIKE @keyword
+                      )
+                    ORDER BY sale.created_date DESC, si.product_name";
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@keyword", "%" + keyword + "%")
+                };
+
+                return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error searching items report: {ex.Message}", ex);
+            }
+        }
     }
 }
