@@ -210,5 +210,26 @@ namespace POS.BLL
 
             return _dalContacts.SearchCustomerGroupSalesReport(keyword.Trim());
         }
+
+        /// <summary>
+        /// Gets supplier/customer report - all customers with their purchase and sales data
+        /// </summary>
+        public DataTable GetSupplierCustomerReport()
+        {
+            return _dalContacts.GetSupplierCustomerReport();
+        }
+
+        /// <summary>
+        /// Searches supplier/customer report by keyword
+        /// </summary>
+        public DataTable SearchSupplierCustomerReport(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return GetSupplierCustomerReport();
+            }
+
+            return _dalContacts.SearchSupplierCustomerReport(keyword.Trim());
+        }
     }
 }

@@ -851,5 +851,97 @@ namespace POS.DAL
                 throw new Exception($"Error searching customer group sales report: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Gets supplier/customer report - all customers with their purchase and sales data
+        /// </summary>
+        public DataTable GetSupplierCustomerReport()
+        {
+            try
+            {
+                string query = @"
+                    WITH CustomerSales AS (
+                        SELECT 
+                            c.customer_id,
+                            ISNULL(c.full_name, 'Walk-In Customer') AS customer_name,
+                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE' THEN s.grand_total ELSE 0 END), 0) AS total_sale,
+                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE_RETURN' THEN s.grand_total ELSE 0 END), 0) AS total_sell_return,
+                            ISNULL(c.credit_balance, 0) AS opening_balance
+                        FROM Customer c
+                        LEFT JOIN Sale s ON c.customer_id = s.customer_id AND s.status = 'A'
+                        WHERE c.status = 'A'
+                        GROUP BY c.customer_id, c.full_name, c.credit_balance
+                    )
+                    SELECT 
+                        customer_name,
+                        CAST(0 AS DECIMAL(18,2)) AS total_purchase,
+                        CAST(0 AS DECIMAL(18,2)) AS total_purchase_return,
+                        total_sale,
+                        total_sell_return,
+                        opening_balance,
+                        (opening_balance + total_sale - total_sell_return) AS due
+                    FROM CustomerSales
+                    ORDER BY customer_name";
+
+                return Connection.ExecuteQuery(query) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving supplier/customer report: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Searches supplier/customer report by keyword
+        /// </summary>
+        public DataTable SearchSupplierCustomerReport(string keyword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    return GetSupplierCustomerReport();
+                }
+
+                string query = @"
+                    WITH CustomerSales AS (
+                        SELECT 
+                            c.customer_id,
+                            ISNULL(c.full_name, 'Walk-In Customer') AS customer_name,
+                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE' THEN s.grand_total ELSE 0 END), 0) AS total_sale,
+                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE_RETURN' THEN s.grand_total ELSE 0 END), 0) AS total_sell_return,
+                            ISNULL(c.credit_balance, 0) AS opening_balance
+                        FROM Customer c
+                        LEFT JOIN Sale s ON c.customer_id = s.customer_id AND s.status = 'A'
+                        WHERE c.status = 'A'
+                        GROUP BY c.customer_id, c.full_name, c.credit_balance
+                    )
+                    SELECT 
+                        customer_name,
+                        CAST(0 AS DECIMAL(18,2)) AS total_purchase,
+                        CAST(0 AS DECIMAL(18,2)) AS total_purchase_return,
+                        total_sale,
+                        total_sell_return,
+                        opening_balance,
+                        (opening_balance + total_sale - total_sell_return) AS due
+                    FROM CustomerSales
+                    WHERE customer_name LIKE @keyword
+                       OR CONVERT(VARCHAR, total_sale) LIKE @keyword
+                       OR CONVERT(VARCHAR, total_sell_return) LIKE @keyword
+                       OR CONVERT(VARCHAR, opening_balance) LIKE @keyword
+                       OR CONVERT(VARCHAR, opening_balance + total_sale - total_sell_return) LIKE @keyword
+                    ORDER BY customer_name";
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@keyword", "%" + keyword + "%")
+                };
+
+                return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error searching supplier/customer report: {ex.Message}", ex);
+            }
+        }
     }
 }
