@@ -1005,5 +1005,113 @@ namespace POS.DAL
                 throw new Exception($"Error searching sale payments: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Gets product sales report - all sold products with customer and payment details
+        /// </summary>
+        public DataTable GetProductSalesReport()
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        si.product_id,
+                        si.product_name AS Product,
+                        ISNULL(c.full_name, 'Walk-In Customer') AS CustomerName,
+                        ISNULL(c.customer_id, 1) AS CustomerID,
+                        s.invoice_number AS InvoiceNo,
+                        s.created_date AS Date,
+                        si.quantity AS Quantity,
+                        si.unit_price AS UnitPrice,
+                        si.discount_value AS Discount,
+                        si.subtotal AS TotalAmount,
+                        STUFF((
+                            SELECT DISTINCT ', ' + p.payment_method
+                            FROM Payment p
+                            WHERE p.sale_id = s.sale_id AND p.status = 'A'
+                            FOR XML PATH(''), TYPE
+                        ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS Payment
+                    FROM SaleItem si
+                    INNER JOIN Sale s ON si.sale_id = s.sale_id
+                    LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                    WHERE s.status = 'A' 
+                      AND s.sale_type = 'SALE'
+                      AND si.status = 'A'
+                    ORDER BY s.created_date DESC, si.product_name";
+
+                return Connection.ExecuteQuery(query) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving product sales report: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Searches product sales report by keyword
+        /// </summary>
+        public DataTable SearchProductSalesReport(string keyword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    return GetProductSalesReport();
+                }
+
+                string query = @"
+                    SELECT 
+                        si.product_id,
+                        si.product_name AS Product,
+                        ISNULL(c.full_name, 'Walk-In Customer') AS CustomerName,
+                        ISNULL(c.customer_id, 1) AS CustomerID,
+                        s.invoice_number AS InvoiceNo,
+                        s.created_date AS Date,
+                        si.quantity AS Quantity,
+                        si.unit_price AS UnitPrice,
+                        si.discount_value AS Discount,
+                        si.subtotal AS TotalAmount,
+                        STUFF((
+                            SELECT DISTINCT ', ' + p.payment_method
+                            FROM Payment p
+                            WHERE p.sale_id = s.sale_id AND p.status = 'A'
+                            FOR XML PATH(''), TYPE
+                        ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS Payment
+                    FROM SaleItem si
+                    INNER JOIN Sale s ON si.sale_id = s.sale_id
+                    LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                    WHERE s.status = 'A' 
+                      AND s.sale_type = 'SALE'
+                      AND si.status = 'A'
+                      AND (
+                        si.product_name LIKE @keyword
+                        OR ISNULL(c.full_name, 'Walk-In Customer') LIKE @keyword
+                        OR CONVERT(VARCHAR, ISNULL(c.customer_id, 1)) LIKE @keyword
+                        OR s.invoice_number LIKE @keyword
+                        OR CONVERT(VARCHAR, s.created_date, 120) LIKE @keyword
+                        OR CONVERT(VARCHAR, si.quantity) LIKE @keyword
+                        OR CONVERT(VARCHAR, si.unit_price) LIKE @keyword
+                        OR CONVERT(VARCHAR, si.discount_value) LIKE @keyword
+                        OR CONVERT(VARCHAR, si.subtotal) LIKE @keyword
+                        OR EXISTS (
+                            SELECT 1 FROM Payment p 
+                            WHERE p.sale_id = s.sale_id 
+                            AND p.status = 'A' 
+                            AND p.payment_method LIKE @keyword
+                        )
+                      )
+                    ORDER BY s.created_date DESC, si.product_name";
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@keyword", "%" + keyword + "%")
+                };
+
+                return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error searching product sales report: {ex.Message}", ex);
+            }
+        }
     }
 }
