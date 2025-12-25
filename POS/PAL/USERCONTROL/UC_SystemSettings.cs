@@ -19,12 +19,47 @@ namespace POS.PAL.USERCONTROL
         private readonly BLL_SystemSettings _bllSystemSettings = new BLL_SystemSettings();
         private readonly BLL_Store _bllStore = new BLL_Store();
         private DataTable _settingsTable;
+        private bool _isSuperAdmin = false;
 
         public UC_SystemSettings()
         {
             InitializeComponent();
+            
+            // Check if current user is super admin
+            CheckSuperAdminStatus();
+            
+            // Hide License tab for non-super admins
+            ConfigureLicenseTabVisibility();
+            
             LoadPrinters();
             LoadSettings();
+        }
+
+        /// <summary>
+        /// Checks if the current logged-in user is a super admin
+        /// </summary>
+        private void CheckSuperAdminStatus()
+        {
+            if (Main.DataSetApp?.User != null && Main.DataSetApp.User.Rows.Count > 0)
+            {
+                var userRow = Main.DataSetApp.User[0];
+                if (!userRow.Isis_super_adminNull())
+                {
+                    _isSuperAdmin = Convert.ToBoolean(userRow.is_super_admin);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Configures visibility of the License tab based on user role
+        /// </summary>
+        private void ConfigureLicenseTabVisibility()
+        {
+            // Hide License tab for regular users
+            if (xtraTabControl1 != null && xtraTabControl1.TabPages.Contains(tabLicense))
+            {
+                tabLicense.PageVisible = _isSuperAdmin;
+            }
         }
 
         private void LoadPrinters()
@@ -110,10 +145,108 @@ namespace POS.PAL.USERCONTROL
                     txtCountry.Text = storeRow["country"]?.ToString();
                     txtPostalCode.Text = storeRow["postal_code"]?.ToString();
                 }
+
+                // Load License & Trial settings (super admin only)
+                if (_isSuperAdmin)
+                {
+                    LoadLicenseSettings();
+                }
             }
             catch (Exception ex)
             {
                 XtraMessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Loads license and trial period settings from the Business table
+        /// </summary>
+        private void LoadLicenseSettings()
+        {
+            try
+            {
+                if (Main.DataSetApp?.Business != null && Main.DataSetApp.Business.Rows.Count > 0)
+                {
+                    var businessRow = Main.DataSetApp.Business[0];
+                    
+                    // Load trial period status - check if dates exist
+                    bool hasTrialDates = false;
+                    if (!businessRow.Istrial_start_dateNull() && !businessRow.Istrial_end_dateNull())
+                    {
+                        string startDateStr = businessRow.trial_start_date;
+                        string endDateStr = businessRow.trial_end_date;
+                        hasTrialDates = !string.IsNullOrWhiteSpace(startDateStr) && !string.IsNullOrWhiteSpace(endDateStr);
+                    }
+                    tsEnableTrial.IsOn = hasTrialDates;
+                    
+                    // Load trial dates
+                    if (!businessRow.Istrial_start_dateNull() && !string.IsNullOrWhiteSpace(businessRow.trial_start_date))
+                    {
+                        if (DateTime.TryParse(businessRow.trial_start_date, out DateTime startDate))
+                        {
+                            txtTrialStartDate.Text = startDate.ToString("yyyy-MM-dd");
+                        }
+                        else
+                        {
+                            txtTrialStartDate.Text = "";
+                        }
+                    }
+                    else
+                    {
+                        txtTrialStartDate.Text = "";
+                    }
+                    
+                    if (!businessRow.Istrial_end_dateNull() && !string.IsNullOrWhiteSpace(businessRow.trial_end_date))
+                    {
+                        if (DateTime.TryParse(businessRow.trial_end_date, out DateTime endDate))
+                        {
+                            txtTrialEndDate.Text = endDate.ToString("yyyy-MM-dd");
+                        }
+                        else
+                        {
+                            txtTrialEndDate.Text = "";
+                        }
+                    }
+                    else
+                    {
+                        txtTrialEndDate.Text = "";
+                    }
+                    
+                    // Calculate trial days
+                    if (!businessRow.Istrial_start_dateNull() && !businessRow.Istrial_end_dateNull() &&
+                        !string.IsNullOrWhiteSpace(businessRow.trial_start_date) && 
+                        !string.IsNullOrWhiteSpace(businessRow.trial_end_date))
+                    {
+                        if (DateTime.TryParse(businessRow.trial_start_date, out DateTime startDate) &&
+                            DateTime.TryParse(businessRow.trial_end_date, out DateTime endDate))
+                        {
+                            int days = (endDate - startDate).Days;
+                            txtTrialDays.Text = days.ToString();
+                        }
+                        else
+                        {
+                            txtTrialDays.Text = "3"; // Default trial period
+                        }
+                    }
+                    else
+                    {
+                        txtTrialDays.Text = "3"; // Default trial period
+                    }
+                    
+                    // Load licensed status - handle string comparison
+                    bool isLicensed = false;
+                    if (!businessRow.Isis_licensedNull())
+                    {
+                        string licensedValue = businessRow.is_licensed?.ToString();
+                        isLicensed = licensedValue == "True" || licensedValue == "1";
+                    }
+                    chkIsLicensed.Checked = isLicensed;
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error loading license settings: {ex.Message}\n\nDetails: {ex.StackTrace}", 
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -185,27 +318,102 @@ namespace POS.PAL.USERCONTROL
                 // Assuming Store ID 1
                 _bllSystemSettings.UpdateStoreSettings(1, "Main Store", txtPhone.Text, txtEmail.Text, txtAddress.Text, txtCity.Text, txtState.Text, txtCountry.Text, txtPostalCode.Text, userId);
 
-                // Reload settings in Main to apply changes immediately
-                if (Main.Instance != null)
+                // Save License & Trial settings (super admin only)
+                if (_isSuperAdmin)
                 {
-                    // We assume these methods are public/internal in Main
-                    // If not, we might need to make them accessible or just rely on restart
-                    // Based on typical patterns, they might be private, but let's try calling them if they are accessible.
-                    // If they are private, this code will fail to compile. 
-                    // Let's check Main.cs again.
-                    // They are called in constructor, but not declared public in the snippet I saw.
-                    // I'll comment them out for now to avoid compilation errors, unless I'm sure.
-                    // Actually, I'll just reload the local settings.
+                    SaveLicenseSettings(userId);
                 }
 
                 XtraMessageBox.Show("Settings saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
                 // Reload settings to refresh UI/State
                 LoadSettings();
+                
+                // Reload business data in Main
+                if (Main.Instance != null)
+                {
+                    Main.Instance.LoadBusinessData();
+                }
             }
             catch (Exception ex)
             {
                 XtraMessageBox.Show($"Error saving settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Saves license and trial period settings to the Business table
+        /// </summary>
+        private void SaveLicenseSettings(int userId)
+        {
+            try
+            {
+                bool enableTrial = tsEnableTrial.IsOn;
+                int trialDays = 3; // Default
+                
+                if (!string.IsNullOrWhiteSpace(txtTrialDays.Text))
+                {
+                    if (!int.TryParse(txtTrialDays.Text, out trialDays) || trialDays < 0)
+                    {
+                        trialDays = 3; // Fallback to default
+                    }
+                }
+                
+                bool isLicensed = chkIsLicensed.Checked;
+                
+                // Update business license settings
+                DateTime? trialStartDate = null;
+                DateTime? trialEndDate = null;
+                
+                if (enableTrial)
+                {
+                    // If enabling trial for the first time OR trial dates are null, set new dates
+                    if (Main.DataSetApp.Business[0].Istrial_start_dateNull() || 
+                        string.IsNullOrWhiteSpace(Main.DataSetApp.Business[0].trial_start_date))
+                    {
+                        trialStartDate = DateTime.Now;
+                        trialEndDate = DateTime.Now.AddDays(trialDays);
+                    }
+                    else
+                    {
+                        // Keep existing dates if they exist
+                        if (DateTime.TryParse(Main.DataSetApp.Business[0].trial_start_date, out DateTime parsedStart))
+                        {
+                            trialStartDate = parsedStart;
+                        }
+                        else
+                        {
+                            trialStartDate = DateTime.Now;
+                        }
+                        
+                        if (DateTime.TryParse(Main.DataSetApp.Business[0].trial_end_date, out DateTime parsedEnd))
+                        {
+                            trialEndDate = parsedEnd;
+                        }
+                        else
+                        {
+                            trialEndDate = DateTime.Now.AddDays(trialDays);
+                        }
+                    }
+                }
+                else
+                {
+                    // Disabling trial - set dates to null
+                    trialStartDate = null;
+                    trialEndDate = null;
+                }
+                
+                // Call BLL method to update license settings
+                bool success = _bllSystemSettings.UpdateLicenseSettings(trialStartDate, trialEndDate, isLicensed, userId);
+                
+                if (!success)
+                {
+                    throw new Exception("Failed to update license settings in the database.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error saving license settings: {ex.Message}", ex);
             }
         }
 

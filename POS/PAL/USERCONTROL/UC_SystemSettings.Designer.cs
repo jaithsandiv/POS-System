@@ -86,6 +86,18 @@ namespace POS.PAL.USERCONTROL
             this.labelControl20 = new DevExpress.XtraEditors.LabelControl();
             this.tsKOT = new DevExpress.XtraEditors.ToggleSwitch();
             this.labelControl19 = new DevExpress.XtraEditors.LabelControl();
+            this.tabLicense = new DevExpress.XtraTab.XtraTabPage();
+            this.grpLicense = new DevExpress.XtraEditors.GroupControl();
+            this.tsEnableTrial = new DevExpress.XtraEditors.ToggleSwitch();
+            this.labelControl21 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl22 = new DevExpress.XtraEditors.LabelControl();
+            this.txtTrialDays = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl23 = new DevExpress.XtraEditors.LabelControl();
+            this.txtTrialStartDate = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl24 = new DevExpress.XtraEditors.LabelControl();
+            this.txtTrialEndDate = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl25 = new DevExpress.XtraEditors.LabelControl();
+            this.chkIsLicensed = new DevExpress.XtraEditors.CheckEdit();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
@@ -135,6 +147,13 @@ namespace POS.PAL.USERCONTROL
             this.grpFeatures.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tsStockCheck.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tsKOT.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tsEnableTrial.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTrialDays.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTrialStartDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTrialEndDate.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIsLicensed.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpLicense)).BeginInit();
+            this.grpLicense.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
             this.SuspendLayout();
@@ -167,7 +186,8 @@ namespace POS.PAL.USERCONTROL
             this.tabStore,
             this.tabPrinting,
             this.tabTax,
-            this.tabFeatures});
+            this.tabFeatures,
+            this.tabLicense});
             // 
             // tabGeneral
             // 
@@ -796,6 +816,139 @@ namespace POS.PAL.USERCONTROL
             this.labelControl19.TabIndex = 0;
             this.labelControl19.Text = "Enable KOT:";
             // 
+            // tabLicense
+            // 
+            this.tabLicense.Appearance.Header.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.tabLicense.Appearance.Header.Options.UseFont = true;
+            this.tabLicense.Controls.Add(this.grpLicense);
+            this.tabLicense.Name = "tabLicense";
+            this.tabLicense.Size = new System.Drawing.Size(998, 609);
+            this.tabLicense.Text = "License & Trial";
+            // 
+            // grpLicense
+            // 
+            this.grpLicense.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            this.grpLicense.AppearanceCaption.Options.UseFont = true;
+            this.grpLicense.Controls.Add(this.tsEnableTrial);
+            this.grpLicense.Controls.Add(this.labelControl21);
+            this.grpLicense.Controls.Add(this.labelControl22);
+            this.grpLicense.Controls.Add(this.txtTrialDays);
+            this.grpLicense.Controls.Add(this.labelControl23);
+            this.grpLicense.Controls.Add(this.txtTrialStartDate);
+            this.grpLicense.Controls.Add(this.labelControl24);
+            this.grpLicense.Controls.Add(this.txtTrialEndDate);
+            this.grpLicense.Controls.Add(this.labelControl25);
+            this.grpLicense.Controls.Add(this.chkIsLicensed);
+            this.grpLicense.Location = new System.Drawing.Point(20, 20);
+            this.grpLicense.Name = "grpLicense";
+            this.grpLicense.Size = new System.Drawing.Size(450, 260);
+            this.grpLicense.TabIndex = 0;
+            this.grpLicense.Text = "License & Trial Settings";
+            // 
+            // tsEnableTrial
+            // 
+            this.tsEnableTrial.Location = new System.Drawing.Point(150, 220);
+            this.tsEnableTrial.Name = "tsEnableTrial";
+            this.tsEnableTrial.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.tsEnableTrial.Properties.Appearance.Options.UseFont = true;
+            this.tsEnableTrial.Properties.OffText = "No";
+            this.tsEnableTrial.Properties.OnText = "Yes";
+            this.tsEnableTrial.Size = new System.Drawing.Size(95, 22);
+            this.tsEnableTrial.TabIndex = 9;
+            // 
+            // labelControl21
+            // 
+            this.labelControl21.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.labelControl21.Appearance.Options.UseFont = true;
+            this.labelControl21.Location = new System.Drawing.Point(20, 226);
+            this.labelControl21.Name = "labelControl21";
+            this.labelControl21.Size = new System.Drawing.Size(78, 17);
+            this.labelControl21.TabIndex = 8;
+            this.labelControl21.Text = "Enable Trial:";
+            // 
+            // labelControl22
+            // 
+            this.labelControl22.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.labelControl22.Appearance.Options.UseFont = true;
+            this.labelControl22.Location = new System.Drawing.Point(20, 186);
+            this.labelControl22.Name = "labelControl22";
+            this.labelControl22.Size = new System.Drawing.Size(119, 17);
+            this.labelControl22.TabIndex = 7;
+            this.labelControl22.Text = "Trial Period (Days):";
+            // 
+            // txtTrialDays
+            // 
+            this.txtTrialDays.Location = new System.Drawing.Point(150, 180);
+            this.txtTrialDays.Name = "txtTrialDays";
+            this.txtTrialDays.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtTrialDays.Properties.Appearance.Options.UseFont = true;
+            this.txtTrialDays.Properties.AutoHeight = false;
+            this.txtTrialDays.Properties.Padding = new System.Windows.Forms.Padding(5);
+            this.txtTrialDays.Size = new System.Drawing.Size(100, 30);
+            this.txtTrialDays.TabIndex = 6;
+            // 
+            // labelControl23
+            // 
+            this.labelControl23.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.labelControl23.Appearance.Options.UseFont = true;
+            this.labelControl23.Location = new System.Drawing.Point(20, 146);
+            this.labelControl23.Name = "labelControl23";
+            this.labelControl23.Size = new System.Drawing.Size(103, 17);
+            this.labelControl23.TabIndex = 5;
+            this.labelControl23.Text = "Trial Start Date:";
+            // 
+            // txtTrialStartDate
+            // 
+            this.txtTrialStartDate.Location = new System.Drawing.Point(150, 140);
+            this.txtTrialStartDate.Name = "txtTrialStartDate";
+            this.txtTrialStartDate.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtTrialStartDate.Properties.Appearance.Options.UseFont = true;
+            this.txtTrialStartDate.Properties.AutoHeight = false;
+            this.txtTrialStartDate.Properties.Padding = new System.Windows.Forms.Padding(5);
+            this.txtTrialStartDate.Size = new System.Drawing.Size(200, 30);
+            this.txtTrialStartDate.TabIndex = 4;
+            // 
+            // labelControl24
+            // 
+            this.labelControl24.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.labelControl24.Appearance.Options.UseFont = true;
+            this.labelControl24.Location = new System.Drawing.Point(20, 106);
+            this.labelControl24.Name = "labelControl24";
+            this.labelControl24.Size = new System.Drawing.Size(100, 17);
+            this.labelControl24.TabIndex = 3;
+            this.labelControl24.Text = "Trial End Date:";
+            // 
+            // txtTrialEndDate
+            // 
+            this.txtTrialEndDate.Location = new System.Drawing.Point(150, 100);
+            this.txtTrialEndDate.Name = "txtTrialEndDate";
+            this.txtTrialEndDate.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtTrialEndDate.Properties.Appearance.Options.UseFont = true;
+            this.txtTrialEndDate.Properties.AutoHeight = false;
+            this.txtTrialEndDate.Properties.Padding = new System.Windows.Forms.Padding(5);
+            this.txtTrialEndDate.Size = new System.Drawing.Size(200, 30);
+            this.txtTrialEndDate.TabIndex = 2;
+            // 
+            // labelControl25
+            // 
+            this.labelControl25.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.labelControl25.Appearance.Options.UseFont = true;
+            this.labelControl25.Location = new System.Drawing.Point(20, 66);
+            this.labelControl25.Name = "labelControl25";
+            this.labelControl25.Size = new System.Drawing.Size(65, 17);
+            this.labelControl25.TabIndex = 1;
+            this.labelControl25.Text = "Licensed?:";
+            // 
+            // chkIsLicensed
+            // 
+            this.chkIsLicensed.Location = new System.Drawing.Point(150, 62);
+            this.chkIsLicensed.Name = "chkIsLicensed";
+            this.chkIsLicensed.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.chkIsLicensed.Properties.Appearance.Options.UseFont = true;
+            this.chkIsLicensed.Properties.Caption = "This software is licensed.";
+            this.chkIsLicensed.Size = new System.Drawing.Size(250, 20);
+            this.chkIsLicensed.TabIndex = 0;
+            // 
             // panelControl3
             // 
             this.panelControl3.Appearance.BackColor = System.Drawing.Color.White;
@@ -896,6 +1049,14 @@ namespace POS.PAL.USERCONTROL
             this.grpFeatures.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tsStockCheck.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tsKOT.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tsEnableTrial.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTrialDays.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTrialStartDate.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTrialEndDate.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIsLicensed.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpLicense)).EndInit();
+            this.grpLicense.ResumeLayout(false);
+            this.grpLicense.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             this.panelControl3.PerformLayout();
@@ -915,6 +1076,7 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraTab.XtraTabPage tabPrinting;
         private DevExpress.XtraTab.XtraTabPage tabTax;
         private DevExpress.XtraTab.XtraTabPage tabFeatures;
+        private DevExpress.XtraTab.XtraTabPage tabLicense;
         
         // General Tab
         private DevExpress.XtraEditors.GroupControl grpBusiness;
@@ -977,5 +1139,17 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.LabelControl labelControl20;
         private DevExpress.XtraEditors.ToggleSwitch tsStockCheck;
 
+        // License & Trial Tab
+        private DevExpress.XtraEditors.GroupControl grpLicense;
+        private DevExpress.XtraEditors.LabelControl labelControl21;
+        private DevExpress.XtraEditors.LabelControl labelControl22;
+        private DevExpress.XtraEditors.TextEdit txtTrialDays;
+        private DevExpress.XtraEditors.LabelControl labelControl23;
+        private DevExpress.XtraEditors.TextEdit txtTrialStartDate;
+        private DevExpress.XtraEditors.LabelControl labelControl24;
+        private DevExpress.XtraEditors.TextEdit txtTrialEndDate;
+        private DevExpress.XtraEditors.LabelControl labelControl25;
+        private DevExpress.XtraEditors.CheckEdit chkIsLicensed;
+        private DevExpress.XtraEditors.ToggleSwitch tsEnableTrial;
     }
 }

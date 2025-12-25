@@ -31,5 +31,13 @@ namespace POS.BLL
         {
             return _dalSystemSettings.UpdateStoreSettings(storeId, storeName, phone, email, address, city, state, country, postalCode, updatedBy);
         }
+
+        /// <summary>
+        /// Updates the license and trial period settings in the Business table
+        /// </summary>
+        public bool UpdateLicenseSettings(DateTime? trialStartDate, DateTime? trialEndDate, bool isLicensed, int updatedBy)
+        {
+            return _dalSystemSettings.UpdateLicenseSettings(trialStartDate, trialEndDate, isLicensed, updatedBy);
+        }
     }
 }

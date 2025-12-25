@@ -157,5 +157,37 @@ namespace POS.DAL
                 throw new Exception($"Error updating store settings: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Updates license and trial period settings in the Business table
+        /// </summary>
+        public bool UpdateLicenseSettings(DateTime? trialStartDate, DateTime? trialEndDate, bool isLicensed, int updatedBy)
+        {
+            try
+            {
+                string query = @"
+                    UPDATE Business
+                    SET trial_start_date = @trialStartDate,
+                        trial_end_date = @trialEndDate,
+                        is_licensed = @isLicensed,
+                        updated_by = @updatedBy,
+                        updated_date = GETDATE()
+                    WHERE status = 'A'";
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@trialStartDate", trialStartDate ?? (object)DBNull.Value),
+                    new SqlParameter("@trialEndDate", trialEndDate ?? (object)DBNull.Value),
+                    new SqlParameter("@isLicensed", isLicensed),
+                    new SqlParameter("@updatedBy", updatedBy)
+                };
+
+                int rowsAffected = Connection.ExecuteNonQuery(query, parameters);
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error updating license settings: {ex.Message}", ex);
+            }
+        }
     }
 }
