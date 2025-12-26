@@ -425,9 +425,13 @@ CREATE TABLE SystemLog (
 INSERT INTO SystemSetting (setting_key, setting_value, status) VALUES
 ('ENABLE_THERMAL_PRINT', 'True', 'A'),
 ('ENABLE_A4_PRINT', 'False', 'A'),
-('AUTO_PRINT_ON_COMPLETION', 'True', 'A'),
+('auto_print', 'True', 'A'),
 ('thermal_printer_name', 'Microsoft Print to PDF', 'A'),
-('kot_enabled', 'False', 'A');
+('kot_enabled', 'False', 'A'),
+('kot_printer_name', '', 'A'),
+('invoice_footer', 'Thank You For Your Business!', 'A'),
+('stock_check_enabled', 'True', 'A'),
+('store_website', '', 'A');
 
 
 

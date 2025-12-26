@@ -85,6 +85,7 @@
             this.p_total = new DevExpress.XtraReports.Parameters.Parameter();
             this.p_discount = new DevExpress.XtraReports.Parameters.Parameter();
             this.p_grand_total = new DevExpress.XtraReports.Parameters.Parameter();
+            this.p_footer = new DevExpress.XtraReports.Parameters.Parameter();
             this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
@@ -628,6 +629,8 @@
             // xrLabel4
             // 
             this.xrLabel4.Dpi = 254F;
+            this.xrLabel4.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "?p_footer")});
             this.xrLabel4.Font = new DevExpress.Drawing.DXFont("Arial", 10F, DevExpress.Drawing.DXFontStyle.Bold);
             this.xrLabel4.LocationFloat = new DevExpress.Utils.PointFloat(732.8958F, 0F);
             this.xrLabel4.Multiline = true;
@@ -637,7 +640,7 @@
             this.xrLabel4.StylePriority.UseFont = false;
             this.xrLabel4.StylePriority.UseTextAlignment = false;
             this.xrLabel4.Text = "Thank You For Your Business!";
-            this.xrLabel4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.xrLabel4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // p_date
             // 
@@ -691,6 +694,12 @@
             this.p_grand_total.Description = "Parameter1";
             this.p_grand_total.Name = "p_grand_total";
             // 
+            // p_footer
+            // 
+            this.p_footer.Description = "Footer Text";
+            this.p_footer.Name = "p_footer";
+            this.p_footer.ValueInfo = "Thank You For Your Business!";
+            // 
             // objectDataSource1
             // 
             this.objectDataSource1.Constructor = objectConstructorInfo1;
@@ -725,7 +734,8 @@
             new DevExpress.XtraReports.Parameters.ParameterLayoutItem(this.p_customer_phone, DevExpress.XtraReports.Parameters.Orientation.Horizontal),
             new DevExpress.XtraReports.Parameters.ParameterLayoutItem(this.p_total, DevExpress.XtraReports.Parameters.Orientation.Horizontal),
             new DevExpress.XtraReports.Parameters.ParameterLayoutItem(this.p_discount, DevExpress.XtraReports.Parameters.Orientation.Horizontal),
-            new DevExpress.XtraReports.Parameters.ParameterLayoutItem(this.p_grand_total, DevExpress.XtraReports.Parameters.Orientation.Horizontal)});
+            new DevExpress.XtraReports.Parameters.ParameterLayoutItem(this.p_grand_total, DevExpress.XtraReports.Parameters.Orientation.Horizontal),
+            new DevExpress.XtraReports.Parameters.ParameterLayoutItem(this.p_footer, DevExpress.XtraReports.Parameters.Orientation.Horizontal)});
             this.Parameters.AddRange(new DevExpress.XtraReports.Parameters.Parameter[] {
             this.p_date,
             this.p_email,
@@ -736,7 +746,8 @@
             this.p_customer_phone,
             this.p_total,
             this.p_discount,
-            this.p_grand_total});
+            this.p_grand_total,
+            this.p_footer});
             this.ReportUnit = DevExpress.XtraReports.UI.ReportUnit.TenthsOfAMillimeter;
             this.SnapGridSize = 25F;
             this.Version = "24.2";
@@ -800,6 +811,7 @@
         private DevExpress.XtraReports.Parameters.Parameter p_total;
         private DevExpress.XtraReports.Parameters.Parameter p_discount;
         private DevExpress.XtraReports.Parameters.Parameter p_grand_total;
+        private DevExpress.XtraReports.Parameters.Parameter p_footer;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell11;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCellUnit;
         private DevExpress.XtraReports.UI.XRSubreport xrSubreport1;

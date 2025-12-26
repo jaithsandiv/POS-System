@@ -101,14 +101,6 @@ namespace POS.PAL.USERCONTROL
 
                     tsStockCheck.IsOn = GetBooleanSetting("stock_check_enabled");
 
-                    // Regional
-                    txtCurrencySymbol.Text = GetStringSetting("currency_symbol");
-
-                    // Tax
-                    txtTaxName.Text = GetStringSetting("tax_name");
-                    txtTaxPercent.Text = GetStringSetting("tax_percent");
-                    txtTaxRegNo.Text = GetStringSetting("tax_reg_no");
-                    
                     // Store Website (stored in settings for now)
                     txtWebsite.Text = GetStringSetting("store_website");
                 }
@@ -293,12 +285,6 @@ namespace POS.PAL.USERCONTROL
                 _bllSystemSettings.UpdateSystemSetting("kot_printer_name", cmbKOTPrinter.Text, userId);
                 _bllSystemSettings.UpdateSystemSetting("stock_check_enabled", tsStockCheck.IsOn.ToString(), userId);
                 
-                _bllSystemSettings.UpdateSystemSetting("currency_symbol", txtCurrencySymbol.Text, userId);
-                
-                _bllSystemSettings.UpdateSystemSetting("tax_name", txtTaxName.Text, userId);
-                _bllSystemSettings.UpdateSystemSetting("tax_percent", txtTaxPercent.Text, userId);
-                _bllSystemSettings.UpdateSystemSetting("tax_reg_no", txtTaxRegNo.Text, userId);
-                
                 _bllSystemSettings.UpdateSystemSetting("store_website", txtWebsite.Text, userId);
 
                 // 2. Save Business Info
@@ -326,14 +312,12 @@ namespace POS.PAL.USERCONTROL
 
                 XtraMessageBox.Show("Settings saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
+                // Reload global settings in Main to apply changes immediately
+                Main.Instance?.LoadSystemSettings();
+                Main.Instance?.LoadBusinessData();
+                
                 // Reload settings to refresh UI/State
                 LoadSettings();
-                
-                // Reload business data in Main
-                if (Main.Instance != null)
-                {
-                    Main.Instance.LoadBusinessData();
-                }
             }
             catch (Exception ex)
             {
@@ -432,6 +416,21 @@ namespace POS.PAL.USERCONTROL
         private void btnClearLogo_Click(object sender, EventArgs e)
         {
             picLogo.Image = null;
+        }
+
+        private void btnManageLocations_Click(object sender, EventArgs e)
+        {
+            Main.Instance.LoadUserControl(new UC_Store_Management());
+        }
+
+        private void btnManageTables_Click(object sender, EventArgs e)
+        {
+            Main.Instance.LoadUserControl(new UC_Table_Management());
+        }
+
+        private void btnManageAccount_Click(object sender, EventArgs e)
+        {
+            Main.Instance.LoadUserControl(new UC_Profile_Management());
         }
     }
 }

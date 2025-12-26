@@ -1976,6 +1976,10 @@ namespace POS.PAL.USERCONTROL
                 // Generate Invoice Report
                 REPORT.Invoice invoiceReport = new REPORT.Invoice();
 
+                // Set footer text from settings
+                string footerTextA4 = Main.GetSetting("invoice_footer", "Thank You For Your Business!");
+                invoiceReport.Parameters["p_footer"].Value = footerTextA4;
+
                 // Bind main report data (sale items)
                 invoiceReport.DataSource = salesItemsTable;
 
@@ -2122,6 +2126,10 @@ namespace POS.PAL.USERCONTROL
         {
             // Create thermal invoice report
             ThermalInvoice thermalInvoice = new ThermalInvoice();
+
+                // Set footer text from settings
+                string footerText = Main.GetSetting("invoice_footer", "Thank You!");
+                thermalInvoice.Parameters["p_footer"].Value = footerText;
 
                 // Set main invoice parameters
                 thermalInvoice.Parameters["p_invoice_no"].Value = invoiceNumber;
@@ -2485,6 +2493,10 @@ namespace POS.PAL.USERCONTROL
 
                 // Generate Invoice Report
                 REPORT.Invoice invoiceReport = new REPORT.Invoice();
+
+                // Set footer text from settings
+                string footerTextA4 = Main.GetSetting("invoice_footer", "Thank You For Your Business!");
+                invoiceReport.Parameters["p_footer"].Value = footerTextA4;
 
                 // Bind main report data (sale items)
                 invoiceReport.DataSource = salesItemsTable;
