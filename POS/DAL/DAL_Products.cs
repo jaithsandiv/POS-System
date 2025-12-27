@@ -536,5 +536,144 @@ namespace POS.DAL
         }
 
         #endregion
+
+        #region Stock Report Methods
+
+        /// <summary>
+        /// Gets comprehensive stock report for all active products
+        /// </summary>
+        public DataTable GetStockReport()
+        {
+            string query = @"
+                SELECT 
+                    p.product_id,
+                    p.product_name AS Product,
+                    ISNULL(c.category_name, 'No Category') AS Category,
+                    ISNULL(st.store_name, 'Main Store') AS Location,
+                    p.selling_price AS UnitSellingPrice,
+                    p.stock_quantity AS CurrentStock,
+                    (p.stock_quantity * p.selling_price) AS CurrentStockValue,
+                    CASE 
+                        WHEN p.purchase_cost IS NOT NULL AND p.purchase_cost > 0 
+                        THEN (p.stock_quantity * (p.selling_price - p.purchase_cost))
+                        ELSE 0 
+                    END AS PotentialProfit,
+                    ISNULL((
+                        SELECT SUM(si.quantity)
+                        FROM SaleItem si
+                        INNER JOIN Sale s ON si.sale_id = s.sale_id
+                        WHERE si.product_id = p.product_id 
+                          AND s.status = 'A' 
+                          AND s.sale_type = 'SALE'
+                    ), 0) AS TotalUnitsSold
+                FROM Product p
+                LEFT JOIN Category c ON p.category_id = c.category_id
+                LEFT JOIN Store st ON st.store_id = 1
+                WHERE p.status = 'A'
+                ORDER BY p.product_name";
+
+            return Connection.ExecuteQuery(query);
+        }
+
+        /// <summary>
+        /// Searches stock report by keyword
+        /// </summary>
+        public DataTable SearchStockReport(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return GetStockReport();
+            }
+
+            string query = @"
+                SELECT 
+                    p.product_id,
+                    p.product_name AS Product,
+                    ISNULL(c.category_name, 'No Category') AS Category,
+                    ISNULL(st.store_name, 'Main Store') AS Location,
+                    p.selling_price AS UnitSellingPrice,
+                    p.stock_quantity AS CurrentStock,
+                    (p.stock_quantity * p.selling_price) AS CurrentStockValue,
+                    CASE 
+                        WHEN p.purchase_cost IS NOT NULL AND p.purchase_cost > 0 
+                        THEN (p.stock_quantity * (p.selling_price - p.purchase_cost))
+                        ELSE 0 
+                    END AS PotentialProfit,
+                    ISNULL((
+                        SELECT SUM(si.quantity)
+                        FROM SaleItem si
+                        INNER JOIN Sale s ON si.sale_id = s.sale_id
+                        WHERE si.product_id = p.product_id 
+                          AND s.status = 'A' 
+                          AND s.sale_type = 'SALE'
+                    ), 0) AS TotalUnitsSold
+                FROM Product p
+                LEFT JOIN Category c ON p.category_id = c.category_id
+                LEFT JOIN Store st ON st.store_id = 1
+                WHERE p.status = 'A' AND (
+                    p.product_name LIKE @keyword OR
+                    p.product_code LIKE @keyword OR
+                    c.category_name LIKE @keyword OR
+                    st.store_name LIKE @keyword
+                )
+                ORDER BY p.product_name";
+
+            SqlParameter[] parameters = { new SqlParameter("@keyword", "%" + keyword + "%") };
+            return Connection.ExecuteQuery(query, parameters);
+        }
+
+        /// <summary>
+        /// Gets detailed stock history for a specific product
+        /// </summary>
+        public DataTable GetProductStockHistory(int productId)
+        {
+            string query = @"
+                SELECT 
+                    s.sale_id AS TransactionID,
+                    s.invoice_number AS InvoiceNumber,
+                    s.created_date AS TransactionDate,
+                    'SALE' AS TransactionType,
+                    si.quantity AS Quantity,
+                    si.unit_price AS UnitPrice,
+                    si.subtotal AS TotalAmount,
+                    ISNULL(c.full_name, 'Walk-In Customer') AS Customer,
+                    ISNULL(u.full_name, 'Unknown') AS ProcessedBy
+                FROM SaleItem si
+                INNER JOIN Sale s ON si.sale_id = s.sale_id
+                LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                LEFT JOIN [User] u ON s.biller_id = u.user_id
+                WHERE si.product_id = @product_id 
+                  AND s.status = 'A' 
+                  AND s.sale_type = 'SALE'
+                  AND si.status = 'A'
+
+                UNION ALL
+
+                SELECT 
+                    sr.return_id AS TransactionID,
+                    CAST(sr.return_id AS NVARCHAR(50)) AS InvoiceNumber,
+                    sr.created_date AS TransactionDate,
+                    'RETURN' AS TransactionType,
+                    ri.quantity AS Quantity,
+                    0 AS UnitPrice,
+                    ri.refund_amount AS TotalAmount,
+                    ISNULL(c.full_name, 'Walk-In Customer') AS Customer,
+                    ISNULL(u.full_name, 'Unknown') AS ProcessedBy
+                FROM ReturnItem ri
+                INNER JOIN SaleReturn sr ON ri.return_id = sr.return_id
+                INNER JOIN Sale s ON sr.sale_id = s.sale_id
+                LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                LEFT JOIN [User] u ON sr.processed_by = u.user_id
+                WHERE ri.product_id = @product_id 
+                  AND sr.status = 'A'
+                  AND ri.status = 'A'
+
+                ORDER BY TransactionDate DESC";
+
+            SqlParameter[] parameters = { new SqlParameter("@product_id", productId) };
+            return Connection.ExecuteQuery(query, parameters);
+        }
+
+        #endregion
     }
 }

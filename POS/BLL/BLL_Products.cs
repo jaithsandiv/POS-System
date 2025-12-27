@@ -234,5 +234,36 @@ namespace POS.BLL
         }
 
         #endregion
+
+        #region Stock Report
+
+        /// <summary>
+        /// Gets comprehensive stock report for all products
+        /// </summary>
+        public DataTable GetStockReport()
+        {
+            return _dalProducts.GetStockReport();
+        }
+
+        /// <summary>
+        /// Searches stock report by keyword
+        /// </summary>
+        public DataTable SearchStockReport(string keyword)
+        {
+            return _dalProducts.SearchStockReport(keyword);
+        }
+
+        /// <summary>
+        /// Gets detailed stock history for a specific product
+        /// </summary>
+        public DataTable GetProductStockHistory(int productId)
+        {
+            if (productId <= 0)
+                throw new ArgumentException("Invalid product ID.");
+
+            return _dalProducts.GetProductStockHistory(productId);
+        }
+
+        #endregion
     }
 }
