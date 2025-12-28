@@ -40,6 +40,7 @@ namespace POS.PAL.USERCONTROL
             LoadCustomerDetails();
             LoadCustomersDropdown();
             UpdateDateLabels();
+            LoadFilteredData();
         }
 
         /// <summary>

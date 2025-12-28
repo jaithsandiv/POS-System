@@ -28,1055 +28,772 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
-            this.tabGeneral = new DevExpress.XtraTab.XtraTabPage();
-            this.grpRegional = new DevExpress.XtraEditors.GroupControl();
-            this.txtCurrencySymbol = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.grpBusiness = new DevExpress.XtraEditors.GroupControl();
-            this.btnClearLogo = new DevExpress.XtraEditors.SimpleButton();
-            this.btnBrowseLogo = new DevExpress.XtraEditors.SimpleButton();
-            this.picLogo = new DevExpress.XtraEditors.PictureEdit();
-            this.lblLogo = new DevExpress.XtraEditors.LabelControl();
-            this.txtBusinessName = new DevExpress.XtraEditors.TextEdit();
-            this.lblBusinessName = new DevExpress.XtraEditors.LabelControl();
-            this.tabStore = new DevExpress.XtraTab.XtraTabPage();
-            this.grpContact = new DevExpress.XtraEditors.GroupControl();
-            this.txtWebsite = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            this.txtEmail = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
-            this.txtPhone = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            this.grpAddress = new DevExpress.XtraEditors.GroupControl();
-            this.txtCountry = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
-            this.txtPostalCode = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
-            this.txtState = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
-            this.txtCity = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.txtAddress = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.tabPrinting = new DevExpress.XtraTab.XtraTabPage();
-            this.grpInvoice = new DevExpress.XtraEditors.GroupControl();
-            this.txtInvoiceFooter = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
-            this.grpPrinting = new DevExpress.XtraEditors.GroupControl();
-            this.tsAutoPrint = new DevExpress.XtraEditors.ToggleSwitch();
-            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
-            this.rgPrintFormat = new DevExpress.XtraEditors.RadioGroup();
-            this.cmbThermalPrinter = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
-            this.cmbKOTPrinter = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.labelControlKOT = new DevExpress.XtraEditors.LabelControl();
-            this.tabTax = new DevExpress.XtraTab.XtraTabPage();
-            this.grpTax = new DevExpress.XtraEditors.GroupControl();
-            this.txtTaxRegNo = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl18 = new DevExpress.XtraEditors.LabelControl();
-            this.txtTaxPercent = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
-            this.txtTaxName = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl16 = new DevExpress.XtraEditors.LabelControl();
-            this.tabFeatures = new DevExpress.XtraTab.XtraTabPage();
-            this.grpFeatures = new DevExpress.XtraEditors.GroupControl();
-            this.tsStockCheck = new DevExpress.XtraEditors.ToggleSwitch();
-            this.labelControl20 = new DevExpress.XtraEditors.LabelControl();
-            this.tsKOT = new DevExpress.XtraEditors.ToggleSwitch();
-            this.labelControl19 = new DevExpress.XtraEditors.LabelControl();
-            this.tabLicense = new DevExpress.XtraTab.XtraTabPage();
-            this.grpLicense = new DevExpress.XtraEditors.GroupControl();
-            this.tsEnableTrial = new DevExpress.XtraEditors.ToggleSwitch();
-            this.labelControl21 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl22 = new DevExpress.XtraEditors.LabelControl();
-            this.txtTrialDays = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl23 = new DevExpress.XtraEditors.LabelControl();
-            this.txtTrialStartDate = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl24 = new DevExpress.XtraEditors.LabelControl();
-            this.txtTrialEndDate = new DevExpress.XtraEditors.TextEdit();
-            this.labelControl25 = new DevExpress.XtraEditors.LabelControl();
-            this.chkIsLicensed = new DevExpress.XtraEditors.CheckEdit();
-            this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            this.btnSave = new DevExpress.XtraEditors.SimpleButton();
-            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
-            this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
-            this.xtraTabControl1.SuspendLayout();
-            this.tabGeneral.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grpRegional)).BeginInit();
-            this.grpRegional.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCurrencySymbol.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpBusiness)).BeginInit();
-            this.grpBusiness.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtBusinessName.Properties)).BeginInit();
-            this.tabStore.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grpContact)).BeginInit();
-            this.grpContact.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtWebsite.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPhone.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpAddress)).BeginInit();
-            this.grpAddress.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCountry.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPostalCode.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtState.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCity.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAddress.Properties)).BeginInit();
-            this.tabPrinting.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grpInvoice)).BeginInit();
-            this.grpInvoice.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtInvoiceFooter.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpPrinting)).BeginInit();
-            this.grpPrinting.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tsAutoPrint.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rgPrintFormat.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbThermalPrinter.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbKOTPrinter.Properties)).BeginInit();
-            this.tabTax.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grpTax)).BeginInit();
-            this.grpTax.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTaxRegNo.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTaxPercent.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTaxName.Properties)).BeginInit();
-            this.tabFeatures.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grpFeatures)).BeginInit();
-            this.grpFeatures.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tsStockCheck.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tsKOT.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tsEnableTrial.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTrialDays.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTrialStartDate.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTrialEndDate.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkIsLicensed.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpLicense)).BeginInit();
-            this.grpLicense.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
-            this.panelControl3.SuspendLayout();
-            this.SuspendLayout();
+            panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            labelControlSubtitle = new DevExpress.XtraEditors.LabelControl();
+            separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
+            btnSave = new DevExpress.XtraEditors.SimpleButton();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            grpBusiness = new DevExpress.XtraEditors.GroupControl();
+            btnClearLogo = new DevExpress.XtraEditors.SimpleButton();
+            btnBrowseLogo = new DevExpress.XtraEditors.SimpleButton();
+            picLogo = new DevExpress.XtraEditors.PictureEdit();
+            lblLogo = new DevExpress.XtraEditors.LabelControl();
+            txtBusinessName = new DevExpress.XtraEditors.TextEdit();
+            lblBusinessName = new DevExpress.XtraEditors.LabelControl();
+            grpAddress = new DevExpress.XtraEditors.GroupControl();
+            txtCountry = new DevExpress.XtraEditors.TextEdit();
+            labelControl11 = new DevExpress.XtraEditors.LabelControl();
+            txtPostalCode = new DevExpress.XtraEditors.TextEdit();
+            labelControl10 = new DevExpress.XtraEditors.LabelControl();
+            txtState = new DevExpress.XtraEditors.TextEdit();
+            labelControl9 = new DevExpress.XtraEditors.LabelControl();
+            txtCity = new DevExpress.XtraEditors.TextEdit();
+            labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            txtAddress = new DevExpress.XtraEditors.TextEdit();
+            labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            grpContact = new DevExpress.XtraEditors.GroupControl();
+            txtWebsite = new DevExpress.XtraEditors.TextEdit();
+            labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            txtEmail = new DevExpress.XtraEditors.TextEdit();
+            labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            txtPhone = new DevExpress.XtraEditors.TextEdit();
+            labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            grpPrinting = new DevExpress.XtraEditors.GroupControl();
+            tsAutoPrint = new DevExpress.XtraEditors.ToggleSwitch();
+            labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            rgPrintFormat = new DevExpress.XtraEditors.RadioGroup();
+            cmbThermalPrinter = new DevExpress.XtraEditors.ComboBoxEdit();
+            labelControl15 = new DevExpress.XtraEditors.LabelControl();
+            cmbKOTPrinter = new DevExpress.XtraEditors.ComboBoxEdit();
+            labelControlKOT = new DevExpress.XtraEditors.LabelControl();
+            grpInvoice = new DevExpress.XtraEditors.GroupControl();
+            txtInvoiceFooter = new DevExpress.XtraEditors.TextEdit();
+            labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            grpFeatures = new DevExpress.XtraEditors.GroupControl();
+            tsStockCheck = new DevExpress.XtraEditors.ToggleSwitch();
+            labelControl20 = new DevExpress.XtraEditors.LabelControl();
+            tsKOT = new DevExpress.XtraEditors.ToggleSwitch();
+            labelControl19 = new DevExpress.XtraEditors.LabelControl();
+            grpLocations = new DevExpress.XtraEditors.GroupControl();
+            btnManageLocations = new DevExpress.XtraEditors.SimpleButton();
+            grpTables = new DevExpress.XtraEditors.GroupControl();
+            btnManageTables = new DevExpress.XtraEditors.SimpleButton();
+            grpAccount = new DevExpress.XtraEditors.GroupControl();
+            btnManageAccount = new DevExpress.XtraEditors.SimpleButton();
+            ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
+            panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
+            flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)grpBusiness).BeginInit();
+            grpBusiness.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picLogo.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtBusinessName.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grpAddress).BeginInit();
+            grpAddress.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtCountry.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtPostalCode.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtState.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtCity.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtAddress.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grpContact).BeginInit();
+            grpContact.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtWebsite.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtPhone.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grpPrinting).BeginInit();
+            grpPrinting.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tsAutoPrint.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)rgPrintFormat.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbThermalPrinter.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)cmbKOTPrinter.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grpInvoice).BeginInit();
+            grpInvoice.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtInvoiceFooter.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grpFeatures).BeginInit();
+            grpFeatures.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tsStockCheck.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tsKOT.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grpLocations).BeginInit();
+            grpLocations.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)grpTables).BeginInit();
+            grpTables.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)grpAccount).BeginInit();
+            grpAccount.SuspendLayout();
+            SuspendLayout();
             // 
             // panelControl1
             // 
-            this.panelControl1.Appearance.BackColor = System.Drawing.Color.White;
-            this.panelControl1.Appearance.Options.UseBackColor = true;
-            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Controls.Add(this.xtraTabControl1);
-            this.panelControl1.Controls.Add(this.panelControl3);
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl1.Location = new System.Drawing.Point(0, 0);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1000, 700);
-            this.panelControl1.TabIndex = 0;
-            // 
-            // xtraTabControl1
-            // 
-            this.xtraTabControl1.AppearancePage.Header.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xtraTabControl1.AppearancePage.Header.Options.UseFont = true;
-            this.xtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.xtraTabControl1.Location = new System.Drawing.Point(0, 60);
-            this.xtraTabControl1.Name = "xtraTabControl1";
-            this.xtraTabControl1.SelectedTabPage = this.tabGeneral;
-            this.xtraTabControl1.Size = new System.Drawing.Size(1000, 640);
-            this.xtraTabControl1.TabIndex = 1;
-            this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.tabGeneral,
-            this.tabStore,
-            this.tabPrinting,
-            this.tabTax,
-            this.tabFeatures,
-            this.tabLicense});
-            // 
-            // tabGeneral
-            // 
-            this.tabGeneral.Appearance.Header.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.tabGeneral.Appearance.Header.Options.UseFont = true;
-            this.tabGeneral.Controls.Add(this.grpRegional);
-            this.tabGeneral.Controls.Add(this.grpBusiness);
-            this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.Size = new System.Drawing.Size(998, 609);
-            this.tabGeneral.Text = "General";
-            // 
-            // grpRegional
-            // 
-            this.grpRegional.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grpRegional.AppearanceCaption.Options.UseFont = true;
-            this.grpRegional.Controls.Add(this.txtCurrencySymbol);
-            this.grpRegional.Controls.Add(this.labelControl1);
-            this.grpRegional.Location = new System.Drawing.Point(20, 280);
-            this.grpRegional.Name = "grpRegional";
-            this.grpRegional.Size = new System.Drawing.Size(450, 100);
-            this.grpRegional.TabIndex = 1;
-            this.grpRegional.Text = "Regional Settings";
-            // 
-            // txtCurrencySymbol
-            // 
-            this.txtCurrencySymbol.Location = new System.Drawing.Point(150, 45);
-            this.txtCurrencySymbol.Name = "txtCurrencySymbol";
-            this.txtCurrencySymbol.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtCurrencySymbol.Properties.Appearance.Options.UseFont = true;
-            this.txtCurrencySymbol.Properties.AutoHeight = false;
-            this.txtCurrencySymbol.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtCurrencySymbol.Size = new System.Drawing.Size(100, 30);
-            this.txtCurrencySymbol.TabIndex = 1;
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Location = new System.Drawing.Point(20, 51);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(103, 17);
-            this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "Currency Symbol:";
-            // 
-            // grpBusiness
-            // 
-            this.grpBusiness.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grpBusiness.AppearanceCaption.Options.UseFont = true;
-            this.grpBusiness.Controls.Add(this.btnClearLogo);
-            this.grpBusiness.Controls.Add(this.btnBrowseLogo);
-            this.grpBusiness.Controls.Add(this.picLogo);
-            this.grpBusiness.Controls.Add(this.lblLogo);
-            this.grpBusiness.Controls.Add(this.txtBusinessName);
-            this.grpBusiness.Controls.Add(this.lblBusinessName);
-            this.grpBusiness.Location = new System.Drawing.Point(20, 20);
-            this.grpBusiness.Name = "grpBusiness";
-            this.grpBusiness.Size = new System.Drawing.Size(450, 240);
-            this.grpBusiness.TabIndex = 0;
-            this.grpBusiness.Text = "Business Information";
-            // 
-            // btnClearLogo
-            // 
-            this.btnClearLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClearLogo.Appearance.Options.UseFont = true;
-            this.btnClearLogo.Location = new System.Drawing.Point(280, 130);
-            this.btnClearLogo.Name = "btnClearLogo";
-            this.btnClearLogo.Size = new System.Drawing.Size(80, 30);
-            this.btnClearLogo.TabIndex = 5;
-            this.btnClearLogo.Text = "Clear";
-            this.btnClearLogo.Click += new System.EventHandler(this.btnClearLogo_Click);
-            // 
-            // btnBrowseLogo
-            // 
-            this.btnBrowseLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnBrowseLogo.Appearance.Options.UseFont = true;
-            this.btnBrowseLogo.Location = new System.Drawing.Point(280, 90);
-            this.btnBrowseLogo.Name = "btnBrowseLogo";
-            this.btnBrowseLogo.Size = new System.Drawing.Size(80, 30);
-            this.btnBrowseLogo.TabIndex = 4;
-            this.btnBrowseLogo.Text = "Browse...";
-            this.btnBrowseLogo.Click += new System.EventHandler(this.btnBrowseLogo_Click);
-            // 
-            // picLogo
-            // 
-            this.picLogo.Location = new System.Drawing.Point(150, 80);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.picLogo.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
-            this.picLogo.Size = new System.Drawing.Size(120, 120);
-            this.picLogo.TabIndex = 3;
-            // 
-            // lblLogo
-            // 
-            this.lblLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblLogo.Appearance.Options.UseFont = true;
-            this.lblLogo.Location = new System.Drawing.Point(20, 80);
-            this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(87, 17);
-            this.lblLogo.TabIndex = 2;
-            this.lblLogo.Text = "Business Logo:";
-            // 
-            // txtBusinessName
-            // 
-            this.txtBusinessName.Location = new System.Drawing.Point(150, 40);
-            this.txtBusinessName.Name = "txtBusinessName";
-            this.txtBusinessName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtBusinessName.Properties.Appearance.Options.UseFont = true;
-            this.txtBusinessName.Properties.AutoHeight = false;
-            this.txtBusinessName.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtBusinessName.Size = new System.Drawing.Size(280, 30);
-            this.txtBusinessName.TabIndex = 1;
-            // 
-            // lblBusinessName
-            // 
-            this.lblBusinessName.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lblBusinessName.Appearance.Options.UseFont = true;
-            this.lblBusinessName.Location = new System.Drawing.Point(20, 46);
-            this.lblBusinessName.Name = "lblBusinessName";
-            this.lblBusinessName.Size = new System.Drawing.Size(92, 17);
-            this.lblBusinessName.TabIndex = 0;
-            this.lblBusinessName.Text = "Business Name:";
-            // 
-            // tabStore
-            // 
-            this.tabStore.Appearance.Header.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.tabStore.Appearance.Header.Options.UseFont = true;
-            this.tabStore.Controls.Add(this.grpContact);
-            this.tabStore.Controls.Add(this.grpAddress);
-            this.tabStore.Name = "tabStore";
-            this.tabStore.Size = new System.Drawing.Size(998, 609);
-            this.tabStore.Text = "Store Info";
-            // 
-            // grpContact
-            // 
-            this.grpContact.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grpContact.AppearanceCaption.Options.UseFont = true;
-            this.grpContact.Controls.Add(this.txtWebsite);
-            this.grpContact.Controls.Add(this.labelControl6);
-            this.grpContact.Controls.Add(this.txtEmail);
-            this.grpContact.Controls.Add(this.labelControl5);
-            this.grpContact.Controls.Add(this.txtPhone);
-            this.grpContact.Controls.Add(this.labelControl4);
-            this.grpContact.Location = new System.Drawing.Point(500, 20);
-            this.grpContact.Name = "grpContact";
-            this.grpContact.Size = new System.Drawing.Size(450, 200);
-            this.grpContact.TabIndex = 1;
-            this.grpContact.Text = "Contact Information";
-            // 
-            // txtWebsite
-            // 
-            this.txtWebsite.Location = new System.Drawing.Point(120, 120);
-            this.txtWebsite.Name = "txtWebsite";
-            this.txtWebsite.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtWebsite.Properties.Appearance.Options.UseFont = true;
-            this.txtWebsite.Properties.AutoHeight = false;
-            this.txtWebsite.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtWebsite.Size = new System.Drawing.Size(300, 30);
-            this.txtWebsite.TabIndex = 5;
-            // 
-            // labelControl6
-            // 
-            this.labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl6.Appearance.Options.UseFont = true;
-            this.labelControl6.Location = new System.Drawing.Point(20, 126);
-            this.labelControl6.Name = "labelControl6";
-            this.labelControl6.Size = new System.Drawing.Size(50, 17);
-            this.labelControl6.TabIndex = 4;
-            this.labelControl6.Text = "Website:";
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.Location = new System.Drawing.Point(120, 80);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtEmail.Properties.Appearance.Options.UseFont = true;
-            this.txtEmail.Properties.AutoHeight = false;
-            this.txtEmail.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtEmail.Size = new System.Drawing.Size(300, 30);
-            this.txtEmail.TabIndex = 3;
-            // 
-            // labelControl5
-            // 
-            this.labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl5.Appearance.Options.UseFont = true;
-            this.labelControl5.Location = new System.Drawing.Point(20, 86);
-            this.labelControl5.Name = "labelControl5";
-            this.labelControl5.Size = new System.Drawing.Size(34, 17);
-            this.labelControl5.TabIndex = 2;
-            this.labelControl5.Text = "Email:";
-            // 
-            // txtPhone
-            // 
-            this.txtPhone.Location = new System.Drawing.Point(120, 40);
-            this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtPhone.Properties.Appearance.Options.UseFont = true;
-            this.txtPhone.Properties.AutoHeight = false;
-            this.txtPhone.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtPhone.Size = new System.Drawing.Size(300, 30);
-            this.txtPhone.TabIndex = 1;
-            // 
-            // labelControl4
-            // 
-            this.labelControl4.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl4.Appearance.Options.UseFont = true;
-            this.labelControl4.Location = new System.Drawing.Point(20, 46);
-            this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Size = new System.Drawing.Size(40, 17);
-            this.labelControl4.TabIndex = 0;
-            this.labelControl4.Text = "Phone:";
-            // 
-            // grpAddress
-            // 
-            this.grpAddress.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grpAddress.AppearanceCaption.Options.UseFont = true;
-            this.grpAddress.Controls.Add(this.txtCountry);
-            this.grpAddress.Controls.Add(this.labelControl11);
-            this.grpAddress.Controls.Add(this.txtPostalCode);
-            this.grpAddress.Controls.Add(this.labelControl10);
-            this.grpAddress.Controls.Add(this.txtState);
-            this.grpAddress.Controls.Add(this.labelControl9);
-            this.grpAddress.Controls.Add(this.txtCity);
-            this.grpAddress.Controls.Add(this.labelControl3);
-            this.grpAddress.Controls.Add(this.txtAddress);
-            this.grpAddress.Controls.Add(this.labelControl2);
-            this.grpAddress.Location = new System.Drawing.Point(20, 20);
-            this.grpAddress.Name = "grpAddress";
-            this.grpAddress.Size = new System.Drawing.Size(450, 250);
-            this.grpAddress.TabIndex = 0;
-            this.grpAddress.Text = "Address Details";
-            // 
-            // txtCountry
-            // 
-            this.txtCountry.Location = new System.Drawing.Point(120, 200);
-            this.txtCountry.Name = "txtCountry";
-            this.txtCountry.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtCountry.Properties.Appearance.Options.UseFont = true;
-            this.txtCountry.Properties.AutoHeight = false;
-            this.txtCountry.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtCountry.Size = new System.Drawing.Size(300, 30);
-            this.txtCountry.TabIndex = 9;
-            // 
-            // labelControl11
-            // 
-            this.labelControl11.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl11.Appearance.Options.UseFont = true;
-            this.labelControl11.Location = new System.Drawing.Point(20, 206);
-            this.labelControl11.Name = "labelControl11";
-            this.labelControl11.Size = new System.Drawing.Size(49, 17);
-            this.labelControl11.TabIndex = 8;
-            this.labelControl11.Text = "Country:";
-            // 
-            // txtPostalCode
-            // 
-            this.txtPostalCode.Location = new System.Drawing.Point(120, 160);
-            this.txtPostalCode.Name = "txtPostalCode";
-            this.txtPostalCode.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtPostalCode.Properties.Appearance.Options.UseFont = true;
-            this.txtPostalCode.Properties.AutoHeight = false;
-            this.txtPostalCode.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtPostalCode.Size = new System.Drawing.Size(300, 30);
-            this.txtPostalCode.TabIndex = 7;
-            // 
-            // labelControl10
-            // 
-            this.labelControl10.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl10.Appearance.Options.UseFont = true;
-            this.labelControl10.Location = new System.Drawing.Point(20, 166);
-            this.labelControl10.Name = "labelControl10";
-            this.labelControl10.Size = new System.Drawing.Size(74, 17);
-            this.labelControl10.TabIndex = 6;
-            this.labelControl10.Text = "Postal Code:";
-            // 
-            // txtState
-            // 
-            this.txtState.Location = new System.Drawing.Point(120, 120);
-            this.txtState.Name = "txtState";
-            this.txtState.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtState.Properties.Appearance.Options.UseFont = true;
-            this.txtState.Properties.AutoHeight = false;
-            this.txtState.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtState.Size = new System.Drawing.Size(300, 30);
-            this.txtState.TabIndex = 5;
-            // 
-            // labelControl9
-            // 
-            this.labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl9.Appearance.Options.UseFont = true;
-            this.labelControl9.Location = new System.Drawing.Point(20, 126);
-            this.labelControl9.Name = "labelControl9";
-            this.labelControl9.Size = new System.Drawing.Size(33, 17);
-            this.labelControl9.TabIndex = 4;
-            this.labelControl9.Text = "State:";
-            // 
-            // txtCity
-            // 
-            this.txtCity.Location = new System.Drawing.Point(120, 80);
-            this.txtCity.Name = "txtCity";
-            this.txtCity.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtCity.Properties.Appearance.Options.UseFont = true;
-            this.txtCity.Properties.AutoHeight = false;
-            this.txtCity.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtCity.Size = new System.Drawing.Size(300, 30);
-            this.txtCity.TabIndex = 3;
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Location = new System.Drawing.Point(20, 86);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(25, 17);
-            this.labelControl3.TabIndex = 2;
-            this.labelControl3.Text = "City:";
-            // 
-            // txtAddress
-            // 
-            this.txtAddress.Location = new System.Drawing.Point(120, 40);
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtAddress.Properties.Appearance.Options.UseFont = true;
-            this.txtAddress.Properties.AutoHeight = false;
-            this.txtAddress.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtAddress.Size = new System.Drawing.Size(300, 30);
-            this.txtAddress.TabIndex = 1;
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl2.Appearance.Options.UseFont = true;
-            this.labelControl2.Location = new System.Drawing.Point(20, 46);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(51, 17);
-            this.labelControl2.TabIndex = 0;
-            this.labelControl2.Text = "Address:";
-            // 
-            // tabPrinting
-            // 
-            this.tabPrinting.Appearance.Header.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.tabPrinting.Appearance.Header.Options.UseFont = true;
-            this.tabPrinting.Controls.Add(this.grpInvoice);
-            this.tabPrinting.Controls.Add(this.grpPrinting);
-            this.tabPrinting.Name = "tabPrinting";
-            this.tabPrinting.Size = new System.Drawing.Size(998, 609);
-            this.tabPrinting.Text = "Printing & Invoice";
-            // 
-            // grpInvoice
-            // 
-            this.grpInvoice.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grpInvoice.AppearanceCaption.Options.UseFont = true;
-            this.grpInvoice.Controls.Add(this.txtInvoiceFooter);
-            this.grpInvoice.Controls.Add(this.labelControl13);
-            this.grpInvoice.Location = new System.Drawing.Point(20, 250);
-            this.grpInvoice.Name = "grpInvoice";
-            this.grpInvoice.Size = new System.Drawing.Size(450, 100);
-            this.grpInvoice.TabIndex = 1;
-            this.grpInvoice.Text = "Invoice Settings";
-            // 
-            // txtInvoiceFooter
-            // 
-            this.txtInvoiceFooter.Location = new System.Drawing.Point(120, 40);
-            this.txtInvoiceFooter.Name = "txtInvoiceFooter";
-            this.txtInvoiceFooter.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtInvoiceFooter.Properties.Appearance.Options.UseFont = true;
-            this.txtInvoiceFooter.Properties.AutoHeight = false;
-            this.txtInvoiceFooter.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtInvoiceFooter.Size = new System.Drawing.Size(300, 30);
-            this.txtInvoiceFooter.TabIndex = 1;
-            // 
-            // labelControl13
-            // 
-            this.labelControl13.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl13.Appearance.Options.UseFont = true;
-            this.labelControl13.Location = new System.Drawing.Point(20, 46);
-            this.labelControl13.Name = "labelControl13";
-            this.labelControl13.Size = new System.Drawing.Size(69, 17);
-            this.labelControl13.TabIndex = 0;
-            this.labelControl13.Text = "Footer Text:";
-            // 
-            // grpPrinting
-            // 
-            this.grpPrinting.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grpPrinting.AppearanceCaption.Options.UseFont = true;
-            this.grpPrinting.Controls.Add(this.tsAutoPrint);
-            this.grpPrinting.Controls.Add(this.labelControl12);
-            this.grpPrinting.Controls.Add(this.rgPrintFormat);
-            this.grpPrinting.Controls.Add(this.cmbThermalPrinter);
-            this.grpPrinting.Controls.Add(this.labelControl15);
-            this.grpPrinting.Controls.Add(this.cmbKOTPrinter);
-            this.grpPrinting.Controls.Add(this.labelControlKOT);
-            this.grpPrinting.Location = new System.Drawing.Point(20, 20);
-            this.grpPrinting.Name = "grpPrinting";
-            this.grpPrinting.Size = new System.Drawing.Size(450, 230);
-            this.grpPrinting.TabIndex = 0;
-            this.grpPrinting.Text = "Printing Configuration";
-            // 
-            // tsAutoPrint
-            // 
-            this.tsAutoPrint.Location = new System.Drawing.Point(120, 190);
-            this.tsAutoPrint.Name = "tsAutoPrint";
-            this.tsAutoPrint.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.tsAutoPrint.Properties.Appearance.Options.UseFont = true;
-            this.tsAutoPrint.Properties.OffText = "Off";
-            this.tsAutoPrint.Properties.OnText = "On";
-            this.tsAutoPrint.Size = new System.Drawing.Size(95, 22);
-            this.tsAutoPrint.TabIndex = 6;
-            // 
-            // labelControl12
-            // 
-            this.labelControl12.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl12.Appearance.Options.UseFont = true;
-            this.labelControl12.Location = new System.Drawing.Point(20, 192);
-            this.labelControl12.Name = "labelControl12";
-            this.labelControl12.Size = new System.Drawing.Size(63, 17);
-            this.labelControl12.TabIndex = 5;
-            this.labelControl12.Text = "Auto Print:";
-            // 
-            // rgPrintFormat
-            // 
-            this.rgPrintFormat.Location = new System.Drawing.Point(20, 120);
-            this.rgPrintFormat.Name = "rgPrintFormat";
-            this.rgPrintFormat.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.rgPrintFormat.Properties.Appearance.Options.UseFont = true;
-            this.rgPrintFormat.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
-            new DevExpress.XtraEditors.Controls.RadioGroupItem("THERMAL", "Thermal (80mm)"),
-            new DevExpress.XtraEditors.Controls.RadioGroupItem("A4", "A4 Standard")});
-            this.rgPrintFormat.Size = new System.Drawing.Size(400, 60);
-            this.rgPrintFormat.TabIndex = 4;
-            // 
-            // cmbThermalPrinter
-            // 
-            this.cmbThermalPrinter.Location = new System.Drawing.Point(120, 40);
-            this.cmbThermalPrinter.Name = "cmbThermalPrinter";
-            this.cmbThermalPrinter.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.cmbThermalPrinter.Properties.Appearance.Options.UseFont = true;
-            this.cmbThermalPrinter.Properties.AutoHeight = false;
-            this.cmbThermalPrinter.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbThermalPrinter.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.cmbThermalPrinter.Size = new System.Drawing.Size(300, 30);
-            this.cmbThermalPrinter.TabIndex = 1;
-            // 
-            // labelControl15
-            // 
-            this.labelControl15.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl15.Appearance.Options.UseFont = true;
-            this.labelControl15.Location = new System.Drawing.Point(20, 46);
-            this.labelControl15.Name = "labelControl15";
-            this.labelControl15.Size = new System.Drawing.Size(94, 17);
-            this.labelControl15.TabIndex = 0;
-            this.labelControl15.Text = "Thermal Printer:";
-            // 
-            // cmbKOTPrinter
-            // 
-            this.cmbKOTPrinter.Location = new System.Drawing.Point(120, 80);
-            this.cmbKOTPrinter.Name = "cmbKOTPrinter";
-            this.cmbKOTPrinter.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.cmbKOTPrinter.Properties.Appearance.Options.UseFont = true;
-            this.cmbKOTPrinter.Properties.AutoHeight = false;
-            this.cmbKOTPrinter.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cmbKOTPrinter.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.cmbKOTPrinter.Size = new System.Drawing.Size(300, 30);
-            this.cmbKOTPrinter.TabIndex = 3;
-            // 
-            // labelControlKOT
-            // 
-            this.labelControlKOT.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControlKOT.Appearance.Options.UseFont = true;
-            this.labelControlKOT.Location = new System.Drawing.Point(20, 86);
-            this.labelControlKOT.Name = "labelControlKOT";
-            this.labelControlKOT.Size = new System.Drawing.Size(71, 17);
-            this.labelControlKOT.TabIndex = 2;
-            this.labelControlKOT.Text = "KOT Printer:";
-            // 
-            // tabTax
-            // 
-            this.tabTax.Appearance.Header.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.tabTax.Appearance.Header.Options.UseFont = true;
-            this.tabTax.Controls.Add(this.grpTax);
-            this.tabTax.Name = "tabTax";
-            this.tabTax.Size = new System.Drawing.Size(998, 609);
-            this.tabTax.Text = "Taxation";
-            // 
-            // grpTax
-            // 
-            this.grpTax.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grpTax.AppearanceCaption.Options.UseFont = true;
-            this.grpTax.Controls.Add(this.txtTaxRegNo);
-            this.grpTax.Controls.Add(this.labelControl18);
-            this.grpTax.Controls.Add(this.txtTaxPercent);
-            this.grpTax.Controls.Add(this.labelControl17);
-            this.grpTax.Controls.Add(this.txtTaxName);
-            this.grpTax.Controls.Add(this.labelControl16);
-            this.grpTax.Location = new System.Drawing.Point(20, 20);
-            this.grpTax.Name = "grpTax";
-            this.grpTax.Size = new System.Drawing.Size(450, 200);
-            this.grpTax.TabIndex = 0;
-            this.grpTax.Text = "Tax Settings";
-            // 
-            // txtTaxRegNo
-            // 
-            this.txtTaxRegNo.Location = new System.Drawing.Point(120, 120);
-            this.txtTaxRegNo.Name = "txtTaxRegNo";
-            this.txtTaxRegNo.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtTaxRegNo.Properties.Appearance.Options.UseFont = true;
-            this.txtTaxRegNo.Properties.AutoHeight = false;
-            this.txtTaxRegNo.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtTaxRegNo.Size = new System.Drawing.Size(300, 30);
-            this.txtTaxRegNo.TabIndex = 5;
-            // 
-            // labelControl18
-            // 
-            this.labelControl18.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl18.Appearance.Options.UseFont = true;
-            this.labelControl18.Location = new System.Drawing.Point(20, 126);
-            this.labelControl18.Name = "labelControl18";
-            this.labelControl18.Size = new System.Drawing.Size(75, 17);
-            this.labelControl18.TabIndex = 4;
-            this.labelControl18.Text = "Tax Reg No.:";
-            // 
-            // txtTaxPercent
-            // 
-            this.txtTaxPercent.Location = new System.Drawing.Point(120, 80);
-            this.txtTaxPercent.Name = "txtTaxPercent";
-            this.txtTaxPercent.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtTaxPercent.Properties.Appearance.Options.UseFont = true;
-            this.txtTaxPercent.Properties.AutoHeight = false;
-            this.txtTaxPercent.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtTaxPercent.Size = new System.Drawing.Size(100, 30);
-            this.txtTaxPercent.TabIndex = 3;
-            // 
-            // labelControl17
-            // 
-            this.labelControl17.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl17.Appearance.Options.UseFont = true;
-            this.labelControl17.Location = new System.Drawing.Point(20, 86);
-            this.labelControl17.Name = "labelControl17";
-            this.labelControl17.Size = new System.Drawing.Size(39, 17);
-            this.labelControl17.TabIndex = 2;
-            this.labelControl17.Text = "Tax %:";
-            // 
-            // txtTaxName
-            // 
-            this.txtTaxName.Location = new System.Drawing.Point(120, 40);
-            this.txtTaxName.Name = "txtTaxName";
-            this.txtTaxName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtTaxName.Properties.Appearance.Options.UseFont = true;
-            this.txtTaxName.Properties.AutoHeight = false;
-            this.txtTaxName.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtTaxName.Size = new System.Drawing.Size(300, 30);
-            this.txtTaxName.TabIndex = 1;
-            // 
-            // labelControl16
-            // 
-            this.labelControl16.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl16.Appearance.Options.UseFont = true;
-            this.labelControl16.Location = new System.Drawing.Point(20, 46);
-            this.labelControl16.Name = "labelControl16";
-            this.labelControl16.Size = new System.Drawing.Size(62, 17);
-            this.labelControl16.TabIndex = 0;
-            this.labelControl16.Text = "Tax Name:";
-            // 
-            // tabFeatures
-            // 
-            this.tabFeatures.Appearance.Header.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.tabFeatures.Appearance.Header.Options.UseFont = true;
-            this.tabFeatures.Controls.Add(this.grpFeatures);
-            this.tabFeatures.Name = "tabFeatures";
-            this.tabFeatures.Size = new System.Drawing.Size(998, 609);
-            this.tabFeatures.Text = "Features";
-            // 
-            // grpFeatures
-            // 
-            this.grpFeatures.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grpFeatures.AppearanceCaption.Options.UseFont = true;
-            this.grpFeatures.Controls.Add(this.tsStockCheck);
-            this.grpFeatures.Controls.Add(this.labelControl20);
-            this.grpFeatures.Controls.Add(this.tsKOT);
-            this.grpFeatures.Controls.Add(this.labelControl19);
-            this.grpFeatures.Location = new System.Drawing.Point(20, 20);
-            this.grpFeatures.Name = "grpFeatures";
-            this.grpFeatures.Size = new System.Drawing.Size(450, 150);
-            this.grpFeatures.TabIndex = 0;
-            this.grpFeatures.Text = "System Features";
-            // 
-            // tsStockCheck
-            // 
-            this.tsStockCheck.Location = new System.Drawing.Point(150, 70);
-            this.tsStockCheck.Name = "tsStockCheck";
-            this.tsStockCheck.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.tsStockCheck.Properties.Appearance.Options.UseFont = true;
-            this.tsStockCheck.Properties.OffText = "Disabled";
-            this.tsStockCheck.Properties.OnText = "Enabled";
-            this.tsStockCheck.Size = new System.Drawing.Size(120, 22);
-            this.tsStockCheck.TabIndex = 3;
-            // 
-            // labelControl20
-            // 
-            this.labelControl20.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl20.Appearance.Options.UseFont = true;
-            this.labelControl20.Location = new System.Drawing.Point(20, 72);
-            this.labelControl20.Name = "labelControl20";
-            this.labelControl20.Size = new System.Drawing.Size(119, 17);
-            this.labelControl20.TabIndex = 2;
-            this.labelControl20.Text = "Enable Stock Check:";
-            // 
-            // tsKOT
-            // 
-            this.tsKOT.Location = new System.Drawing.Point(150, 40);
-            this.tsKOT.Name = "tsKOT";
-            this.tsKOT.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.tsKOT.Properties.Appearance.Options.UseFont = true;
-            this.tsKOT.Properties.OffText = "Disabled";
-            this.tsKOT.Properties.OnText = "Enabled";
-            this.tsKOT.Size = new System.Drawing.Size(120, 22);
-            this.tsKOT.TabIndex = 1;
-            // 
-            // labelControl19
-            // 
-            this.labelControl19.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl19.Appearance.Options.UseFont = true;
-            this.labelControl19.Location = new System.Drawing.Point(20, 42);
-            this.labelControl19.Name = "labelControl19";
-            this.labelControl19.Size = new System.Drawing.Size(71, 17);
-            this.labelControl19.TabIndex = 0;
-            this.labelControl19.Text = "Enable KOT:";
-            // 
-            // tabLicense
-            // 
-            this.tabLicense.Appearance.Header.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.tabLicense.Appearance.Header.Options.UseFont = true;
-            this.tabLicense.Controls.Add(this.grpLicense);
-            this.tabLicense.Name = "tabLicense";
-            this.tabLicense.Size = new System.Drawing.Size(998, 609);
-            this.tabLicense.Text = "License & Trial";
-            // 
-            // grpLicense
-            // 
-            this.grpLicense.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.grpLicense.AppearanceCaption.Options.UseFont = true;
-            this.grpLicense.Controls.Add(this.tsEnableTrial);
-            this.grpLicense.Controls.Add(this.labelControl21);
-            this.grpLicense.Controls.Add(this.labelControl22);
-            this.grpLicense.Controls.Add(this.txtTrialDays);
-            this.grpLicense.Controls.Add(this.labelControl23);
-            this.grpLicense.Controls.Add(this.txtTrialStartDate);
-            this.grpLicense.Controls.Add(this.labelControl24);
-            this.grpLicense.Controls.Add(this.txtTrialEndDate);
-            this.grpLicense.Controls.Add(this.labelControl25);
-            this.grpLicense.Controls.Add(this.chkIsLicensed);
-            this.grpLicense.Location = new System.Drawing.Point(20, 20);
-            this.grpLicense.Name = "grpLicense";
-            this.grpLicense.Size = new System.Drawing.Size(450, 260);
-            this.grpLicense.TabIndex = 0;
-            this.grpLicense.Text = "License & Trial Settings";
-            // 
-            // tsEnableTrial
-            // 
-            this.tsEnableTrial.Location = new System.Drawing.Point(150, 220);
-            this.tsEnableTrial.Name = "tsEnableTrial";
-            this.tsEnableTrial.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.tsEnableTrial.Properties.Appearance.Options.UseFont = true;
-            this.tsEnableTrial.Properties.OffText = "No";
-            this.tsEnableTrial.Properties.OnText = "Yes";
-            this.tsEnableTrial.Size = new System.Drawing.Size(95, 22);
-            this.tsEnableTrial.TabIndex = 9;
-            // 
-            // labelControl21
-            // 
-            this.labelControl21.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl21.Appearance.Options.UseFont = true;
-            this.labelControl21.Location = new System.Drawing.Point(20, 226);
-            this.labelControl21.Name = "labelControl21";
-            this.labelControl21.Size = new System.Drawing.Size(78, 17);
-            this.labelControl21.TabIndex = 8;
-            this.labelControl21.Text = "Enable Trial:";
-            // 
-            // labelControl22
-            // 
-            this.labelControl22.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl22.Appearance.Options.UseFont = true;
-            this.labelControl22.Location = new System.Drawing.Point(20, 186);
-            this.labelControl22.Name = "labelControl22";
-            this.labelControl22.Size = new System.Drawing.Size(119, 17);
-            this.labelControl22.TabIndex = 7;
-            this.labelControl22.Text = "Trial Period (Days):";
-            // 
-            // txtTrialDays
-            // 
-            this.txtTrialDays.Location = new System.Drawing.Point(150, 180);
-            this.txtTrialDays.Name = "txtTrialDays";
-            this.txtTrialDays.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtTrialDays.Properties.Appearance.Options.UseFont = true;
-            this.txtTrialDays.Properties.AutoHeight = false;
-            this.txtTrialDays.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtTrialDays.Size = new System.Drawing.Size(100, 30);
-            this.txtTrialDays.TabIndex = 6;
-            // 
-            // labelControl23
-            // 
-            this.labelControl23.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl23.Appearance.Options.UseFont = true;
-            this.labelControl23.Location = new System.Drawing.Point(20, 146);
-            this.labelControl23.Name = "labelControl23";
-            this.labelControl23.Size = new System.Drawing.Size(103, 17);
-            this.labelControl23.TabIndex = 5;
-            this.labelControl23.Text = "Trial Start Date:";
-            // 
-            // txtTrialStartDate
-            // 
-            this.txtTrialStartDate.Location = new System.Drawing.Point(150, 140);
-            this.txtTrialStartDate.Name = "txtTrialStartDate";
-            this.txtTrialStartDate.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtTrialStartDate.Properties.Appearance.Options.UseFont = true;
-            this.txtTrialStartDate.Properties.AutoHeight = false;
-            this.txtTrialStartDate.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtTrialStartDate.Size = new System.Drawing.Size(200, 30);
-            this.txtTrialStartDate.TabIndex = 4;
-            // 
-            // labelControl24
-            // 
-            this.labelControl24.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl24.Appearance.Options.UseFont = true;
-            this.labelControl24.Location = new System.Drawing.Point(20, 106);
-            this.labelControl24.Name = "labelControl24";
-            this.labelControl24.Size = new System.Drawing.Size(100, 17);
-            this.labelControl24.TabIndex = 3;
-            this.labelControl24.Text = "Trial End Date:";
-            // 
-            // txtTrialEndDate
-            // 
-            this.txtTrialEndDate.Location = new System.Drawing.Point(150, 100);
-            this.txtTrialEndDate.Name = "txtTrialEndDate";
-            this.txtTrialEndDate.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txtTrialEndDate.Properties.Appearance.Options.UseFont = true;
-            this.txtTrialEndDate.Properties.AutoHeight = false;
-            this.txtTrialEndDate.Properties.Padding = new System.Windows.Forms.Padding(5);
-            this.txtTrialEndDate.Size = new System.Drawing.Size(200, 30);
-            this.txtTrialEndDate.TabIndex = 2;
-            // 
-            // labelControl25
-            // 
-            this.labelControl25.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.labelControl25.Appearance.Options.UseFont = true;
-            this.labelControl25.Location = new System.Drawing.Point(20, 66);
-            this.labelControl25.Name = "labelControl25";
-            this.labelControl25.Size = new System.Drawing.Size(65, 17);
-            this.labelControl25.TabIndex = 1;
-            this.labelControl25.Text = "Licensed?:";
-            // 
-            // chkIsLicensed
-            // 
-            this.chkIsLicensed.Location = new System.Drawing.Point(150, 62);
-            this.chkIsLicensed.Name = "chkIsLicensed";
-            this.chkIsLicensed.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.chkIsLicensed.Properties.Appearance.Options.UseFont = true;
-            this.chkIsLicensed.Properties.Caption = "This software is licensed.";
-            this.chkIsLicensed.Size = new System.Drawing.Size(250, 20);
-            this.chkIsLicensed.TabIndex = 0;
-            // 
-            // panelControl3
-            // 
-            this.panelControl3.Appearance.BackColor = System.Drawing.Color.White;
-            this.panelControl3.Appearance.Options.UseBackColor = true;
-            this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl3.Controls.Add(this.btnSave);
-            this.panelControl3.Controls.Add(this.labelControl14);
-            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl3.Location = new System.Drawing.Point(0, 0);
-            this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(1000, 60);
-            this.panelControl3.TabIndex = 0;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(181)))), ((int)(((byte)(152)))));
-            this.btnSave.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnSave.Appearance.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Appearance.Options.UseBackColor = true;
-            this.btnSave.Appearance.Options.UseFont = true;
-            this.btnSave.Appearance.Options.UseForeColor = true;
-            this.btnSave.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
-            this.btnSave.Location = new System.Drawing.Point(880, 15);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 30);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Save Settings";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            panelControl1.Appearance.BackColor = System.Drawing.Color.White;
+            panelControl1.Appearance.Options.UseBackColor = true;
+            panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl1.Controls.Add(labelControl14);
+            panelControl1.Controls.Add(labelControlSubtitle);
+            panelControl1.Controls.Add(separatorControl1);
+            panelControl1.Controls.Add(btnSave);
+            panelControl1.Controls.Add(flowLayoutPanel1);
+            panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelControl1.Location = new System.Drawing.Point(0, 0);
+            panelControl1.Name = "panelControl1";
+            panelControl1.Size = new System.Drawing.Size(1000, 700);
+            panelControl1.TabIndex = 0;
             // 
             // labelControl14
             // 
-            this.labelControl14.Appearance.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold);
-            this.labelControl14.Appearance.Options.UseFont = true;
-            this.labelControl14.Location = new System.Drawing.Point(20, 15);
-            this.labelControl14.Name = "labelControl14";
-            this.labelControl14.Size = new System.Drawing.Size(160, 30);
-            this.labelControl14.TabIndex = 0;
-            this.labelControl14.Text = "System Settings";
+            labelControl14.Appearance.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl14.Appearance.Options.UseFont = true;
+            labelControl14.Location = new System.Drawing.Point(14, 20);
+            labelControl14.Name = "labelControl14";
+            labelControl14.Size = new System.Drawing.Size(156, 30);
+            labelControl14.TabIndex = 0;
+            labelControl14.Text = "System Settings";
+            // 
+            // labelControlSubtitle
+            // 
+            labelControlSubtitle.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelControlSubtitle.Appearance.Options.UseFont = true;
+            labelControlSubtitle.Location = new System.Drawing.Point(180, 18);
+            labelControlSubtitle.Name = "labelControlSubtitle";
+            labelControlSubtitle.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
+            labelControlSubtitle.Size = new System.Drawing.Size(235, 40);
+            labelControlSubtitle.TabIndex = 115;
+            labelControlSubtitle.Text = "Manage your system configurations";
+            // 
+            // separatorControl1
+            // 
+            separatorControl1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            separatorControl1.Location = new System.Drawing.Point(14, 50);
+            separatorControl1.Name = "separatorControl1";
+            separatorControl1.Size = new System.Drawing.Size(972, 23);
+            separatorControl1.TabIndex = 1;
+            // 
+            // btnSave
+            // 
+            btnSave.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSave.Appearance.BackColor = System.Drawing.Color.FromArgb(4, 181, 152);
+            btnSave.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnSave.Appearance.ForeColor = System.Drawing.Color.White;
+            btnSave.Appearance.Options.UseBackColor = true;
+            btnSave.Appearance.Options.UseFont = true;
+            btnSave.Appearance.Options.UseForeColor = true;
+            btnSave.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
+            btnSave.Location = new System.Drawing.Point(880, 15);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new System.Drawing.Size(100, 30);
+            btnSave.TabIndex = 1;
+            btnSave.Text = "Save Settings";
+            btnSave.Click += btnSave_Click;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.Controls.Add(grpBusiness);
+            flowLayoutPanel1.Controls.Add(grpAddress);
+            flowLayoutPanel1.Controls.Add(grpContact);
+            flowLayoutPanel1.Controls.Add(grpPrinting);
+            flowLayoutPanel1.Controls.Add(grpInvoice);
+            flowLayoutPanel1.Controls.Add(grpFeatures);
+            flowLayoutPanel1.Location = new System.Drawing.Point(14, 79);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
+            flowLayoutPanel1.Size = new System.Drawing.Size(972, 514);
+            flowLayoutPanel1.TabIndex = 1;
+            // 
+            // grpBusiness
+            // 
+            grpBusiness.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpBusiness.AppearanceCaption.Options.UseFont = true;
+            grpBusiness.Controls.Add(btnClearLogo);
+            grpBusiness.Controls.Add(btnBrowseLogo);
+            grpBusiness.Controls.Add(picLogo);
+            grpBusiness.Controls.Add(lblLogo);
+            grpBusiness.Controls.Add(txtBusinessName);
+            grpBusiness.Controls.Add(lblBusinessName);
+            grpBusiness.Location = new System.Drawing.Point(13, 13);
+            grpBusiness.Name = "grpBusiness";
+            grpBusiness.Size = new System.Drawing.Size(450, 240);
+            grpBusiness.TabIndex = 0;
+            grpBusiness.Text = "Business Information";
+            // 
+            // btnClearLogo
+            // 
+            btnClearLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnClearLogo.Appearance.Options.UseFont = true;
+            btnClearLogo.Location = new System.Drawing.Point(280, 130);
+            btnClearLogo.Name = "btnClearLogo";
+            btnClearLogo.Size = new System.Drawing.Size(80, 30);
+            btnClearLogo.TabIndex = 5;
+            btnClearLogo.Text = "Clear";
+            btnClearLogo.Click += btnClearLogo_Click;
+            // 
+            // btnBrowseLogo
+            // 
+            btnBrowseLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnBrowseLogo.Appearance.Options.UseFont = true;
+            btnBrowseLogo.Location = new System.Drawing.Point(280, 90);
+            btnBrowseLogo.Name = "btnBrowseLogo";
+            btnBrowseLogo.Size = new System.Drawing.Size(80, 30);
+            btnBrowseLogo.TabIndex = 4;
+            btnBrowseLogo.Text = "Browse...";
+            btnBrowseLogo.Click += btnBrowseLogo_Click;
+            // 
+            // picLogo
+            // 
+            picLogo.Location = new System.Drawing.Point(150, 80);
+            picLogo.Name = "picLogo";
+            picLogo.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            picLogo.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
+            picLogo.Size = new System.Drawing.Size(120, 120);
+            picLogo.TabIndex = 3;
+            // 
+            // lblLogo
+            // 
+            lblLogo.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            lblLogo.Appearance.Options.UseFont = true;
+            lblLogo.Location = new System.Drawing.Point(20, 80);
+            lblLogo.Name = "lblLogo";
+            lblLogo.Size = new System.Drawing.Size(86, 17);
+            lblLogo.TabIndex = 2;
+            lblLogo.Text = "Business Logo:";
+            // 
+            // txtBusinessName
+            // 
+            txtBusinessName.Location = new System.Drawing.Point(150, 40);
+            txtBusinessName.Name = "txtBusinessName";
+            txtBusinessName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtBusinessName.Properties.Appearance.Options.UseFont = true;
+            txtBusinessName.Properties.AutoHeight = false;
+            txtBusinessName.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtBusinessName.Size = new System.Drawing.Size(280, 30);
+            txtBusinessName.TabIndex = 1;
+            // 
+            // lblBusinessName
+            // 
+            lblBusinessName.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            lblBusinessName.Appearance.Options.UseFont = true;
+            lblBusinessName.Location = new System.Drawing.Point(20, 46);
+            lblBusinessName.Name = "lblBusinessName";
+            lblBusinessName.Size = new System.Drawing.Size(91, 17);
+            lblBusinessName.TabIndex = 0;
+            lblBusinessName.Text = "Business Name:";
+            // 
+            // grpAddress
+            // 
+            grpAddress.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpAddress.AppearanceCaption.Options.UseFont = true;
+            grpAddress.Controls.Add(txtCountry);
+            grpAddress.Controls.Add(labelControl11);
+            grpAddress.Controls.Add(txtPostalCode);
+            grpAddress.Controls.Add(labelControl10);
+            grpAddress.Controls.Add(txtState);
+            grpAddress.Controls.Add(labelControl9);
+            grpAddress.Controls.Add(txtCity);
+            grpAddress.Controls.Add(labelControl3);
+            grpAddress.Controls.Add(txtAddress);
+            grpAddress.Controls.Add(labelControl2);
+            grpAddress.Location = new System.Drawing.Point(13, 259);
+            grpAddress.Name = "grpAddress";
+            grpAddress.Size = new System.Drawing.Size(450, 250);
+            grpAddress.TabIndex = 0;
+            grpAddress.Text = "Address Details";
+            // 
+            // txtCountry
+            // 
+            txtCountry.Location = new System.Drawing.Point(120, 200);
+            txtCountry.Name = "txtCountry";
+            txtCountry.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtCountry.Properties.Appearance.Options.UseFont = true;
+            txtCountry.Properties.AutoHeight = false;
+            txtCountry.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtCountry.Size = new System.Drawing.Size(300, 30);
+            txtCountry.TabIndex = 9;
+            // 
+            // labelControl11
+            // 
+            labelControl11.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl11.Appearance.Options.UseFont = true;
+            labelControl11.Location = new System.Drawing.Point(20, 206);
+            labelControl11.Name = "labelControl11";
+            labelControl11.Size = new System.Drawing.Size(48, 17);
+            labelControl11.TabIndex = 8;
+            labelControl11.Text = "Country:";
+            // 
+            // txtPostalCode
+            // 
+            txtPostalCode.Location = new System.Drawing.Point(120, 160);
+            txtPostalCode.Name = "txtPostalCode";
+            txtPostalCode.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtPostalCode.Properties.Appearance.Options.UseFont = true;
+            txtPostalCode.Properties.AutoHeight = false;
+            txtPostalCode.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtPostalCode.Size = new System.Drawing.Size(300, 30);
+            txtPostalCode.TabIndex = 7;
+            // 
+            // labelControl10
+            // 
+            labelControl10.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl10.Appearance.Options.UseFont = true;
+            labelControl10.Location = new System.Drawing.Point(20, 166);
+            labelControl10.Name = "labelControl10";
+            labelControl10.Size = new System.Drawing.Size(73, 17);
+            labelControl10.TabIndex = 6;
+            labelControl10.Text = "Postal Code:";
+            // 
+            // txtState
+            // 
+            txtState.Location = new System.Drawing.Point(120, 120);
+            txtState.Name = "txtState";
+            txtState.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtState.Properties.Appearance.Options.UseFont = true;
+            txtState.Properties.AutoHeight = false;
+            txtState.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtState.Size = new System.Drawing.Size(300, 30);
+            txtState.TabIndex = 5;
+            // 
+            // labelControl9
+            // 
+            labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl9.Appearance.Options.UseFont = true;
+            labelControl9.Location = new System.Drawing.Point(20, 126);
+            labelControl9.Name = "labelControl9";
+            labelControl9.Size = new System.Drawing.Size(32, 17);
+            labelControl9.TabIndex = 4;
+            labelControl9.Text = "State:";
+            // 
+            // txtCity
+            // 
+            txtCity.Location = new System.Drawing.Point(120, 80);
+            txtCity.Name = "txtCity";
+            txtCity.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtCity.Properties.Appearance.Options.UseFont = true;
+            txtCity.Properties.AutoHeight = false;
+            txtCity.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtCity.Size = new System.Drawing.Size(300, 30);
+            txtCity.TabIndex = 3;
+            // 
+            // labelControl3
+            // 
+            labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl3.Appearance.Options.UseFont = true;
+            labelControl3.Location = new System.Drawing.Point(20, 86);
+            labelControl3.Name = "labelControl3";
+            labelControl3.Size = new System.Drawing.Size(24, 17);
+            labelControl3.TabIndex = 2;
+            labelControl3.Text = "City:";
+            // 
+            // txtAddress
+            // 
+            txtAddress.Location = new System.Drawing.Point(120, 40);
+            txtAddress.Name = "txtAddress";
+            txtAddress.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtAddress.Properties.Appearance.Options.UseFont = true;
+            txtAddress.Properties.AutoHeight = false;
+            txtAddress.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtAddress.Size = new System.Drawing.Size(300, 30);
+            txtAddress.TabIndex = 1;
+            // 
+            // labelControl2
+            // 
+            labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl2.Appearance.Options.UseFont = true;
+            labelControl2.Location = new System.Drawing.Point(20, 46);
+            labelControl2.Name = "labelControl2";
+            labelControl2.Size = new System.Drawing.Size(51, 17);
+            labelControl2.TabIndex = 0;
+            labelControl2.Text = "Address:";
+            // 
+            // grpContact
+            // 
+            grpContact.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpContact.AppearanceCaption.Options.UseFont = true;
+            grpContact.Controls.Add(txtWebsite);
+            grpContact.Controls.Add(labelControl6);
+            grpContact.Controls.Add(txtEmail);
+            grpContact.Controls.Add(labelControl5);
+            grpContact.Controls.Add(txtPhone);
+            grpContact.Controls.Add(labelControl4);
+            grpContact.Location = new System.Drawing.Point(469, 259);
+            grpContact.Name = "grpContact";
+            grpContact.Size = new System.Drawing.Size(450, 200);
+            grpContact.TabIndex = 1;
+            grpContact.Text = "Contact Information";
+            // 
+            // txtWebsite
+            // 
+            txtWebsite.Location = new System.Drawing.Point(120, 120);
+            txtWebsite.Name = "txtWebsite";
+            txtWebsite.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtWebsite.Properties.Appearance.Options.UseFont = true;
+            txtWebsite.Properties.AutoHeight = false;
+            txtWebsite.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtWebsite.Size = new System.Drawing.Size(300, 30);
+            txtWebsite.TabIndex = 5;
+            // 
+            // labelControl6
+            // 
+            labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl6.Appearance.Options.UseFont = true;
+            labelControl6.Location = new System.Drawing.Point(20, 126);
+            labelControl6.Name = "labelControl6";
+            labelControl6.Size = new System.Drawing.Size(50, 17);
+            labelControl6.TabIndex = 4;
+            labelControl6.Text = "Website:";
+            // 
+            // txtEmail
+            // 
+            txtEmail.Location = new System.Drawing.Point(120, 80);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtEmail.Properties.Appearance.Options.UseFont = true;
+            txtEmail.Properties.AutoHeight = false;
+            txtEmail.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtEmail.Size = new System.Drawing.Size(300, 30);
+            txtEmail.TabIndex = 3;
+            // 
+            // labelControl5
+            // 
+            labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl5.Appearance.Options.UseFont = true;
+            labelControl5.Location = new System.Drawing.Point(20, 86);
+            labelControl5.Name = "labelControl5";
+            labelControl5.Size = new System.Drawing.Size(34, 17);
+            labelControl5.TabIndex = 2;
+            labelControl5.Text = "Email:";
+            // 
+            // txtPhone
+            // 
+            txtPhone.Location = new System.Drawing.Point(120, 40);
+            txtPhone.Name = "txtPhone";
+            txtPhone.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtPhone.Properties.Appearance.Options.UseFont = true;
+            txtPhone.Properties.AutoHeight = false;
+            txtPhone.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtPhone.Size = new System.Drawing.Size(300, 30);
+            txtPhone.TabIndex = 1;
+            // 
+            // labelControl4
+            // 
+            labelControl4.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl4.Appearance.Options.UseFont = true;
+            labelControl4.Location = new System.Drawing.Point(20, 46);
+            labelControl4.Name = "labelControl4";
+            labelControl4.Size = new System.Drawing.Size(39, 17);
+            labelControl4.TabIndex = 0;
+            labelControl4.Text = "Phone:";
+            // 
+            // grpPrinting
+            // 
+            grpPrinting.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpPrinting.AppearanceCaption.Options.UseFont = true;
+            grpPrinting.Controls.Add(tsAutoPrint);
+            grpPrinting.Controls.Add(labelControl12);
+            grpPrinting.Controls.Add(rgPrintFormat);
+            grpPrinting.Controls.Add(cmbThermalPrinter);
+            grpPrinting.Controls.Add(labelControl15);
+            grpPrinting.Controls.Add(cmbKOTPrinter);
+            grpPrinting.Controls.Add(labelControlKOT);
+            grpPrinting.Location = new System.Drawing.Point(13, 515);
+            grpPrinting.Name = "grpPrinting";
+            grpPrinting.Size = new System.Drawing.Size(450, 230);
+            grpPrinting.TabIndex = 0;
+            grpPrinting.Text = "Printing Configuration";
+            // 
+            // tsAutoPrint
+            // 
+            tsAutoPrint.Location = new System.Drawing.Point(120, 190);
+            tsAutoPrint.Name = "tsAutoPrint";
+            tsAutoPrint.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            tsAutoPrint.Properties.Appearance.Options.UseFont = true;
+            tsAutoPrint.Properties.OffText = "Off";
+            tsAutoPrint.Properties.OnText = "On";
+            tsAutoPrint.Size = new System.Drawing.Size(95, 22);
+            tsAutoPrint.TabIndex = 6;
+            // 
+            // labelControl12
+            // 
+            labelControl12.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl12.Appearance.Options.UseFont = true;
+            labelControl12.Location = new System.Drawing.Point(20, 192);
+            labelControl12.Name = "labelControl12";
+            labelControl12.Size = new System.Drawing.Size(60, 17);
+            labelControl12.TabIndex = 5;
+            labelControl12.Text = "Auto Print:";
+            // 
+            // rgPrintFormat
+            // 
+            rgPrintFormat.Location = new System.Drawing.Point(20, 120);
+            rgPrintFormat.Name = "rgPrintFormat";
+            rgPrintFormat.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            rgPrintFormat.Properties.Appearance.Options.UseFont = true;
+            rgPrintFormat.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] { new DevExpress.XtraEditors.Controls.RadioGroupItem("THERMAL", "Thermal (80mm)"), new DevExpress.XtraEditors.Controls.RadioGroupItem("A4", "A4 Standard") });
+            rgPrintFormat.Size = new System.Drawing.Size(400, 60);
+            rgPrintFormat.TabIndex = 4;
+            // 
+            // cmbThermalPrinter
+            // 
+            cmbThermalPrinter.Location = new System.Drawing.Point(120, 40);
+            cmbThermalPrinter.Name = "cmbThermalPrinter";
+            cmbThermalPrinter.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            cmbThermalPrinter.Properties.Appearance.Options.UseFont = true;
+            cmbThermalPrinter.Properties.AutoHeight = false;
+            cmbThermalPrinter.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            cmbThermalPrinter.Properties.Padding = new System.Windows.Forms.Padding(5);
+            cmbThermalPrinter.Size = new System.Drawing.Size(300, 30);
+            cmbThermalPrinter.TabIndex = 1;
+            // 
+            // labelControl15
+            // 
+            labelControl15.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl15.Appearance.Options.UseFont = true;
+            labelControl15.Location = new System.Drawing.Point(20, 46);
+            labelControl15.Name = "labelControl15";
+            labelControl15.Size = new System.Drawing.Size(92, 17);
+            labelControl15.TabIndex = 0;
+            labelControl15.Text = "Thermal Printer:";
+            // 
+            // cmbKOTPrinter
+            // 
+            cmbKOTPrinter.Location = new System.Drawing.Point(120, 80);
+            cmbKOTPrinter.Name = "cmbKOTPrinter";
+            cmbKOTPrinter.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            cmbKOTPrinter.Properties.Appearance.Options.UseFont = true;
+            cmbKOTPrinter.Properties.AutoHeight = false;
+            cmbKOTPrinter.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            cmbKOTPrinter.Properties.Padding = new System.Windows.Forms.Padding(5);
+            cmbKOTPrinter.Size = new System.Drawing.Size(300, 30);
+            cmbKOTPrinter.TabIndex = 3;
+            // 
+            // labelControlKOT
+            // 
+            labelControlKOT.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControlKOT.Appearance.Options.UseFont = true;
+            labelControlKOT.Location = new System.Drawing.Point(20, 86);
+            labelControlKOT.Name = "labelControlKOT";
+            labelControlKOT.Size = new System.Drawing.Size(70, 17);
+            labelControlKOT.TabIndex = 2;
+            labelControlKOT.Text = "KOT Printer:";
+            // 
+            // grpInvoice
+            // 
+            grpInvoice.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpInvoice.AppearanceCaption.Options.UseFont = true;
+            grpInvoice.Controls.Add(txtInvoiceFooter);
+            grpInvoice.Controls.Add(labelControl13);
+            grpInvoice.Location = new System.Drawing.Point(469, 515);
+            grpInvoice.Name = "grpInvoice";
+            grpInvoice.Size = new System.Drawing.Size(450, 100);
+            grpInvoice.TabIndex = 1;
+            grpInvoice.Text = "Invoice Settings";
+            // 
+            // txtInvoiceFooter
+            // 
+            txtInvoiceFooter.Location = new System.Drawing.Point(120, 40);
+            txtInvoiceFooter.Name = "txtInvoiceFooter";
+            txtInvoiceFooter.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtInvoiceFooter.Properties.Appearance.Options.UseFont = true;
+            txtInvoiceFooter.Properties.AutoHeight = false;
+            txtInvoiceFooter.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtInvoiceFooter.Size = new System.Drawing.Size(300, 30);
+            txtInvoiceFooter.TabIndex = 1;
+            // 
+            // labelControl13
+            // 
+            labelControl13.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl13.Appearance.Options.UseFont = true;
+            labelControl13.Location = new System.Drawing.Point(20, 46);
+            labelControl13.Name = "labelControl13";
+            labelControl13.Size = new System.Drawing.Size(69, 17);
+            labelControl13.TabIndex = 0;
+            labelControl13.Text = "Footer Text:";
+            // 
+            // grpFeatures
+            // 
+            grpFeatures.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpFeatures.AppearanceCaption.Options.UseFont = true;
+            grpFeatures.Controls.Add(tsStockCheck);
+            grpFeatures.Controls.Add(labelControl20);
+            grpFeatures.Controls.Add(tsKOT);
+            grpFeatures.Controls.Add(labelControl19);
+            grpFeatures.Location = new System.Drawing.Point(13, 751);
+            grpFeatures.Name = "grpFeatures";
+            grpFeatures.Size = new System.Drawing.Size(450, 150);
+            grpFeatures.TabIndex = 0;
+            grpFeatures.Text = "System Features";
+            // 
+            // tsStockCheck
+            // 
+            tsStockCheck.Location = new System.Drawing.Point(150, 70);
+            tsStockCheck.Name = "tsStockCheck";
+            tsStockCheck.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            tsStockCheck.Properties.Appearance.Options.UseFont = true;
+            tsStockCheck.Properties.OffText = "Disabled";
+            tsStockCheck.Properties.OnText = "Enabled";
+            tsStockCheck.Size = new System.Drawing.Size(120, 22);
+            tsStockCheck.TabIndex = 3;
+            // 
+            // labelControl20
+            // 
+            labelControl20.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl20.Appearance.Options.UseFont = true;
+            labelControl20.Location = new System.Drawing.Point(20, 72);
+            labelControl20.Name = "labelControl20";
+            labelControl20.Size = new System.Drawing.Size(115, 17);
+            labelControl20.TabIndex = 2;
+            labelControl20.Text = "Enable Stock Check:";
+            // 
+            // tsKOT
+            // 
+            tsKOT.Location = new System.Drawing.Point(150, 40);
+            tsKOT.Name = "tsKOT";
+            tsKOT.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            tsKOT.Properties.Appearance.Options.UseFont = true;
+            tsKOT.Properties.OffText = "Disabled";
+            tsKOT.Properties.OnText = "Enabled";
+            tsKOT.Size = new System.Drawing.Size(120, 22);
+            tsKOT.TabIndex = 1;
+            // 
+            // labelControl19
+            // 
+            labelControl19.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl19.Appearance.Options.UseFont = true;
+            labelControl19.Location = new System.Drawing.Point(20, 42);
+            labelControl19.Name = "labelControl19";
+            labelControl19.Size = new System.Drawing.Size(71, 17);
+            labelControl19.TabIndex = 0;
+            labelControl19.Text = "Enable KOT:";
+            // 
+            // grpLocations
+            // 
+            grpLocations.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpLocations.AppearanceCaption.Options.UseFont = true;
+            grpLocations.Controls.Add(btnManageLocations);
+            grpLocations.Location = new System.Drawing.Point(20, 20);
+            grpLocations.Name = "grpLocations";
+            grpLocations.Size = new System.Drawing.Size(450, 80);
+            grpLocations.TabIndex = 0;
+            grpLocations.Text = "Business Locations";
+            // 
+            // btnManageLocations
+            // 
+            btnManageLocations.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnManageLocations.Appearance.Options.UseFont = true;
+            btnManageLocations.Location = new System.Drawing.Point(20, 30);
+            btnManageLocations.Name = "btnManageLocations";
+            btnManageLocations.Size = new System.Drawing.Size(150, 30);
+            btnManageLocations.TabIndex = 0;
+            btnManageLocations.Text = "Manage Locations";
+            btnManageLocations.Click += btnManageLocations_Click;
+            // 
+            // grpTables
+            // 
+            grpTables.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpTables.AppearanceCaption.Options.UseFont = true;
+            grpTables.Controls.Add(btnManageTables);
+            grpTables.Location = new System.Drawing.Point(20, 20);
+            grpTables.Name = "grpTables";
+            grpTables.Size = new System.Drawing.Size(450, 80);
+            grpTables.TabIndex = 0;
+            grpTables.Text = "Tables";
+            // 
+            // btnManageTables
+            // 
+            btnManageTables.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnManageTables.Appearance.Options.UseFont = true;
+            btnManageTables.Location = new System.Drawing.Point(20, 30);
+            btnManageTables.Name = "btnManageTables";
+            btnManageTables.Size = new System.Drawing.Size(150, 30);
+            btnManageTables.TabIndex = 0;
+            btnManageTables.Text = "Manage Tables";
+            btnManageTables.Click += btnManageTables_Click;
+            // 
+            // grpAccount
+            // 
+            grpAccount.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpAccount.AppearanceCaption.Options.UseFont = true;
+            grpAccount.Controls.Add(btnManageAccount);
+            grpAccount.Location = new System.Drawing.Point(20, 20);
+            grpAccount.Name = "grpAccount";
+            grpAccount.Size = new System.Drawing.Size(450, 80);
+            grpAccount.TabIndex = 0;
+            grpAccount.Text = "Account Settings";
+            // 
+            // btnManageAccount
+            // 
+            btnManageAccount.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnManageAccount.Appearance.Options.UseFont = true;
+            btnManageAccount.Location = new System.Drawing.Point(20, 30);
+            btnManageAccount.Name = "btnManageAccount";
+            btnManageAccount.Size = new System.Drawing.Size(150, 30);
+            btnManageAccount.TabIndex = 0;
+            btnManageAccount.Text = "Manage Account";
+            btnManageAccount.Click += btnManageAccount_Click;
             // 
             // UC_SystemSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panelControl1);
-            this.Name = "UC_SystemSettings";
-            this.Size = new System.Drawing.Size(1000, 700);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
-            this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).EndInit();
-            this.xtraTabControl1.ResumeLayout(false);
-            this.tabGeneral.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpRegional)).EndInit();
-            this.grpRegional.ResumeLayout(false);
-            this.grpRegional.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCurrencySymbol.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpBusiness)).EndInit();
-            this.grpBusiness.ResumeLayout(false);
-            this.grpBusiness.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtBusinessName.Properties)).EndInit();
-            this.tabStore.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpContact)).EndInit();
-            this.grpContact.ResumeLayout(false);
-            this.grpContact.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtWebsite.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPhone.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpAddress)).EndInit();
-            this.grpAddress.ResumeLayout(false);
-            this.grpAddress.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCountry.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPostalCode.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtState.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCity.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAddress.Properties)).EndInit();
-            this.tabPrinting.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpInvoice)).EndInit();
-            this.grpInvoice.ResumeLayout(false);
-            this.grpInvoice.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtInvoiceFooter.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpPrinting)).EndInit();
-            this.grpPrinting.ResumeLayout(false);
-            this.grpPrinting.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tsAutoPrint.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rgPrintFormat.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbThermalPrinter.Properties)).EndInit();
-            this.tabTax.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpTax)).EndInit();
-            this.grpTax.ResumeLayout(false);
-            this.grpTax.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTaxRegNo.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTaxPercent.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTaxName.Properties)).EndInit();
-            this.tabFeatures.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grpFeatures)).EndInit();
-            this.grpFeatures.ResumeLayout(false);
-            this.grpFeatures.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tsStockCheck.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tsKOT.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tsEnableTrial.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTrialDays.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTrialStartDate.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTrialEndDate.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkIsLicensed.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grpLicense)).EndInit();
-            this.grpLicense.ResumeLayout(false);
-            this.grpLicense.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
-            this.panelControl3.ResumeLayout(false);
-            this.panelControl3.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(panelControl1);
+            Name = "UC_SystemSettings";
+            Size = new System.Drawing.Size(1000, 700);
+            ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
+            panelControl1.ResumeLayout(false);
+            panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
+            flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)grpBusiness).EndInit();
+            grpBusiness.ResumeLayout(false);
+            grpBusiness.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picLogo.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtBusinessName.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grpAddress).EndInit();
+            grpAddress.ResumeLayout(false);
+            grpAddress.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)txtCountry.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtPostalCode.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtState.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtCity.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtAddress.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grpContact).EndInit();
+            grpContact.ResumeLayout(false);
+            grpContact.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)txtWebsite.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtEmail.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtPhone.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grpPrinting).EndInit();
+            grpPrinting.ResumeLayout(false);
+            grpPrinting.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tsAutoPrint.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)rgPrintFormat.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbThermalPrinter.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)cmbKOTPrinter.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grpInvoice).EndInit();
+            grpInvoice.ResumeLayout(false);
+            grpInvoice.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)txtInvoiceFooter.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grpFeatures).EndInit();
+            grpFeatures.ResumeLayout(false);
+            grpFeatures.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tsStockCheck.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tsKOT.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grpLocations).EndInit();
+            grpLocations.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)grpTables).EndInit();
+            grpTables.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)grpAccount).EndInit();
+            grpAccount.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 
         #endregion
 
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.SimpleButton btnSave;
         private DevExpress.XtraEditors.LabelControl labelControl14;
-        private DevExpress.XtraTab.XtraTabControl xtraTabControl1;
-        private DevExpress.XtraTab.XtraTabPage tabGeneral;
-        private DevExpress.XtraTab.XtraTabPage tabStore;
-        private DevExpress.XtraTab.XtraTabPage tabPrinting;
-        private DevExpress.XtraTab.XtraTabPage tabTax;
-        private DevExpress.XtraTab.XtraTabPage tabFeatures;
-        private DevExpress.XtraTab.XtraTabPage tabLicense;
+        private DevExpress.XtraEditors.LabelControl labelControlSubtitle;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         
         // General Tab
         private DevExpress.XtraEditors.GroupControl grpBusiness;
@@ -1086,9 +803,6 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.PictureEdit picLogo;
         private DevExpress.XtraEditors.SimpleButton btnBrowseLogo;
         private DevExpress.XtraEditors.SimpleButton btnClearLogo;
-        private DevExpress.XtraEditors.GroupControl grpRegional;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.TextEdit txtCurrencySymbol;
 
         // Store Tab
         private DevExpress.XtraEditors.GroupControl grpAddress;
@@ -1123,15 +837,6 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.LabelControl labelControl13;
         private DevExpress.XtraEditors.TextEdit txtInvoiceFooter;
 
-        // Tax Tab
-        private DevExpress.XtraEditors.GroupControl grpTax;
-        private DevExpress.XtraEditors.LabelControl labelControl16;
-        private DevExpress.XtraEditors.TextEdit txtTaxName;
-        private DevExpress.XtraEditors.LabelControl labelControl17;
-        private DevExpress.XtraEditors.TextEdit txtTaxPercent;
-        private DevExpress.XtraEditors.LabelControl labelControl18;
-        private DevExpress.XtraEditors.TextEdit txtTaxRegNo;
-
         // Features Tab
         private DevExpress.XtraEditors.GroupControl grpFeatures;
         private DevExpress.XtraEditors.LabelControl labelControl19;
@@ -1139,17 +844,17 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.LabelControl labelControl20;
         private DevExpress.XtraEditors.ToggleSwitch tsStockCheck;
 
-        // License & Trial Tab
-        private DevExpress.XtraEditors.GroupControl grpLicense;
-        private DevExpress.XtraEditors.LabelControl labelControl21;
-        private DevExpress.XtraEditors.LabelControl labelControl22;
-        private DevExpress.XtraEditors.TextEdit txtTrialDays;
-        private DevExpress.XtraEditors.LabelControl labelControl23;
-        private DevExpress.XtraEditors.TextEdit txtTrialStartDate;
-        private DevExpress.XtraEditors.LabelControl labelControl24;
-        private DevExpress.XtraEditors.TextEdit txtTrialEndDate;
-        private DevExpress.XtraEditors.LabelControl labelControl25;
-        private DevExpress.XtraEditors.CheckEdit chkIsLicensed;
-        private DevExpress.XtraEditors.ToggleSwitch tsEnableTrial;
+        // Locations
+        private DevExpress.XtraEditors.GroupControl grpLocations;
+        private DevExpress.XtraEditors.SimpleButton btnManageLocations;
+
+        // Tables
+        private DevExpress.XtraEditors.GroupControl grpTables;
+        private DevExpress.XtraEditors.SimpleButton btnManageTables;
+
+        // Account
+        private DevExpress.XtraEditors.GroupControl grpAccount;
+        private DevExpress.XtraEditors.SimpleButton btnManageAccount;
+
     }
 }
