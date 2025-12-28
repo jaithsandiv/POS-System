@@ -55,10 +55,10 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void ConfigureLicenseTabVisibility()
         {
-            // Hide License tab for regular users
-            if (xtraTabControl1 != null && xtraTabControl1.TabPages.Contains(tabLicense))
+            // Hide License group for regular users
+            if (grpLicense != null)
             {
-                tabLicense.PageVisible = _isSuperAdmin;
+                grpLicense.Visible = _isSuperAdmin;
             }
         }
 

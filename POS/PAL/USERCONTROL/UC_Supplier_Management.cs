@@ -770,8 +770,9 @@ namespace POS.PAL.USERCONTROL
                 int supplierId = Convert.ToInt32(selectedRow["supplier_id"]);
 
                 // Navigate to details form
-                var detailsForm = new UC_Supplier_Details(supplierId);
-                Main.Instance.LoadUserControl(detailsForm);
+                // var detailsForm = new UC_Supplier_Details(supplierId);
+                // Main.Instance.LoadUserControl(detailsForm);
+                XtraMessageBox.Show("Supplier details view has been removed.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

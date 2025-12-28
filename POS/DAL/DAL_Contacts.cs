@@ -1009,5 +1009,32 @@ namespace POS.DAL
 
             return Connection.ExecuteStoredProcedure(query, parameters.ToArray());
         }
+
+        /// <summary>
+        /// Gets all unpaid invoices for a specific customer
+        /// </summary>
+        public DataTable GetUnpaidInvoices(int customerId)
+        {
+            string query = @"
+                SELECT 
+                    sale_id,
+                    invoice_number,
+                    created_date,
+                    grand_total,
+                    total_paid,
+                    (grand_total - total_paid) AS balance_due
+                FROM Sale
+                WHERE customer_id = @CustomerId
+                  AND sale_type = 'SALE'
+                  AND status = 'A'
+                  AND payment_status IN ('PENDING', 'PARTIAL', 'CREDIT')
+                ORDER BY created_date ASC";
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@CustomerId", customerId)
+            };
+
+            return Connection.ExecuteQuery(query, parameters);
+        }
     }
 }

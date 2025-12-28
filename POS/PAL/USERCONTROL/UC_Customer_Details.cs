@@ -741,9 +741,15 @@ namespace POS.PAL.USERCONTROL
 
         private void btnReceivePayment_Click(object sender, EventArgs e)
         {
-            // TODO: Open Payment Recording Dialog
-            // For now, show a message
-            XtraMessageBox.Show("Payment recording feature will be implemented in the next phase.", "Feature Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (var form = new POS.PAL.Forms.Form_ReceivePayment(_customerId, lblCustomerName.Text))
+            {
+                form.ShowDialog();
+                if (form.PaymentSaved)
+                {
+                    // Refresh data
+                    LoadFilteredData();
+                }
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
