@@ -1194,18 +1194,18 @@ namespace POS.DAL
                       AND sale.sale_type = 'SALE'
                       AND si.status = 'A'
                       AND (
-                        si.product_name LIKE @keyword
-                        OR b.brand_name LIKE @keyword
-                        OR ISNULL(s.supplier_name, 'N/A') LIKE @keyword
-                        OR ISNULL(c.full_name, 'Walk-In Customer') LIKE @keyword
-                        OR ISNULL(st.store_name, 'Main Store') LIKE @keyword
-                        OR CONVERT(VARCHAR, p.manufacture_date, 120) LIKE @keyword
-                        OR CONVERT(VARCHAR, sale.created_date, 120) LIKE @keyword
-                        OR CONVERT(VARCHAR, sale.sale_id) LIKE @keyword
-                        OR CONVERT(VARCHAR, p.purchase_cost) LIKE @keyword
-                        OR CONVERT(VARCHAR, si.quantity) LIKE @keyword
-                        OR CONVERT(VARCHAR, si.unit_price) LIKE @keyword
-                        OR CONVERT(VARCHAR, si.subtotal) LIKE @keyword
+                        si.product_name LIKE @keyword OR
+                        b.brand_name LIKE @keyword OR
+                        ISNULL(s.supplier_name, 'N/A') LIKE @keyword OR
+                        ISNULL(c.full_name, 'Walk-In Customer') LIKE @keyword OR
+                        ISNULL(st.store_name, 'Main Store') LIKE @keyword OR
+                        CONVERT(VARCHAR, p.manufacture_date, 120) LIKE @keyword OR
+                        CONVERT(VARCHAR, sale.created_date, 120) LIKE @keyword OR
+                        CONVERT(VARCHAR, sale.sale_id) LIKE @keyword OR
+                        CONVERT(VARCHAR, p.purchase_cost) LIKE @keyword OR
+                        CONVERT(VARCHAR, si.quantity) LIKE @keyword OR
+                        CONVERT(VARCHAR, si.unit_price) LIKE @keyword OR
+                        CONVERT(VARCHAR, si.subtotal) LIKE @keyword
                       )
                     ORDER BY sale.created_date DESC, si.product_name";
 
@@ -1218,6 +1218,34 @@ namespace POS.DAL
             catch (Exception ex)
             {
                 throw new Exception($"Error searching items report: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets trending products report - products ordered by total quantity sold (most sold first)
+        /// </summary>
+        public DataTable GetTrendingProducts()
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        p.product_name AS ProductName,
+                        SUM(si.quantity) AS TotalQuantitySold
+                    FROM SaleItem si
+                    INNER JOIN Sale s ON si.sale_id = s.sale_id
+                    INNER JOIN Product p ON si.product_id = p.product_id
+                    WHERE s.sale_type = 'SALE' 
+                      AND s.status = 'A' 
+                      AND si.status = 'A'
+                    GROUP BY p.product_id, p.product_name
+                    ORDER BY TotalQuantitySold DESC";
+
+                return Connection.ExecuteQuery(query) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving trending products: {ex.Message}", ex);
             }
         }
     }

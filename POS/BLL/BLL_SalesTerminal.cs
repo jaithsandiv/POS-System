@@ -168,5 +168,13 @@ namespace POS.BLL
         {
             return _dalSalesTerminal.SearchItemsReport(keyword);
         }
+
+        /// <summary>
+        /// Gets trending products report - products ordered by total quantity sold
+        /// </summary>
+        public DataTable GetTrendingProducts()
+        {
+            return _dalSalesTerminal.GetTrendingProducts();
+        }
     }
 }
