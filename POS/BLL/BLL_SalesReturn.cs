@@ -11,6 +11,7 @@ namespace POS.BLL
     internal class BLL_SalesReturn
     {
         private readonly DAL_SalesReturn _dalSalesReturn = new DAL_SalesReturn();
+        private readonly BLL_SystemLog _logManager = new BLL_SystemLog();
 
         public DataTable GetSaleReturns()
         {
@@ -47,7 +48,33 @@ namespace POS.BLL
             if (returnItems == null || returnItems.Rows.Count == 0)
                 throw new ArgumentException("Return items cannot be empty.");
 
-            return _dalSalesReturn.SaveSaleReturn(saleId, totalAmount, reason, processedBy, returnItems);
+            try
+            {
+                int returnId = _dalSalesReturn.SaveSaleReturn(saleId, totalAmount, reason, processedBy, returnItems);
+
+                // Log return details
+                int itemCount = returnItems.Rows.Count;
+                string returnReason = string.IsNullOrEmpty(reason) ? "No reason provided" : reason;
+
+                _logManager.LogAudit(
+                    source: "RETURN",
+                    message: $"Sale return processed - Return ID: {returnId}, Sale ID: {saleId}, Amount: LKR {totalAmount:N2}, Items: {itemCount}, Reason: {returnReason}",
+                    referenceId: returnId,
+                    userId: processedBy
+                );
+
+                return returnId;
+            }
+            catch (Exception ex)
+            {
+                _logManager.LogError(
+                    source: "RETURN",
+                    ex: ex,
+                    referenceId: saleId,
+                    userId: processedBy
+                );
+                throw;
+            }
         }
 
         public DataTable SearchSaleReturns(string keyword)

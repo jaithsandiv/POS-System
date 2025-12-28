@@ -11,6 +11,7 @@ namespace POS.BLL
     internal class BLL_SalesTerminal
     {
         private readonly DAL_SalesTerminal _dalSalesTerminal = new DAL_SalesTerminal();
+        private readonly BLL_SystemLog _logManager = new BLL_SystemLog();
 
         public DataTable GetCategories()
         {
@@ -60,9 +61,47 @@ namespace POS.BLL
                             string orderType = null, string tableNumber = null,
                             int saleId = 0)
         {
-            return _dalSalesTerminal.SaveSale(storeId, billerId, customerId, saleType, discountType, 
-                discountValue, totalAmount, totalItems, grandTotal, notes, saleItems, 
-                totalPaid, changeDue, invoiceNumber, quotationNumber, orderType, tableNumber, saleId);
+            try
+            {
+                int resultSaleId = _dalSalesTerminal.SaveSale(storeId, billerId, customerId, saleType, 
+                    discountType, discountValue, totalAmount, totalItems, grandTotal, notes, saleItems, 
+                    totalPaid, changeDue, invoiceNumber, quotationNumber, orderType, tableNumber, saleId);
+
+                // Log based on sale type
+                string logMessage = saleId > 0 
+                    ? $"{saleType} updated - Sale ID: {resultSaleId}, Total: LKR {grandTotal:N2}, Items: {totalItems}"
+                    : $"{saleType} created - Sale ID: {resultSaleId}, Total: LKR {grandTotal:N2}, Items: {totalItems}";
+
+                if (!string.IsNullOrEmpty(invoiceNumber))
+                    logMessage += $", Invoice: {invoiceNumber}";
+                if (!string.IsNullOrEmpty(quotationNumber))
+                    logMessage += $", Quotation: {quotationNumber}";
+                if (!string.IsNullOrEmpty(tableNumber))
+                    logMessage += $", Table: {tableNumber}";
+
+                string logSource = saleType == "DRAFT" ? "DRAFT" : 
+                                  saleType == "QUOTATION" ? "QUOTATION" : 
+                                  saleType == "CREDIT_SALE" ? "CREDIT_SALE" : "SALE";
+
+                _logManager.LogInfo(
+                    source: logSource,
+                    message: logMessage,
+                    referenceId: resultSaleId,
+                    userId: billerId
+                );
+
+                return resultSaleId;
+            }
+            catch (Exception ex)
+            {
+                _logManager.LogError(
+                    source: "SALE",
+                    ex: ex,
+                    referenceId: saleId > 0 ? saleId : (int?)null,
+                    userId: billerId
+                );
+                throw;
+            }
         }
 
         public string GetNextQuotationNumber()
@@ -77,7 +116,46 @@ namespace POS.BLL
 
         public void SavePayments(int saleId, DataTable payments, int createdBy)
         {
-            _dalSalesTerminal.SavePayments(saleId, payments, createdBy);
+            try
+            {
+                _dalSalesTerminal.SavePayments(saleId, payments, createdBy);
+
+                // Log payment details
+                decimal totalPaid = 0;
+                var paymentMethods = new List<string>();
+
+                foreach (DataRow payment in payments.Rows)
+                {
+                    string method = payment["payment_method"]?.ToString();
+                    decimal amount = 0;
+                    if (payment["amount"] != DBNull.Value)
+                        decimal.TryParse(payment["amount"].ToString(), out amount);
+
+                    if (amount > 0 && !string.IsNullOrWhiteSpace(method))
+                    {
+                        totalPaid += amount;
+                        paymentMethods.Add($"{method}: LKR {amount:N2}");
+                    }
+                }
+
+                string paymentDetails = string.Join(", ", paymentMethods);
+                _logManager.LogInfo(
+                    source: "PAYMENT",
+                    message: $"Payment processed - Sale ID: {saleId}, Total Paid: LKR {totalPaid:N2}, Methods: {paymentDetails}",
+                    referenceId: saleId,
+                    userId: createdBy
+                );
+            }
+            catch (Exception ex)
+            {
+                _logManager.LogError(
+                    source: "PAYMENT",
+                    ex: ex,
+                    referenceId: saleId,
+                    userId: createdBy
+                );
+                throw;
+            }
         }
 
         public DataTable GetSales(string saleType)

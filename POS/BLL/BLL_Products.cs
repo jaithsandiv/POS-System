@@ -11,6 +11,7 @@ namespace POS.BLL
     internal class BLL_Products
     {
         private readonly DAL_Products _dalProducts = new DAL_Products();
+        private readonly BLL_SystemLog _logManager = new BLL_SystemLog();
 
         #region Category
 
@@ -163,11 +164,33 @@ namespace POS.BLL
             if (sellingPrice < 0)
                 throw new ArgumentException("Selling price cannot be negative.");
 
-            return _dalProducts.InsertProduct(productName, productCode, barcode, productType,
-                                              categoryId, brandId, unitId,
-                                              purchaseCost, sellingPrice, stockQuantity,
-                                              expiryDate, manufactureDate, description,
-                                              createdBy);
+            try
+            {
+                int productId = _dalProducts.InsertProduct(productName, productCode, barcode, productType,
+                                                          categoryId, brandId, unitId,
+                                                          purchaseCost, sellingPrice, stockQuantity,
+                                                          expiryDate, manufactureDate, description,
+                                                          createdBy);
+
+                _logManager.LogInfo(
+                    source: "PRODUCT",
+                    message: $"Product created - ID: {productId}, Code: {productCode}, Name: {productName}, Stock: {stockQuantity}, Price: LKR {sellingPrice:N2}",
+                    referenceId: productId,
+                    userId: createdBy
+                );
+
+                return productId;
+            }
+            catch (Exception ex)
+            {
+                _logManager.LogError(
+                    source: "PRODUCT",
+                    ex: ex,
+                    referenceId: null,
+                    userId: createdBy
+                );
+                throw;
+            }
         }
 
         public bool UpdateProduct(int productId, string productName, string productCode, string barcode, string productType,
@@ -185,16 +208,99 @@ namespace POS.BLL
             if (sellingPrice < 0)
                 throw new ArgumentException("Selling price cannot be negative.");
 
-            return _dalProducts.UpdateProduct(productId, productName, productCode, barcode, productType,
-                                              categoryId, brandId, unitId,
-                                              purchaseCost, sellingPrice, stockQuantity,
-                                              expiryDate, manufactureDate, description,
-                                              updatedBy);
+            try
+            {
+                // Get old values for comparison
+                DataTable oldProduct = _dalProducts.GetProductById(productId);
+                decimal oldStock = 0;
+                decimal oldPrice = 0;
+
+                if (oldProduct.Rows.Count > 0)
+                {
+                    oldStock = Convert.ToDecimal(oldProduct.Rows[0]["stock_quantity"]);
+                    oldPrice = Convert.ToDecimal(oldProduct.Rows[0]["selling_price"]);
+                }
+
+                bool success = _dalProducts.UpdateProduct(productId, productName, productCode, barcode, productType,
+                                                          categoryId, brandId, unitId,
+                                                          purchaseCost, sellingPrice, stockQuantity,
+                                                          expiryDate, manufactureDate, description,
+                                                          updatedBy);
+
+                if (success)
+                {
+                    string changes = "";
+                    if (oldStock != stockQuantity)
+                        changes += $" Stock: {oldStock} ? {stockQuantity},";
+                    if (oldPrice != sellingPrice)
+                        changes += $" Price: LKR {oldPrice:N2} ? LKR {sellingPrice:N2},";
+
+                    _logManager.LogAudit(
+                        source: "PRODUCT",
+                        message: $"Product updated - ID: {productId}, Code: {productCode}, Name: {productName}{(string.IsNullOrEmpty(changes) ? "" : "," + changes.TrimEnd(','))}",
+                        referenceId: productId,
+                        userId: updatedBy
+                    );
+
+                    // Log low stock warning if applicable
+                    if (stockQuantity <= 10 && stockQuantity > 0)
+                    {
+                        _logManager.LogWarning(
+                            source: "STOCK",
+                            message: $"Low stock alert - Product: {productName} (ID: {productId}), Current Stock: {stockQuantity}",
+                            referenceId: productId,
+                            userId: null
+                        );
+                    }
+                }
+
+                return success;
+            }
+            catch (Exception ex)
+            {
+                _logManager.LogError(
+                    source: "PRODUCT",
+                    ex: ex,
+                    referenceId: productId,
+                    userId: updatedBy
+                );
+                throw;
+            }
         }
 
         public bool DeleteProduct(int productId, int updatedBy)
         {
-            return _dalProducts.DeleteProduct(productId, updatedBy);
+            try
+            {
+                // Get product details before deletion
+                DataTable product = _dalProducts.GetProductById(productId);
+                string productName = product.Rows.Count > 0 ? product.Rows[0]["product_name"].ToString() : "Unknown";
+                string productCode = product.Rows.Count > 0 ? product.Rows[0]["product_code"].ToString() : "Unknown";
+
+                bool success = _dalProducts.DeleteProduct(productId, updatedBy);
+
+                if (success)
+                {
+                    _logManager.LogAudit(
+                        source: "PRODUCT",
+                        message: $"Product deleted - ID: {productId}, Code: {productCode}, Name: {productName}",
+                        referenceId: productId,
+                        userId: updatedBy
+                    );
+                }
+
+                return success;
+            }
+            catch (Exception ex)
+            {
+                _logManager.LogError(
+                    source: "PRODUCT",
+                    ex: ex,
+                    referenceId: productId,
+                    userId: updatedBy
+                );
+                throw;
+            }
         }
 
         public DataTable SearchProducts(string keyword)

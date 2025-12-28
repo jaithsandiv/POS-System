@@ -8,87 +8,132 @@ namespace POS.BLL
     internal class BLL_Login
     {
         private readonly DAL_Login _dalLogin = new DAL_Login();
+        private readonly BLL_SystemLog _logManager = new BLL_SystemLog();
 
         public bool Authenticate(string username, string password)
         {
-            DataTable userTable = _dalLogin.GetUserByUsername(username);
-            if (userTable.Rows.Count == 0)
-                return false;
-
-            var userRow = userTable.Rows[0];
-            if (!BCrypt.Net.BCrypt.Verify(password, userRow["password_hash"].ToString()))
-                return false;
-
-            // Check licensing and trial period restrictions
-            var businessRow = Main.DataSetApp?.Business?[0];
-            if (businessRow != null)
+            try
             {
-                bool isSuperAdmin = userRow["is_super_admin"].ToString() == "True";
-                
-                // Super admin can always login (for support/maintenance)
-                if (!isSuperAdmin)
+                DataTable userTable = _dalLogin.GetUserByUsername(username);
+                if (userTable.Rows.Count == 0)
                 {
-                    // Check if system is licensed
-                    bool isLicensed = false;
-                    if (!businessRow.Isis_licensedNull())
-                    {
-                        string licensedValue = businessRow.is_licensed?.ToString();
-                        isLicensed = licensedValue == "True" || licensedValue == "1";
-                    }
+                    _logManager.LogWarning(
+                        source: "LOGIN",
+                        message: $"Failed login attempt - Username not found: {username}",
+                        referenceId: null,
+                        userId: null
+                    );
+                    return false;
+                }
+
+                var userRow = userTable.Rows[0];
+                if (!BCrypt.Net.BCrypt.Verify(password, userRow["password_hash"].ToString()))
+                {
+                    _logManager.LogWarning(
+                        source: "LOGIN",
+                        message: $"Failed login attempt - Invalid password for username: {username}",
+                        referenceId: null,
+                        userId: null
+                    );
+                    return false;
+                }
+
+                // Check licensing and trial period restrictions
+                var businessRow = Main.DataSetApp?.Business?[0];
+                if (businessRow != null)
+                {
+                    bool isSuperAdmin = userRow["is_super_admin"].ToString() == "True";
                     
-                    // If licensed, allow login
-                    if (!isLicensed)
+                    // Super admin can always login (for support/maintenance)
+                    if (!isSuperAdmin)
                     {
-                        // Not licensed - check trial period
-                        bool hasValidTrial = false;
-                        
-                        // Check if trial dates are set
-                        if (!businessRow.Istrial_start_dateNull() && !businessRow.Istrial_end_dateNull())
+                        // Check if system is licensed
+                        bool isLicensed = false;
+                        if (!businessRow.Isis_licensedNull())
                         {
-                            string startDateStr = businessRow.trial_start_date?.ToString();
-                            string endDateStr = businessRow.trial_end_date?.ToString();
-                            
-                            if (!string.IsNullOrWhiteSpace(startDateStr) && !string.IsNullOrWhiteSpace(endDateStr))
-                            {
-                                if (DateTime.TryParse(startDateStr, out DateTime trialStart) && 
-                                    DateTime.TryParse(endDateStr, out DateTime trialEnd))
-                                {
-                                    DateTime now = DateTime.Now;
-                                    // Trial is valid if current date is between start and end dates
-                                    hasValidTrial = now >= trialStart && now <= trialEnd;
-                                }
-                            }
+                            string licensedValue = businessRow.is_licensed?.ToString();
+                            isLicensed = licensedValue == "True" || licensedValue == "1";
                         }
                         
-                        // Block login if no valid trial and not licensed
-                        if (!hasValidTrial)
+                        // If licensed, allow login
+                        if (!isLicensed)
                         {
-                            return false;
+                            // Not licensed - check trial period
+                            bool hasValidTrial = false;
+                            
+                            // Check if trial dates are set
+                            if (!businessRow.Istrial_start_dateNull() && !businessRow.Istrial_end_dateNull())
+                            {
+                                string startDateStr = businessRow.trial_start_date?.ToString();
+                                string endDateStr = businessRow.trial_end_date?.ToString();
+                                
+                                if (!string.IsNullOrWhiteSpace(startDateStr) && !string.IsNullOrWhiteSpace(endDateStr))
+                                {
+                                    if (DateTime.TryParse(startDateStr, out DateTime trialStart) && 
+                                        DateTime.TryParse(endDateStr, out DateTime trialEnd))
+                                    {
+                                        DateTime now = DateTime.Now;
+                                        // Trial is valid if current date is between start and end dates
+                                        hasValidTrial = now >= trialStart && now <= trialEnd;
+                                    }
+                                }
+                            }
+                            
+                            // Block login if no valid trial and not licensed
+                            if (!hasValidTrial)
+                            {
+                                _logManager.LogWarning(
+                                    source: "LOGIN",
+                                    message: $"Login blocked - Trial expired and no license for username: {username}",
+                                    referenceId: null,
+                                    userId: null
+                                );
+                                return false;
+                            }
                         }
                     }
                 }
+
+                Main.DataSetApp.User.Clear();
+                Main.DataSetApp.User.ImportRow(userRow);
+
+                string roleId = userRow["role_id"].ToString();
+                DataTable rolePermissions = _dalLogin.GetRolePermissionsByRoleId(roleId);
+                Main.DataSetApp.RolePermission.Clear();
+                foreach (DataRow rolePermissionRow in rolePermissions.Rows)
+                {
+                    Main.DataSetApp.RolePermission.ImportRow(rolePermissionRow);
+                }
+        
+                string storeId = userRow["store_id"].ToString();
+                DataTable storeData = _dalLogin.GetStoreByStoreId(storeId);
+                Main.DataSetApp.Store.Clear();
+                foreach (DataRow storeRow in storeData.Rows)
+                {
+                    Main.DataSetApp.Store.ImportRow(storeRow);
+                }
+
+                // Log successful login
+                int userId = Convert.ToInt32(userRow["user_id"]);
+                _logManager.LogAudit(
+                    source: "LOGIN",
+                    message: $"User '{username}' logged in successfully",
+                    referenceId: null,
+                    userId: userId
+                );
+
+                return true;
             }
-
-            Main.DataSetApp.User.Clear();
-            Main.DataSetApp.User.ImportRow(userRow);
-
-            string roleId = userRow["role_id"].ToString();
-            DataTable rolePermissions = _dalLogin.GetRolePermissionsByRoleId(roleId);
-            Main.DataSetApp.RolePermission.Clear();
-            foreach (DataRow rolePermissionRow in rolePermissions.Rows)
+            catch (Exception ex)
             {
-                Main.DataSetApp.RolePermission.ImportRow(rolePermissionRow);
+                _logManager.LogError(
+                    source: "LOGIN",
+                    ex: ex,
+                    referenceId: null,
+                    userId: null
+                );
+                throw;
             }
-    
-            string storeId = userRow["store_id"].ToString();
-            DataTable storeData = _dalLogin.GetStoreByStoreId(storeId);
-            Main.DataSetApp.Store.Clear();
-            foreach (DataRow storeRow in storeData.Rows)
-            {
-                Main.DataSetApp.Store.ImportRow(storeRow);
-            }
-
-            return true;
         }
 
         public string HashPassword(string password)
