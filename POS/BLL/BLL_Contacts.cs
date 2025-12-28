@@ -231,5 +231,29 @@ namespace POS.BLL
 
             return _dalContacts.SearchSupplierCustomerReport(keyword.Trim());
         }
+
+        /// <summary>
+        /// Gets customer transactions (sales, payments, returns) within a date range
+        /// </summary>
+        public DataTable GetCustomerTransactions(int customerId, DateTime startDate, DateTime endDate, int? storeId = null)
+        {
+            return _dalContacts.GetCustomerTransactions(customerId, startDate, endDate, storeId);
+        }
+
+        /// <summary>
+        /// Gets customer account summary (opening balance, totals, current balance)
+        /// </summary>
+        public DataTable GetCustomerAccountSummary(int customerId, DateTime startDate, DateTime endDate, int? storeId = null)
+        {
+            return _dalContacts.GetCustomerAccountSummary(customerId, startDate, endDate, storeId);
+        }
+
+        /// <summary>
+        /// Gets supplier transactions (placeholder)
+        /// </summary>
+        public DataTable GetSupplierTransactions(int supplierId, DateTime startDate, DateTime endDate, int? storeId = null)
+        {
+            return _dalContacts.GetSupplierTransactions(supplierId, startDate, endDate, storeId);
+        }
     }
 }

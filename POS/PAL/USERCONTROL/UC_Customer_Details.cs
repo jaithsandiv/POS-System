@@ -35,6 +35,7 @@ namespace POS.PAL.USERCONTROL
             _selectedStartDate = _selectedEndDate.AddDays(-30);
 
             InitializeDateFilters();
+            SetupGrid();
             LoadStoresDropdown();
             LoadCustomerDetails();
             LoadCustomersDropdown();
@@ -47,6 +48,38 @@ namespace POS.PAL.USERCONTROL
         public UC_Customer_Details()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Configures the grid columns
+        /// </summary>
+        private void SetupGrid()
+        {
+            gridView1.OptionsBehavior.Editable = false;
+            gridView1.OptionsView.ShowGroupPanel = false;
+            gridView1.OptionsView.RowAutoHeight = true;
+            
+            // Clear existing columns if any
+            gridView1.Columns.Clear();
+
+            // Add columns
+            gridView1.Columns.AddVisible("TransactionDate", "Date");
+            gridView1.Columns.AddVisible("InvoiceNumber", "Invoice #");
+            gridView1.Columns.AddVisible("TransactionType", "Type");
+            gridView1.Columns.AddVisible("Description", "Description");
+            gridView1.Columns.AddVisible("Debit", "Debit");
+            gridView1.Columns.AddVisible("Credit", "Credit");
+            gridView1.Columns.AddVisible("Status", "Status");
+
+            // Format columns
+            gridView1.Columns["TransactionDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            gridView1.Columns["TransactionDate"].DisplayFormat.FormatString = "dd/MM/yyyy";
+            
+            gridView1.Columns["Debit"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            gridView1.Columns["Debit"].DisplayFormat.FormatString = "N2";
+            
+            gridView1.Columns["Credit"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            gridView1.Columns["Credit"].DisplayFormat.FormatString = "N2";
         }
 
         /// <summary>
@@ -219,22 +252,55 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
-                // TODO: In the future, implement fetching customer transactions/invoices
-                // filtered by the date range (_selectedStartDate to _selectedEndDate)
-                // and populate the gridControl1 with the filtered data
+                // 1. Fetch Transactions
+                DataTable transactions = _bllContacts.GetCustomerTransactions(_customerId, _selectedStartDate, _selectedEndDate, _selectedStoreId);
+                gridControl1.DataSource = transactions;
 
-                // For now, just update the Account Summary section with placeholder data
-                // In a real implementation, you would:
-                // 1. Fetch invoices/transactions from database filtered by date range
-                // 2. Calculate totals (opening balance, total invoice, total paid, etc.)
-                // 3. Update the labels and grid accordingly
+                // 2. Fetch Account Summary
+                DataTable summary = _bllContacts.GetCustomerAccountSummary(_customerId, _selectedStartDate, _selectedEndDate, _selectedStoreId);
+                
+                if (summary != null && summary.Rows.Count > 0)
+                {
+                    DataRow row = summary.Rows[0];
+                    decimal openingBalance = row["OpeningBalance"] != DBNull.Value ? Convert.ToDecimal(row["OpeningBalance"]) : 0;
+                    decimal totalInvoice = row["TotalInvoice"] != DBNull.Value ? Convert.ToDecimal(row["TotalInvoice"]) : 0;
+                    decimal totalPaid = row["TotalPaid"] != DBNull.Value ? Convert.ToDecimal(row["TotalPaid"]) : 0;
+                    decimal totalReturn = row["TotalReturn"] != DBNull.Value ? Convert.ToDecimal(row["TotalReturn"]) : 0;
+                    decimal currentBalance = row["CurrentBalance"] != DBNull.Value ? Convert.ToDecimal(row["CurrentBalance"]) : 0;
+                    decimal creditLimit = row["CreditLimit"] != DBNull.Value ? Convert.ToDecimal(row["CreditLimit"]) : 0;
 
-                // Example (commented out - needs actual BLL method):
-                // DataTable transactions = _bllContacts.GetCustomerTransactions(_customerId, _selectedStartDate, _selectedEndDate);
-                // gridControl1.DataSource = transactions;
-                // CalculateAccountSummary(transactions);
+                    lblOpeningBalanceC.Text = $"Rs. {openingBalance:N2}";
+                    lblTotalInvoiceC.Text = $"Rs. {totalInvoice:N2}";
+                    lblTotalPaidC.Text = $"Rs. {totalPaid:N2}";
+                    
+                    // Balance Due (Current Balance)
+                    lblBalanceDueC.Text = $"Rs. {currentBalance:N2}";
+                    
+                    // Advance Balance (if negative, or just show 0 if positive)
+                    if (currentBalance < 0)
+                    {
+                        lblAdvanceBalanceC.Text = $"Rs. {Math.Abs(currentBalance):N2}";
+                        lblBalanceDueC.Text = "Rs. 0.00";
+                    }
+                    else
+                    {
+                        lblAdvanceBalanceC.Text = "Rs. 0.00";
+                    }
 
-                // Update the labels to show the filter is working
+                    // Show Credit Limit in a tooltip
+                    lblBalanceDueC.ToolTip = $"Credit Limit: Rs. {creditLimit:N2}";
+                    
+                    // If balance exceeds limit, color it red
+                    if (currentBalance > creditLimit && creditLimit > 0)
+                    {
+                        lblBalanceDueC.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        lblBalanceDueC.ForeColor = Color.Black;
+                    }
+                }
+
                 labelControl30.Text = $"Showing all invoices and payments between";
             }
             catch (Exception ex)
@@ -670,6 +736,20 @@ namespace POS.PAL.USERCONTROL
         private void btnBack_Click(object sender, EventArgs e)
         {
             Main.Instance.LoadUserControl(new UC_Customer_Management());
+        }
+
+        private void btnReceivePayment_Click(object sender, EventArgs e)
+        {
+            // TODO: Open Payment Recording Dialog
+            // For now, show a message
+            XtraMessageBox.Show("Payment recording feature will be implemented in the next phase.", "Feature Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            // Navigate to Add/Edit Customer screen with current ID
+            // Main.Instance.LoadUserControl(new UC_Add_Customer(_customerId));
+            XtraMessageBox.Show("Edit Customer feature will be implemented in the next phase.", "Feature Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

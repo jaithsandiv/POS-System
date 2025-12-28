@@ -552,3 +552,180 @@ BEGIN
     ORDER BY Value DESC;
 END;
 GO
+
+
+
+USE [POS-db]
+GO
+
+-- =============================================
+-- 1. Get Customer Transactions (Sales, Payments, Returns)
+-- =============================================
+CREATE OR ALTER PROCEDURE usp_GetCustomerTransactions
+    @CustomerId INT,
+    @StartDate DATETIME2,
+    @EndDate DATETIME2,
+    @StoreId INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Combine Sales, Payments, and Returns into a single timeline
+    SELECT 
+        T.TransactionDate,
+        T.InvoiceNumber,
+        T.TransactionType,
+        T.Description,
+        T.Debit,   -- Amount Owed (Invoice)
+        T.Credit,  -- Amount Paid (Payment/Return)
+        T.Status
+    FROM (
+        -- 1. Sales (Invoices) -> Debit
+        SELECT 
+            created_date AS TransactionDate,
+            invoice_number AS InvoiceNumber,
+            'INVOICE' AS TransactionType,
+            'Sale #' + CAST(sale_id AS NVARCHAR(20)) AS Description,
+            grand_total AS Debit,
+            0 AS Credit,
+            payment_status AS Status
+        FROM Sale
+        WHERE customer_id = @CustomerId
+          AND sale_type = 'SALE'
+          AND status = 'A'
+          AND created_date BETWEEN @StartDate AND @EndDate
+          AND (@StoreId IS NULL OR store_id = @StoreId)
+
+        UNION ALL
+
+        -- 2. Payments -> Credit
+        SELECT 
+            p.created_date AS TransactionDate,
+            s.invoice_number AS InvoiceNumber,
+            'PAYMENT' AS TransactionType,
+            p.payment_method AS Description,
+            0 AS Debit,
+            p.amount AS Credit,
+            'COMPLETED' AS Status
+        FROM Payment p
+        JOIN Sale s ON p.sale_id = s.sale_id
+        WHERE s.customer_id = @CustomerId
+          AND p.status = 'A'
+          AND p.created_date BETWEEN @StartDate AND @EndDate
+          AND (@StoreId IS NULL OR s.store_id = @StoreId)
+
+        UNION ALL
+
+        -- 3. Returns -> Credit (Refunds reduce debt)
+        SELECT 
+            sr.created_date AS TransactionDate,
+            s.invoice_number AS InvoiceNumber,
+            'RETURN' AS TransactionType,
+            ISNULL(sr.reason, 'Return') AS Description,
+            0 AS Debit,
+            sr.total_amount AS Credit,
+            'COMPLETED' AS Status
+        FROM SaleReturn sr
+        JOIN Sale s ON sr.sale_id = s.sale_id
+        WHERE s.customer_id = @CustomerId
+          AND sr.status = 'A'
+          AND sr.created_date BETWEEN @StartDate AND @EndDate
+          AND (@StoreId IS NULL OR s.store_id = @StoreId)
+    ) AS T
+    ORDER BY T.TransactionDate DESC;
+END;
+GO
+
+-- =============================================
+-- 2. Get Customer Account Summary
+-- =============================================
+CREATE OR ALTER PROCEDURE usp_GetCustomerAccountSummary
+    @CustomerId INT,
+    @StartDate DATETIME2,
+    @EndDate DATETIME2,
+    @StoreId INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @OpeningBalance DECIMAL(14,2) = 0;
+    DECLARE @TotalInvoice DECIMAL(14,2) = 0;
+    DECLARE @TotalPaid DECIMAL(14,2) = 0;
+    DECLARE @TotalReturn DECIMAL(14,2) = 0;
+    DECLARE @CurrentBalance DECIMAL(14,2) = 0;
+    DECLARE @CreditLimit DECIMAL(14,2) = 0;
+
+    -- Get Current Balance & Credit Limit from Customer Table
+    SELECT 
+        @CurrentBalance = ISNULL(credit_balance, 0),
+        @CreditLimit = ISNULL(credit_limit, 0)
+    FROM Customer
+    WHERE customer_id = @CustomerId;
+
+    -- Calculate Totals within Date Range
+    -- Total Invoiced
+    SELECT @TotalInvoice = ISNULL(SUM(grand_total), 0)
+    FROM Sale
+    WHERE customer_id = @CustomerId
+      AND sale_type = 'SALE'
+      AND status = 'A'
+      AND created_date BETWEEN @StartDate AND @EndDate
+      AND (@StoreId IS NULL OR store_id = @StoreId);
+
+    -- Total Paid
+    SELECT @TotalPaid = ISNULL(SUM(p.amount), 0)
+    FROM Payment p
+    JOIN Sale s ON p.sale_id = s.sale_id
+    WHERE s.customer_id = @CustomerId
+      AND p.status = 'A'
+      AND p.created_date BETWEEN @StartDate AND @EndDate
+      AND (@StoreId IS NULL OR s.store_id = @StoreId);
+
+    -- Total Returned
+    SELECT @TotalReturn = ISNULL(SUM(sr.total_amount), 0)
+    FROM SaleReturn sr
+    JOIN Sale s ON sr.sale_id = s.sale_id
+    WHERE s.customer_id = @CustomerId
+      AND sr.status = 'A'
+      AND sr.created_date BETWEEN @StartDate AND @EndDate
+      AND (@StoreId IS NULL OR s.store_id = @StoreId);
+
+    -- Back-calculate Opening Balance
+    -- CurrentBalance = OpeningBalance + (Invoiced - Paid - Returned)
+    -- OpeningBalance = CurrentBalance - (Invoiced - Paid - Returned)
+    SET @OpeningBalance = @CurrentBalance - (@TotalInvoice - @TotalPaid - @TotalReturn);
+
+    SELECT 
+        @OpeningBalance AS OpeningBalance,
+        @TotalInvoice AS TotalInvoice,
+        @TotalPaid AS TotalPaid,
+        @TotalReturn AS TotalReturn,
+        @CurrentBalance AS CurrentBalance,
+        @CreditLimit AS CreditLimit;
+END;
+GO
+
+-- =============================================
+-- 3. Get Supplier Transactions (Placeholder)
+-- =============================================
+CREATE OR ALTER PROCEDURE usp_GetSupplierTransactions
+    @SupplierId INT,
+    @StartDate DATETIME2,
+    @EndDate DATETIME2,
+    @StoreId INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    -- Return empty result set with correct schema
+    SELECT 
+        CAST(NULL AS DATETIME2) AS TransactionDate,
+        CAST(NULL AS NVARCHAR(50)) AS InvoiceNumber,
+        CAST(NULL AS NVARCHAR(20)) AS TransactionType,
+        CAST(NULL AS NVARCHAR(100)) AS Description,
+        CAST(0 AS DECIMAL(14,2)) AS Debit,
+        CAST(0 AS DECIMAL(14,2)) AS Credit,
+        CAST(NULL AS NVARCHAR(20)) AS Status
+    WHERE 1 = 0;
+END;
+GO

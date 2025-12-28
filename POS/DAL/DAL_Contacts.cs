@@ -943,5 +943,71 @@ namespace POS.DAL
                 throw new Exception($"Error searching supplier/customer report: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Gets customer transactions (sales, payments, returns) within a date range
+        /// </summary>
+        public DataTable GetCustomerTransactions(int customerId, DateTime startDate, DateTime endDate, int? storeId = null)
+        {
+            string query = "usp_GetCustomerTransactions";
+            
+            var parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@CustomerId", customerId),
+                new SqlParameter("@StartDate", startDate),
+                new SqlParameter("@EndDate", endDate)
+            };
+            
+            if (storeId.HasValue)
+                parameters.Add(new SqlParameter("@StoreId", storeId.Value));
+            else
+                parameters.Add(new SqlParameter("@StoreId", DBNull.Value));
+
+            return Connection.ExecuteStoredProcedure(query, parameters.ToArray());
+        }
+
+        /// <summary>
+        /// Gets customer account summary (opening balance, totals, current balance)
+        /// </summary>
+        public DataTable GetCustomerAccountSummary(int customerId, DateTime startDate, DateTime endDate, int? storeId = null)
+        {
+            string query = "usp_GetCustomerAccountSummary";
+            
+            var parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@CustomerId", customerId),
+                new SqlParameter("@StartDate", startDate),
+                new SqlParameter("@EndDate", endDate)
+            };
+            
+            if (storeId.HasValue)
+                parameters.Add(new SqlParameter("@StoreId", storeId.Value));
+            else
+                parameters.Add(new SqlParameter("@StoreId", DBNull.Value));
+
+            return Connection.ExecuteStoredProcedure(query, parameters.ToArray());
+        }
+
+        /// <summary>
+        /// Gets supplier transactions (placeholder)
+        /// </summary>
+        public DataTable GetSupplierTransactions(int supplierId, DateTime startDate, DateTime endDate, int? storeId = null)
+        {
+            string query = "usp_GetSupplierTransactions";
+            
+            var parameters = new List<SqlParameter>
+            {
+                new SqlParameter("@SupplierId", supplierId),
+                new SqlParameter("@StartDate", startDate),
+                new SqlParameter("@EndDate", endDate)
+            };
+            
+            if (storeId.HasValue)
+                parameters.Add(new SqlParameter("@StoreId", storeId.Value));
+            else
+                parameters.Add(new SqlParameter("@StoreId", DBNull.Value));
+
+            return Connection.ExecuteStoredProcedure(query, parameters.ToArray());
+        }
     }
 }

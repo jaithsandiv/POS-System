@@ -35,6 +35,7 @@ namespace POS.PAL.USERCONTROL
             _selectedStartDate = _selectedEndDate.AddDays(-30);
             
             InitializeDateFilters();
+            SetupGrid();
             LoadStoresDropdown();
             LoadSupplierDetails();
             LoadSuppliersDropdown();
@@ -47,6 +48,38 @@ namespace POS.PAL.USERCONTROL
         public UC_Supplier_Details()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Configures the grid columns
+        /// </summary>
+        private void SetupGrid()
+        {
+            gridView1.OptionsBehavior.Editable = false;
+            gridView1.OptionsView.ShowGroupPanel = false;
+            gridView1.OptionsView.RowAutoHeight = true;
+            
+            // Clear existing columns if any
+            gridView1.Columns.Clear();
+
+            // Add columns
+            gridView1.Columns.AddVisible("TransactionDate", "Date");
+            gridView1.Columns.AddVisible("InvoiceNumber", "Invoice #");
+            gridView1.Columns.AddVisible("TransactionType", "Type");
+            gridView1.Columns.AddVisible("Description", "Description");
+            gridView1.Columns.AddVisible("Debit", "Debit");
+            gridView1.Columns.AddVisible("Credit", "Credit");
+            gridView1.Columns.AddVisible("Status", "Status");
+
+            // Format columns
+            gridView1.Columns["TransactionDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            gridView1.Columns["TransactionDate"].DisplayFormat.FormatString = "dd/MM/yyyy";
+            
+            gridView1.Columns["Debit"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            gridView1.Columns["Debit"].DisplayFormat.FormatString = "N2";
+            
+            gridView1.Columns["Credit"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            gridView1.Columns["Credit"].DisplayFormat.FormatString = "N2";
         }
 
         /// <summary>
@@ -219,22 +252,18 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
-                // TODO: In the future, implement fetching supplier transactions/invoices
-                // filtered by the date range (_selectedStartDate to _selectedEndDate)
-                // and populate the gridControl1 with the filtered data
+                // 1. Fetch Transactions
+                DataTable transactions = _bllContacts.GetSupplierTransactions(_supplierId, _selectedStartDate, _selectedEndDate, _selectedStoreId);
+                gridControl1.DataSource = transactions;
 
-                // For now, just update the Account Summary section with placeholder data
-                // In a real implementation, you would:
-                // 1. Fetch invoices/transactions from database filtered by date range
-                // 2. Calculate totals (opening balance, total invoice, total paid, etc.)
-                // 3. Update the labels and grid accordingly
+                // 2. Account Summary (Placeholder for now as we don't have supplier transactions)
+                // We set them to 0 to avoid confusion.
+                lblOpeningBalanceS.Text = "Rs. 0.00";
+                lblTotalInvoiceS.Text = "Rs. 0.00";
+                lblTotalPaidS.Text = "Rs. 0.00";
+                lblAdvanceBalanceS.Text = "Rs. 0.00";
+                lblBalanceDueS.Text = "Rs. 0.00";
 
-                // Example (commented out - needs actual BLL method):
-                // DataTable transactions = _bllContacts.GetSupplierTransactions(_supplierId, _selectedStartDate, _selectedEndDate);
-                // gridControl1.DataSource = transactions;
-                // CalculateAccountSummary(transactions);
-
-                // Update the labels to show the filter is working
                 labelControl30.Text = $"Showing all invoices and payments between";
             }
             catch (Exception ex)
@@ -628,6 +657,13 @@ namespace POS.PAL.USERCONTROL
         private void btnBack_Click(object sender, EventArgs e)
         {
             Main.Instance.LoadUserControl(new UC_Supplier_Management());
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            // Navigate to Add/Edit Supplier screen with current ID
+            // Main.Instance.LoadUserControl(new UC_Add_Supplier(_supplierId));
+            XtraMessageBox.Show("Edit Supplier feature will be implemented in the next phase.", "Feature Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

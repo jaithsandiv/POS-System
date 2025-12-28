@@ -73,5 +73,28 @@ namespace POS.DAL
                 }
             }
         }
+
+        public static DataTable ExecuteStoredProcedure(string procedureName, SqlParameter[] parameters = null)
+        {
+            using (SqlConnection connection = GetConnection())
+            {
+                using (SqlCommand command = new SqlCommand(procedureName, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    
+                    if (parameters != null)
+                    {
+                        command.Parameters.AddRange(parameters);
+                    }
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable result = new DataTable();
+                        adapter.Fill(result);
+                        return result;
+                    }
+                }
+            }
+        }
     }
 }
