@@ -499,8 +499,6 @@ namespace POS.PAL.USERCONTROL
             colSupplierName.Caption = "Supplier Name";
             colSupplierName.Width = 200;
             colSupplierName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            colSupplierName.AppearanceCell.ForeColor = Color.FromArgb(4, 181, 152);
-            colSupplierName.AppearanceCell.Font = new Font(colSupplierName.AppearanceCell.Font, FontStyle.Underline);
             colSupplierName.OptionsColumn.AllowEdit = false;
             colSupplierName.OptionsColumn.AllowFocus = false;
             colSupplierName.OptionsColumn.FixedWidth = true;
@@ -610,9 +608,6 @@ namespace POS.PAL.USERCONTROL
             // Enable double-click to edit
             gridView1.DoubleClick += GridView1_DoubleClick;
 
-            // Add cell click event for supplier name column
-            gridView1.Click += GridView1_Click;
-
             // Add context menu for Edit and Delete
             CreateContextMenu();
         }
@@ -710,32 +705,6 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
-        /// Handle click event on grid to check if supplier name was clicked
-        /// </summary>
-        private void GridView1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var mousePosition = gridSuppliers.PointToClient(Control.MousePosition);
-                var hitInfo = gridView1.CalcHitInfo(mousePosition);
-                
-                if (hitInfo.InRowCell && hitInfo.Column != null && hitInfo.Column.FieldName == "supplier_name")
-                {
-                    ViewSupplierDetails();
-                }
-            }
-            catch (Exception ex)
-            {
-                XtraMessageBox.Show(
-                    $"Error navigating to supplier details: {ex.Message}",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-        }
-
-        /// <summary>
         /// Handle Edit menu item click
         /// </summary>
         private void EditMenuItem_Click(object sender, EventArgs e)
@@ -749,40 +718,6 @@ namespace POS.PAL.USERCONTROL
         private void DeleteMenuItem_Click(object sender, EventArgs e)
         {
             DeleteSelectedSupplier();
-        }
-
-        /// <summary>
-        /// Navigate to supplier details view
-        /// </summary>
-        private void ViewSupplierDetails()
-        {
-            try
-            {
-                if (gridView1.FocusedRowHandle < 0)
-                {
-                    return;
-                }
-
-                DataRow selectedRow = gridView1.GetDataRow(gridView1.FocusedRowHandle);
-                if (selectedRow == null)
-                    return;
-
-                int supplierId = Convert.ToInt32(selectedRow["supplier_id"]);
-
-                // Navigate to details form
-                // var detailsForm = new UC_Supplier_Details(supplierId);
-                // Main.Instance.LoadUserControl(detailsForm);
-                XtraMessageBox.Show("Supplier details view has been removed.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                XtraMessageBox.Show(
-                    $"Error viewing supplier details: {ex.Message}",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
         }
 
         /// <summary>
