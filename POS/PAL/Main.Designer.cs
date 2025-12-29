@@ -55,7 +55,6 @@
             btnStockReport = new DevExpress.XtraEditors.SimpleButton();
             btnCustomerGroupReport = new DevExpress.XtraEditors.SimpleButton();
             btnSupplierAndCustomerReport = new DevExpress.XtraEditors.SimpleButton();
-            btnProfitLossReport = new DevExpress.XtraEditors.SimpleButton();
             panelReportsHeader = new DevExpress.XtraEditors.PanelControl();
             btnReports = new DevExpress.XtraEditors.SimpleButton();
             panelSellSubmenu = new DevExpress.XtraEditors.PanelControl();
@@ -450,7 +449,6 @@
             panelReportsSubmenu.Controls.Add(btnStockReport);
             panelReportsSubmenu.Controls.Add(btnCustomerGroupReport);
             panelReportsSubmenu.Controls.Add(btnSupplierAndCustomerReport);
-            panelReportsSubmenu.Controls.Add(btnProfitLossReport);
             panelReportsSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             panelReportsSubmenu.Location = new System.Drawing.Point(0, 910);
             panelReportsSubmenu.Name = "panelReportsSubmenu";
@@ -467,7 +465,7 @@
             btnActivityLog.AppearanceHovered.Options.UseBackColor = true;
             btnActivityLog.Dock = System.Windows.Forms.DockStyle.Top;
             btnActivityLog.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnActivityLog.Location = new System.Drawing.Point(0, 400);
+            btnActivityLog.Location = new System.Drawing.Point(0, 360);
             btnActivityLog.Name = "btnActivityLog";
             btnActivityLog.Size = new System.Drawing.Size(233, 40);
             btnActivityLog.TabIndex = 48;
@@ -483,7 +481,7 @@
             btnTableReport.AppearanceHovered.Options.UseBackColor = true;
             btnTableReport.Dock = System.Windows.Forms.DockStyle.Top;
             btnTableReport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnTableReport.Location = new System.Drawing.Point(0, 360);
+            btnTableReport.Location = new System.Drawing.Point(0, 320);
             btnTableReport.Name = "btnTableReport";
             btnTableReport.Size = new System.Drawing.Size(233, 40);
             btnTableReport.TabIndex = 47;
@@ -499,7 +497,7 @@
             btnSalesRepresentativeReport.AppearanceHovered.Options.UseBackColor = true;
             btnSalesRepresentativeReport.Dock = System.Windows.Forms.DockStyle.Top;
             btnSalesRepresentativeReport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnSalesRepresentativeReport.Location = new System.Drawing.Point(0, 320);
+            btnSalesRepresentativeReport.Location = new System.Drawing.Point(0, 280);
             btnSalesRepresentativeReport.Name = "btnSalesRepresentativeReport";
             btnSalesRepresentativeReport.Size = new System.Drawing.Size(233, 40);
             btnSalesRepresentativeReport.TabIndex = 46;
@@ -515,7 +513,7 @@
             btnSellPaymentReport.AppearanceHovered.Options.UseBackColor = true;
             btnSellPaymentReport.Dock = System.Windows.Forms.DockStyle.Top;
             btnSellPaymentReport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnSellPaymentReport.Location = new System.Drawing.Point(0, 280);
+            btnSellPaymentReport.Location = new System.Drawing.Point(0, 240);
             btnSellPaymentReport.Name = "btnSellPaymentReport";
             btnSellPaymentReport.Size = new System.Drawing.Size(233, 40);
             btnSellPaymentReport.TabIndex = 43;
@@ -531,7 +529,7 @@
             btnProductSellReport.AppearanceHovered.Options.UseBackColor = true;
             btnProductSellReport.Dock = System.Windows.Forms.DockStyle.Top;
             btnProductSellReport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnProductSellReport.Location = new System.Drawing.Point(0, 240);
+            btnProductSellReport.Location = new System.Drawing.Point(0, 200);
             btnProductSellReport.Name = "btnProductSellReport";
             btnProductSellReport.Size = new System.Drawing.Size(233, 40);
             btnProductSellReport.TabIndex = 41;
@@ -547,7 +545,7 @@
             btnItemsReport.AppearanceHovered.Options.UseBackColor = true;
             btnItemsReport.Dock = System.Windows.Forms.DockStyle.Top;
             btnItemsReport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnItemsReport.Location = new System.Drawing.Point(0, 200);
+            btnItemsReport.Location = new System.Drawing.Point(0, 160);
             btnItemsReport.Name = "btnItemsReport";
             btnItemsReport.Size = new System.Drawing.Size(233, 40);
             btnItemsReport.TabIndex = 39;
@@ -563,7 +561,7 @@
             btnTrendingProducts.AppearanceHovered.Options.UseBackColor = true;
             btnTrendingProducts.Dock = System.Windows.Forms.DockStyle.Top;
             btnTrendingProducts.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnTrendingProducts.Location = new System.Drawing.Point(0, 160);
+            btnTrendingProducts.Location = new System.Drawing.Point(0, 120);
             btnTrendingProducts.Name = "btnTrendingProducts";
             btnTrendingProducts.Size = new System.Drawing.Size(233, 40);
             btnTrendingProducts.TabIndex = 38;
@@ -579,7 +577,7 @@
             btnStockReport.AppearanceHovered.Options.UseBackColor = true;
             btnStockReport.Dock = System.Windows.Forms.DockStyle.Top;
             btnStockReport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnStockReport.Location = new System.Drawing.Point(0, 120);
+            btnStockReport.Location = new System.Drawing.Point(0, 80);
             btnStockReport.Name = "btnStockReport";
             btnStockReport.Size = new System.Drawing.Size(233, 40);
             btnStockReport.TabIndex = 36;
@@ -595,7 +593,7 @@
             btnCustomerGroupReport.AppearanceHovered.Options.UseBackColor = true;
             btnCustomerGroupReport.Dock = System.Windows.Forms.DockStyle.Top;
             btnCustomerGroupReport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnCustomerGroupReport.Location = new System.Drawing.Point(0, 80);
+            btnCustomerGroupReport.Location = new System.Drawing.Point(0, 40);
             btnCustomerGroupReport.Name = "btnCustomerGroupReport";
             btnCustomerGroupReport.Size = new System.Drawing.Size(233, 40);
             btnCustomerGroupReport.TabIndex = 35;
@@ -611,28 +609,12 @@
             btnSupplierAndCustomerReport.AppearanceHovered.Options.UseBackColor = true;
             btnSupplierAndCustomerReport.Dock = System.Windows.Forms.DockStyle.Top;
             btnSupplierAndCustomerReport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnSupplierAndCustomerReport.Location = new System.Drawing.Point(0, 40);
+            btnSupplierAndCustomerReport.Location = new System.Drawing.Point(0, 0);
             btnSupplierAndCustomerReport.Name = "btnSupplierAndCustomerReport";
             btnSupplierAndCustomerReport.Size = new System.Drawing.Size(233, 40);
             btnSupplierAndCustomerReport.TabIndex = 34;
             btnSupplierAndCustomerReport.Text = "Supplier and Customer Report";
             btnSupplierAndCustomerReport.Click += btnSupplierAndCustomerReport_Click;
-            // 
-            // btnProfitLossReport
-            // 
-            btnProfitLossReport.Appearance.BackColor = System.Drawing.Color.White;
-            btnProfitLossReport.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            btnProfitLossReport.Appearance.Options.UseBackColor = true;
-            btnProfitLossReport.Appearance.Options.UseFont = true;
-            btnProfitLossReport.AppearanceHovered.Options.UseBackColor = true;
-            btnProfitLossReport.Dock = System.Windows.Forms.DockStyle.Top;
-            btnProfitLossReport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            btnProfitLossReport.Location = new System.Drawing.Point(0, 0);
-            btnProfitLossReport.Name = "btnProfitLossReport";
-            btnProfitLossReport.Size = new System.Drawing.Size(233, 40);
-            btnProfitLossReport.TabIndex = 31;
-            btnProfitLossReport.Text = "Profit / Loss Report";
-            btnProfitLossReport.Click += btnProfitLossReport_Click;
             // 
             // panelReportsHeader
             // 
@@ -2272,7 +2254,6 @@
         private DevExpress.XtraEditors.SimpleButton btnCashFlow;
         private DevExpress.XtraEditors.SimpleButton btnTrialBalance;
         private DevExpress.XtraEditors.SimpleButton btnBalanceSheet;
-        private DevExpress.XtraEditors.SimpleButton btnProfitLossReport;
         private DevExpress.XtraEditors.SimpleButton btnReports;
         private DevExpress.XtraEditors.SimpleButton btnActivityLog;
         private DevExpress.XtraEditors.SimpleButton btnTableReport;
