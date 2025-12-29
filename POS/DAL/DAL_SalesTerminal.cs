@@ -1248,5 +1248,120 @@ namespace POS.DAL
                 throw new Exception($"Error retrieving trending products: {ex.Message}", ex);
             }
         }
+
+        /// <summary>
+        /// Gets sales representative report - all sales with payment breakdown (total paid and remaining)
+        /// </summary>
+        public DataTable GetSalesRepresentativeReport()
+        {
+            try
+            {
+                string query = @"
+                    SELECT 
+                        s.sale_id,
+                        s.created_date AS Date,
+                        s.invoice_number AS InvoiceNumber,
+                        ISNULL(c.full_name, 'Walk-In Customer') AS CustomerName,
+                        ISNULL(st.store_name, 'Main Store') AS Location,
+                        CASE 
+                            WHEN s.total_paid >= s.grand_total THEN 'PAID'
+                            WHEN s.total_paid > 0 AND s.total_paid < s.grand_total THEN 'PARTIAL'
+                            WHEN s.total_paid = 0 AND EXISTS (
+                                SELECT 1 FROM Payment p 
+                                WHERE p.sale_id = s.sale_id 
+                                AND p.payment_method = 'CREDIT' 
+                                AND p.status = 'A'
+                            ) THEN 'CREDIT'
+                            ELSE 'PENDING'
+                        END AS PaymentStatus,
+                        s.grand_total AS TotalAmount,
+                        s.total_paid AS TotalPaid,
+                        (s.grand_total - s.total_paid) AS TotalRemaining
+                    FROM Sale s
+                    LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                    LEFT JOIN Store st ON s.store_id = st.store_id
+                    WHERE s.status = 'A' 
+                      AND s.sale_type = 'SALE'
+                    ORDER BY s.created_date DESC";
+
+                return Connection.ExecuteQuery(query) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error retrieving sales representative report: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Searches sales representative report by keyword in all columns
+        /// </summary>
+        public DataTable SearchSalesRepresentativeReport(string keyword)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    return GetSalesRepresentativeReport();
+                }
+
+                string query = @"
+                    SELECT 
+                        s.sale_id,
+                        s.created_date AS Date,
+                        s.invoice_number AS InvoiceNumber,
+                        ISNULL(c.full_name, 'Walk-In Customer') AS CustomerName,
+                        ISNULL(st.store_name, 'Main Store') AS Location,
+                        CASE 
+                            WHEN s.total_paid >= s.grand_total THEN 'PAID'
+                            WHEN s.total_paid > 0 AND s.total_paid < s.grand_total THEN 'PARTIAL'
+                            WHEN s.total_paid = 0 AND EXISTS (
+                                SELECT 1 FROM Payment p 
+                                WHERE p.sale_id = s.sale_id 
+                                AND p.payment_method = 'CREDIT' 
+                                AND p.status = 'A'
+                            ) THEN 'CREDIT'
+                            ELSE 'PENDING'
+                        END AS PaymentStatus,
+                        s.grand_total AS TotalAmount,
+                        s.total_paid AS TotalPaid,
+                        (s.grand_total - s.total_paid) AS TotalRemaining
+                    FROM Sale s
+                    LEFT JOIN Customer c ON s.customer_id = c.customer_id
+                    LEFT JOIN Store st ON s.store_id = st.store_id
+                    WHERE s.status = 'A' 
+                      AND s.sale_type = 'SALE'
+                      AND (
+                        CONVERT(VARCHAR, s.created_date, 120) LIKE @keyword
+                        OR s.invoice_number LIKE @keyword
+                        OR ISNULL(c.full_name, 'Walk-In Customer') LIKE @keyword
+                        OR ISNULL(st.store_name, 'Main Store') LIKE @keyword
+                        OR CASE 
+                            WHEN s.total_paid >= s.grand_total THEN 'PAID'
+                            WHEN s.total_paid > 0 AND s.total_paid < s.grand_total THEN 'PARTIAL'
+                            WHEN s.total_paid = 0 AND EXISTS (
+                                SELECT 1 FROM Payment p 
+                                WHERE p.sale_id = s.sale_id 
+                                AND p.payment_method = 'CREDIT' 
+                                AND p.status = 'A'
+                            ) THEN 'CREDIT'
+                            ELSE 'PENDING'
+                        END LIKE @keyword
+                        OR CONVERT(VARCHAR, s.grand_total) LIKE @keyword
+                        OR CONVERT(VARCHAR, s.total_paid) LIKE @keyword
+                        OR CONVERT(VARCHAR, s.grand_total - s.total_paid) LIKE @keyword
+                      )
+                    ORDER BY s.created_date DESC";
+
+                SqlParameter[] parameters = {
+                    new SqlParameter("@keyword", "%" + keyword + "%")
+                };
+
+                return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error searching sales representative report: {ex.Message}", ex);
+            }
+        }
     }
 }

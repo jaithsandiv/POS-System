@@ -254,5 +254,26 @@ namespace POS.BLL
         {
             return _dalSalesTerminal.GetTrendingProducts();
         }
+
+        /// <summary>
+        /// Gets sales representative report - all sales with payment breakdown
+        /// </summary>
+        public DataTable GetSalesRepresentativeReport()
+        {
+            return _dalSalesTerminal.GetSalesRepresentativeReport();
+        }
+
+        /// <summary>
+        /// Searches sales representative report by keyword in all columns
+        /// </summary>
+        public DataTable SearchSalesRepresentativeReport(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return GetSalesRepresentativeReport();
+            }
+
+            return _dalSalesTerminal.SearchSalesRepresentativeReport(keyword.Trim());
+        }
     }
 }
