@@ -64,6 +64,9 @@ namespace POS.PAL.USERCONTROL
                     totalSalesReturn += totalRemaining;
                 }
 
+                // Ensure totalSalesReturn is positive for display
+                totalSalesReturn = Math.Abs(totalSalesReturn);
+
                 // Calculate result: Total Sales - Total Sales Return
                 decimal result = totalSales - totalSalesReturn;
 
