@@ -49,8 +49,6 @@
             labelControl9 = new DevExpress.XtraEditors.LabelControl();
             popupContainerEdit1 = new DevExpress.XtraEditors.PopupContainerEdit();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
@@ -60,8 +58,6 @@
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
-            panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             SuspendLayout();
             // 
@@ -72,7 +68,6 @@
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl1.Controls.Add(panelControl2);
             panelControl1.Controls.Add(labelControl14);
-            panelControl1.Controls.Add(panelControl3);
             panelControl1.Controls.Add(separatorControl1);
             panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             panelControl1.Location = new System.Drawing.Point(0, 0);
@@ -97,9 +92,9 @@
             panelControl2.Controls.Add(labelControl10);
             panelControl2.Controls.Add(labelControl9);
             panelControl2.Controls.Add(popupContainerEdit1);
-            panelControl2.Location = new System.Drawing.Point(14, 143);
+            panelControl2.Location = new System.Drawing.Point(14, 86);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(1894, 847);
+            panelControl2.Size = new System.Drawing.Size(1894, 901);
             panelControl2.TabIndex = 122;
             // 
             // btnExportPDF
@@ -164,7 +159,7 @@
             gridActivityLog.Location = new System.Drawing.Point(28, 78);
             gridActivityLog.MainView = gridView1;
             gridActivityLog.Name = "gridActivityLog";
-            gridActivityLog.Size = new System.Drawing.Size(1840, 745);
+            gridActivityLog.Size = new System.Drawing.Size(1840, 820);
             gridActivityLog.TabIndex = 18;
             gridActivityLog.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
             // 
@@ -350,33 +345,12 @@
             labelControl14.TabIndex = 120;
             labelControl14.Text = "Activity Log";
             // 
-            // panelControl3
-            // 
-            panelControl3.Appearance.BackColor = System.Drawing.Color.White;
-            panelControl3.Appearance.Options.UseBackColor = true;
-            panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl3.Controls.Add(simpleButton1);
-            panelControl3.Location = new System.Drawing.Point(14, 59);
-            panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(1894, 61);
-            panelControl3.TabIndex = 119;
-            // 
-            // simpleButton1
-            // 
-            simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            simpleButton1.Appearance.Options.UseFont = true;
-            simpleButton1.Location = new System.Drawing.Point(27, 5);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.Size = new System.Drawing.Size(231, 51);
-            simpleButton1.TabIndex = 0;
-            simpleButton1.Text = "Filter";
-            // 
             // separatorControl1
             // 
             separatorControl1.BackColor = System.Drawing.Color.Transparent;
-            separatorControl1.Location = new System.Drawing.Point(14, 121);
+            separatorControl1.Location = new System.Drawing.Point(14, 56);
             separatorControl1.Name = "separatorControl1";
-            separatorControl1.Size = new System.Drawing.Size(1894, 23);
+            separatorControl1.Size = new System.Drawing.Size(1894, 24);
             separatorControl1.TabIndex = 124;
             // 
             // UC_ActivityLog_Report
@@ -396,8 +370,6 @@
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
-            panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ResumeLayout(false);
         }
@@ -421,8 +393,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl9;
         private DevExpress.XtraEditors.PopupContainerEdit popupContainerEdit1;
         private DevExpress.XtraEditors.LabelControl labelControl14;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
         private DevExpress.XtraEditors.SimpleButton btnExportPDF;
         private DevExpress.XtraEditors.SimpleButton btnPrint;

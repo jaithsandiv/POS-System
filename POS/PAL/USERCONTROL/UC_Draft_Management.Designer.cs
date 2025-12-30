@@ -45,8 +45,6 @@ namespace POS.PAL.USERCONTROL
             popupContainerEdit1 = new DevExpress.XtraEditors.PopupContainerEdit();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
@@ -56,8 +54,6 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)gridViewDrafts).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
-            panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             SuspendLayout();
             // 
@@ -70,7 +66,6 @@ namespace POS.PAL.USERCONTROL
             panelControl1.Controls.Add(panelControl2);
             panelControl1.Controls.Add(labelControl7);
             panelControl1.Controls.Add(labelControl14);
-            panelControl1.Controls.Add(panelControl3);
             panelControl1.Controls.Add(separatorControl1);
             panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             panelControl1.Location = new System.Drawing.Point(0, 0);
@@ -82,7 +77,7 @@ namespace POS.PAL.USERCONTROL
             // 
             labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Location = new System.Drawing.Point(13, 126);
+            labelControl8.Location = new System.Drawing.Point(14, 66);
             labelControl8.Name = "labelControl8";
             labelControl8.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             labelControl8.Size = new System.Drawing.Size(93, 40);
@@ -107,9 +102,9 @@ namespace POS.PAL.USERCONTROL
             panelControl2.Controls.Add(labelControl10);
             panelControl2.Controls.Add(labelControl9);
             panelControl2.Controls.Add(popupContainerEdit1);
-            panelControl2.Location = new System.Drawing.Point(14, 172);
+            panelControl2.Location = new System.Drawing.Point(15, 112);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(1894, 818);
+            panelControl2.Size = new System.Drawing.Size(1894, 916);
             panelControl2.TabIndex = 116;
             // 
             // gridControlDrafts
@@ -117,7 +112,7 @@ namespace POS.PAL.USERCONTROL
             gridControlDrafts.Location = new System.Drawing.Point(28, 78);
             gridControlDrafts.MainView = gridViewDrafts;
             gridControlDrafts.Name = "gridControlDrafts";
-            gridControlDrafts.Size = new System.Drawing.Size(1840, 716);
+            gridControlDrafts.Size = new System.Drawing.Size(1840, 835);
             gridControlDrafts.TabIndex = 18;
             gridControlDrafts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridViewDrafts });
             // 
@@ -281,7 +276,7 @@ namespace POS.PAL.USERCONTROL
             // 
             labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl7.Appearance.Options.UseFont = true;
-            labelControl7.Location = new System.Drawing.Point(123, 18);
+            labelControl7.Location = new System.Drawing.Point(82, 18);
             labelControl7.Name = "labelControl7";
             labelControl7.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             labelControl7.Size = new System.Drawing.Size(129, 40);
@@ -299,35 +294,12 @@ namespace POS.PAL.USERCONTROL
             labelControl14.TabIndex = 114;
             labelControl14.Text = "Drafts";
             // 
-            // panelControl3
-            // 
-            panelControl3.Appearance.BackColor = System.Drawing.Color.White;
-            panelControl3.Appearance.Options.UseBackColor = true;
-            panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl3.Controls.Add(simpleButton1);
-            panelControl3.Location = new System.Drawing.Point(14, 59);
-            panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(1894, 61);
-            panelControl3.TabIndex = 113;
-            // 
-            // simpleButton1
-            // 
-            simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton1.Appearance.Options.UseFont = true;
-            simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            simpleButton1.Location = new System.Drawing.Point(10, 5);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            simpleButton1.Size = new System.Drawing.Size(231, 51);
-            simpleButton1.TabIndex = 0;
-            simpleButton1.Text = "Filter";
-            // 
             // separatorControl1
             // 
             separatorControl1.BackColor = System.Drawing.Color.Transparent;
-            separatorControl1.Location = new System.Drawing.Point(141, 135);
+            separatorControl1.Location = new System.Drawing.Point(113, 75);
             separatorControl1.Name = "separatorControl1";
-            separatorControl1.Size = new System.Drawing.Size(1767, 23);
+            separatorControl1.Size = new System.Drawing.Size(1796, 23);
             separatorControl1.TabIndex = 118;
             // 
             // UC_Draft_Management
@@ -349,8 +321,6 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)gridViewDrafts).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
-            panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ResumeLayout(false);
 
@@ -374,8 +344,6 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.PopupContainerEdit popupContainerEdit1;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl14;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
     }
 }

@@ -66,8 +66,6 @@
             btnExportCSV = new DevExpress.XtraEditors.SimpleButton();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
@@ -76,8 +74,6 @@
             ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridCustomers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
-            panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             SuspendLayout();
             // 
@@ -139,7 +135,6 @@
             panelControl1.Controls.Add(panelControl2);
             panelControl1.Controls.Add(labelControl7);
             panelControl1.Controls.Add(labelControl14);
-            panelControl1.Controls.Add(panelControl3);
             panelControl1.Controls.Add(separatorControl1);
             panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             panelControl1.Location = new System.Drawing.Point(0, 0);
@@ -151,7 +146,7 @@
             // 
             labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Location = new System.Drawing.Point(13, 126);
+            labelControl8.Location = new System.Drawing.Point(14, 64);
             labelControl8.Name = "labelControl8";
             labelControl8.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             labelControl8.Size = new System.Drawing.Size(122, 40);
@@ -173,9 +168,9 @@
             panelControl2.Controls.Add(btnPrint);
             panelControl2.Controls.Add(btnExportExcel);
             panelControl2.Controls.Add(btnExportCSV);
-            panelControl2.Location = new System.Drawing.Point(14, 172);
+            panelControl2.Location = new System.Drawing.Point(15, 110);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(1894, 818);
+            panelControl2.Size = new System.Drawing.Size(1894, 919);
             panelControl2.TabIndex = 116;
             // 
             // txtSearch
@@ -207,7 +202,7 @@
             gridCustomers.Location = new System.Drawing.Point(28, 78);
             gridCustomers.MainView = gridView1;
             gridCustomers.Name = "gridCustomers";
-            gridCustomers.Size = new System.Drawing.Size(1840, 716);
+            gridCustomers.Size = new System.Drawing.Size(1840, 838);
             gridCustomers.TabIndex = 18;
             gridCustomers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
             // 
@@ -443,34 +438,10 @@
             labelControl14.TabIndex = 114;
             labelControl14.Text = "Customers";
             // 
-            // panelControl3
-            // 
-            panelControl3.Appearance.BackColor = System.Drawing.Color.White;
-            panelControl3.Appearance.Options.UseBackColor = true;
-            panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl3.Controls.Add(simpleButton1);
-            panelControl3.Location = new System.Drawing.Point(14, 59);
-            panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(1894, 61);
-            panelControl3.TabIndex = 113;
-            // 
-            // simpleButton1
-            // 
-            simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton1.Appearance.Options.UseFont = true;
-            simpleButton1.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("simpleButton1.ImageOptions.Image");
-            simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            simpleButton1.Location = new System.Drawing.Point(10, 5);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            simpleButton1.Size = new System.Drawing.Size(231, 51);
-            simpleButton1.TabIndex = 0;
-            simpleButton1.Text = "Filter";
-            // 
             // separatorControl1
             // 
             separatorControl1.BackColor = System.Drawing.Color.Transparent;
-            separatorControl1.Location = new System.Drawing.Point(141, 135);
+            separatorControl1.Location = new System.Drawing.Point(142, 73);
             separatorControl1.Name = "separatorControl1";
             separatorControl1.Size = new System.Drawing.Size(1767, 23);
             separatorControl1.TabIndex = 118;
@@ -492,8 +463,6 @@
             ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridCustomers).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
-            panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ResumeLayout(false);
         }
@@ -535,8 +504,6 @@
         private DevExpress.XtraEditors.SimpleButton btnExportCSV;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl14;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
         private DevExpress.XtraEditors.TextEdit txtSearch;
         private DevExpress.XtraEditors.SimpleButton btnSearch;

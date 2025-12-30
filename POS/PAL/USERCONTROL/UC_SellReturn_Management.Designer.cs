@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            btnFilter = new DevExpress.XtraEditors.SimpleButton();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
@@ -56,8 +54,6 @@
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
-            panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
@@ -72,7 +68,6 @@
             panelControl1.Appearance.BackColor = System.Drawing.Color.White;
             panelControl1.Appearance.Options.UseBackColor = true;
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl1.Controls.Add(panelControl3);
             panelControl1.Controls.Add(separatorControl1);
             panelControl1.Controls.Add(labelControl14);
             panelControl1.Controls.Add(labelControl7);
@@ -84,33 +79,10 @@
             panelControl1.Size = new System.Drawing.Size(1920, 1001);
             panelControl1.TabIndex = 0;
             // 
-            // panelControl3
-            // 
-            panelControl3.Appearance.BackColor = System.Drawing.Color.White;
-            panelControl3.Appearance.Options.UseBackColor = true;
-            panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl3.Controls.Add(btnFilter);
-            panelControl3.Location = new System.Drawing.Point(14, 59);
-            panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(1894, 61);
-            panelControl3.TabIndex = 119;
-            // 
-            // btnFilter
-            // 
-            btnFilter.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            btnFilter.Appearance.Options.UseFont = true;
-            btnFilter.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            btnFilter.Location = new System.Drawing.Point(10, 5);
-            btnFilter.Name = "btnFilter";
-            btnFilter.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            btnFilter.Size = new System.Drawing.Size(231, 51);
-            btnFilter.TabIndex = 0;
-            btnFilter.Text = "Filter";
-            // 
             // separatorControl1
             // 
             separatorControl1.BackColor = System.Drawing.Color.Transparent;
-            separatorControl1.Location = new System.Drawing.Point(119, 135);
+            separatorControl1.Location = new System.Drawing.Point(120, 75);
             separatorControl1.Name = "separatorControl1";
             separatorControl1.Size = new System.Drawing.Size(1789, 23);
             separatorControl1.TabIndex = 124;
@@ -155,9 +127,9 @@
             panelControl2.Controls.Add(labelControl10);
             panelControl2.Controls.Add(labelControl9);
             panelControl2.Controls.Add(popupContainerEdit1);
-            panelControl2.Location = new System.Drawing.Point(14, 172);
+            panelControl2.Location = new System.Drawing.Point(15, 112);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(1894, 818);
+            panelControl2.Size = new System.Drawing.Size(1894, 869);
             panelControl2.TabIndex = 122;
             // 
             // gridControlSellReturns
@@ -165,7 +137,7 @@
             gridControlSellReturns.Location = new System.Drawing.Point(28, 78);
             gridControlSellReturns.MainView = gridViewSellReturns;
             gridControlSellReturns.Name = "gridControlSellReturns";
-            gridControlSellReturns.Size = new System.Drawing.Size(1840, 716);
+            gridControlSellReturns.Size = new System.Drawing.Size(1840, 788);
             gridControlSellReturns.TabIndex = 18;
             gridControlSellReturns.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridViewSellReturns });
             // 
@@ -178,8 +150,8 @@
             gridViewSellReturns.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
             gridViewSellReturns.Appearance.Row.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             gridViewSellReturns.Appearance.Row.Options.UseFont = true;
-            gridViewSellReturns.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colReturnId, colSaleId, colTotalAmount, colReason, colProcessedBy, colCreatedDate });
             gridViewSellReturns.ColumnPanelRowHeight = 44;
+            gridViewSellReturns.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colReturnId, colSaleId, colTotalAmount, colReason, colProcessedBy, colCreatedDate });
             gridViewSellReturns.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             gridViewSellReturns.GridControl = gridControlSellReturns;
             gridViewSellReturns.Name = "gridViewSellReturns";
@@ -200,7 +172,6 @@
             colReturnId.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colReturnId.Caption = "Return ID";
             colReturnId.FieldName = "return_id";
-            colReturnId.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.None;
             colReturnId.Name = "colReturnId";
             colReturnId.OptionsColumn.AllowEdit = false;
             colReturnId.OptionsColumn.AllowFocus = false;
@@ -215,7 +186,6 @@
             colSaleId.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colSaleId.Caption = "Sale ID";
             colSaleId.FieldName = "sale_id";
-            colSaleId.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.None;
             colSaleId.Name = "colSaleId";
             colSaleId.OptionsColumn.AllowEdit = false;
             colSaleId.OptionsColumn.AllowFocus = false;
@@ -232,7 +202,6 @@
             colTotalAmount.DisplayFormat.FormatString = "n2";
             colTotalAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             colTotalAmount.FieldName = "total_amount";
-            colTotalAmount.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.None;
             colTotalAmount.Name = "colTotalAmount";
             colTotalAmount.OptionsColumn.AllowEdit = false;
             colTotalAmount.OptionsColumn.AllowFocus = false;
@@ -245,7 +214,6 @@
             // 
             colReason.Caption = "Reason";
             colReason.FieldName = "reason";
-            colReason.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.None;
             colReason.Name = "colReason";
             colReason.OptionsColumn.AllowEdit = false;
             colReason.OptionsColumn.AllowFocus = false;
@@ -259,7 +227,6 @@
             colProcessedBy.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colProcessedBy.Caption = "Processed By";
             colProcessedBy.FieldName = "processed_by";
-            colProcessedBy.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.None;
             colProcessedBy.Name = "colProcessedBy";
             colProcessedBy.OptionsColumn.AllowEdit = false;
             colProcessedBy.OptionsColumn.AllowFocus = false;
@@ -274,7 +241,6 @@
             colCreatedDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colCreatedDate.Caption = "Date";
             colCreatedDate.FieldName = "created_date";
-            colCreatedDate.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.None;
             colCreatedDate.Name = "colCreatedDate";
             colCreatedDate.OptionsColumn.AllowEdit = false;
             colCreatedDate.OptionsColumn.AllowFocus = false;
@@ -418,7 +384,7 @@
             // 
             labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Location = new System.Drawing.Point(13, 126);
+            labelControl8.Location = new System.Drawing.Point(14, 66);
             labelControl8.Name = "labelControl8";
             labelControl8.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             labelControl8.Size = new System.Drawing.Size(100, 40);
@@ -435,8 +401,6 @@
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
             panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
-            panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)panelControl2).EndInit();
             panelControl2.ResumeLayout(false);
@@ -451,8 +415,6 @@
         #endregion
 
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
-        private DevExpress.XtraEditors.SimpleButton btnFilter;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
         private DevExpress.XtraEditors.LabelControl labelControl14;
         private DevExpress.XtraEditors.LabelControl labelControl7;

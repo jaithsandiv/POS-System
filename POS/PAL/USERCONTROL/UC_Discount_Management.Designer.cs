@@ -31,6 +31,10 @@ namespace POS.PAL.USERCONTROL
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
+            btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
+            btnPrint = new DevExpress.XtraEditors.SimpleButton();
+            btnExportExcel = new DevExpress.XtraEditors.SimpleButton();
+            btnExportCSV = new DevExpress.XtraEditors.SimpleButton();
             btnAssignProducts = new DevExpress.XtraEditors.SimpleButton();
             gridControlDiscounts = new DevExpress.XtraGrid.GridControl();
             gridViewDiscounts = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -42,13 +46,7 @@ namespace POS.PAL.USERCONTROL
             popupContainerEdit1 = new DevExpress.XtraEditors.PopupContainerEdit();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
-            btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
-            btnPrint = new DevExpress.XtraEditors.SimpleButton();
-            btnExportExcel = new DevExpress.XtraEditors.SimpleButton();
-            btnExportCSV = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
@@ -57,8 +55,6 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)gridViewDiscounts).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
-            panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             SuspendLayout();
             // 
@@ -71,7 +67,6 @@ namespace POS.PAL.USERCONTROL
             panelControl1.Controls.Add(panelControl2);
             panelControl1.Controls.Add(labelControl7);
             panelControl1.Controls.Add(labelControl14);
-            panelControl1.Controls.Add(panelControl3);
             panelControl1.Controls.Add(separatorControl1);
             panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             panelControl1.Location = new System.Drawing.Point(0, 0);
@@ -83,7 +78,7 @@ namespace POS.PAL.USERCONTROL
             // 
             labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Location = new System.Drawing.Point(13, 126);
+            labelControl8.Location = new System.Drawing.Point(14, 66);
             labelControl8.Name = "labelControl8";
             labelControl8.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             labelControl8.Size = new System.Drawing.Size(117, 40);
@@ -109,10 +104,67 @@ namespace POS.PAL.USERCONTROL
             panelControl2.Controls.Add(labelControl10);
             panelControl2.Controls.Add(labelControl9);
             panelControl2.Controls.Add(popupContainerEdit1);
-            panelControl2.Location = new System.Drawing.Point(14, 172);
+            panelControl2.Location = new System.Drawing.Point(15, 112);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(1894, 818);
+            panelControl2.Size = new System.Drawing.Size(1894, 921);
             panelControl2.TabIndex = 116;
+            // 
+            // btnExportPDF
+            // 
+            btnExportPDF.Appearance.BackColor = System.Drawing.Color.White;
+            btnExportPDF.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnExportPDF.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnExportPDF.Appearance.Options.UseBackColor = true;
+            btnExportPDF.Appearance.Options.UseFont = true;
+            btnExportPDF.Appearance.Options.UseForeColor = true;
+            btnExportPDF.Location = new System.Drawing.Point(1534, 23);
+            btnExportPDF.Name = "btnExportPDF";
+            btnExportPDF.Size = new System.Drawing.Size(100, 29);
+            btnExportPDF.TabIndex = 122;
+            btnExportPDF.Text = "Export PDF";
+            // 
+            // btnPrint
+            // 
+            btnPrint.Appearance.BackColor = System.Drawing.Color.White;
+            btnPrint.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnPrint.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnPrint.Appearance.Options.UseBackColor = true;
+            btnPrint.Appearance.Options.UseFont = true;
+            btnPrint.Appearance.Options.UseForeColor = true;
+            btnPrint.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            btnPrint.Location = new System.Drawing.Point(1216, 23);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new System.Drawing.Size(100, 29);
+            btnPrint.TabIndex = 121;
+            btnPrint.Text = "Print";
+            // 
+            // btnExportExcel
+            // 
+            btnExportExcel.Appearance.BackColor = System.Drawing.Color.White;
+            btnExportExcel.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnExportExcel.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnExportExcel.Appearance.Options.UseBackColor = true;
+            btnExportExcel.Appearance.Options.UseFont = true;
+            btnExportExcel.Appearance.Options.UseForeColor = true;
+            btnExportExcel.Location = new System.Drawing.Point(1428, 23);
+            btnExportExcel.Name = "btnExportExcel";
+            btnExportExcel.Size = new System.Drawing.Size(100, 29);
+            btnExportExcel.TabIndex = 120;
+            btnExportExcel.Text = "Export Excel";
+            // 
+            // btnExportCSV
+            // 
+            btnExportCSV.Appearance.BackColor = System.Drawing.Color.White;
+            btnExportCSV.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnExportCSV.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnExportCSV.Appearance.Options.UseBackColor = true;
+            btnExportCSV.Appearance.Options.UseFont = true;
+            btnExportCSV.Appearance.Options.UseForeColor = true;
+            btnExportCSV.Location = new System.Drawing.Point(1322, 23);
+            btnExportCSV.Name = "btnExportCSV";
+            btnExportCSV.Size = new System.Drawing.Size(100, 29);
+            btnExportCSV.TabIndex = 119;
+            btnExportCSV.Text = "Export CSV";
             // 
             // btnAssignProducts
             // 
@@ -136,7 +188,7 @@ namespace POS.PAL.USERCONTROL
             gridControlDiscounts.Location = new System.Drawing.Point(28, 78);
             gridControlDiscounts.MainView = gridViewDiscounts;
             gridControlDiscounts.Name = "gridControlDiscounts";
-            gridControlDiscounts.Size = new System.Drawing.Size(1840, 716);
+            gridControlDiscounts.Size = new System.Drawing.Size(1840, 840);
             gridControlDiscounts.TabIndex = 18;
             gridControlDiscounts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridViewDiscounts });
             // 
@@ -260,93 +312,13 @@ namespace POS.PAL.USERCONTROL
             labelControl14.TabIndex = 114;
             labelControl14.Text = "Discounts";
             // 
-            // panelControl3
-            // 
-            panelControl3.Appearance.BackColor = System.Drawing.Color.White;
-            panelControl3.Appearance.Options.UseBackColor = true;
-            panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl3.Controls.Add(simpleButton1);
-            panelControl3.Location = new System.Drawing.Point(14, 59);
-            panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(1894, 61);
-            panelControl3.TabIndex = 113;
-            // 
-            // simpleButton1
-            // 
-            simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton1.Appearance.Options.UseFont = true;
-            simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            simpleButton1.Location = new System.Drawing.Point(10, 5);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            simpleButton1.Size = new System.Drawing.Size(231, 51);
-            simpleButton1.TabIndex = 0;
-            simpleButton1.Text = "Filter";
-            // 
             // separatorControl1
             // 
             separatorControl1.BackColor = System.Drawing.Color.Transparent;
-            separatorControl1.Location = new System.Drawing.Point(141, 135);
+            separatorControl1.Location = new System.Drawing.Point(142, 75);
             separatorControl1.Name = "separatorControl1";
             separatorControl1.Size = new System.Drawing.Size(1767, 23);
             separatorControl1.TabIndex = 118;
-            // 
-            // btnExportPDF
-            // 
-            btnExportPDF.Appearance.BackColor = System.Drawing.Color.White;
-            btnExportPDF.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            btnExportPDF.Appearance.ForeColor = System.Drawing.Color.Black;
-            btnExportPDF.Appearance.Options.UseBackColor = true;
-            btnExportPDF.Appearance.Options.UseFont = true;
-            btnExportPDF.Appearance.Options.UseForeColor = true;
-            btnExportPDF.Location = new System.Drawing.Point(1534, 23);
-            btnExportPDF.Name = "btnExportPDF";
-            btnExportPDF.Size = new System.Drawing.Size(100, 29);
-            btnExportPDF.TabIndex = 122;
-            btnExportPDF.Text = "Export PDF";
-            // 
-            // btnPrint
-            // 
-            btnPrint.Appearance.BackColor = System.Drawing.Color.White;
-            btnPrint.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            btnPrint.Appearance.ForeColor = System.Drawing.Color.Black;
-            btnPrint.Appearance.Options.UseBackColor = true;
-            btnPrint.Appearance.Options.UseFont = true;
-            btnPrint.Appearance.Options.UseForeColor = true;
-            btnPrint.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            btnPrint.Location = new System.Drawing.Point(1216, 23);
-            btnPrint.Name = "btnPrint";
-            btnPrint.Size = new System.Drawing.Size(100, 29);
-            btnPrint.TabIndex = 121;
-            btnPrint.Text = "Print";
-            // 
-            // btnExportExcel
-            // 
-            btnExportExcel.Appearance.BackColor = System.Drawing.Color.White;
-            btnExportExcel.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            btnExportExcel.Appearance.ForeColor = System.Drawing.Color.Black;
-            btnExportExcel.Appearance.Options.UseBackColor = true;
-            btnExportExcel.Appearance.Options.UseFont = true;
-            btnExportExcel.Appearance.Options.UseForeColor = true;
-            btnExportExcel.Location = new System.Drawing.Point(1428, 23);
-            btnExportExcel.Name = "btnExportExcel";
-            btnExportExcel.Size = new System.Drawing.Size(100, 29);
-            btnExportExcel.TabIndex = 120;
-            btnExportExcel.Text = "Export Excel";
-            // 
-            // btnExportCSV
-            // 
-            btnExportCSV.Appearance.BackColor = System.Drawing.Color.White;
-            btnExportCSV.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            btnExportCSV.Appearance.ForeColor = System.Drawing.Color.Black;
-            btnExportCSV.Appearance.Options.UseBackColor = true;
-            btnExportCSV.Appearance.Options.UseFont = true;
-            btnExportCSV.Appearance.Options.UseForeColor = true;
-            btnExportCSV.Location = new System.Drawing.Point(1322, 23);
-            btnExportCSV.Name = "btnExportCSV";
-            btnExportCSV.Size = new System.Drawing.Size(100, 29);
-            btnExportCSV.TabIndex = 119;
-            btnExportCSV.Text = "Export CSV";
             // 
             // UC_Discount_Management
             // 
@@ -367,8 +339,6 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)gridViewDiscounts).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtSearch.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)popupContainerEdit1.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
-            panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ResumeLayout(false);
 
@@ -389,8 +359,6 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.PopupContainerEdit popupContainerEdit1;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl14;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
         private DevExpress.XtraEditors.SimpleButton btnExportPDF;
         private DevExpress.XtraEditors.SimpleButton btnPrint;
