@@ -313,7 +313,7 @@
             panelControl4.Controls.Add(btnProfile);
             panelControl4.Controls.Add(btnSignOut);
             panelControl4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panelControl4.Location = new System.Drawing.Point(0, 1515);
+            panelControl4.Location = new System.Drawing.Point(0, 1475);
             panelControl4.Name = "panelControl4";
             panelControl4.Size = new System.Drawing.Size(233, 105);
             panelControl4.TabIndex = 24;
@@ -356,7 +356,7 @@
             panelSettingsSubmenu.Controls.Add(btnBusinessLocations);
             panelSettingsSubmenu.Controls.Add(btnBusinessSettings);
             panelSettingsSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            panelSettingsSubmenu.Location = new System.Drawing.Point(0, 1395);
+            panelSettingsSubmenu.Location = new System.Drawing.Point(0, 1355);
             panelSettingsSubmenu.Name = "panelSettingsSubmenu";
             panelSettingsSubmenu.Size = new System.Drawing.Size(233, 120);
             panelSettingsSubmenu.TabIndex = 23;
@@ -412,7 +412,7 @@
             panelSettingsHeader.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelSettingsHeader.Controls.Add(btnSettings);
             panelSettingsHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            panelSettingsHeader.Location = new System.Drawing.Point(0, 1350);
+            panelSettingsHeader.Location = new System.Drawing.Point(0, 1310);
             panelSettingsHeader.Name = "panelSettingsHeader";
             panelSettingsHeader.Size = new System.Drawing.Size(233, 45);
             panelSettingsHeader.TabIndex = 22;
@@ -452,7 +452,7 @@
             panelReportsSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             panelReportsSubmenu.Location = new System.Drawing.Point(0, 910);
             panelReportsSubmenu.Name = "panelReportsSubmenu";
-            panelReportsSubmenu.Size = new System.Drawing.Size(233, 440);
+            panelReportsSubmenu.Size = new System.Drawing.Size(233, 400);
             panelReportsSubmenu.TabIndex = 20;
             panelReportsSubmenu.Visible = false;
             // 

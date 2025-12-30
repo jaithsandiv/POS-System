@@ -14,6 +14,7 @@ using DevExpress.XtraEditors.Controls;
 using System.IO;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraPrinting;
+using DevExpress.XtraGrid.Columns;
 
 namespace POS.PAL.USERCONTROL
 {
@@ -116,17 +117,41 @@ namespace POS.PAL.USERCONTROL
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // Temporarily hide Edit and Delete columns
+                    // Temporarily hide Edit and Delete columns and save column widths
                     var editColumn = gridView1.Columns["Edit"];
                     var deleteColumn = gridView1.Columns["Delete"];
                     bool editVisible = editColumn?.Visible ?? false;
                     bool deleteVisible = deleteColumn?.Visible ?? false;
+                    
+                    // Store original column settings
+                    Dictionary<GridColumn, int> originalWidths = new Dictionary<GridColumn, int>();
+                    Dictionary<GridColumn, bool> originalFixedWidth = new Dictionary<GridColumn, bool>();
+                    
+                    foreach (GridColumn column in gridView1.Columns)
+                    {
+                        if (column.Visible)
+                        {
+                            originalWidths[column] = column.Width;
+                            originalFixedWidth[column] = column.OptionsColumn.FixedWidth;
+                        }
+                    }
 
                     if (editColumn != null) editColumn.Visible = false;
                     if (deleteColumn != null) deleteColumn.Visible = false;
 
                     try
                     {
+                        // Make columns auto-fit for export
+                        foreach (GridColumn column in gridView1.Columns)
+                        {
+                            if (column.Visible)
+                            {
+                                column.OptionsColumn.FixedWidth = false;
+                            }
+                        }
+                        
+                        gridView1.BestFitColumns();
+                        
                         // Export grid to CSV using DevExpress export functionality
                         gridView1.ExportToCsv(saveFileDialog.FileName);
 
@@ -139,9 +164,15 @@ namespace POS.PAL.USERCONTROL
                     }
                     finally
                     {
-                        // Restore column visibility
+                        // Restore column visibility and widths
                         if (editColumn != null) editColumn.Visible = editVisible;
                         if (deleteColumn != null) deleteColumn.Visible = deleteVisible;
+                        
+                        foreach (var kvp in originalWidths)
+                        {
+                            kvp.Key.Width = kvp.Value;
+                            kvp.Key.OptionsColumn.FixedWidth = originalFixedWidth[kvp.Key];
+                        }
                     }
                 }
             }
@@ -183,19 +214,47 @@ namespace POS.PAL.USERCONTROL
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // Temporarily hide Edit and Delete columns
+                    // Temporarily hide Edit and Delete columns and save column widths
                     var editColumn = gridView1.Columns["Edit"];
                     var deleteColumn = gridView1.Columns["Delete"];
                     bool editVisible = editColumn?.Visible ?? false;
                     bool deleteVisible = deleteColumn?.Visible ?? false;
+                    
+                    // Store original column settings
+                    Dictionary<GridColumn, int> originalWidths = new Dictionary<GridColumn, int>();
+                    Dictionary<GridColumn, bool> originalFixedWidth = new Dictionary<GridColumn, bool>();
+                    
+                    foreach (GridColumn column in gridView1.Columns)
+                    {
+                        if (column.Visible)
+                        {
+                            originalWidths[column] = column.Width;
+                            originalFixedWidth[column] = column.OptionsColumn.FixedWidth;
+                        }
+                    }
 
                     if (editColumn != null) editColumn.Visible = false;
                     if (deleteColumn != null) deleteColumn.Visible = false;
 
                     try
                     {
+                        // Make columns auto-fit for export
+                        foreach (GridColumn column in gridView1.Columns)
+                        {
+                            if (column.Visible)
+                            {
+                                column.OptionsColumn.FixedWidth = false;
+                            }
+                        }
+                        
+                        gridView1.BestFitColumns();
+                        
                         // Export grid to Excel using DevExpress export functionality
-                        gridView1.ExportToXlsx(saveFileDialog.FileName);
+                        var options = new DevExpress.XtraPrinting.XlsxExportOptions();
+                        options.ExportMode = DevExpress.XtraPrinting.XlsxExportMode.SingleFile;
+                        options.SheetName = "Suppliers";
+                        
+                        gridView1.ExportToXlsx(saveFileDialog.FileName, options);
 
                         XtraMessageBox.Show(
                             $"Supplier data exported successfully to:\n{saveFileDialog.FileName}",
@@ -206,9 +265,15 @@ namespace POS.PAL.USERCONTROL
                     }
                     finally
                     {
-                        // Restore column visibility
+                        // Restore column visibility and widths
                         if (editColumn != null) editColumn.Visible = editVisible;
                         if (deleteColumn != null) deleteColumn.Visible = deleteVisible;
+                        
+                        foreach (var kvp in originalWidths)
+                        {
+                            kvp.Key.Width = kvp.Value;
+                            kvp.Key.OptionsColumn.FixedWidth = originalFixedWidth[kvp.Key];
+                        }
                     }
                 }
             }
@@ -250,19 +315,59 @@ namespace POS.PAL.USERCONTROL
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // Temporarily hide Edit and Delete columns
+                    // Temporarily hide Edit and Delete columns and save column widths
                     var editColumn = gridView1.Columns["Edit"];
                     var deleteColumn = gridView1.Columns["Delete"];
                     bool editVisible = editColumn?.Visible ?? false;
                     bool deleteVisible = deleteColumn?.Visible ?? false;
+                    
+                    // Store original column settings
+                    Dictionary<GridColumn, int> originalWidths = new Dictionary<GridColumn, int>();
+                    Dictionary<GridColumn, bool> originalFixedWidth = new Dictionary<GridColumn, bool>();
+                    
+                    foreach (GridColumn column in gridView1.Columns)
+                    {
+                        if (column.Visible)
+                        {
+                            originalWidths[column] = column.Width;
+                            originalFixedWidth[column] = column.OptionsColumn.FixedWidth;
+                        }
+                    }
 
                     if (editColumn != null) editColumn.Visible = false;
                     if (deleteColumn != null) deleteColumn.Visible = false;
 
                     try
                     {
-                        // Export grid to PDF using DevExpress export functionality
-                        gridView1.ExportToPdf(saveFileDialog.FileName);
+                        // Make columns auto-fit for export
+                        foreach (GridColumn column in gridView1.Columns)
+                        {
+                            if (column.Visible)
+                            {
+                                column.OptionsColumn.FixedWidth = false;
+                            }
+                        }
+                        
+                        gridView1.BestFitColumns();
+                        
+                        // Create print link for better control over PDF export
+                        PrintableComponentLink printLink = new PrintableComponentLink(new DevExpress.XtraPrinting.PrintingSystem());
+                        printLink.Component = gridSuppliers;
+                        printLink.Landscape = true;
+                        printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
+                        
+                        // Set margins
+                        printLink.Margins.Left = 50;
+                        printLink.Margins.Right = 50;
+                        printLink.Margins.Top = 50;
+                        printLink.Margins.Bottom = 50;
+                        
+                        // Create document and fit to page width
+                        printLink.CreateDocument();
+                        printLink.PrintingSystem.Document.AutoFitToPagesWidth = 1;
+                        
+                        // Export to PDF
+                        printLink.ExportToPdf(saveFileDialog.FileName);
 
                         XtraMessageBox.Show(
                             $"Supplier data exported successfully to:\n{saveFileDialog.FileName}",
@@ -273,9 +378,15 @@ namespace POS.PAL.USERCONTROL
                     }
                     finally
                     {
-                        // Restore column visibility
+                        // Restore column visibility and widths
                         if (editColumn != null) editColumn.Visible = editVisible;
                         if (deleteColumn != null) deleteColumn.Visible = deleteVisible;
+                        
+                        foreach (var kvp in originalWidths)
+                        {
+                            kvp.Key.Width = kvp.Value;
+                            kvp.Key.OptionsColumn.FixedWidth = originalFixedWidth[kvp.Key];
+                        }
                     }
                 }
             }
@@ -308,20 +419,43 @@ namespace POS.PAL.USERCONTROL
                     return;
                 }
 
-                // Temporarily hide Edit and Delete columns
+                // Temporarily hide Edit and Delete columns and save column widths
                 var editColumn = gridView1.Columns["Edit"];
                 var deleteColumn = gridView1.Columns["Delete"];
                 bool editVisible = editColumn?.Visible ?? false;
                 bool deleteVisible = deleteColumn?.Visible ?? false;
+                
+                // Store original column settings
+                Dictionary<GridColumn, int> originalWidths = new Dictionary<GridColumn, int>();
+                Dictionary<GridColumn, bool> originalFixedWidth = new Dictionary<GridColumn, bool>();
+                
+                foreach (GridColumn column in gridView1.Columns)
+                {
+                    if (column.Visible)
+                    {
+                        originalWidths[column] = column.Width;
+                        originalFixedWidth[column] = column.OptionsColumn.FixedWidth;
+                    }
+                }
 
                 if (editColumn != null) editColumn.Visible = false;
                 if (deleteColumn != null) deleteColumn.Visible = false;
 
                 try
                 {
+                    // Make columns auto-fit for printing
+                    foreach (GridColumn column in gridView1.Columns)
+                    {
+                        if (column.Visible)
+                        {
+                            column.OptionsColumn.FixedWidth = false;
+                        }
+                    }
+                    
+                    gridView1.BestFitColumns();
+                    
                     // Create a PrintableComponentLink to print the grid
-                    DevExpress.XtraPrinting.PrintableComponentLink printLink = 
-                        new DevExpress.XtraPrinting.PrintableComponentLink(new DevExpress.XtraPrinting.PrintingSystem());
+                    PrintableComponentLink printLink = new PrintableComponentLink(new DevExpress.XtraPrinting.PrintingSystem());
                     
                     printLink.Component = gridSuppliers;
                     
@@ -337,10 +471,12 @@ namespace POS.PAL.USERCONTROL
                     
                     // Create document
                     printLink.CreateDocument();
+                    
+                    // Fit columns to page width automatically
                     printLink.PrintingSystem.Document.AutoFitToPagesWidth = 1;
                     
                     // Add header
-                    DevExpress.XtraPrinting.PageHeaderFooter header = printLink.PageHeaderFooter as DevExpress.XtraPrinting.PageHeaderFooter;
+                    PageHeaderFooter header = printLink.PageHeaderFooter as PageHeaderFooter;
                     if (header != null)
                     {
                         header.Header.Content.Clear();
@@ -350,7 +486,7 @@ namespace POS.PAL.USERCONTROL
                             $"Printed: {DateTime.Now:dd/MM/yyyy HH:mm}"
                         });
                         header.Header.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                        header.Header.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
+                        header.Header.LineAlignment = BrickAlignment.Center;
                     }
                     
                     // Add footer with page numbers
@@ -363,18 +499,23 @@ namespace POS.PAL.USERCONTROL
                             ""
                         });
                         header.Footer.Font = new Font("Segoe UI", 9);
-                        header.Footer.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
+                        header.Footer.LineAlignment = BrickAlignment.Center;
                     }
 
                     // Show print preview dialog with print options
-                    // This allows users to preview, select printer, adjust settings, etc.
                     printLink.ShowPreviewDialog();
                 }
                 finally
                 {
-                    // Restore column visibility
+                    // Restore column visibility and widths
                     if (editColumn != null) editColumn.Visible = editVisible;
                     if (deleteColumn != null) deleteColumn.Visible = deleteVisible;
+                    
+                    foreach (var kvp in originalWidths)
+                    {
+                        kvp.Key.Width = kvp.Value;
+                        kvp.Key.OptionsColumn.FixedWidth = originalFixedWidth[kvp.Key];
+                    }
                 }
             }
             catch (Exception ex)

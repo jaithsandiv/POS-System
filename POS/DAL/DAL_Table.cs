@@ -111,7 +111,12 @@ namespace POS.DAL
                     capacity, 
                     status
                 FROM [Table]
-                WHERE status = 'A' AND (table_number LIKE @keyword)";
+                WHERE status = 'A' 
+                AND (
+                    table_number LIKE @keyword 
+                    OR CAST(table_id AS VARCHAR) LIKE @keyword
+                    OR CAST(capacity AS VARCHAR) LIKE @keyword
+                )";
 
             SqlParameter[] parameters = {
                 new SqlParameter("@keyword", "%" + keyword + "%")

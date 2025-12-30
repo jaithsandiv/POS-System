@@ -501,8 +501,39 @@ namespace POS.PAL.USERCONTROL
                     if (editColumn != null) editColumn.Visible = false;
                     if (deleteColumn != null) deleteColumn.Visible = false;
 
+                    // Store original column widths
+                    var originalWidths = new Dictionary<string, int>();
+                    foreach (DevExpress.XtraGrid.Columns.GridColumn col in gridView1.Columns)
+                    {
+                        if (col.Visible)
+                        {
+                            originalWidths[col.FieldName] = col.Width;
+                        }
+                    }
+
                     try
                     {
+                        // Adjust column widths for better PDF fitting
+                        var colCustomerId = gridView1.Columns["customer_id"];
+                        var colFullName = gridView1.Columns["full_name"];
+                        var colCompanyName = gridView1.Columns["company_name"];
+                        var colEmail = gridView1.Columns["email"];
+                        var colPhone = gridView1.Columns["phone"];
+                        var colAddress = gridView1.Columns["address"];
+                        var colCity = gridView1.Columns["city"];
+                        var colGroupName = gridView1.Columns["group_name"];
+                        var colStatus = gridView1.Columns["status"];
+
+                        if (colCustomerId != null) colCustomerId.Width = 60;
+                        if (colFullName != null) colFullName.Width = 120;
+                        if (colCompanyName != null) colCompanyName.Width = 120;
+                        if (colEmail != null) colEmail.Width = 130;
+                        if (colPhone != null) colPhone.Width = 90;
+                        if (colAddress != null) colAddress.Width = 150;
+                        if (colCity != null) colCity.Width = 80;
+                        if (colGroupName != null) colGroupName.Width = 100;
+                        if (colStatus != null) colStatus.Width = 60;
+
                         // Export grid to PDF using DevExpress export functionality
                         gridView1.ExportToPdf(saveFileDialog.FileName);
 
@@ -515,6 +546,16 @@ namespace POS.PAL.USERCONTROL
                     }
                     finally
                     {
+                        // Restore original column widths
+                        foreach (var kvp in originalWidths)
+                        {
+                            var col = gridView1.Columns[kvp.Key];
+                            if (col != null)
+                            {
+                                col.Width = kvp.Value;
+                            }
+                        }
+
                         // Restore column visibility
                         if (editColumn != null) editColumn.Visible = editVisible;
                         if (deleteColumn != null) deleteColumn.Visible = deleteVisible;
@@ -533,7 +574,7 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
-        /// Prints the customer data using Windows default print dialog with preview
+        /// Prints the customer data using Windows default print dialog with preview and dynamic column fitting
         /// </summary>
         private void BtnPrint_Click(object sender, EventArgs e)
         {
@@ -559,15 +600,46 @@ namespace POS.PAL.USERCONTROL
                 if (editColumn != null) editColumn.Visible = false;
                 if (deleteColumn != null) deleteColumn.Visible = false;
 
+                // Store original column widths
+                var originalWidths = new Dictionary<string, int>();
+                foreach (DevExpress.XtraGrid.Columns.GridColumn col in gridView1.Columns)
+                {
+                    if (col.Visible)
+                    {
+                        originalWidths[col.FieldName] = col.Width;
+                    }
+                }
+
                 try
                 {
+                    // Adjust column widths for better printing
+                    var colCustomerId = gridView1.Columns["customer_id"];
+                    var colFullName = gridView1.Columns["full_name"];
+                    var colCompanyName = gridView1.Columns["company_name"];
+                    var colEmail = gridView1.Columns["email"];
+                    var colPhone = gridView1.Columns["phone"];
+                    var colAddress = gridView1.Columns["address"];
+                    var colCity = gridView1.Columns["city"];
+                    var colGroupName = gridView1.Columns["group_name"];
+                    var colStatus = gridView1.Columns["status"];
+
+                    if (colCustomerId != null) colCustomerId.Width = 60;
+                    if (colFullName != null) colFullName.Width = 120;
+                    if (colCompanyName != null) colCompanyName.Width = 120;
+                    if (colEmail != null) colEmail.Width = 130;
+                    if (colPhone != null) colPhone.Width = 90;
+                    if (colAddress != null) colAddress.Width = 150;
+                    if (colCity != null) colCity.Width = 80;
+                    if (colGroupName != null) colGroupName.Width = 100;
+                    if (colStatus != null) colStatus.Width = 60;
+
                     // Create a PrintableComponentLink to print the grid
-                    DevExpress.XtraPrinting.PrintableComponentLink printLink = 
-                        new DevExpress.XtraPrinting.PrintableComponentLink(new DevExpress.XtraPrinting.PrintingSystem());
+                    PrintableComponentLink printLink = 
+                        new PrintableComponentLink(new DevExpress.XtraPrinting.PrintingSystem());
                     
                     printLink.Component = gridCustomers;
                     
-                    // Configure print settings
+                    // Configure print settings for dynamic column fitting
                     printLink.Landscape = true;
                     printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
                     
@@ -579,10 +651,12 @@ namespace POS.PAL.USERCONTROL
                     
                     // Create document
                     printLink.CreateDocument();
+                    
+                    // Auto-fit columns to page width
                     printLink.PrintingSystem.Document.AutoFitToPagesWidth = 1;
                     
                     // Add header
-                    DevExpress.XtraPrinting.PageHeaderFooter header = printLink.PageHeaderFooter as DevExpress.XtraPrinting.PageHeaderFooter;
+                    PageHeaderFooter header = printLink.PageHeaderFooter as PageHeaderFooter;
                     if (header != null)
                     {
                         header.Header.Content.Clear();
@@ -609,11 +683,20 @@ namespace POS.PAL.USERCONTROL
                     }
 
                     // Show print preview dialog with print options
-                    // This allows users to preview, select printer, adjust settings, etc.
                     printLink.ShowPreviewDialog();
                 }
                 finally
                 {
+                    // Restore original column widths
+                    foreach (var kvp in originalWidths)
+                    {
+                        var col = gridView1.Columns[kvp.Key];
+                        if (col != null)
+                        {
+                            col.Width = kvp.Value;
+                        }
+                    }
+
                     // Restore column visibility
                     if (editColumn != null) editColumn.Visible = editVisible;
                     if (deleteColumn != null) deleteColumn.Visible = deleteVisible;

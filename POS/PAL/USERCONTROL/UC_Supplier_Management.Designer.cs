@@ -30,20 +30,24 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Supplier_Management));
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject13 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject14 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject15 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject16 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
             panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
+            btnPrint = new DevExpress.XtraEditors.SimpleButton();
+            btnExportExcel = new DevExpress.XtraEditors.SimpleButton();
+            btnExportCSV = new DevExpress.XtraEditors.SimpleButton();
             txtSearch = new DevExpress.XtraEditors.TextEdit();
             btnSearch = new DevExpress.XtraEditors.SimpleButton();
             gridSuppliers = new DevExpress.XtraGrid.GridControl();
@@ -59,14 +63,8 @@
             btnAddSupplier = new DevExpress.XtraEditors.SimpleButton();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(components);
-            btnExportPDF = new DevExpress.XtraEditors.SimpleButton();
-            btnPrint = new DevExpress.XtraEditors.SimpleButton();
-            btnExportExcel = new DevExpress.XtraEditors.SimpleButton();
-            btnExportCSV = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
@@ -78,8 +76,6 @@
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Edit).BeginInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Delete).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
-            panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)behaviorManager1).BeginInit();
             SuspendLayout();
@@ -105,7 +101,6 @@
             panelControl2.Controls.Add(panelControl4);
             panelControl2.Controls.Add(labelControl7);
             panelControl2.Controls.Add(labelControl14);
-            panelControl2.Controls.Add(panelControl3);
             panelControl2.Controls.Add(separatorControl1);
             panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             panelControl2.Location = new System.Drawing.Point(0, 0);
@@ -117,7 +112,7 @@
             // 
             labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Location = new System.Drawing.Point(13, 126);
+            labelControl8.Location = new System.Drawing.Point(14, 64);
             labelControl8.Name = "labelControl8";
             labelControl8.Padding = new System.Windows.Forms.Padding(0, 10, 0, 10);
             labelControl8.Size = new System.Drawing.Size(114, 40);
@@ -139,10 +134,67 @@
             panelControl4.Controls.Add(btnSearch);
             panelControl4.Controls.Add(gridSuppliers);
             panelControl4.Controls.Add(btnAddSupplier);
-            panelControl4.Location = new System.Drawing.Point(14, 172);
+            panelControl4.Location = new System.Drawing.Point(15, 110);
             panelControl4.Name = "panelControl4";
-            panelControl4.Size = new System.Drawing.Size(1894, 818);
+            panelControl4.Size = new System.Drawing.Size(1894, 872);
             panelControl4.TabIndex = 116;
+            // 
+            // btnExportPDF
+            // 
+            btnExportPDF.Appearance.BackColor = System.Drawing.Color.White;
+            btnExportPDF.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnExportPDF.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnExportPDF.Appearance.Options.UseBackColor = true;
+            btnExportPDF.Appearance.Options.UseFont = true;
+            btnExportPDF.Appearance.Options.UseForeColor = true;
+            btnExportPDF.Location = new System.Drawing.Point(1673, 31);
+            btnExportPDF.Name = "btnExportPDF";
+            btnExportPDF.Size = new System.Drawing.Size(100, 29);
+            btnExportPDF.TabIndex = 116;
+            btnExportPDF.Text = "Export PDF";
+            // 
+            // btnPrint
+            // 
+            btnPrint.Appearance.BackColor = System.Drawing.Color.White;
+            btnPrint.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnPrint.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnPrint.Appearance.Options.UseBackColor = true;
+            btnPrint.Appearance.Options.UseFont = true;
+            btnPrint.Appearance.Options.UseForeColor = true;
+            btnPrint.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            btnPrint.Location = new System.Drawing.Point(1355, 31);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new System.Drawing.Size(100, 29);
+            btnPrint.TabIndex = 115;
+            btnPrint.Text = "Print";
+            // 
+            // btnExportExcel
+            // 
+            btnExportExcel.Appearance.BackColor = System.Drawing.Color.White;
+            btnExportExcel.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnExportExcel.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnExportExcel.Appearance.Options.UseBackColor = true;
+            btnExportExcel.Appearance.Options.UseFont = true;
+            btnExportExcel.Appearance.Options.UseForeColor = true;
+            btnExportExcel.Location = new System.Drawing.Point(1567, 31);
+            btnExportExcel.Name = "btnExportExcel";
+            btnExportExcel.Size = new System.Drawing.Size(100, 29);
+            btnExportExcel.TabIndex = 114;
+            btnExportExcel.Text = "Export Excel";
+            // 
+            // btnExportCSV
+            // 
+            btnExportCSV.Appearance.BackColor = System.Drawing.Color.White;
+            btnExportCSV.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnExportCSV.Appearance.ForeColor = System.Drawing.Color.Black;
+            btnExportCSV.Appearance.Options.UseBackColor = true;
+            btnExportCSV.Appearance.Options.UseFont = true;
+            btnExportCSV.Appearance.Options.UseForeColor = true;
+            btnExportCSV.Location = new System.Drawing.Point(1461, 31);
+            btnExportCSV.Name = "btnExportCSV";
+            btnExportCSV.Size = new System.Drawing.Size(100, 29);
+            btnExportCSV.TabIndex = 113;
+            btnExportCSV.Text = "Export CSV";
             // 
             // txtSearch
             // 
@@ -175,7 +227,7 @@
             gridSuppliers.MainView = gridView1;
             gridSuppliers.Name = "gridSuppliers";
             gridSuppliers.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { repositoryItemButtonEdit_Edit, repositoryItemButtonEdit_Delete });
-            gridSuppliers.Size = new System.Drawing.Size(1840, 716);
+            gridSuppliers.Size = new System.Drawing.Size(1840, 791);
             gridSuppliers.TabIndex = 18;
             gridSuppliers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
             // 
@@ -248,14 +300,14 @@
             // repositoryItemButtonEdit_Edit
             // 
             repositoryItemButtonEdit_Edit.AutoHeight = false;
-            repositoryItemButtonEdit_Edit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "Edit", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            repositoryItemButtonEdit_Edit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "Edit", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             repositoryItemButtonEdit_Edit.Name = "repositoryItemButtonEdit_Edit";
             repositoryItemButtonEdit_Edit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
             // repositoryItemButtonEdit_Delete
             // 
             repositoryItemButtonEdit_Delete.AutoHeight = false;
-            repositoryItemButtonEdit_Delete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject13, serializableAppearanceObject14, serializableAppearanceObject15, serializableAppearanceObject16, "Delete", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            repositoryItemButtonEdit_Delete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "Delete", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             repositoryItemButtonEdit_Delete.Name = "repositoryItemButtonEdit_Delete";
             repositoryItemButtonEdit_Delete.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
@@ -297,94 +349,13 @@
             labelControl14.TabIndex = 114;
             labelControl14.Text = "Suppliers";
             // 
-            // panelControl3
-            // 
-            panelControl3.Appearance.BackColor = System.Drawing.Color.White;
-            panelControl3.Appearance.Options.UseBackColor = true;
-            panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl3.Controls.Add(simpleButton1);
-            panelControl3.Location = new System.Drawing.Point(14, 59);
-            panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(1894, 61);
-            panelControl3.TabIndex = 113;
-            // 
-            // simpleButton1
-            // 
-            simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            simpleButton1.Appearance.Options.UseFont = true;
-            simpleButton1.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("simpleButton1.ImageOptions.Image");
-            simpleButton1.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            simpleButton1.Location = new System.Drawing.Point(10, 5);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            simpleButton1.Size = new System.Drawing.Size(231, 51);
-            simpleButton1.TabIndex = 0;
-            simpleButton1.Text = "Filter";
-            // 
             // separatorControl1
             // 
             separatorControl1.BackColor = System.Drawing.Color.Transparent;
-            separatorControl1.Location = new System.Drawing.Point(141, 135);
+            separatorControl1.Location = new System.Drawing.Point(142, 73);
             separatorControl1.Name = "separatorControl1";
             separatorControl1.Size = new System.Drawing.Size(1767, 23);
             separatorControl1.TabIndex = 118;
-            // 
-            // btnExportPDF
-            // 
-            btnExportPDF.Appearance.BackColor = System.Drawing.Color.White;
-            btnExportPDF.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            btnExportPDF.Appearance.ForeColor = System.Drawing.Color.Black;
-            btnExportPDF.Appearance.Options.UseBackColor = true;
-            btnExportPDF.Appearance.Options.UseFont = true;
-            btnExportPDF.Appearance.Options.UseForeColor = true;
-            btnExportPDF.Location = new System.Drawing.Point(1673, 31);
-            btnExportPDF.Name = "btnExportPDF";
-            btnExportPDF.Size = new System.Drawing.Size(100, 29);
-            btnExportPDF.TabIndex = 116;
-            btnExportPDF.Text = "Export PDF";
-            // 
-            // btnPrint
-            // 
-            btnPrint.Appearance.BackColor = System.Drawing.Color.White;
-            btnPrint.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            btnPrint.Appearance.ForeColor = System.Drawing.Color.Black;
-            btnPrint.Appearance.Options.UseBackColor = true;
-            btnPrint.Appearance.Options.UseFont = true;
-            btnPrint.Appearance.Options.UseForeColor = true;
-            btnPrint.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            btnPrint.Location = new System.Drawing.Point(1355, 31);
-            btnPrint.Name = "btnPrint";
-            btnPrint.Size = new System.Drawing.Size(100, 29);
-            btnPrint.TabIndex = 115;
-            btnPrint.Text = "Print";
-            // 
-            // btnExportExcel
-            // 
-            btnExportExcel.Appearance.BackColor = System.Drawing.Color.White;
-            btnExportExcel.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            btnExportExcel.Appearance.ForeColor = System.Drawing.Color.Black;
-            btnExportExcel.Appearance.Options.UseBackColor = true;
-            btnExportExcel.Appearance.Options.UseFont = true;
-            btnExportExcel.Appearance.Options.UseForeColor = true;
-            btnExportExcel.Location = new System.Drawing.Point(1567, 31);
-            btnExportExcel.Name = "btnExportExcel";
-            btnExportExcel.Size = new System.Drawing.Size(100, 29);
-            btnExportExcel.TabIndex = 114;
-            btnExportExcel.Text = "Export Excel";
-            // 
-            // btnExportCSV
-            // 
-            btnExportCSV.Appearance.BackColor = System.Drawing.Color.White;
-            btnExportCSV.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
-            btnExportCSV.Appearance.ForeColor = System.Drawing.Color.Black;
-            btnExportCSV.Appearance.Options.UseBackColor = true;
-            btnExportCSV.Appearance.Options.UseFont = true;
-            btnExportCSV.Appearance.Options.UseForeColor = true;
-            btnExportCSV.Location = new System.Drawing.Point(1461, 31);
-            btnExportCSV.Name = "btnExportCSV";
-            btnExportCSV.Size = new System.Drawing.Size(100, 29);
-            btnExportCSV.TabIndex = 113;
-            btnExportCSV.Text = "Export CSV";
             // 
             // UC_Supplier_Management
             // 
@@ -405,8 +376,6 @@
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Edit).EndInit();
             ((System.ComponentModel.ISupportInitialize)repositoryItemButtonEdit_Delete).EndInit();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
-            panelControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)behaviorManager1).EndInit();
             ResumeLayout(false);
@@ -432,8 +401,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.LabelControl labelControl14;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SimpleButton btnSearch;
         private DevExpress.Utils.Behaviors.BehaviorManager behaviorManager1;
         private DevExpress.XtraEditors.TextEdit txtSearch;

@@ -173,7 +173,17 @@ namespace POS.DAL
                     postal_code, 
                     status
                 FROM Store
-                WHERE status = 'A' AND (store_name LIKE @keyword OR phone LIKE @keyword OR email LIKE @keyword OR city LIKE @keyword)";
+                WHERE status = 'A' AND (
+                    CAST(store_id AS NVARCHAR) LIKE @keyword OR 
+                    store_name LIKE @keyword OR 
+                    phone LIKE @keyword OR 
+                    email LIKE @keyword OR 
+                    address LIKE @keyword OR 
+                    city LIKE @keyword OR 
+                    state LIKE @keyword OR 
+                    country LIKE @keyword OR 
+                    postal_code LIKE @keyword
+                )";
 
             SqlParameter[] parameters = {
                 new SqlParameter("@keyword", "%" + keyword + "%")
