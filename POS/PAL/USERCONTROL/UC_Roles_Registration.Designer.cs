@@ -33,7 +33,6 @@
             checkEditEditUnits = new DevExpress.XtraEditors.CheckEdit();
             separatorControl20 = new DevExpress.XtraEditors.SeparatorControl();
             checkEditSelectAllHome = new DevExpress.XtraEditors.CheckEdit();
-            checkEditViewHome = new DevExpress.XtraEditors.CheckEdit();
             labelControl24 = new DevExpress.XtraEditors.LabelControl();
             checkEditViewBusinessLocations = new DevExpress.XtraEditors.CheckEdit();
             separatorControl19 = new DevExpress.XtraEditors.SeparatorControl();
@@ -58,11 +57,11 @@
             checkEditAccesstoSalesTerminal = new DevExpress.XtraEditors.CheckEdit();
             labelControl21 = new DevExpress.XtraEditors.LabelControl();
             separatorControl17 = new DevExpress.XtraEditors.SeparatorControl();
-            this.checkEditAssignDiscounts = new DevExpress.XtraEditors.CheckEdit();
+            checkEditAssignDiscounts = new DevExpress.XtraEditors.CheckEdit();
             separatorControl16 = new DevExpress.XtraEditors.SeparatorControl();
-            this.checkEditAddDiscounts = new DevExpress.XtraEditors.CheckEdit();
+            checkEditAddDiscounts = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllDiscounts = new DevExpress.XtraEditors.CheckEdit();
-            this.checkEditViewDiscounts = new DevExpress.XtraEditors.CheckEdit();
+            checkEditViewDiscounts = new DevExpress.XtraEditors.CheckEdit();
             labelControl20 = new DevExpress.XtraEditors.LabelControl();
             separatorControl15 = new DevExpress.XtraEditors.SeparatorControl();
             checkEditAddSellReturns = new DevExpress.XtraEditors.CheckEdit();
@@ -163,13 +162,13 @@
             regBtn = new System.Windows.Forms.Button();
             backBtn2 = new System.Windows.Forms.Button();
             labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            checkEditViewDashboard = new DevExpress.XtraEditors.CheckEdit();
             xtraScrollableControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)checkEditEditUnits.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl20).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllHome.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewHome.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewBusinessLocations.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl19).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewTables.Properties).BeginInit();
@@ -190,11 +189,11 @@
             ((System.ComponentModel.ISupportInitialize)checkEdit42.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditAccesstoSalesTerminal.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl17).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)this.checkEditAssignDiscounts.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditAssignDiscounts.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl16).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)this.checkEditAddDiscounts.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditAddDiscounts.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllDiscounts.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)this.checkEditViewDiscounts.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewDiscounts.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl15).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditAddSellReturns.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllSellReturns.Properties).BeginInit();
@@ -273,6 +272,7 @@
             ((System.ComponentModel.ISupportInitialize)checkEditViewExportButtons.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtRoleName.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewDashboard.Properties).BeginInit();
             SuspendLayout();
             // 
             // xtraScrollableControl1
@@ -294,10 +294,10 @@
             panelControl1.Appearance.BackColor = System.Drawing.Color.White;
             panelControl1.Appearance.Options.UseBackColor = true;
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl1.Controls.Add(checkEditViewDashboard);
             panelControl1.Controls.Add(checkEditEditUnits);
             panelControl1.Controls.Add(separatorControl20);
             panelControl1.Controls.Add(checkEditSelectAllHome);
-            panelControl1.Controls.Add(checkEditViewHome);
             panelControl1.Controls.Add(labelControl24);
             panelControl1.Controls.Add(checkEditViewBusinessLocations);
             panelControl1.Controls.Add(separatorControl19);
@@ -322,11 +322,11 @@
             panelControl1.Controls.Add(checkEditAccesstoSalesTerminal);
             panelControl1.Controls.Add(labelControl21);
             panelControl1.Controls.Add(separatorControl17);
-            panelControl1.Controls.Add(this.checkEditAssignDiscounts);
+            panelControl1.Controls.Add(checkEditAssignDiscounts);
             panelControl1.Controls.Add(separatorControl16);
-            panelControl1.Controls.Add(this.checkEditAddDiscounts);
+            panelControl1.Controls.Add(checkEditAddDiscounts);
             panelControl1.Controls.Add(checkEditSelectAllDiscounts);
-            panelControl1.Controls.Add(this.checkEditViewDiscounts);
+            panelControl1.Controls.Add(checkEditViewDiscounts);
             panelControl1.Controls.Add(labelControl20);
             panelControl1.Controls.Add(separatorControl15);
             panelControl1.Controls.Add(checkEditAddSellReturns);
@@ -440,7 +440,7 @@
             // separatorControl20
             // 
             separatorControl20.BackColor = System.Drawing.Color.Transparent;
-            separatorControl20.Location = new System.Drawing.Point(154, 2406);
+            separatorControl20.Location = new System.Drawing.Point(168, 2405);
             separatorControl20.Name = "separatorControl20";
             separatorControl20.Size = new System.Drawing.Size(1366, 23);
             separatorControl20.TabIndex = 315;
@@ -453,14 +453,6 @@
             checkEditSelectAllHome.Properties.Name = "checkEditSelectAllDiscounts";
             checkEditSelectAllHome.Size = new System.Drawing.Size(125, 20);
             checkEditSelectAllHome.TabIndex = 314;
-            // 
-            // checkEditViewHome
-            // 
-            checkEditViewHome.Location = new System.Drawing.Point(845, 2380);
-            checkEditViewHome.Name = "checkEditViewHome";
-            checkEditViewHome.Properties.Caption = "View Home";
-            checkEditViewHome.Size = new System.Drawing.Size(376, 20);
-            checkEditViewHome.TabIndex = 313;
             // 
             // labelControl24
             // 
@@ -666,11 +658,11 @@
             // 
             // checkEditAssignDiscounts
             // 
-            this.checkEditAssignDiscounts.Location = new System.Drawing.Point(845, 1911);
-            this.checkEditAssignDiscounts.Name = "checkEditAssignDiscounts";
-            this.checkEditAssignDiscounts.Properties.Caption = "Assign Discounts";
-            this.checkEditAssignDiscounts.Size = new System.Drawing.Size(376, 20);
-            this.checkEditAssignDiscounts.TabIndex = 286;
+            checkEditAssignDiscounts.Location = new System.Drawing.Point(845, 1911);
+            checkEditAssignDiscounts.Name = "checkEditAssignDiscounts";
+            checkEditAssignDiscounts.Properties.Caption = "Assign Discounts";
+            checkEditAssignDiscounts.Size = new System.Drawing.Size(376, 20);
+            checkEditAssignDiscounts.TabIndex = 286;
             // 
             // separatorControl16
             // 
@@ -682,11 +674,11 @@
             // 
             // checkEditAddDiscounts
             // 
-            this.checkEditAddDiscounts.Location = new System.Drawing.Point(845, 1937);
-            this.checkEditAddDiscounts.Name = "checkEditAddDiscounts";
-            this.checkEditAddDiscounts.Properties.Caption = "Add Discounts";
-            this.checkEditAddDiscounts.Size = new System.Drawing.Size(376, 20);
-            this.checkEditAddDiscounts.TabIndex = 284;
+            checkEditAddDiscounts.Location = new System.Drawing.Point(845, 1937);
+            checkEditAddDiscounts.Name = "checkEditAddDiscounts";
+            checkEditAddDiscounts.Properties.Caption = "Add Discounts";
+            checkEditAddDiscounts.Size = new System.Drawing.Size(376, 20);
+            checkEditAddDiscounts.TabIndex = 284;
             // 
             // checkEditSelectAllDiscounts
             // 
@@ -699,11 +691,11 @@
             // 
             // checkEditViewDiscounts
             // 
-            this.checkEditViewDiscounts.Location = new System.Drawing.Point(845, 1885);
-            this.checkEditViewDiscounts.Name = "checkEditViewDiscounts";
-            this.checkEditViewDiscounts.Properties.Caption = "View Discounts";
-            this.checkEditViewDiscounts.Size = new System.Drawing.Size(376, 20);
-            this.checkEditViewDiscounts.TabIndex = 280;
+            checkEditViewDiscounts.Location = new System.Drawing.Point(845, 1885);
+            checkEditViewDiscounts.Name = "checkEditViewDiscounts";
+            checkEditViewDiscounts.Properties.Caption = "View Discounts";
+            checkEditViewDiscounts.Size = new System.Drawing.Size(376, 20);
+            checkEditViewDiscounts.TabIndex = 280;
             // 
             // labelControl20
             // 
@@ -1555,6 +1547,14 @@
             labelControl3.TabIndex = 119;
             labelControl3.Text = "Role Registration";
             // 
+            // checkEditViewDashboard
+            // 
+            checkEditViewDashboard.Location = new System.Drawing.Point(845, 2380);
+            checkEditViewDashboard.Name = "checkEditViewDashboard";
+            checkEditViewDashboard.Properties.Caption = "View Dashboard";
+            checkEditViewDashboard.Size = new System.Drawing.Size(376, 20);
+            checkEditViewDashboard.TabIndex = 317;
+            // 
             // UC_Roles_Registration
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1570,7 +1570,6 @@
             ((System.ComponentModel.ISupportInitialize)checkEditEditUnits.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl20).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllHome.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewHome.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewBusinessLocations.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl19).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewTables.Properties).EndInit();
@@ -1591,11 +1590,11 @@
             ((System.ComponentModel.ISupportInitialize)checkEdit42.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditAccesstoSalesTerminal.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl17).EndInit();
-            ((System.ComponentModel.ISupportInitialize)this.checkEditAssignDiscounts.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditAssignDiscounts.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl16).EndInit();
-            ((System.ComponentModel.ISupportInitialize)this.checkEditAddDiscounts.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditAddDiscounts.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllDiscounts.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)this.checkEditViewDiscounts.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewDiscounts.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl15).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditAddSellReturns.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllSellReturns.Properties).EndInit();
@@ -1674,6 +1673,7 @@
             ((System.ComponentModel.ISupportInitialize)checkEditViewExportButtons.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtRoleName.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewDashboard.Properties).EndInit();
             ResumeLayout(false);
         }
 
@@ -1808,7 +1808,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl22;
         private DevExpress.XtraEditors.SeparatorControl separatorControl20;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllHome;
-        private DevExpress.XtraEditors.CheckEdit checkEditViewHome;
         private DevExpress.XtraEditors.LabelControl labelControl24;
         private DevExpress.XtraEditors.CheckEdit checkEditViewBusinessLocations;
         private DevExpress.XtraEditors.SeparatorControl separatorControl19;
@@ -1817,5 +1816,6 @@
         private DevExpress.XtraEditors.CheckEdit checkEditViewBusinessSettings;
         private DevExpress.XtraEditors.LabelControl labelControl23;
         private DevExpress.XtraEditors.CheckEdit checkEditEditUnits;
+        private DevExpress.XtraEditors.CheckEdit checkEditViewDashboard;
     }
 }

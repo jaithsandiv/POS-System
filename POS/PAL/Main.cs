@@ -522,7 +522,16 @@ namespace POS
         // Sidebar button click handlers
         private void btnHome_Click(object sender, EventArgs e)
         {
-            Main.Instance.LoadUserControl(new UC_Dashboard());
+            // Check if user has VIEW_DASHBOARD permission
+            if (BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_DASHBOARD))
+            {
+                Main.Instance.LoadUserControl(new UC_Dashboard());
+            }
+            else
+            {
+                // If no dashboard permission, show business logo form
+                Main.Instance.LoadUserControl(new UC_BusinessLogo());
+            }
         }
 
         private void btnUserManagement_Click(object sender, EventArgs e)

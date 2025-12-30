@@ -104,7 +104,7 @@ namespace POS.PAL.USERCONTROL
                 checkEditViewBusinessSettings, checkEditViewTables, checkEditViewBusinessLocations);
             
             checkEditSelectAllHome.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllHome, 
-                checkEditViewHome);
+                checkEditViewDashboard);
         }
 
         /// <summary>
@@ -267,8 +267,8 @@ namespace POS.PAL.USERCONTROL
             checkEditViewTables.Checked = permissions.Contains("VIEW_TABLES");
             checkEditViewBusinessLocations.Checked = permissions.Contains("VIEW_BUSINESS_LOCATIONS");
 
-            // Home
-            checkEditViewHome.Checked = permissions.Contains("VIEW_HOME");
+            // Dashboard
+            checkEditViewDashboard.Checked = permissions.Contains("VIEW_DASHBOARD");
         }
 
         /// <summary>
@@ -380,8 +380,8 @@ namespace POS.PAL.USERCONTROL
             if (checkEditViewTables.Checked) permissions.Add("VIEW_TABLES");
             if (checkEditViewBusinessLocations.Checked) permissions.Add("VIEW_BUSINESS_LOCATIONS");
 
-            // Home
-            if (checkEditViewHome.Checked) permissions.Add("VIEW_HOME");
+            // Dashboard
+            if (checkEditViewDashboard.Checked) permissions.Add("VIEW_DASHBOARD");
 
             return permissions;
         }

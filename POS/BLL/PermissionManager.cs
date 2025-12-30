@@ -124,8 +124,8 @@ namespace POS.BLL
         // Permission Constants
         public static class Permissions
         {
-            // Home
-            public const string VIEW_HOME = "VIEW_HOME";
+            // Dashboard
+            public const string VIEW_DASHBOARD = "VIEW_DASHBOARD";
 
             // Users
             public const string VIEW_USERS = "VIEW_USERS";

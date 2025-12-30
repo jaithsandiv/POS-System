@@ -56,8 +56,19 @@ namespace POS.PAL.USERCONTROL
                 // Update user first name in the main form
                 Main.Instance.UpdateUserFirstName();
                 
-                UC_Dashboard dashboard = new UC_Dashboard();
-                Main.Instance.LoadUserControl(dashboard, hideNavigation: false);
+                // Check if user has VIEW_DASHBOARD permission
+                if (BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_DASHBOARD))
+                {
+                    // User has dashboard permission - show dashboard
+                    UC_Dashboard dashboard = new UC_Dashboard();
+                    Main.Instance.LoadUserControl(dashboard, hideNavigation: false);
+                }
+                else
+                {
+                    // User doesn't have dashboard permission - show business logo
+                    UC_BusinessLogo businessLogo = new UC_BusinessLogo();
+                    Main.Instance.LoadUserControl(businessLogo, hideNavigation: false);
+                }
             }
             else
             {
