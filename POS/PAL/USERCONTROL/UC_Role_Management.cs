@@ -18,6 +18,8 @@ namespace POS.PAL.USERCONTROL
 {
     public partial class UC_Role_Management : DevExpress.XtraEditors.XtraUserControl
     {
+        private const int ADMIN_ROLE_ID = 1; // Super Admin role ID - cannot be edited or deleted
+        
         private DataTable rolesTable;
         private RepositoryItemButtonEdit repositoryItemButtonEdit_Edit;
         private RepositoryItemButtonEdit repositoryItemButtonEdit_Delete;
@@ -25,11 +27,45 @@ namespace POS.PAL.USERCONTROL
         public UC_Role_Management()
         {
             InitializeComponent();
+            
+            // Check permission to view roles
+            if (!PermissionManager.HasPermission(PermissionManager.Permissions.VIEW_ROLES))
+            {
+                XtraMessageBox.Show(
+                    "You do not have permission to view roles.",
+                    "Access Denied",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                Main.Instance.LoadUserControl(new UC_Dashboard());
+                return;
+            }
+            
             InitializeRepositoryItems();
             ConfigureGrid();
             LoadRoles();
             InitializeSearchControl();
             InitializeExportButtons();
+            
+            // Apply permission-based button visibility
+            ApplyPermissionBasedVisibility();
+        }
+        
+        /// <summary>
+        /// Apply permission-based visibility to buttons
+        /// </summary>
+        private void ApplyPermissionBasedVisibility()
+        {
+            // Hide Add button if user doesn't have ADD_ROLES permission
+            if (btnAddRoles != null)
+                btnAddRoles.Visible = PermissionManager.HasPermission(PermissionManager.Permissions.ADD_ROLES);
+                
+            // Hide export buttons if user doesn't have VIEW_EXPORT_BUTTONS permission
+            bool canExport = PermissionManager.HasPermission(PermissionManager.Permissions.VIEW_EXPORT_BUTTONS);
+            if (btnExportCSV != null) btnExportCSV.Visible = canExport;
+            if (btnExportExcel != null) btnExportExcel.Visible = canExport;
+            if (btnExportPDF != null) btnExportPDF.Visible = canExport;
+            if (btnPrint != null) btnPrint.Visible = canExport;
         }
 
         /// <summary>
@@ -148,6 +184,37 @@ namespace POS.PAL.USERCONTROL
 
             // Add context menu for Edit and Delete
             CreateContextMenu();
+            
+            // Handle custom row cell style to disable buttons for Admin role
+            gridView1.CustomRowCellEdit += GridView1_CustomRowCellEdit;
+        }
+
+        /// <summary>
+        /// Customizes cell editors for specific rows (disables Edit/Delete for Admin role)
+        /// </summary>
+        private void GridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
+        {
+            if (e.Column.FieldName == "Edit" || e.Column.FieldName == "Delete")
+            {
+                DataRow row = gridView1.GetDataRow(e.RowHandle);
+                if (row != null)
+                {
+                    int roleId = Convert.ToInt32(row["role_id"]);
+                    if (roleId == ADMIN_ROLE_ID)
+                    {
+                        // Create a disabled button editor for Admin role
+                        RepositoryItemButtonEdit disabledButtonEdit = new RepositoryItemButtonEdit();
+                        disabledButtonEdit.Buttons.Clear();
+                        var button = new EditorButton(ButtonPredefines.Glyph);
+                        button.Enabled = false;
+                        disabledButtonEdit.Buttons.Add(button);
+                        disabledButtonEdit.TextEditStyle = TextEditStyles.HideTextEditor;
+                        disabledButtonEdit.ReadOnly = true;
+                        
+                        e.RepositoryItem = disabledButtonEdit;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -375,6 +442,18 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
+                // Check EDIT_ROLES permission
+                if (!PermissionManager.HasPermission(PermissionManager.Permissions.EDIT_ROLES))
+                {
+                    XtraMessageBox.Show(
+                        "You do not have permission to edit roles.",
+                        "Access Denied",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+                
                 if (gridView1.FocusedRowHandle < 0)
                 {
                     XtraMessageBox.Show("Please select a role to edit.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -386,6 +465,18 @@ namespace POS.PAL.USERCONTROL
                     return;
 
                 int roleId = Convert.ToInt32(selectedRow["role_id"]);
+                
+                // Prevent editing Admin role
+                if (roleId == ADMIN_ROLE_ID)
+                {
+                    XtraMessageBox.Show(
+                        "The Admin role cannot be edited as it is a system role.",
+                        "Operation Not Allowed",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
 
                 // Navigate to role registration form in edit mode
                 var registrationForm = new UC_Roles_Registration(roleId);
@@ -409,6 +500,18 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
+                // Check DELETE_ROLES permission
+                if (!PermissionManager.HasPermission(PermissionManager.Permissions.DELETE_ROLES))
+                {
+                    XtraMessageBox.Show(
+                        "You do not have permission to delete roles.",
+                        "Access Denied",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+                
                 if (gridView1.FocusedRowHandle < 0)
                 {
                     XtraMessageBox.Show("Please select a role to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -421,6 +524,18 @@ namespace POS.PAL.USERCONTROL
 
                 int roleId = Convert.ToInt32(selectedRow["role_id"]);
                 string roleName = selectedRow["role_name"]?.ToString();
+                
+                // Prevent deleting Admin role
+                if (roleId == ADMIN_ROLE_ID)
+                {
+                    XtraMessageBox.Show(
+                        "The Admin role cannot be deleted as it is a system role.",
+                        "Operation Not Allowed",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
 
                 // Confirm deletion
                 var result = XtraMessageBox.Show(
@@ -775,6 +890,18 @@ namespace POS.PAL.USERCONTROL
 
         private void btnAddRoles_Click(object sender, EventArgs e)
         {
+            // Check ADD_ROLES permission
+            if (!PermissionManager.HasPermission(PermissionManager.Permissions.ADD_ROLES))
+            {
+                XtraMessageBox.Show(
+                    "You do not have permission to add roles.",
+                    "Access Denied",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+            
             Main.Instance.LoadUserControl(new UC_Roles_Registration());
         }
     }

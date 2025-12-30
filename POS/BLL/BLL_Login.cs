@@ -94,9 +94,11 @@ namespace POS.BLL
                     }
                 }
 
+                // Load user data into dataset
                 Main.DataSetApp.User.Clear();
                 Main.DataSetApp.User.ImportRow(userRow);
 
+                // Load role permissions into dataset
                 string roleId = userRow["role_id"].ToString();
                 DataTable rolePermissions = _dalLogin.GetRolePermissionsByRoleId(roleId);
                 Main.DataSetApp.RolePermission.Clear();
@@ -105,6 +107,7 @@ namespace POS.BLL
                     Main.DataSetApp.RolePermission.ImportRow(rolePermissionRow);
                 }
         
+                // Load store data into dataset
                 string storeId = userRow["store_id"].ToString();
                 DataTable storeData = _dalLogin.GetStoreByStoreId(storeId);
                 Main.DataSetApp.Store.Clear();
@@ -112,6 +115,9 @@ namespace POS.BLL
                 {
                     Main.DataSetApp.Store.ImportRow(storeRow);
                 }
+
+                // Initialize permission manager with user's permissions
+                PermissionManager.LoadUserPermissions();
 
                 // Log successful login
                 int userId = Convert.ToInt32(userRow["user_id"]);

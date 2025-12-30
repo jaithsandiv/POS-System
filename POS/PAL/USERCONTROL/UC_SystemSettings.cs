@@ -59,6 +59,17 @@ namespace POS.PAL.USERCONTROL
             if (grpLicense != null)
             {
                 grpLicense.Visible = _isSuperAdmin;
+                grpLicense.Enabled = _isSuperAdmin;
+                
+                // Additionally, ensure all controls within the license group are disabled for non-super admins
+                if (!_isSuperAdmin)
+                {
+                    tsEnableTrial.Enabled = false;
+                    txtTrialStartDate.Enabled = false;
+                    txtTrialEndDate.Enabled = false;
+                    txtTrialDays.Enabled = false;
+                    chkIsLicensed.Enabled = false;
+                }
             }
         }
 
@@ -332,6 +343,12 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
+                // Double-check super admin permission before saving license settings
+                if (!_isSuperAdmin)
+                {
+                    throw new UnauthorizedAccessException("Only Super Admin users can modify license settings.");
+                }
+                
                 bool enableTrial = tsEnableTrial.IsOn;
                 int trialDays = 3; // Default
                 
@@ -394,6 +411,10 @@ namespace POS.PAL.USERCONTROL
                 {
                     throw new Exception("Failed to update license settings in the database.");
                 }
+            }
+            catch (UnauthorizedAccessException uaEx)
+            {
+                throw new Exception($"Access Denied: {uaEx.Message}", uaEx);
             }
             catch (Exception ex)
             {

@@ -223,16 +223,258 @@ namespace POS
             if (!hideNavigation)
             {
                 UpdateUserFirstName();
+                ApplyPermissionBasedVisibility();
             }
         }
 
         /// <summary>
-        /// Legacy method for backward compatibility - redirects to LoadUserControl
+        /// Apply permission-based visibility to all menu items and buttons
         /// </summary>
-        [Obsolete("Use LoadUserControl instead")]
-        public void SwitchToControl(UserControl control)
+        private void ApplyPermissionBasedVisibility()
         {
-            LoadUserControl(control);
+            try
+            {
+                // Suspend layout to prevent flickering
+                panelSideBar.SuspendLayout();
+
+                // User Management
+                bool hasUserPermissions = BLL.PermissionManager.HasAnyPermission(
+                    BLL.PermissionManager.Permissions.VIEW_USERS,
+                    BLL.PermissionManager.Permissions.VIEW_ROLES);
+                    
+                if (panelUserManagementHeader != null)
+                    panelUserManagementHeader.Visible = hasUserPermissions;
+                if (btnUserManagement != null)
+                    btnUserManagement.Visible = hasUserPermissions;
+
+                if (btnUsers != null)
+                    btnUsers.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_USERS);
+
+                if (btnRoles != null)
+                    btnRoles.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_ROLES);
+
+                // Hide submenu panel if no child buttons are visible
+                if (panelUserManagementSubmenu != null)
+                {
+                    bool hasVisibleChildren = false;
+                    foreach (Control ctrl in panelUserManagementSubmenu.Controls)
+                    {
+                        if (ctrl.Visible) { hasVisibleChildren = true; break; }
+                    }
+                    if (!hasVisibleChildren) panelUserManagementSubmenu.Visible = false;
+                }
+
+                // Contacts
+                bool hasContactPermissions = BLL.PermissionManager.HasAnyPermission(
+                    BLL.PermissionManager.Permissions.VIEW_SUPPLIERS,
+                    BLL.PermissionManager.Permissions.VIEW_CUSTOMERS,
+                    BLL.PermissionManager.Permissions.VIEW_CUSTOMER_GROUPS);
+                    
+                if (panelContactsHeader != null)
+                    panelContactsHeader.Visible = hasContactPermissions;
+                if (btnContacts != null)
+                    btnContacts.Visible = hasContactPermissions;
+
+                if (btnSuppliers != null)
+                    btnSuppliers.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_SUPPLIERS);
+
+                if (btnCustomers != null)
+                    btnCustomers.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_CUSTOMERS);
+
+                if (btnCustomerGroups != null)
+                    btnCustomerGroups.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_CUSTOMER_GROUPS);
+
+                if (panelContactsSubmenu != null)
+                {
+                    bool hasVisibleChildren = false;
+                    foreach (Control ctrl in panelContactsSubmenu.Controls)
+                    {
+                        if (ctrl.Visible) { hasVisibleChildren = true; break; }
+                    }
+                    if (!hasVisibleChildren) panelContactsSubmenu.Visible = false;
+                }
+
+                // Products
+                bool hasProductPermissions = BLL.PermissionManager.HasAnyPermission(
+                    BLL.PermissionManager.Permissions.VIEW_PRODUCTS,
+                    BLL.PermissionManager.Permissions.VIEW_CATEGORIES,
+                    BLL.PermissionManager.Permissions.VIEW_BRANDS,
+                    BLL.PermissionManager.Permissions.VIEW_UNITS,
+                    BLL.PermissionManager.Permissions.VIEW_PRINT_LABELS);
+                    
+                if (panelProductsHeader != null)
+                    panelProductsHeader.Visible = hasProductPermissions;
+                if (btnProducts != null)
+                    btnProducts.Visible = hasProductPermissions;
+
+                if (btnListProducts != null)
+                    btnListProducts.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_PRODUCTS);
+
+                if (btnAddProducts != null)
+                    btnAddProducts.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.ADD_PRODUCTS);
+
+                if (btnCategories != null)
+                    btnCategories.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_CATEGORIES);
+
+                if (btnBrands != null)
+                    btnBrands.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_BRANDS);
+
+                if (btnUnits != null)
+                    btnUnits.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_UNITS);
+
+                if (btnPrintLabels != null)
+                    btnPrintLabels.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_PRINT_LABELS);
+
+                if (panelProductsSubmenu != null)
+                {
+                    bool hasVisibleChildren = false;
+                    foreach (Control ctrl in panelProductsSubmenu.Controls)
+                    {
+                        if (ctrl.Visible) { hasVisibleChildren = true; break; }
+                    }
+                    if (!hasVisibleChildren) panelProductsSubmenu.Visible = false;
+                }
+
+                // Sell
+                bool hasSellPermissions = BLL.PermissionManager.HasAnyPermission(
+                    BLL.PermissionManager.Permissions.VIEW_SALES,
+                    BLL.PermissionManager.Permissions.VIEW_DRAFTS,
+                    BLL.PermissionManager.Permissions.VIEW_QUOTATIONS,
+                    BLL.PermissionManager.Permissions.VIEW_SELL_RETURNS,
+                    BLL.PermissionManager.Permissions.VIEW_DISCOUNTS);
+                    
+                if (panelSellHeader != null)
+                    panelSellHeader.Visible = hasSellPermissions;
+                if (btnSell != null)
+                    btnSell.Visible = hasSellPermissions;
+
+                if (btnAllSales != null)
+                    btnAllSales.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_SALES);
+
+                if (btnListDrafts != null)
+                    btnListDrafts.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_DRAFTS);
+
+                if (btnListQuotations != null)
+                    btnListQuotations.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_QUOTATIONS);
+
+                if (btnSellReturns != null)
+                    btnSellReturns.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_SELL_RETURNS);
+
+                if (btnDiscounts != null)
+                    btnDiscounts.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_DISCOUNTS);
+
+                if (panelSellSubmenu != null)
+                {
+                    bool hasVisibleChildren = false;
+                    foreach (Control ctrl in panelSellSubmenu.Controls)
+                    {
+                        if (ctrl.Visible) { hasVisibleChildren = true; break; }
+                    }
+                    if (!hasVisibleChildren) panelSellSubmenu.Visible = false;
+                }
+
+                // POS
+                if (btnPOS != null)
+                    btnPOS.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.ACCESS_SALES_TERMINAL);
+
+                // Reports
+                bool hasReportPermissions = BLL.PermissionManager.HasAnyPermission(
+                    BLL.PermissionManager.Permissions.VIEW_SUPPLIER_CUSTOMER_REPORT,
+                    BLL.PermissionManager.Permissions.VIEW_ITEMS_REPORT,
+                    BLL.PermissionManager.Permissions.VIEW_TRENDING_PRODUCTS,
+                    BLL.PermissionManager.Permissions.VIEW_STOCK_REPORT,
+                    BLL.PermissionManager.Permissions.VIEW_CUSTOMER_GROUP_REPORT,
+                    BLL.PermissionManager.Permissions.VIEW_PRODUCT_SELL_REPORT,
+                    BLL.PermissionManager.Permissions.VIEW_ACTIVITY_LOG,
+                    BLL.PermissionManager.Permissions.VIEW_TABLE_REPORT,
+                    BLL.PermissionManager.Permissions.VIEW_SALES_REPRESENTATIVE_REPORT,
+                    BLL.PermissionManager.Permissions.VIEW_SELL_PAYMENT_REPORT);
+                    
+                if (panelReportsHeader != null)
+                    panelReportsHeader.Visible = hasReportPermissions;
+                if (btnReports != null)
+                    btnReports.Visible = hasReportPermissions;
+
+                if (btnSupplierAndCustomerReport != null)
+                    btnSupplierAndCustomerReport.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_SUPPLIER_CUSTOMER_REPORT);
+
+                if (btnItemsReport != null)
+                    btnItemsReport.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_ITEMS_REPORT);
+
+                if (btnTrendingProducts != null)
+                    btnTrendingProducts.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_TRENDING_PRODUCTS);
+
+                if (btnStockReport != null)
+                    btnStockReport.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_STOCK_REPORT);
+
+                if (btnCustomerGroupReport != null)
+                    btnCustomerGroupReport.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_CUSTOMER_GROUP_REPORT);
+
+                if (btnProductSellReport != null)
+                    btnProductSellReport.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_PRODUCT_SELL_REPORT);
+
+                if (btnActivityLog != null)
+                    btnActivityLog.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_ACTIVITY_LOG);
+
+                if (btnTableReport != null)
+                    btnTableReport.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_TABLE_REPORT);
+
+                if (btnSalesRepresentativeReport != null)
+                    btnSalesRepresentativeReport.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_SALES_REPRESENTATIVE_REPORT);
+
+                if (btnSellPaymentReport != null)
+                    btnSellPaymentReport.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_SELL_PAYMENT_REPORT);
+
+                if (panelReportsSubmenu != null)
+                {
+                    bool hasVisibleChildren = false;
+                    foreach (Control ctrl in panelReportsSubmenu.Controls)
+                    {
+                        if (ctrl.Visible) { hasVisibleChildren = true; break; }
+                    }
+                    if (!hasVisibleChildren) panelReportsSubmenu.Visible = false;
+                }
+
+                // Settings
+                bool hasSettingsPermissions = BLL.PermissionManager.HasAnyPermission(
+                    BLL.PermissionManager.Permissions.VIEW_BUSINESS_SETTINGS,
+                    BLL.PermissionManager.Permissions.VIEW_TABLES,
+                    BLL.PermissionManager.Permissions.VIEW_BUSINESS_LOCATIONS);
+                    
+                if (panelSettingsHeader != null)
+                    panelSettingsHeader.Visible = hasSettingsPermissions;
+                if (btnSettings != null)
+                    btnSettings.Visible = hasSettingsPermissions;
+
+                if (btnBusinessSettings != null)
+                    btnBusinessSettings.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_BUSINESS_SETTINGS);
+
+                if (btnTables != null)
+                    btnTables.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_TABLES);
+
+                if (btnBusinessLocations != null)
+                    btnBusinessLocations.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_BUSINESS_LOCATIONS);
+
+                if (panelSettingsSubmenu != null)
+                {
+                    bool hasVisibleChildren = false;
+                    foreach (Control ctrl in panelSettingsSubmenu.Controls)
+                    {
+                        if (ctrl.Visible) { hasVisibleChildren = true; break; }
+                    }
+                    if (!hasVisibleChildren) panelSettingsSubmenu.Visible = false;
+                }
+
+                // Resume layout and force refresh
+                panelSideBar.ResumeLayout(true);
+                panelSideBar.PerformLayout();
+                panelSideBar.Refresh();
+            }
+            catch (Exception)
+            {
+                // If there's an error applying permissions, fail safely by showing all menus
+                panelSideBar.ResumeLayout(true);
+            }
         }
 
         private void btnToggleMenu_Click(object sender, EventArgs e)
@@ -453,6 +695,9 @@ namespace POS
                 // Clear user data
                 DataSetApp.User.Clear();
                 DataSetApp.RolePermission.Clear();
+                
+                // Clear permissions from PermissionManager
+                BLL.PermissionManager.ClearPermissions();
 
                 // Load login screen
                 UC_Login login = new UC_Login();
