@@ -42,7 +42,7 @@ namespace POS.PAL.USERCONTROL
                 txtSearch.Properties.ShowNullValuePromptWhenFocused = true;
                 txtSearch.KeyPress += TxtSearch_KeyPress;
             }
-            
+
             if (btnSearch != null)
                 btnSearch.Click += btnSearch_Click;
         }
@@ -66,13 +66,13 @@ namespace POS.PAL.USERCONTROL
         {
             if (btnExportCSV != null)
                 btnExportCSV.Click += BtnExportCSV_Click;
-            
+
             if (btnExportExcel != null)
                 btnExportExcel.Click += BtnExportExcel_Click;
-            
+
             if (btnExportPDF != null)
                 btnExportPDF.Click += BtnExportPDF_Click;
-            
+
             if (btnPrint != null)
                 btnPrint.Click += BtnPrint_Click;
         }
@@ -113,20 +113,20 @@ namespace POS.PAL.USERCONTROL
 
                 // Create a filtered view based on search text
                 DataView dataView = new DataView(saleReturnsTable);
-                
+
                 // Build filter expression to search across multiple columns
                 StringBuilder filterExpression = new StringBuilder();
-                
+
                 // Add conditions for each searchable column
                 List<string> conditions = new List<string>();
-                
+
                 conditions.Add($"CONVERT(return_id, 'System.String') LIKE '%{searchText}%'");
                 conditions.Add($"CONVERT(sale_id, 'System.String') LIKE '%{searchText}%'");
                 conditions.Add($"CONVERT(total_amount, 'System.String') LIKE '%{searchText}%'");
-                
+
                 // Add reason column if it's not null
                 conditions.Add($"(reason IS NOT NULL AND reason LIKE '%{searchText}%')");
-                
+
                 // Add processed_by column if it's not null
                 conditions.Add($"(processed_by IS NOT NULL AND CONVERT(processed_by, 'System.String') LIKE '%{searchText}%')");
 
@@ -135,13 +135,13 @@ namespace POS.PAL.USERCONTROL
 
                 // Apply filter
                 dataView.RowFilter = filterExpression.ToString();
-                
+
                 // Create a new DataTable from the filtered view
                 DataTable filteredTable = dataView.ToTable();
-                
+
                 // Update grid data source
                 gridControlSellReturns.DataSource = filteredTable;
-                
+
                 // Refresh the grid view
                 gridViewSellReturns.RefreshData();
             }
@@ -165,7 +165,7 @@ namespace POS.PAL.USERCONTROL
 
             // Clear existing columns (except designer-defined ones)
             // We'll update the existing columns instead
-            
+
             // Configure Return ID column
             colReturnId.FieldName = "return_id";
             colReturnId.Caption = "Return ID";
@@ -233,10 +233,10 @@ namespace POS.PAL.USERCONTROL
             gridViewSellReturns.Appearance.HeaderPanel.Options.UseTextOptions = true;
             gridViewSellReturns.Appearance.HeaderPanel.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             gridViewSellReturns.Appearance.HeaderPanel.TextOptions.WordWrap = DevExpress.Utils.WordWrap.NoWrap;
-            
+
             gridViewSellReturns.Appearance.Row.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             gridViewSellReturns.Appearance.Row.Options.UseFont = true;
-            
+
             // Set row and column panel heights
             gridViewSellReturns.ColumnPanelRowHeight = 44;
             gridViewSellReturns.RowHeight = 44;
@@ -246,13 +246,13 @@ namespace POS.PAL.USERCONTROL
             gridViewSellReturns.OptionsView.ShowIndicator = false;
             gridViewSellReturns.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
             gridViewSellReturns.OptionsView.ShowAutoFilterRow = false;
-            
+
             gridViewSellReturns.OptionsBehavior.Editable = false;
             gridViewSellReturns.OptionsSelection.EnableAppearanceFocusedCell = false;
             gridViewSellReturns.OptionsSelection.EnableAppearanceFocusedRow = false;
             gridViewSellReturns.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             gridViewSellReturns.OptionsSelection.MultiSelect = false;
-            
+
             gridViewSellReturns.OptionsCustomization.AllowFilter = false;
             gridViewSellReturns.OptionsCustomization.AllowGroup = false;
         }
@@ -445,25 +445,25 @@ namespace POS.PAL.USERCONTROL
                 }
 
                 // Create a PrintableComponentLink to print the grid
-                DevExpress.XtraPrinting.PrintableComponentLink printLink = 
+                DevExpress.XtraPrinting.PrintableComponentLink printLink =
                     new DevExpress.XtraPrinting.PrintableComponentLink(new DevExpress.XtraPrinting.PrintingSystem());
-                
+
                 printLink.Component = gridControlSellReturns;
-                
+
                 // Configure print settings
                 printLink.Landscape = true;
                 printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
-                
+
                 // Set margins
                 printLink.Margins.Left = 50;
                 printLink.Margins.Right = 50;
                 printLink.Margins.Top = 50;
                 printLink.Margins.Bottom = 50;
-                
+
                 // Create document
                 printLink.CreateDocument();
                 printLink.PrintingSystem.Document.AutoFitToPagesWidth = 1;
-                
+
                 // Add header
                 DevExpress.XtraPrinting.PageHeaderFooter header = printLink.PageHeaderFooter as DevExpress.XtraPrinting.PageHeaderFooter;
                 if (header != null)
@@ -477,7 +477,7 @@ namespace POS.PAL.USERCONTROL
                     header.Header.Font = new Font("Segoe UI", 12, FontStyle.Bold);
                     header.Header.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
                 }
-                
+
                 // Add footer with page numbers
                 if (header != null)
                 {
@@ -503,6 +503,11 @@ namespace POS.PAL.USERCONTROL
                     MessageBoxIcon.Error
                 );
             }
+        }
+
+        private void btnAddReturn_Click(object sender, EventArgs e)
+        {
+            Main.Instance.LoadUserControl(new UC_SalesTerminal());
         }
     }
 }

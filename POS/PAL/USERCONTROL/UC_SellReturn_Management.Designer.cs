@@ -286,6 +286,7 @@
             btnAddReturn.Size = new System.Drawing.Size(89, 29);
             btnAddReturn.TabIndex = 10;
             btnAddReturn.Text = "Add";
+            btnAddReturn.Click += btnAddReturn_Click;
             // 
             // btnExportPDF
             // 
