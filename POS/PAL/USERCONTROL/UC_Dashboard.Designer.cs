@@ -444,14 +444,7 @@
             DateFilterComboBox.EditValue = "This Month";
             DateFilterComboBox.Location = new System.Drawing.Point(1435, 11);
             DateFilterComboBox.Name = "DateFilterComboBox";
-            DateFilterComboBox.Properties.Appearance.BackColor = System.Drawing.Color.White;
-            DateFilterComboBox.Properties.Appearance.ForeColor = System.Drawing.Color.Black;
-            DateFilterComboBox.Properties.Appearance.Options.UseBackColor = true;
-            DateFilterComboBox.Properties.Appearance.Options.UseForeColor = true;
-            serializableAppearanceObject1.ForeColor = System.Drawing.Color.Black;
-            serializableAppearanceObject1.Options.UseForeColor = true;
-            DateFilterComboBox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
-            DateFilterComboBox.Properties.HtmlTemplates.AddRange(new DevExpress.Utils.Html.HtmlTemplate[] { htmlTemplate1 });
+            DateFilterComboBox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             DateFilterComboBox.Properties.Items.AddRange(new object[] { "Yesterday", "Last 7 Days", "Last 30 Days", "This Month", "Last Month", "This Year", "Last Year" });
             DateFilterComboBox.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             DateFilterComboBox.Size = new System.Drawing.Size(159, 20);

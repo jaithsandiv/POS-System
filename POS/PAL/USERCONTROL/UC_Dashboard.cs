@@ -15,26 +15,15 @@ namespace POS.PAL.USERCONTROL
         {
             InitializeComponent();
             
-            // Configure DateFilterComboBox appearance to fix dropdown visibility issue
-            // Set the main appearance
-            DateFilterComboBox.Properties.Appearance.ForeColor = System.Drawing.Color.Black;
-            DateFilterComboBox.Properties.Appearance.BackColor = System.Drawing.Color.White;
+            // CRITICAL FIX: Reset and configure DateFilterComboBox for proper dropdown visibility
+            // Clear all custom appearance settings first
+            DateFilterComboBox.Properties.LookAndFeel.Reset();
             
-            // Set the dropdown appearance
-            DateFilterComboBox.Properties.AppearanceDropDown.ForeColor = System.Drawing.Color.Black;
-            DateFilterComboBox.Properties.AppearanceDropDown.BackColor = System.Drawing.Color.White;
+            // Use the default LookAndFeel which has proper contrast
+            DateFilterComboBox.Properties.LookAndFeel.UseDefaultLookAndFeel = true;
             
-            // Set disabled appearance (optional, for consistency)
-            DateFilterComboBox.Properties.AppearanceDisabled.ForeColor = System.Drawing.Color.Gray;
-            DateFilterComboBox.Properties.AppearanceDisabled.BackColor = System.Drawing.Color.WhiteSmoke;
-            
-            // Set focused appearance
-            DateFilterComboBox.Properties.AppearanceFocused.ForeColor = System.Drawing.Color.Black;
-            DateFilterComboBox.Properties.AppearanceFocused.BackColor = System.Drawing.Color.White;
-            
-            // Set readonly appearance
-            DateFilterComboBox.Properties.AppearanceReadOnly.ForeColor = System.Drawing.Color.Black;
-            DateFilterComboBox.Properties.AppearanceReadOnly.BackColor = System.Drawing.Color.White;
+            // Alternative: If default doesn't work, explicitly set to use Windows style
+            // DateFilterComboBox.Properties.LookAndFeel.UseWindowsXPTheme = true;
             
             DateFilterComboBox.SelectedIndexChanged += DateFilterComboBox_SelectedIndexChanged;
             this.Load += UC_Dashboard_Load;
