@@ -321,6 +321,20 @@ namespace POS.DAL
         {
             try
             {
+                // Calculate payment status based on totalPaid and grandTotal
+                string paymentStatus = "PENDING";
+                
+                if (totalPaid >= grandTotal)
+                {
+                    paymentStatus = "PAID";
+                }
+                else if (totalPaid > 0 && totalPaid < grandTotal)
+                {
+                    paymentStatus = "PARTIAL";
+                }
+                // If a customer has CREDIT payment method, it's considered CREDIT status
+                // This will be updated after SavePayments is called in the UI layer
+                
                 if (saleId > 0)
                 {
                     // UPDATE Logic
@@ -337,6 +351,7 @@ namespace POS.DAL
                             grand_total = @grand_total,
                             total_paid = @total_paid,
                             change_due = @change_due,
+                            payment_status = @payment_status,
                             notes = @notes,
                             updated_by = @created_by,
                             updated_date = GETDATE()
@@ -357,6 +372,7 @@ namespace POS.DAL
                         new SqlParameter("@grand_total", grandTotal),
                         new SqlParameter("@total_paid", totalPaid),
                         new SqlParameter("@change_due", changeDue),
+                        new SqlParameter("@payment_status", paymentStatus),
                         new SqlParameter("@notes", notes ?? (object)DBNull.Value),
                         new SqlParameter("@created_by", billerId)
                     };
@@ -441,7 +457,7 @@ namespace POS.DAL
                         new SqlParameter("@grand_total", grandTotal),
                         new SqlParameter("@total_paid", totalPaid),
                         new SqlParameter("@change_due", changeDue),
-                        new SqlParameter("@payment_status", "PENDING"),
+                        new SqlParameter("@payment_status", paymentStatus),
                         new SqlParameter("@sale_status", "COMPLETED"),
                         new SqlParameter("@notes", notes ?? (object)DBNull.Value),
                         new SqlParameter("@status", "A"),
@@ -691,6 +707,9 @@ namespace POS.DAL
                 if (payments == null || payments.Rows.Count == 0)
                     return;
 
+                bool hasCreditPayment = false;
+                decimal totalNonCreditPaid = 0;
+
                 foreach (DataRow payment in payments.Rows)
                 {
                     string paymentMethod = payment["payment_method"]?.ToString();
@@ -703,6 +722,16 @@ namespace POS.DAL
 
                     if (amount <= 0)
                         continue;
+
+                    // Track CREDIT payments separately
+                    if (paymentMethod == "CREDIT")
+                    {
+                        hasCreditPayment = true;
+                    }
+                    else
+                    {
+                        totalNonCreditPaid += amount;
+                    }
 
                     string query = @"
                         INSERT INTO Payment (
@@ -756,6 +785,51 @@ namespace POS.DAL
 
                         Connection.ExecuteNonQuery(updateCreditQuery, creditParams);
                     }
+                }
+
+                // Update payment_status based on payment composition
+                // Get grand_total from sale
+                string getGrandTotalQuery = "SELECT grand_total FROM Sale WHERE sale_id = @sale_id";
+                var grandTotalResult = Connection.ExecuteQuery(getGrandTotalQuery, new SqlParameter[] { new SqlParameter("@sale_id", saleId) });
+                
+                if (grandTotalResult.Rows.Count > 0)
+                {
+                    decimal grandTotal = Convert.ToDecimal(grandTotalResult.Rows[0]["grand_total"]);
+                    string newPaymentStatus = "PENDING";
+
+                    // Determine final payment status
+                    if (hasCreditPayment && totalNonCreditPaid == 0)
+                    {
+                        // Pure CREDIT sale
+                        newPaymentStatus = "CREDIT";
+                    }
+                    else if (totalNonCreditPaid >= grandTotal)
+                    {
+                        // Fully paid (with or without CREDIT)
+                        newPaymentStatus = "PAID";
+                    }
+                    else if (totalNonCreditPaid > 0)
+                    {
+                        // Partially paid
+                        newPaymentStatus = "PARTIAL";
+                    }
+
+                    // Update the sale's payment_status
+                    string updateStatusQuery = @"
+                        UPDATE Sale 
+                        SET payment_status = @payment_status,
+                            updated_by = @updated_by,
+                            updated_date = GETDATE()
+                        WHERE sale_id = @sale_id";
+
+                    var statusParams = new SqlParameter[]
+                    {
+                        new SqlParameter("@payment_status", newPaymentStatus),
+                        new SqlParameter("@updated_by", createdBy),
+                        new SqlParameter("@sale_id", saleId)
+                    };
+
+                    Connection.ExecuteNonQuery(updateStatusQuery, statusParams);
                 }
             }
             catch (Exception ex)
@@ -859,8 +933,7 @@ namespace POS.DAL
                         ISNULL(s.table_number, 'No Table') AS table_number,
                         COUNT(s.sale_id) AS total_orders,
                         SUM(s.total_items) AS total_items,
-                        SUM(s.total_amount) AS total_amount,
-                        SUM(s.grand_total) AS grand_total,
+                        SUM(s.total_amount) AS grand_total,
                         MIN(s.created_date) AS first_order_date,
                         MAX(s.created_date) AS last_order_date
                     FROM Sale s
@@ -895,8 +968,7 @@ namespace POS.DAL
                         ISNULL(s.table_number, 'No Table') AS table_number,
                         COUNT(s.sale_id) AS total_orders,
                         SUM(s.total_items) AS total_items,
-                        SUM(s.total_amount) AS total_amount,
-                        SUM(s.grand_total) AS grand_total,
+                        SUM(s.total_amount) AS grand_total,
                         MIN(s.created_date) AS first_order_date,
                         MAX(s.created_date) AS last_order_date
                     FROM Sale s
@@ -988,9 +1060,8 @@ namespace POS.DAL
                       AND s.sale_type = 'SALE'
                       AND (
                         s.invoice_number LIKE @keyword
-                        OR ISNULL(c.full_name, 'Walk-In Customer') LIKE @keyword
-                        OR ISNULL(cg.group_name, 'None') LIKE @keyword
-                        OR CONVERT(VARCHAR, s.grand_total) LIKE @keyword
+                        OR c.full_name LIKE @keyword
+                        OR u.full_name LIKE @keyword
                       )
                     ORDER BY s.created_date DESC";
 
@@ -1205,6 +1276,7 @@ namespace POS.DAL
                         CONVERT(VARCHAR, p.purchase_cost) LIKE @keyword OR
                         CONVERT(VARCHAR, si.quantity) LIKE @keyword OR
                         CONVERT(VARCHAR, si.unit_price) LIKE @keyword OR
+                        CONVERT(VARCHAR, si.discount_value) LIKE @keyword OR
                         CONVERT(VARCHAR, si.subtotal) LIKE @keyword
                       )
                     ORDER BY sale.created_date DESC, si.product_name";

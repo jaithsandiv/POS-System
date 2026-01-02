@@ -507,7 +507,7 @@ namespace POS.PAL.USERCONTROL
 
         private void btnAddReturn_Click(object sender, EventArgs e)
         {
-            Main.Instance.LoadUserControl(new UC_SalesTerminal());
+            Main.Instance.LoadUserControl(new UC_SellReturn_Addition());
         }
     }
 }
