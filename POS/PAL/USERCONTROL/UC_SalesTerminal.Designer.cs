@@ -372,7 +372,7 @@ namespace POS.PAL.USERCONTROL
             panelControl3.Dock = System.Windows.Forms.DockStyle.Left;
             panelControl3.Location = new System.Drawing.Point(771, 0);
             panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(752, 1050);
+            panelControl3.Size = new System.Drawing.Size(737, 1050);
             panelControl3.TabIndex = 5;
             // 
             // labelControl9
@@ -391,7 +391,7 @@ namespace POS.PAL.USERCONTROL
             gcTransactionSum.Location = new System.Drawing.Point(3, 53);
             gcTransactionSum.MainView = gvTransactionSum;
             gcTransactionSum.Name = "gcTransactionSum";
-            gcTransactionSum.Size = new System.Drawing.Size(743, 997);
+            gcTransactionSum.Size = new System.Drawing.Size(734, 997);
             gcTransactionSum.TabIndex = 0;
             gcTransactionSum.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gvTransactionSum });
             // 
@@ -582,7 +582,7 @@ namespace POS.PAL.USERCONTROL
             separatorControl3.AutoSizeMode = true;
             separatorControl3.Dock = System.Windows.Forms.DockStyle.Left;
             separatorControl3.LineOrientation = System.Windows.Forms.Orientation.Vertical;
-            separatorControl3.Location = new System.Drawing.Point(1523, 0);
+            separatorControl3.Location = new System.Drawing.Point(1508, 0);
             separatorControl3.Name = "separatorControl3";
             separatorControl3.Size = new System.Drawing.Size(19, 1050);
             separatorControl3.TabIndex = 6;
@@ -600,10 +600,10 @@ namespace POS.PAL.USERCONTROL
             panelControl8.Controls.Add(separatorControl5);
             panelControl8.Controls.Add(panelControl9);
             panelControl8.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelControl8.Location = new System.Drawing.Point(1542, 0);
+            panelControl8.Location = new System.Drawing.Point(1527, 0);
             panelControl8.Name = "panelControl8";
             panelControl8.Padding = new System.Windows.Forms.Padding(0, 0, 9, 0);
-            panelControl8.Size = new System.Drawing.Size(378, 1050);
+            panelControl8.Size = new System.Drawing.Size(393, 1050);
             panelControl8.TabIndex = 7;
             // 
             // separatorControl6
@@ -612,7 +612,7 @@ namespace POS.PAL.USERCONTROL
             separatorControl6.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl6.Location = new System.Drawing.Point(0, 806);
             separatorControl6.Name = "separatorControl6";
-            separatorControl6.Size = new System.Drawing.Size(369, 19);
+            separatorControl6.Size = new System.Drawing.Size(384, 19);
             separatorControl6.TabIndex = 4;
             // 
             // panelControl11
@@ -629,7 +629,7 @@ namespace POS.PAL.USERCONTROL
             panelControl11.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl11.Location = new System.Drawing.Point(0, 654);
             panelControl11.Name = "panelControl11";
-            panelControl11.Size = new System.Drawing.Size(369, 152);
+            panelControl11.Size = new System.Drawing.Size(384, 152);
             panelControl11.TabIndex = 5;
             // 
             // separatorControl9
@@ -638,7 +638,7 @@ namespace POS.PAL.USERCONTROL
             separatorControl9.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl9.Location = new System.Drawing.Point(0, 98);
             separatorControl9.Name = "separatorControl9";
-            separatorControl9.Size = new System.Drawing.Size(369, 19);
+            separatorControl9.Size = new System.Drawing.Size(384, 19);
             separatorControl9.TabIndex = 47;
             // 
             // btnCancel
@@ -679,7 +679,7 @@ namespace POS.PAL.USERCONTROL
             panel3.Location = new System.Drawing.Point(0, 0);
             panel3.Name = "panel3";
             panel3.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            panel3.Size = new System.Drawing.Size(369, 98);
+            panel3.Size = new System.Drawing.Size(384, 98);
             panel3.TabIndex = 43;
             // 
             // cmbPM
@@ -769,7 +769,7 @@ namespace POS.PAL.USERCONTROL
             panelControl12.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl12.Location = new System.Drawing.Point(0, 479);
             panelControl12.Name = "panelControl12";
-            panelControl12.Size = new System.Drawing.Size(369, 175);
+            panelControl12.Size = new System.Drawing.Size(384, 175);
             panelControl12.TabIndex = 9;
             // 
             // separatorControl4
@@ -778,7 +778,7 @@ namespace POS.PAL.USERCONTROL
             separatorControl4.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl4.Location = new System.Drawing.Point(0, 156);
             separatorControl4.Name = "separatorControl4";
-            separatorControl4.Size = new System.Drawing.Size(369, 19);
+            separatorControl4.Size = new System.Drawing.Size(384, 19);
             separatorControl4.TabIndex = 10;
             // 
             // pnlKOT
@@ -793,7 +793,7 @@ namespace POS.PAL.USERCONTROL
             pnlKOT.Dock = System.Windows.Forms.DockStyle.Top;
             pnlKOT.Location = new System.Drawing.Point(0, 0);
             pnlKOT.Name = "pnlKOT";
-            pnlKOT.Size = new System.Drawing.Size(369, 156);
+            pnlKOT.Size = new System.Drawing.Size(384, 156);
             pnlKOT.TabIndex = 9;
             // 
             // pnlKOTTableNo
@@ -885,7 +885,7 @@ namespace POS.PAL.USERCONTROL
             separatorControl7.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl7.Location = new System.Drawing.Point(0, 460);
             separatorControl7.Name = "separatorControl7";
-            separatorControl7.Size = new System.Drawing.Size(369, 19);
+            separatorControl7.Size = new System.Drawing.Size(384, 19);
             separatorControl7.TabIndex = 6;
             // 
             // panelControl10
@@ -898,7 +898,7 @@ namespace POS.PAL.USERCONTROL
             panelControl10.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl10.Location = new System.Drawing.Point(0, 242);
             panelControl10.Name = "panelControl10";
-            panelControl10.Size = new System.Drawing.Size(369, 218);
+            panelControl10.Size = new System.Drawing.Size(384, 218);
             panelControl10.TabIndex = 3;
             // 
             // separatorControl8
@@ -907,7 +907,7 @@ namespace POS.PAL.USERCONTROL
             separatorControl8.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl8.Location = new System.Drawing.Point(0, 139);
             separatorControl8.Name = "separatorControl8";
-            separatorControl8.Size = new System.Drawing.Size(369, 19);
+            separatorControl8.Size = new System.Drawing.Size(384, 19);
             separatorControl8.TabIndex = 38;
             // 
             // panel1
@@ -998,7 +998,7 @@ namespace POS.PAL.USERCONTROL
             panel2.Dock = System.Windows.Forms.DockStyle.Top;
             panel2.Location = new System.Drawing.Point(0, 41);
             panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(369, 98);
+            panel2.Size = new System.Drawing.Size(384, 98);
             panel2.TabIndex = 37;
             // 
             // labelControl19
@@ -1109,7 +1109,7 @@ namespace POS.PAL.USERCONTROL
             separatorControl2.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl2.Location = new System.Drawing.Point(0, 223);
             separatorControl2.Name = "separatorControl2";
-            separatorControl2.Size = new System.Drawing.Size(369, 19);
+            separatorControl2.Size = new System.Drawing.Size(384, 19);
             separatorControl2.TabIndex = 4;
             // 
             // panelControl4
@@ -1120,7 +1120,7 @@ namespace POS.PAL.USERCONTROL
             panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl4.Location = new System.Drawing.Point(0, 121);
             panelControl4.Name = "panelControl4";
-            panelControl4.Size = new System.Drawing.Size(369, 102);
+            panelControl4.Size = new System.Drawing.Size(384, 102);
             panelControl4.TabIndex = 3;
             // 
             // labelControl11
@@ -1154,7 +1154,7 @@ namespace POS.PAL.USERCONTROL
             separatorControl5.Dock = System.Windows.Forms.DockStyle.Top;
             separatorControl5.Location = new System.Drawing.Point(0, 102);
             separatorControl5.Name = "separatorControl5";
-            separatorControl5.Size = new System.Drawing.Size(369, 19);
+            separatorControl5.Size = new System.Drawing.Size(384, 19);
             separatorControl5.TabIndex = 4;
             // 
             // panelControl9
@@ -1166,7 +1166,7 @@ namespace POS.PAL.USERCONTROL
             panelControl9.Dock = System.Windows.Forms.DockStyle.Top;
             panelControl9.Location = new System.Drawing.Point(0, 0);
             panelControl9.Name = "panelControl9";
-            panelControl9.Size = new System.Drawing.Size(369, 102);
+            panelControl9.Size = new System.Drawing.Size(384, 102);
             panelControl9.TabIndex = 3;
             // 
             // txtCustomer
@@ -1203,6 +1203,7 @@ namespace POS.PAL.USERCONTROL
             button1.TabIndex = 32;
             button1.Text = "+";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += cmbCustomer_DoubleClick;
             // 
             // pnlCustomers1
             // 
