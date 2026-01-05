@@ -391,7 +391,7 @@ namespace POS.PAL.USERCONTROL
             gcTransactionSum.Location = new System.Drawing.Point(3, 53);
             gcTransactionSum.MainView = gvTransactionSum;
             gcTransactionSum.Name = "gcTransactionSum";
-            gcTransactionSum.Size = new System.Drawing.Size(734, 997);
+            gcTransactionSum.Size = new System.Drawing.Size(731, 997);
             gcTransactionSum.TabIndex = 0;
             gcTransactionSum.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gvTransactionSum });
             // 

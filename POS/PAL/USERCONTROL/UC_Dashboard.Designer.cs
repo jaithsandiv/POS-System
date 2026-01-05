@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Dashboard));
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             label1 = new System.Windows.Forms.Label();
             totalSalesPanel = new System.Windows.Forms.Panel();
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -71,8 +66,6 @@
             htmlTemplate1 = new DevExpress.Utils.Html.HtmlTemplate();
             panel1 = new System.Windows.Forms.Panel();
             xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
-            panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            label6 = new System.Windows.Forms.Label();
             panelControl2 = new DevExpress.XtraEditors.PanelControl();
             chartControl2 = new DevExpress.XtraCharts.ChartControl();
             label4 = new System.Windows.Forms.Label();
@@ -90,8 +83,6 @@
             ((System.ComponentModel.ISupportInitialize)DateFilterComboBox.Properties).BeginInit();
             panel1.SuspendLayout();
             xtraScrollableControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)panelControl3).BeginInit();
-            panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).BeginInit();
             panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chartControl2).BeginInit();
@@ -475,35 +466,12 @@
             // xtraScrollableControl1
             // 
             xtraScrollableControl1.AllowTouchScroll = true;
-            xtraScrollableControl1.Controls.Add(panelControl3);
             xtraScrollableControl1.Controls.Add(panelControl2);
             xtraScrollableControl1.Controls.Add(panelControl1);
             xtraScrollableControl1.Location = new System.Drawing.Point(0, 232);
             xtraScrollableControl1.Name = "xtraScrollableControl1";
             xtraScrollableControl1.Size = new System.Drawing.Size(1920, 818);
             xtraScrollableControl1.TabIndex = 3;
-            // 
-            // panelControl3
-            // 
-            panelControl3.Appearance.BackColor = System.Drawing.Color.White;
-            panelControl3.Appearance.Options.UseBackColor = true;
-            panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            panelControl3.Controls.Add(label6);
-            panelControl3.Location = new System.Drawing.Point(28, 766);
-            panelControl3.Name = "panelControl3";
-            panelControl3.Size = new System.Drawing.Size(1630, 363);
-            panelControl3.TabIndex = 16;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            label6.ForeColor = System.Drawing.Color.Black;
-            label6.Location = new System.Drawing.Point(16, 24);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(168, 19);
-            label6.TabIndex = 11;
-            label6.Text = "Product Stock Alert";
             // 
             // panelControl2
             // 
@@ -512,16 +480,16 @@
             panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl2.Controls.Add(chartControl2);
             panelControl2.Controls.Add(label4);
-            panelControl2.Location = new System.Drawing.Point(28, 388);
+            panelControl2.Location = new System.Drawing.Point(28, 368);
             panelControl2.Name = "panelControl2";
-            panelControl2.Size = new System.Drawing.Size(1630, 363);
+            panelControl2.Size = new System.Drawing.Size(1630, 398);
             panelControl2.TabIndex = 15;
             // 
             // chartControl2
             // 
-            chartControl2.Location = new System.Drawing.Point(16, 57);
+            chartControl2.Location = new System.Drawing.Point(16, 39);
             chartControl2.Name = "chartControl2";
-            chartControl2.Size = new System.Drawing.Size(1590, 287);
+            chartControl2.Size = new System.Drawing.Size(1590, 343);
             chartControl2.TabIndex = 12;
             // 
             // label4
@@ -529,11 +497,12 @@
             label4.AutoSize = true;
             label4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             label4.ForeColor = System.Drawing.Color.Black;
-            label4.Location = new System.Drawing.Point(16, 24);
+            label4.Location = new System.Drawing.Point(14, 5);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(116, 19);
             label4.TabIndex = 11;
             label4.Text = "Top Products";
+            label4.Click += label4_Click;
             // 
             // panelControl1
             // 
@@ -542,16 +511,16 @@
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl1.Controls.Add(chartControl1);
             panelControl1.Controls.Add(label3);
-            panelControl1.Location = new System.Drawing.Point(28, 10);
+            panelControl1.Location = new System.Drawing.Point(28, 6);
             panelControl1.Name = "panelControl1";
-            panelControl1.Size = new System.Drawing.Size(1630, 363);
+            panelControl1.Size = new System.Drawing.Size(1630, 358);
             panelControl1.TabIndex = 14;
             // 
             // chartControl1
             // 
-            chartControl1.Location = new System.Drawing.Point(16, 59);
+            chartControl1.Location = new System.Drawing.Point(16, 39);
             chartControl1.Name = "chartControl1";
-            chartControl1.Size = new System.Drawing.Size(1590, 287);
+            chartControl1.Size = new System.Drawing.Size(1590, 301);
             chartControl1.TabIndex = 12;
             // 
             // label3
@@ -559,7 +528,7 @@
             label3.AutoSize = true;
             label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             label3.ForeColor = System.Drawing.Color.Black;
-            label3.Location = new System.Drawing.Point(14, 22);
+            label3.Location = new System.Drawing.Point(14, 5);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(105, 19);
             label3.TabIndex = 11;
@@ -598,9 +567,6 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             xtraScrollableControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)panelControl3).EndInit();
-            panelControl3.ResumeLayout(false);
-            panelControl3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl2).EndInit();
             panelControl2.ResumeLayout(false);
             panelControl2.PerformLayout();
@@ -657,7 +623,5 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraCharts.ChartControl chartControl1;
         private System.Windows.Forms.Label label3;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
-        private System.Windows.Forms.Label label6;
     }
 }

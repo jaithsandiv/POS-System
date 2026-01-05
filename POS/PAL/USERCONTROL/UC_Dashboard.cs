@@ -14,17 +14,17 @@ namespace POS.PAL.USERCONTROL
         public UC_Dashboard()
         {
             InitializeComponent();
-            
+
             // CRITICAL FIX: Reset and configure DateFilterComboBox for proper dropdown visibility
             // Clear all custom appearance settings first
             DateFilterComboBox.Properties.LookAndFeel.Reset();
-            
+
             // Use the default LookAndFeel which has proper contrast
             DateFilterComboBox.Properties.LookAndFeel.UseDefaultLookAndFeel = true;
-            
+
             // Alternative: If default doesn't work, explicitly set to use Windows style
             // DateFilterComboBox.Properties.LookAndFeel.UseWindowsXPTheme = true;
-            
+
             DateFilterComboBox.SelectedIndexChanged += DateFilterComboBox_SelectedIndexChanged;
             this.Load += UC_Dashboard_Load;
         }
@@ -32,7 +32,7 @@ namespace POS.PAL.USERCONTROL
         private void UC_Dashboard_Load(object sender, EventArgs e)
         {
             // Default to "This Month"
-            DateFilterComboBox.SelectedIndex = 3; 
+            DateFilterComboBox.SelectedIndex = 3;
             LoadDashboardData();
         }
 
@@ -52,26 +52,26 @@ namespace POS.PAL.USERCONTROL
                 if (dtKpi.Rows.Count > 0)
                 {
                     DataRow row = dtKpi.Rows[0];
-                    
+
                     // Map DB columns to UI Labels (Note: Variable names are legacy, Text is updated)
                     lblTotalSales.Text = $"Rs. {Convert.ToDecimal(row["TotalSales"]):N2}";
-                    
+
                     // lblTotalPurchase -> Total Transactions
                     lblTotalPurchase.Text = row["TotalTransactions"].ToString();
-                    
+
                     // lblNet -> Net Sales
                     lblNet.Text = $"Rs. {Convert.ToDecimal(row["NetSales"]):N2}";
-                    
+
                     // lblPurchaseDue -> Low Stock Items
                     lblPurchaseDue.Text = row["LowStockCount"].ToString();
-                    
+
                     lblInvoiceDue.Text = $"Rs. {Convert.ToDecimal(row["InvoiceDue"]):N2}";
-                    
+
                     // lblTotalPurchaseReturn -> Avg Sale Value
                     lblTotalPurchaseReturn.Text = $"Rs. {Convert.ToDecimal(row["AvgSaleValue"]):N2}";
-                    
+
                     lblTotalSalesReturn.Text = $"Rs. {Convert.ToDecimal(row["TotalSalesReturn"]):N2}";
-                    
+
                     // lblExpense -> Total Cash Sales
                     lblExpense.Text = $"Rs. {Convert.ToDecimal(row["TotalCashSales"]):N2}";
                 }
@@ -97,13 +97,13 @@ namespace POS.PAL.USERCONTROL
             series.DataSource = dt;
             series.ArgumentDataMember = argumentField;
             series.ValueDataMembers.AddRange(new string[] { valueField });
-            
+
             // Optional: Formatting
             if (viewType == ViewType.Doughnut)
             {
                 series.Label.TextPattern = "{A}: {V}";
             }
-            
+
             chart.Series.Add(series);
         }
 
@@ -142,6 +142,11 @@ namespace POS.PAL.USERCONTROL
                     fromDate = new DateTime(now.Year, now.Month, 1);
                     break;
             }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
