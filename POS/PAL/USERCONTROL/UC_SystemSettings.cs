@@ -77,10 +77,12 @@ namespace POS.PAL.USERCONTROL
         {
             cmbThermalPrinter.Properties.Items.Clear();
             cmbKOTPrinter.Properties.Items.Clear();
+            cmbBarcodePrinter.Properties.Items.Clear();
             foreach (string printer in PrinterSettings.InstalledPrinters)
             {
                 cmbThermalPrinter.Properties.Items.Add(printer);
                 cmbKOTPrinter.Properties.Items.Add(printer);
+                cmbBarcodePrinter.Properties.Items.Add(printer);
             }
         }
 
@@ -109,6 +111,11 @@ namespace POS.PAL.USERCONTROL
                     string kotPrinter = GetStringSetting("kot_printer_name");
                     if (!string.IsNullOrEmpty(kotPrinter))
                         cmbKOTPrinter.SelectedItem = kotPrinter;
+
+                    // Barcode Printer
+                    string barcodePrinter = GetStringSetting("barcode_printer_name");
+                    if (!string.IsNullOrEmpty(barcodePrinter))
+                        cmbBarcodePrinter.SelectedItem = barcodePrinter;
 
                     tsStockCheck.IsOn = GetBooleanSetting("stock_check_enabled");
 
@@ -294,6 +301,7 @@ namespace POS.PAL.USERCONTROL
                 
                 _bllSystemSettings.UpdateSystemSetting("kot_enabled", tsKOT.IsOn.ToString(), userId);
                 _bllSystemSettings.UpdateSystemSetting("kot_printer_name", cmbKOTPrinter.Text, userId);
+                _bllSystemSettings.UpdateSystemSetting("barcode_printer_name", cmbBarcodePrinter.Text, userId);
                 _bllSystemSettings.UpdateSystemSetting("stock_check_enabled", tsStockCheck.IsOn.ToString(), userId);
                 
                 _bllSystemSettings.UpdateSystemSetting("store_website", txtWebsite.Text, userId);

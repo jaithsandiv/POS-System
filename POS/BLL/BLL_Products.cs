@@ -339,6 +339,14 @@ namespace POS.BLL
             _dalProducts.ClearBarcodePrints();
         }
 
+        /// <summary>
+        /// Gets detailed barcode print data including product information for label generation
+        /// </summary>
+        public DataTable GetBarcodePrintDetails()
+        {
+            return _dalProducts.GetBarcodePrintDetails();
+        }
+
         #endregion
 
         #region Stock Report
