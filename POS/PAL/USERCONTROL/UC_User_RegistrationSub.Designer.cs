@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            comboboxStore = new DevExpress.XtraEditors.ComboBoxEdit();
+            labelControlStore = new DevExpress.XtraEditors.LabelControl();
             comboboxUserRole = new DevExpress.XtraEditors.ComboBoxEdit();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             labelControl2 = new DevExpress.XtraEditors.LabelControl();
@@ -51,6 +53,7 @@
             txtfullName = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)comboboxStore.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)comboboxUserRole.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtPin.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtConfirmPassword.Properties).BeginInit();
@@ -66,6 +69,8 @@
             panelControl1.Appearance.BackColor = System.Drawing.Color.White;
             panelControl1.Appearance.Options.UseBackColor = true;
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            panelControl1.Controls.Add(comboboxStore);
+            panelControl1.Controls.Add(labelControlStore);
             panelControl1.Controls.Add(comboboxUserRole);
             panelControl1.Controls.Add(labelControl7);
             panelControl1.Controls.Add(labelControl2);
@@ -91,6 +96,29 @@
             panelControl1.Name = "panelControl1";
             panelControl1.Size = new System.Drawing.Size(1920, 1001);
             panelControl1.TabIndex = 0;
+            // 
+            // comboboxStore
+            // 
+            comboboxStore.Location = new System.Drawing.Point(380, 683);
+            comboboxStore.Name = "comboboxStore";
+            comboboxStore.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            comboboxStore.Properties.Appearance.Options.UseFont = true;
+            comboboxStore.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            comboboxStore.Properties.Padding = new System.Windows.Forms.Padding(10);
+            comboboxStore.Properties.Sorted = true;
+            comboboxStore.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            comboboxStore.Size = new System.Drawing.Size(480, 44);
+            comboboxStore.TabIndex = 101;
+            // 
+            // labelControlStore
+            // 
+            labelControlStore.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelControlStore.Appearance.Options.UseFont = true;
+            labelControlStore.Location = new System.Drawing.Point(380, 660);
+            labelControlStore.Name = "labelControlStore";
+            labelControlStore.Size = new System.Drawing.Size(43, 17);
+            labelControlStore.TabIndex = 100;
+            labelControlStore.Text = "Store: *";
             // 
             // comboboxUserRole
             // 
@@ -312,6 +340,7 @@
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
             panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)comboboxStore.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)comboboxUserRole.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtPin.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtConfirmPassword.Properties).EndInit();
@@ -346,5 +375,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.ComboBoxEdit comboboxUserRole;
         private DevExpress.XtraEditors.LabelControl labelControl7;
+        private DevExpress.XtraEditors.ComboBoxEdit comboboxStore;
+        private DevExpress.XtraEditors.LabelControl labelControlStore;
     }
 }
