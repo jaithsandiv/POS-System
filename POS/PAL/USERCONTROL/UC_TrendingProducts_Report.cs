@@ -22,11 +22,24 @@ namespace POS.PAL.USERCONTROL
         public UC_TrendingProducts_Report()
         {
             InitializeComponent();
+            LoadTrendingProducts();
+            
+            // Apply permission-based visibility for print button
+            ApplyExportButtonVisibility();
+        }
+
+        /// <summary>
+        /// Apply permission-based visibility to export buttons
+        /// </summary>
+        private void ApplyExportButtonVisibility()
+        {
+            bool canExport = PermissionManager.HasPermission(PermissionManager.Permissions.VIEW_EXPORT_BUTTONS);
+            if (btnPrint != null) btnPrint.Visible = canExport;
         }
 
         private void UC_TrendingProducts_Report_Load(object sender, EventArgs e)
         {
-            LoadTrendingProducts();
+            // ...existing code...
         }
 
         /// <summary>
@@ -161,8 +174,8 @@ namespace POS.PAL.USERCONTROL
                 // Set the chart as the component to print
                 printLink.Component = chartTrendingProducts;
                 
-                // Configure print settings for landscape orientation
-                printLink.Landscape = true;  // Landscape orientation for better chart visibility
+                // Configure print settings for portrait orientation for better chart visibility
+                printLink.Landscape = false;
                 printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
                 
                 // Set margins (reduced to maximize chart space)

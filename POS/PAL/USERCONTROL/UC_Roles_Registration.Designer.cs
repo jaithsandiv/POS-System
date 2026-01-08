@@ -30,7 +30,7 @@
         {
             xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            checkEditEditUnits = new DevExpress.XtraEditors.CheckEdit();
+            checkEditViewDashboard = new DevExpress.XtraEditors.CheckEdit();
             separatorControl20 = new DevExpress.XtraEditors.SeparatorControl();
             checkEditSelectAllHome = new DevExpress.XtraEditors.CheckEdit();
             labelControl24 = new DevExpress.XtraEditors.LabelControl();
@@ -57,100 +57,57 @@
             checkEditAccesstoSalesTerminal = new DevExpress.XtraEditors.CheckEdit();
             labelControl21 = new DevExpress.XtraEditors.LabelControl();
             separatorControl17 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAssignDiscounts = new DevExpress.XtraEditors.CheckEdit();
             separatorControl16 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddDiscounts = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllDiscounts = new DevExpress.XtraEditors.CheckEdit();
             checkEditViewDiscounts = new DevExpress.XtraEditors.CheckEdit();
             labelControl20 = new DevExpress.XtraEditors.LabelControl();
             separatorControl15 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddSellReturns = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllSellReturns = new DevExpress.XtraEditors.CheckEdit();
             checkEditSellReturns = new DevExpress.XtraEditors.CheckEdit();
             labelControl19 = new DevExpress.XtraEditors.LabelControl();
             separatorControl14 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditQuotations = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllQuotations = new DevExpress.XtraEditors.CheckEdit();
             checkEditViewQuotations = new DevExpress.XtraEditors.CheckEdit();
             labelControl18 = new DevExpress.XtraEditors.LabelControl();
             separatorControl13 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddDrafts = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllDrafts = new DevExpress.XtraEditors.CheckEdit();
             checkEditViewDrafts = new DevExpress.XtraEditors.CheckEdit();
             labelControl17 = new DevExpress.XtraEditors.LabelControl();
             separatorControl12 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddSales = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllSales = new DevExpress.XtraEditors.CheckEdit();
             checkEditViewSales = new DevExpress.XtraEditors.CheckEdit();
             labelControl16 = new DevExpress.XtraEditors.LabelControl();
             separatorControl11 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddBrands = new DevExpress.XtraEditors.CheckEdit();
-            checkEditEditBrands = new DevExpress.XtraEditors.CheckEdit();
-            checkEditDeleteBrands = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllBrands = new DevExpress.XtraEditors.CheckEdit();
             checkEditViewBrands = new DevExpress.XtraEditors.CheckEdit();
             labelControl15 = new DevExpress.XtraEditors.LabelControl();
             separatorControl10 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddUnits = new DevExpress.XtraEditors.CheckEdit();
-            checkEdit27 = new DevExpress.XtraEditors.CheckEdit();
-            checkEditDeleteUnits = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllUnits = new DevExpress.XtraEditors.CheckEdit();
-            checkEditViewUnits = new DevExpress.XtraEditors.CheckEdit();
             labelControl14 = new DevExpress.XtraEditors.LabelControl();
             separatorControl9 = new DevExpress.XtraEditors.SeparatorControl();
             checkEditSelectAllPrintLabels = new DevExpress.XtraEditors.CheckEdit();
-            checkEditAccesstoPrintLabelsForm = new DevExpress.XtraEditors.CheckEdit();
             labelControl13 = new DevExpress.XtraEditors.LabelControl();
             separatorControl8 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddCategories = new DevExpress.XtraEditors.CheckEdit();
-            checkEditEditCategories = new DevExpress.XtraEditors.CheckEdit();
-            checkEditDeleteCategories = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllCategory = new DevExpress.XtraEditors.CheckEdit();
-            checkEditViewCategories = new DevExpress.XtraEditors.CheckEdit();
             labelControl12 = new DevExpress.XtraEditors.LabelControl();
             separatorControl7 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddCustomerGroups = new DevExpress.XtraEditors.CheckEdit();
-            checkEditEditCustomerGroups = new DevExpress.XtraEditors.CheckEdit();
-            checkEditDeleteCustomerGroups = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllCustomerGroups = new DevExpress.XtraEditors.CheckEdit();
-            checkEditViewCustomerGroups = new DevExpress.XtraEditors.CheckEdit();
             labelControl11 = new DevExpress.XtraEditors.LabelControl();
             separatorControl6 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddProducts = new DevExpress.XtraEditors.CheckEdit();
-            checkEdit16 = new DevExpress.XtraEditors.CheckEdit();
-            checkEdit17 = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllProducts = new DevExpress.XtraEditors.CheckEdit();
-            checkEditViewProducts = new DevExpress.XtraEditors.CheckEdit();
             labelControl10 = new DevExpress.XtraEditors.LabelControl();
-            checkEditViewCustomersDetails = new DevExpress.XtraEditors.CheckEdit();
             separatorControl5 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddCustomers = new DevExpress.XtraEditors.CheckEdit();
-            checkEditEditCustomers = new DevExpress.XtraEditors.CheckEdit();
-            checkEditDeleteCustomers = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllCustomers = new DevExpress.XtraEditors.CheckEdit();
-            checkEditViewCustomers = new DevExpress.XtraEditors.CheckEdit();
             labelControl9 = new DevExpress.XtraEditors.LabelControl();
             separatorControl4 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddSuppliers = new DevExpress.XtraEditors.CheckEdit();
-            checkEditEditSuppliers = new DevExpress.XtraEditors.CheckEdit();
-            checkEditDeleteSuppliers = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllSuppliers = new DevExpress.XtraEditors.CheckEdit();
-            checkEditViewSuppliers = new DevExpress.XtraEditors.CheckEdit();
             labelControl8 = new DevExpress.XtraEditors.LabelControl();
             separatorControl3 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddRoles = new DevExpress.XtraEditors.CheckEdit();
-            checkEditEditRoles = new DevExpress.XtraEditors.CheckEdit();
-            checkEditDeleteRoles = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllRoles = new DevExpress.XtraEditors.CheckEdit();
-            checkEditViewRoles = new DevExpress.XtraEditors.CheckEdit();
             labelControl6 = new DevExpress.XtraEditors.LabelControl();
             separatorControl2 = new DevExpress.XtraEditors.SeparatorControl();
-            checkEditAddUser = new DevExpress.XtraEditors.CheckEdit();
-            checkEditEditUser = new DevExpress.XtraEditors.CheckEdit();
-            checkEditDeleteUser = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllUsers = new DevExpress.XtraEditors.CheckEdit();
             checkEditSelectAllOther = new DevExpress.XtraEditors.CheckEdit();
-            checkEditViewUser = new DevExpress.XtraEditors.CheckEdit();
             labelControl5 = new DevExpress.XtraEditors.LabelControl();
             checkEditViewExportButtons = new DevExpress.XtraEditors.CheckEdit();
             labelControl4 = new DevExpress.XtraEditors.LabelControl();
@@ -158,15 +115,25 @@
             labelControl1 = new DevExpress.XtraEditors.LabelControl();
             labelControl7 = new DevExpress.XtraEditors.LabelControl();
             txtRoleName = new DevExpress.XtraEditors.TextEdit();
+            labelControlDescription = new DevExpress.XtraEditors.LabelControl();
+            txtDescription = new DevExpress.XtraEditors.TextEdit();
             labelControl2 = new DevExpress.XtraEditors.LabelControl();
             regBtn = new System.Windows.Forms.Button();
             backBtn2 = new System.Windows.Forms.Button();
             labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            checkEditViewDashboard = new DevExpress.XtraEditors.CheckEdit();
+            checkEditViewUnits = new DevExpress.XtraEditors.CheckEdit();
+            checkEditViewCategories = new DevExpress.XtraEditors.CheckEdit();
+            checkEditAccesstoPrintLabelsForm = new DevExpress.XtraEditors.CheckEdit();
+            checkEditViewProducts = new DevExpress.XtraEditors.CheckEdit();
+            checkEditViewCustomerGroups = new DevExpress.XtraEditors.CheckEdit();
+            checkEditViewCustomers = new DevExpress.XtraEditors.CheckEdit();
+            checkEditViewSuppliers = new DevExpress.XtraEditors.CheckEdit();
+            checkEditViewRoles = new DevExpress.XtraEditors.CheckEdit();
+            checkEditViewUser = new DevExpress.XtraEditors.CheckEdit();
             xtraScrollableControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditUnits.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewDashboard.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl20).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllHome.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewBusinessLocations.Properties).BeginInit();
@@ -189,90 +156,56 @@
             ((System.ComponentModel.ISupportInitialize)checkEdit42.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditAccesstoSalesTerminal.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl17).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAssignDiscounts.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl16).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddDiscounts.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllDiscounts.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewDiscounts.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl15).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddSellReturns.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllSellReturns.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSellReturns.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl14).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditQuotations.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllQuotations.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewQuotations.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl13).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddDrafts.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllDrafts.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewDrafts.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl12).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddSales.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllSales.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewSales.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl11).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddBrands.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditBrands.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteBrands.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllBrands.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewBrands.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl10).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddUnits.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEdit27.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteUnits.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllUnits.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewUnits.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllPrintLabels.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAccesstoPrintLabelsForm.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddCategories.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditCategories.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteCategories.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllCategory.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewCategories.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddCustomerGroups.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditCustomerGroups.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteCustomerGroups.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllCustomerGroups.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewCustomerGroups.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddProducts.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEdit16.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEdit17.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllProducts.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewProducts.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewCustomersDetails.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddCustomers.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditCustomers.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteCustomers.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllCustomers.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewCustomers.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddSuppliers.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditSuppliers.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteSuppliers.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllSuppliers.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewSuppliers.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddRoles.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditRoles.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteRoles.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllRoles.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewRoles.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddUser.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditUser.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteUser.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllUsers.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllOther.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewUser.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewExportButtons.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtRoleName.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewDashboard.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtDescription.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewUnits.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewCategories.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditAccesstoPrintLabelsForm.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewProducts.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewCustomerGroups.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewCustomers.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewSuppliers.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewRoles.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewUser.Properties).BeginInit();
             SuspendLayout();
             // 
             // xtraScrollableControl1
@@ -295,7 +228,6 @@
             panelControl1.Appearance.Options.UseBackColor = true;
             panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             panelControl1.Controls.Add(checkEditViewDashboard);
-            panelControl1.Controls.Add(checkEditEditUnits);
             panelControl1.Controls.Add(separatorControl20);
             panelControl1.Controls.Add(checkEditSelectAllHome);
             panelControl1.Controls.Add(labelControl24);
@@ -322,43 +254,31 @@
             panelControl1.Controls.Add(checkEditAccesstoSalesTerminal);
             panelControl1.Controls.Add(labelControl21);
             panelControl1.Controls.Add(separatorControl17);
-            panelControl1.Controls.Add(checkEditAssignDiscounts);
             panelControl1.Controls.Add(separatorControl16);
-            panelControl1.Controls.Add(checkEditAddDiscounts);
             panelControl1.Controls.Add(checkEditSelectAllDiscounts);
             panelControl1.Controls.Add(checkEditViewDiscounts);
             panelControl1.Controls.Add(labelControl20);
             panelControl1.Controls.Add(separatorControl15);
-            panelControl1.Controls.Add(checkEditAddSellReturns);
             panelControl1.Controls.Add(checkEditSelectAllSellReturns);
             panelControl1.Controls.Add(checkEditSellReturns);
             panelControl1.Controls.Add(labelControl19);
             panelControl1.Controls.Add(separatorControl14);
-            panelControl1.Controls.Add(checkEditQuotations);
             panelControl1.Controls.Add(checkEditSelectAllQuotations);
             panelControl1.Controls.Add(checkEditViewQuotations);
             panelControl1.Controls.Add(labelControl18);
             panelControl1.Controls.Add(separatorControl13);
-            panelControl1.Controls.Add(checkEditAddDrafts);
             panelControl1.Controls.Add(checkEditSelectAllDrafts);
             panelControl1.Controls.Add(checkEditViewDrafts);
             panelControl1.Controls.Add(labelControl17);
             panelControl1.Controls.Add(separatorControl12);
-            panelControl1.Controls.Add(checkEditAddSales);
             panelControl1.Controls.Add(checkEditSelectAllSales);
             panelControl1.Controls.Add(checkEditViewSales);
             panelControl1.Controls.Add(labelControl16);
             panelControl1.Controls.Add(separatorControl11);
-            panelControl1.Controls.Add(checkEditAddBrands);
-            panelControl1.Controls.Add(checkEditEditBrands);
-            panelControl1.Controls.Add(checkEditDeleteBrands);
             panelControl1.Controls.Add(checkEditSelectAllBrands);
             panelControl1.Controls.Add(checkEditViewBrands);
             panelControl1.Controls.Add(labelControl15);
             panelControl1.Controls.Add(separatorControl10);
-            panelControl1.Controls.Add(checkEditAddUnits);
-            panelControl1.Controls.Add(checkEdit27);
-            panelControl1.Controls.Add(checkEditDeleteUnits);
             panelControl1.Controls.Add(checkEditSelectAllUnits);
             panelControl1.Controls.Add(checkEditViewUnits);
             panelControl1.Controls.Add(labelControl14);
@@ -367,52 +287,30 @@
             panelControl1.Controls.Add(checkEditAccesstoPrintLabelsForm);
             panelControl1.Controls.Add(labelControl13);
             panelControl1.Controls.Add(separatorControl8);
-            panelControl1.Controls.Add(checkEditAddCategories);
-            panelControl1.Controls.Add(checkEditEditCategories);
-            panelControl1.Controls.Add(checkEditDeleteCategories);
             panelControl1.Controls.Add(checkEditSelectAllCategory);
             panelControl1.Controls.Add(checkEditViewCategories);
             panelControl1.Controls.Add(labelControl12);
             panelControl1.Controls.Add(separatorControl7);
-            panelControl1.Controls.Add(checkEditAddCustomerGroups);
-            panelControl1.Controls.Add(checkEditEditCustomerGroups);
-            panelControl1.Controls.Add(checkEditDeleteCustomerGroups);
             panelControl1.Controls.Add(checkEditSelectAllCustomerGroups);
             panelControl1.Controls.Add(checkEditViewCustomerGroups);
             panelControl1.Controls.Add(labelControl11);
             panelControl1.Controls.Add(separatorControl6);
-            panelControl1.Controls.Add(checkEditAddProducts);
-            panelControl1.Controls.Add(checkEdit16);
-            panelControl1.Controls.Add(checkEdit17);
             panelControl1.Controls.Add(checkEditSelectAllProducts);
             panelControl1.Controls.Add(checkEditViewProducts);
             panelControl1.Controls.Add(labelControl10);
-            panelControl1.Controls.Add(checkEditViewCustomersDetails);
             panelControl1.Controls.Add(separatorControl5);
-            panelControl1.Controls.Add(checkEditAddCustomers);
-            panelControl1.Controls.Add(checkEditEditCustomers);
-            panelControl1.Controls.Add(checkEditDeleteCustomers);
             panelControl1.Controls.Add(checkEditSelectAllCustomers);
             panelControl1.Controls.Add(checkEditViewCustomers);
             panelControl1.Controls.Add(labelControl9);
             panelControl1.Controls.Add(separatorControl4);
-            panelControl1.Controls.Add(checkEditAddSuppliers);
-            panelControl1.Controls.Add(checkEditEditSuppliers);
-            panelControl1.Controls.Add(checkEditDeleteSuppliers);
             panelControl1.Controls.Add(checkEditSelectAllSuppliers);
             panelControl1.Controls.Add(checkEditViewSuppliers);
             panelControl1.Controls.Add(labelControl8);
             panelControl1.Controls.Add(separatorControl3);
-            panelControl1.Controls.Add(checkEditAddRoles);
-            panelControl1.Controls.Add(checkEditEditRoles);
-            panelControl1.Controls.Add(checkEditDeleteRoles);
             panelControl1.Controls.Add(checkEditSelectAllRoles);
             panelControl1.Controls.Add(checkEditViewRoles);
             panelControl1.Controls.Add(labelControl6);
             panelControl1.Controls.Add(separatorControl2);
-            panelControl1.Controls.Add(checkEditAddUser);
-            panelControl1.Controls.Add(checkEditEditUser);
-            panelControl1.Controls.Add(checkEditDeleteUser);
             panelControl1.Controls.Add(checkEditSelectAllUsers);
             panelControl1.Controls.Add(checkEditSelectAllOther);
             panelControl1.Controls.Add(checkEditViewUser);
@@ -423,31 +321,35 @@
             panelControl1.Controls.Add(labelControl1);
             panelControl1.Controls.Add(labelControl7);
             panelControl1.Controls.Add(txtRoleName);
+            panelControl1.Controls.Add(labelControlDescription);
+            panelControl1.Controls.Add(txtDescription);
             panelControl1.Controls.Add(labelControl2);
             panelControl1.Location = new System.Drawing.Point(137, 109);
             panelControl1.Name = "panelControl1";
-            panelControl1.Size = new System.Drawing.Size(1676, 2469);
+            panelControl1.Size = new System.Drawing.Size(1676, 1548);
             panelControl1.TabIndex = 125;
             // 
-            // checkEditEditUnits
+            // checkEditViewDashboard
             // 
-            checkEditEditUnits.Location = new System.Drawing.Point(845, 1314);
-            checkEditEditUnits.Name = "checkEditEditUnits";
-            checkEditEditUnits.Properties.Caption = "Edit Units";
-            checkEditEditUnits.Size = new System.Drawing.Size(376, 20);
-            checkEditEditUnits.TabIndex = 316;
+            checkEditViewDashboard.Location = new System.Drawing.Point(845, 1480);
+            checkEditViewDashboard.Name = "checkEditViewDashboard";
+            checkEditViewDashboard.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewDashboard.Properties.Appearance.Options.UseFont = true;
+            checkEditViewDashboard.Properties.Caption = "View Dashboard";
+            checkEditViewDashboard.Size = new System.Drawing.Size(376, 20);
+            checkEditViewDashboard.TabIndex = 317;
             // 
             // separatorControl20
             // 
             separatorControl20.BackColor = System.Drawing.Color.Transparent;
-            separatorControl20.Location = new System.Drawing.Point(168, 2405);
+            separatorControl20.Location = new System.Drawing.Point(168, 1505);
             separatorControl20.Name = "separatorControl20";
             separatorControl20.Size = new System.Drawing.Size(1366, 23);
             separatorControl20.TabIndex = 315;
             // 
             // checkEditSelectAllHome
             // 
-            checkEditSelectAllHome.Location = new System.Drawing.Point(427, 2380);
+            checkEditSelectAllHome.Location = new System.Drawing.Point(427, 1480);
             checkEditSelectAllHome.Name = "checkEditSelectAllHome";
             checkEditSelectAllHome.Properties.Caption = "Select All";
             checkEditSelectAllHome.Properties.Name = "checkEditSelectAllDiscounts";
@@ -458,7 +360,7 @@
             // 
             labelControl24.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl24.Appearance.Options.UseFont = true;
-            labelControl24.Location = new System.Drawing.Point(168, 2378);
+            labelControl24.Location = new System.Drawing.Point(168, 1478);
             labelControl24.Name = "labelControl24";
             labelControl24.Size = new System.Drawing.Size(41, 20);
             labelControl24.TabIndex = 312;
@@ -466,8 +368,10 @@
             // 
             // checkEditViewBusinessLocations
             // 
-            checkEditViewBusinessLocations.Location = new System.Drawing.Point(845, 2304);
+            checkEditViewBusinessLocations.Location = new System.Drawing.Point(845, 1404);
             checkEditViewBusinessLocations.Name = "checkEditViewBusinessLocations";
+            checkEditViewBusinessLocations.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewBusinessLocations.Properties.Appearance.Options.UseFont = true;
             checkEditViewBusinessLocations.Properties.Caption = "View Business Locations";
             checkEditViewBusinessLocations.Size = new System.Drawing.Size(376, 20);
             checkEditViewBusinessLocations.TabIndex = 311;
@@ -475,22 +379,24 @@
             // separatorControl19
             // 
             separatorControl19.BackColor = System.Drawing.Color.Transparent;
-            separatorControl19.Location = new System.Drawing.Point(154, 2356);
+            separatorControl19.Location = new System.Drawing.Point(154, 1456);
             separatorControl19.Name = "separatorControl19";
             separatorControl19.Size = new System.Drawing.Size(1366, 23);
             separatorControl19.TabIndex = 310;
             // 
             // checkEditViewTables
             // 
-            checkEditViewTables.Location = new System.Drawing.Point(845, 2330);
+            checkEditViewTables.Location = new System.Drawing.Point(845, 1430);
             checkEditViewTables.Name = "checkEditViewTables";
+            checkEditViewTables.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewTables.Properties.Appearance.Options.UseFont = true;
             checkEditViewTables.Properties.Caption = "View Tables";
             checkEditViewTables.Size = new System.Drawing.Size(376, 20);
             checkEditViewTables.TabIndex = 309;
             // 
             // checkEditSelectAllSettings
             // 
-            checkEditSelectAllSettings.Location = new System.Drawing.Point(427, 2278);
+            checkEditSelectAllSettings.Location = new System.Drawing.Point(427, 1378);
             checkEditSelectAllSettings.Name = "checkEditSelectAllSettings";
             checkEditSelectAllSettings.Properties.Caption = "Select All";
             checkEditSelectAllSettings.Properties.Name = "checkEditSelectAllDiscounts";
@@ -499,8 +405,10 @@
             // 
             // checkEditViewBusinessSettings
             // 
-            checkEditViewBusinessSettings.Location = new System.Drawing.Point(845, 2278);
+            checkEditViewBusinessSettings.Location = new System.Drawing.Point(845, 1378);
             checkEditViewBusinessSettings.Name = "checkEditViewBusinessSettings";
+            checkEditViewBusinessSettings.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewBusinessSettings.Properties.Appearance.Options.UseFont = true;
             checkEditViewBusinessSettings.Properties.Caption = "View Business Settings";
             checkEditViewBusinessSettings.Size = new System.Drawing.Size(376, 20);
             checkEditViewBusinessSettings.TabIndex = 305;
@@ -509,7 +417,7 @@
             // 
             labelControl23.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl23.Appearance.Options.UseFont = true;
-            labelControl23.Location = new System.Drawing.Point(168, 2276);
+            labelControl23.Location = new System.Drawing.Point(168, 1376);
             labelControl23.Name = "labelControl23";
             labelControl23.Size = new System.Drawing.Size(53, 20);
             labelControl23.TabIndex = 304;
@@ -517,48 +425,60 @@
             // 
             // checkEditViewSellPaymentReport
             // 
-            checkEditViewSellPaymentReport.Location = new System.Drawing.Point(845, 2142);
+            checkEditViewSellPaymentReport.Location = new System.Drawing.Point(845, 1244);
             checkEditViewSellPaymentReport.Name = "checkEditViewSellPaymentReport";
+            checkEditViewSellPaymentReport.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewSellPaymentReport.Properties.Appearance.Options.UseFont = true;
             checkEditViewSellPaymentReport.Properties.Caption = "View Sell Payment Report";
             checkEditViewSellPaymentReport.Size = new System.Drawing.Size(376, 20);
             checkEditViewSellPaymentReport.TabIndex = 303;
             // 
             // checkEditViewSalesRepresentativeReport
             // 
-            checkEditViewSalesRepresentativeReport.Location = new System.Drawing.Point(845, 2168);
+            checkEditViewSalesRepresentativeReport.Location = new System.Drawing.Point(845, 1270);
             checkEditViewSalesRepresentativeReport.Name = "checkEditViewSalesRepresentativeReport";
+            checkEditViewSalesRepresentativeReport.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewSalesRepresentativeReport.Properties.Appearance.Options.UseFont = true;
             checkEditViewSalesRepresentativeReport.Properties.Caption = "View Sales Representative Report";
             checkEditViewSalesRepresentativeReport.Size = new System.Drawing.Size(376, 20);
             checkEditViewSalesRepresentativeReport.TabIndex = 302;
             // 
             // checkEditViewTableReport
             // 
-            checkEditViewTableReport.Location = new System.Drawing.Point(845, 2194);
+            checkEditViewTableReport.Location = new System.Drawing.Point(845, 1296);
             checkEditViewTableReport.Name = "checkEditViewTableReport";
+            checkEditViewTableReport.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewTableReport.Properties.Appearance.Options.UseFont = true;
             checkEditViewTableReport.Properties.Caption = "View Table Report";
             checkEditViewTableReport.Size = new System.Drawing.Size(376, 20);
             checkEditViewTableReport.TabIndex = 301;
             // 
             // checkEditViewActivityLog
             // 
-            checkEditViewActivityLog.Location = new System.Drawing.Point(845, 2220);
+            checkEditViewActivityLog.Location = new System.Drawing.Point(845, 1322);
             checkEditViewActivityLog.Name = "checkEditViewActivityLog";
+            checkEditViewActivityLog.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewActivityLog.Properties.Appearance.Options.UseFont = true;
             checkEditViewActivityLog.Properties.Caption = "View Activity Log";
             checkEditViewActivityLog.Size = new System.Drawing.Size(376, 20);
             checkEditViewActivityLog.TabIndex = 300;
             // 
             // checkEditViewProductSellReport
             // 
-            checkEditViewProductSellReport.Location = new System.Drawing.Point(845, 2116);
+            checkEditViewProductSellReport.Location = new System.Drawing.Point(845, 1218);
             checkEditViewProductSellReport.Name = "checkEditViewProductSellReport";
+            checkEditViewProductSellReport.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewProductSellReport.Properties.Appearance.Options.UseFont = true;
             checkEditViewProductSellReport.Properties.Caption = "View Product Sell Report";
             checkEditViewProductSellReport.Size = new System.Drawing.Size(376, 20);
             checkEditViewProductSellReport.TabIndex = 299;
             // 
             // checkEditViewCustomerGroupReport
             // 
-            checkEditViewCustomerGroupReport.Location = new System.Drawing.Point(845, 2013);
+            checkEditViewCustomerGroupReport.Location = new System.Drawing.Point(845, 1115);
             checkEditViewCustomerGroupReport.Name = "checkEditViewCustomerGroupReport";
+            checkEditViewCustomerGroupReport.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewCustomerGroupReport.Properties.Appearance.Options.UseFont = true;
             checkEditViewCustomerGroupReport.Properties.Caption = "View Customer Group Report";
             checkEditViewCustomerGroupReport.Size = new System.Drawing.Size(376, 20);
             checkEditViewCustomerGroupReport.TabIndex = 298;
@@ -566,38 +486,44 @@
             // separatorControl18
             // 
             separatorControl18.BackColor = System.Drawing.Color.Transparent;
-            separatorControl18.Location = new System.Drawing.Point(154, 2252);
+            separatorControl18.Location = new System.Drawing.Point(154, 1354);
             separatorControl18.Name = "separatorControl18";
             separatorControl18.Size = new System.Drawing.Size(1366, 23);
             separatorControl18.TabIndex = 297;
             // 
             // checkEditViewStockReport
             // 
-            checkEditViewStockReport.Location = new System.Drawing.Point(845, 2039);
+            checkEditViewStockReport.Location = new System.Drawing.Point(845, 1141);
             checkEditViewStockReport.Name = "checkEditViewStockReport";
+            checkEditViewStockReport.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewStockReport.Properties.Appearance.Options.UseFont = true;
             checkEditViewStockReport.Properties.Caption = "View Stock Report";
             checkEditViewStockReport.Size = new System.Drawing.Size(376, 20);
             checkEditViewStockReport.TabIndex = 296;
             // 
             // checkEditViewTrendingProducts
             // 
-            checkEditViewTrendingProducts.Location = new System.Drawing.Point(845, 2065);
+            checkEditViewTrendingProducts.Location = new System.Drawing.Point(845, 1167);
             checkEditViewTrendingProducts.Name = "checkEditViewTrendingProducts";
+            checkEditViewTrendingProducts.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewTrendingProducts.Properties.Appearance.Options.UseFont = true;
             checkEditViewTrendingProducts.Properties.Caption = "View Trending Products";
             checkEditViewTrendingProducts.Size = new System.Drawing.Size(376, 20);
             checkEditViewTrendingProducts.TabIndex = 295;
             // 
             // checkEditViewItemsReport
             // 
-            checkEditViewItemsReport.Location = new System.Drawing.Point(845, 2091);
+            checkEditViewItemsReport.Location = new System.Drawing.Point(845, 1193);
             checkEditViewItemsReport.Name = "checkEditViewItemsReport";
+            checkEditViewItemsReport.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewItemsReport.Properties.Appearance.Options.UseFont = true;
             checkEditViewItemsReport.Properties.Caption = "View Items Report";
             checkEditViewItemsReport.Size = new System.Drawing.Size(376, 20);
             checkEditViewItemsReport.TabIndex = 294;
             // 
             // checkEditSelectAllReports
             // 
-            checkEditSelectAllReports.Location = new System.Drawing.Point(427, 1987);
+            checkEditSelectAllReports.Location = new System.Drawing.Point(427, 1089);
             checkEditSelectAllReports.Name = "checkEditSelectAllReports";
             checkEditSelectAllReports.Properties.Caption = "Select All";
             checkEditSelectAllReports.Properties.Name = "checkEditSelectAllDiscounts";
@@ -606,8 +532,10 @@
             // 
             // checkEditViewSupplierCustomerReport
             // 
-            checkEditViewSupplierCustomerReport.Location = new System.Drawing.Point(845, 1987);
+            checkEditViewSupplierCustomerReport.Location = new System.Drawing.Point(845, 1089);
             checkEditViewSupplierCustomerReport.Name = "checkEditViewSupplierCustomerReport";
+            checkEditViewSupplierCustomerReport.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewSupplierCustomerReport.Properties.Appearance.Options.UseFont = true;
             checkEditViewSupplierCustomerReport.Properties.Caption = "View Supplier and Customer Report";
             checkEditViewSupplierCustomerReport.Size = new System.Drawing.Size(376, 20);
             checkEditViewSupplierCustomerReport.TabIndex = 292;
@@ -616,7 +544,7 @@
             // 
             labelControl22.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl22.Appearance.Options.UseFont = true;
-            labelControl22.Location = new System.Drawing.Point(168, 1985);
+            labelControl22.Location = new System.Drawing.Point(168, 1087);
             labelControl22.Name = "labelControl22";
             labelControl22.Size = new System.Drawing.Size(51, 20);
             labelControl22.TabIndex = 291;
@@ -624,7 +552,7 @@
             // 
             // checkEdit42
             // 
-            checkEdit42.Location = new System.Drawing.Point(427, 1521);
+            checkEdit42.Location = new System.Drawing.Point(427, 779);
             checkEdit42.Name = "checkEdit42";
             checkEdit42.Properties.Caption = "Select All";
             checkEdit42.Size = new System.Drawing.Size(125, 20);
@@ -632,8 +560,10 @@
             // 
             // checkEditAccesstoSalesTerminal
             // 
-            checkEditAccesstoSalesTerminal.Location = new System.Drawing.Point(845, 1521);
+            checkEditAccesstoSalesTerminal.Location = new System.Drawing.Point(845, 779);
             checkEditAccesstoSalesTerminal.Name = "checkEditAccesstoSalesTerminal";
+            checkEditAccesstoSalesTerminal.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditAccesstoSalesTerminal.Properties.Appearance.Options.UseFont = true;
             checkEditAccesstoSalesTerminal.Properties.Caption = "Access to the Sales Terminal";
             checkEditAccesstoSalesTerminal.Size = new System.Drawing.Size(376, 20);
             checkEditAccesstoSalesTerminal.TabIndex = 289;
@@ -642,7 +572,7 @@
             // 
             labelControl21.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl21.Appearance.Options.UseFont = true;
-            labelControl21.Location = new System.Drawing.Point(168, 1519);
+            labelControl21.Location = new System.Drawing.Point(168, 777);
             labelControl21.Name = "labelControl21";
             labelControl21.Size = new System.Drawing.Size(27, 20);
             labelControl21.TabIndex = 288;
@@ -651,38 +581,22 @@
             // separatorControl17
             // 
             separatorControl17.BackColor = System.Drawing.Color.Transparent;
-            separatorControl17.Location = new System.Drawing.Point(154, 1495);
+            separatorControl17.Location = new System.Drawing.Point(154, 753);
             separatorControl17.Name = "separatorControl17";
             separatorControl17.Size = new System.Drawing.Size(1366, 23);
             separatorControl17.TabIndex = 287;
             // 
-            // checkEditAssignDiscounts
-            // 
-            checkEditAssignDiscounts.Location = new System.Drawing.Point(845, 1911);
-            checkEditAssignDiscounts.Name = "checkEditAssignDiscounts";
-            checkEditAssignDiscounts.Properties.Caption = "Assign Discounts";
-            checkEditAssignDiscounts.Size = new System.Drawing.Size(376, 20);
-            checkEditAssignDiscounts.TabIndex = 286;
-            // 
             // separatorControl16
             // 
             separatorControl16.BackColor = System.Drawing.Color.Transparent;
-            separatorControl16.Location = new System.Drawing.Point(154, 1963);
+            separatorControl16.Location = new System.Drawing.Point(154, 1065);
             separatorControl16.Name = "separatorControl16";
             separatorControl16.Size = new System.Drawing.Size(1366, 23);
             separatorControl16.TabIndex = 285;
             // 
-            // checkEditAddDiscounts
-            // 
-            checkEditAddDiscounts.Location = new System.Drawing.Point(845, 1937);
-            checkEditAddDiscounts.Name = "checkEditAddDiscounts";
-            checkEditAddDiscounts.Properties.Caption = "Add Discounts";
-            checkEditAddDiscounts.Size = new System.Drawing.Size(376, 20);
-            checkEditAddDiscounts.TabIndex = 284;
-            // 
             // checkEditSelectAllDiscounts
             // 
-            checkEditSelectAllDiscounts.Location = new System.Drawing.Point(427, 1885);
+            checkEditSelectAllDiscounts.Location = new System.Drawing.Point(427, 1041);
             checkEditSelectAllDiscounts.Name = "checkEditSelectAllDiscounts";
             checkEditSelectAllDiscounts.Properties.Caption = "Select All";
             checkEditSelectAllDiscounts.Properties.Name = "checkEditSelectAllDiscounts";
@@ -691,8 +605,10 @@
             // 
             // checkEditViewDiscounts
             // 
-            checkEditViewDiscounts.Location = new System.Drawing.Point(845, 1885);
+            checkEditViewDiscounts.Location = new System.Drawing.Point(845, 1041);
             checkEditViewDiscounts.Name = "checkEditViewDiscounts";
+            checkEditViewDiscounts.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewDiscounts.Properties.Appearance.Options.UseFont = true;
             checkEditViewDiscounts.Properties.Caption = "View Discounts";
             checkEditViewDiscounts.Size = new System.Drawing.Size(376, 20);
             checkEditViewDiscounts.TabIndex = 280;
@@ -701,7 +617,7 @@
             // 
             labelControl20.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl20.Appearance.Options.UseFont = true;
-            labelControl20.Location = new System.Drawing.Point(168, 1883);
+            labelControl20.Location = new System.Drawing.Point(168, 1039);
             labelControl20.Name = "labelControl20";
             labelControl20.Size = new System.Drawing.Size(64, 20);
             labelControl20.TabIndex = 279;
@@ -710,22 +626,14 @@
             // separatorControl15
             // 
             separatorControl15.BackColor = System.Drawing.Color.Transparent;
-            separatorControl15.Location = new System.Drawing.Point(154, 1863);
+            separatorControl15.Location = new System.Drawing.Point(154, 1019);
             separatorControl15.Name = "separatorControl15";
             separatorControl15.Size = new System.Drawing.Size(1366, 23);
             separatorControl15.TabIndex = 278;
             // 
-            // checkEditAddSellReturns
-            // 
-            checkEditAddSellReturns.Location = new System.Drawing.Point(845, 1834);
-            checkEditAddSellReturns.Name = "checkEditAddSellReturns";
-            checkEditAddSellReturns.Properties.Caption = "Add Sell Returns";
-            checkEditAddSellReturns.Size = new System.Drawing.Size(376, 20);
-            checkEditAddSellReturns.TabIndex = 277;
-            // 
             // checkEditSelectAllSellReturns
             // 
-            checkEditSelectAllSellReturns.Location = new System.Drawing.Point(427, 1808);
+            checkEditSelectAllSellReturns.Location = new System.Drawing.Point(427, 991);
             checkEditSelectAllSellReturns.Name = "checkEditSelectAllSellReturns";
             checkEditSelectAllSellReturns.Properties.Caption = "Select All";
             checkEditSelectAllSellReturns.Size = new System.Drawing.Size(125, 20);
@@ -733,8 +641,10 @@
             // 
             // checkEditSellReturns
             // 
-            checkEditSellReturns.Location = new System.Drawing.Point(845, 1808);
+            checkEditSellReturns.Location = new System.Drawing.Point(845, 991);
             checkEditSellReturns.Name = "checkEditSellReturns";
+            checkEditSellReturns.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditSellReturns.Properties.Appearance.Options.UseFont = true;
             checkEditSellReturns.Properties.Caption = "View Sell Returns";
             checkEditSellReturns.Size = new System.Drawing.Size(376, 20);
             checkEditSellReturns.TabIndex = 273;
@@ -743,7 +653,7 @@
             // 
             labelControl19.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl19.Appearance.Options.UseFont = true;
-            labelControl19.Location = new System.Drawing.Point(168, 1806);
+            labelControl19.Location = new System.Drawing.Point(168, 989);
             labelControl19.Name = "labelControl19";
             labelControl19.Size = new System.Drawing.Size(77, 20);
             labelControl19.TabIndex = 272;
@@ -752,22 +662,14 @@
             // separatorControl14
             // 
             separatorControl14.BackColor = System.Drawing.Color.Transparent;
-            separatorControl14.Location = new System.Drawing.Point(154, 1784);
+            separatorControl14.Location = new System.Drawing.Point(154, 967);
             separatorControl14.Name = "separatorControl14";
             separatorControl14.Size = new System.Drawing.Size(1366, 23);
             separatorControl14.TabIndex = 271;
             // 
-            // checkEditQuotations
-            // 
-            checkEditQuotations.Location = new System.Drawing.Point(845, 1757);
-            checkEditQuotations.Name = "checkEditQuotations";
-            checkEditQuotations.Properties.Caption = "Add Quotations";
-            checkEditQuotations.Size = new System.Drawing.Size(376, 20);
-            checkEditQuotations.TabIndex = 270;
-            // 
             // checkEditSelectAllQuotations
             // 
-            checkEditSelectAllQuotations.Location = new System.Drawing.Point(427, 1731);
+            checkEditSelectAllQuotations.Location = new System.Drawing.Point(427, 939);
             checkEditSelectAllQuotations.Name = "checkEditSelectAllQuotations";
             checkEditSelectAllQuotations.Properties.Caption = "Select All";
             checkEditSelectAllQuotations.Size = new System.Drawing.Size(125, 20);
@@ -775,8 +677,10 @@
             // 
             // checkEditViewQuotations
             // 
-            checkEditViewQuotations.Location = new System.Drawing.Point(845, 1731);
+            checkEditViewQuotations.Location = new System.Drawing.Point(845, 939);
             checkEditViewQuotations.Name = "checkEditViewQuotations";
+            checkEditViewQuotations.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewQuotations.Properties.Appearance.Options.UseFont = true;
             checkEditViewQuotations.Properties.Caption = "View Quotations";
             checkEditViewQuotations.Size = new System.Drawing.Size(376, 20);
             checkEditViewQuotations.TabIndex = 266;
@@ -785,7 +689,7 @@
             // 
             labelControl18.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl18.Appearance.Options.UseFont = true;
-            labelControl18.Location = new System.Drawing.Point(168, 1729);
+            labelControl18.Location = new System.Drawing.Point(168, 937);
             labelControl18.Name = "labelControl18";
             labelControl18.Size = new System.Drawing.Size(73, 20);
             labelControl18.TabIndex = 265;
@@ -794,22 +698,14 @@
             // separatorControl13
             // 
             separatorControl13.BackColor = System.Drawing.Color.Transparent;
-            separatorControl13.Location = new System.Drawing.Point(154, 1704);
+            separatorControl13.Location = new System.Drawing.Point(154, 912);
             separatorControl13.Name = "separatorControl13";
             separatorControl13.Size = new System.Drawing.Size(1366, 23);
             separatorControl13.TabIndex = 264;
             // 
-            // checkEditAddDrafts
-            // 
-            checkEditAddDrafts.Location = new System.Drawing.Point(845, 1677);
-            checkEditAddDrafts.Name = "checkEditAddDrafts";
-            checkEditAddDrafts.Properties.Caption = "Add Drafts";
-            checkEditAddDrafts.Size = new System.Drawing.Size(376, 20);
-            checkEditAddDrafts.TabIndex = 263;
-            // 
             // checkEditSelectAllDrafts
             // 
-            checkEditSelectAllDrafts.Location = new System.Drawing.Point(427, 1651);
+            checkEditSelectAllDrafts.Location = new System.Drawing.Point(427, 884);
             checkEditSelectAllDrafts.Name = "checkEditSelectAllDrafts";
             checkEditSelectAllDrafts.Properties.Caption = "Select All";
             checkEditSelectAllDrafts.Size = new System.Drawing.Size(125, 20);
@@ -817,8 +713,10 @@
             // 
             // checkEditViewDrafts
             // 
-            checkEditViewDrafts.Location = new System.Drawing.Point(845, 1651);
+            checkEditViewDrafts.Location = new System.Drawing.Point(845, 884);
             checkEditViewDrafts.Name = "checkEditViewDrafts";
+            checkEditViewDrafts.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewDrafts.Properties.Appearance.Options.UseFont = true;
             checkEditViewDrafts.Properties.Caption = "View Drafts";
             checkEditViewDrafts.Size = new System.Drawing.Size(376, 20);
             checkEditViewDrafts.TabIndex = 259;
@@ -827,7 +725,7 @@
             // 
             labelControl17.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl17.Appearance.Options.UseFont = true;
-            labelControl17.Location = new System.Drawing.Point(168, 1649);
+            labelControl17.Location = new System.Drawing.Point(168, 882);
             labelControl17.Name = "labelControl17";
             labelControl17.Size = new System.Drawing.Size(40, 20);
             labelControl17.TabIndex = 258;
@@ -836,22 +734,14 @@
             // separatorControl12
             // 
             separatorControl12.BackColor = System.Drawing.Color.Transparent;
-            separatorControl12.Location = new System.Drawing.Point(154, 1625);
+            separatorControl12.Location = new System.Drawing.Point(154, 858);
             separatorControl12.Name = "separatorControl12";
             separatorControl12.Size = new System.Drawing.Size(1366, 23);
             separatorControl12.TabIndex = 257;
             // 
-            // checkEditAddSales
-            // 
-            checkEditAddSales.Location = new System.Drawing.Point(845, 1600);
-            checkEditAddSales.Name = "checkEditAddSales";
-            checkEditAddSales.Properties.Caption = "Add Sales";
-            checkEditAddSales.Size = new System.Drawing.Size(376, 20);
-            checkEditAddSales.TabIndex = 256;
-            // 
             // checkEditSelectAllSales
             // 
-            checkEditSelectAllSales.Location = new System.Drawing.Point(427, 1574);
+            checkEditSelectAllSales.Location = new System.Drawing.Point(427, 832);
             checkEditSelectAllSales.Name = "checkEditSelectAllSales";
             checkEditSelectAllSales.Properties.Caption = "Select All";
             checkEditSelectAllSales.Size = new System.Drawing.Size(125, 20);
@@ -859,8 +749,10 @@
             // 
             // checkEditViewSales
             // 
-            checkEditViewSales.Location = new System.Drawing.Point(845, 1574);
+            checkEditViewSales.Location = new System.Drawing.Point(845, 832);
             checkEditViewSales.Name = "checkEditViewSales";
+            checkEditViewSales.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewSales.Properties.Appearance.Options.UseFont = true;
             checkEditViewSales.Properties.Caption = "View Sales";
             checkEditViewSales.Size = new System.Drawing.Size(376, 20);
             checkEditViewSales.TabIndex = 252;
@@ -869,7 +761,7 @@
             // 
             labelControl16.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl16.Appearance.Options.UseFont = true;
-            labelControl16.Location = new System.Drawing.Point(168, 1572);
+            labelControl16.Location = new System.Drawing.Point(168, 830);
             labelControl16.Name = "labelControl16";
             labelControl16.Size = new System.Drawing.Size(34, 20);
             labelControl16.TabIndex = 251;
@@ -878,38 +770,14 @@
             // separatorControl11
             // 
             separatorControl11.BackColor = System.Drawing.Color.Transparent;
-            separatorControl11.Location = new System.Drawing.Point(154, 1548);
+            separatorControl11.Location = new System.Drawing.Point(154, 806);
             separatorControl11.Name = "separatorControl11";
             separatorControl11.Size = new System.Drawing.Size(1366, 23);
             separatorControl11.TabIndex = 250;
             // 
-            // checkEditAddBrands
-            // 
-            checkEditAddBrands.Location = new System.Drawing.Point(845, 1416);
-            checkEditAddBrands.Name = "checkEditAddBrands";
-            checkEditAddBrands.Properties.Caption = "Add Brands";
-            checkEditAddBrands.Size = new System.Drawing.Size(376, 20);
-            checkEditAddBrands.TabIndex = 249;
-            // 
-            // checkEditEditBrands
-            // 
-            checkEditEditBrands.Location = new System.Drawing.Point(845, 1442);
-            checkEditEditBrands.Name = "checkEditEditBrands";
-            checkEditEditBrands.Properties.Caption = "Edit Brands";
-            checkEditEditBrands.Size = new System.Drawing.Size(376, 20);
-            checkEditEditBrands.TabIndex = 248;
-            // 
-            // checkEditDeleteBrands
-            // 
-            checkEditDeleteBrands.Location = new System.Drawing.Point(845, 1468);
-            checkEditDeleteBrands.Name = "checkEditDeleteBrands";
-            checkEditDeleteBrands.Properties.Caption = "Delete Brands";
-            checkEditDeleteBrands.Size = new System.Drawing.Size(376, 20);
-            checkEditDeleteBrands.TabIndex = 247;
-            // 
             // checkEditSelectAllBrands
             // 
-            checkEditSelectAllBrands.Location = new System.Drawing.Point(427, 1390);
+            checkEditSelectAllBrands.Location = new System.Drawing.Point(427, 727);
             checkEditSelectAllBrands.Name = "checkEditSelectAllBrands";
             checkEditSelectAllBrands.Properties.Caption = "Select All";
             checkEditSelectAllBrands.Size = new System.Drawing.Size(125, 20);
@@ -917,8 +785,10 @@
             // 
             // checkEditViewBrands
             // 
-            checkEditViewBrands.Location = new System.Drawing.Point(845, 1390);
+            checkEditViewBrands.Location = new System.Drawing.Point(845, 727);
             checkEditViewBrands.Name = "checkEditViewBrands";
+            checkEditViewBrands.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewBrands.Properties.Appearance.Options.UseFont = true;
             checkEditViewBrands.Properties.Caption = "View Brands";
             checkEditViewBrands.Size = new System.Drawing.Size(376, 20);
             checkEditViewBrands.TabIndex = 245;
@@ -927,7 +797,7 @@
             // 
             labelControl15.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl15.Appearance.Options.UseFont = true;
-            labelControl15.Location = new System.Drawing.Point(168, 1388);
+            labelControl15.Location = new System.Drawing.Point(168, 725);
             labelControl15.Name = "labelControl15";
             labelControl15.Size = new System.Drawing.Size(45, 20);
             labelControl15.TabIndex = 244;
@@ -936,56 +806,24 @@
             // separatorControl10
             // 
             separatorControl10.BackColor = System.Drawing.Color.Transparent;
-            separatorControl10.Location = new System.Drawing.Point(154, 1366);
+            separatorControl10.Location = new System.Drawing.Point(154, 703);
             separatorControl10.Name = "separatorControl10";
             separatorControl10.Size = new System.Drawing.Size(1366, 23);
             separatorControl10.TabIndex = 243;
             // 
-            // checkEditAddUnits
-            // 
-            checkEditAddUnits.Location = new System.Drawing.Point(845, 1288);
-            checkEditAddUnits.Name = "checkEditAddUnits";
-            checkEditAddUnits.Properties.Caption = "Add Units";
-            checkEditAddUnits.Size = new System.Drawing.Size(376, 20);
-            checkEditAddUnits.TabIndex = 242;
-            // 
-            // checkEdit27
-            // 
-            checkEdit27.Location = new System.Drawing.Point(845, 1602);
-            checkEdit27.Name = "checkEdit27";
-            checkEdit27.Properties.Caption = "Edit Units";
-            checkEdit27.Size = new System.Drawing.Size(376, 20);
-            checkEdit27.TabIndex = 241;
-            // 
-            // checkEditDeleteUnits
-            // 
-            checkEditDeleteUnits.Location = new System.Drawing.Point(845, 1340);
-            checkEditDeleteUnits.Name = "checkEditDeleteUnits";
-            checkEditDeleteUnits.Properties.Caption = "Delete Units";
-            checkEditDeleteUnits.Size = new System.Drawing.Size(376, 20);
-            checkEditDeleteUnits.TabIndex = 240;
-            // 
             // checkEditSelectAllUnits
             // 
-            checkEditSelectAllUnits.Location = new System.Drawing.Point(427, 1262);
+            checkEditSelectAllUnits.Location = new System.Drawing.Point(427, 677);
             checkEditSelectAllUnits.Name = "checkEditSelectAllUnits";
             checkEditSelectAllUnits.Properties.Caption = "Select All";
             checkEditSelectAllUnits.Size = new System.Drawing.Size(125, 20);
             checkEditSelectAllUnits.TabIndex = 239;
             // 
-            // checkEditViewUnits
-            // 
-            checkEditViewUnits.Location = new System.Drawing.Point(845, 1262);
-            checkEditViewUnits.Name = "checkEditViewUnits";
-            checkEditViewUnits.Properties.Caption = "View Units";
-            checkEditViewUnits.Size = new System.Drawing.Size(376, 20);
-            checkEditViewUnits.TabIndex = 238;
-            // 
             // labelControl14
             // 
             labelControl14.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl14.Appearance.Options.UseFont = true;
-            labelControl14.Location = new System.Drawing.Point(168, 1260);
+            labelControl14.Location = new System.Drawing.Point(168, 675);
             labelControl14.Name = "labelControl14";
             labelControl14.Size = new System.Drawing.Size(33, 20);
             labelControl14.TabIndex = 237;
@@ -994,32 +832,24 @@
             // separatorControl9
             // 
             separatorControl9.BackColor = System.Drawing.Color.Transparent;
-            separatorControl9.Location = new System.Drawing.Point(154, 1104);
+            separatorControl9.Location = new System.Drawing.Point(154, 597);
             separatorControl9.Name = "separatorControl9";
             separatorControl9.Size = new System.Drawing.Size(1366, 23);
             separatorControl9.TabIndex = 236;
             // 
             // checkEditSelectAllPrintLabels
             // 
-            checkEditSelectAllPrintLabels.Location = new System.Drawing.Point(427, 1078);
+            checkEditSelectAllPrintLabels.Location = new System.Drawing.Point(427, 571);
             checkEditSelectAllPrintLabels.Name = "checkEditSelectAllPrintLabels";
             checkEditSelectAllPrintLabels.Properties.Caption = "Select All";
             checkEditSelectAllPrintLabels.Size = new System.Drawing.Size(125, 20);
             checkEditSelectAllPrintLabels.TabIndex = 235;
             // 
-            // checkEditAccesstoPrintLabelsForm
-            // 
-            checkEditAccesstoPrintLabelsForm.Location = new System.Drawing.Point(845, 1078);
-            checkEditAccesstoPrintLabelsForm.Name = "checkEditAccesstoPrintLabelsForm";
-            checkEditAccesstoPrintLabelsForm.Properties.Caption = "View Print Labels Page";
-            checkEditAccesstoPrintLabelsForm.Size = new System.Drawing.Size(376, 20);
-            checkEditAccesstoPrintLabelsForm.TabIndex = 234;
-            // 
             // labelControl13
             // 
             labelControl13.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl13.Appearance.Options.UseFont = true;
-            labelControl13.Location = new System.Drawing.Point(168, 1076);
+            labelControl13.Location = new System.Drawing.Point(168, 569);
             labelControl13.Name = "labelControl13";
             labelControl13.Size = new System.Drawing.Size(76, 20);
             labelControl13.TabIndex = 233;
@@ -1028,56 +858,24 @@
             // separatorControl8
             // 
             separatorControl8.BackColor = System.Drawing.Color.Transparent;
-            separatorControl8.Location = new System.Drawing.Point(154, 1235);
+            separatorControl8.Location = new System.Drawing.Point(154, 650);
             separatorControl8.Name = "separatorControl8";
             separatorControl8.Size = new System.Drawing.Size(1366, 23);
             separatorControl8.TabIndex = 232;
             // 
-            // checkEditAddCategories
-            // 
-            checkEditAddCategories.Location = new System.Drawing.Point(845, 1157);
-            checkEditAddCategories.Name = "checkEditAddCategories";
-            checkEditAddCategories.Properties.Caption = "Add Categories";
-            checkEditAddCategories.Size = new System.Drawing.Size(376, 20);
-            checkEditAddCategories.TabIndex = 231;
-            // 
-            // checkEditEditCategories
-            // 
-            checkEditEditCategories.Location = new System.Drawing.Point(845, 1183);
-            checkEditEditCategories.Name = "checkEditEditCategories";
-            checkEditEditCategories.Properties.Caption = "Edit Categories";
-            checkEditEditCategories.Size = new System.Drawing.Size(376, 20);
-            checkEditEditCategories.TabIndex = 230;
-            // 
-            // checkEditDeleteCategories
-            // 
-            checkEditDeleteCategories.Location = new System.Drawing.Point(845, 1209);
-            checkEditDeleteCategories.Name = "checkEditDeleteCategories";
-            checkEditDeleteCategories.Properties.Caption = "Delete Categories";
-            checkEditDeleteCategories.Size = new System.Drawing.Size(376, 20);
-            checkEditDeleteCategories.TabIndex = 229;
-            // 
             // checkEditSelectAllCategory
             // 
-            checkEditSelectAllCategory.Location = new System.Drawing.Point(427, 1131);
+            checkEditSelectAllCategory.Location = new System.Drawing.Point(427, 624);
             checkEditSelectAllCategory.Name = "checkEditSelectAllCategory";
             checkEditSelectAllCategory.Properties.Caption = "Select All";
             checkEditSelectAllCategory.Size = new System.Drawing.Size(125, 20);
             checkEditSelectAllCategory.TabIndex = 228;
             // 
-            // checkEditViewCategories
-            // 
-            checkEditViewCategories.Location = new System.Drawing.Point(845, 1131);
-            checkEditViewCategories.Name = "checkEditViewCategories";
-            checkEditViewCategories.Properties.Caption = "View Categories";
-            checkEditViewCategories.Size = new System.Drawing.Size(376, 20);
-            checkEditViewCategories.TabIndex = 227;
-            // 
             // labelControl12
             // 
             labelControl12.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl12.Appearance.Options.UseFont = true;
-            labelControl12.Location = new System.Drawing.Point(168, 1129);
+            labelControl12.Location = new System.Drawing.Point(168, 622);
             labelControl12.Name = "labelControl12";
             labelControl12.Size = new System.Drawing.Size(71, 20);
             labelControl12.TabIndex = 226;
@@ -1086,56 +884,24 @@
             // separatorControl7
             // 
             separatorControl7.BackColor = System.Drawing.Color.Transparent;
-            separatorControl7.Location = new System.Drawing.Point(154, 909);
+            separatorControl7.Location = new System.Drawing.Point(154, 489);
             separatorControl7.Name = "separatorControl7";
             separatorControl7.Size = new System.Drawing.Size(1366, 23);
             separatorControl7.TabIndex = 225;
             // 
-            // checkEditAddCustomerGroups
-            // 
-            checkEditAddCustomerGroups.Location = new System.Drawing.Point(845, 831);
-            checkEditAddCustomerGroups.Name = "checkEditAddCustomerGroups";
-            checkEditAddCustomerGroups.Properties.Caption = "Add Customer Groups";
-            checkEditAddCustomerGroups.Size = new System.Drawing.Size(376, 20);
-            checkEditAddCustomerGroups.TabIndex = 224;
-            // 
-            // checkEditEditCustomerGroups
-            // 
-            checkEditEditCustomerGroups.Location = new System.Drawing.Point(845, 857);
-            checkEditEditCustomerGroups.Name = "checkEditEditCustomerGroups";
-            checkEditEditCustomerGroups.Properties.Caption = "Edit Customer Groups";
-            checkEditEditCustomerGroups.Size = new System.Drawing.Size(376, 20);
-            checkEditEditCustomerGroups.TabIndex = 223;
-            // 
-            // checkEditDeleteCustomerGroups
-            // 
-            checkEditDeleteCustomerGroups.Location = new System.Drawing.Point(845, 883);
-            checkEditDeleteCustomerGroups.Name = "checkEditDeleteCustomerGroups";
-            checkEditDeleteCustomerGroups.Properties.Caption = "Delete Customer Groups";
-            checkEditDeleteCustomerGroups.Size = new System.Drawing.Size(376, 20);
-            checkEditDeleteCustomerGroups.TabIndex = 222;
-            // 
             // checkEditSelectAllCustomerGroups
             // 
-            checkEditSelectAllCustomerGroups.Location = new System.Drawing.Point(427, 805);
+            checkEditSelectAllCustomerGroups.Location = new System.Drawing.Point(427, 463);
             checkEditSelectAllCustomerGroups.Name = "checkEditSelectAllCustomerGroups";
             checkEditSelectAllCustomerGroups.Properties.Caption = "Select All";
             checkEditSelectAllCustomerGroups.Size = new System.Drawing.Size(125, 20);
             checkEditSelectAllCustomerGroups.TabIndex = 221;
             // 
-            // checkEditViewCustomerGroups
-            // 
-            checkEditViewCustomerGroups.Location = new System.Drawing.Point(845, 805);
-            checkEditViewCustomerGroups.Name = "checkEditViewCustomerGroups";
-            checkEditViewCustomerGroups.Properties.Caption = "View Customer Groups";
-            checkEditViewCustomerGroups.Size = new System.Drawing.Size(376, 20);
-            checkEditViewCustomerGroups.TabIndex = 220;
-            // 
             // labelControl11
             // 
             labelControl11.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl11.Appearance.Options.UseFont = true;
-            labelControl11.Location = new System.Drawing.Point(166, 801);
+            labelControl11.Location = new System.Drawing.Point(166, 459);
             labelControl11.Name = "labelControl11";
             labelControl11.Size = new System.Drawing.Size(114, 20);
             labelControl11.TabIndex = 219;
@@ -1144,122 +910,50 @@
             // separatorControl6
             // 
             separatorControl6.BackColor = System.Drawing.Color.Transparent;
-            separatorControl6.Location = new System.Drawing.Point(154, 1042);
+            separatorControl6.Location = new System.Drawing.Point(154, 542);
             separatorControl6.Name = "separatorControl6";
             separatorControl6.Size = new System.Drawing.Size(1366, 23);
             separatorControl6.TabIndex = 217;
             // 
-            // checkEditAddProducts
-            // 
-            checkEditAddProducts.Location = new System.Drawing.Point(845, 964);
-            checkEditAddProducts.Name = "checkEditAddProducts";
-            checkEditAddProducts.Properties.Caption = "Add Products";
-            checkEditAddProducts.Size = new System.Drawing.Size(376, 20);
-            checkEditAddProducts.TabIndex = 216;
-            // 
-            // checkEdit16
-            // 
-            checkEdit16.Location = new System.Drawing.Point(845, 990);
-            checkEdit16.Name = "checkEdit16";
-            checkEdit16.Properties.Caption = "Edit Products";
-            checkEdit16.Size = new System.Drawing.Size(376, 20);
-            checkEdit16.TabIndex = 215;
-            // 
-            // checkEdit17
-            // 
-            checkEdit17.Location = new System.Drawing.Point(845, 1016);
-            checkEdit17.Name = "checkEdit17";
-            checkEdit17.Properties.Caption = "Delete Products";
-            checkEdit17.Size = new System.Drawing.Size(376, 20);
-            checkEdit17.TabIndex = 214;
-            // 
             // checkEditSelectAllProducts
             // 
-            checkEditSelectAllProducts.Location = new System.Drawing.Point(427, 938);
+            checkEditSelectAllProducts.Location = new System.Drawing.Point(427, 518);
             checkEditSelectAllProducts.Name = "checkEditSelectAllProducts";
             checkEditSelectAllProducts.Properties.Caption = "Select All";
             checkEditSelectAllProducts.Size = new System.Drawing.Size(125, 20);
             checkEditSelectAllProducts.TabIndex = 213;
             // 
-            // checkEditViewProducts
-            // 
-            checkEditViewProducts.Location = new System.Drawing.Point(845, 938);
-            checkEditViewProducts.Name = "checkEditViewProducts";
-            checkEditViewProducts.Properties.Caption = "View Products";
-            checkEditViewProducts.Size = new System.Drawing.Size(376, 20);
-            checkEditViewProducts.TabIndex = 212;
-            // 
             // labelControl10
             // 
             labelControl10.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl10.Appearance.Options.UseFont = true;
-            labelControl10.Location = new System.Drawing.Point(168, 936);
+            labelControl10.Location = new System.Drawing.Point(168, 516);
             labelControl10.Name = "labelControl10";
             labelControl10.Size = new System.Drawing.Size(57, 20);
             labelControl10.TabIndex = 211;
             labelControl10.Text = "Products";
             // 
-            // checkEditViewCustomersDetails
-            // 
-            checkEditViewCustomersDetails.Location = new System.Drawing.Point(845, 672);
-            checkEditViewCustomersDetails.Name = "checkEditViewCustomersDetails";
-            checkEditViewCustomersDetails.Properties.Caption = "View Customer Details";
-            checkEditViewCustomersDetails.Size = new System.Drawing.Size(376, 20);
-            checkEditViewCustomersDetails.TabIndex = 210;
-            // 
             // separatorControl5
             // 
             separatorControl5.BackColor = System.Drawing.Color.Transparent;
-            separatorControl5.Location = new System.Drawing.Point(154, 776);
+            separatorControl5.Location = new System.Drawing.Point(154, 434);
             separatorControl5.Name = "separatorControl5";
             separatorControl5.Size = new System.Drawing.Size(1366, 23);
             separatorControl5.TabIndex = 209;
             // 
-            // checkEditAddCustomers
-            // 
-            checkEditAddCustomers.Location = new System.Drawing.Point(845, 698);
-            checkEditAddCustomers.Name = "checkEditAddCustomers";
-            checkEditAddCustomers.Properties.Caption = "Add Customers";
-            checkEditAddCustomers.Size = new System.Drawing.Size(376, 20);
-            checkEditAddCustomers.TabIndex = 208;
-            // 
-            // checkEditEditCustomers
-            // 
-            checkEditEditCustomers.Location = new System.Drawing.Point(845, 724);
-            checkEditEditCustomers.Name = "checkEditEditCustomers";
-            checkEditEditCustomers.Properties.Caption = "Edit Customers";
-            checkEditEditCustomers.Size = new System.Drawing.Size(376, 20);
-            checkEditEditCustomers.TabIndex = 207;
-            // 
-            // checkEditDeleteCustomers
-            // 
-            checkEditDeleteCustomers.Location = new System.Drawing.Point(845, 750);
-            checkEditDeleteCustomers.Name = "checkEditDeleteCustomers";
-            checkEditDeleteCustomers.Properties.Caption = "Delete Customers";
-            checkEditDeleteCustomers.Size = new System.Drawing.Size(376, 20);
-            checkEditDeleteCustomers.TabIndex = 206;
-            // 
             // checkEditSelectAllCustomers
             // 
-            checkEditSelectAllCustomers.Location = new System.Drawing.Point(427, 646);
+            checkEditSelectAllCustomers.Location = new System.Drawing.Point(427, 412);
             checkEditSelectAllCustomers.Name = "checkEditSelectAllCustomers";
             checkEditSelectAllCustomers.Properties.Caption = "Select All";
             checkEditSelectAllCustomers.Size = new System.Drawing.Size(125, 20);
             checkEditSelectAllCustomers.TabIndex = 205;
             // 
-            // checkEditViewCustomers
-            // 
-            checkEditViewCustomers.Location = new System.Drawing.Point(845, 646);
-            checkEditViewCustomers.Name = "checkEditViewCustomers";
-            checkEditViewCustomers.Properties.Caption = "View Customers";
-            checkEditViewCustomers.Size = new System.Drawing.Size(376, 20);
-            checkEditViewCustomers.TabIndex = 204;
-            // 
             // labelControl9
             // 
             labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl9.Appearance.Options.UseFont = true;
-            labelControl9.Location = new System.Drawing.Point(166, 642);
+            labelControl9.Location = new System.Drawing.Point(166, 408);
             labelControl9.Name = "labelControl9";
             labelControl9.Size = new System.Drawing.Size(69, 20);
             labelControl9.TabIndex = 203;
@@ -1268,56 +962,24 @@
             // separatorControl4
             // 
             separatorControl4.BackColor = System.Drawing.Color.Transparent;
-            separatorControl4.Location = new System.Drawing.Point(154, 617);
+            separatorControl4.Location = new System.Drawing.Point(154, 383);
             separatorControl4.Name = "separatorControl4";
             separatorControl4.Size = new System.Drawing.Size(1366, 23);
             separatorControl4.TabIndex = 202;
             // 
-            // checkEditAddSuppliers
-            // 
-            checkEditAddSuppliers.Location = new System.Drawing.Point(845, 539);
-            checkEditAddSuppliers.Name = "checkEditAddSuppliers";
-            checkEditAddSuppliers.Properties.Caption = "Add Suppliers";
-            checkEditAddSuppliers.Size = new System.Drawing.Size(376, 20);
-            checkEditAddSuppliers.TabIndex = 201;
-            // 
-            // checkEditEditSuppliers
-            // 
-            checkEditEditSuppliers.Location = new System.Drawing.Point(845, 565);
-            checkEditEditSuppliers.Name = "checkEditEditSuppliers";
-            checkEditEditSuppliers.Properties.Caption = "Edit Suppliers";
-            checkEditEditSuppliers.Size = new System.Drawing.Size(376, 20);
-            checkEditEditSuppliers.TabIndex = 200;
-            // 
-            // checkEditDeleteSuppliers
-            // 
-            checkEditDeleteSuppliers.Location = new System.Drawing.Point(845, 591);
-            checkEditDeleteSuppliers.Name = "checkEditDeleteSuppliers";
-            checkEditDeleteSuppliers.Properties.Caption = "Delete Suppliers";
-            checkEditDeleteSuppliers.Size = new System.Drawing.Size(376, 20);
-            checkEditDeleteSuppliers.TabIndex = 199;
-            // 
             // checkEditSelectAllSuppliers
             // 
-            checkEditSelectAllSuppliers.Location = new System.Drawing.Point(427, 513);
+            checkEditSelectAllSuppliers.Location = new System.Drawing.Point(427, 357);
             checkEditSelectAllSuppliers.Name = "checkEditSelectAllSuppliers";
             checkEditSelectAllSuppliers.Properties.Caption = "Select All";
             checkEditSelectAllSuppliers.Size = new System.Drawing.Size(125, 20);
             checkEditSelectAllSuppliers.TabIndex = 198;
             // 
-            // checkEditViewSuppliers
-            // 
-            checkEditViewSuppliers.Location = new System.Drawing.Point(845, 513);
-            checkEditViewSuppliers.Name = "checkEditViewSuppliers";
-            checkEditViewSuppliers.Properties.Caption = "View Suppliers";
-            checkEditViewSuppliers.Size = new System.Drawing.Size(376, 20);
-            checkEditViewSuppliers.TabIndex = 197;
-            // 
             // labelControl8
             // 
             labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Location = new System.Drawing.Point(166, 509);
+            labelControl8.Location = new System.Drawing.Point(166, 353);
             labelControl8.Name = "labelControl8";
             labelControl8.Size = new System.Drawing.Size(61, 20);
             labelControl8.TabIndex = 196;
@@ -1326,56 +988,24 @@
             // separatorControl3
             // 
             separatorControl3.BackColor = System.Drawing.Color.Transparent;
-            separatorControl3.Location = new System.Drawing.Point(154, 482);
+            separatorControl3.Location = new System.Drawing.Point(154, 326);
             separatorControl3.Name = "separatorControl3";
             separatorControl3.Size = new System.Drawing.Size(1366, 23);
             separatorControl3.TabIndex = 195;
             // 
-            // checkEditAddRoles
-            // 
-            checkEditAddRoles.Location = new System.Drawing.Point(845, 404);
-            checkEditAddRoles.Name = "checkEditAddRoles";
-            checkEditAddRoles.Properties.Caption = "Add Roles";
-            checkEditAddRoles.Size = new System.Drawing.Size(376, 20);
-            checkEditAddRoles.TabIndex = 194;
-            // 
-            // checkEditEditRoles
-            // 
-            checkEditEditRoles.Location = new System.Drawing.Point(845, 430);
-            checkEditEditRoles.Name = "checkEditEditRoles";
-            checkEditEditRoles.Properties.Caption = "Edit Roles";
-            checkEditEditRoles.Size = new System.Drawing.Size(376, 20);
-            checkEditEditRoles.TabIndex = 193;
-            // 
-            // checkEditDeleteRoles
-            // 
-            checkEditDeleteRoles.Location = new System.Drawing.Point(845, 456);
-            checkEditDeleteRoles.Name = "checkEditDeleteRoles";
-            checkEditDeleteRoles.Properties.Caption = "Delete Roles";
-            checkEditDeleteRoles.Size = new System.Drawing.Size(376, 20);
-            checkEditDeleteRoles.TabIndex = 192;
-            // 
             // checkEditSelectAllRoles
             // 
-            checkEditSelectAllRoles.Location = new System.Drawing.Point(427, 378);
+            checkEditSelectAllRoles.Location = new System.Drawing.Point(427, 300);
             checkEditSelectAllRoles.Name = "checkEditSelectAllRoles";
             checkEditSelectAllRoles.Properties.Caption = "Select All";
             checkEditSelectAllRoles.Size = new System.Drawing.Size(125, 20);
             checkEditSelectAllRoles.TabIndex = 191;
             // 
-            // checkEditViewRoles
-            // 
-            checkEditViewRoles.Location = new System.Drawing.Point(845, 378);
-            checkEditViewRoles.Name = "checkEditViewRoles";
-            checkEditViewRoles.Properties.Caption = "View Roles";
-            checkEditViewRoles.Size = new System.Drawing.Size(376, 20);
-            checkEditViewRoles.TabIndex = 190;
-            // 
             // labelControl6
             // 
             labelControl6.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             labelControl6.Appearance.Options.UseFont = true;
-            labelControl6.Location = new System.Drawing.Point(166, 374);
+            labelControl6.Location = new System.Drawing.Point(166, 296);
             labelControl6.Name = "labelControl6";
             labelControl6.Size = new System.Drawing.Size(36, 20);
             labelControl6.TabIndex = 189;
@@ -1384,34 +1014,10 @@
             // separatorControl2
             // 
             separatorControl2.BackColor = System.Drawing.Color.Transparent;
-            separatorControl2.Location = new System.Drawing.Point(154, 349);
+            separatorControl2.Location = new System.Drawing.Point(154, 271);
             separatorControl2.Name = "separatorControl2";
             separatorControl2.Size = new System.Drawing.Size(1366, 23);
             separatorControl2.TabIndex = 188;
-            // 
-            // checkEditAddUser
-            // 
-            checkEditAddUser.Location = new System.Drawing.Point(845, 271);
-            checkEditAddUser.Name = "checkEditAddUser";
-            checkEditAddUser.Properties.Caption = "Add Users";
-            checkEditAddUser.Size = new System.Drawing.Size(376, 20);
-            checkEditAddUser.TabIndex = 187;
-            // 
-            // checkEditEditUser
-            // 
-            checkEditEditUser.Location = new System.Drawing.Point(845, 297);
-            checkEditEditUser.Name = "checkEditEditUser";
-            checkEditEditUser.Properties.Caption = "Edit Users";
-            checkEditEditUser.Size = new System.Drawing.Size(376, 20);
-            checkEditEditUser.TabIndex = 186;
-            // 
-            // checkEditDeleteUser
-            // 
-            checkEditDeleteUser.Location = new System.Drawing.Point(845, 323);
-            checkEditDeleteUser.Name = "checkEditDeleteUser";
-            checkEditDeleteUser.Properties.Caption = "Delete Users";
-            checkEditDeleteUser.Size = new System.Drawing.Size(376, 20);
-            checkEditDeleteUser.TabIndex = 185;
             // 
             // checkEditSelectAllUsers
             // 
@@ -1429,14 +1035,6 @@
             checkEditSelectAllOther.Size = new System.Drawing.Size(125, 20);
             checkEditSelectAllOther.TabIndex = 183;
             // 
-            // checkEditViewUser
-            // 
-            checkEditViewUser.Location = new System.Drawing.Point(845, 245);
-            checkEditViewUser.Name = "checkEditViewUser";
-            checkEditViewUser.Properties.Caption = "View Users";
-            checkEditViewUser.Size = new System.Drawing.Size(376, 20);
-            checkEditViewUser.TabIndex = 182;
-            // 
             // labelControl5
             // 
             labelControl5.Appearance.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
@@ -1451,6 +1049,8 @@
             // 
             checkEditViewExportButtons.Location = new System.Drawing.Point(845, 188);
             checkEditViewExportButtons.Name = "checkEditViewExportButtons";
+            checkEditViewExportButtons.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewExportButtons.Properties.Appearance.Options.UseFont = true;
             checkEditViewExportButtons.Properties.Caption = "View export to buttons (csv/excel/print/pdf) on tables";
             checkEditViewExportButtons.Size = new System.Drawing.Size(376, 20);
             checkEditViewExportButtons.TabIndex = 180;
@@ -1503,6 +1103,26 @@
             txtRoleName.Size = new System.Drawing.Size(480, 44);
             txtRoleName.TabIndex = 175;
             // 
+            // labelControlDescription
+            // 
+            labelControlDescription.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelControlDescription.Appearance.Options.UseFont = true;
+            labelControlDescription.Location = new System.Drawing.Point(680, 39);
+            labelControlDescription.Name = "labelControlDescription";
+            labelControlDescription.Size = new System.Drawing.Size(69, 17);
+            labelControlDescription.TabIndex = 318;
+            labelControlDescription.Text = "Description:";
+            // 
+            // txtDescription
+            // 
+            txtDescription.Location = new System.Drawing.Point(680, 62);
+            txtDescription.Name = "txtDescription";
+            txtDescription.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            txtDescription.Properties.Appearance.Options.UseFont = true;
+            txtDescription.Properties.Padding = new System.Windows.Forms.Padding(10);
+            txtDescription.Size = new System.Drawing.Size(480, 44);
+            txtDescription.TabIndex = 319;
+            // 
             // labelControl2
             // 
             labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
@@ -1547,13 +1167,95 @@
             labelControl3.TabIndex = 119;
             labelControl3.Text = "Role Registration";
             // 
-            // checkEditViewDashboard
+            // checkEditViewUnits
             // 
-            checkEditViewDashboard.Location = new System.Drawing.Point(845, 2380);
-            checkEditViewDashboard.Name = "checkEditViewDashboard";
-            checkEditViewDashboard.Properties.Caption = "View Dashboard";
-            checkEditViewDashboard.Size = new System.Drawing.Size(376, 20);
-            checkEditViewDashboard.TabIndex = 317;
+            checkEditViewUnits.Location = new System.Drawing.Point(845, 677);
+            checkEditViewUnits.Name = "checkEditViewUnits";
+            checkEditViewUnits.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewUnits.Properties.Appearance.Options.UseFont = true;
+            checkEditViewUnits.Properties.Caption = "View Units";
+            checkEditViewUnits.Size = new System.Drawing.Size(376, 20);
+            checkEditViewUnits.TabIndex = 238;
+            // 
+            // checkEditViewCategories
+            // 
+            checkEditViewCategories.Location = new System.Drawing.Point(845, 624);
+            checkEditViewCategories.Name = "checkEditViewCategories";
+            checkEditViewCategories.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewCategories.Properties.Appearance.Options.UseFont = true;
+            checkEditViewCategories.Properties.Caption = "View Categories";
+            checkEditViewCategories.Size = new System.Drawing.Size(376, 20);
+            checkEditViewCategories.TabIndex = 227;
+            // 
+            // checkEditAccesstoPrintLabelsForm
+            // 
+            checkEditAccesstoPrintLabelsForm.Location = new System.Drawing.Point(845, 571);
+            checkEditAccesstoPrintLabelsForm.Name = "checkEditAccesstoPrintLabelsForm";
+            checkEditAccesstoPrintLabelsForm.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditAccesstoPrintLabelsForm.Properties.Appearance.Options.UseFont = true;
+            checkEditAccesstoPrintLabelsForm.Properties.Caption = "View Print Labels Page";
+            checkEditAccesstoPrintLabelsForm.Size = new System.Drawing.Size(376, 20);
+            checkEditAccesstoPrintLabelsForm.TabIndex = 234;
+            // 
+            // checkEditViewProducts
+            // 
+            checkEditViewProducts.Location = new System.Drawing.Point(845, 518);
+            checkEditViewProducts.Name = "checkEditViewProducts";
+            checkEditViewProducts.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewProducts.Properties.Appearance.Options.UseFont = true;
+            checkEditViewProducts.Properties.Caption = "View Products";
+            checkEditViewProducts.Size = new System.Drawing.Size(376, 20);
+            checkEditViewProducts.TabIndex = 212;
+            // 
+            // checkEditViewCustomerGroups
+            // 
+            checkEditViewCustomerGroups.Location = new System.Drawing.Point(845, 463);
+            checkEditViewCustomerGroups.Name = "checkEditViewCustomerGroups";
+            checkEditViewCustomerGroups.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewCustomerGroups.Properties.Appearance.Options.UseFont = true;
+            checkEditViewCustomerGroups.Properties.Caption = "View Customer Groups";
+            checkEditViewCustomerGroups.Size = new System.Drawing.Size(376, 20);
+            checkEditViewCustomerGroups.TabIndex = 220;
+            // 
+            // checkEditViewCustomers
+            // 
+            checkEditViewCustomers.Location = new System.Drawing.Point(845, 412);
+            checkEditViewCustomers.Name = "checkEditViewCustomers";
+            checkEditViewCustomers.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewCustomers.Properties.Appearance.Options.UseFont = true;
+            checkEditViewCustomers.Properties.Caption = "View Customers";
+            checkEditViewCustomers.Size = new System.Drawing.Size(376, 20);
+            checkEditViewCustomers.TabIndex = 204;
+            // 
+            // checkEditViewSuppliers
+            // 
+            checkEditViewSuppliers.Location = new System.Drawing.Point(845, 357);
+            checkEditViewSuppliers.Name = "checkEditViewSuppliers";
+            checkEditViewSuppliers.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewSuppliers.Properties.Appearance.Options.UseFont = true;
+            checkEditViewSuppliers.Properties.Caption = "View Suppliers";
+            checkEditViewSuppliers.Size = new System.Drawing.Size(376, 20);
+            checkEditViewSuppliers.TabIndex = 197;
+            // 
+            // checkEditViewRoles
+            // 
+            checkEditViewRoles.Location = new System.Drawing.Point(845, 300);
+            checkEditViewRoles.Name = "checkEditViewRoles";
+            checkEditViewRoles.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewRoles.Properties.Appearance.Options.UseFont = true;
+            checkEditViewRoles.Properties.Caption = "View Roles";
+            checkEditViewRoles.Size = new System.Drawing.Size(376, 20);
+            checkEditViewRoles.TabIndex = 190;
+            // 
+            // checkEditViewUser
+            // 
+            checkEditViewUser.Location = new System.Drawing.Point(845, 245);
+            checkEditViewUser.Name = "checkEditViewUser";
+            checkEditViewUser.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            checkEditViewUser.Properties.Appearance.Options.UseFont = true;
+            checkEditViewUser.Properties.Caption = "View Users";
+            checkEditViewUser.Size = new System.Drawing.Size(376, 20);
+            checkEditViewUser.TabIndex = 182;
             // 
             // UC_Roles_Registration
             // 
@@ -1567,7 +1269,7 @@
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
             panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditUnits.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewDashboard.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl20).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllHome.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewBusinessLocations.Properties).EndInit();
@@ -1590,90 +1292,56 @@
             ((System.ComponentModel.ISupportInitialize)checkEdit42.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditAccesstoSalesTerminal.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl17).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAssignDiscounts.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl16).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddDiscounts.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllDiscounts.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewDiscounts.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl15).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddSellReturns.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSelectAllSellReturns.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkEditSellReturns.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl14).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditQuotations.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllQuotations.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewQuotations.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl13).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddDrafts.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllDrafts.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewDrafts.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl12).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddSales.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllSales.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewSales.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl11).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddBrands.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditBrands.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteBrands.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllBrands.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewBrands.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl10).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddUnits.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEdit27.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteUnits.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllUnits.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewUnits.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl9).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllPrintLabels.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAccesstoPrintLabelsForm.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddCategories.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditCategories.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteCategories.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllCategory.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewCategories.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddCustomerGroups.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditCustomerGroups.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteCustomerGroups.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllCustomerGroups.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewCustomerGroups.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddProducts.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEdit16.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEdit17.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllProducts.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewProducts.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewCustomersDetails.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddCustomers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditCustomers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteCustomers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllCustomers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewCustomers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddSuppliers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditSuppliers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteSuppliers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllSuppliers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewSuppliers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddRoles.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditRoles.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteRoles.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllRoles.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewRoles.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)separatorControl2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditAddUser.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditEditUser.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditDeleteUser.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllUsers.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllOther.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewUser.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllQuotations.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewQuotations.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl13).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllDrafts.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewDrafts.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl12).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllSales.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewSales.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllBrands.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewBrands.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl10).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllUnits.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl9).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllPrintLabels.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllCategory.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllCustomerGroups.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllProducts.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllCustomers.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllSuppliers.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllRoles.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)separatorControl2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllUsers.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditSelectAllOther.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkEditViewExportButtons.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtRoleName.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)checkEditViewDashboard.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtDescription.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewUnits.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewCategories.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditAccesstoPrintLabelsForm.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewProducts.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewCustomerGroups.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewCustomers.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewSuppliers.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewRoles.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)checkEditViewUser.Properties).EndInit();
             ResumeLayout(false);
         }
 
@@ -1685,48 +1353,23 @@
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.SeparatorControl separatorControl7;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddCustomerGroups;
-        private DevExpress.XtraEditors.CheckEdit checkEditEditCustomerGroups;
-        private DevExpress.XtraEditors.CheckEdit checkEditDeleteCustomerGroups;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllCustomerGroups;
-        private DevExpress.XtraEditors.CheckEdit checkEditViewCustomerGroups;
         private DevExpress.XtraEditors.LabelControl labelControl11;
         private DevExpress.XtraEditors.SeparatorControl separatorControl6;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddProducts;
-        private DevExpress.XtraEditors.CheckEdit checkEdit16;
-        private DevExpress.XtraEditors.CheckEdit checkEdit17;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllProducts;
-        private DevExpress.XtraEditors.CheckEdit checkEditViewProducts;
         private DevExpress.XtraEditors.LabelControl labelControl10;
-        private DevExpress.XtraEditors.CheckEdit checkEditViewCustomersDetails;
         private DevExpress.XtraEditors.SeparatorControl separatorControl5;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddCustomers;
-        private DevExpress.XtraEditors.CheckEdit checkEditEditCustomers;
-        private DevExpress.XtraEditors.CheckEdit checkEditDeleteCustomers;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllCustomers;
-        private DevExpress.XtraEditors.CheckEdit checkEditViewCustomers;
         private DevExpress.XtraEditors.LabelControl labelControl9;
         private DevExpress.XtraEditors.SeparatorControl separatorControl4;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddSuppliers;
-        private DevExpress.XtraEditors.CheckEdit checkEditEditSuppliers;
-        private DevExpress.XtraEditors.CheckEdit checkEditDeleteSuppliers;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllSuppliers;
-        private DevExpress.XtraEditors.CheckEdit checkEditViewSuppliers;
         private DevExpress.XtraEditors.LabelControl labelControl8;
         private DevExpress.XtraEditors.SeparatorControl separatorControl3;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddRoles;
-        private DevExpress.XtraEditors.CheckEdit checkEditEditRoles;
-        private DevExpress.XtraEditors.CheckEdit checkEditDeleteRoles;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllRoles;
-        private DevExpress.XtraEditors.CheckEdit checkEditViewRoles;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.SeparatorControl separatorControl2;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddUser;
-        private DevExpress.XtraEditors.CheckEdit checkEditEditUser;
-        private DevExpress.XtraEditors.CheckEdit checkEditDeleteUser;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllUsers;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllOther;
-        private DevExpress.XtraEditors.CheckEdit checkEditViewUser;
         private DevExpress.XtraEditors.LabelControl labelControl5;
         private DevExpress.XtraEditors.CheckEdit checkEditViewExportButtons;
         private DevExpress.XtraEditors.LabelControl labelControl4;
@@ -1734,44 +1377,31 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraEditors.TextEdit txtRoleName;
+        private DevExpress.XtraEditors.TextEdit txtDescription;
+        private DevExpress.XtraEditors.LabelControl labelControlDescription;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.SeparatorControl separatorControl8;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddCategories;
-        private DevExpress.XtraEditors.CheckEdit checkEditEditCategories;
-        private DevExpress.XtraEditors.CheckEdit checkEditDeleteCategories;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllCategory;
-        private DevExpress.XtraEditors.CheckEdit checkEditViewCategories;
         private DevExpress.XtraEditors.LabelControl labelControl12;
         private DevExpress.XtraEditors.SeparatorControl separatorControl10;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddUnits;
-        private DevExpress.XtraEditors.CheckEdit checkEdit27;
-        private DevExpress.XtraEditors.CheckEdit checkEditDeleteUnits;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllUnits;
-        private DevExpress.XtraEditors.CheckEdit checkEditViewUnits;
         private DevExpress.XtraEditors.LabelControl labelControl14;
         private DevExpress.XtraEditors.SeparatorControl separatorControl9;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllPrintLabels;
-        private DevExpress.XtraEditors.CheckEdit checkEditAccesstoPrintLabelsForm;
         private DevExpress.XtraEditors.LabelControl labelControl13;
         private DevExpress.XtraEditors.SeparatorControl separatorControl11;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddBrands;
-        private DevExpress.XtraEditors.CheckEdit checkEditEditBrands;
-        private DevExpress.XtraEditors.CheckEdit checkEditDeleteBrands;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllBrands;
         private DevExpress.XtraEditors.CheckEdit checkEditViewBrands;
         private DevExpress.XtraEditors.LabelControl labelControl15;
         private DevExpress.XtraEditors.SeparatorControl separatorControl14;
-        private DevExpress.XtraEditors.CheckEdit checkEditQuotations;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllQuotations;
         private DevExpress.XtraEditors.CheckEdit checkEditViewQuotations;
         private DevExpress.XtraEditors.LabelControl labelControl18;
         private DevExpress.XtraEditors.SeparatorControl separatorControl13;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddDrafts;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllDrafts;
         private DevExpress.XtraEditors.CheckEdit checkEditViewDrafts;
         private DevExpress.XtraEditors.LabelControl labelControl17;
         private DevExpress.XtraEditors.SeparatorControl separatorControl12;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddSales;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllSales;
         private DevExpress.XtraEditors.CheckEdit checkEditViewSales;
         private DevExpress.XtraEditors.LabelControl labelControl16;
@@ -1783,7 +1413,6 @@
         private DevExpress.XtraEditors.CheckEdit checkEdit58;
         private DevExpress.XtraEditors.LabelControl labelControl20;
         private DevExpress.XtraEditors.SeparatorControl separatorControl15;
-        private DevExpress.XtraEditors.CheckEdit checkEditAddSellReturns;
         private DevExpress.XtraEditors.CheckEdit checkEdit51;
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllSellReturns;
         private DevExpress.XtraEditors.CheckEdit checkEditSellReturns;
@@ -1815,7 +1444,75 @@
         private DevExpress.XtraEditors.CheckEdit checkEditSelectAllSettings;
         private DevExpress.XtraEditors.CheckEdit checkEditViewBusinessSettings;
         private DevExpress.XtraEditors.LabelControl labelControl23;
-        private DevExpress.XtraEditors.CheckEdit checkEditEditUnits;
         private DevExpress.XtraEditors.CheckEdit checkEditViewDashboard;
+        private DevExpress.XtraEditors.CheckEdit checkEditViewUnits;
+        private DevExpress.XtraEditors.CheckEdit checkEditAccesstoPrintLabelsForm;
+        private DevExpress.XtraEditors.CheckEdit checkEditViewCategories;
+        private DevExpress.XtraEditors.CheckEdit checkEditViewCustomerGroups;
+        private DevExpress.XtraEditors.CheckEdit checkEditViewProducts;
+        private DevExpress.XtraEditors.CheckEdit checkEditViewCustomers;
+        private DevExpress.XtraEditors.CheckEdit checkEditViewSuppliers;
+        private DevExpress.XtraEditors.CheckEdit checkEditViewRoles;
+        private DevExpress.XtraEditors.CheckEdit checkEditViewUser;
+        
+        // Add/Edit/Delete checkboxes for Users
+        private DevExpress.XtraEditors.CheckEdit checkEditAddUser;
+        private DevExpress.XtraEditors.CheckEdit checkEditEditUser;
+        private DevExpress.XtraEditors.CheckEdit checkEditDeleteUser;
+        
+        // Add/Edit/Delete checkboxes for Roles
+        private DevExpress.XtraEditors.CheckEdit checkEditAddRoles;
+        private DevExpress.XtraEditors.CheckEdit checkEditEditRoles;
+        private DevExpress.XtraEditors.CheckEdit checkEditDeleteRoles;
+        
+        // Add/Edit/Delete checkboxes for Suppliers
+        private DevExpress.XtraEditors.CheckEdit checkEditAddSuppliers;
+        private DevExpress.XtraEditors.CheckEdit checkEditEditSuppliers;
+        private DevExpress.XtraEditors.CheckEdit checkEditDeleteSuppliers;
+        
+        // Add/Edit/Delete checkboxes for Customers
+        private DevExpress.XtraEditors.CheckEdit checkEditAddCustomers;
+        private DevExpress.XtraEditors.CheckEdit checkEditEditCustomers;
+        private DevExpress.XtraEditors.CheckEdit checkEditDeleteCustomers;
+        private DevExpress.XtraEditors.CheckEdit checkEditViewCustomersDetails;
+        
+        // Add/Edit/Delete checkboxes for Products
+        private DevExpress.XtraEditors.CheckEdit checkEditAddProducts;
+        private DevExpress.XtraEditors.CheckEdit checkEdit16;
+        private DevExpress.XtraEditors.CheckEdit checkEdit17;
+        
+        // Add/Edit/Delete checkboxes for Customer Groups
+        private DevExpress.XtraEditors.CheckEdit checkEditAddCustomerGroups;
+        private DevExpress.XtraEditors.CheckEdit checkEditEditCustomerGroups;
+        private DevExpress.XtraEditors.CheckEdit checkEditDeleteCustomerGroups;
+        
+        // Add/Edit/Delete checkboxes for Categories
+        private DevExpress.XtraEditors.CheckEdit checkEditAddCategories;
+        private DevExpress.XtraEditors.CheckEdit checkEditEditCategories;
+        private DevExpress.XtraEditors.CheckEdit checkEditDeleteCategories;
+        
+        // Add/Edit/Delete checkboxes for Units
+        private DevExpress.XtraEditors.CheckEdit checkEditAddUnits;
+        private DevExpress.XtraEditors.CheckEdit checkEditEditUnits;
+        private DevExpress.XtraEditors.CheckEdit checkEditDeleteUnits;
+        
+        // Add/Edit/Delete checkboxes for Brands
+        private DevExpress.XtraEditors.CheckEdit checkEditAddBrands;
+        private DevExpress.XtraEditors.CheckEdit checkEditEditBrands;
+        private DevExpress.XtraEditors.CheckEdit checkEditDeleteBrands;
+        
+        // Add checkboxes for Sales, Drafts
+        private DevExpress.XtraEditors.CheckEdit checkEditAddSales;
+        private DevExpress.XtraEditors.CheckEdit checkEditAddDrafts;
+        
+        // Quotations
+        private DevExpress.XtraEditors.CheckEdit checkEditQuotations;
+        
+        // Sell Returns
+        private DevExpress.XtraEditors.CheckEdit checkEditAddSellReturns;
+        
+        // Discounts
+        private DevExpress.XtraEditors.CheckEdit checkEditAddDiscounts;
+        private DevExpress.XtraEditors.CheckEdit checkEditAssignDiscounts;
     }
 }

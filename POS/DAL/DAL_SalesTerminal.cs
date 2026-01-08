@@ -910,7 +910,15 @@ namespace POS.DAL
                 LEFT JOIN Customer c ON s.customer_id = c.customer_id
                 LEFT JOIN [User] u ON s.biller_id = u.user_id
                 WHERE s.status = 'A' AND s.sale_type = @saleType
-                AND (s.invoice_number LIKE @keyword OR c.full_name LIKE @keyword OR u.full_name LIKE @keyword)
+                AND (
+                    CONVERT(VARCHAR, s.sale_id) LIKE @keyword
+                    OR s.invoice_number LIKE @keyword
+                    OR c.full_name LIKE @keyword
+                    OR CONVERT(VARCHAR, s.created_date, 120) LIKE @keyword
+                    OR CONVERT(VARCHAR, s.grand_total) LIKE @keyword
+                    OR s.payment_status LIKE @keyword
+                    OR u.full_name LIKE @keyword
+                )
                 ORDER BY s.sale_id DESC";
 
             SqlParameter[] parameters = {

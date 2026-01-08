@@ -40,6 +40,21 @@ namespace POS.PAL.USERCONTROL
 
             // Wire up export button events
             InitializeExportButtons();
+            
+            // Apply permission-based visibility for export buttons
+            ApplyExportButtonVisibility();
+        }
+
+        /// <summary>
+        /// Apply permission-based visibility to export buttons
+        /// </summary>
+        private void ApplyExportButtonVisibility()
+        {
+            bool canExport = PermissionManager.HasPermission(PermissionManager.Permissions.VIEW_EXPORT_BUTTONS);
+            if (btnExportCSV != null) btnExportCSV.Visible = canExport;
+            if (btnExportExcel != null) btnExportExcel.Visible = canExport;
+            if (btnExportPDF != null) btnExportPDF.Visible = canExport;
+            if (btnPrint != null) btnPrint.Visible = canExport;
         }
 
         /// <summary>
@@ -294,8 +309,8 @@ namespace POS.PAL.USERCONTROL
                     
                     printLink.Component = gridControlTables;
                     
-                    // Configure print settings for dynamic column adjustment
-                    printLink.Landscape = true;
+                    // Configure print settings for dynamic column adjustment (portrait orientation)
+                    printLink.Landscape = false;
                     printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
                     
                     // Set margins

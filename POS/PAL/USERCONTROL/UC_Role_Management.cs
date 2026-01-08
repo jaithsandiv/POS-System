@@ -824,8 +824,8 @@ namespace POS.PAL.USERCONTROL
                     
                     printLink.Component = gridRoles;
                     
-                    // Configure print settings for dynamic column fitting
-                    printLink.Landscape = true;
+                    // Configure print settings for dynamic column fitting (portrait orientation)
+                    printLink.Landscape = false;
                     printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
                     
                     // Set margins

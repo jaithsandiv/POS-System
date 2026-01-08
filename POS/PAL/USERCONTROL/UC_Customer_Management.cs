@@ -32,6 +32,21 @@ namespace POS.PAL.USERCONTROL
             LoadCustomers();
             InitializeSearchControl();
             InitializeExportButtons();
+            
+            // Apply permission-based visibility for export buttons
+            ApplyExportButtonVisibility();
+        }
+
+        /// <summary>
+        /// Apply permission-based visibility to export buttons
+        /// </summary>
+        private void ApplyExportButtonVisibility()
+        {
+            bool canExport = PermissionManager.HasPermission(PermissionManager.Permissions.VIEW_EXPORT_BUTTONS);
+            if (btnExportCSV != null) btnExportCSV.Visible = canExport;
+            if (btnExportExcel != null) btnExportExcel.Visible = canExport;
+            if (btnExportPDF != null) btnExportPDF.Visible = canExport;
+            if (btnPrint != null) btnPrint.Visible = canExport;
         }
 
         /// <summary>
@@ -639,8 +654,8 @@ namespace POS.PAL.USERCONTROL
                     
                     printLink.Component = gridCustomers;
                     
-                    // Configure print settings for dynamic column fitting
-                    printLink.Landscape = true;
+                    // Configure print settings for dynamic column fitting (portrait orientation)
+                    printLink.Landscape = false;
                     printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
                     
                     // Set margins
@@ -994,34 +1009,13 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
-        private void btn25Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btn50Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btn100Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btn200Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btn500Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btn1000Filter_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void btnAllFilter_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void btn25Filter_Click(object sender, EventArgs e) { }
+        private void btn50Filter_Click(object sender, EventArgs e) { }
+        private void btn100Filter_Click(object sender, EventArgs e) { }
+        private void btn200Filter_Click(object sender, EventArgs e) { }
+        private void btn500Filter_Click(object sender, EventArgs e) { }
+        private void btn1000Filter_Click(object sender, EventArgs e) { }
+        private void btnAllFilter_Click(object sender, EventArgs e) { }
 
         private void simpleButton2_Click(object sender, EventArgs e)
         {
