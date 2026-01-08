@@ -50,8 +50,22 @@ namespace POS.PAL.USERCONTROL
 
                 // Load Stores
                 _storesTable = new BLL_Store().GetStores();
-                // Note: Add a store combobox in the Designer if needed
-                // For now, we'll use the logged-in user's store as default
+                comboboxStore.Properties.Items.Clear();
+                
+                foreach (DataRow row in _storesTable.Rows)
+                {
+                    comboboxStore.Properties.Items.Add(row["store_name"].ToString());
+                }
+
+                // Set default store to current user's store
+                if (Main.DataSetApp?.Store != null && Main.DataSetApp.Store.Rows.Count > 0)
+                {
+                    string currentStoreName = Main.DataSetApp.Store[0]["store_name"]?.ToString();
+                    if (!string.IsNullOrEmpty(currentStoreName))
+                    {
+                        comboboxStore.EditValue = currentStoreName;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -95,6 +109,13 @@ namespace POS.PAL.USERCONTROL
                 {
                     string roleName = user["role_name"].ToString();
                     comboboxUserRole.EditValue = roleName;
+                }
+
+                // Set store combobox
+                if (user["store_name"] != DBNull.Value)
+                {
+                    string storeName = user["store_name"].ToString();
+                    comboboxStore.EditValue = storeName;
                 }
 
                 // Disable password fields in edit mode
@@ -159,6 +180,14 @@ namespace POS.PAL.USERCONTROL
                 return false;
             }
 
+            // Validate store selection
+            if (comboboxStore.EditValue == null || string.IsNullOrEmpty(comboboxStore.EditValue.ToString()))
+            {
+                XtraMessageBox.Show("Please select a store.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                comboboxStore.Focus();
+                return false;
+            }
+
             if (!_isEditMode)
             {
                 if (string.IsNullOrWhiteSpace(txtPassword.Text))
@@ -180,6 +209,30 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
+        /// Gets the selected store ID from the combobox
+        /// </summary>
+        private int GetSelectedStoreId()
+        {
+            if (comboboxStore.EditValue != null && !string.IsNullOrEmpty(comboboxStore.EditValue.ToString()))
+            {
+                string selectedStoreName = comboboxStore.EditValue.ToString();
+                DataRow[] storeRows = _storesTable.Select($"store_name = '{selectedStoreName.Replace("'", "''")}'");
+                if (storeRows.Length > 0)
+                {
+                    return Convert.ToInt32(storeRows[0]["store_id"]);
+                }
+            }
+
+            // Fallback to current user's store if selection fails
+            if (Main.DataSetApp?.Store != null && Main.DataSetApp.Store.Rows.Count > 0)
+            {
+                return Convert.ToInt32(Main.DataSetApp.Store[0]["store_id"]);
+            }
+
+            return 1; // Default fallback
+        }
+
+        /// <summary>
         /// Registers a new user
         /// </summary>
         private void RegisterUser()
@@ -196,12 +249,8 @@ namespace POS.PAL.USERCONTROL
                     currentUserId = Convert.ToInt32(Main.DataSetApp.User[0]["user_id"]);
                 }
 
-                // Get store ID from logged-in user
-                int storeId = 1;
-                if (Main.DataSetApp?.Store != null && Main.DataSetApp.Store.Rows.Count > 0)
-                {
-                    storeId = Convert.ToInt32(Main.DataSetApp.Store[0]["store_id"]);
-                }
+                // Get store ID from combobox selection
+                int storeId = GetSelectedStoreId();
 
                 // Get role ID from combobox
                 int? roleId = null;
@@ -282,12 +331,8 @@ namespace POS.PAL.USERCONTROL
                     currentUserId = Convert.ToInt32(Main.DataSetApp.User[0]["user_id"]);
                 }
 
-                // Get store ID from logged-in user
-                int storeId = 1;
-                if (Main.DataSetApp?.Store != null && Main.DataSetApp.Store.Rows.Count > 0)
-                {
-                    storeId = Convert.ToInt32(Main.DataSetApp.Store[0]["store_id"]);
-                }
+                // Get store ID from combobox selection
+                int storeId = GetSelectedStoreId();
 
                 // Get role ID from combobox
                 int? roleId = null;
