@@ -472,6 +472,7 @@ namespace POS.DAL
                 FROM BarcodePrint bp
                 JOIN Product p ON bp.product_id = p.product_id
                 WHERE bp.status = 'A'";
+
             return Connection.ExecuteQuery(query);
         }
 
@@ -535,6 +536,57 @@ namespace POS.DAL
             Connection.ExecuteNonQuery(query);
         }
 
+        /// <summary>
+        /// Gets detailed barcode print data including product information for label generation
+        /// </summary>
+        public DataTable GetBarcodePrintDetails()
+        {
+            string query = @"
+                SELECT 
+                    bp.print_id AS barcode_print_id,
+                    bp.product_id,
+                    bp.quantity_printed,
+                    bp.include_name,
+                    bp.include_price,
+                    bp.include_expiry,
+                    bp.include_manufacture,
+                    bp.include_promo_price,
+                    p.product_name,
+                    p.product_code,
+                    ISNULL(p.barcode, p.product_code) AS barcode,
+                    p.selling_price,
+                    p.expiry_date,
+                    p.manufacture_date,
+                    ISNULL(
+                        (SELECT TOP 1 pp.discount_value
+                         FROM ProductPromotion pp
+                         INNER JOIN Promotion pr ON pp.promotion_id = pr.promotion_id
+                         WHERE pp.product_id = p.product_id 
+                           AND pp.status = 'A'
+                           AND pr.status = 'A'
+                           AND GETDATE() BETWEEN pr.start_date AND pr.end_date
+                         ORDER BY pp.discount_value DESC),
+                        0
+                    ) AS promo_discount_value,
+                    ISNULL(
+                        (SELECT TOP 1 pp.promotion_type
+                         FROM ProductPromotion pp
+                         INNER JOIN Promotion pr ON pp.promotion_id = pr.promotion_id
+                         WHERE pp.product_id = p.product_id 
+                           AND pp.status = 'A'
+                           AND pr.status = 'A'
+                           AND GETDATE() BETWEEN pr.start_date AND pr.end_date
+                         ORDER BY pp.discount_value DESC),
+                        'PERCENTAGE'
+                    ) AS promo_discount_type
+                FROM BarcodePrint bp
+                INNER JOIN Product p ON bp.product_id = p.product_id
+                WHERE bp.status = 'A'
+                ORDER BY bp.created_date DESC";
+
+            return Connection.ExecuteQuery(query);
+        }
+
         #endregion
 
         #region Stock Report Methods
@@ -576,7 +628,7 @@ namespace POS.DAL
         }
 
         /// <summary>
-        /// Searches stock report by keyword
+        /// Searches stock report with a given keyword
         /// </summary>
         public DataTable SearchStockReport(string keyword)
         {
