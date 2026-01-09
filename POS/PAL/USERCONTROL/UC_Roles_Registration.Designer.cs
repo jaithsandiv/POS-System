@@ -1187,7 +1187,6 @@
         private DevExpress.XtraEditors.TextEdit txtDescription;
         
         // View checkboxes (keeping these - only removing "Select All" checkboxes)
-        private DevExpress.XtraEditors.CheckEdit checkEditViewExportButtons;
         private DevExpress.XtraEditors.CheckEdit checkEditViewUser;
         private DevExpress.XtraEditors.CheckEdit checkEditViewRoles;
         private DevExpress.XtraEditors.CheckEdit checkEditViewSuppliers;

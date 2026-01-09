@@ -110,9 +110,9 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void MapPermissionsToCheckboxes(HashSet<string> permissions)
         {
-            // Other
-            if (checkEditViewExportButtons != null)
-                checkEditViewExportButtons.Checked = permissions.Contains("VIEW_EXPORT_BUTTONS");
+            // Other - Use checkEditViewExports (the properly initialized control)
+            if (checkEditViewExports != null)
+                checkEditViewExports.Checked = permissions.Contains("VIEW_EXPORT_BUTTONS");
 
             // Users
             if (checkEditViewUser != null)
@@ -220,8 +220,8 @@ namespace POS.PAL.USERCONTROL
         {
             List<string> permissions = new List<string>();
 
-            // Other
-            if (checkEditViewExportButtons?.Checked == true) permissions.Add("VIEW_EXPORT_BUTTONS");
+            // Other - Use checkEditViewExports (the properly initialized control)
+            if (checkEditViewExports?.Checked == true) permissions.Add("VIEW_EXPORT_BUTTONS");
 
             // Users
             if (checkEditViewUser?.Checked == true) permissions.Add("VIEW_USERS");
