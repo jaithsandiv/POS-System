@@ -17,9 +17,6 @@ namespace POS.PAL.USERCONTROL
         private int? _editRoleId = null;
         private bool _isEditMode = false;
 
-        // Declare the discount-related checkboxes that have "this." prefix in Designer
-        private DevExpress.XtraEditors.CheckEdit checkEditViewDiscounts;
-
         public UC_Roles_Registration()
         {
             InitializeComponent();
@@ -41,56 +38,7 @@ namespace POS.PAL.USERCONTROL
             // Register button click event
             regBtn.Click += regBtn_Click;
 
-            // Select All checkboxes
-            checkEditSelectAllOther.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllOther, checkEditViewExportButtons);
-            
-            checkEditSelectAllUsers.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllUsers, 
-                checkEditViewUser, checkEditAddUser, checkEditEditUser, checkEditDeleteUser);
-            
-            checkEditSelectAllRoles.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllRoles, 
-                checkEditViewRoles, checkEditAddRoles, checkEditEditRoles, checkEditDeleteRoles);
-            
-            checkEditSelectAllSuppliers.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllSuppliers, 
-                checkEditViewSuppliers, checkEditAddSuppliers, checkEditEditSuppliers, checkEditDeleteSuppliers);
-            
-            checkEditSelectAllCustomers.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllCustomers, 
-                checkEditViewCustomers, checkEditAddCustomers, checkEditEditCustomers, checkEditDeleteCustomers, checkEditViewCustomersDetails);
-            
-            checkEditSelectAllProducts.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllProducts, 
-                checkEditViewProducts, checkEditAddProducts, checkEdit16, checkEdit17);
-            
-            checkEditSelectAllCustomerGroups.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllCustomerGroups, 
-                checkEditViewCustomerGroups, checkEditAddCustomerGroups, checkEditEditCustomerGroups, checkEditDeleteCustomerGroups);
-            
-            checkEditSelectAllCategory.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllCategory, 
-                checkEditViewCategories, checkEditAddCategories, checkEditEditCategories, checkEditDeleteCategories);
-            
-            checkEditSelectAllPrintLabels.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllPrintLabels, 
-                checkEditAccesstoPrintLabelsForm);
-            
-            checkEditSelectAllUnits.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllUnits, 
-                checkEditViewUnits, checkEditAddUnits, checkEditEditUnits, checkEditDeleteUnits);
-            
-            checkEditSelectAllBrands.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllBrands, 
-                checkEditViewBrands, checkEditAddBrands, checkEditEditBrands, checkEditDeleteBrands);
-            
-            checkEditSelectAllSales.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllSales, 
-                checkEditViewSales, checkEditAddSales);
-            
-            checkEditSelectAllDrafts.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllDrafts, 
-                checkEditViewDrafts, checkEditAddDrafts);
-            
-            checkEditSelectAllQuotations.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllQuotations, 
-                checkEditViewQuotations, checkEditQuotations);
-            
-            checkEditSelectAllSellReturns.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllSellReturns, 
-                checkEditSellReturns, checkEditAddSellReturns);
-            
-            checkEditSelectAllDiscounts.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllDiscounts, 
-                checkEditViewDiscounts, checkEditAddDiscounts, checkEditAssignDiscounts);
-            
-            checkEdit42.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEdit42, 
-                checkEditAccesstoSalesTerminal);
+            // Only keep Reports and Settings "Select All" handlers
             
             checkEditSelectAllReports.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllReports, 
                 checkEditViewSupplierCustomerReport, checkEditViewItemsReport, checkEditViewTrendingProducts, 
@@ -100,9 +48,6 @@ namespace POS.PAL.USERCONTROL
             
             checkEditSelectAllSettings.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllSettings, 
                 checkEditViewBusinessSettings, checkEditViewTables, checkEditViewBusinessLocations);
-            
-            checkEditSelectAllHome.CheckedChanged += (s, e) => ToggleGroupCheckboxes(checkEditSelectAllHome, 
-                checkEditViewDashboard);
         }
 
         /// <summary>
@@ -172,74 +117,30 @@ namespace POS.PAL.USERCONTROL
             // Users
             if (checkEditViewUser != null)
                 checkEditViewUser.Checked = permissions.Contains("VIEW_USERS");
-            if (checkEditAddUser != null)
-                checkEditAddUser.Checked = permissions.Contains("ADD_USERS");
-            if (checkEditEditUser != null)
-                checkEditEditUser.Checked = permissions.Contains("EDIT_USERS");
-            if (checkEditDeleteUser != null)
-                checkEditDeleteUser.Checked = permissions.Contains("DELETE_USERS");
 
             // Roles
             if (checkEditViewRoles != null)
                 checkEditViewRoles.Checked = permissions.Contains("VIEW_ROLES");
-            if (checkEditAddRoles != null)
-                checkEditAddRoles.Checked = permissions.Contains("ADD_ROLES");
-            if (checkEditEditRoles != null)
-                checkEditEditRoles.Checked = permissions.Contains("EDIT_ROLES");
-            if (checkEditDeleteRoles != null)
-                checkEditDeleteRoles.Checked = permissions.Contains("DELETE_ROLES");
 
             // Suppliers
             if (checkEditViewSuppliers != null)
                 checkEditViewSuppliers.Checked = permissions.Contains("VIEW_SUPPLIERS");
-            if (checkEditAddSuppliers != null)
-                checkEditAddSuppliers.Checked = permissions.Contains("ADD_SUPPLIERS");
-            if (checkEditEditSuppliers != null)
-                checkEditEditSuppliers.Checked = permissions.Contains("EDIT_SUPPLIERS");
-            if (checkEditDeleteSuppliers != null)
-                checkEditDeleteSuppliers.Checked = permissions.Contains("DELETE_SUPPLIERS");
 
             // Customers
             if (checkEditViewCustomers != null)
                 checkEditViewCustomers.Checked = permissions.Contains("VIEW_CUSTOMERS");
-            if (checkEditAddCustomers != null)
-                checkEditAddCustomers.Checked = permissions.Contains("ADD_CUSTOMERS");
-            if (checkEditEditCustomers != null)
-                checkEditEditCustomers.Checked = permissions.Contains("EDIT_CUSTOMERS");
-            if (checkEditDeleteCustomers != null)
-                checkEditDeleteCustomers.Checked = permissions.Contains("DELETE_CUSTOMERS");
-            if (checkEditViewCustomersDetails != null)
-                checkEditViewCustomersDetails.Checked = permissions.Contains("VIEW_CUSTOMER_DETAILS");
 
             // Products
             if (checkEditViewProducts != null)
                 checkEditViewProducts.Checked = permissions.Contains("VIEW_PRODUCTS");
-            if (checkEditAddProducts != null)
-                checkEditAddProducts.Checked = permissions.Contains("ADD_PRODUCTS");
-            if (checkEdit16 != null)
-                checkEdit16.Checked = permissions.Contains("EDIT_PRODUCTS");
-            if (checkEdit17 != null)
-                checkEdit17.Checked = permissions.Contains("DELETE_PRODUCTS");
 
             // Customer Groups
             if (checkEditViewCustomerGroups != null)
                 checkEditViewCustomerGroups.Checked = permissions.Contains("VIEW_CUSTOMER_GROUPS");
-            if (checkEditAddCustomerGroups != null)
-                checkEditAddCustomerGroups.Checked = permissions.Contains("ADD_CUSTOMER_GROUPS");
-            if (checkEditEditCustomerGroups != null)
-                checkEditEditCustomerGroups.Checked = permissions.Contains("EDIT_CUSTOMER_GROUPS");
-            if (checkEditDeleteCustomerGroups != null)
-                checkEditDeleteCustomerGroups.Checked = permissions.Contains("DELETE_CUSTOMER_GROUPS");
 
             // Categories
             if (checkEditViewCategories != null)
                 checkEditViewCategories.Checked = permissions.Contains("VIEW_CATEGORIES");
-            if (checkEditAddCategories != null)
-                checkEditAddCategories.Checked = permissions.Contains("ADD_CATEGORIES");
-            if (checkEditEditCategories != null)
-                checkEditEditCategories.Checked = permissions.Contains("EDIT_CATEGORIES");
-            if (checkEditDeleteCategories != null)
-                checkEditDeleteCategories.Checked = permissions.Contains("DELETE_CATEGORIES");
 
             // Print Labels
             if (checkEditAccesstoPrintLabelsForm != null)
@@ -248,54 +149,30 @@ namespace POS.PAL.USERCONTROL
             // Units
             if (checkEditViewUnits != null)
                 checkEditViewUnits.Checked = permissions.Contains("VIEW_UNITS");
-            if (checkEditAddUnits != null)
-                checkEditAddUnits.Checked = permissions.Contains("ADD_UNITS");
-            if (checkEditEditUnits != null)
-                checkEditEditUnits.Checked = permissions.Contains("EDIT_UNITS");
-            if (checkEditDeleteUnits != null)
-                checkEditDeleteUnits.Checked = permissions.Contains("DELETE_UNITS");
 
             // Brands
             if (checkEditViewBrands != null)
                 checkEditViewBrands.Checked = permissions.Contains("VIEW_BRANDS");
-            if (checkEditAddBrands != null)
-                checkEditAddBrands.Checked = permissions.Contains("ADD_BRANDS");
-            if (checkEditEditBrands != null)
-                checkEditEditBrands.Checked = permissions.Contains("EDIT_BRANDS");
-            if (checkEditDeleteBrands != null)
-                checkEditDeleteBrands.Checked = permissions.Contains("DELETE_BRANDS");
 
             // Sales
             if (checkEditViewSales != null)
                 checkEditViewSales.Checked = permissions.Contains("VIEW_SALES");
-            if (checkEditAddSales != null)
-                checkEditAddSales.Checked = permissions.Contains("ADD_SALES");
 
             // Drafts
             if (checkEditViewDrafts != null)
                 checkEditViewDrafts.Checked = permissions.Contains("VIEW_DRAFTS");
-            if (checkEditAddDrafts != null)
-                checkEditAddDrafts.Checked = permissions.Contains("ADD_DRAFTS");
 
             // Quotations
             if (checkEditViewQuotations != null)
                 checkEditViewQuotations.Checked = permissions.Contains("VIEW_QUOTATIONS");
-            if (checkEditQuotations != null)
-                checkEditQuotations.Checked = permissions.Contains("ADD_QUOTATIONS");
 
             // Sell Returns
             if (checkEditSellReturns != null)
                 checkEditSellReturns.Checked = permissions.Contains("VIEW_SELL_RETURNS");
-            if (checkEditAddSellReturns != null)
-                checkEditAddSellReturns.Checked = permissions.Contains("ADD_SELL_RETURNS");
 
             // Discounts
             if (checkEditViewDiscounts != null)
                 checkEditViewDiscounts.Checked = permissions.Contains("VIEW_DISCOUNTS");
-            if (checkEditAddDiscounts != null)
-                checkEditAddDiscounts.Checked = permissions.Contains("ADD_DISCOUNTS");
-            if (checkEditAssignDiscounts != null)
-                checkEditAssignDiscounts.Checked = permissions.Contains("ASSIGN_DISCOUNTS");
 
             // POS
             if (checkEditAccesstoSalesTerminal != null)
@@ -348,82 +225,48 @@ namespace POS.PAL.USERCONTROL
 
             // Users
             if (checkEditViewUser?.Checked == true) permissions.Add("VIEW_USERS");
-            if (checkEditAddUser?.Checked == true) permissions.Add("ADD_USERS");
-            if (checkEditEditUser?.Checked == true) permissions.Add("EDIT_USERS");
-            if (checkEditDeleteUser?.Checked == true) permissions.Add("DELETE_USERS");
 
             // Roles
             if (checkEditViewRoles?.Checked == true) permissions.Add("VIEW_ROLES");
-            if (checkEditAddRoles?.Checked == true) permissions.Add("ADD_ROLES");
-            if (checkEditEditRoles?.Checked == true) permissions.Add("EDIT_ROLES");
-            if (checkEditDeleteRoles?.Checked == true) permissions.Add("DELETE_ROLES");
 
             // Suppliers
             if (checkEditViewSuppliers?.Checked == true) permissions.Add("VIEW_SUPPLIERS");
-            if (checkEditAddSuppliers?.Checked == true) permissions.Add("ADD_SUPPLIERS");
-            if (checkEditEditSuppliers?.Checked == true) permissions.Add("EDIT_SUPPLIERS");
-            if (checkEditDeleteSuppliers?.Checked == true) permissions.Add("DELETE_SUPPLIERS");
 
             // Customers
             if (checkEditViewCustomers?.Checked == true) permissions.Add("VIEW_CUSTOMERS");
-            if (checkEditAddCustomers?.Checked == true) permissions.Add("ADD_CUSTOMERS");
-            if (checkEditEditCustomers?.Checked == true) permissions.Add("EDIT_CUSTOMERS");
-            if (checkEditDeleteCustomers?.Checked == true) permissions.Add("DELETE_CUSTOMERS");
-            if (checkEditViewCustomersDetails?.Checked == true) permissions.Add("VIEW_CUSTOMER_DETAILS");
 
             // Products
             if (checkEditViewProducts?.Checked == true) permissions.Add("VIEW_PRODUCTS");
-            if (checkEditAddProducts?.Checked == true) permissions.Add("ADD_PRODUCTS");
-            if (checkEdit16?.Checked == true) permissions.Add("EDIT_PRODUCTS");
-            if (checkEdit17?.Checked == true) permissions.Add("DELETE_PRODUCTS");
 
             // Customer Groups
             if (checkEditViewCustomerGroups?.Checked == true) permissions.Add("VIEW_CUSTOMER_GROUPS");
-            if (checkEditAddCustomerGroups?.Checked == true) permissions.Add("ADD_CUSTOMER_GROUPS");
-            if (checkEditEditCustomerGroups?.Checked == true) permissions.Add("EDIT_CUSTOMER_GROUPS");
-            if (checkEditDeleteCustomerGroups?.Checked == true) permissions.Add("DELETE_CUSTOMER_GROUPS");
 
             // Categories
             if (checkEditViewCategories?.Checked == true) permissions.Add("VIEW_CATEGORIES");
-            if (checkEditAddCategories?.Checked == true) permissions.Add("ADD_CATEGORIES");
-            if (checkEditEditCategories?.Checked == true) permissions.Add("EDIT_CATEGORIES");
-            if (checkEditDeleteCategories?.Checked == true) permissions.Add("DELETE_CATEGORIES");
 
             // Print Labels
             if (checkEditAccesstoPrintLabelsForm?.Checked == true) permissions.Add("VIEW_PRINT_LABELS");
 
             // Units
             if (checkEditViewUnits?.Checked == true) permissions.Add("VIEW_UNITS");
-            if (checkEditAddUnits?.Checked == true) permissions.Add("ADD_UNITS");
-            if (checkEditEditUnits?.Checked == true) permissions.Add("EDIT_UNITS");
-            if (checkEditDeleteUnits?.Checked == true) permissions.Add("DELETE_UNITS");
 
             // Brands
             if (checkEditViewBrands?.Checked == true) permissions.Add("VIEW_BRANDS");
-            if (checkEditAddBrands?.Checked == true) permissions.Add("ADD_BRANDS");
-            if (checkEditEditBrands?.Checked == true) permissions.Add("EDIT_BRANDS");
-            if (checkEditDeleteBrands?.Checked == true) permissions.Add("DELETE_BRANDS");
 
             // Sales
             if (checkEditViewSales?.Checked == true) permissions.Add("VIEW_SALES");
-            if (checkEditAddSales?.Checked == true) permissions.Add("ADD_SALES");
 
             // Drafts
             if (checkEditViewDrafts?.Checked == true) permissions.Add("VIEW_DRAFTS");
-            if (checkEditAddDrafts?.Checked == true) permissions.Add("ADD_DRAFTS");
 
             // Quotations
             if (checkEditViewQuotations?.Checked == true) permissions.Add("VIEW_QUOTATIONS");
-            if (checkEditQuotations?.Checked == true) permissions.Add("ADD_QUOTATIONS");
 
             // Sell Returns
             if (checkEditSellReturns?.Checked == true) permissions.Add("VIEW_SELL_RETURNS");
-            if (checkEditAddSellReturns?.Checked == true) permissions.Add("ADD_SELL_RETURNS");
 
             // Discounts
             if (checkEditViewDiscounts?.Checked == true) permissions.Add("VIEW_DISCOUNTS");
-            if (checkEditAddDiscounts?.Checked == true) permissions.Add("ADD_DISCOUNTS");
-            if (checkEditAssignDiscounts?.Checked == true) permissions.Add("ASSIGN_DISCOUNTS");
 
             // POS
             if (checkEditAccesstoSalesTerminal?.Checked == true) permissions.Add("ACCESS_SALES_TERMINAL");

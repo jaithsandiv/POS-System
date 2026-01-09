@@ -195,6 +195,93 @@ namespace POS.PAL.USERCONTROL
 
             // Add context menu for Edit and Delete
             CreateContextMenu();
+            
+            // Handle custom row cell style to disable buttons for super admin users
+            gridView1.CustomRowCellEdit += GridView1_CustomRowCellEdit;
+        }
+
+        /// <summary>
+        /// Customizes cell editors for specific rows (disables Edit/Delete for super admin users unless current user is the super admin)
+        /// </summary>
+        private void GridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
+        {
+            if (e.Column.FieldName == "Edit" || e.Column.FieldName == "Delete")
+            {
+                DataRow row = gridView1.GetDataRow(e.RowHandle);
+                if (row != null)
+                {
+                    bool isRowSuperAdmin = IsUserSuperAdmin(row);
+                    int rowUserId = Convert.ToInt32(row["user_id"]);
+                    int currentUserId = GetCurrentUserId();
+                    bool isCurrentUserSuperAdmin = PermissionManager.IsSuperAdmin();
+                    
+                    // For super admin users:
+                    // - Delete button is always disabled (super admin cannot be deleted)
+                    // - Edit button is only enabled if the current user is the super admin editing themselves
+                    if (isRowSuperAdmin)
+                    {
+                        if (e.Column.FieldName == "Delete")
+                        {
+                            // Super admin cannot be deleted - always disable
+                            e.RepositoryItem = CreateDisabledButtonEditor();
+                        }
+                        else if (e.Column.FieldName == "Edit")
+                        {
+                            // Only the super admin can edit themselves
+                            if (!isCurrentUserSuperAdmin || rowUserId != currentUserId)
+                            {
+                                e.RepositoryItem = CreateDisabledButtonEditor();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates a disabled button editor for grid cells
+        /// </summary>
+        private RepositoryItemButtonEdit CreateDisabledButtonEditor()
+        {
+            RepositoryItemButtonEdit disabledButtonEdit = new RepositoryItemButtonEdit();
+            disabledButtonEdit.Buttons.Clear();
+            var button = new EditorButton(ButtonPredefines.Glyph);
+            button.Enabled = false;
+            disabledButtonEdit.Buttons.Add(button);
+            disabledButtonEdit.TextEditStyle = TextEditStyles.HideTextEditor;
+            disabledButtonEdit.ReadOnly = true;
+            return disabledButtonEdit;
+        }
+
+        /// <summary>
+        /// Checks if a user row represents a super admin
+        /// </summary>
+        private bool IsUserSuperAdmin(DataRow row)
+        {
+            if (row == null || row["is_super_admin"] == DBNull.Value)
+                return false;
+
+            var value = row["is_super_admin"];
+            if (value is bool boolValue)
+                return boolValue;
+            if (value is string strValue)
+                return strValue == "True" || strValue == "1";
+            if (value is int intValue)
+                return intValue == 1;
+            
+            return Convert.ToBoolean(value);
+        }
+
+        /// <summary>
+        /// Gets the current logged-in user ID
+        /// </summary>
+        private int GetCurrentUserId()
+        {
+            if (Main.DataSetApp?.User != null && Main.DataSetApp.User.Rows.Count > 0)
+            {
+                return Convert.ToInt32(Main.DataSetApp.User[0]["user_id"]);
+            }
+            return 0;
         }
 
         /// <summary>
@@ -323,6 +410,25 @@ namespace POS.PAL.USERCONTROL
                     return;
 
                 int userId = Convert.ToInt32(selectedRow["user_id"]);
+                
+                // Check if the selected user is a super admin
+                if (IsUserSuperAdmin(selectedRow))
+                {
+                    int currentUserId = GetCurrentUserId();
+                    bool isCurrentUserSuperAdmin = PermissionManager.IsSuperAdmin();
+                    
+                    // Only the super admin can edit themselves
+                    if (!isCurrentUserSuperAdmin || userId != currentUserId)
+                    {
+                        XtraMessageBox.Show(
+                            "The Super Admin user can only be edited by themselves.",
+                            "Operation Not Allowed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        return;
+                    }
+                }
 
                 // Navigate to user edit form
                 var registrationForm = new UC_User_RegistrationSub(userId);
@@ -358,6 +464,18 @@ namespace POS.PAL.USERCONTROL
 
                 int userId = Convert.ToInt32(selectedRow["user_id"]);
                 string fullName = selectedRow["full_name"]?.ToString();
+                
+                // Prevent deleting super admin user
+                if (IsUserSuperAdmin(selectedRow))
+                {
+                    XtraMessageBox.Show(
+                        "The Super Admin user cannot be deleted as it is a system user.",
+                        "Operation Not Allowed",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
 
                 // Confirm deletion
                 var result = XtraMessageBox.Show(
@@ -371,11 +489,9 @@ namespace POS.PAL.USERCONTROL
                     return;
 
                 // Get current user ID
-                int currentUserId = 1; // Default
-                if (Main.DataSetApp?.User != null && Main.DataSetApp.User.Rows.Count > 0)
-                {
-                    currentUserId = Convert.ToInt32(Main.DataSetApp.User[0]["user_id"]);
-                }
+                int currentUserId = GetCurrentUserId();
+                if (currentUserId == 0)
+                    currentUserId = 1; // Default fallback
 
                 // Delete the user (soft delete)
                 bool success = BLL_User.DeleteUser(userId, currentUserId);
