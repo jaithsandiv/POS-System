@@ -65,6 +65,7 @@ namespace POS.BLL
         /// <summary>
         /// Check if the current user has a specific permission
         /// Super admins always have all permissions
+        /// VIEW_PRODUCTS permission grants ADD_PRODUCTS, EDIT_PRODUCTS, and DELETE_PRODUCTS
         /// </summary>
         public static bool HasPermission(string permissionCode)
         {
@@ -74,7 +75,19 @@ namespace POS.BLL
             if (string.IsNullOrWhiteSpace(permissionCode))
                 return false;
 
-            return _currentUserPermissions.Contains(permissionCode);
+            // Direct permission check
+            if (_currentUserPermissions.Contains(permissionCode))
+                return true;
+
+            // VIEW_PRODUCTS implies ADD_PRODUCTS, EDIT_PRODUCTS, and DELETE_PRODUCTS
+            if (permissionCode == Permissions.ADD_PRODUCTS ||
+                permissionCode == Permissions.EDIT_PRODUCTS ||
+                permissionCode == Permissions.DELETE_PRODUCTS)
+            {
+                return _currentUserPermissions.Contains(Permissions.VIEW_PRODUCTS);
+            }
+
+            return false;
         }
 
         /// <summary>

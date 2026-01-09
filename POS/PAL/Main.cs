@@ -311,7 +311,7 @@ namespace POS
                     btnListProducts.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_PRODUCTS);
 
                 if (btnAddProducts != null)
-                    btnAddProducts.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.ADD_PRODUCTS);
+                    btnAddProducts.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_PRODUCTS);
 
                 if (btnCategories != null)
                     btnCategories.Visible = BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_CATEGORIES);

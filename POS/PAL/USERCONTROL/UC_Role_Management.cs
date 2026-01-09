@@ -56,9 +56,10 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void ApplyPermissionBasedVisibility()
         {
-            // Hide Add button if user doesn't have ADD_ROLES permission
+            // If user has VIEW_ROLES permission, they have full access to add, edit, and delete roles
+            // No need to hide Add button - VIEW_ROLES grants full access
             if (btnAddRoles != null)
-                btnAddRoles.Visible = PermissionManager.HasPermission(PermissionManager.Permissions.ADD_ROLES);
+                btnAddRoles.Visible = true; // Always visible if user can view roles (already checked in constructor)
                 
             // Hide export buttons if user doesn't have VIEW_EXPORT_BUTTONS permission
             bool canExport = PermissionManager.HasPermission(PermissionManager.Permissions.VIEW_EXPORT_BUTTONS);
@@ -442,17 +443,7 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
-                // Check EDIT_ROLES permission
-                if (!PermissionManager.HasPermission(PermissionManager.Permissions.EDIT_ROLES))
-                {
-                    XtraMessageBox.Show(
-                        "You do not have permission to edit roles.",
-                        "Access Denied",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-                    return;
-                }
+                // VIEW_ROLES permission grants full access to edit roles (already checked in constructor)
                 
                 if (gridView1.FocusedRowHandle < 0)
                 {
@@ -470,7 +461,7 @@ namespace POS.PAL.USERCONTROL
                 if (roleId == ADMIN_ROLE_ID)
                 {
                     XtraMessageBox.Show(
-                        "The Admin role cannot be edited as it is a system role.",
+                        "The Super Admin role cannot be edited as it is a system role.",
                         "Operation Not Allowed",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
@@ -500,17 +491,7 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
-                // Check DELETE_ROLES permission
-                if (!PermissionManager.HasPermission(PermissionManager.Permissions.DELETE_ROLES))
-                {
-                    XtraMessageBox.Show(
-                        "You do not have permission to delete roles.",
-                        "Access Denied",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-                    return;
-                }
+                // VIEW_ROLES permission grants full access to delete roles (already checked in constructor)
                 
                 if (gridView1.FocusedRowHandle < 0)
                 {
@@ -529,7 +510,7 @@ namespace POS.PAL.USERCONTROL
                 if (roleId == ADMIN_ROLE_ID)
                 {
                     XtraMessageBox.Show(
-                        "The Admin role cannot be deleted as it is a system role.",
+                        "The Super Admin role cannot be deleted as it is a system role.",
                         "Operation Not Allowed",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
@@ -890,17 +871,7 @@ namespace POS.PAL.USERCONTROL
 
         private void btnAddRoles_Click(object sender, EventArgs e)
         {
-            // Check ADD_ROLES permission
-            if (!PermissionManager.HasPermission(PermissionManager.Permissions.ADD_ROLES))
-            {
-                XtraMessageBox.Show(
-                    "You do not have permission to add roles.",
-                    "Access Denied",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
-                return;
-            }
+            // VIEW_ROLES permission grants full access to add roles (already checked in constructor)
             
             Main.Instance.LoadUserControl(new UC_Roles_Registration());
         }
