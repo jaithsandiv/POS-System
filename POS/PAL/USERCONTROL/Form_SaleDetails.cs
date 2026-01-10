@@ -1,5 +1,7 @@
 using DevExpress.XtraEditors;
 using POS.BLL;
+using POS.PAL.REPORT;
+using POS.PAL.REPORT.SUBREPORT;
 using System;
 using System.Data;
 using System.Drawing;
@@ -131,24 +133,203 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
-        /// Prints the sale receipt
+        /// Prints the sale invoice (same as original invoice)
         /// </summary>
         private void btnPrint_Click(object sender, EventArgs e)
         {
             try
             {
-                // Create a simple print document
-                PrintDialog printDialog = new PrintDialog();
-                if (printDialog.ShowDialog() == DialogResult.OK)
+                if (saleData == null || saleData.Rows.Count == 0)
                 {
-                    // TODO: Implement receipt printing logic
-                    XtraMessageBox.Show("Print functionality will be implemented based on your receipt template.", "Print", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    XtraMessageBox.Show("No sale data to print.", "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (saleItemsData == null || saleItemsData.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show("No sale items to print.", "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DataRow sale = saleData.Rows[0];
+
+                // Get sale details
+                string invoiceNumber = sale["invoice_number"]?.ToString() ?? "N/A";
+                decimal totalAmount = Convert.ToDecimal(sale["total_amount"]);
+                decimal discountValue = Convert.ToDecimal(sale["discount_value"]);
+                decimal grandTotal = Convert.ToDecimal(sale["grand_total"]);
+                decimal totalPaid = Convert.ToDecimal(sale["total_paid"]);
+                decimal changeDue = Convert.ToDecimal(sale["change_due"]);
+                decimal due = grandTotal - totalPaid;
+                if (due < 0) due = 0;
+
+                // Get customer details
+                string customerName = GetCustomerName(sale["customer_id"]);
+
+                // Check print settings
+                bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+
+                if (enableThermal)
+                {
+                    // Print thermal invoice
+                    PrintThermalInvoice(invoiceNumber, grandTotal, totalPaid, due, customerName);
+                }
+                else if (enableA4)
+                {
+                    // Print A4 invoice
+                    PrintA4Invoice(invoiceNumber, totalAmount, discountValue, grandTotal, totalPaid, due, customerName);
+                }
+                else
+                {
+                    // Default to A4 if neither is explicitly enabled
+                    PrintA4Invoice(invoiceNumber, totalAmount, discountValue, grandTotal, totalPaid, due, customerName);
                 }
             }
             catch (Exception ex)
             {
-                XtraMessageBox.Show($"Error printing receipt: {ex.Message}", "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show($"Error printing invoice: {ex.Message}", "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// Prints the A4 invoice report
+        /// </summary>
+        private void PrintA4Invoice(string invoiceNumber, decimal totalAmount, decimal discountValue, 
+            decimal grandTotal, decimal totalPaid, decimal due, string customerName)
+        {
+            // Create A4 invoice report
+            Invoice invoiceReport = new Invoice();
+
+            // Set footer text from settings
+            string footerText = Main.GetSetting("invoice_footer", "Thank You For Your Business!");
+            invoiceReport.Parameters["p_footer"].Value = footerText;
+
+            // Bind main report data (sale items)
+            invoiceReport.DataSource = saleItemsData;
+
+            // Set main invoice parameters
+            invoiceReport.Parameters["p_invoice_no"].Value = invoiceNumber;
+            invoiceReport.Parameters["p_date"].Value = Convert.ToDateTime(saleData.Rows[0]["created_date"]).ToString("yyyy-MM-dd HH:mm:ss");
+            invoiceReport.Parameters["p_total"].Value = totalAmount.ToString("F2");
+            invoiceReport.Parameters["p_discount"].Value = discountValue.ToString("F2");
+            invoiceReport.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
+
+            // Set customer details
+            invoiceReport.Parameters["p_customer_name"].Value = customerName;
+            
+            // Get store details for contact info
+            if (Main.DataSetApp.Store.Rows.Count > 0)
+            {
+                var storeRow = Main.DataSetApp.Store[0];
+                invoiceReport.Parameters["p_email"].Value = storeRow.IsemailNull() ? "" : storeRow.email;
+                invoiceReport.Parameters["p_contact"].Value = storeRow.IsphoneNull() ? "" : storeRow.phone;
+                invoiceReport.Parameters["p_address"].Value = storeRow.IsaddressNull() ? "" : storeRow.address;
+            }
+
+            // Configure subreport for payments
+            if (invoiceReport.PaymentSubreport?.ReportSource is SR_Payment subreport)
+            {
+                subreport.DataSource = salePaymentsData;
+                subreport.Parameters["p_total_paid"].Value = totalPaid.ToString("F2");
+                subreport.Parameters["p_due"].Value = due.ToString("F2");
+            }
+
+            // Print directly
+            DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
+            printTool.Print();
+        }
+
+        /// <summary>
+        /// Prints the thermal (80mm) invoice report
+        /// </summary>
+        private void PrintThermalInvoice(string invoiceNumber, decimal grandTotal, 
+            decimal totalPaid, decimal due, string customerName)
+        {
+            // Create thermal invoice report
+            ThermalInvoice thermalInvoice = new ThermalInvoice();
+
+            // Set footer text from settings
+            string footerText = Main.GetSetting("invoice_footer", "Thank You!");
+            thermalInvoice.Parameters["p_footer"].Value = footerText;
+
+            // Set main invoice parameters
+            thermalInvoice.Parameters["p_invoice_no"].Value = invoiceNumber;
+            thermalInvoice.Parameters["p_date"].Value = Convert.ToDateTime(saleData.Rows[0]["created_date"]).ToString("yyyy-MM-dd HH:mm:ss");
+            thermalInvoice.Parameters["p_customer_name"].Value = customerName;
+            thermalInvoice.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
+
+            // Get store details from Main.DataSetApp
+            if (Main.DataSetApp.Store.Rows.Count > 0)
+            {
+                var storeRow = Main.DataSetApp.Store[0];
+                thermalInvoice.Parameters["p_contact"].Value = storeRow.IsphoneNull() ? "" : storeRow.phone;
+                thermalInvoice.Parameters["p_email"].Value = storeRow.IsemailNull() ? "" : storeRow.email;
+                thermalInvoice.Parameters["p_address"].Value = storeRow.IsaddressNull() ? "" : storeRow.address;
+            }
+
+            // Set data source for items
+            thermalInvoice.DataSource = saleItemsData;
+
+            // Calculate totals from saleItemsData
+            decimal subtotal = 0m;
+            foreach (DataRow item in saleItemsData.Rows)
+            {
+                if (decimal.TryParse(item["subtotal"]?.ToString(), out decimal itemTotal))
+                {
+                    subtotal += itemTotal;
+                }
+            }
+
+            // Get discount from sale data
+            decimal discountAmount = 0m;
+            if (saleData.Rows.Count > 0)
+            {
+                DataRow saleRow = saleData.Rows[0];
+                if (decimal.TryParse(saleRow["discount_value"]?.ToString(), out decimal discountValue))
+                {
+                    string discountType = saleRow["discount_type"]?.ToString();
+                    if (discountType == "PERCENTAGE")
+                    {
+                        discountAmount = subtotal * (discountValue / 100m);
+                    }
+                    else
+                    {
+                        discountAmount = discountValue;
+                    }
+                }
+            }
+
+            thermalInvoice.Parameters["p_total"].Value = subtotal.ToString("F2");
+            thermalInvoice.Parameters["p_discount"].Value = "-" + discountAmount.ToString("F2");
+
+            // Bind payment subreport (thermal version)
+            if (thermalInvoice.PaymentSubreport != null)
+            {
+                SR_ThermalPayment paymentReport = new SR_ThermalPayment();
+                paymentReport.DataSource = salePaymentsData;
+
+                // Calculate change
+                decimal change = Math.Max(0, totalPaid - grandTotal);
+
+                paymentReport.Parameters["p_total_paid"].Value = totalPaid.ToString("F2");
+                paymentReport.Parameters["p_due"].Value = due.ToString("F2");
+                paymentReport.Parameters["p_change"].Value = change.ToString("F2");
+
+                thermalInvoice.PaymentSubreport.ReportSource = paymentReport;
+            }
+
+            // Get thermal printer name from system settings
+            string printerName = Main.GetSetting("thermal_printer_name", null);
+
+            // Configure printer if specified
+            if (!string.IsNullOrEmpty(printerName))
+            {
+                thermalInvoice.PrinterName = printerName;
+            }
+
+            // Print directly
+            thermalInvoice.Print();
         }
 
         /// <summary>

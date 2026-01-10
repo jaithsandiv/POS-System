@@ -1068,8 +1068,16 @@ namespace POS.DAL
                       AND s.sale_type = 'SALE'
                       AND (
                         s.invoice_number LIKE @keyword
-                        OR c.full_name LIKE @keyword
-                        OR u.full_name LIKE @keyword
+                        OR CONVERT(VARCHAR, s.created_date, 120) LIKE @keyword
+                        OR CONVERT(VARCHAR, s.grand_total) LIKE @keyword
+                        OR ISNULL(c.full_name, 'Walk-In Customer') LIKE @keyword
+                        OR ISNULL(cg.group_name, 'None') LIKE @keyword
+                        OR EXISTS (
+                            SELECT 1 FROM Payment p 
+                            WHERE p.sale_id = s.sale_id 
+                            AND p.status = 'A' 
+                            AND p.payment_method LIKE @keyword
+                        )
                       )
                     ORDER BY s.created_date DESC";
 
