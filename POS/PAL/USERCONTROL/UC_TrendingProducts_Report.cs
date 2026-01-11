@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using POS.PAL.Helpers;
 
 namespace POS.PAL.USERCONTROL
 {
@@ -184,41 +185,17 @@ namespace POS.PAL.USERCONTROL
                 printLink.Margins.Top = 80;    // Space for header
                 printLink.Margins.Bottom = 50; // Space for footer
                 
-                // Configure scaling to fit the chart to the page
-                printLink.PrintingSystemBase.Document.AutoFitToPagesWidth = 1;  // Fit to page width
+                // Configure header and footer using ReportHelper
+                ReportHelper.ConfigureReportHeaderFooter(printLink, "Trending Products Report");
                 
                 // Create the document
                 printLink.CreateDocument();
                 
+                // Configure scaling to fit the chart to the page
+                printLink.PrintingSystemBase.Document.AutoFitToPagesWidth = 1;  // Fit to page width
+                
                 // Enable image scaling for better quality
                 printLink.PrintingSystemBase.ExportOptions.PrintPreview.DefaultFileName = $"TrendingProducts_{DateTime.Now:yyyyMMdd_HHmmss}";
-                
-                // Add header
-                PageHeaderFooter header = printLink.PageHeaderFooter as PageHeaderFooter;
-                if (header != null)
-                {
-                    header.Header.Content.Clear();
-                    header.Header.Content.AddRange(new string[] {
-                        "Trending Products Report",
-                        "",
-                        $"Generated: {DateTime.Now:dd/MM/yyyy HH:mm}"
-                    });
-                    header.Header.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                    header.Header.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
-                }
-                
-                // Add footer with page numbers
-                if (header != null)
-                {
-                    header.Footer.Content.Clear();
-                    header.Footer.Content.AddRange(new string[] {
-                        "",
-                        "[Page # of Pages #]",
-                        ""
-                    });
-                    header.Footer.Font = new Font("Segoe UI", 9);
-                    header.Footer.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
-                }
 
                 // Show print preview dialog with scaling options
                 printLink.ShowPreviewDialog();

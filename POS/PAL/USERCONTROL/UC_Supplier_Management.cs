@@ -15,6 +15,7 @@ using System.IO;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraGrid.Columns;
+using POS.PAL.Helpers;
 
 namespace POS.PAL.USERCONTROL
 {
@@ -265,11 +266,7 @@ namespace POS.PAL.USERCONTROL
                         gridView1.BestFitColumns();
                         
                         // Export grid to Excel using DevExpress export functionality
-                        var options = new DevExpress.XtraPrinting.XlsxExportOptions();
-                        options.ExportMode = DevExpress.XtraPrinting.XlsxExportMode.SingleFile;
-                        options.SheetName = "Suppliers";
-                        
-                        gridView1.ExportToXlsx(saveFileDialog.FileName, options);
+                        gridView1.ExportToXlsx(saveFileDialog.FileName);
 
                         XtraMessageBox.Show(
                             $"Supplier data exported successfully to:\n{saveFileDialog.FileName}",
@@ -468,54 +465,12 @@ namespace POS.PAL.USERCONTROL
                     }
                     
                     gridView1.BestFitColumns();
-                    
-                    // Create a PrintableComponentLink to print the grid
-                    PrintableComponentLink printLink = new PrintableComponentLink(new DevExpress.XtraPrinting.PrintingSystem());
-                    
-                    printLink.Component = gridSuppliers;
-                    
-                    // Configure print settings (portrait orientation)
-                    printLink.Landscape = false;
-                    printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
-                    
-                    // Set margins
-                    printLink.Margins.Left = 50;
-                    printLink.Margins.Right = 50;
-                    printLink.Margins.Top = 50;
-                    printLink.Margins.Bottom = 50;
-                    
-                    // Create document
-                    printLink.CreateDocument();
-                    
-                    // Fit columns to page width automatically
-                    printLink.PrintingSystem.Document.AutoFitToPagesWidth = 1;
-                    
-                    // Add header
-                    PageHeaderFooter header = printLink.PageHeaderFooter as PageHeaderFooter;
-                    if (header != null)
-                    {
-                        header.Header.Content.Clear();
-                        header.Header.Content.AddRange(new string[] {
-                            "Supplier List",
-                            "",
-                            $"Printed: {DateTime.Now:dd/MM/yyyy HH:mm}"
-                        });
-                        header.Header.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                        header.Header.LineAlignment = BrickAlignment.Center;
-                    }
-                    
-                    // Add footer with page numbers
-                    if (header != null)
-                    {
-                        header.Footer.Content.Clear();
-                        header.Footer.Content.AddRange(new string[] {
-                            "",
-                            "[Page # of Pages #]",
-                            ""
-                        });
-                        header.Footer.Font = new Font("Segoe UI", 9);
-                        header.Footer.LineAlignment = BrickAlignment.Center;
-                    }
+
+                    // Create print link using ReportHelper
+                    PrintableComponentLink printLink = ReportHelper.CreatePrintLink(
+                        gridSuppliers, 
+                        "Supplier List", 
+                        landscape: false);
 
                     // Show print preview dialog with print options
                     printLink.ShowPreviewDialog();

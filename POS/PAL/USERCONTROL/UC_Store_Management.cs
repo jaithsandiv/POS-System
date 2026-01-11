@@ -12,6 +12,8 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraPrinting;
+using POS.PAL.Helpers;
 
 namespace POS.PAL.USERCONTROL
 {
@@ -304,54 +306,11 @@ namespace POS.PAL.USERCONTROL
 
                 try
                 {
-                    // Create a PrintableComponentLink to print the grid
-                    DevExpress.XtraPrinting.PrintableComponentLink printLink = 
-                        new DevExpress.XtraPrinting.PrintableComponentLink(new DevExpress.XtraPrinting.PrintingSystem());
-                    
-                    printLink.Component = gridControlStores;
-                    
-                    // Configure print settings for dynamic column adjustment (portrait orientation)
-                    printLink.Landscape = false;
-                    printLink.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.A4;
-                    
-                    // Set margins
-                    printLink.Margins.Left = 50;
-                    printLink.Margins.Right = 50;
-                    printLink.Margins.Top = 50;
-                    printLink.Margins.Bottom = 50;
-                    
-                    // Create document
-                    printLink.CreateDocument();
-                    
-                    // Auto-fit columns to page width
-                    printLink.PrintingSystem.Document.AutoFitToPagesWidth = 1;
-                    
-                    // Add header
-                    DevExpress.XtraPrinting.PageHeaderFooter header = printLink.PageHeaderFooter as DevExpress.XtraPrinting.PageHeaderFooter;
-                    if (header != null)
-                    {
-                        header.Header.Content.Clear();
-                        header.Header.Content.AddRange(new string[] {
-                            "Store List",
-                            "",
-                            $"Printed: {DateTime.Now:dd/MM/yyyy HH:mm}"
-                        });
-                        header.Header.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-                        header.Header.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
-                    }
-                    
-                    // Add footer with page numbers
-                    if (header != null)
-                    {
-                        header.Footer.Content.Clear();
-                        header.Footer.Content.AddRange(new string[] {
-                            "",
-                            "[Page # of Pages #]",
-                            ""
-                        });
-                        header.Footer.Font = new Font("Segoe UI", 9);
-                        header.Footer.LineAlignment = DevExpress.XtraPrinting.BrickAlignment.Center;
-                    }
+                    // Create print link using ReportHelper
+                    PrintableComponentLink printLink = ReportHelper.CreatePrintLink(
+                        gridControlStores, 
+                        "Store List", 
+                        landscape: false);
 
                     // Show print preview dialog with print options
                     printLink.ShowPreviewDialog();
