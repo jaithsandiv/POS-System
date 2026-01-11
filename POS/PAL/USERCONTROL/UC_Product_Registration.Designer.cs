@@ -98,86 +98,79 @@ namespace POS.PAL.USERCONTROL
             this.lblSubtitle.Size = new System.Drawing.Size(260, 40);
             this.lblSubtitle.Text = "Add a new product";
 
-            // Layout Vars
-            int col1X = 381;
-            int col2X = 995;
-            int startY = 343;
-            int gap = 75; // reduced spacing
-            int currentY = startY;
-
-            // -- Col 1 --
-            this.lblProductName.Location = new System.Drawing.Point(col1X, currentY);
+            // -- Col 1 (col1X=381, startY=343, gap=75) --
+            // Row 1: Product Name (Y=343)
+            this.lblProductName.Location = new System.Drawing.Point(381, 343);
             this.lblProductName.Text = "Product Name *";
-            this.txtProductName.Location = new System.Drawing.Point(col1X, currentY + 23);
+            this.txtProductName.Location = new System.Drawing.Point(381, 366);
             this.txtProductName.Size = new System.Drawing.Size(480, 44);
             this.txtProductName.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.txtProductName.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtProductName.Properties.Appearance.Options.UseFont = true;
 
-            currentY += gap;
-            this.lblProductCode.Location = new System.Drawing.Point(col1X, currentY);
+            // Row 2: Product Code (Y=418)
+            this.lblProductCode.Location = new System.Drawing.Point(381, 418);
             this.lblProductCode.Text = "Product Code *";
-            this.txtProductCode.Location = new System.Drawing.Point(col1X, currentY + 23);
+            this.txtProductCode.Location = new System.Drawing.Point(381, 441);
             this.txtProductCode.Size = new System.Drawing.Size(480, 44);
             this.txtProductCode.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.txtProductCode.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtProductCode.Properties.Appearance.Options.UseFont = true;
 
-            currentY += gap;
-            this.lblBarcode.Location = new System.Drawing.Point(col1X, currentY);
+            // Row 3: Barcode (Y=493)
+            this.lblBarcode.Location = new System.Drawing.Point(381, 493);
             this.lblBarcode.Text = "Barcode";
-            this.txtBarcode.Location = new System.Drawing.Point(col1X, currentY + 23);
+            this.txtBarcode.Location = new System.Drawing.Point(381, 516);
             this.txtBarcode.Size = new System.Drawing.Size(480, 44);
             this.txtBarcode.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.txtBarcode.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtBarcode.Properties.Appearance.Options.UseFont = true;
 
-            currentY += gap;
-            this.lblProductType.Location = new System.Drawing.Point(col1X, currentY);
+            // Row 4: Product Type (Y=568)
+            this.lblProductType.Location = new System.Drawing.Point(381, 568);
             this.lblProductType.Text = "Product Type";
-            this.cmbProductType.Location = new System.Drawing.Point(col1X, currentY + 23);
+            this.cmbProductType.Location = new System.Drawing.Point(381, 591);
             this.cmbProductType.Size = new System.Drawing.Size(480, 44);
             this.cmbProductType.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.cmbProductType.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.cmbProductType.Properties.Appearance.Options.UseFont = true;
             this.cmbProductType.Properties.Items.AddRange(new object[] { "Standard", "Combo", "Digital" });
 
-            currentY += gap;
-            this.lblCategory.Location = new System.Drawing.Point(col1X, currentY);
+            // Row 5: Category (Y=643)
+            this.lblCategory.Location = new System.Drawing.Point(381, 643);
             this.lblCategory.Text = "Category";
-            this.lueCategory.Location = new System.Drawing.Point(col1X, currentY + 23);
+            this.lueCategory.Location = new System.Drawing.Point(381, 666);
             this.lueCategory.Size = new System.Drawing.Size(480, 44);
             this.lueCategory.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.lueCategory.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lueCategory.Properties.Appearance.Options.UseFont = true;
             this.lueCategory.Properties.NullText = "Select Category";
 
-            currentY += gap;
-            this.lblBrand.Location = new System.Drawing.Point(col1X, currentY);
+            // Row 6: Brand (Y=718)
+            this.lblBrand.Location = new System.Drawing.Point(381, 718);
             this.lblBrand.Text = "Brand";
-            this.lueBrand.Location = new System.Drawing.Point(col1X, currentY + 23);
+            this.lueBrand.Location = new System.Drawing.Point(381, 741);
             this.lueBrand.Size = new System.Drawing.Size(480, 44);
             this.lueBrand.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.lueBrand.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lueBrand.Properties.Appearance.Options.UseFont = true;
             this.lueBrand.Properties.NullText = "Select Brand";
 
-            // -- Col 2 --
-            currentY = startY;
-
-            this.lblUnit.Location = new System.Drawing.Point(col2X, currentY);
+            // -- Col 2 (col2X=995, startY=343, gap=75) --
+            // Row 1: Unit (Y=343)
+            this.lblUnit.Location = new System.Drawing.Point(995, 343);
             this.lblUnit.Text = "Unit *";
-            this.lueUnit.Location = new System.Drawing.Point(col2X, currentY + 23);
+            this.lueUnit.Location = new System.Drawing.Point(995, 366);
             this.lueUnit.Size = new System.Drawing.Size(480, 44);
             this.lueUnit.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.lueUnit.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lueUnit.Properties.Appearance.Options.UseFont = true;
             this.lueUnit.Properties.NullText = "Select Unit";
 
-            currentY += gap;
-            this.lblPurchaseCost.Location = new System.Drawing.Point(col2X, currentY);
+            // Row 2: Purchase Cost (Y=418)
+            this.lblPurchaseCost.Location = new System.Drawing.Point(995, 418);
             this.lblPurchaseCost.Text = "Purchase Cost";
-            this.txtPurchaseCost.Location = new System.Drawing.Point(col2X, currentY + 23);
+            this.txtPurchaseCost.Location = new System.Drawing.Point(995, 441);
             this.txtPurchaseCost.Size = new System.Drawing.Size(480, 44);
             this.txtPurchaseCost.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.txtPurchaseCost.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -186,10 +179,10 @@ namespace POS.PAL.USERCONTROL
             this.txtPurchaseCost.Properties.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
             this.txtPurchaseCost.Properties.MaskSettings.Set("mask", "n2");
 
-            currentY += gap;
-            this.lblSellingPrice.Location = new System.Drawing.Point(col2X, currentY);
+            // Row 3: Selling Price (Y=493)
+            this.lblSellingPrice.Location = new System.Drawing.Point(995, 493);
             this.lblSellingPrice.Text = "Selling Price *";
-            this.txtSellingPrice.Location = new System.Drawing.Point(col2X, currentY + 23);
+            this.txtSellingPrice.Location = new System.Drawing.Point(995, 516);
             this.txtSellingPrice.Size = new System.Drawing.Size(480, 44);
             this.txtSellingPrice.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.txtSellingPrice.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -198,10 +191,10 @@ namespace POS.PAL.USERCONTROL
             this.txtSellingPrice.Properties.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
             this.txtSellingPrice.Properties.MaskSettings.Set("mask", "n2");
 
-            currentY += gap;
-            this.lblStockQty.Location = new System.Drawing.Point(col2X, currentY);
+            // Row 4: Stock Quantity (Y=568)
+            this.lblStockQty.Location = new System.Drawing.Point(995, 568);
             this.lblStockQty.Text = "Stock Quantity";
-            this.txtStockQty.Location = new System.Drawing.Point(col2X, currentY + 23);
+            this.txtStockQty.Location = new System.Drawing.Point(995, 591);
             this.txtStockQty.Size = new System.Drawing.Size(480, 44);
             this.txtStockQty.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.txtStockQty.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
@@ -210,41 +203,38 @@ namespace POS.PAL.USERCONTROL
             this.txtStockQty.Properties.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
             this.txtStockQty.Properties.MaskSettings.Set("mask", "n3");
 
-            currentY += gap;
-            this.lblExpiryDate.Location = new System.Drawing.Point(col2X, currentY);
+            // Row 5: Expiry Date and Manufacture Date (Y=643)
+            this.lblExpiryDate.Location = new System.Drawing.Point(995, 643);
             this.lblExpiryDate.Text = "Expiry Date";
-            this.dtExpiryDate.Location = new System.Drawing.Point(col2X, currentY + 23);
+            this.dtExpiryDate.Location = new System.Drawing.Point(995, 666);
             this.dtExpiryDate.Size = new System.Drawing.Size(230, 44);
             this.dtExpiryDate.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.dtExpiryDate.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.dtExpiryDate.Properties.Appearance.Options.UseFont = true;
 
-            this.lblManufactureDate.Location = new System.Drawing.Point(col2X + 250, currentY);
+            this.lblManufactureDate.Location = new System.Drawing.Point(1245, 643);
             this.lblManufactureDate.Text = "Manufacture Date";
-            this.dtManufactureDate.Location = new System.Drawing.Point(col2X + 250, currentY + 23);
+            this.dtManufactureDate.Location = new System.Drawing.Point(1245, 666);
             this.dtManufactureDate.Size = new System.Drawing.Size(230, 44);
             this.dtManufactureDate.Properties.Padding = new System.Windows.Forms.Padding(10);
             this.dtManufactureDate.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.dtManufactureDate.Properties.Appearance.Options.UseFont = true;
 
-            currentY += gap;
-            // Description
-            this.lblDescription.Location = new System.Drawing.Point(col1X, currentY);
+            // Row 6: Description (Y=718, spans both columns)
+            this.lblDescription.Location = new System.Drawing.Point(381, 718);
             this.lblDescription.Text = "Description";
-            this.memoDescription.Location = new System.Drawing.Point(col1X, currentY + 23);
+            this.memoDescription.Location = new System.Drawing.Point(381, 741);
             this.memoDescription.Size = new System.Drawing.Size(1094, 80);
             this.memoDescription.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.memoDescription.Properties.Appearance.Options.UseFont = true;
 
-            int btnY = currentY + 120; // 860 roughly or more
-
-            // Buttons
+            // Buttons (btnY = 718 + 120 = 838)
             this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(167)))), ((int)(((byte)(140)))));
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(1496, btnY);
+            this.btnSave.Location = new System.Drawing.Point(1496, 838);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(250, 44);
             this.btnSave.Text = "Save";
@@ -252,7 +242,7 @@ namespace POS.PAL.USERCONTROL
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.btnCancel.Location = new System.Drawing.Point(175, btnY);
+            this.btnCancel.Location = new System.Drawing.Point(175, 838);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(250, 44);
             this.btnCancel.Text = "Back";

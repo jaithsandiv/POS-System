@@ -308,6 +308,204 @@ namespace POS.BLL
             return _dalProducts.SearchProducts(keyword);
         }
 
+        /// <summary>
+        /// Validates import data columns against required Product table columns
+        /// </summary>
+        public (bool isValid, string errorMessage, List<string> missingColumns) ValidateImportColumns(DataTable importData)
+        {
+            var requiredColumns = new List<string> { "product_name", "product_code", "unit_id", "selling_price" };
+            var optionalColumns = new List<string> { "barcode", "product_type", "category_id", "brand_id", "purchase_cost", "stock_quantity", "expiry_date", "manufacture_date", "description" };
+
+            var missingRequired = new List<string>();
+            foreach (var col in requiredColumns)
+            {
+                if (!importData.Columns.Contains(col))
+                {
+                    missingRequired.Add(col);
+                }
+            }
+
+            if (missingRequired.Count > 0)
+            {
+                return (false, $"Missing required columns: {string.Join(", ", missingRequired)}", missingRequired);
+            }
+
+            return (true, string.Empty, new List<string>());
+        }
+
+        /// <summary>
+        /// Imports products from a DataTable with full validation
+        /// </summary>
+        public (int successCount, int failedCount, List<string> errors) ImportProducts(DataTable importData, int createdBy)
+        {
+            var errors = new List<string>();
+            int successCount = 0;
+            int failedCount = 0;
+
+            // Validate columns first
+            var (isValid, errorMessage, missingColumns) = ValidateImportColumns(importData);
+            if (!isValid)
+            {
+                errors.Add(errorMessage);
+                return (0, importData.Rows.Count, errors);
+            }
+
+            int rowNumber = 1;
+            foreach (DataRow row in importData.Rows)
+            {
+                rowNumber++;
+                try
+                {
+                    string productName = row["product_name"]?.ToString()?.Trim() ?? "";
+                    string productCode = row["product_code"]?.ToString()?.Trim() ?? "";
+
+                    // Validate required fields
+                    if (string.IsNullOrWhiteSpace(productName))
+                    {
+                        errors.Add($"Row {rowNumber}: Product name is required.");
+                        failedCount++;
+                        continue;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(productCode))
+                    {
+                        errors.Add($"Row {rowNumber}: Product code is required.");
+                        failedCount++;
+                        continue;
+                    }
+
+                    // Check for duplicate product code
+                    if (_dalProducts.ProductCodeExists(productCode))
+                    {
+                        errors.Add($"Row {rowNumber}: Product code '{productCode}' already exists.");
+                        failedCount++;
+                        continue;
+                    }
+
+                    int unitId = 0;
+                    if (importData.Columns.Contains("unit_id") && row["unit_id"] != DBNull.Value)
+                    {
+                        int.TryParse(row["unit_id"].ToString(), out unitId);
+                    }
+
+                    if (unitId <= 0)
+                    {
+                        errors.Add($"Row {rowNumber}: Valid unit_id is required.");
+                        failedCount++;
+                        continue;
+                    }
+
+                    decimal sellingPrice = 0;
+                    if (importData.Columns.Contains("selling_price") && row["selling_price"] != DBNull.Value)
+                    {
+                        decimal.TryParse(row["selling_price"].ToString(), out sellingPrice);
+                    }
+
+                    if (sellingPrice < 0)
+                    {
+                        errors.Add($"Row {rowNumber}: Selling price cannot be negative.");
+                        failedCount++;
+                        continue;
+                    }
+
+                    // Extract optional fields
+                    string barcode = importData.Columns.Contains("barcode") ? row["barcode"]?.ToString()?.Trim() : null;
+                    string productType = importData.Columns.Contains("product_type") ? row["product_type"]?.ToString()?.Trim() : "Standard";
+
+                    int? categoryId = null;
+                    if (importData.Columns.Contains("category_id") && row["category_id"] != DBNull.Value)
+                    {
+                        if (int.TryParse(row["category_id"].ToString(), out int catId))
+                            categoryId = catId;
+                    }
+
+                    int? brandId = null;
+                    if (importData.Columns.Contains("brand_id") && row["brand_id"] != DBNull.Value)
+                    {
+                        if (int.TryParse(row["brand_id"].ToString(), out int brId))
+                            brandId = brId;
+                    }
+
+                    decimal? purchaseCost = null;
+                    if (importData.Columns.Contains("purchase_cost") && row["purchase_cost"] != DBNull.Value)
+                    {
+                        if (decimal.TryParse(row["purchase_cost"].ToString(), out decimal pc))
+                            purchaseCost = pc;
+                    }
+
+                    decimal stockQuantity = 0;
+                    if (importData.Columns.Contains("stock_quantity") && row["stock_quantity"] != DBNull.Value)
+                    {
+                        decimal.TryParse(row["stock_quantity"].ToString(), out stockQuantity);
+                    }
+
+                    DateTime? expiryDate = null;
+                    if (importData.Columns.Contains("expiry_date") && row["expiry_date"] != DBNull.Value)
+                    {
+                        if (DateTime.TryParse(row["expiry_date"].ToString(), out DateTime ed))
+                            expiryDate = ed;
+                    }
+
+                    DateTime? manufactureDate = null;
+                    if (importData.Columns.Contains("manufacture_date") && row["manufacture_date"] != DBNull.Value)
+                    {
+                        if (DateTime.TryParse(row["manufacture_date"].ToString(), out DateTime md))
+                            manufactureDate = md;
+                    }
+
+                    string description = importData.Columns.Contains("description") ? row["description"]?.ToString()?.Trim() : null;
+
+                    // Insert product
+                    int productId = _dalProducts.InsertProduct(productName, productCode, barcode, productType,
+                                                                categoryId, brandId, unitId,
+                                                                purchaseCost, sellingPrice, stockQuantity,
+                                                                expiryDate, manufactureDate, description,
+                                                                createdBy);
+
+                    if (productId > 0)
+                    {
+                        successCount++;
+                        _logManager.LogInfo(
+                            source: "PRODUCT_IMPORT",
+                            message: $"Product imported - ID: {productId}, Code: {productCode}, Name: {productName}",
+                            referenceId: productId,
+                            userId: createdBy
+                        );
+                    }
+                    else
+                    {
+                        errors.Add($"Row {rowNumber}: Failed to insert product '{productName}'.");
+                        failedCount++;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    errors.Add($"Row {rowNumber}: {ex.Message}");
+                    failedCount++;
+                }
+            }
+
+            if (successCount > 0)
+            {
+                _logManager.LogAudit(
+                    source: "PRODUCT_IMPORT",
+                    message: $"Bulk product import completed - Success: {successCount}, Failed: {failedCount}",
+                    referenceId: null,
+                    userId: createdBy
+                );
+            }
+
+            return (successCount, failedCount, errors);
+        }
+
+        /// <summary>
+        /// Checks if a product code already exists
+        /// </summary>
+        public bool ProductCodeExists(string productCode)
+        {
+            return _dalProducts.ProductCodeExists(productCode);
+        }
+
         #endregion
 
         #region Barcode Print

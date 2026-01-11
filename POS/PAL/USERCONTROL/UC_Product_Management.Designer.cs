@@ -25,6 +25,7 @@ namespace POS.PAL.USERCONTROL
             txtSearch = new DevExpress.XtraEditors.TextEdit();
             btnSearch = new DevExpress.XtraEditors.SimpleButton();
             btnAddProduct = new DevExpress.XtraEditors.SimpleButton();
+            btnImport = new DevExpress.XtraEditors.SimpleButton();
             labelControl10 = new DevExpress.XtraEditors.LabelControl();
             labelControl9 = new DevExpress.XtraEditors.LabelControl();
             popupContainerEdit1 = new DevExpress.XtraEditors.PopupContainerEdit();
@@ -80,6 +81,7 @@ namespace POS.PAL.USERCONTROL
             panelControl2.Controls.Add(txtSearch);
             panelControl2.Controls.Add(btnSearch);
             panelControl2.Controls.Add(btnAddProduct);
+            panelControl2.Controls.Add(btnImport);
             panelControl2.Controls.Add(labelControl10);
             panelControl2.Controls.Add(labelControl9);
             panelControl2.Controls.Add(popupContainerEdit1);
@@ -152,6 +154,20 @@ namespace POS.PAL.USERCONTROL
             btnAddProduct.TabIndex = 10;
             btnAddProduct.Text = "Add";
             btnAddProduct.Click += btnAddProduct_Click;
+            // 
+            // btnImport
+            // 
+            btnImport.Appearance.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            btnImport.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold);
+            btnImport.Appearance.Options.UseBackColor = true;
+            btnImport.Appearance.Options.UseFont = true;
+            btnImport.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            btnImport.Location = new System.Drawing.Point(1684, 5);
+            btnImport.Name = "btnImport";
+            btnImport.Size = new System.Drawing.Size(89, 29);
+            btnImport.TabIndex = 119;
+            btnImport.Text = "Import";
+            btnImport.Click += btnImport_Click;
             // 
             // labelControl10
             // 
@@ -245,6 +261,7 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.TextEdit txtSearch;
         private DevExpress.XtraEditors.SimpleButton btnSearch;
         private DevExpress.XtraEditors.SimpleButton btnAddProduct;
+        private DevExpress.XtraEditors.SimpleButton btnImport;
         private DevExpress.XtraEditors.LabelControl labelControl10;
         private DevExpress.XtraEditors.LabelControl labelControl9;
         private DevExpress.XtraEditors.PopupContainerEdit popupContainerEdit1;

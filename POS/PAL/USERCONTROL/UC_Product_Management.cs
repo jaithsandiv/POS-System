@@ -1,10 +1,13 @@
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
+using OfficeOpenXml;
 using POS.BLL;
 using System;
 using System.Data;
 using System.Drawing;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace POS.PAL.USERCONTROL
@@ -14,6 +17,12 @@ namespace POS.PAL.USERCONTROL
         private readonly BLL_Products _bllProducts = new BLL_Products();
         private RepositoryItemButtonEdit repositoryItemButtonEdit_Edit;
         private RepositoryItemButtonEdit repositoryItemButtonEdit_Delete;
+
+        // Static constructor to set EPPlus license once (EPPlus 8+ requires this)
+        static UC_Product_Management()
+        {
+            ExcelPackage.License.SetNonCommercialPersonal("POS-System");
+        }
 
         public UC_Product_Management()
         {
@@ -169,6 +178,245 @@ namespace POS.PAL.USERCONTROL
                     }
                 }
             }
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Title = "Select Product Import File";
+                    openFileDialog.Filter = "Excel Files|*.xlsx;*.xls|CSV Files|*.csv|All Files|*.*";
+                    openFileDialog.FilterIndex = 1;
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string filePath = openFileDialog.FileName;
+                        string extension = Path.GetExtension(filePath).ToLower();
+
+                        DataTable importData = null;
+
+                        if (extension == ".csv")
+                        {
+                            importData = ReadCsvFile(filePath);
+                        }
+                        else if (extension == ".xlsx" || extension == ".xls")
+                        {
+                            importData = ReadExcelFile(filePath);
+                        }
+                        else
+                        {
+                            XtraMessageBox.Show("Unsupported file format. Please select an Excel (.xlsx, .xls) or CSV (.csv) file.",
+                                "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        if (importData == null || importData.Rows.Count == 0)
+                        {
+                            XtraMessageBox.Show("The selected file is empty or could not be read.",
+                                "No Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Validate columns
+                        var (isValid, errorMessage, missingColumns) = _bllProducts.ValidateImportColumns(importData);
+                        if (!isValid)
+                        {
+                            string columnInfo = GetRequiredColumnsInfo();
+                            XtraMessageBox.Show($"{errorMessage}\n\n{columnInfo}",
+                                "Column Validation Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // Confirm import
+                        var confirmResult = XtraMessageBox.Show(
+                            $"Found {importData.Rows.Count} product(s) to import.\n\nDo you want to proceed with the import?",
+                            "Confirm Import", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmResult != DialogResult.Yes)
+                            return;
+
+                        // Perform import
+                        int userId = 1; // Default user
+                        var (successCount, failedCount, errors) = _bllProducts.ImportProducts(importData, userId);
+
+                        // Show results
+                        StringBuilder resultMessage = new StringBuilder();
+                        resultMessage.AppendLine($"Import completed!");
+                        resultMessage.AppendLine($"Successfully imported: {successCount}");
+                        resultMessage.AppendLine($"Failed: {failedCount}");
+
+                        if (errors.Count > 0 && errors.Count <= 10)
+                        {
+                            resultMessage.AppendLine("\nErrors:");
+                            foreach (var error in errors)
+                            {
+                                resultMessage.AppendLine($"• {error}");
+                            }
+                        }
+                        else if (errors.Count > 10)
+                        {
+                            resultMessage.AppendLine($"\nFirst 10 errors (total {errors.Count}):");
+                            for (int i = 0; i < 10; i++)
+                            {
+                                resultMessage.AppendLine($"• {errors[i]}");
+                            }
+                        }
+
+                        MessageBoxIcon icon = failedCount == 0 ? MessageBoxIcon.Information : MessageBoxIcon.Warning;
+                        XtraMessageBox.Show(resultMessage.ToString(), "Import Results", MessageBoxButtons.OK, icon);
+
+                        // Refresh grid
+                        LoadData();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error during import: {ex.Message}", "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private DataTable ReadExcelFile(string filePath)
+        {
+            DataTable dt = new DataTable();
+
+            using (var package = new ExcelPackage(new FileInfo(filePath)))
+            {
+                var worksheet = package.Workbook.Worksheets[0];
+                if (worksheet.Dimension == null)
+                    return dt;
+
+                // Read headers (first row)
+                for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
+                {
+                    string columnName = worksheet.Cells[1, col].Text?.Trim().ToLower() ?? $"Column{col}";
+                    if (!dt.Columns.Contains(columnName))
+                        dt.Columns.Add(columnName);
+                }
+
+                // Read data rows
+                for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
+                {
+                    DataRow dataRow = dt.NewRow();
+                    bool hasData = false;
+
+                    for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
+                    {
+                        var cellValue = worksheet.Cells[row, col].Value;
+                        if (cellValue != null && !string.IsNullOrWhiteSpace(cellValue.ToString()))
+                        {
+                            hasData = true;
+                        }
+                        dataRow[col - 1] = cellValue ?? DBNull.Value;
+                    }
+
+                    if (hasData)
+                        dt.Rows.Add(dataRow);
+                }
+            }
+
+            return dt;
+        }
+
+        private DataTable ReadCsvFile(string filePath)
+        {
+            DataTable dt = new DataTable();
+
+            using (var reader = new StreamReader(filePath))
+            {
+                // Read header line
+                string headerLine = reader.ReadLine();
+                if (string.IsNullOrEmpty(headerLine))
+                    return dt;
+
+                string[] headers = ParseCsvLine(headerLine);
+                foreach (var header in headers)
+                {
+                    string columnName = header.Trim().ToLower();
+                    if (!dt.Columns.Contains(columnName))
+                        dt.Columns.Add(columnName);
+                }
+
+                // Read data lines
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    if (string.IsNullOrWhiteSpace(line))
+                        continue;
+
+                    string[] values = ParseCsvLine(line);
+                    DataRow dataRow = dt.NewRow();
+
+                    for (int i = 0; i < Math.Min(values.Length, dt.Columns.Count); i++)
+                    {
+                        string value = values[i]?.Trim();
+                        dataRow[i] = string.IsNullOrEmpty(value) ? DBNull.Value : value;
+                    }
+
+                    dt.Rows.Add(dataRow);
+                }
+            }
+
+            return dt;
+        }
+
+        private string[] ParseCsvLine(string line)
+        {
+            var result = new System.Collections.Generic.List<string>();
+            bool inQuotes = false;
+            StringBuilder field = new StringBuilder();
+
+            for (int i = 0; i < line.Length; i++)
+            {
+                char c = line[i];
+
+                if (c == '"')
+                {
+                    if (inQuotes && i + 1 < line.Length && line[i + 1] == '"')
+                    {
+                        field.Append('"');
+                        i++;
+                    }
+                    else
+                    {
+                        inQuotes = !inQuotes;
+                    }
+                }
+                else if (c == ',' && !inQuotes)
+                {
+                    result.Add(field.ToString());
+                    field.Clear();
+                }
+                else
+                {
+                    field.Append(c);
+                }
+            }
+
+            result.Add(field.ToString());
+            return result.ToArray();
+        }
+
+        private string GetRequiredColumnsInfo()
+        {
+            return @"Required columns:
+• product_name (text) - Product name
+• product_code (text) - Unique product code
+• unit_id (number) - Unit ID from Unit table
+• selling_price (number) - Selling price
+
+Optional columns:
+• barcode (text) - Product barcode
+• product_type (text) - e.g., 'Standard', 'Service'
+• category_id (number) - Category ID from Category table
+• brand_id (number) - Brand ID from Brand table
+• purchase_cost (number) - Purchase cost
+• stock_quantity (number) - Initial stock quantity
+• expiry_date (date) - Expiry date
+• manufacture_date (date) - Manufacture date
+• description (text) - Product description";
         }
     }
 }

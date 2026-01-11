@@ -461,6 +461,110 @@ namespace POS.DAL
             return Connection.ExecuteQuery(query, parameters);
         }
 
+        /// <summary>
+        /// Bulk inserts products from a DataTable. Returns the number of successfully inserted products.
+        /// </summary>
+        public int BulkInsertProducts(DataTable products, int createdBy)
+        {
+            int successCount = 0;
+
+            foreach (DataRow row in products.Rows)
+            {
+                try
+                {
+                    string productName = row["product_name"]?.ToString() ?? "";
+                    string productCode = row["product_code"]?.ToString() ?? "";
+                    string barcode = row.Table.Columns.Contains("barcode") ? row["barcode"]?.ToString() : null;
+                    string productType = row.Table.Columns.Contains("product_type") ? row["product_type"]?.ToString() : "Standard";
+
+                    int? categoryId = null;
+                    if (row.Table.Columns.Contains("category_id") && row["category_id"] != DBNull.Value)
+                    {
+                        if (int.TryParse(row["category_id"].ToString(), out int catId))
+                            categoryId = catId;
+                    }
+
+                    int? brandId = null;
+                    if (row.Table.Columns.Contains("brand_id") && row["brand_id"] != DBNull.Value)
+                    {
+                        if (int.TryParse(row["brand_id"].ToString(), out int brId))
+                            brandId = brId;
+                    }
+
+                    int unitId = 0;
+                    if (row.Table.Columns.Contains("unit_id") && row["unit_id"] != DBNull.Value)
+                    {
+                        int.TryParse(row["unit_id"].ToString(), out unitId);
+                    }
+
+                    decimal? purchaseCost = null;
+                    if (row.Table.Columns.Contains("purchase_cost") && row["purchase_cost"] != DBNull.Value)
+                    {
+                        if (decimal.TryParse(row["purchase_cost"].ToString(), out decimal pc))
+                            purchaseCost = pc;
+                    }
+
+                    decimal sellingPrice = 0;
+                    if (row.Table.Columns.Contains("selling_price") && row["selling_price"] != DBNull.Value)
+                    {
+                        decimal.TryParse(row["selling_price"].ToString(), out sellingPrice);
+                    }
+
+                    decimal stockQuantity = 0;
+                    if (row.Table.Columns.Contains("stock_quantity") && row["stock_quantity"] != DBNull.Value)
+                    {
+                        decimal.TryParse(row["stock_quantity"].ToString(), out stockQuantity);
+                    }
+
+                    DateTime? expiryDate = null;
+                    if (row.Table.Columns.Contains("expiry_date") && row["expiry_date"] != DBNull.Value)
+                    {
+                        if (DateTime.TryParse(row["expiry_date"].ToString(), out DateTime ed))
+                            expiryDate = ed;
+                    }
+
+                    DateTime? manufactureDate = null;
+                    if (row.Table.Columns.Contains("manufacture_date") && row["manufacture_date"] != DBNull.Value)
+                    {
+                        if (DateTime.TryParse(row["manufacture_date"].ToString(), out DateTime md))
+                            manufactureDate = md;
+                    }
+
+                    string description = row.Table.Columns.Contains("description") ? row["description"]?.ToString() : null;
+
+                    // Skip rows with missing required fields
+                    if (string.IsNullOrWhiteSpace(productName) || string.IsNullOrWhiteSpace(productCode) || unitId <= 0)
+                        continue;
+
+                    InsertProduct(productName, productCode, barcode, productType,
+                                  categoryId, brandId, unitId,
+                                  purchaseCost, sellingPrice, stockQuantity,
+                                  expiryDate, manufactureDate, description,
+                                  createdBy);
+
+                    successCount++;
+                }
+                catch
+                {
+                    // Skip failed rows and continue with the next
+                    continue;
+                }
+            }
+
+            return successCount;
+        }
+
+        /// <summary>
+        /// Validates if a product code already exists in the database
+        /// </summary>
+        public bool ProductCodeExists(string productCode)
+        {
+            string query = "SELECT COUNT(*) FROM Product WHERE product_code = @product_code AND status = 'A'";
+            SqlParameter[] parameters = { new SqlParameter("@product_code", productCode) };
+            DataTable result = Connection.ExecuteQuery(query, parameters);
+            return result.Rows.Count > 0 && Convert.ToInt32(result.Rows[0][0]) > 0;
+        }
+
         #endregion
 
         #region Barcode Print Methods
