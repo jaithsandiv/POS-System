@@ -36,12 +36,13 @@ namespace POS.PAL.REPORT
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
 
             // Initialize controls
+            this.lblBusinessName = new DevExpress.XtraReports.UI.XRLabel();
             this.xrBarCode = new DevExpress.XtraReports.UI.XRBarCode();
             this.lblProductName = new DevExpress.XtraReports.UI.XRLabel();
             this.lblPrice = new DevExpress.XtraReports.UI.XRLabel();
+            this.lblPromoPrice = new DevExpress.XtraReports.UI.XRLabel();
             this.lblExpiry = new DevExpress.XtraReports.UI.XRLabel();
             this.lblManufacture = new DevExpress.XtraReports.UI.XRLabel();
-            this.lblPromoPrice = new DevExpress.XtraReports.UI.XRLabel();
 
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
 
@@ -59,46 +60,62 @@ namespace POS.PAL.REPORT
 
             // 
             // Detail
+            // Label size: 45mm x 35mm = ~170 x 132 pixels at 96 DPI
             // 
             this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                this.lblBusinessName,
                 this.xrBarCode,
                 this.lblProductName,
                 this.lblPrice,
+                this.lblPromoPrice,
                 this.lblExpiry,
-                this.lblManufacture,
-                this.lblPromoPrice
+                this.lblManufacture
             });
-            // 40mm x 20mm = ~151.18 x 75.59 pixels at 96 DPI
-            // DevExpress uses 1/100 inch units: 40mm = 157.48, 20mm = 78.74
-            this.Detail.HeightF = 75.59F;
+            this.Detail.HeightF = 132F;
             this.Detail.Name = "Detail";
 
             // 
-            // xrBarCode - Full width barcode at top
-            // Position: X=2, Y=2, Width=147 (nearly full 40mm width), Height=35
+            // lblBusinessName - Business name at top, centered
+            // Position: X=2, Y=2, Width=166, Height=14
             // 
-            this.xrBarCode.LocationF = new DevExpress.Utils.PointFloat(2F, 2F);
-            this.xrBarCode.SizeF = new System.Drawing.SizeF(147F, 35F);
+            this.lblBusinessName.LocationF = new DevExpress.Utils.PointFloat(2F, 2F);
+            this.lblBusinessName.SizeF = new System.Drawing.SizeF(166F, 14F);
+            this.lblBusinessName.Name = "lblBusinessName";
+            this.lblBusinessName.Font = new System.Drawing.Font("Arial", 7F, System.Drawing.FontStyle.Bold);
+            this.lblBusinessName.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            this.lblBusinessName.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+                new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[business_name]")
+            });
+            this.lblBusinessName.WordWrap = false;
+            this.lblBusinessName.AutoWidth = false;
+            this.lblBusinessName.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+
+            // 
+            // xrBarCode - Full width barcode below business name
+            // Position: X=2, Y=18, Width=166, Height=50
+            // 
+            this.xrBarCode.LocationF = new DevExpress.Utils.PointFloat(2F, 18F);
+            this.xrBarCode.SizeF = new System.Drawing.SizeF(166F, 50F);
             this.xrBarCode.Name = "xrBarCode";
             this.xrBarCode.Symbology = new DevExpress.XtraPrinting.BarCode.Code128Generator();
             this.xrBarCode.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
                 new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[barcode]")
             });
             this.xrBarCode.ShowText = true;
-            this.xrBarCode.Font = new System.Drawing.Font("Arial", 6F, System.Drawing.FontStyle.Regular);
+            this.xrBarCode.Font = new System.Drawing.Font("Arial", 7F, System.Drawing.FontStyle.Regular);
             this.xrBarCode.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter;
-            this.xrBarCode.Module = 1.2F;
+            this.xrBarCode.Module = 1.5F;
             this.xrBarCode.AutoModule = true;
             this.xrBarCode.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
 
             // 
-            // lblProductName - Below barcode, left aligned
-            // Position: X=2, Y=38, Width=147, Height=12
+            // lblProductName - Below barcode, centered
+            // Position: X=2, Y=70, Width=166, Height=16
             // 
-            this.lblProductName.LocationF = new DevExpress.Utils.PointFloat(2F, 38F);
-            this.lblProductName.SizeF = new System.Drawing.SizeF(147F, 12F);
+            this.lblProductName.LocationF = new DevExpress.Utils.PointFloat(2F, 70F);
+            this.lblProductName.SizeF = new System.Drawing.SizeF(166F, 16F);
             this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Font = new System.Drawing.Font("Arial", 6F, System.Drawing.FontStyle.Bold);
+            this.lblProductName.Font = new System.Drawing.Font("Arial", 7F, System.Drawing.FontStyle.Bold);
             this.lblProductName.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             this.lblProductName.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
                 new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[product_name]")
@@ -109,67 +126,67 @@ namespace POS.PAL.REPORT
             this.lblProductName.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
 
             // 
-            // lblPrice - Below product name, centered
-            // Position: X=2, Y=50, Width=73 (half width), Height=12
+            // lblPrice - Below product name, left side
+            // Position: X=2, Y=88, Width=82, Height=16
             // 
-            this.lblPrice.LocationF = new DevExpress.Utils.PointFloat(2F, 50F);
-            this.lblPrice.SizeF = new System.Drawing.SizeF(73F, 12F);
+            this.lblPrice.LocationF = new DevExpress.Utils.PointFloat(2F, 88F);
+            this.lblPrice.SizeF = new System.Drawing.SizeF(82F, 16F);
             this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Font = new System.Drawing.Font("Arial", 7F, System.Drawing.FontStyle.Bold);
+            this.lblPrice.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
             this.lblPrice.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
             this.lblPrice.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
                 new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "'Rs.' + FormatString('{0:N2}', [selling_price])")
             });
-            this.lblPrice.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.lblPrice.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 0, 0, 0, 100F);
 
             // 
             // lblPromoPrice - Right side of price row
-            // Position: X=76, Y=50, Width=73, Height=12
+            // Position: X=86, Y=88, Width=82, Height=16
             // 
-            this.lblPromoPrice.LocationF = new DevExpress.Utils.PointFloat(76F, 50F);
-            this.lblPromoPrice.SizeF = new System.Drawing.SizeF(73F, 12F);
+            this.lblPromoPrice.LocationF = new DevExpress.Utils.PointFloat(86F, 88F);
+            this.lblPromoPrice.SizeF = new System.Drawing.SizeF(82F, 16F);
             this.lblPromoPrice.Name = "lblPromoPrice";
-            this.lblPromoPrice.Font = new System.Drawing.Font("Arial", 6F, System.Drawing.FontStyle.Regular);
+            this.lblPromoPrice.Font = new System.Drawing.Font("Arial", 7F, System.Drawing.FontStyle.Bold);
             this.lblPromoPrice.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.lblPromoPrice.ForeColor = System.Drawing.Color.Red;
             this.lblPromoPrice.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
                 new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", 
                     "Iif([promo_discount_value] > 0, " +
                     "Iif([promo_discount_type] = 'PERCENTAGE', " +
-                    "'-' + FormatString('{0:N0}', [promo_discount_value]) + '%', " +
-                    "'-Rs.' + FormatString('{0:N2}', [promo_discount_value])), '')")
+                    "'Promo: -' + FormatString('{0:N0}', [promo_discount_value]) + '%', " +
+                    "'Promo: -Rs.' + FormatString('{0:N2}', [promo_discount_value])), '')")
             });
-            this.lblPromoPrice.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.lblPromoPrice.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 2, 0, 0, 100F);
 
             // 
             // lblExpiry - Bottom row left
-            // Position: X=2, Y=62, Width=73, Height=11
+            // Position: X=2, Y=106, Width=82, Height=14
             // 
-            this.lblExpiry.LocationF = new DevExpress.Utils.PointFloat(2F, 62F);
-            this.lblExpiry.SizeF = new System.Drawing.SizeF(73F, 11F);
+            this.lblExpiry.LocationF = new DevExpress.Utils.PointFloat(2F, 106F);
+            this.lblExpiry.SizeF = new System.Drawing.SizeF(82F, 14F);
             this.lblExpiry.Name = "lblExpiry";
-            this.lblExpiry.Font = new System.Drawing.Font("Arial", 5F, System.Drawing.FontStyle.Regular);
+            this.lblExpiry.Font = new System.Drawing.Font("Arial", 6F, System.Drawing.FontStyle.Regular);
             this.lblExpiry.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
             this.lblExpiry.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
                 new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", 
-                    "Iif(IsNull([expiry_date]), '', 'Exp:' + FormatString('{0:MM/yy}', [expiry_date]))")
+                    "Iif(IsNull([expiry_date]), '', 'Exp: ' + FormatString('{0:dd/MM/yyyy}', [expiry_date]))")
             });
-            this.lblExpiry.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.lblExpiry.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 0, 0, 0, 100F);
 
             // 
             // lblManufacture - Bottom row right
-            // Position: X=76, Y=62, Width=73, Height=11
+            // Position: X=86, Y=106, Width=82, Height=14
             // 
-            this.lblManufacture.LocationF = new DevExpress.Utils.PointFloat(76F, 62F);
-            this.lblManufacture.SizeF = new System.Drawing.SizeF(73F, 11F);
+            this.lblManufacture.LocationF = new DevExpress.Utils.PointFloat(86F, 106F);
+            this.lblManufacture.SizeF = new System.Drawing.SizeF(82F, 14F);
             this.lblManufacture.Name = "lblManufacture";
-            this.lblManufacture.Font = new System.Drawing.Font("Arial", 5F, System.Drawing.FontStyle.Regular);
+            this.lblManufacture.Font = new System.Drawing.Font("Arial", 6F, System.Drawing.FontStyle.Regular);
             this.lblManufacture.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
             this.lblManufacture.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
                 new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", 
-                    "Iif(IsNull([manufacture_date]), '', 'Mfg:' + FormatString('{0:MM/yy}', [manufacture_date]))")
+                    "Iif(IsNull([manufacture_date]), '', 'Mfg: ' + FormatString('{0:dd/MM/yyyy}', [manufacture_date]))")
             });
-            this.lblManufacture.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
+            this.lblManufacture.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 2, 0, 0, 100F);
 
             // 
             // BarcodeLabel
@@ -180,9 +197,9 @@ namespace POS.PAL.REPORT
                 this.BottomMargin
             });
 
-            // Paper size: 40mm x 20mm (in hundredths of an inch: 157.48 x 78.74)
-            this.PageWidth = 151;  // ~40mm
-            this.PageHeight = 76;  // ~20mm
+            // Paper size: 45mm x 35mm (in pixels at 96 DPI: ~170 x 132)
+            this.PageWidth = 170;  // ~45mm
+            this.PageHeight = 132; // ~35mm
             this.Margins = new DevExpress.Drawing.DXMargins(0, 0, 0, 0);
             this.PaperKind = DevExpress.Drawing.Printing.DXPaperKind.Custom;
             this.ReportUnit = DevExpress.XtraReports.UI.ReportUnit.Pixels;
@@ -197,11 +214,12 @@ namespace POS.PAL.REPORT
         internal DevExpress.XtraReports.UI.TopMarginBand TopMargin;
         internal DevExpress.XtraReports.UI.BottomMarginBand BottomMargin;
         internal DevExpress.XtraReports.UI.DetailBand Detail;
+        internal DevExpress.XtraReports.UI.XRLabel lblBusinessName;
         internal DevExpress.XtraReports.UI.XRBarCode xrBarCode;
         internal DevExpress.XtraReports.UI.XRLabel lblProductName;
         internal DevExpress.XtraReports.UI.XRLabel lblPrice;
+        internal DevExpress.XtraReports.UI.XRLabel lblPromoPrice;
         internal DevExpress.XtraReports.UI.XRLabel lblExpiry;
         internal DevExpress.XtraReports.UI.XRLabel lblManufacture;
-        internal DevExpress.XtraReports.UI.XRLabel lblPromoPrice;
     }
 }

@@ -682,7 +682,8 @@ namespace POS.DAL
                            AND GETDATE() BETWEEN pr.start_date AND pr.end_date
                          ORDER BY pp.discount_value DESC),
                         'PERCENTAGE'
-                    ) AS promo_discount_type
+                    ) AS promo_discount_type,
+                    ISNULL((SELECT TOP 1 business_name FROM Business WHERE status = 'A'), '') AS business_name
                 FROM BarcodePrint bp
                 INNER JOIN Product p ON bp.product_id = p.product_id
                 WHERE bp.status = 'A'
