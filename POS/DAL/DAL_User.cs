@@ -247,5 +247,21 @@ namespace POS.DAL
             int rowsAffected = Connection.ExecuteNonQuery(query, parameters);
             return rowsAffected > 0;
         }
+
+        /// <summary>
+        /// Gets all active super admin users
+        /// </summary>
+        public DataTable GetSuperAdminUsers()
+        {
+            string query = @"
+                SELECT 
+                    user_id,
+                    username,
+                    pin_code
+                FROM [User]
+                WHERE is_super_admin = 1 AND status = 'A'";
+
+            return Connection.ExecuteQuery(query);
+        }
     }
 }

@@ -134,5 +134,27 @@ namespace POS.BLL
 
             return _dalUser.UpdateUserPin(userId, pinCode, updatedBy);
         }
+
+        /// <summary>
+        /// Verifies if the entered PIN matches any super admin user's PIN
+        /// </summary>
+        public static bool VerifySuperAdminPin(string pin)
+        {
+            if (string.IsNullOrWhiteSpace(pin))
+                return false;
+
+            DataTable superAdmins = _dalUser.GetSuperAdminUsers();
+            
+            foreach (DataRow admin in superAdmins.Rows)
+            {
+                string adminPin = admin["pin_code"]?.ToString();
+                if (!string.IsNullOrEmpty(adminPin) && adminPin == pin)
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
     }
 }

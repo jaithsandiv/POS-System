@@ -33,6 +33,12 @@ namespace POS.PAL.USERCONTROL
             
             LoadPrinters();
             LoadSettings();
+            
+            // Wire up trial toggle event to validate trial days
+            if (tsEnableTrial != null)
+            {
+                tsEnableTrial.Toggled += tsEnableTrial_Toggled;
+            }
         }
 
         /// <summary>
@@ -55,21 +61,18 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void ConfigureLicenseTabVisibility()
         {
-            // Hide License group for regular users
+            // Make License group visible to all users
             if (grpLicense != null)
             {
-                grpLicense.Visible = _isSuperAdmin;
-                grpLicense.Enabled = _isSuperAdmin;
+                grpLicense.Visible = true;
                 
-                // Additionally, ensure all controls within the license group are disabled for non-super admins
-                if (!_isSuperAdmin)
-                {
-                    tsEnableTrial.Enabled = false;
-                    txtTrialStartDate.Enabled = false;
-                    txtTrialEndDate.Enabled = false;
-                    txtTrialDays.Enabled = false;
-                    chkIsLicensed.Enabled = false;
-                }
+                // Enable controls for all users - PIN verification will protect changes
+                grpLicense.Enabled = true;
+                tsEnableTrial.Enabled = true;
+                txtTrialStartDate.Enabled = true;
+                txtTrialEndDate.Enabled = true;
+                txtTrialDays.Enabled = true;
+                chkIsLicensed.Enabled = true;
             }
         }
 
@@ -156,11 +159,8 @@ namespace POS.PAL.USERCONTROL
                     txtPostalCode.Text = storeRow["postal_code"]?.ToString();
                 }
 
-                // Load License & Trial settings (super admin only)
-                if (_isSuperAdmin)
-                {
-                    LoadLicenseSettings();
-                }
+                // 4. Load License & Trial settings (visible to all users now)
+                LoadLicenseSettings();
             }
             catch (Exception ex)
             {
@@ -293,6 +293,35 @@ namespace POS.PAL.USERCONTROL
                      int.TryParse(Main.DataSetApp.User[0].user_id, out userId);
                 }
 
+                // Check if license settings were modified (for non-super admins)
+                bool licenseSettingsModified = false;
+                
+                if (!_isSuperAdmin)
+                {
+                    licenseSettingsModified = CheckLicenseSettingsModified();
+                    
+                    if (licenseSettingsModified)
+                    {
+                        // Prompt for Super Admin PIN
+                        var (verified, pin) = UC_SuperAdminPinDialog.ShowDialog();
+                        
+                        if (!verified || string.IsNullOrEmpty(pin))
+                        {
+                            XtraMessageBox.Show("License settings modification was cancelled.", "Cancelled", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        
+                        // Verify the PIN against super admin users
+                        if (!BLL_User.VerifySuperAdminPin(pin))
+                        {
+                            XtraMessageBox.Show("Invalid Super Admin PIN. License settings were not saved.", 
+                                "Authentication Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
+
                 // 1. Save System Settings
                 _bllSystemSettings.UpdateSystemSetting("ENABLE_THERMAL_PRINT", (rgPrintFormat.EditValue?.ToString() == "THERMAL").ToString(), userId);
                 _bllSystemSettings.UpdateSystemSetting("thermal_printer_name", cmbThermalPrinter.Text, userId);
@@ -323,8 +352,8 @@ namespace POS.PAL.USERCONTROL
                 // Assuming Store ID 1
                 _bllSystemSettings.UpdateStoreSettings(1, "Main Store", txtPhone.Text, txtEmail.Text, txtAddress.Text, txtCity.Text, txtState.Text, txtCountry.Text, txtPostalCode.Text, userId);
 
-                // Save License & Trial settings (super admin only)
-                if (_isSuperAdmin)
+                // 4. Save License & Trial settings (if modified and PIN verified OR if super admin)
+                if (_isSuperAdmin || licenseSettingsModified)
                 {
                     SaveLicenseSettings(userId);
                 }
@@ -345,91 +374,58 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
-        /// Saves license and trial period settings to the Business table
+        /// Checks if license settings have been modified from their original values
         /// </summary>
-        private void SaveLicenseSettings(int userId)
+        private bool CheckLicenseSettingsModified()
         {
-            try
-            {
-                // Double-check super admin permission before saving license settings
-                if (!_isSuperAdmin)
-                {
-                    throw new UnauthorizedAccessException("Only Super Admin users can modify license settings.");
-                }
-                
-                bool enableTrial = tsEnableTrial.IsOn;
-                int trialDays = 3; // Default
-                
-                if (!string.IsNullOrWhiteSpace(txtTrialDays.Text))
-                {
-                    if (!int.TryParse(txtTrialDays.Text, out trialDays) || trialDays < 0)
-                    {
-                        trialDays = 3; // Fallback to default
-                    }
-                }
-                
-                bool isLicensed = chkIsLicensed.Checked;
-                
-                // Update business license settings
-                DateTime? trialStartDate = null;
-                DateTime? trialEndDate = null;
-                
-                if (enableTrial)
-                {
-                    // If enabling trial for the first time OR trial dates are null, set new dates
-                    if (Main.DataSetApp.Business[0].Istrial_start_dateNull() || 
-                        string.IsNullOrWhiteSpace(Main.DataSetApp.Business[0].trial_start_date))
-                    {
-                        trialStartDate = DateTime.Now;
-                        trialEndDate = DateTime.Now.AddDays(trialDays);
-                    }
-                    else
-                    {
-                        // Keep existing dates if they exist
-                        if (DateTime.TryParse(Main.DataSetApp.Business[0].trial_start_date, out DateTime parsedStart))
-                        {
-                            trialStartDate = parsedStart;
-                        }
-                        else
-                        {
-                            trialStartDate = DateTime.Now;
-                        }
-                        
-                        if (DateTime.TryParse(Main.DataSetApp.Business[0].trial_end_date, out DateTime parsedEnd))
-                        {
-                            trialEndDate = parsedEnd;
-                        }
-                        else
-                        {
-                            trialEndDate = DateTime.Now.AddDays(trialDays);
-                        }
-                    }
-                }
-                else
-                {
-                    // Disabling trial - set dates to null
-                    trialStartDate = null;
-                    trialEndDate = null;
-                }
-                
-                // Call BLL method to update license settings
-                bool success = _bllSystemSettings.UpdateLicenseSettings(trialStartDate, trialEndDate, isLicensed, userId);
-                
-                if (!success)
-                {
-                    throw new Exception("Failed to update license settings in the database.");
-                }
-            }
-            catch (UnauthorizedAccessException uaEx)
-            {
-                throw new Exception($"Access Denied: {uaEx.Message}", uaEx);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Error saving license settings: {ex.Message}", ex);
-            }
-        }
+            if (Main.DataSetApp?.Business == null || Main.DataSetApp.Business.Rows.Count == 0)
+                return false;
 
+            var businessRow = Main.DataSetApp.Business[0];
+            
+            // Check trial enabled status
+            bool hasTrialDates = false;
+            if (!businessRow.Istrial_start_dateNull() && !businessRow.Istrial_end_dateNull())
+            {
+                string startDateStr = businessRow.trial_start_date;
+                string endDateStr = businessRow.trial_end_date;
+                hasTrialDates = !string.IsNullOrWhiteSpace(startDateStr) && !string.IsNullOrWhiteSpace(endDateStr);
+            }
+            
+            if (tsEnableTrial.IsOn != hasTrialDates)
+                return true;
+            
+            // Check trial days
+            if (tsEnableTrial.IsOn && !string.IsNullOrWhiteSpace(txtTrialDays.Text))
+            {
+                if (!businessRow.Istrial_start_dateNull() && !businessRow.Istrial_end_dateNull() &&
+                    !string.IsNullOrWhiteSpace(businessRow.trial_start_date) && 
+                    !string.IsNullOrWhiteSpace(businessRow.trial_end_date))
+                {
+                    if (DateTime.TryParse(businessRow.trial_start_date, out DateTime startDate) &&
+                        DateTime.TryParse(businessRow.trial_end_date, out DateTime endDate))
+                    {
+                        int originalDays = (endDate - startDate).Days;
+                        if (int.TryParse(txtTrialDays.Text, out int newDays) && originalDays != newDays)
+                            return true;
+                    }
+                }
+            }
+            
+            // Check licensed status
+            bool isLicensed = false;
+            if (!businessRow.Isis_licensedNull())
+            {
+                string licensedValue = businessRow.is_licensed?.ToString();
+                isLicensed = licensedValue == "True" || licensedValue == "1";
+            }
+            
+            if (chkIsLicensed.Checked != isLicensed)
+                return true;
+            
+            return false;
+        }
+        
         private void btnBrowseLogo_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -460,6 +456,128 @@ namespace POS.PAL.USERCONTROL
         private void btnManageAccount_Click(object sender, EventArgs e)
         {
             Main.Instance.LoadUserControl(new UC_Profile_Management());
+        }
+
+        /// <summary>
+        /// Saves license and trial period settings to the Business table
+        /// </summary>
+        private void SaveLicenseSettings(int userId)
+        {
+            try
+            {
+                // PIN verification is already done in btnSave_Click
+                // No need to check _isSuperAdmin here
+                
+                bool enableTrial = tsEnableTrial.IsOn;
+                int trialDays = 3; // Default
+                
+                if (!string.IsNullOrWhiteSpace(txtTrialDays.Text))
+                {
+                    if (!int.TryParse(txtTrialDays.Text, out trialDays) || trialDays < 0)
+                    {
+                        trialDays = 3; // Fallback to default
+                    }
+                }
+                
+                bool isLicensed = chkIsLicensed.Checked;
+                
+                // Update business license settings
+                DateTime? trialStartDate = null;
+                DateTime? trialEndDate = null;
+                
+                if (enableTrial)
+                {
+                    // Validate that trial days is provided
+                    if (string.IsNullOrWhiteSpace(txtTrialDays.Text))
+                    {
+                        throw new Exception("Trial Days must be specified when enabling trial.");
+                    }
+                    
+                    // Always use current date as start date when enabling trial
+                    trialStartDate = DateTime.Now.Date; // Use date only (no time component)
+                    trialEndDate = trialStartDate.Value.AddDays(trialDays);
+                    
+                    // Update the UI to show the calculated dates
+                    txtTrialStartDate.Text = trialStartDate.Value.ToString("yyyy-MM-dd");
+                    txtTrialEndDate.Text = trialEndDate.Value.ToString("yyyy-MM-dd");
+                }
+                else
+                {
+                    // Disabling trial - set dates to null
+                    trialStartDate = null;
+                    trialEndDate = null;
+                    
+                    // Clear the UI date fields
+                    txtTrialStartDate.Text = "";
+                    txtTrialEndDate.Text = "";
+                }
+                
+                // Call BLL method to update license settings
+                bool success = _bllSystemSettings.UpdateLicenseSettings(trialStartDate, trialEndDate, isLicensed, userId);
+                
+                if (!success)
+                {
+                    throw new Exception("Failed to update license settings in the database.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error saving license settings: {ex.Message}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Validates trial configuration when trial toggle is changed
+        /// </summary>
+        private void tsEnableTrial_Toggled(object sender, EventArgs e)
+        {
+            if (tsEnableTrial.IsOn)
+            {
+                // Check if trial days is provided
+                if (string.IsNullOrWhiteSpace(txtTrialDays.Text))
+                {
+                    XtraMessageBox.Show("Please enter the number of trial days before enabling trial.", 
+                        "Trial Days Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    
+                    // Reset toggle back to off
+                    tsEnableTrial.IsOn = false;
+                    txtTrialDays.Focus();
+                    return;
+                }
+                
+                // Validate trial days is a valid number
+                if (!int.TryParse(txtTrialDays.Text, out int days) || days <= 0)
+                {
+                    XtraMessageBox.Show("Please enter a valid positive number for trial days.", 
+                        "Invalid Trial Days", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    
+                    // Reset toggle back to off
+                    tsEnableTrial.IsOn = false;
+                    txtTrialDays.Focus();
+                    return;
+                }
+                
+                // Calculate and display trial dates
+                DateTime startDate = DateTime.Now.Date;
+                DateTime endDate = startDate.AddDays(days);
+                
+                txtTrialStartDate.Text = startDate.ToString("yyyy-MM-dd");
+                txtTrialEndDate.Text = endDate.ToString("yyyy-MM-dd");
+                
+                XtraMessageBox.Show(
+                    $"Trial will be enabled with the following dates:\n\n" +
+                    $"Start Date: {startDate:yyyy-MM-dd}\n" +
+                    $"End Date: {endDate:yyyy-MM-dd}\n" +
+                    $"Duration: {days} day(s)\n\n" +
+                    $"Click Save to apply these changes.",
+                    "Trial Configuration", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // Clear trial dates when disabling
+                txtTrialStartDate.Text = "";
+                txtTrialEndDate.Text = "";
+            }
         }
     }
 }

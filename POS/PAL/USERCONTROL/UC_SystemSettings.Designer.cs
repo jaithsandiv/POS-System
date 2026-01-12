@@ -77,22 +77,22 @@ namespace POS.PAL.USERCONTROL
             labelControl20 = new DevExpress.XtraEditors.LabelControl();
             tsKOT = new DevExpress.XtraEditors.ToggleSwitch();
             labelControl19 = new DevExpress.XtraEditors.LabelControl();
+            grpLicense = new DevExpress.XtraEditors.GroupControl();
+            chkIsLicensed = new DevExpress.XtraEditors.CheckEdit();
+            txtTrialDays = new DevExpress.XtraEditors.TextEdit();
+            lblTrialDays = new DevExpress.XtraEditors.LabelControl();
+            txtTrialEndDate = new DevExpress.XtraEditors.TextEdit();
+            lblTrialEndDate = new DevExpress.XtraEditors.LabelControl();
+            txtTrialStartDate = new DevExpress.XtraEditors.TextEdit();
+            lblTrialStartDate = new DevExpress.XtraEditors.LabelControl();
+            tsEnableTrial = new DevExpress.XtraEditors.ToggleSwitch();
+            lblEnableTrial = new DevExpress.XtraEditors.LabelControl();
             grpLocations = new DevExpress.XtraEditors.GroupControl();
             btnManageLocations = new DevExpress.XtraEditors.SimpleButton();
             grpTables = new DevExpress.XtraEditors.GroupControl();
             btnManageTables = new DevExpress.XtraEditors.SimpleButton();
             grpAccount = new DevExpress.XtraEditors.GroupControl();
             btnManageAccount = new DevExpress.XtraEditors.SimpleButton();
-            grpLicense = new DevExpress.XtraEditors.GroupControl();
-            tsEnableTrial = new DevExpress.XtraEditors.ToggleSwitch();
-            lblEnableTrial = new DevExpress.XtraEditors.LabelControl();
-            txtTrialStartDate = new DevExpress.XtraEditors.TextEdit();
-            lblTrialStartDate = new DevExpress.XtraEditors.LabelControl();
-            txtTrialEndDate = new DevExpress.XtraEditors.TextEdit();
-            lblTrialEndDate = new DevExpress.XtraEditors.LabelControl();
-            txtTrialDays = new DevExpress.XtraEditors.TextEdit();
-            lblTrialDays = new DevExpress.XtraEditors.LabelControl();
-            chkIsLicensed = new DevExpress.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
@@ -127,19 +127,19 @@ namespace POS.PAL.USERCONTROL
             grpFeatures.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tsStockCheck.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tsKOT.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grpLicense).BeginInit();
+            grpLicense.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)chkIsLicensed.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtTrialDays.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtTrialEndDate.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtTrialStartDate.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tsEnableTrial.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)grpLocations).BeginInit();
             grpLocations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grpTables).BeginInit();
             grpTables.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grpAccount).BeginInit();
             grpAccount.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)grpLicense).BeginInit();
-            grpLicense.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tsEnableTrial.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtTrialStartDate.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtTrialEndDate.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtTrialDays.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)chkIsLicensed.Properties).BeginInit();
             SuspendLayout();
             // 
             // panelControl1
@@ -313,7 +313,7 @@ namespace POS.PAL.USERCONTROL
             grpAddress.Controls.Add(labelControl3);
             grpAddress.Controls.Add(txtAddress);
             grpAddress.Controls.Add(labelControl2);
-            grpAddress.Location = new System.Drawing.Point(13, 259);
+            grpAddress.Location = new System.Drawing.Point(469, 13);
             grpAddress.Name = "grpAddress";
             grpAddress.Size = new System.Drawing.Size(450, 250);
             grpAddress.TabIndex = 0;
@@ -434,7 +434,7 @@ namespace POS.PAL.USERCONTROL
             grpContact.Controls.Add(labelControl5);
             grpContact.Controls.Add(txtPhone);
             grpContact.Controls.Add(labelControl4);
-            grpContact.Location = new System.Drawing.Point(469, 259);
+            grpContact.Location = new System.Drawing.Point(13, 269);
             grpContact.Name = "grpContact";
             grpContact.Size = new System.Drawing.Size(450, 200);
             grpContact.TabIndex = 1;
@@ -516,7 +516,7 @@ namespace POS.PAL.USERCONTROL
             grpPrinting.Controls.Add(labelControlKOT);
             grpPrinting.Controls.Add(cmbBarcodePrinter);
             grpPrinting.Controls.Add(labelControlBarcodePrinter);
-            grpPrinting.Location = new System.Drawing.Point(13, 515);
+            grpPrinting.Location = new System.Drawing.Point(469, 269);
             grpPrinting.Name = "grpPrinting";
             grpPrinting.Size = new System.Drawing.Size(450, 270);
             grpPrinting.TabIndex = 0;
@@ -615,7 +615,7 @@ namespace POS.PAL.USERCONTROL
             labelControlBarcodePrinter.Appearance.Options.UseFont = true;
             labelControlBarcodePrinter.Location = new System.Drawing.Point(20, 126);
             labelControlBarcodePrinter.Name = "labelControlBarcodePrinter";
-            labelControlBarcodePrinter.Size = new System.Drawing.Size(91, 17);
+            labelControlBarcodePrinter.Size = new System.Drawing.Size(93, 17);
             labelControlBarcodePrinter.TabIndex = 4;
             labelControlBarcodePrinter.Text = "Barcode Printer:";
             // 
@@ -625,7 +625,7 @@ namespace POS.PAL.USERCONTROL
             grpInvoice.AppearanceCaption.Options.UseFont = true;
             grpInvoice.Controls.Add(txtInvoiceFooter);
             grpInvoice.Controls.Add(labelControl13);
-            grpInvoice.Location = new System.Drawing.Point(469, 515);
+            grpInvoice.Location = new System.Drawing.Point(13, 545);
             grpInvoice.Name = "grpInvoice";
             grpInvoice.Size = new System.Drawing.Size(450, 100);
             grpInvoice.TabIndex = 1;
@@ -660,7 +660,7 @@ namespace POS.PAL.USERCONTROL
             grpFeatures.Controls.Add(labelControl20);
             grpFeatures.Controls.Add(tsKOT);
             grpFeatures.Controls.Add(labelControl19);
-            grpFeatures.Location = new System.Drawing.Point(13, 751);
+            grpFeatures.Location = new System.Drawing.Point(469, 545);
             grpFeatures.Name = "grpFeatures";
             grpFeatures.Size = new System.Drawing.Size(450, 150);
             grpFeatures.TabIndex = 0;
@@ -707,6 +707,121 @@ namespace POS.PAL.USERCONTROL
             labelControl19.Size = new System.Drawing.Size(71, 17);
             labelControl19.TabIndex = 0;
             labelControl19.Text = "Enable KOT:";
+            // 
+            // grpLicense
+            // 
+            grpLicense.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpLicense.AppearanceCaption.Options.UseFont = true;
+            grpLicense.Controls.Add(chkIsLicensed);
+            grpLicense.Controls.Add(txtTrialDays);
+            grpLicense.Controls.Add(lblTrialDays);
+            grpLicense.Controls.Add(txtTrialEndDate);
+            grpLicense.Controls.Add(lblTrialEndDate);
+            grpLicense.Controls.Add(txtTrialStartDate);
+            grpLicense.Controls.Add(lblTrialStartDate);
+            grpLicense.Controls.Add(tsEnableTrial);
+            grpLicense.Controls.Add(lblEnableTrial);
+            grpLicense.Location = new System.Drawing.Point(13, 701);
+            grpLicense.Name = "grpLicense";
+            grpLicense.Size = new System.Drawing.Size(450, 250);
+            grpLicense.TabIndex = 0;
+            grpLicense.Text = "License & Trial Settings";
+            // 
+            // chkIsLicensed
+            // 
+            chkIsLicensed.Location = new System.Drawing.Point(150, 200);
+            chkIsLicensed.Name = "chkIsLicensed";
+            chkIsLicensed.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            chkIsLicensed.Properties.Appearance.Options.UseFont = true;
+            chkIsLicensed.Properties.Caption = "Is Licensed (Paid Version)";
+            chkIsLicensed.Size = new System.Drawing.Size(280, 21);
+            chkIsLicensed.TabIndex = 8;
+            // 
+            // txtTrialDays
+            // 
+            txtTrialDays.Location = new System.Drawing.Point(150, 160);
+            txtTrialDays.Name = "txtTrialDays";
+            txtTrialDays.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtTrialDays.Properties.Appearance.Options.UseFont = true;
+            txtTrialDays.Properties.AutoHeight = false;
+            txtTrialDays.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtTrialDays.Size = new System.Drawing.Size(280, 30);
+            txtTrialDays.TabIndex = 7;
+            // 
+            // lblTrialDays
+            // 
+            lblTrialDays.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            lblTrialDays.Appearance.Options.UseFont = true;
+            lblTrialDays.Location = new System.Drawing.Point(20, 166);
+            lblTrialDays.Name = "lblTrialDays";
+            lblTrialDays.Size = new System.Drawing.Size(60, 17);
+            lblTrialDays.TabIndex = 6;
+            lblTrialDays.Text = "Trial Days:";
+            // 
+            // txtTrialEndDate
+            // 
+            txtTrialEndDate.Location = new System.Drawing.Point(150, 120);
+            txtTrialEndDate.Name = "txtTrialEndDate";
+            txtTrialEndDate.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtTrialEndDate.Properties.Appearance.Options.UseFont = true;
+            txtTrialEndDate.Properties.AutoHeight = false;
+            txtTrialEndDate.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtTrialEndDate.Properties.ReadOnly = true;
+            txtTrialEndDate.Size = new System.Drawing.Size(280, 30);
+            txtTrialEndDate.TabIndex = 5;
+            // 
+            // lblTrialEndDate
+            // 
+            lblTrialEndDate.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            lblTrialEndDate.Appearance.Options.UseFont = true;
+            lblTrialEndDate.Location = new System.Drawing.Point(20, 126);
+            lblTrialEndDate.Name = "lblTrialEndDate";
+            lblTrialEndDate.Size = new System.Drawing.Size(85, 17);
+            lblTrialEndDate.TabIndex = 4;
+            lblTrialEndDate.Text = "Trial End Date:";
+            // 
+            // txtTrialStartDate
+            // 
+            txtTrialStartDate.Location = new System.Drawing.Point(150, 80);
+            txtTrialStartDate.Name = "txtTrialStartDate";
+            txtTrialStartDate.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            txtTrialStartDate.Properties.Appearance.Options.UseFont = true;
+            txtTrialStartDate.Properties.AutoHeight = false;
+            txtTrialStartDate.Properties.Padding = new System.Windows.Forms.Padding(5);
+            txtTrialStartDate.Properties.ReadOnly = true;
+            txtTrialStartDate.Size = new System.Drawing.Size(280, 30);
+            txtTrialStartDate.TabIndex = 3;
+            // 
+            // lblTrialStartDate
+            // 
+            lblTrialStartDate.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            lblTrialStartDate.Appearance.Options.UseFont = true;
+            lblTrialStartDate.Location = new System.Drawing.Point(20, 86);
+            lblTrialStartDate.Name = "lblTrialStartDate";
+            lblTrialStartDate.Size = new System.Drawing.Size(90, 17);
+            lblTrialStartDate.TabIndex = 2;
+            lblTrialStartDate.Text = "Trial Start Date:";
+            // 
+            // tsEnableTrial
+            // 
+            tsEnableTrial.Location = new System.Drawing.Point(150, 40);
+            tsEnableTrial.Name = "tsEnableTrial";
+            tsEnableTrial.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            tsEnableTrial.Properties.Appearance.Options.UseFont = true;
+            tsEnableTrial.Properties.OffText = "Disabled";
+            tsEnableTrial.Properties.OnText = "Enabled";
+            tsEnableTrial.Size = new System.Drawing.Size(120, 22);
+            tsEnableTrial.TabIndex = 1;
+            // 
+            // lblEnableTrial
+            // 
+            lblEnableTrial.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            lblEnableTrial.Appearance.Options.UseFont = true;
+            lblEnableTrial.Location = new System.Drawing.Point(20, 42);
+            lblEnableTrial.Name = "lblEnableTrial";
+            lblEnableTrial.Size = new System.Drawing.Size(71, 17);
+            lblEnableTrial.TabIndex = 0;
+            lblEnableTrial.Text = "Enable Trial:";
             // 
             // grpLocations
             // 
@@ -774,121 +889,6 @@ namespace POS.PAL.USERCONTROL
             btnManageAccount.Text = "Manage Account";
             btnManageAccount.Click += btnManageAccount_Click;
             // 
-            // grpLicense
-            // 
-            grpLicense.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            grpLicense.AppearanceCaption.Options.UseFont = true;
-            grpLicense.Controls.Add(chkIsLicensed);
-            grpLicense.Controls.Add(txtTrialDays);
-            grpLicense.Controls.Add(lblTrialDays);
-            grpLicense.Controls.Add(txtTrialEndDate);
-            grpLicense.Controls.Add(lblTrialEndDate);
-            grpLicense.Controls.Add(txtTrialStartDate);
-            grpLicense.Controls.Add(lblTrialStartDate);
-            grpLicense.Controls.Add(tsEnableTrial);
-            grpLicense.Controls.Add(lblEnableTrial);
-            grpLicense.Location = new System.Drawing.Point(13, 907);
-            grpLicense.Name = "grpLicense";
-            grpLicense.Size = new System.Drawing.Size(450, 250);
-            grpLicense.TabIndex = 0;
-            grpLicense.Text = "License & Trial Settings";
-            // 
-            // tsEnableTrial
-            // 
-            tsEnableTrial.Location = new System.Drawing.Point(150, 40);
-            tsEnableTrial.Name = "tsEnableTrial";
-            tsEnableTrial.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            tsEnableTrial.Properties.Appearance.Options.UseFont = true;
-            tsEnableTrial.Properties.OffText = "Disabled";
-            tsEnableTrial.Properties.OnText = "Enabled";
-            tsEnableTrial.Size = new System.Drawing.Size(120, 22);
-            tsEnableTrial.TabIndex = 1;
-            // 
-            // lblEnableTrial
-            // 
-            lblEnableTrial.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            lblEnableTrial.Appearance.Options.UseFont = true;
-            lblEnableTrial.Location = new System.Drawing.Point(20, 42);
-            lblEnableTrial.Name = "lblEnableTrial";
-            lblEnableTrial.Size = new System.Drawing.Size(71, 17);
-            lblEnableTrial.TabIndex = 0;
-            lblEnableTrial.Text = "Enable Trial:";
-            // 
-            // txtTrialStartDate
-            // 
-            txtTrialStartDate.Location = new System.Drawing.Point(150, 80);
-            txtTrialStartDate.Name = "txtTrialStartDate";
-            txtTrialStartDate.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            txtTrialStartDate.Properties.Appearance.Options.UseFont = true;
-            txtTrialStartDate.Properties.AutoHeight = false;
-            txtTrialStartDate.Properties.Padding = new System.Windows.Forms.Padding(5);
-            txtTrialStartDate.Properties.ReadOnly = true;
-            txtTrialStartDate.Size = new System.Drawing.Size(280, 30);
-            txtTrialStartDate.TabIndex = 3;
-            // 
-            // lblTrialStartDate
-            // 
-            lblTrialStartDate.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            lblTrialStartDate.Appearance.Options.UseFont = true;
-            lblTrialStartDate.Location = new System.Drawing.Point(20, 86);
-            lblTrialStartDate.Name = "lblTrialStartDate";
-            lblTrialStartDate.Size = new System.Drawing.Size(90, 17);
-            lblTrialStartDate.TabIndex = 2;
-            lblTrialStartDate.Text = "Trial Start Date:";
-            // 
-            // txtTrialEndDate
-            // 
-            txtTrialEndDate.Location = new System.Drawing.Point(150, 120);
-            txtTrialEndDate.Name = "txtTrialEndDate";
-            txtTrialEndDate.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            txtTrialEndDate.Properties.Appearance.Options.UseFont = true;
-            txtTrialEndDate.Properties.AutoHeight = false;
-            txtTrialEndDate.Properties.Padding = new System.Windows.Forms.Padding(5);
-            txtTrialEndDate.Properties.ReadOnly = true;
-            txtTrialEndDate.Size = new System.Drawing.Size(280, 30);
-            txtTrialEndDate.TabIndex = 5;
-            // 
-            // lblTrialEndDate
-            // 
-            lblTrialEndDate.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            lblTrialEndDate.Appearance.Options.UseFont = true;
-            lblTrialEndDate.Location = new System.Drawing.Point(20, 126);
-            lblTrialEndDate.Name = "lblTrialEndDate";
-            lblTrialEndDate.Size = new System.Drawing.Size(85, 17);
-            lblTrialEndDate.TabIndex = 4;
-            lblTrialEndDate.Text = "Trial End Date:";
-            // 
-            // txtTrialDays
-            // 
-            txtTrialDays.Location = new System.Drawing.Point(150, 160);
-            txtTrialDays.Name = "txtTrialDays";
-            txtTrialDays.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            txtTrialDays.Properties.Appearance.Options.UseFont = true;
-            txtTrialDays.Properties.AutoHeight = false;
-            txtTrialDays.Properties.Padding = new System.Windows.Forms.Padding(5);
-            txtTrialDays.Size = new System.Drawing.Size(280, 30);
-            txtTrialDays.TabIndex = 7;
-            // 
-            // lblTrialDays
-            // 
-            lblTrialDays.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            lblTrialDays.Appearance.Options.UseFont = true;
-            lblTrialDays.Location = new System.Drawing.Point(20, 166);
-            lblTrialDays.Name = "lblTrialDays";
-            lblTrialDays.Size = new System.Drawing.Size(60, 17);
-            lblTrialDays.TabIndex = 6;
-            lblTrialDays.Text = "Trial Days:";
-            // 
-            // chkIsLicensed
-            // 
-            chkIsLicensed.Location = new System.Drawing.Point(150, 200);
-            chkIsLicensed.Name = "chkIsLicensed";
-            chkIsLicensed.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            chkIsLicensed.Properties.Appearance.Options.UseFont = true;
-            chkIsLicensed.Properties.Caption = "Is Licensed (Paid Version)";
-            chkIsLicensed.Size = new System.Drawing.Size(280, 21);
-            chkIsLicensed.TabIndex = 8;
-            // 
             // UC_SystemSettings
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -937,20 +937,20 @@ namespace POS.PAL.USERCONTROL
             grpFeatures.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)tsStockCheck.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)tsKOT.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grpLicense).EndInit();
+            grpLicense.ResumeLayout(false);
+            grpLicense.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)chkIsLicensed.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtTrialDays.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtTrialEndDate.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtTrialStartDate.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tsEnableTrial.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)grpLocations).EndInit();
             grpLocations.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)grpTables).EndInit();
             grpTables.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)grpAccount).EndInit();
             grpAccount.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)grpLicense).EndInit();
-            grpLicense.ResumeLayout(false);
-            grpLicense.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)tsEnableTrial.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtTrialStartDate.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtTrialEndDate.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtTrialDays.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)chkIsLicensed.Properties).EndInit();
             ResumeLayout(false);
 
         }
