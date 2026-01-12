@@ -14,6 +14,8 @@ namespace POS.PAL.USERCONTROL
 {
     public partial class UC_User_RegistrationSub : DevExpress.XtraEditors.XtraUserControl
     {
+        private const int SUPER_ADMIN_ROLE_ID = 1; // Super Admin role ID - restricted visibility
+        
         private int? _editUserId = null;
         private DataTable _rolesTable;
         private DataTable _storesTable;
@@ -43,9 +45,21 @@ namespace POS.PAL.USERCONTROL
                 _rolesTable = BLL_Role.GetRoles();
                 comboboxUserRole.Properties.Items.Clear();
                 
+                // Check if current user is a super admin
+                bool isCurrentUserSuperAdmin = PermissionManager.IsSuperAdmin();
+                
                 foreach (DataRow row in _rolesTable.Rows)
                 {
-                    comboboxUserRole.Properties.Items.Add(row["role_name"].ToString());
+                    int roleId = Convert.ToInt32(row["role_id"]);
+                    string roleName = row["role_name"].ToString();
+                    
+                    // Only show Super Admin role if the current user is a super admin
+                    if (roleId == SUPER_ADMIN_ROLE_ID && !isCurrentUserSuperAdmin)
+                    {
+                        continue; // Skip adding Super Admin role for non-super admin users
+                    }
+                    
+                    comboboxUserRole.Properties.Items.Add(roleName);
                 }
 
                 // Load Stores
@@ -108,7 +122,26 @@ namespace POS.PAL.USERCONTROL
                 if (user["role_name"] != DBNull.Value)
                 {
                     string roleName = user["role_name"].ToString();
-                    comboboxUserRole.EditValue = roleName;
+                    
+                    // Check if the role is in the combobox items (it may have been filtered out)
+                    if (comboboxUserRole.Properties.Items.Contains(roleName))
+                    {
+                        comboboxUserRole.EditValue = roleName;
+                    }
+                    else
+                    {
+                        // Role is not available in the dropdown (e.g., Super Admin role for non-super admin users)
+                        // Show a message and disable role selection
+                        comboboxUserRole.EditValue = roleName;
+                        comboboxUserRole.Enabled = false;
+                        
+                        XtraMessageBox.Show(
+                            $"The role '{roleName}' is not available for modification. Only Super Admin users can modify this role assignment.",
+                            "Role Restriction",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
                 }
 
                 // Set store combobox
@@ -261,6 +294,18 @@ namespace POS.PAL.USERCONTROL
                     if (roleRows.Length > 0)
                     {
                         roleId = Convert.ToInt32(roleRows[0]["role_id"]);
+                        
+                        // Validate: Only super admin can assign Super Admin role
+                        if (roleId == SUPER_ADMIN_ROLE_ID && !PermissionManager.IsSuperAdmin())
+                        {
+                            XtraMessageBox.Show(
+                                "Only Super Admin users can assign the Super Admin role to other users.",
+                                "Permission Denied",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                            return;
+                        }
                     }
                 }
 
@@ -343,6 +388,18 @@ namespace POS.PAL.USERCONTROL
                     if (roleRows.Length > 0)
                     {
                         roleId = Convert.ToInt32(roleRows[0]["role_id"]);
+                        
+                        // Validate: Only super admin can assign Super Admin role
+                        if (roleId == SUPER_ADMIN_ROLE_ID && !PermissionManager.IsSuperAdmin())
+                        {
+                            XtraMessageBox.Show(
+                                "Only Super Admin users can assign the Super Admin role to other users.",
+                                "Permission Denied",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                            return;
+                        }
                     }
                 }
 
