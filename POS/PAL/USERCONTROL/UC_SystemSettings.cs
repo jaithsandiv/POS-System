@@ -39,6 +39,12 @@ namespace POS.PAL.USERCONTROL
             {
                 tsEnableTrial.Toggled += tsEnableTrial_Toggled;
             }
+            
+            // Wire up license checkbox event to enforce mutual exclusivity
+            if (chkIsLicensed != null)
+            {
+                chkIsLicensed.CheckedChanged += chkIsLicensed_CheckedChanged;
+            }
         }
 
         /// <summary>
@@ -251,12 +257,64 @@ namespace POS.PAL.USERCONTROL
                         isLicensed = licensedValue == "True" || licensedValue == "1";
                     }
                     chkIsLicensed.Checked = isLicensed;
+                    
+                    // Update visual indicators based on trial status
+                    UpdateTrialStatusVisualIndicators();
                 }
             }
             catch (Exception ex)
             {
                 XtraMessageBox.Show($"Error loading license settings: {ex.Message}\n\nDetails: {ex.StackTrace}", 
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Updates visual indicators for trial status (color coding and messages)
+        /// </summary>
+        private void UpdateTrialStatusVisualIndicators()
+        {
+            var trialStatus = BLL_TrialManager.GetTrialStatus();
+            
+            if (grpLicense != null)
+            {
+                // Change license group appearance based on status
+                if (trialStatus.IsLicensed)
+                {
+                    grpLicense.AppearanceCaption.ForeColor = System.Drawing.Color.Green;
+                    grpLicense.Text = "License and Trial Settings - LICENSED";
+                }
+                else if (trialStatus.IsTrialExpired)
+                {
+                    grpLicense.AppearanceCaption.ForeColor = System.Drawing.Color.Red;
+                    grpLicense.Text = "License and Trial Settings - TRIAL EXPIRED";
+                    
+                    // Show urgent message
+                    XtraMessageBox.Show(
+                        "Your trial period has expired!\n\n" +
+                        "Please activate your license by checking the 'Is Licensed' checkbox " +
+                        "to continue using all features of the system.\n\n" +
+                        "You currently have restricted access to the system.",
+                        "Trial Expired - Action Required",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                }
+                else if (trialStatus.IsExpiringSoon)
+                {
+                    grpLicense.AppearanceCaption.ForeColor = System.Drawing.Color.Orange;
+                    grpLicense.Text = $"License and Trial Settings - {trialStatus.DaysRemaining} Day(s) Remaining";
+                }
+                else if (trialStatus.IsTrialActive)
+                {
+                    grpLicense.AppearanceCaption.ForeColor = System.Drawing.Color.Blue;
+                    grpLicense.Text = $"License and Trial Settings - {trialStatus.DaysRemaining} Day(s) Remaining";
+                }
+                else
+                {
+                    grpLicense.AppearanceCaption.ForeColor = System.Drawing.Color.Black;
+                    grpLicense.Text = "License and Trial Settings";
+                }
             }
         }
 
@@ -531,6 +589,22 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void tsEnableTrial_Toggled(object sender, EventArgs e)
         {
+            // If user is trying to enable trial while licensed, prevent it
+            if (tsEnableTrial.IsOn && chkIsLicensed.Checked)
+            {
+                XtraMessageBox.Show(
+                    "Cannot enable trial on a licensed system.\n\n" +
+                    "A system can either be Licensed OR on Trial, but not both.\n\n" +
+                    "Please uncheck 'Is Licensed' first if you want to enable trial mode.",
+                    "License/Trial Conflict",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                
+                // Reset toggle back to off
+                tsEnableTrial.IsOn = false;
+                return;
+            }
+            
             if (tsEnableTrial.IsOn)
             {
                 // Check if trial days is provided
@@ -577,6 +651,39 @@ namespace POS.PAL.USERCONTROL
                 // Clear trial dates when disabling
                 txtTrialStartDate.Text = "";
                 txtTrialEndDate.Text = "";
+            }
+        }
+        
+        /// <summary>
+        /// Handles license checkbox change to ensure mutual exclusivity with trial
+        /// </summary>
+        private void chkIsLicensed_CheckedChanged(object sender, EventArgs e)
+        {
+            // If user is checking "Is Licensed" while trial is enabled, warn them
+            if (chkIsLicensed.Checked && tsEnableTrial.IsOn)
+            {
+                var result = XtraMessageBox.Show(
+                    "You are activating a license while trial mode is enabled.\n\n" +
+                    "When licensed, the trial period will be ignored.\n" +
+                    "A system can either be Licensed OR on Trial, but not both.\n\n" +
+                    "Do you want to proceed with license activation?\n" +
+                    "(Trial will be automatically disabled)",
+                    "License Activation",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                
+                if (result == DialogResult.Yes)
+                {
+                    // Disable trial when activating license
+                    tsEnableTrial.IsOn = false;
+                    txtTrialStartDate.Text = "";
+                    txtTrialEndDate.Text = "";
+                }
+                else
+                {
+                    // User cancelled, uncheck the license
+                    chkIsLicensed.Checked = false;
+                }
             }
         }
     }

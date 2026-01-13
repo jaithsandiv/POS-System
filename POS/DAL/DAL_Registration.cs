@@ -22,11 +22,11 @@ namespace POS.DAL
                 connection = Connection.GetConnection();
                 transaction = connection.BeginTransaction();
 
-                // Insert Business
+                // Insert Business with automatic 3-day trial
                 string businessQuery = @"
                     INSERT INTO Business (business_name, logo, trial_start_date, trial_end_date, is_licensed, status, created_by, created_date)
                     OUTPUT INSERTED.business_id
-                    VALUES (@business_name, @logo, GETDATE(), GETDATE() + 3, 0, 'A', NULL, GETDATE())";
+                    VALUES (@business_name, @logo, GETDATE(), DATEADD(DAY, 3, GETDATE()), 0, 'A', NULL, GETDATE())";
 
                 SqlParameter[] businessParams = {
                     new SqlParameter("@business_name", businessRow.business_name),

@@ -223,12 +223,42 @@ namespace POS
             if (!hideNavigation)
             {
                 UpdateUserFirstName();
+                ShowTrialWarningIfNeeded();
                 ApplyPermissionBasedVisibility();
             }
         }
 
         /// <summary>
+        /// Shows trial warning notification if trial is expiring or expired
+        /// </summary>
+        private void ShowTrialWarningIfNeeded()
+        {
+            // Check if we should show warning
+            if (BLL_TrialManager.ShouldShowWarning())
+            {
+                var trialStatus = BLL_TrialManager.GetTrialStatus();
+                
+                string title = trialStatus.IsTrialExpired ? "Trial Expired" : "Trial Expiring Soon";
+                string message = BLL_TrialManager.GetWarningMessage();
+                
+                var result = XtraMessageBox.Show(
+                    message,
+                    title,
+                    MessageBoxButtons.OKCancel,
+                    trialStatus.IsTrialExpired ? MessageBoxIcon.Warning : MessageBoxIcon.Information
+                );
+                
+                if (result == DialogResult.OK)
+                {
+                    // User clicked OK - navigate to settings
+                    LoadUserControl(new UC_SystemSettings());
+                }
+            }
+        }
+
+        /// <summary>
         /// Apply permission-based visibility to all menu items and buttons
+        /// Also enforces trial expiration restrictions
         /// </summary>
         private void ApplyPermissionBasedVisibility()
         {
@@ -237,6 +267,63 @@ namespace POS
                 // Suspend layout to prevent flickering
                 panelSideBar.SuspendLayout();
 
+                // Check trial status first
+                bool isTrialExpired = BLL_TrialManager.IsTrialExpired();
+                
+                // If trial expired, hide all menus except Settings
+                if (isTrialExpired)
+                {
+                    // Hide all main menu sections
+                    if (panelHomeHeader != null) panelHomeHeader.Visible = false;
+                    if (panelUserManagementHeader != null) panelUserManagementHeader.Visible = false;
+                    if (panelContactsHeader != null) panelContactsHeader.Visible = false;
+                    if (panelProductsHeader != null) panelProductsHeader.Visible = false;
+                    if (panelSellHeader != null) panelSellHeader.Visible = false;
+                    if (panelReportsHeader != null) panelReportsHeader.Visible = false;
+                    if (btnPOS != null) btnPOS.Visible = false;
+                    
+                    // Show only Settings
+                    if (panelSettingsHeader != null) panelSettingsHeader.Visible = true;
+                    if (btnSettings != null)
+                    {
+                        btnSettings.Visible = true;
+                        btnSettings.Enabled = true;
+                    }
+                    else
+                    {
+                        btnSettings.Visible = false;
+                    }
+
+                    if (btnBusinessSettings != null)
+                    {
+                        btnBusinessSettings.Visible = true;
+                        btnBusinessSettings.Enabled = true;
+                    }
+                    else
+                    {
+                        btnBusinessSettings.Visible = false;
+                    }
+                    
+                    // Hide other settings options
+                    if (btnBusinessLocations != null)
+                    {
+                        btnBusinessLocations.Visible = false;
+                        btnBusinessLocations.Enabled = false;
+                    }
+
+                    if (btnTables != null)
+                    {
+                        btnTables.Visible = false;
+                        btnTables.Enabled = false;
+                    }
+
+                    panelSideBar.ResumeLayout(true);
+                    panelSideBar.PerformLayout();
+                    panelSideBar.Refresh();
+                    return;
+                }
+
+                // Normal permission-based visibility (existing code)
                 // User Management
                 bool hasUserPermissions = BLL.PermissionManager.HasAnyPermission(
                     BLL.PermissionManager.Permissions.VIEW_USERS,
