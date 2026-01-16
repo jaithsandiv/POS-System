@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Quotation));
             DevExpress.DataAccess.ObjectBinding.ObjectConstructorInfo objectConstructorInfo1 = new DevExpress.DataAccess.ObjectBinding.ObjectConstructorInfo();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Quotation));
             this.TopMargin = new DevExpress.XtraReports.UI.TopMarginBand();
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
@@ -64,7 +64,6 @@
             this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrPictureBox1 = new DevExpress.XtraReports.UI.XRPictureBox();
             this.ReportFooter = new DevExpress.XtraReports.UI.ReportFooterBand();
             this.xrLabel20 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel21 = new DevExpress.XtraReports.UI.XRLabel();
@@ -85,6 +84,8 @@
             this.p_discount = new DevExpress.XtraReports.Parameters.Parameter();
             this.p_grand_total = new DevExpress.XtraReports.Parameters.Parameter();
             this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
+            this.xrLabelBusinessName = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrPictureBoxBusinessLogo = new DevExpress.XtraReports.UI.XRPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).BeginInit();
@@ -223,6 +224,8 @@
             // PageHeader
             // 
             this.PageHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLabelBusinessName,
+            this.xrPictureBoxBusinessLogo,
             this.xrLabel3,
             this.xrLine5,
             this.xrLine4,
@@ -236,8 +239,7 @@
             this.xrLabel7,
             this.xrLabel5,
             this.xrLabel2,
-            this.xrLabel1,
-            this.xrPictureBox1});
+            this.xrLabel1});
             this.PageHeader.Dpi = 254F;
             this.PageHeader.HeightF = 1166.813F;
             this.PageHeader.Name = "PageHeader";
@@ -447,7 +449,7 @@
             this.xrLabel2.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "?p_contact")});
             this.xrLabel2.Font = new DevExpress.Drawing.DXFont("Arial", 10F, DevExpress.Drawing.DXFontStyle.Bold);
-            this.xrLabel2.LocationFloat = new DevExpress.Utils.PointFloat(1038.671F, 502.7083F);
+            this.xrLabel2.LocationFloat = new DevExpress.Utils.PointFloat(1029.544F, 502.7083F);
             this.xrLabel2.Multiline = true;
             this.xrLabel2.Name = "xrLabel2";
             this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
@@ -464,7 +466,7 @@
             this.xrLabel1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "?p_email")});
             this.xrLabel1.Font = new DevExpress.Drawing.DXFont("Arial", 10F, DevExpress.Drawing.DXFontStyle.Bold);
-            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(235.3958F, 502.7084F);
+            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(226.2686F, 502.7084F);
             this.xrLabel1.Multiline = true;
             this.xrLabel1.Name = "xrLabel1";
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
@@ -474,16 +476,6 @@
             this.xrLabel1.Text = "Email:\r\n";
             this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             this.xrLabel1.TextFormatString = "Email: {0}";
-            // 
-            // xrPictureBox1
-            // 
-            this.xrPictureBox1.Dpi = 254F;
-            this.xrPictureBox1.ImageAlignment = DevExpress.XtraPrinting.ImageAlignment.MiddleCenter;
-            this.xrPictureBox1.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("xrPictureBox1.ImageSource"));
-            this.xrPictureBox1.LocationFloat = new DevExpress.Utils.PointFloat(194.3337F, 37.04167F);
-            this.xrPictureBox1.Name = "xrPictureBox1";
-            this.xrPictureBox1.SizeF = new System.Drawing.SizeF(1631.791F, 407.4584F);
-            this.xrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage;
             // 
             // ReportFooter
             // 
@@ -657,6 +649,30 @@
             this.objectDataSource1.DataSource = typeof(global::POS.DAL.DataSource.DAL_DS_SalesTerminal);
             this.objectDataSource1.Name = "objectDataSource1";
             // 
+            // xrLabelBusinessName
+            // 
+            this.xrLabelBusinessName.Dpi = 254F;
+            this.xrLabelBusinessName.Font = new DevExpress.Drawing.DXFont("Arial", 14F, DevExpress.Drawing.DXFontStyle.Bold);
+            this.xrLabelBusinessName.LocationFloat = new DevExpress.Utils.PointFloat(226.2686F, 387.3502F);
+            this.xrLabelBusinessName.Multiline = true;
+            this.xrLabelBusinessName.Name = "xrLabelBusinessName";
+            this.xrLabelBusinessName.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelBusinessName.SizeF = new System.Drawing.SizeF(1541.463F, 115.3583F);
+            this.xrLabelBusinessName.StylePriority.UseFont = false;
+            this.xrLabelBusinessName.StylePriority.UseTextAlignment = false;
+            this.xrLabelBusinessName.Text = "SERENDIB IT SOLUTIONS";
+            this.xrLabelBusinessName.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrPictureBoxBusinessLogo
+            // 
+            this.xrPictureBoxBusinessLogo.Dpi = 254F;
+            this.xrPictureBoxBusinessLogo.ImageAlignment = DevExpress.XtraPrinting.ImageAlignment.MiddleCenter;
+            this.xrPictureBoxBusinessLogo.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("xrPictureBoxBusinessLogo.ImageSource"));
+            this.xrPictureBoxBusinessLogo.LocationFloat = new DevExpress.Utils.PointFloat(181.1045F, 0F);
+            this.xrPictureBoxBusinessLogo.Name = "xrPictureBoxBusinessLogo";
+            this.xrPictureBoxBusinessLogo.SizeF = new System.Drawing.SizeF(1631.791F, 387.3502F);
+            this.xrPictureBoxBusinessLogo.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage;
+            // 
             // Quotation
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -712,7 +728,6 @@
         private DevExpress.XtraReports.UI.DetailBand Detail;
         private DevExpress.XtraReports.UI.PageHeaderBand PageHeader;
         private DevExpress.XtraReports.UI.ReportFooterBand ReportFooter;
-        private DevExpress.XtraReports.UI.XRPictureBox xrPictureBox1;
         private DevExpress.XtraReports.UI.XRTable xrTable1;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow1;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell1;
@@ -761,5 +776,7 @@
         private DevExpress.DataAccess.ObjectBinding.ObjectDataSource objectDataSource1;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell11;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCellUnit;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelBusinessName;
+        private DevExpress.XtraReports.UI.XRPictureBox xrPictureBoxBusinessLogo;
     }
 }

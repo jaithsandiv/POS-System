@@ -44,6 +44,7 @@
             this.xrTableCell11 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell10 = new DevExpress.XtraReports.UI.XRTableCell();
             this.PageHeader = new DevExpress.XtraReports.UI.PageHeaderBand();
+            this.xrLabelBusinessName = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLine5 = new DevExpress.XtraReports.UI.XRLine();
             this.xrLine4 = new DevExpress.XtraReports.UI.XRLine();
@@ -87,7 +88,6 @@
             this.p_grand_total = new DevExpress.XtraReports.Parameters.Parameter();
             this.p_footer = new DevExpress.XtraReports.Parameters.Parameter();
             this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
-            this.xrLabelBusinessName = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).BeginInit();
@@ -246,6 +246,20 @@
             this.PageHeader.Dpi = 254F;
             this.PageHeader.HeightF = 1166.813F;
             this.PageHeader.Name = "PageHeader";
+            // 
+            // xrLabelBusinessName
+            // 
+            this.xrLabelBusinessName.Dpi = 254F;
+            this.xrLabelBusinessName.Font = new DevExpress.Drawing.DXFont("Arial", 14F, DevExpress.Drawing.DXFontStyle.Bold);
+            this.xrLabelBusinessName.LocationFloat = new DevExpress.Utils.PointFloat(235.3958F, 387.3502F);
+            this.xrLabelBusinessName.Multiline = true;
+            this.xrLabelBusinessName.Name = "xrLabelBusinessName";
+            this.xrLabelBusinessName.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelBusinessName.SizeF = new System.Drawing.SizeF(1541.463F, 115.3583F);
+            this.xrLabelBusinessName.StylePriority.UseFont = false;
+            this.xrLabelBusinessName.StylePriority.UseTextAlignment = false;
+            this.xrLabelBusinessName.Text = "SERENDIB IT SOLUTIONS";
+            this.xrLabelBusinessName.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // xrLabel3
             // 
@@ -708,20 +722,6 @@
             this.objectDataSource1.DataMember = "SaleItem";
             this.objectDataSource1.DataSource = typeof(global::POS.DAL.DataSource.DAL_DS_SalesTerminal);
             this.objectDataSource1.Name = "objectDataSource1";
-            // 
-            // xrLabelBusinessName
-            // 
-            this.xrLabelBusinessName.Dpi = 254F;
-            this.xrLabelBusinessName.Font = new DevExpress.Drawing.DXFont("Arial", 14F, DevExpress.Drawing.DXFontStyle.Bold);
-            this.xrLabelBusinessName.LocationFloat = new DevExpress.Utils.PointFloat(296.2268F, 387.3502F);
-            this.xrLabelBusinessName.Multiline = true;
-            this.xrLabelBusinessName.Name = "xrLabelBusinessName";
-            this.xrLabelBusinessName.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabelBusinessName.SizeF = new System.Drawing.SizeF(721.3605F, 115.3583F);
-            this.xrLabelBusinessName.StylePriority.UseFont = false;
-            this.xrLabelBusinessName.StylePriority.UseTextAlignment = false;
-            this.xrLabelBusinessName.Text = "SERENDIB IT SOLUTIONS";
-            this.xrLabelBusinessName.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // Invoice
             // 
