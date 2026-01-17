@@ -2807,3 +2807,4 @@ namespace POS.PAL.USERCONTROL
         }
     }
 }
+// Sales Discounts by user already implemented in UC_SalesTerminal.cs
