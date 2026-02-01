@@ -22,5 +22,17 @@ namespace POS.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastBackupDate {
+            get {
+                return ((string)(this["LastBackupDate"]));
+            }
+            set {
+                this["LastBackupDate"] = value;
+            }
+        }
     }
 }

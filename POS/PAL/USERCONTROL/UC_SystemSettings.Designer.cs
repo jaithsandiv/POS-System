@@ -93,6 +93,10 @@ namespace POS.PAL.USERCONTROL
             btnManageTables = new DevExpress.XtraEditors.SimpleButton();
             grpAccount = new DevExpress.XtraEditors.GroupControl();
             btnManageAccount = new DevExpress.XtraEditors.SimpleButton();
+            grpDatabaseBackup = new DevExpress.XtraEditors.GroupControl();
+            btnBackupDatabase = new DevExpress.XtraEditors.SimpleButton();
+            btnRestoreDatabase = new DevExpress.XtraEditors.SimpleButton();
+            labelControl7 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
@@ -140,6 +144,8 @@ namespace POS.PAL.USERCONTROL
             grpTables.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grpAccount).BeginInit();
             grpAccount.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)grpDatabaseBackup).BeginInit();
+            grpDatabaseBackup.SuspendLayout();
             SuspendLayout();
             // 
             // panelControl1
@@ -215,6 +221,7 @@ namespace POS.PAL.USERCONTROL
             flowLayoutPanel1.Controls.Add(grpInvoice);
             flowLayoutPanel1.Controls.Add(grpFeatures);
             flowLayoutPanel1.Controls.Add(grpLicense);
+            flowLayoutPanel1.Controls.Add(grpDatabaseBackup);
             flowLayoutPanel1.Location = new System.Drawing.Point(14, 79);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
@@ -889,6 +896,51 @@ namespace POS.PAL.USERCONTROL
             btnManageAccount.Text = "Manage Account";
             btnManageAccount.Click += btnManageAccount_Click;
             // 
+            // grpDatabaseBackup
+            // 
+            grpDatabaseBackup.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpDatabaseBackup.AppearanceCaption.Options.UseFont = true;
+            grpDatabaseBackup.Controls.Add(btnBackupDatabase);
+            grpDatabaseBackup.Controls.Add(btnRestoreDatabase);
+            grpDatabaseBackup.Controls.Add(labelControl7);
+            grpDatabaseBackup.Location = new System.Drawing.Point(13, 857);
+            grpDatabaseBackup.Name = "grpDatabaseBackup";
+            grpDatabaseBackup.Size = new System.Drawing.Size(450, 120);
+            grpDatabaseBackup.TabIndex = 0;
+            grpDatabaseBackup.Text = "Database Backup";
+            // 
+            // btnBackupDatabase
+            // 
+            btnBackupDatabase.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnBackupDatabase.Appearance.Options.UseFont = true;
+            btnBackupDatabase.Location = new System.Drawing.Point(20, 70);
+            btnBackupDatabase.Name = "btnBackupDatabase";
+            btnBackupDatabase.Size = new System.Drawing.Size(150, 30);
+            btnBackupDatabase.TabIndex = 1;
+            btnBackupDatabase.Text = "Backup Database";
+            btnBackupDatabase.Click += btnBackupDatabase_Click;
+            // 
+            // btnRestoreDatabase
+            // 
+            btnRestoreDatabase.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnRestoreDatabase.Appearance.Options.UseFont = true;
+            btnRestoreDatabase.Location = new System.Drawing.Point(220, 70);
+            btnRestoreDatabase.Name = "btnRestoreDatabase";
+            btnRestoreDatabase.Size = new System.Drawing.Size(150, 30);
+            btnRestoreDatabase.TabIndex = 0;
+            btnRestoreDatabase.Text = "Restore Database";
+            btnRestoreDatabase.Click += btnRestoreDatabase_Click;
+            // 
+            // labelControl7
+            // 
+            labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl7.Appearance.Options.UseFont = true;
+            labelControl7.Location = new System.Drawing.Point(20, 32);
+            labelControl7.Name = "labelControl7";
+            labelControl7.Size = new System.Drawing.Size(111, 17);
+            labelControl7.TabIndex = 0;
+            labelControl7.Text = "Backup Directory:";
+            // 
             // UC_SystemSettings
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -951,6 +1003,9 @@ namespace POS.PAL.USERCONTROL
             grpTables.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)grpAccount).EndInit();
             grpAccount.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)grpDatabaseBackup).EndInit();
+            grpDatabaseBackup.ResumeLayout(false);
+            grpDatabaseBackup.PerformLayout();
             ResumeLayout(false);
 
         }
@@ -1039,5 +1094,10 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.LabelControl lblTrialDays;
         private DevExpress.XtraEditors.CheckEdit chkIsLicensed;
 
+        // Database Backup
+        private DevExpress.XtraEditors.GroupControl grpDatabaseBackup;
+        private DevExpress.XtraEditors.SimpleButton btnBackupDatabase;
+        private DevExpress.XtraEditors.SimpleButton btnRestoreDatabase;
+        private DevExpress.XtraEditors.LabelControl labelControl7;
     }
 }
