@@ -46,6 +46,9 @@ namespace POS
             clockTimer.Tick += ClockTimer_Tick;
             clockTimer.Start();
 
+            // Perform automatic daily backup
+            PerformAutomaticBackup();
+
             if (DataSetApp.Business.Rows.Count > 0)
             {
                 var firstBusinessRow = DataSetApp.Business[0];
@@ -859,6 +862,35 @@ namespace POS
         private void btnActivityLog_Click(object sender, EventArgs e)
         {
             LoadUserControl(new UC_ActivityLog_Report());
+        }
+
+        /// <summary>
+        /// Performs automatic daily database backup in background
+        /// </summary>
+        private async void PerformAutomaticBackup()
+        {
+            try
+            {
+                // Run backup asynchronously to not block startup
+                await System.Threading.Tasks.Task.Run(() =>
+                {
+                    BLL.BLL_AutoBackup autoBackup = new BLL.BLL_AutoBackup();
+                    bool backupPerformed = autoBackup.PerformDailyBackupIfNeeded();
+
+                    if (backupPerformed)
+                    {
+                        // Cleanup old backups (keep last 30 days)
+                        autoBackup.CleanupOldBackups(30);
+                        
+                        System.Diagnostics.Debug.WriteLine($"Automatic backup completed successfully at {DateTime.Now}");
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                // Log but don't show error to user - backup is background operation
+                System.Diagnostics.Debug.WriteLine($"Automatic backup failed: {ex.Message}");
+            }
         }
     }
 }

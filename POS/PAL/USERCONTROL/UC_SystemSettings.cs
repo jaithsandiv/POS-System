@@ -18,6 +18,7 @@ namespace POS.PAL.USERCONTROL
     {
         private readonly BLL_SystemSettings _bllSystemSettings = new BLL_SystemSettings();
         private readonly BLL_Store _bllStore = new BLL_Store();
+        private readonly BLL_AutoBackup _bllAutoBackup = new BLL_AutoBackup();
         private DataTable _settingsTable;
         private bool _isSuperAdmin = false;
 
@@ -167,10 +168,37 @@ namespace POS.PAL.USERCONTROL
 
                 // 4. Load License & Trial settings (visible to all users now)
                 LoadLicenseSettings();
+
+                // 5. Load backup information
+                LoadBackupInfo();
             }
             catch (Exception ex)
             {
                 XtraMessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Loads and displays backup information
+        /// </summary>
+        private void LoadBackupInfo()
+        {
+            try
+            {
+                DateTime? lastBackupDate = _bllAutoBackup.GetLastBackupDate();
+
+                if (lastBackupDate.HasValue)
+                {
+                    labelControl7.Text = $"Last Backup: {lastBackupDate.Value:yyyy-MM-dd} | Auto-backup Location: C:\\POS_Backups";
+                }
+                else
+                {
+                    labelControl7.Text = "Last Backup: Never | Auto-backup Location: C:\\POS_Backups";
+                }
+            }
+            catch
+            {
+                labelControl7.Text = "Backup Directory: C:\\POS_Backups";
             }
         }
 
@@ -684,6 +712,133 @@ namespace POS.PAL.USERCONTROL
                     // User cancelled, uncheck the license
                     chkIsLicensed.Checked = false;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Handles backup database button click - Automatically backs up to C:\POS_Backups\
+        /// </summary>
+        private void btnBackupDatabase_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Fixed backup directory
+                string backupDirectory = @"C:\POS_Backups";
+
+                // Ensure backup directory exists
+                if (!Directory.Exists(backupDirectory))
+                {
+                    Directory.CreateDirectory(backupDirectory);
+                }
+
+                // Generate timestamped filename
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                string backupFileName = $"POS_Backup_{timestamp}.bak";
+                string backupFilePath = Path.Combine(backupDirectory, backupFileName);
+
+                // Show progress message
+                XtraMessageBox.Show("Database backup in progress. Please wait...",
+                    "Backup Started", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                DAL.DAL_DatabaseBackup backupService = new DAL.DAL_DatabaseBackup();
+                bool success = backupService.BackupDatabase(backupFilePath);
+
+                if (success)
+                {
+                    // Update last backup date
+                    Properties.Settings.Default.LastBackupDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    Properties.Settings.Default.Save();
+
+                    // Reload backup info to update UI
+                    LoadBackupInfo();
+
+                    XtraMessageBox.Show(
+                        $"Database backup completed successfully!\n\nBackup saved to:\n{backupFilePath}",
+                        "Backup Successful",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else
+                {
+                    XtraMessageBox.Show("Database backup failed.",
+                        "Backup Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error during backup: {ex.Message}",
+                    "Backup Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Handles restore database button click - Opens OpenFileDialog and restores database
+        /// </summary>
+        private void btnRestoreDatabase_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Confirm restore action
+                var confirmResult = XtraMessageBox.Show(
+                    "WARNING: This will restore the database from a backup file.\n\n" +
+                    "All current data will be replaced with the backup data.\n" +
+                    "This action cannot be undone.\n\n" +
+                    "Do you want to continue?",
+                    "Confirm Database Restore",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                if (confirmResult != DialogResult.Yes)
+                    return;
+
+                using (OpenFileDialog ofd = new OpenFileDialog())
+                {
+                    ofd.Filter = "Database Backup Files (*.bak)|*.bak|All Files (*.*)|*.*";
+                    ofd.Title = "Select Backup File to Restore";
+                    ofd.CheckFileExists = true;
+
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                    {
+                        // Show progress message
+                        XtraMessageBox.Show(
+                            "Database restore in progress. Please wait...\n\n" +
+                            "The application may need to restart after restore.",
+                            "Restore Started",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                        DAL.DAL_DatabaseBackup backupService = new DAL.DAL_DatabaseBackup();
+                        bool success = backupService.RestoreDatabase(ofd.FileName);
+
+                        if (success)
+                        {
+                            var restartResult = XtraMessageBox.Show(
+                                $"Database restore completed successfully!\n\n" +
+                                $"Restored from:\n{ofd.FileName}\n\n" +
+                                $"The application should be restarted to ensure data consistency.\n\n" +
+                                $"Do you want to restart the application now?",
+                                "Restore Successful",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Information);
+
+                            if (restartResult == DialogResult.Yes)
+                            {
+                                Application.Restart();
+                                Environment.Exit(0);
+                            }
+                        }
+                        else
+                        {
+                            XtraMessageBox.Show("Database restore failed.",
+                                "Restore Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show($"Error during restore: {ex.Message}",
+                    "Restore Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
