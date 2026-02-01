@@ -716,46 +716,52 @@ namespace POS.PAL.USERCONTROL
         }
 
         /// <summary>
-        /// Handles backup database button click - Opens SaveFileDialog and backs up database
+        /// Handles backup database button click - Automatically backs up to C:\POS_Backups\
         /// </summary>
         private void btnBackupDatabase_Click(object sender, EventArgs e)
         {
             try
             {
-                using (SaveFileDialog sfd = new SaveFileDialog())
+                // Fixed backup directory
+                string backupDirectory = @"C:\POS_Backups";
+
+                // Ensure backup directory exists
+                if (!Directory.Exists(backupDirectory))
                 {
-                    sfd.Filter = "Database Backup Files (*.bak)|*.bak|All Files (*.*)|*.*";
-                    sfd.FileName = $"POS_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
-                    sfd.Title = "Select Backup Location";
-                    sfd.DefaultExt = "bak";
+                    Directory.CreateDirectory(backupDirectory);
+                }
 
-                    if (sfd.ShowDialog() == DialogResult.OK)
-                    {
-                        // Show progress message
-                        XtraMessageBox.Show("Database backup in progress. Please wait...",
-                            "Backup Started", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Generate timestamped filename
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                string backupFileName = $"POS_Backup_{timestamp}.bak";
+                string backupFilePath = Path.Combine(backupDirectory, backupFileName);
 
-                        DAL.DAL_DatabaseBackup backupService = new DAL.DAL_DatabaseBackup();
-                        bool success = backupService.BackupDatabase(sfd.FileName);
+                // Show progress message
+                XtraMessageBox.Show("Database backup in progress. Please wait...",
+                    "Backup Started", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        if (success)
-                        {
-                            // Update last backup date
-                            Properties.Settings.Default.LastBackupDate = DateTime.Now.ToString("yyyy-MM-dd");
-                            Properties.Settings.Default.Save();
+                DAL.DAL_DatabaseBackup backupService = new DAL.DAL_DatabaseBackup();
+                bool success = backupService.BackupDatabase(backupFilePath);
 
-                            XtraMessageBox.Show(
-                                $"Database backup completed successfully!\n\nBackup saved to:\n{sfd.FileName}",
-                                "Backup Successful",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            XtraMessageBox.Show("Database backup failed.",
-                                "Backup Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
+                if (success)
+                {
+                    // Update last backup date
+                    Properties.Settings.Default.LastBackupDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    Properties.Settings.Default.Save();
+
+                    // Reload backup info to update UI
+                    LoadBackupInfo();
+
+                    XtraMessageBox.Show(
+                        $"Database backup completed successfully!\n\nBackup saved to:\n{backupFilePath}",
+                        "Backup Successful",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else
+                {
+                    XtraMessageBox.Show("Database backup failed.",
+                        "Backup Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
