@@ -664,57 +664,68 @@
             this.p_date.Name = "p_date";
             this.p_date.Type = typeof(global::System.DateTime);
             this.p_date.ValueInfo = "2025-11-13";
+            this.p_date.Visible = false;
             // 
             // p_email
             // 
             this.p_email.Description = "Parameter1";
             this.p_email.Name = "p_email";
+            this.p_email.Visible = false;
             // 
             // p_contact
             // 
             this.p_contact.Description = "Parameter1";
             this.p_contact.Name = "p_contact";
+            this.p_contact.Visible = false;
             // 
             // p_address
             // 
             this.p_address.Description = "Parameter1";
             this.p_address.Name = "p_address";
+            this.p_address.Visible = false;
             // 
             // p_invoice_no
             // 
             this.p_invoice_no.Description = "Parameter1";
             this.p_invoice_no.Name = "p_invoice_no";
+            this.p_invoice_no.Visible = false;
             // 
             // p_customer_name
             // 
             this.p_customer_name.Description = "Parameter1";
             this.p_customer_name.Name = "p_customer_name";
+            this.p_customer_name.Visible = false;
             // 
             // p_customer_phone
             // 
             this.p_customer_phone.Description = "Parameter1";
             this.p_customer_phone.Name = "p_customer_phone";
+            this.p_customer_phone.Visible = false;
             // 
             // p_total
             // 
             this.p_total.Description = "Parameter1";
             this.p_total.Name = "p_total";
+            this.p_total.Visible = false;
             // 
             // p_discount
             // 
             this.p_discount.Description = "Parameter1";
             this.p_discount.Name = "p_discount";
+            this.p_discount.Visible = false;
             // 
             // p_grand_total
             // 
             this.p_grand_total.Description = "Parameter1";
             this.p_grand_total.Name = "p_grand_total";
+            this.p_grand_total.Visible = false;
             // 
             // p_footer
             // 
             this.p_footer.Description = "Footer Text";
             this.p_footer.Name = "p_footer";
             this.p_footer.ValueInfo = "Thank You For Your Business!";
+            this.p_footer.Visible = false;
             // 
             // objectDataSource1
             // 
@@ -816,22 +827,22 @@
         private DevExpress.XtraReports.UI.XRLine xrLine5;
         private DevExpress.XtraReports.UI.PageFooterBand PageFooter;
         private DevExpress.XtraReports.UI.XRLabel xrLabel4;
-        private DevExpress.XtraReports.Parameters.Parameter p_date;
-        private DevExpress.XtraReports.Parameters.Parameter p_email;
-        private DevExpress.XtraReports.Parameters.Parameter p_contact;
-        private DevExpress.XtraReports.Parameters.Parameter p_address;
-        private DevExpress.XtraReports.Parameters.Parameter p_invoice_no;
-        private DevExpress.XtraReports.Parameters.Parameter p_customer_name;
         private DevExpress.XtraReports.UI.XRLabel xrLabel3;
-        private DevExpress.XtraReports.Parameters.Parameter p_customer_phone;
-        private DevExpress.XtraReports.Parameters.Parameter p_total;
-        private DevExpress.XtraReports.Parameters.Parameter p_discount;
-        private DevExpress.XtraReports.Parameters.Parameter p_grand_total;
-        private DevExpress.XtraReports.Parameters.Parameter p_footer;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell11;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCellUnit;
         private DevExpress.XtraReports.UI.XRSubreport xrSubreport1;
         private DevExpress.DataAccess.ObjectBinding.ObjectDataSource objectDataSource1;
         private DevExpress.XtraReports.UI.XRLabel xrLabelBusinessName;
+        public DevExpress.XtraReports.Parameters.Parameter p_date;
+        public DevExpress.XtraReports.Parameters.Parameter p_email;
+        public DevExpress.XtraReports.Parameters.Parameter p_contact;
+        public DevExpress.XtraReports.Parameters.Parameter p_address;
+        public DevExpress.XtraReports.Parameters.Parameter p_invoice_no;
+        public DevExpress.XtraReports.Parameters.Parameter p_customer_name;
+        public DevExpress.XtraReports.Parameters.Parameter p_customer_phone;
+        public DevExpress.XtraReports.Parameters.Parameter p_total;
+        public DevExpress.XtraReports.Parameters.Parameter p_discount;
+        public DevExpress.XtraReports.Parameters.Parameter p_grand_total;
+        public DevExpress.XtraReports.Parameters.Parameter p_footer;
     }
 }

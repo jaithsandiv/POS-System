@@ -220,11 +220,13 @@
             // 
             this.p_total_paid.Description = "Parameter1";
             this.p_total_paid.Name = "p_total_paid";
+            this.p_total_paid.Visible = false;
             // 
             // p_due
             // 
             this.p_due.Description = "Parameter1";
             this.p_due.Name = "p_due";
+            this.p_due.Visible = false;
             // 
             // SR_Payment
             // 
@@ -269,7 +271,7 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel1;
         private DevExpress.XtraReports.UI.XRLabel xrLabel2;
         private DevExpress.DataAccess.ObjectBinding.ObjectDataSource objectDataSource1;
-        private DevExpress.XtraReports.Parameters.Parameter p_total_paid;
-        private DevExpress.XtraReports.Parameters.Parameter p_due;
+        public DevExpress.XtraReports.Parameters.Parameter p_total_paid;
+        public DevExpress.XtraReports.Parameters.Parameter p_due;
     }
 }

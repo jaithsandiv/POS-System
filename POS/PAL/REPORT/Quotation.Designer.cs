@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.DataAccess.ObjectBinding.ObjectConstructorInfo objectConstructorInfo1 = new DevExpress.DataAccess.ObjectBinding.ObjectConstructorInfo();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Quotation));
+            DevExpress.DataAccess.ObjectBinding.ObjectConstructorInfo objectConstructorInfo1 = new DevExpress.DataAccess.ObjectBinding.ObjectConstructorInfo();
             this.TopMargin = new DevExpress.XtraReports.UI.TopMarginBand();
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
@@ -44,6 +44,8 @@
             this.xrTableCell11 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell10 = new DevExpress.XtraReports.UI.XRTableCell();
             this.PageHeader = new DevExpress.XtraReports.UI.PageHeaderBand();
+            this.xrLabelBusinessName = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrPictureBoxBusinessLogo = new DevExpress.XtraReports.UI.XRPictureBox();
             this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLine5 = new DevExpress.XtraReports.UI.XRLine();
             this.xrLine4 = new DevExpress.XtraReports.UI.XRLine();
@@ -84,8 +86,6 @@
             this.p_discount = new DevExpress.XtraReports.Parameters.Parameter();
             this.p_grand_total = new DevExpress.XtraReports.Parameters.Parameter();
             this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
-            this.xrLabelBusinessName = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrPictureBoxBusinessLogo = new DevExpress.XtraReports.UI.XRPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).BeginInit();
@@ -243,6 +243,30 @@
             this.PageHeader.Dpi = 254F;
             this.PageHeader.HeightF = 1166.813F;
             this.PageHeader.Name = "PageHeader";
+            // 
+            // xrLabelBusinessName
+            // 
+            this.xrLabelBusinessName.Dpi = 254F;
+            this.xrLabelBusinessName.Font = new DevExpress.Drawing.DXFont("Arial", 14F, DevExpress.Drawing.DXFontStyle.Bold);
+            this.xrLabelBusinessName.LocationFloat = new DevExpress.Utils.PointFloat(226.2686F, 387.3502F);
+            this.xrLabelBusinessName.Multiline = true;
+            this.xrLabelBusinessName.Name = "xrLabelBusinessName";
+            this.xrLabelBusinessName.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelBusinessName.SizeF = new System.Drawing.SizeF(1541.463F, 115.3583F);
+            this.xrLabelBusinessName.StylePriority.UseFont = false;
+            this.xrLabelBusinessName.StylePriority.UseTextAlignment = false;
+            this.xrLabelBusinessName.Text = "SERENDIB IT SOLUTIONS";
+            this.xrLabelBusinessName.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrPictureBoxBusinessLogo
+            // 
+            this.xrPictureBoxBusinessLogo.Dpi = 254F;
+            this.xrPictureBoxBusinessLogo.ImageAlignment = DevExpress.XtraPrinting.ImageAlignment.MiddleCenter;
+            this.xrPictureBoxBusinessLogo.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("xrPictureBoxBusinessLogo.ImageSource"));
+            this.xrPictureBoxBusinessLogo.LocationFloat = new DevExpress.Utils.PointFloat(181.1045F, 0F);
+            this.xrPictureBoxBusinessLogo.Name = "xrPictureBoxBusinessLogo";
+            this.xrPictureBoxBusinessLogo.SizeF = new System.Drawing.SizeF(1631.791F, 387.3502F);
+            this.xrPictureBoxBusinessLogo.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage;
             // 
             // xrLabel3
             // 
@@ -596,51 +620,61 @@
             this.p_date.Name = "p_date";
             this.p_date.Type = typeof(global::System.DateTime);
             this.p_date.ValueInfo = "2025-11-13";
+            this.p_date.Visible = false;
             // 
             // p_email
             // 
             this.p_email.Description = "Parameter1";
             this.p_email.Name = "p_email";
+            this.p_email.Visible = false;
             // 
             // p_contact
             // 
             this.p_contact.Description = "Parameter1";
             this.p_contact.Name = "p_contact";
+            this.p_contact.Visible = false;
             // 
             // p_address
             // 
             this.p_address.Description = "Parameter1";
             this.p_address.Name = "p_address";
+            this.p_address.Visible = false;
             // 
             // p_quotation_no
             // 
             this.p_quotation_no.Description = "Parameter1";
             this.p_quotation_no.Name = "p_quotation_no";
+            this.p_quotation_no.Visible = false;
             // 
             // p_customer_name
             // 
             this.p_customer_name.Description = "Parameter1";
             this.p_customer_name.Name = "p_customer_name";
+            this.p_customer_name.Visible = false;
             // 
             // p_customer_phone
             // 
             this.p_customer_phone.Description = "Parameter1";
             this.p_customer_phone.Name = "p_customer_phone";
+            this.p_customer_phone.Visible = false;
             // 
             // p_total
             // 
             this.p_total.Description = "Parameter1";
             this.p_total.Name = "p_total";
+            this.p_total.Visible = false;
             // 
             // p_discount
             // 
             this.p_discount.Description = "Parameter1";
             this.p_discount.Name = "p_discount";
+            this.p_discount.Visible = false;
             // 
             // p_grand_total
             // 
             this.p_grand_total.Description = "Parameter1";
             this.p_grand_total.Name = "p_grand_total";
+            this.p_grand_total.Visible = false;
             // 
             // objectDataSource1
             // 
@@ -648,30 +682,6 @@
             this.objectDataSource1.DataMember = "SaleItem";
             this.objectDataSource1.DataSource = typeof(global::POS.DAL.DataSource.DAL_DS_SalesTerminal);
             this.objectDataSource1.Name = "objectDataSource1";
-            // 
-            // xrLabelBusinessName
-            // 
-            this.xrLabelBusinessName.Dpi = 254F;
-            this.xrLabelBusinessName.Font = new DevExpress.Drawing.DXFont("Arial", 14F, DevExpress.Drawing.DXFontStyle.Bold);
-            this.xrLabelBusinessName.LocationFloat = new DevExpress.Utils.PointFloat(226.2686F, 387.3502F);
-            this.xrLabelBusinessName.Multiline = true;
-            this.xrLabelBusinessName.Name = "xrLabelBusinessName";
-            this.xrLabelBusinessName.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
-            this.xrLabelBusinessName.SizeF = new System.Drawing.SizeF(1541.463F, 115.3583F);
-            this.xrLabelBusinessName.StylePriority.UseFont = false;
-            this.xrLabelBusinessName.StylePriority.UseTextAlignment = false;
-            this.xrLabelBusinessName.Text = "SERENDIB IT SOLUTIONS";
-            this.xrLabelBusinessName.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            // 
-            // xrPictureBoxBusinessLogo
-            // 
-            this.xrPictureBoxBusinessLogo.Dpi = 254F;
-            this.xrPictureBoxBusinessLogo.ImageAlignment = DevExpress.XtraPrinting.ImageAlignment.MiddleCenter;
-            this.xrPictureBoxBusinessLogo.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource("img", resources.GetString("xrPictureBoxBusinessLogo.ImageSource"));
-            this.xrPictureBoxBusinessLogo.LocationFloat = new DevExpress.Utils.PointFloat(181.1045F, 0F);
-            this.xrPictureBoxBusinessLogo.Name = "xrPictureBoxBusinessLogo";
-            this.xrPictureBoxBusinessLogo.SizeF = new System.Drawing.SizeF(1631.791F, 387.3502F);
-            this.xrPictureBoxBusinessLogo.Sizing = DevExpress.XtraPrinting.ImageSizeMode.ZoomImage;
             // 
             // Quotation
             // 
@@ -762,21 +772,21 @@
         private DevExpress.XtraReports.UI.XRLine xrLine5;
         private DevExpress.XtraReports.UI.PageFooterBand PageFooter;
         private DevExpress.XtraReports.UI.XRLabel xrLabel4;
-        private DevExpress.XtraReports.Parameters.Parameter p_date;
-        private DevExpress.XtraReports.Parameters.Parameter p_email;
-        private DevExpress.XtraReports.Parameters.Parameter p_contact;
-        private DevExpress.XtraReports.Parameters.Parameter p_address;
-        private DevExpress.XtraReports.Parameters.Parameter p_quotation_no;
-        private DevExpress.XtraReports.Parameters.Parameter p_customer_name;
         private DevExpress.XtraReports.UI.XRLabel xrLabel3;
-        private DevExpress.XtraReports.Parameters.Parameter p_customer_phone;
-        private DevExpress.XtraReports.Parameters.Parameter p_total;
-        private DevExpress.XtraReports.Parameters.Parameter p_discount;
-        private DevExpress.XtraReports.Parameters.Parameter p_grand_total;
         private DevExpress.DataAccess.ObjectBinding.ObjectDataSource objectDataSource1;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell11;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCellUnit;
         private DevExpress.XtraReports.UI.XRLabel xrLabelBusinessName;
         private DevExpress.XtraReports.UI.XRPictureBox xrPictureBoxBusinessLogo;
+        public DevExpress.XtraReports.Parameters.Parameter p_date;
+        public DevExpress.XtraReports.Parameters.Parameter p_email;
+        public DevExpress.XtraReports.Parameters.Parameter p_contact;
+        public DevExpress.XtraReports.Parameters.Parameter p_address;
+        public DevExpress.XtraReports.Parameters.Parameter p_quotation_no;
+        public DevExpress.XtraReports.Parameters.Parameter p_customer_name;
+        public DevExpress.XtraReports.Parameters.Parameter p_customer_phone;
+        public DevExpress.XtraReports.Parameters.Parameter p_total;
+        public DevExpress.XtraReports.Parameters.Parameter p_discount;
+        public DevExpress.XtraReports.Parameters.Parameter p_grand_total;
     }
 }

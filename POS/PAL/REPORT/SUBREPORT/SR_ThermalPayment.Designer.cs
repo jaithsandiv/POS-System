@@ -244,16 +244,19 @@
             // 
             this.p_total_paid.Description = "Parameter1";
             this.p_total_paid.Name = "p_total_paid";
+            this.p_total_paid.Visible = false;
             // 
             // p_due
             // 
             this.p_due.Description = "Parameter1";
             this.p_due.Name = "p_due";
+            this.p_due.Visible = false;
             // 
             // p_change
             // 
             this.p_change.Description = "Parameter1";
             this.p_change.Name = "p_change";
+            this.p_change.Visible = false;
             // 
             // SR_ThermalPayment
             // 
@@ -296,10 +299,10 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel1;
         private DevExpress.XtraReports.UI.XRLabel xrLabel2;
         private DevExpress.DataAccess.ObjectBinding.ObjectDataSource objectDataSource1;
-        private DevExpress.XtraReports.Parameters.Parameter p_total_paid;
-        private DevExpress.XtraReports.Parameters.Parameter p_due;
-        private DevExpress.XtraReports.Parameters.Parameter p_change;
         private DevExpress.XtraReports.UI.XRLabel xrLabel3;
         private DevExpress.XtraReports.UI.XRLabel xrLabel4;
+        public DevExpress.XtraReports.Parameters.Parameter p_due;
+        public DevExpress.XtraReports.Parameters.Parameter p_change;
+        public DevExpress.XtraReports.Parameters.Parameter p_total_paid;
     }
 }

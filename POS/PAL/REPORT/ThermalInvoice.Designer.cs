@@ -32,6 +32,8 @@
             DevExpress.DataAccess.ObjectBinding.ObjectConstructorInfo objectConstructorInfo1 = new DevExpress.DataAccess.ObjectBinding.ObjectConstructorInfo();
             this.TopMargin = new DevExpress.XtraReports.UI.TopMarginBand();
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
+            this.xrLabel6 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.xrTable2 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow2 = new DevExpress.XtraReports.UI.XRTableRow();
@@ -81,8 +83,6 @@
             this.p_grand_total = new DevExpress.XtraReports.Parameters.Parameter();
             this.p_footer = new DevExpress.XtraReports.Parameters.Parameter();
             this.objectDataSource1 = new DevExpress.DataAccess.ObjectBinding.ObjectDataSource(this.components);
-            this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel6 = new DevExpress.XtraReports.UI.XRLabel();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objectDataSource1)).BeginInit();
@@ -100,6 +100,28 @@
             this.xrLabel3});
             this.BottomMargin.HeightF = 48.54272F;
             this.BottomMargin.Name = "BottomMargin";
+            // 
+            // xrLabel6
+            // 
+            this.xrLabel6.LocationFloat = new DevExpress.Utils.PointFloat(1.000182F, 23.00002F);
+            this.xrLabel6.Multiline = true;
+            this.xrLabel6.Name = "xrLabel6";
+            this.xrLabel6.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel6.SizeF = new System.Drawing.SizeF(282.9994F, 23F);
+            this.xrLabel6.StylePriority.UseTextAlignment = false;
+            this.xrLabel6.Text = "+94 77 587 9769";
+            this.xrLabel6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrLabel3
+            // 
+            this.xrLabel3.LocationFloat = new DevExpress.Utils.PointFloat(0.0005086263F, 0F);
+            this.xrLabel3.Multiline = true;
+            this.xrLabel3.Name = "xrLabel3";
+            this.xrLabel3.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLabel3.SizeF = new System.Drawing.SizeF(282.9994F, 23F);
+            this.xrLabel3.StylePriority.UseTextAlignment = false;
+            this.xrLabel3.Text = "System by Serendib IT Solutions";
+            this.xrLabel3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // Detail
             // 
@@ -574,57 +596,68 @@
             this.p_date.Name = "p_date";
             this.p_date.Type = typeof(global::System.DateTime);
             this.p_date.ValueInfo = "2025-11-13";
+            this.p_date.Visible = false;
             // 
             // p_email
             // 
             this.p_email.Description = "Parameter1";
             this.p_email.Name = "p_email";
+            this.p_email.Visible = false;
             // 
             // p_contact
             // 
             this.p_contact.Description = "Parameter1";
             this.p_contact.Name = "p_contact";
+            this.p_contact.Visible = false;
             // 
             // p_address
             // 
             this.p_address.Description = "Parameter1";
             this.p_address.Name = "p_address";
+            this.p_address.Visible = false;
             // 
             // p_invoice_no
             // 
             this.p_invoice_no.Description = "Parameter1";
             this.p_invoice_no.Name = "p_invoice_no";
+            this.p_invoice_no.Visible = false;
             // 
             // p_customer_name
             // 
             this.p_customer_name.Description = "Parameter1";
             this.p_customer_name.Name = "p_customer_name";
+            this.p_customer_name.Visible = false;
             // 
             // p_customer_phone
             // 
             this.p_customer_phone.Description = "Parameter1";
             this.p_customer_phone.Name = "p_customer_phone";
+            this.p_customer_phone.Visible = false;
             // 
             // p_total
             // 
             this.p_total.Description = "Parameter1";
             this.p_total.Name = "p_total";
+            this.p_total.Visible = false;
             // 
             // p_discount
             // 
             this.p_discount.Description = "Parameter1";
             this.p_discount.Name = "p_discount";
+            this.p_discount.Visible = false;
             // 
             // p_grand_total
             // 
             this.p_grand_total.Description = "Parameter1";
             this.p_grand_total.Name = "p_grand_total";
+            this.p_grand_total.Visible = false;
             // 
             // p_footer
             // 
             this.p_footer.Description = "Footer Text";
             this.p_footer.Name = "p_footer";
             this.p_footer.ValueInfo = "Thank You!";
+            this.p_footer.Visible = false;
             // 
             // objectDataSource1
             // 
@@ -632,28 +665,6 @@
             this.objectDataSource1.DataMember = "SaleItem";
             this.objectDataSource1.DataSource = typeof(global::POS.DAL.DataSource.DAL_DS_SalesTerminal);
             this.objectDataSource1.Name = "objectDataSource1";
-            // 
-            // xrLabel3
-            // 
-            this.xrLabel3.LocationFloat = new DevExpress.Utils.PointFloat(0.0005086263F, 0F);
-            this.xrLabel3.Multiline = true;
-            this.xrLabel3.Name = "xrLabel3";
-            this.xrLabel3.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel3.SizeF = new System.Drawing.SizeF(282.9994F, 23F);
-            this.xrLabel3.StylePriority.UseTextAlignment = false;
-            this.xrLabel3.Text = "System by Serendib IT Solutions";
-            this.xrLabel3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
-            // 
-            // xrLabel6
-            // 
-            this.xrLabel6.LocationFloat = new DevExpress.Utils.PointFloat(1.000182F, 23.00002F);
-            this.xrLabel6.Multiline = true;
-            this.xrLabel6.Name = "xrLabel6";
-            this.xrLabel6.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel6.SizeF = new System.Drawing.SizeF(282.9994F, 23F);
-            this.xrLabel6.StylePriority.UseTextAlignment = false;
-            this.xrLabel6.Text = "+94 77 587 9769";
-            this.xrLabel6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // ThermalInvoice
             // 
@@ -739,17 +750,6 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel16;
         private DevExpress.XtraReports.UI.XRLabel xrLabel17;
         private DevExpress.XtraReports.UI.XRLine xrLine5;
-        private DevExpress.XtraReports.Parameters.Parameter p_date;
-        private DevExpress.XtraReports.Parameters.Parameter p_email;
-        private DevExpress.XtraReports.Parameters.Parameter p_contact;
-        private DevExpress.XtraReports.Parameters.Parameter p_address;
-        private DevExpress.XtraReports.Parameters.Parameter p_invoice_no;
-        private DevExpress.XtraReports.Parameters.Parameter p_customer_name;
-        private DevExpress.XtraReports.Parameters.Parameter p_customer_phone;
-        private DevExpress.XtraReports.Parameters.Parameter p_total;
-        private DevExpress.XtraReports.Parameters.Parameter p_discount;
-        private DevExpress.XtraReports.Parameters.Parameter p_grand_total;
-        private DevExpress.XtraReports.Parameters.Parameter p_footer;
         private DevExpress.XtraReports.UI.XRSubreport xrSubreport1;
         private DevExpress.DataAccess.ObjectBinding.ObjectDataSource objectDataSource1;
         private DevExpress.XtraReports.UI.XRLabel xrLabelBusinessName;
@@ -759,5 +759,16 @@
         private DevExpress.XtraReports.UI.XRPictureBox xrPictureBoxLogo;
         private DevExpress.XtraReports.UI.XRLabel xrLabel3;
         private DevExpress.XtraReports.UI.XRLabel xrLabel6;
+        public DevExpress.XtraReports.Parameters.Parameter p_address;
+        public DevExpress.XtraReports.Parameters.Parameter p_date;
+        public DevExpress.XtraReports.Parameters.Parameter p_email;
+        public DevExpress.XtraReports.Parameters.Parameter p_contact;
+        public DevExpress.XtraReports.Parameters.Parameter p_invoice_no;
+        public DevExpress.XtraReports.Parameters.Parameter p_customer_name;
+        public DevExpress.XtraReports.Parameters.Parameter p_customer_phone;
+        public DevExpress.XtraReports.Parameters.Parameter p_total;
+        public DevExpress.XtraReports.Parameters.Parameter p_discount;
+        public DevExpress.XtraReports.Parameters.Parameter p_grand_total;
+        public DevExpress.XtraReports.Parameters.Parameter p_footer;
     }
 }
