@@ -409,7 +409,10 @@ namespace POS.PAL.USERCONTROL
                 }
 
                 // 1. Save System Settings
-                _bllSystemSettings.UpdateSystemSetting("ENABLE_THERMAL_PRINT", (rgPrintFormat.EditValue?.ToString() == "THERMAL").ToString(), userId);
+                bool isThermal = rgPrintFormat.EditValue?.ToString() == "THERMAL";
+                _bllSystemSettings.UpdateSystemSetting("ENABLE_THERMAL_PRINT", isThermal.ToString(), userId);
+                _bllSystemSettings.UpdateSystemSetting("ENABLE_A4_PRINT", (!isThermal).ToString(), userId);
+
                 _bllSystemSettings.UpdateSystemSetting("thermal_printer_name", cmbThermalPrinter.Text, userId);
                 _bllSystemSettings.UpdateSystemSetting("auto_print", tsAutoPrint.IsOn.ToString(), userId);
                 _bllSystemSettings.UpdateSystemSetting("invoice_footer", txtInvoiceFooter.Text, userId);
