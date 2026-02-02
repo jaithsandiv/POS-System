@@ -330,7 +330,7 @@ namespace POS.DAL
                                  int? categoryId, int? brandId, int unitId,
                                  decimal? purchaseCost, decimal sellingPrice, decimal stockQuantity,
                                  DateTime? expiryDate, DateTime? manufactureDate, string description,
-                                 int createdBy)
+                                 int createdBy, byte[] image = null)
         {
             string query = @"
                 INSERT INTO Product (
@@ -338,6 +338,7 @@ namespace POS.DAL
                     category_id, brand_id, unit_id,
                     purchase_cost, selling_price, stock_quantity,
                     expiry_date, manufacture_date, description,
+                    image,
                     status, created_by, created_date
                 )
                 VALUES (
@@ -345,6 +346,7 @@ namespace POS.DAL
                     @category_id, @brand_id, @unit_id,
                     @purchase_cost, @selling_price, @stock_quantity,
                     @expiry_date, @manufacture_date, @description,
+                    @image,
                     'A', @created_by, GETDATE()
                 );
                 SELECT CAST(SCOPE_IDENTITY() AS INT);";
@@ -363,6 +365,7 @@ namespace POS.DAL
                 new SqlParameter("@expiry_date", expiryDate.HasValue ? (object)expiryDate.Value : DBNull.Value),
                 new SqlParameter("@manufacture_date", manufactureDate.HasValue ? (object)manufactureDate.Value : DBNull.Value),
                 new SqlParameter("@description", string.IsNullOrWhiteSpace(description) ? (object)DBNull.Value : description),
+                new SqlParameter("@image", image != null ? (object)image : DBNull.Value),
                 new SqlParameter("@created_by", createdBy)
             };
 
@@ -377,7 +380,7 @@ namespace POS.DAL
                                   int? categoryId, int? brandId, int unitId,
                                   decimal? purchaseCost, decimal sellingPrice, decimal stockQuantity,
                                   DateTime? expiryDate, DateTime? manufactureDate, string description,
-                                  int updatedBy)
+                                  int updatedBy, byte[] image = null)
         {
             string query = @"
                 UPDATE Product
@@ -394,6 +397,7 @@ namespace POS.DAL
                     expiry_date = @expiry_date,
                     manufacture_date = @manufacture_date,
                     description = @description,
+                    image = @image,
                     updated_by = @updated_by,
                     updated_date = GETDATE()
                 WHERE product_id = @product_id AND status = 'A'";
@@ -413,6 +417,7 @@ namespace POS.DAL
                 new SqlParameter("@expiry_date", expiryDate.HasValue ? (object)expiryDate.Value : DBNull.Value),
                 new SqlParameter("@manufacture_date", manufactureDate.HasValue ? (object)manufactureDate.Value : DBNull.Value),
                 new SqlParameter("@description", string.IsNullOrWhiteSpace(description) ? (object)DBNull.Value : description),
+                new SqlParameter("@image", image != null ? (object)image : DBNull.Value),
                 new SqlParameter("@updated_by", updatedBy)
             };
 
@@ -532,6 +537,25 @@ namespace POS.DAL
 
                     string description = row.Table.Columns.Contains("description") ? row["description"]?.ToString() : null;
 
+                    // Image handling: allow byte[] or file path (string)
+                    byte[] imageBytes = null;
+                    if (row.Table.Columns.Contains("image") && row["image"] != DBNull.Value)
+                    {
+                        var imgVal = row["image"];
+                        if (imgVal is byte[] b)
+                        {
+                            imageBytes = b;
+                        }
+                        else
+                        {
+                            string possiblePath = imgVal.ToString();
+                            if (!string.IsNullOrWhiteSpace(possiblePath) && System.IO.File.Exists(possiblePath))
+                            {
+                                imageBytes = System.IO.File.ReadAllBytes(possiblePath);
+                            }
+                        }
+                    }
+
                     // Skip rows with missing required fields
                     if (string.IsNullOrWhiteSpace(productName) || string.IsNullOrWhiteSpace(productCode) || unitId <= 0)
                         continue;
@@ -540,7 +564,7 @@ namespace POS.DAL
                                   categoryId, brandId, unitId,
                                   purchaseCost, sellingPrice, stockQuantity,
                                   expiryDate, manufactureDate, description,
-                                  createdBy);
+                                  createdBy, imageBytes);
 
                     successCount++;
                 }

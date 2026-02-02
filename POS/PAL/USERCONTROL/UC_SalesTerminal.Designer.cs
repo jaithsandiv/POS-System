@@ -1581,7 +1581,7 @@ namespace POS.PAL.USERCONTROL
             btnPMClose.Appearance.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             btnPMClose.Appearance.Options.UseBackColor = true;
             btnPMClose.Appearance.Options.UseFont = true;
-            btnPMClose.Location = new System.Drawing.Point(533, 75);
+            btnPMClose.Location = new System.Drawing.Point(534, 75);
             btnPMClose.Name = "btnPMClose";
             btnPMClose.Size = new System.Drawing.Size(100, 40);
             btnPMClose.TabIndex = 48;

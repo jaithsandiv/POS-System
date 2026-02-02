@@ -153,7 +153,7 @@ namespace POS.BLL
                                  int? categoryId, int? brandId, int unitId,
                                  decimal? purchaseCost, decimal sellingPrice, decimal stockQuantity,
                                  DateTime? expiryDate, DateTime? manufactureDate, string description,
-                                 int createdBy)
+                                 int createdBy, byte[] image = null)
         {
             if (string.IsNullOrWhiteSpace(productName))
                 throw new ArgumentException("Product name is required.");
@@ -170,7 +170,7 @@ namespace POS.BLL
                                                           categoryId, brandId, unitId,
                                                           purchaseCost, sellingPrice, stockQuantity,
                                                           expiryDate, manufactureDate, description,
-                                                          createdBy);
+                                                          createdBy, image);
 
                 _logManager.LogInfo(
                     source: "PRODUCT",
@@ -197,7 +197,7 @@ namespace POS.BLL
                                   int? categoryId, int? brandId, int unitId,
                                   decimal? purchaseCost, decimal sellingPrice, decimal stockQuantity,
                                   DateTime? expiryDate, DateTime? manufactureDate, string description,
-                                  int updatedBy)
+                                  int updatedBy, byte[] image = null)
         {
             if (string.IsNullOrWhiteSpace(productName))
                 throw new ArgumentException("Product name is required.");
@@ -225,7 +225,7 @@ namespace POS.BLL
                                                           categoryId, brandId, unitId,
                                                           purchaseCost, sellingPrice, stockQuantity,
                                                           expiryDate, manufactureDate, description,
-                                                          updatedBy);
+                                                          updatedBy, image);
 
                 if (success)
                 {
@@ -314,7 +314,7 @@ namespace POS.BLL
         public (bool isValid, string errorMessage, List<string> missingColumns) ValidateImportColumns(DataTable importData)
         {
             var requiredColumns = new List<string> { "product_name", "product_code", "unit_id", "selling_price" };
-            var optionalColumns = new List<string> { "barcode", "product_type", "category_id", "brand_id", "purchase_cost", "stock_quantity", "expiry_date", "manufacture_date", "description" };
+            var optionalColumns = new List<string> { "barcode", "product_type", "category_id", "brand_id", "purchase_cost", "stock_quantity", "expiry_date", "manufacture_date", "description", "image" };
 
             var missingRequired = new List<string>();
             foreach (var col in requiredColumns)
@@ -455,12 +455,31 @@ namespace POS.BLL
 
                     string description = importData.Columns.Contains("description") ? row["description"]?.ToString()?.Trim() : null;
 
+                    // Image handling
+                    byte[] imageBytes = null;
+                    if (importData.Columns.Contains("image") && row["image"] != DBNull.Value)
+                    {
+                        var imgVal = row["image"];
+                        if (imgVal is byte[] b)
+                        {
+                            imageBytes = b;
+                        }
+                        else
+                        {
+                            string possiblePath = imgVal.ToString();
+                            if (!string.IsNullOrWhiteSpace(possiblePath) && System.IO.File.Exists(possiblePath))
+                            {
+                                imageBytes = System.IO.File.ReadAllBytes(possiblePath);
+                            }
+                        }
+                    }
+
                     // Insert product
                     int productId = _dalProducts.InsertProduct(productName, productCode, barcode, productType,
                                                                 categoryId, brandId, unitId,
                                                                 purchaseCost, sellingPrice, stockQuantity,
                                                                 expiryDate, manufactureDate, description,
-                                                                createdBy);
+                                                                createdBy, imageBytes);
 
                     if (productId > 0)
                     {

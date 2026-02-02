@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace POS.PAL.USERCONTROL
 {
@@ -106,6 +107,23 @@ namespace POS.PAL.USERCONTROL
                     dtManufactureDate.DateTime = Convert.ToDateTime(row["manufacture_date"]);
 
                 memoDescription.Text = row["description"]?.ToString();
+
+                // Load image if present
+                if (dt.Columns.Contains("image") && row["image"] != DBNull.Value)
+                {
+                    try
+                    {
+                        byte[] imgBytes = row["image"] as byte[];
+                        if (imgBytes != null && imgBytes.Length > 0)
+                        {
+                            using (MemoryStream ms = new MemoryStream(imgBytes))
+                            {
+                                productImage.Image = Image.FromStream(ms);
+                            }
+                        }
+                    }
+                    catch { /* ignore image load errors */ }
+                }
             }
         }
 
@@ -134,6 +152,26 @@ namespace POS.PAL.USERCONTROL
                 DateTime? manufactureDate = dtManufactureDate.EditValue != null ? (DateTime?)dtManufactureDate.DateTime : null;
                 string description = memoDescription.Text.Trim();
 
+                // Convert image to byte[] if set
+                byte[] imageBytes = null;
+                if (productImage.Image != null)
+                {
+                    try
+                    {
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            // Prefer PNG to preserve transparency if any
+                            System.Drawing.Imaging.ImageFormat fmt = System.Drawing.Imaging.ImageFormat.Png;
+                            productImage.Image.Save(ms, fmt);
+                            imageBytes = ms.ToArray();
+                        }
+                    }
+                    catch
+                    {
+                        imageBytes = null;
+                    }
+                }
+
                 int userId = 1; // Default
 
                 if (_productId.HasValue)
@@ -142,7 +180,7 @@ namespace POS.PAL.USERCONTROL
                                                               categoryId, brandId, unitId,
                                                               purchaseCost, sellingPrice, stockQty,
                                                               expiryDate, manufactureDate, description,
-                                                              userId);
+                                                              userId, imageBytes);
                     if (success)
                     {
                         XtraMessageBox.Show("Product updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -155,7 +193,7 @@ namespace POS.PAL.USERCONTROL
                                                            categoryId, brandId, unitId,
                                                            purchaseCost, sellingPrice, stockQty,
                                                            expiryDate, manufactureDate, description,
-                                                           userId);
+                                                           userId, imageBytes);
                     if (newId > 0)
                     {
                         XtraMessageBox.Show("Product added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -177,6 +215,25 @@ namespace POS.PAL.USERCONTROL
         private void ReturnToManagement()
         {
             Main.Instance.LoadUserControl(new UC_Product_Management());
+        }
+
+        private void uploadBtn_Click(object sender, EventArgs e)
+        {
+            String imageLocation = "";
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "jpg files(*.jpg)|*.jpg| PNG files(*.png)|*.png| All files(*.*)|*.*";
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    imageLocation = dialog.FileName;
+                    productImage.ImageLocation = imageLocation;
+                }
+            }
+            catch (Exception)
+            {
+                XtraMessageBox.Show("An error occurred", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -17,9 +17,9 @@ namespace POS.PAL.USERCONTROL
     {
         private static DAL_DS_Initialize _dataSet = new DAL_DS_Initialize();
 
-        public static DAL_DS_Initialize RegistrationDataSet 
-        { 
-            get { return _dataSet; } 
+        public static DAL_DS_Initialize RegistrationDataSet
+        {
+            get { return _dataSet; }
         }
 
         public UC_Business_Registration()
@@ -35,7 +35,7 @@ namespace POS.PAL.USERCONTROL
             {
                 var businessRow = _dataSet.Business[0];
                 txtBusinessName.Text = businessRow.business_name;
-                
+
                 if (!businessRow.IslogoNull() && businessRow.logo != null)
                 {
                     using (MemoryStream ms = new MemoryStream(businessRow.logo))
@@ -72,7 +72,7 @@ namespace POS.PAL.USERCONTROL
             _dataSet.Business.Clear();
             var businessRow = _dataSet.Business.NewBusinessRow();
             businessRow.business_name = txtBusinessName.Text.Trim();
-            
+
             // Convert logo to byte array if exists
             if (Logo.Image != null)
             {
@@ -82,7 +82,7 @@ namespace POS.PAL.USERCONTROL
                     businessRow.logo = ms.ToArray();
                 }
             }
-            
+
             _dataSet.Business.AddBusinessRow(businessRow);
 
             // Save store data to DataSet - use business name as store name
@@ -96,7 +96,7 @@ namespace POS.PAL.USERCONTROL
             storeRow.state = txtState.Text.Trim();
             storeRow.country = txtCountry.Text.Trim();
             storeRow.postal_code = txtPostalCode.Text.Trim();
-            
+
             _dataSet.Store.AddStoreRow(storeRow);
 
             // Navigate to User Registration
@@ -120,6 +120,32 @@ namespace POS.PAL.USERCONTROL
             catch (Exception)
             {
                 XtraMessageBox.Show("An error occurred", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void labelControl8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Added to satisfy designer event hookup
+        private void Logo_Click(object sender, EventArgs e)
+        {
+            // Minimal implementation: open file dialog to change logo (same behavior as uploadBtn)
+            try
+            {
+                using (OpenFileDialog dialog = new OpenFileDialog())
+                {
+                    dialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        Logo.Image = Image.FromFile(dialog.FileName);
+                    }
+                }
+            }
+            catch
+            {
+                // ignore errors
             }
         }
     }

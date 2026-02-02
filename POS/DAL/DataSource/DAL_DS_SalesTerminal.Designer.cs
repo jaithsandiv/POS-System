@@ -888,7 +888,7 @@ namespace POS.DAL.DataSource {
                         string expiry_date, 
                         string manufacture_date, 
                         string description, 
-                        byte image, 
+                        byte[] image, 
                         string status, 
                         string created_by, 
                         string created_date, 
@@ -1003,7 +1003,7 @@ namespace POS.DAL.DataSource {
                 base.Columns.Add(this.columnmanufacture_date);
                 this.columndescription = new global::System.Data.DataColumn("description", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndescription);
-                this.columnimage = new global::System.Data.DataColumn("image", typeof(byte), null, global::System.Data.MappingType.Element);
+                this.columnimage = new global::System.Data.DataColumn("image", typeof(byte[]), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnimage);
                 this.columnstatus = new global::System.Data.DataColumn("status", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnstatus);
@@ -4693,10 +4693,10 @@ namespace POS.DAL.DataSource {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public byte image {
+            public byte[] image {
                 get {
                     try {
-                        return ((byte)(this[this.tableProduct.imageColumn]));
+                        return ((byte[])(this[this.tableProduct.imageColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'image\' in table \'Product\' is DBNull.", e);

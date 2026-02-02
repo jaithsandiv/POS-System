@@ -115,6 +115,7 @@
             Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             Logo.TabIndex = 68;
             Logo.TabStop = false;
+            Logo.Click += this.Logo_Click;
             // 
             // labelControl8
             // 
@@ -125,6 +126,7 @@
             labelControl8.Size = new System.Drawing.Size(86, 17);
             labelControl8.TabIndex = 67;
             labelControl8.Text = "Business Logo:";
+            labelControl8.Click += labelControl8_Click;
             // 
             // uploadBtn
             // 
