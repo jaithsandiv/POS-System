@@ -119,14 +119,15 @@ namespace POS.PAL.USERCONTROL
 
             filteredView.RowFilter = filter;
 
-            List<(string Name, byte[] Image, string Stock)> productDetails = new List<(string, byte[], string)>();
+            List<(string Name, byte[] Image, string Stock, string Price)> productDetails = new List<(string, byte[], string, string)>();
             foreach (DataRowView row in filteredView)
             {
                 string name = row["product_name"]?.ToString();
                 byte[] image = row["image"] as byte[];
                 string stock = row["stock_quantity"]?.ToString();
+                string price = row["selling_price"]?.ToString();
 
-                productDetails.Add((name, image, stock));
+                productDetails.Add((name, image, stock, price));
             }
 
             AddProductButtonsToScrollableControl(productDetails);
@@ -516,20 +517,21 @@ namespace POS.PAL.USERCONTROL
 
         private void LoadProducts()
         {
-            List<(string Name, byte[] Image, string Stock)> productDetails = new List<(string, byte[], string)>();
+            List<(string Name, byte[] Image, string Stock, string Price)> productDetails = new List<(string, byte[], string, string)>();
             foreach (DataRow row in productsTable.Rows)
             {
                 string name = row["product_name"]?.ToString();
                 byte[] image = row["image"] as byte[];
                 string stock = row["stock_quantity"]?.ToString();
+                string price = row["selling_price"]?.ToString();
 
-                productDetails.Add((name, image, stock));
+                productDetails.Add((name, image, stock, price));
             }
 
             AddProductButtonsToScrollableControl(productDetails);
         }
 
-        private void AddProductButtonsToScrollableControl(List<(string Name, byte[] Image, string Stock)> productDetails, int buttonWidth = 170, int buttonHeight = 150, int spacing = 10, int maxButtonsPerRow = 4)
+        private void AddProductButtonsToScrollableControl(List<(string Name, byte[] Image, string Stock, string Price)> productDetails, int buttonWidth = 170, int buttonHeight = 150, int spacing = 10, int maxButtonsPerRow = 4)
         {
             xtraScrollableControl3.Controls.Clear();
 
@@ -539,27 +541,68 @@ namespace POS.PAL.USERCONTROL
             for (int i = 0; i < productDetails.Count; i++)
             {
                 var product = productDetails[i];
+                
+                // Parse price for display
+                decimal price = 0;
+                if (!string.IsNullOrEmpty(product.Price))
+                    decimal.TryParse(product.Price, out price);
 
                 DevExpress.XtraEditors.SimpleButton productButton = new DevExpress.XtraEditors.SimpleButton
                 {
-                    Text = $"{product.Name}\nStock: {product.Stock}",
                     Name = $"btnProduct{i}",
                     Width = buttonWidth,
                     Height = buttonHeight,
                     Tag = product.Name
                 };
 
-                if (product.Image != null)
+                if (product.Image != null && product.Image.Length > 0)
                 {
-                    using (var ms = new System.IO.MemoryStream(product.Image))
+                    // Product has image - display image above text
+                    try
                     {
-                        productButton.ImageOptions.Image = Image.FromStream(ms);
-                        productButton.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+                        using (var ms = new System.IO.MemoryStream(product.Image))
+                        {
+                            Image originalImage = Image.FromStream(ms);
+                            
+                            // Calculate scaled image size (leave space for text at bottom)
+                            int imageAreaHeight = buttonHeight - 50; // Reserve 50px for text
+                            int imageWidth = buttonWidth - 20; // 10px padding on each side
+                            int imageHeight = imageAreaHeight;
+                            
+                            // Maintain aspect ratio
+                            float aspectRatio = (float)originalImage.Width / originalImage.Height;
+                            if (imageWidth / aspectRatio < imageHeight)
+                            {
+                                imageHeight = (int)(imageWidth / aspectRatio);
+                            }
+                            else
+                            {
+                                imageWidth = (int)(imageHeight * aspectRatio);
+                            }
+                            
+                            // Create scaled image
+                            productButton.ImageOptions.Image = originalImage.GetThumbnailImage(imageWidth, imageHeight, null, IntPtr.Zero);
+                            productButton.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+                        }
+                        
+                        // Set text below image
+                        productButton.Text = $"{product.Name}\nRs. {price:F2}";
+                    }
+                    catch
+                    {
+                        // If image loading fails, show text only
+                        productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {product.Stock}";
                     }
                 }
+                else
+                {
+                    // No image - display text only with more details
+                    productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {product.Stock}";
+                }
 
+                productButton.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
+                productButton.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
                 productButton.Location = new Point(currentX, currentY);
-
                 productButton.Click += ProductButton_Click;
 
                 xtraScrollableControl3.Controls.Add(productButton);
