@@ -71,7 +71,7 @@ namespace POS.DAL
 
                 SqlParameter[] userParams = {
                     new SqlParameter("@store_id", storeId),
-                    new SqlParameter("@role_id", 1), // Default role_id = 1
+                    new SqlParameter("@role_id", 1), // Admin role (role_id = 1)
                     new SqlParameter("@full_name", userRow.full_name),
                     new SqlParameter("@username", userRow.username),
                     new SqlParameter("@email", userRow.email),
@@ -85,6 +85,10 @@ namespace POS.DAL
                     cmd.Parameters.AddRange(userParams);
                     cmd.ExecuteNonQuery();
                 }
+
+                // Add full admin permissions to Admin role (role_id = 1) if not already present
+                // This ensures the first registered user (and any other admin users) have full access
+                InsertAdminPermissions(connection, transaction);
 
                 transaction.Commit();
                 return true;
@@ -108,6 +112,106 @@ namespace POS.DAL
                 if (connection != null && connection.State == ConnectionState.Open)
                 {
                     connection.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts all admin permissions for the Admin role (role_id = 1)
+        /// Only inserts if permissions don't already exist
+        /// </summary>
+        private void InsertAdminPermissions(SqlConnection connection, SqlTransaction transaction)
+        {
+            // Define all admin permissions
+            string[] adminPermissions = new[]
+            {
+                // Dashboard
+                "VIEW_DASHBOARD",
+                
+                // Users
+                "VIEW_USERS",
+                
+                // Roles
+                "VIEW_ROLES",
+                
+                // Suppliers
+                "VIEW_SUPPLIERS",
+                
+                // Customers
+                "VIEW_CUSTOMERS",
+                "VIEW_CUSTOMER_DETAILS",
+                
+                // Products
+                "VIEW_PRODUCTS",
+                
+                // Customer Groups
+                "VIEW_CUSTOMER_GROUPS",
+                
+                // Categories
+                "VIEW_CATEGORIES",
+                
+                // Print Labels
+                "VIEW_PRINT_LABELS",
+                
+                // Units
+                "VIEW_UNITS",
+                
+                // Brands
+                "VIEW_BRANDS",
+                
+                // Sales
+                "VIEW_SALES",
+                
+                // Drafts
+                "VIEW_DRAFTS",
+                
+                // Quotations
+                "VIEW_QUOTATIONS",
+                
+                // Sell Returns
+                "VIEW_SELL_RETURNS",
+                
+                // Discounts
+                "VIEW_DISCOUNTS",
+                
+                // POS
+                "ACCESS_SALES_TERMINAL",
+                
+                // Reports
+                "VIEW_SUPPLIER_CUSTOMER_REPORT",
+                "VIEW_ITEMS_REPORT",
+                "VIEW_TRENDING_PRODUCTS",
+                "VIEW_STOCK_REPORT",
+                "VIEW_CUSTOMER_GROUP_REPORT",
+                "VIEW_PRODUCT_SELL_REPORT",
+                "VIEW_ACTIVITY_LOG",
+                "VIEW_TABLE_REPORT",
+                "VIEW_SALES_REPRESENTATIVE_REPORT",
+                "VIEW_SELL_PAYMENT_REPORT",
+                
+                // Settings
+                "VIEW_BUSINESS_SETTINGS",
+                "VIEW_TABLES",
+                "VIEW_BUSINESS_LOCATIONS",
+                
+                // Other
+                "VIEW_EXPORT_BUTTONS"
+            };
+
+            // Insert permissions for Admin role (role_id = 1)
+            string insertPermissionQuery = @"
+                IF NOT EXISTS (SELECT 1 FROM RolePermission WHERE role_id = 1 AND permission_code = @permission_code)
+                BEGIN
+                    INSERT INTO RolePermission (role_id, permission_code, status, created_by, created_date)
+                    VALUES (1, @permission_code, 'A', NULL, GETDATE())
+                END";
+
+            foreach (string permission in adminPermissions)
+            {
+                using (SqlCommand cmd = new SqlCommand(insertPermissionQuery, connection, transaction))
+                {
+                    cmd.Parameters.AddWithValue("@permission_code", permission);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
