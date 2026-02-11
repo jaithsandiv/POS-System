@@ -1,0 +1,35 @@
+POS SYSTEM SOFTWARE LICENSE AGREEMENT
+
+IMPORTANT: PLEASE READ THIS LICENSE AGREEMENT CAREFULLY BEFORE INSTALLING OR USING THIS SOFTWARE.
+
+By installing, copying, or otherwise using this software, you agree to be bound by the terms of this License Agreement.
+
+1. LICENSE GRANT
+   Serendib Solutions grants you a non-exclusive, non-transferable license to use the POS System software ("Software") for your business operations.
+
+2. RESTRICTIONS
+   You may not:
+   - Copy, modify, or distribute the Software
+   - Reverse engineer, decompile, or disassemble the Software
+   - Rent, lease, or lend the Software
+   - Remove any proprietary notices or labels on the Software
+
+3. TRIAL PERIOD
+   The Software includes a 3-day trial period. After the trial period expires, you must purchase a license to continue using the Software.
+
+4. INTELLECTUAL PROPERTY
+   The Software is protected by copyright laws. Serendib Solutions retains all intellectual property rights in the Software.
+
+5. WARRANTY DISCLAIMER
+   THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. SERENDIB SOLUTIONS DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED.
+
+6. LIMITATION OF LIABILITY
+   IN NO EVENT SHALL SERENDIB SOLUTIONS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES.
+
+7. TERMINATION
+   This license is effective until terminated. It will terminate automatically if you fail to comply with any term of this Agreement.
+
+8. GOVERNING LAW
+   This Agreement shall be governed by the laws of Sri Lanka.
+
+Copyright © 2026 Serendib Solutions. All Rights Reserved.
