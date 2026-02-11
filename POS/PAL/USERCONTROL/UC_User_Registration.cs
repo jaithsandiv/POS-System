@@ -133,6 +133,10 @@ namespace POS.PAL.USERCONTROL
                 XtraMessageBox.Show("Registration successful! You can now sign in with your credentials.", 
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                // Reload business data in Main form and update the topbar
+                Main.Instance.LoadBusinessData();
+                Main.Instance.LoadStoreData();
+
                 // Clear registration data
                 dataSet.Clear();
 
