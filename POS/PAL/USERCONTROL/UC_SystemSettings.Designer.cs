@@ -87,16 +87,18 @@ namespace POS.PAL.USERCONTROL
             lblTrialStartDate = new DevExpress.XtraEditors.LabelControl();
             tsEnableTrial = new DevExpress.XtraEditors.ToggleSwitch();
             lblEnableTrial = new DevExpress.XtraEditors.LabelControl();
+            grpDatabaseBackup = new DevExpress.XtraEditors.GroupControl();
+            btnBackupDatabase = new DevExpress.XtraEditors.SimpleButton();
+            btnRestoreDatabase = new DevExpress.XtraEditors.SimpleButton();
+            labelControl7 = new DevExpress.XtraEditors.LabelControl();
             grpLocations = new DevExpress.XtraEditors.GroupControl();
             btnManageLocations = new DevExpress.XtraEditors.SimpleButton();
             grpTables = new DevExpress.XtraEditors.GroupControl();
             btnManageTables = new DevExpress.XtraEditors.SimpleButton();
             grpAccount = new DevExpress.XtraEditors.GroupControl();
             btnManageAccount = new DevExpress.XtraEditors.SimpleButton();
-            grpDatabaseBackup = new DevExpress.XtraEditors.GroupControl();
-            btnBackupDatabase = new DevExpress.XtraEditors.SimpleButton();
-            btnRestoreDatabase = new DevExpress.XtraEditors.SimpleButton();
-            labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            cmbStoreLocation = new DevExpress.XtraEditors.ComboBoxEdit();
+            lblStoreLocation = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)separatorControl1).BeginInit();
@@ -138,14 +140,15 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)txtTrialEndDate.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtTrialStartDate.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tsEnableTrial.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)grpDatabaseBackup).BeginInit();
+            grpDatabaseBackup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grpLocations).BeginInit();
             grpLocations.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grpTables).BeginInit();
             grpTables.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)grpAccount).BeginInit();
             grpAccount.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)grpDatabaseBackup).BeginInit();
-            grpDatabaseBackup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)cmbStoreLocation.Properties).BeginInit();
             SuspendLayout();
             // 
             // panelControl1
@@ -225,7 +228,7 @@ namespace POS.PAL.USERCONTROL
             flowLayoutPanel1.Location = new System.Drawing.Point(14, 79);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
-            flowLayoutPanel1.Size = new System.Drawing.Size(972, 514);
+            flowLayoutPanel1.Size = new System.Drawing.Size(972, 606);
             flowLayoutPanel1.TabIndex = 1;
             // 
             // grpBusiness
@@ -310,6 +313,8 @@ namespace POS.PAL.USERCONTROL
             // 
             grpAddress.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             grpAddress.AppearanceCaption.Options.UseFont = true;
+            grpAddress.Controls.Add(cmbStoreLocation);
+            grpAddress.Controls.Add(lblStoreLocation);
             grpAddress.Controls.Add(txtCountry);
             grpAddress.Controls.Add(labelControl11);
             grpAddress.Controls.Add(txtPostalCode);
@@ -322,13 +327,13 @@ namespace POS.PAL.USERCONTROL
             grpAddress.Controls.Add(labelControl2);
             grpAddress.Location = new System.Drawing.Point(469, 13);
             grpAddress.Name = "grpAddress";
-            grpAddress.Size = new System.Drawing.Size(450, 250);
+            grpAddress.Size = new System.Drawing.Size(450, 319);
             grpAddress.TabIndex = 0;
             grpAddress.Text = "Address Details";
             // 
             // txtCountry
             // 
-            txtCountry.Location = new System.Drawing.Point(120, 200);
+            txtCountry.Location = new System.Drawing.Point(120, 248);
             txtCountry.Name = "txtCountry";
             txtCountry.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             txtCountry.Properties.Appearance.Options.UseFont = true;
@@ -341,7 +346,7 @@ namespace POS.PAL.USERCONTROL
             // 
             labelControl11.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             labelControl11.Appearance.Options.UseFont = true;
-            labelControl11.Location = new System.Drawing.Point(20, 206);
+            labelControl11.Location = new System.Drawing.Point(20, 254);
             labelControl11.Name = "labelControl11";
             labelControl11.Size = new System.Drawing.Size(48, 17);
             labelControl11.TabIndex = 8;
@@ -349,7 +354,7 @@ namespace POS.PAL.USERCONTROL
             // 
             // txtPostalCode
             // 
-            txtPostalCode.Location = new System.Drawing.Point(120, 160);
+            txtPostalCode.Location = new System.Drawing.Point(120, 208);
             txtPostalCode.Name = "txtPostalCode";
             txtPostalCode.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             txtPostalCode.Properties.Appearance.Options.UseFont = true;
@@ -362,7 +367,7 @@ namespace POS.PAL.USERCONTROL
             // 
             labelControl10.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             labelControl10.Appearance.Options.UseFont = true;
-            labelControl10.Location = new System.Drawing.Point(20, 166);
+            labelControl10.Location = new System.Drawing.Point(20, 214);
             labelControl10.Name = "labelControl10";
             labelControl10.Size = new System.Drawing.Size(73, 17);
             labelControl10.TabIndex = 6;
@@ -370,7 +375,7 @@ namespace POS.PAL.USERCONTROL
             // 
             // txtState
             // 
-            txtState.Location = new System.Drawing.Point(120, 120);
+            txtState.Location = new System.Drawing.Point(120, 168);
             txtState.Name = "txtState";
             txtState.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             txtState.Properties.Appearance.Options.UseFont = true;
@@ -383,7 +388,7 @@ namespace POS.PAL.USERCONTROL
             // 
             labelControl9.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             labelControl9.Appearance.Options.UseFont = true;
-            labelControl9.Location = new System.Drawing.Point(20, 126);
+            labelControl9.Location = new System.Drawing.Point(20, 174);
             labelControl9.Name = "labelControl9";
             labelControl9.Size = new System.Drawing.Size(32, 17);
             labelControl9.TabIndex = 4;
@@ -391,7 +396,7 @@ namespace POS.PAL.USERCONTROL
             // 
             // txtCity
             // 
-            txtCity.Location = new System.Drawing.Point(120, 80);
+            txtCity.Location = new System.Drawing.Point(120, 128);
             txtCity.Name = "txtCity";
             txtCity.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             txtCity.Properties.Appearance.Options.UseFont = true;
@@ -404,7 +409,7 @@ namespace POS.PAL.USERCONTROL
             // 
             labelControl3.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             labelControl3.Appearance.Options.UseFont = true;
-            labelControl3.Location = new System.Drawing.Point(20, 86);
+            labelControl3.Location = new System.Drawing.Point(20, 134);
             labelControl3.Name = "labelControl3";
             labelControl3.Size = new System.Drawing.Size(24, 17);
             labelControl3.TabIndex = 2;
@@ -412,7 +417,7 @@ namespace POS.PAL.USERCONTROL
             // 
             // txtAddress
             // 
-            txtAddress.Location = new System.Drawing.Point(120, 40);
+            txtAddress.Location = new System.Drawing.Point(120, 88);
             txtAddress.Name = "txtAddress";
             txtAddress.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             txtAddress.Properties.Appearance.Options.UseFont = true;
@@ -425,7 +430,7 @@ namespace POS.PAL.USERCONTROL
             // 
             labelControl2.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             labelControl2.Appearance.Options.UseFont = true;
-            labelControl2.Location = new System.Drawing.Point(20, 46);
+            labelControl2.Location = new System.Drawing.Point(20, 94);
             labelControl2.Name = "labelControl2";
             labelControl2.Size = new System.Drawing.Size(51, 17);
             labelControl2.TabIndex = 0;
@@ -441,7 +446,7 @@ namespace POS.PAL.USERCONTROL
             grpContact.Controls.Add(labelControl5);
             grpContact.Controls.Add(txtPhone);
             grpContact.Controls.Add(labelControl4);
-            grpContact.Location = new System.Drawing.Point(13, 269);
+            grpContact.Location = new System.Drawing.Point(13, 338);
             grpContact.Name = "grpContact";
             grpContact.Size = new System.Drawing.Size(450, 200);
             grpContact.TabIndex = 1;
@@ -523,7 +528,7 @@ namespace POS.PAL.USERCONTROL
             grpPrinting.Controls.Add(labelControlKOT);
             grpPrinting.Controls.Add(cmbBarcodePrinter);
             grpPrinting.Controls.Add(labelControlBarcodePrinter);
-            grpPrinting.Location = new System.Drawing.Point(469, 269);
+            grpPrinting.Location = new System.Drawing.Point(469, 338);
             grpPrinting.Name = "grpPrinting";
             grpPrinting.Size = new System.Drawing.Size(450, 270);
             grpPrinting.TabIndex = 0;
@@ -632,7 +637,7 @@ namespace POS.PAL.USERCONTROL
             grpInvoice.AppearanceCaption.Options.UseFont = true;
             grpInvoice.Controls.Add(txtInvoiceFooter);
             grpInvoice.Controls.Add(labelControl13);
-            grpInvoice.Location = new System.Drawing.Point(13, 545);
+            grpInvoice.Location = new System.Drawing.Point(13, 614);
             grpInvoice.Name = "grpInvoice";
             grpInvoice.Size = new System.Drawing.Size(450, 100);
             grpInvoice.TabIndex = 1;
@@ -667,7 +672,7 @@ namespace POS.PAL.USERCONTROL
             grpFeatures.Controls.Add(labelControl20);
             grpFeatures.Controls.Add(tsKOT);
             grpFeatures.Controls.Add(labelControl19);
-            grpFeatures.Location = new System.Drawing.Point(469, 545);
+            grpFeatures.Location = new System.Drawing.Point(469, 614);
             grpFeatures.Name = "grpFeatures";
             grpFeatures.Size = new System.Drawing.Size(450, 150);
             grpFeatures.TabIndex = 0;
@@ -728,7 +733,7 @@ namespace POS.PAL.USERCONTROL
             grpLicense.Controls.Add(lblTrialStartDate);
             grpLicense.Controls.Add(tsEnableTrial);
             grpLicense.Controls.Add(lblEnableTrial);
-            grpLicense.Location = new System.Drawing.Point(13, 701);
+            grpLicense.Location = new System.Drawing.Point(13, 770);
             grpLicense.Name = "grpLicense";
             grpLicense.Size = new System.Drawing.Size(450, 250);
             grpLicense.TabIndex = 0;
@@ -830,6 +835,51 @@ namespace POS.PAL.USERCONTROL
             lblEnableTrial.TabIndex = 0;
             lblEnableTrial.Text = "Enable Trial:";
             // 
+            // grpDatabaseBackup
+            // 
+            grpDatabaseBackup.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
+            grpDatabaseBackup.AppearanceCaption.Options.UseFont = true;
+            grpDatabaseBackup.Controls.Add(btnBackupDatabase);
+            grpDatabaseBackup.Controls.Add(btnRestoreDatabase);
+            grpDatabaseBackup.Controls.Add(labelControl7);
+            grpDatabaseBackup.Location = new System.Drawing.Point(469, 770);
+            grpDatabaseBackup.Name = "grpDatabaseBackup";
+            grpDatabaseBackup.Size = new System.Drawing.Size(450, 120);
+            grpDatabaseBackup.TabIndex = 0;
+            grpDatabaseBackup.Text = "Database Backup";
+            // 
+            // btnBackupDatabase
+            // 
+            btnBackupDatabase.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnBackupDatabase.Appearance.Options.UseFont = true;
+            btnBackupDatabase.Location = new System.Drawing.Point(20, 70);
+            btnBackupDatabase.Name = "btnBackupDatabase";
+            btnBackupDatabase.Size = new System.Drawing.Size(150, 30);
+            btnBackupDatabase.TabIndex = 1;
+            btnBackupDatabase.Text = "Backup Database";
+            btnBackupDatabase.Click += btnBackupDatabase_Click;
+            // 
+            // btnRestoreDatabase
+            // 
+            btnRestoreDatabase.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnRestoreDatabase.Appearance.Options.UseFont = true;
+            btnRestoreDatabase.Location = new System.Drawing.Point(220, 70);
+            btnRestoreDatabase.Name = "btnRestoreDatabase";
+            btnRestoreDatabase.Size = new System.Drawing.Size(150, 30);
+            btnRestoreDatabase.TabIndex = 0;
+            btnRestoreDatabase.Text = "Restore Database";
+            btnRestoreDatabase.Click += btnRestoreDatabase_Click;
+            // 
+            // labelControl7
+            // 
+            labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            labelControl7.Appearance.Options.UseFont = true;
+            labelControl7.Location = new System.Drawing.Point(20, 32);
+            labelControl7.Name = "labelControl7";
+            labelControl7.Size = new System.Drawing.Size(101, 17);
+            labelControl7.TabIndex = 0;
+            labelControl7.Text = "Backup Directory:";
+            // 
             // grpLocations
             // 
             grpLocations.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
@@ -896,50 +946,27 @@ namespace POS.PAL.USERCONTROL
             btnManageAccount.Text = "Manage Account";
             btnManageAccount.Click += btnManageAccount_Click;
             // 
-            // grpDatabaseBackup
+            // cmbStoreLocation
             // 
-            grpDatabaseBackup.AppearanceCaption.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            grpDatabaseBackup.AppearanceCaption.Options.UseFont = true;
-            grpDatabaseBackup.Controls.Add(btnBackupDatabase);
-            grpDatabaseBackup.Controls.Add(btnRestoreDatabase);
-            grpDatabaseBackup.Controls.Add(labelControl7);
-            grpDatabaseBackup.Location = new System.Drawing.Point(13, 857);
-            grpDatabaseBackup.Name = "grpDatabaseBackup";
-            grpDatabaseBackup.Size = new System.Drawing.Size(450, 120);
-            grpDatabaseBackup.TabIndex = 0;
-            grpDatabaseBackup.Text = "Database Backup";
+            cmbStoreLocation.Location = new System.Drawing.Point(120, 48);
+            cmbStoreLocation.Name = "cmbStoreLocation";
+            cmbStoreLocation.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            cmbStoreLocation.Properties.Appearance.Options.UseFont = true;
+            cmbStoreLocation.Properties.AutoHeight = false;
+            cmbStoreLocation.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            cmbStoreLocation.Properties.Padding = new System.Windows.Forms.Padding(5);
+            cmbStoreLocation.Size = new System.Drawing.Size(300, 30);
+            cmbStoreLocation.TabIndex = 11;
             // 
-            // btnBackupDatabase
+            // lblStoreLocation
             // 
-            btnBackupDatabase.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
-            btnBackupDatabase.Appearance.Options.UseFont = true;
-            btnBackupDatabase.Location = new System.Drawing.Point(20, 70);
-            btnBackupDatabase.Name = "btnBackupDatabase";
-            btnBackupDatabase.Size = new System.Drawing.Size(150, 30);
-            btnBackupDatabase.TabIndex = 1;
-            btnBackupDatabase.Text = "Backup Database";
-            btnBackupDatabase.Click += btnBackupDatabase_Click;
-            // 
-            // btnRestoreDatabase
-            // 
-            btnRestoreDatabase.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F);
-            btnRestoreDatabase.Appearance.Options.UseFont = true;
-            btnRestoreDatabase.Location = new System.Drawing.Point(220, 70);
-            btnRestoreDatabase.Name = "btnRestoreDatabase";
-            btnRestoreDatabase.Size = new System.Drawing.Size(150, 30);
-            btnRestoreDatabase.TabIndex = 0;
-            btnRestoreDatabase.Text = "Restore Database";
-            btnRestoreDatabase.Click += btnRestoreDatabase_Click;
-            // 
-            // labelControl7
-            // 
-            labelControl7.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            labelControl7.Appearance.Options.UseFont = true;
-            labelControl7.Location = new System.Drawing.Point(20, 32);
-            labelControl7.Name = "labelControl7";
-            labelControl7.Size = new System.Drawing.Size(111, 17);
-            labelControl7.TabIndex = 0;
-            labelControl7.Text = "Backup Directory:";
+            lblStoreLocation.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            lblStoreLocation.Appearance.Options.UseFont = true;
+            lblStoreLocation.Location = new System.Drawing.Point(20, 54);
+            lblStoreLocation.Name = "lblStoreLocation";
+            lblStoreLocation.Size = new System.Drawing.Size(87, 17);
+            lblStoreLocation.TabIndex = 10;
+            lblStoreLocation.Text = "Store Location:";
             // 
             // UC_SystemSettings
             // 
@@ -997,15 +1024,16 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)txtTrialEndDate.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtTrialStartDate.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)tsEnableTrial.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)grpDatabaseBackup).EndInit();
+            grpDatabaseBackup.ResumeLayout(false);
+            grpDatabaseBackup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)grpLocations).EndInit();
             grpLocations.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)grpTables).EndInit();
             grpTables.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)grpAccount).EndInit();
             grpAccount.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)grpDatabaseBackup).EndInit();
-            grpDatabaseBackup.ResumeLayout(false);
-            grpDatabaseBackup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)cmbStoreLocation.Properties).EndInit();
             ResumeLayout(false);
 
         }
@@ -1099,5 +1127,7 @@ namespace POS.PAL.USERCONTROL
         private DevExpress.XtraEditors.SimpleButton btnBackupDatabase;
         private DevExpress.XtraEditors.SimpleButton btnRestoreDatabase;
         private DevExpress.XtraEditors.LabelControl labelControl7;
+        private DevExpress.XtraEditors.ComboBoxEdit cmbStoreLocation;
+        private DevExpress.XtraEditors.LabelControl lblStoreLocation;
     }
 }

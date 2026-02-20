@@ -350,7 +350,6 @@
             btnAddCustomer.Appearance.Options.UseBackColor = true;
             btnAddCustomer.Appearance.Options.UseFont = true;
             btnAddCustomer.AppearanceHovered.Options.UseBackColor = true;
-            btnAddCustomer.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnAddCustomer.ImageOptions.Image");
             btnAddCustomer.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             btnAddCustomer.Location = new System.Drawing.Point(1779, 28);
             btnAddCustomer.Name = "btnAddCustomer";

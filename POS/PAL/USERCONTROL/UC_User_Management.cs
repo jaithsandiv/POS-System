@@ -19,6 +19,8 @@ namespace POS.PAL.USERCONTROL
 {
     public partial class UC_User_Management : DevExpress.XtraEditors.XtraUserControl
     {
+        private const int ADMIN_ROLE_ID = 1; // Admin role ID - only super admin can edit users with this role
+        
         private DataTable usersTable;
 
         public UC_User_Management()
@@ -197,12 +199,12 @@ namespace POS.PAL.USERCONTROL
             // Add context menu for Edit and Delete
             CreateContextMenu();
             
-            // Handle custom row cell style to disable buttons for super admin users
+            // Handle custom row cell style to disable buttons for super admin users and admin users
             gridView1.CustomRowCellEdit += GridView1_CustomRowCellEdit;
         }
 
         /// <summary>
-        /// Customizes cell editors for specific rows (disables Edit/Delete for super admin users unless current user is the super admin)
+        /// Customizes cell editors for specific rows (disables Edit/Delete for super admin users and admin role users unless current user is the super admin)
         /// </summary>
         private void GridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
         {
@@ -212,6 +214,7 @@ namespace POS.PAL.USERCONTROL
                 if (row != null)
                 {
                     bool isRowSuperAdmin = IsUserSuperAdmin(row);
+                    bool isRowAdminRole = IsUserAdminRole(row);
                     int rowUserId = Convert.ToInt32(row["user_id"]);
                     int currentUserId = GetCurrentUserId();
                     bool isCurrentUserSuperAdmin = PermissionManager.IsSuperAdmin();
@@ -234,6 +237,13 @@ namespace POS.PAL.USERCONTROL
                                 e.RepositoryItem = CreateDisabledButtonEditor();
                             }
                         }
+                    }
+                    // For admin role users (not super admin):
+                    // - Edit and Delete buttons are disabled for regular users
+                    // - Only super admin can edit/delete admin role users
+                    else if (isRowAdminRole && !isCurrentUserSuperAdmin)
+                    {
+                        e.RepositoryItem = CreateDisabledButtonEditor();
                     }
                 }
             }
@@ -271,6 +281,36 @@ namespace POS.PAL.USERCONTROL
                 return intValue == 1;
             
             return Convert.ToBoolean(value);
+        }
+
+        /// <summary>
+        /// Checks if a user row has the Admin role
+        /// </summary>
+        private bool IsUserAdminRole(DataRow row)
+        {
+            if (row == null)
+                return false;
+
+            // First check by role_id
+            if (row.Table.Columns.Contains("role_id") && row["role_id"] != DBNull.Value)
+            {
+                int roleId = Convert.ToInt32(row["role_id"]);
+                if (roleId == ADMIN_ROLE_ID)
+                    return true;
+            }
+
+            // Also check by role_name as a fallback (case-insensitive)
+            if (row.Table.Columns.Contains("role_name") && row["role_name"] != DBNull.Value)
+            {
+                string roleName = row["role_name"]?.ToString()?.Trim();
+                if (!string.IsNullOrEmpty(roleName) && 
+                    roleName.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -411,18 +451,33 @@ namespace POS.PAL.USERCONTROL
                     return;
 
                 int userId = Convert.ToInt32(selectedRow["user_id"]);
+                bool isCurrentUserSuperAdmin = PermissionManager.IsSuperAdmin();
                 
                 // Check if the selected user is a super admin
                 if (IsUserSuperAdmin(selectedRow))
                 {
                     int currentUserId = GetCurrentUserId();
-                    bool isCurrentUserSuperAdmin = PermissionManager.IsSuperAdmin();
                     
                     // Only the super admin can edit themselves
                     if (!isCurrentUserSuperAdmin || userId != currentUserId)
                     {
                         XtraMessageBox.Show(
                             "The Super Admin user can only be edited by themselves.",
+                            "Operation Not Allowed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        return;
+                    }
+                }
+                // Check if the selected user has Admin role
+                else if (IsUserAdminRole(selectedRow))
+                {
+                    // Only super admin can edit admin role users
+                    if (!isCurrentUserSuperAdmin)
+                    {
+                        XtraMessageBox.Show(
+                            "Only the Super Admin can edit users with the Admin role.",
                             "Operation Not Allowed",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning
@@ -465,6 +520,7 @@ namespace POS.PAL.USERCONTROL
 
                 int userId = Convert.ToInt32(selectedRow["user_id"]);
                 string fullName = selectedRow["full_name"]?.ToString();
+                bool isCurrentUserSuperAdmin = PermissionManager.IsSuperAdmin();
                 
                 // Prevent deleting super admin user
                 if (IsUserSuperAdmin(selectedRow))
@@ -476,6 +532,21 @@ namespace POS.PAL.USERCONTROL
                         MessageBoxIcon.Warning
                     );
                     return;
+                }
+
+                // Prevent deleting admin role users by regular users
+                if (IsUserAdminRole(selectedRow))
+                {
+                    if (!isCurrentUserSuperAdmin)
+                    {
+                        XtraMessageBox.Show(
+                            "Only the Super Admin can delete users with the Admin role.",
+                            "Operation Not Allowed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        return;
+                    }
                 }
 
                 // Confirm deletion

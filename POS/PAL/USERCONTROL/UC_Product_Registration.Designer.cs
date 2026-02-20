@@ -18,6 +18,9 @@ namespace POS.PAL.USERCONTROL
         private void InitializeComponent()
         {
             panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            productImage = new System.Windows.Forms.PictureBox();
+            labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            uploadBtn = new System.Windows.Forms.Button();
             btnSave = new System.Windows.Forms.Button();
             btnCancel = new System.Windows.Forms.Button();
             memoDescription = new DevExpress.XtraEditors.MemoEdit();
@@ -48,11 +51,9 @@ namespace POS.PAL.USERCONTROL
             lblProductName = new DevExpress.XtraEditors.LabelControl();
             lblSubtitle = new DevExpress.XtraEditors.LabelControl();
             lblTitle = new DevExpress.XtraEditors.LabelControl();
-            productImage = new System.Windows.Forms.PictureBox();
-            labelControl8 = new DevExpress.XtraEditors.LabelControl();
-            uploadBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)panelControl1).BeginInit();
             panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)productImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)memoDescription.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dtManufactureDate.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dtManufactureDate.Properties.CalendarTimeProperties).BeginInit();
@@ -68,7 +69,6 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)txtBarcode.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtProductCode.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtProductName.Properties).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)productImage).BeginInit();
             SuspendLayout();
             // 
             // panelControl1
@@ -115,6 +115,37 @@ namespace POS.PAL.USERCONTROL
             panelControl1.Size = new System.Drawing.Size(1920, 1050);
             panelControl1.TabIndex = 0;
             // 
+            // productImage
+            // 
+            productImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            productImage.Location = new System.Drawing.Point(1188, 702);
+            productImage.Name = "productImage";
+            productImage.Size = new System.Drawing.Size(287, 125);
+            productImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            productImage.TabIndex = 71;
+            productImage.TabStop = false;
+            // 
+            // labelControl8
+            // 
+            labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelControl8.Appearance.Options.UseFont = true;
+            labelControl8.Location = new System.Drawing.Point(995, 678);
+            labelControl8.Name = "labelControl8";
+            labelControl8.Size = new System.Drawing.Size(39, 17);
+            labelControl8.TabIndex = 70;
+            labelControl8.Text = "Image:";
+            // 
+            // uploadBtn
+            // 
+            uploadBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            uploadBtn.Location = new System.Drawing.Point(995, 742);
+            uploadBtn.Name = "uploadBtn";
+            uploadBtn.Size = new System.Drawing.Size(171, 44);
+            uploadBtn.TabIndex = 69;
+            uploadBtn.Text = "Upload";
+            uploadBtn.UseVisualStyleBackColor = true;
+            uploadBtn.Click += uploadBtn_Click;
+            // 
             // btnSave
             // 
             btnSave.BackColor = System.Drawing.Color.FromArgb(3, 167, 140);
@@ -143,16 +174,16 @@ namespace POS.PAL.USERCONTROL
             // 
             // memoDescription
             // 
-            memoDescription.Location = new System.Drawing.Point(381, 701);
+            memoDescription.Location = new System.Drawing.Point(381, 776);
             memoDescription.Name = "memoDescription";
             memoDescription.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             memoDescription.Properties.Appearance.Options.UseFont = true;
-            memoDescription.Size = new System.Drawing.Size(480, 126);
+            memoDescription.Size = new System.Drawing.Size(480, 51);
             memoDescription.TabIndex = 2;
             // 
             // lblDescription
             // 
-            lblDescription.Location = new System.Drawing.Point(381, 678);
+            lblDescription.Location = new System.Drawing.Point(381, 757);
             lblDescription.Name = "lblDescription";
             lblDescription.Size = new System.Drawing.Size(53, 13);
             lblDescription.TabIndex = 3;
@@ -409,37 +440,6 @@ namespace POS.PAL.USERCONTROL
             lblTitle.TabIndex = 29;
             lblTitle.Text = "Product Registration";
             // 
-            // productImage
-            // 
-            productImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            productImage.Location = new System.Drawing.Point(1188, 702);
-            productImage.Name = "productImage";
-            productImage.Size = new System.Drawing.Size(287, 125);
-            productImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            productImage.TabIndex = 71;
-            productImage.TabStop = false;
-            // 
-            // labelControl8
-            // 
-            labelControl8.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            labelControl8.Appearance.Options.UseFont = true;
-            labelControl8.Location = new System.Drawing.Point(995, 678);
-            labelControl8.Name = "labelControl8";
-            labelControl8.Size = new System.Drawing.Size(39, 17);
-            labelControl8.TabIndex = 70;
-            labelControl8.Text = "Image:";
-            // 
-            // uploadBtn
-            // 
-            uploadBtn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            uploadBtn.Location = new System.Drawing.Point(995, 742);
-            uploadBtn.Name = "uploadBtn";
-            uploadBtn.Size = new System.Drawing.Size(171, 44);
-            uploadBtn.TabIndex = 69;
-            uploadBtn.Text = "Upload";
-            uploadBtn.UseVisualStyleBackColor = true;
-            uploadBtn.Click += uploadBtn_Click;
-            // 
             // UC_Product_Registration
             // 
             Controls.Add(panelControl1);
@@ -448,6 +448,7 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)panelControl1).EndInit();
             panelControl1.ResumeLayout(false);
             panelControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)productImage).EndInit();
             ((System.ComponentModel.ISupportInitialize)memoDescription.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)dtManufactureDate.Properties.CalendarTimeProperties).EndInit();
             ((System.ComponentModel.ISupportInitialize)dtManufactureDate.Properties).EndInit();
@@ -463,7 +464,6 @@ namespace POS.PAL.USERCONTROL
             ((System.ComponentModel.ISupportInitialize)txtBarcode.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtProductCode.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtProductName.Properties).EndInit();
-            ((System.ComponentModel.ISupportInitialize)productImage).EndInit();
             ResumeLayout(false);
         }
 

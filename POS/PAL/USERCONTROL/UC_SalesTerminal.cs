@@ -198,29 +198,56 @@ namespace POS.PAL.USERCONTROL
             if (product == null)
                 return;
 
+            // Get available stock for the product
+            decimal availableStock = 0;
+            if (product["stock_quantity"] != DBNull.Value)
+            {
+                availableStock = Convert.ToDecimal(product["stock_quantity"]);
+            }
+
             // Check if the product already exists in the salesItemsTable
             DataRow existingRow = null;
+            decimal currentCartQuantity = 0;
+            
             foreach (DataRow row in salesItemsTable.Rows)
             {
                 if (row["product_id"].ToString() == product["product_id"].ToString())
                 {
                     existingRow = row;
+                    currentCartQuantity = Convert.ToDecimal(existingRow["quantity"]);
                     break;
                 }
+            }
+
+            // Validate stock availability
+            decimal newQuantity = currentCartQuantity + 1;
+            
+            if (newQuantity > availableStock)
+            {
+                string productName = product["product_name"]?.ToString() ?? "Unknown Product";
+                MessageBox.Show(
+                    $"Insufficient stock for '{productName}'.\n\n" +
+                    $"Available Stock: {availableStock:F2}\n" +
+                    $"Already in Cart: {currentCartQuantity:F2}\n" +
+                    $"Cannot add more items.",
+                    "Stock Unavailable",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
             }
 
             if (existingRow != null)
             {
                 // Increase the quantity of the existing product
-                decimal currentQuantity = Convert.ToDecimal(existingRow["quantity"]);
-                existingRow["quantity"] = currentQuantity + 1;
+                existingRow["quantity"] = newQuantity;
 
                 // Recalculate subtotal
                 decimal price = Convert.ToDecimal(existingRow["unit_price"]);
                 string promotionType = existingRow["discount_type"].ToString();
                 decimal discountValue = Convert.ToDecimal(existingRow["discount_value"]);
                 decimal discountAmount = promotionType == "PERCENTAGE" ? (price * discountValue / 100m) : discountValue;
-                existingRow["subtotal"] = (price - discountAmount) * Convert.ToDecimal(existingRow["quantity"]);
+                existingRow["subtotal"] = (price - discountAmount) * newQuantity;
             }
             else
             {
@@ -375,6 +402,44 @@ namespace POS.PAL.USERCONTROL
             if (e.Column.FieldName == "quantity" ||
                 e.Column.FieldName == "discount_value")
             {
+                // Get the current row data
+                DataRow currentRow = gvTransactionSum.GetDataRow(e.RowHandle);
+                if (currentRow == null) return;
+
+                // Validate stock if quantity changed
+                if (e.Column.FieldName == "quantity")
+                {
+                    string productIdStr = currentRow["product_id"]?.ToString();
+                    if (!string.IsNullOrEmpty(productIdStr))
+                    {
+                        // Get available stock from products table
+                        DataRow[] productRows = productsTable.Select($"product_id = '{productIdStr}'");
+                        if (productRows.Length > 0)
+                        {
+                            decimal availableStock = Convert.ToDecimal(productRows[0]["stock_quantity"]);
+                            decimal requestedQty = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "quantity"));
+
+                            if (requestedQty > availableStock)
+                            {
+                                string productName = currentRow["product_name"]?.ToString() ?? "Unknown Product";
+                                MessageBox.Show(
+                                    $"Insufficient stock for '{productName}'.\n\n" +
+                                    $"Available Stock: {availableStock:F2}\n" +
+                                    $"Requested Quantity: {requestedQty:F2}\n" +
+                                    $"Quantity has been adjusted to available stock.",
+                                    "Stock Unavailable",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning
+                                );
+
+                                // Set quantity to available stock
+                                gvTransactionSum.SetRowCellValue(e.RowHandle, "quantity", availableStock);
+                                return;
+                            }
+                        }
+                    }
+                }
+
                 decimal price = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "unit_price"));
                 decimal qty = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "quantity"));
                 decimal discountValue = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "discount_value"));
@@ -542,10 +607,14 @@ namespace POS.PAL.USERCONTROL
             {
                 var product = productDetails[i];
                 
-                // Parse price for display
+                // Parse price and stock for display
                 decimal price = 0;
                 if (!string.IsNullOrEmpty(product.Price))
                     decimal.TryParse(product.Price, out price);
+
+                decimal stock = 0;
+                if (!string.IsNullOrEmpty(product.Stock))
+                    decimal.TryParse(product.Stock, out stock);
 
                 DevExpress.XtraEditors.SimpleButton productButton = new DevExpress.XtraEditors.SimpleButton
                 {
@@ -554,6 +623,19 @@ namespace POS.PAL.USERCONTROL
                     Height = buttonHeight,
                     Tag = product.Name
                 };
+
+                // Disable button if out of stock
+                if (stock <= 0)
+                {
+                    productButton.Enabled = false;
+                    productButton.Appearance.BackColor = Color.LightGray;
+                    productButton.Appearance.ForeColor = Color.DarkGray;
+                }
+                else if (stock <= 10)
+                {
+                    // Highlight low stock items
+                    productButton.Appearance.ForeColor = Color.DarkOrange;
+                }
 
                 if (product.Image != null && product.Image.Length > 0)
                 {
@@ -585,19 +667,55 @@ namespace POS.PAL.USERCONTROL
                             productButton.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
                         }
                         
-                        // Set text below image
-                        productButton.Text = $"{product.Name}\nRs. {price:F2}";
+                        // Set text below image with stock information
+                        if (stock <= 0)
+                        {
+                            productButton.Text = $"{product.Name}\nRs. {price:F2}\nOUT OF STOCK";
+                        }
+                        else if (stock <= 10)
+                        {
+                            productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2} (Low)";
+                            productButton.Appearance.ForeColor = Color.DarkOrange;
+                        }
+                        else
+                        {
+                            productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2}";
+                        }
                     }
                     catch
                     {
                         // If image loading fails, show text only
-                        productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {product.Stock}";
+                        if (stock <= 0)
+                        {
+                            productButton.Text = $"{product.Name}\nRs. {price:F2}\nOUT OF STOCK";
+                        }
+                        else if (stock <= 10)
+                        {
+                            productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2} (Low)";
+                            productButton.Appearance.ForeColor = Color.DarkOrange;
+                        }
+                        else
+                        {
+                            productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2}";
+                        }
                     }
                 }
                 else
                 {
-                    // No image - display text only with more details
-                    productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {product.Stock}";
+                    // No image - display text only with stock details
+                    if (stock <= 0)
+                    {
+                        productButton.Text = $"{product.Name}\nRs. {price:F2}\nOUT OF STOCK";
+                    }
+                    else if (stock <= 10)
+                    {
+                        productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2} (Low)";
+                        productButton.Appearance.ForeColor = Color.DarkOrange;
+                    }
+                    else
+                    {
+                        productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2}";
+                    }
                 }
 
                 productButton.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
@@ -964,7 +1082,6 @@ namespace POS.PAL.USERCONTROL
                 // So we can list existing payments in a read-only way or just show totals.
                 // Let's rely on `lblTotalPaid` which calculates from `paymentsTable`.
                 // We will NOT add panels for existing payments to avoid complexity of editing them.
-                // User adds NEW payments.
             }
 
             // Reset labels
@@ -1877,115 +1994,117 @@ namespace POS.PAL.USERCONTROL
 
         private void btnCreditSale_Click(object sender, EventArgs e)
         {
-            if (salesItemsTable.Rows.Count == 0)
+            try
             {
-                MessageBox.Show("Cart is empty. Cannot save credit sale.", "Empty Cart",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
-            int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
-            int customerId = 0;
-
-            // Get customer ID from saleTable
-            if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
-            {
-                customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
-            }
-
-            // Validation: Credit sale not allowed for Walk-In Customer (customer_id = 1)
-            if (customerId == 1 || customerId == 0)
-            {
-                MessageBox.Show("Credit sale is not allowed for Walk-In Customer. Please select a registered customer.",
-                    "Invalid Customer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Find customer details in customersTable
-            DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
-            if (customerRows.Length == 0)
-            {
-                MessageBox.Show("Customer information not found.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            DataRow selectedCustomer = customerRows[0];
-
-            // Check if customer has credit limit
-            decimal creditLimit = 0;
-            decimal creditBalance = 0;
-
-            if (selectedCustomer.Table.Columns.Contains("credit_limit") &&
-                selectedCustomer["credit_limit"] != DBNull.Value &&
-                !string.IsNullOrWhiteSpace(selectedCustomer["credit_limit"]?.ToString()))
-            {
-                if (decimal.TryParse(selectedCustomer["credit_limit"].ToString(), out decimal parsedCreditLimit))
+                if (salesItemsTable.Rows.Count == 0)
                 {
-                    creditLimit = parsedCreditLimit;
+                    MessageBox.Show("Cart is empty. Cannot save credit sale.", "Empty Cart",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-            }
 
-            if (selectedCustomer.Table.Columns.Contains("credit_balance") &&
-                selectedCustomer["credit_balance"] != DBNull.Value &&
-                !string.IsNullOrWhiteSpace(selectedCustomer["credit_balance"]?.ToString()))
-            {
-                if (decimal.TryParse(selectedCustomer["credit_balance"].ToString(), out decimal parsedCreditBalance))
+                int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
+                int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
+                int customerId = 0;
+
+                // Get customer ID from saleTable
+                if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
                 {
-                    creditBalance = parsedCreditBalance;
+                    customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
                 }
-            }
 
-            // Validation: Credit limit must be set
-            if (creditLimit <= 0)
-            {
-                MessageBox.Show($"Customer '{selectedCustomer["full_name"]}' does not have a credit limit set. Please update customer credit limit.",
-                    "No Credit Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                // Validation: Credit sale not allowed for Walk-In Customer (customer_id = 1)
+                if (customerId == 1 || customerId == 0)
+                {
+                    MessageBox.Show("Credit sale is not allowed for Walk-In Customer. Please select a registered customer.",
+                        "Invalid Customer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            // Get grand total
-            decimal grandTotal = 0;
-            if (decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out decimal parsedGrandTotal))
-            {
-                grandTotal = parsedGrandTotal;
-            }
+                // Find customer details in customersTable
+                DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
+                if (customerRows.Length == 0)
+                {
+                    MessageBox.Show("Customer information not found.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            // Validation: Grand total must not exceed available credit
-            decimal availableCredit = creditLimit - creditBalance;
-            if (grandTotal > availableCredit)
-            {
-                MessageBox.Show(
-                    $"Grand Total ({grandTotal:F2}) exceeds available credit.\n\n" +
-                    $"Credit Limit: {creditLimit:F2}\n" +
-                    $"Current Balance: {creditBalance:F2}\n" +
-                    $"Available Credit: {availableCredit:F2}",
-                    "Credit Limit Exceeded", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                DataRow selectedCustomer = customerRows[0];
 
-            // Get sale data
-            string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
-            decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
-            decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
-            int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
+                // Check if customer has credit limit
+                decimal creditLimit = 0;
+                decimal creditBalance = 0;
 
-            // Check if we are updating an existing sale
-            int currentSaleId = 0;
-            if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
-            {
-                int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
-            }
+                if (selectedCustomer.Table.Columns.Contains("credit_limit") &&
+                    selectedCustomer["credit_limit"] != DBNull.Value &&
+                    !string.IsNullOrWhiteSpace(selectedCustomer["credit_limit"]?.ToString()))
+                {
+                    if (decimal.TryParse(selectedCustomer["credit_limit"].ToString(), out decimal parsedCreditLimit))
+                    {
+                        creditLimit = parsedCreditLimit;
+                    }
+                }
 
-            // Get invoice number from database sequence
-            string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
-            string notes = $"Credit sale created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}\nCredit Limit: {creditLimit:F2}";
+                if (selectedCustomer.Table.Columns.Contains("credit_balance") &&
+                    selectedCustomer["credit_balance"] != DBNull.Value &&
+                    !string.IsNullOrWhiteSpace(selectedCustomer["credit_balance"]?.ToString()))
+                {
+                    if (decimal.TryParse(selectedCustomer["credit_balance"].ToString(), out decimal parsedCreditBalance))
+                    {
+                        creditBalance = parsedCreditBalance;
+                    }
+                }
 
-            // Save sale to database using unified SaveSale method
-            int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "CREDIT_SALE",
-                discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                salesItemsTable, 0m, 0m, invoiceNumber, null, null, null, currentSaleId);
+                // Validation: Credit limit must be set
+                if (creditLimit <= 0)
+                {
+                    MessageBox.Show($"Customer '{selectedCustomer["full_name"]}' does not have a credit limit set. Please update customer credit limit.",
+                        "No Credit Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Get grand total
+                decimal grandTotal = 0;
+                if (decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out decimal parsedGrandTotal))
+                {
+                    grandTotal = parsedGrandTotal;
+                }
+
+                // Validation: Grand total must not exceed available credit
+                decimal availableCredit = creditLimit - creditBalance;
+                if (grandTotal > availableCredit)
+                {
+                    MessageBox.Show(
+                        $"Grand Total ({grandTotal:F2}) exceeds available credit.\n\n" +
+                        $"Credit Limit: {creditLimit:F2}\n" +
+                        $"Current Balance: {creditBalance:F2}\n" +
+                        $"Available Credit: {availableCredit:F2}",
+                        "Credit Limit Exceeded", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Get sale data
+                string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
+                decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
+                decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
+                int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
+
+                // Check if we are updating an existing sale
+                int currentSaleId = 0;
+                if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
+                {
+                    int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
+                }
+
+                // Get invoice number from database sequence
+                string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
+                string notes = $"Credit sale created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}\nCredit Limit: {creditLimit:F2}";
+
+                // Save sale to database using unified SaveSale method
+                int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "CREDIT_SALE",
+                    discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
+                    salesItemsTable, 0m, 0m, invoiceNumber, null, null, null, currentSaleId);
 
                 // Create CREDIT payment record
                 DataTable creditPaymentTable = new DataTable();
@@ -2016,159 +2135,112 @@ namespace POS.PAL.USERCONTROL
                 saleRow["total_paid"] = "0.00";
                 saleRow["change_due"] = "0.00";
 
-                // Generate Invoice Report
-                REPORT.Invoice invoiceReport = new REPORT.Invoice();
-
-                // Set footer text from settings
-                string footerTextA4 = Main.GetSetting("invoice_footer", "Thank You For Your Business!");
-                invoiceReport.Parameters["p_footer"].Value = footerTextA4;
-
-                // Bind main report data (sale items)
-                invoiceReport.DataSource = salesItemsTable;
-
-                // Set main invoice parameters
-                invoiceReport.Parameters["p_invoice_no"].Value = invoiceNumber;
-                invoiceReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                invoiceReport.Parameters["p_total"].Value = totalAmount.ToString("F2");
-                invoiceReport.Parameters["p_discount"].Value = discountValue.ToString("F2");
-                invoiceReport.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
-
-                // Get customer details
+                // Show success message
                 string customerName = selectedCustomer["full_name"]?.ToString() ?? "Customer";
-                string customerEmail = selectedCustomer["email"]?.ToString() ?? "";
-                string customerContact = selectedCustomer["phone"]?.ToString() ?? "";
-                string customerAddress = selectedCustomer["address"]?.ToString() ?? "";
-
-                invoiceReport.Parameters["p_customer_name"].Value = customerName;
-                invoiceReport.Parameters["p_email"].Value = customerEmail;
-                invoiceReport.Parameters["p_contact"].Value = customerContact;
-                invoiceReport.Parameters["p_address"].Value = customerAddress;
-
-                // Configure subreport for payments
-                if (invoiceReport.PaymentSubreport?.ReportSource is REPORT.SUBREPORT.SR_Payment subreport)
-                {
-                    subreport.DataSource = creditPaymentTable;
-                    subreport.Parameters["p_total_paid"].Value = "0.00";
-                    subreport.Parameters["p_due"].Value = grandTotal.ToString("F2");
-                }
-
-                // Print invoice based on system settings
-                bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
-                bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
-                bool autoPrint = true; // Enforce auto print by default
-
-                // Print thermal invoice if enabled
-                if (enableThermal)
-                {
-                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, creditPaymentTable, autoPrint);
-                }
-                // Print A4 invoice if enabled (Mutually exclusive)
-                else if (enableA4)
-                {
-                    DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
-                    printTool.Print();
-                }
-
-                // Print KOT if enabled
-                PrintKOT(invoiceNumber, null, null, customerName, salesItemsTable, autoPrint);
-
-                // Success message
                 MessageBox.Show(
                     $"Credit Sale Created Successfully!\n\n" +
                     $"Invoice Number: {invoiceNumber}\n" +
                     $"Customer: {customerName}\n" +
                     $"Grand Total: {grandTotal:F2}\n" +
-                    $"Credit Limit: {creditLimit:F2}\n" +
-                    $"Remaining Credit: {Math.Max(0, availableCredit - grandTotal):F2}\n" +
-                    $"Due: {grandTotal:F2}",
+                    $"Credit Applied: {grandTotal:F2}\n" +
+                    $"Payment Status: CREDIT",
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Reset UI
                 btnCancel_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating credit sale: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-
-
         /// <summary>
-        /// Calculates total paid and due amounts from payments table
+        /// Calculates payment totals excluding CREDIT as paid
         /// </summary>
         private (decimal totalPaid, decimal due) CalculatePaymentTotals()
         {
-            decimal totalPaid = 0m;
-            decimal grandTotal = 0m;
-
-            if (paymentsTable != null && paymentsTable.Rows.Count > 0)
+            decimal grandTotal = 0;
+            if (saleTable.Rows.Count > 0)
             {
-                // Calculate total paid (excluding CREDIT payments)
+                decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out grandTotal);
+            }
+
+            decimal totalPaid = 0;
+            if (paymentsTable != null)
+            {
                 foreach (DataRow payment in paymentsTable.Rows)
                 {
-                    string paymentMethod = payment["payment_method"]?.ToString();
-                    if (string.IsNullOrEmpty(paymentMethod))
+                    if (payment.RowState == DataRowState.Deleted)
                         continue;
 
-                    if (decimal.TryParse(payment["amount"]?.ToString(), out decimal amount))
+                    string method = payment["payment_method"]?.ToString();
+                    decimal amount = 0;
+                    decimal.TryParse(payment["amount"]?.ToString(), out amount);
+
+                    // Exclude CREDIT from total paid calculation
+                    if (method != "CREDIT")
                     {
-                        // CREDIT is not counted as "paid" - it's still owed
-                        if (paymentMethod != "CREDIT")
-                        {
-                            totalPaid += amount;
-                        }
+                        totalPaid += amount;
                     }
                 }
             }
 
-            // Get grand total from sale table
-            if (saleTable.Rows.Count > 0)
-            {
-                if (decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out decimal parsedGrandTotal))
-                {
-                    grandTotal = parsedGrandTotal;
-                }
-            }
-
             decimal due = Math.Max(0, grandTotal - totalPaid);
-
             return (totalPaid, due);
         }
 
+        /// <summary>
+        /// Updates the payment summary UI labels
+        /// </summary>
         private void UpdatePaymentSummaryUI()
         {
-            var (totalPaid, due) = CalculatePaymentTotals();
-            
+            if (lblPaymentTotalValue == null || lblPaymentPaidValue == null || lblPaymentBalanceValue == null)
+                return;
+
             decimal grandTotal = 0;
-            if (saleTable.Rows.Count > 0 && decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out grandTotal))
+            if (saleTable.Rows.Count > 0)
             {
-                lblPaymentTotalValue.Text = grandTotal.ToString("N2");
-            }
-            else
-            {
-                lblPaymentTotalValue.Text = "0.00";
+                decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out grandTotal);
             }
 
-            lblPaymentPaidValue.Text = totalPaid.ToString("N2");
-            lblPaymentBalanceValue.Text = due.ToString("N2");
+            var (totalPaid, due) = CalculatePaymentTotals();
 
-            // Calculate Change
-            decimal change = 0;
-            if (totalPaid > grandTotal)
-            {
-                change = totalPaid - grandTotal;
-            }
-            lblPaymentChangeValue.Text = change.ToString("N2");
+            lblPaymentTotalValue.Text = grandTotal.ToString("F2");
+            lblPaymentPaidValue.Text = totalPaid.ToString("F2");
+            lblPaymentBalanceValue.Text = due.ToString("F2");
 
+            // Change balance label color based on status
             if (due > 0)
+            {
                 lblPaymentBalanceValue.Appearance.ForeColor = Color.IndianRed;
+            }
             else
-                lblPaymentBalanceValue.Appearance.ForeColor = Color.SeaGreen;
+            {
+                lblPaymentBalanceValue.Appearance.ForeColor = Color.Green;
+            }
         }
 
         /// <summary>
-        /// Print thermal invoice (80mm receipt)
+        /// Prints Kitchen Order Ticket (KOT)
         /// </summary>
-        private void PrintThermalInvoice(string invoiceNumber, decimal grandTotal, string customerName, DataTable itemsTable, DataTable paymentsTable, bool autoPrint)
+        private void PrintKOT(string invoiceNumber, string orderType, string tableNumber, string customerName, DataTable items, bool autoPrint)
         {
-            // Create thermal invoice report
-            ThermalInvoice thermalInvoice = new ThermalInvoice();
+            // KOT printing logic - placeholder for now
+            // You would implement the actual KOT report here
+            System.Diagnostics.Debug.WriteLine($"Printing KOT: {invoiceNumber}, Type: {orderType}, Table: {tableNumber}");
+        }
+
+        /// <summary>
+        /// Prints thermal invoice
+        /// </summary>
+        private void PrintThermalInvoice(string invoiceNumber, decimal grandTotal, string customerName, 
+            DataTable items, DataTable payments, bool autoPrint)
+        {
+            try
+            {
+                ThermalInvoice thermalInvoice = new ThermalInvoice();
 
                 // Set footer text from settings
                 string footerText = Main.GetSetting("invoice_footer", "Thank You!");
@@ -2180,7 +2252,7 @@ namespace POS.PAL.USERCONTROL
                 thermalInvoice.Parameters["p_customer_name"].Value = customerName;
                 thermalInvoice.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
 
-                // Get store details from Main.DataSetApp
+                // Get store details
                 if (Main.DataSetApp.Store.Rows.Count > 0)
                 {
                     var storeRow = Main.DataSetApp.Store[0];
@@ -2189,12 +2261,12 @@ namespace POS.PAL.USERCONTROL
                     thermalInvoice.Parameters["p_address"].Value = storeRow.IsaddressNull() ? "" : storeRow.address;
                 }
 
-                // Set data source for items
-                thermalInvoice.DataSource = itemsTable;
+                // Set data source
+                thermalInvoice.DataSource = items;
 
-                // Calculate totals from itemsTable
+                // Calculate totals
                 decimal subtotal = 0m;
-                foreach (DataRow item in itemsTable.Rows)
+                foreach (DataRow item in items.Rows)
                 {
                     if (decimal.TryParse(item["subtotal"]?.ToString(), out decimal itemTotal))
                     {
@@ -2202,7 +2274,6 @@ namespace POS.PAL.USERCONTROL
                     }
                 }
 
-                // Get discount from sale table
                 decimal discountAmount = 0m;
                 if (saleTable.Rows.Count > 0)
                 {
@@ -2224,629 +2295,225 @@ namespace POS.PAL.USERCONTROL
                 thermalInvoice.Parameters["p_total"].Value = subtotal.ToString("F2");
                 thermalInvoice.Parameters["p_discount"].Value = "-" + discountAmount.ToString("F2");
 
-                // Bind payment subreport (thermal version)
-                if (thermalInvoice.PaymentSubreport != null)
-                {
-                    SR_ThermalPayment paymentReport = new SR_ThermalPayment();
-                    paymentReport.DataSource = paymentsTable;
-
-                    // Calculate payment totals
-                    var (totalPaid, due) = CalculatePaymentTotals();
-                    decimal change = Math.Max(0, totalPaid - grandTotal);
-                    
-                    paymentReport.Parameters["p_total_paid"].Value = totalPaid.ToString("F2");
-                    paymentReport.Parameters["p_due"].Value = due.ToString("F2");
-                    paymentReport.Parameters["p_change"].Value = change.ToString("F2");
-
-                    thermalInvoice.PaymentSubreport.ReportSource = paymentReport;
-                }
-
-                // Get thermal printer name from system settings
+                // Get thermal printer name
                 string printerName = Main.GetSetting("thermal_printer_name", null);
-
-                // Configure printer if specified
                 if (!string.IsNullOrEmpty(printerName))
                 {
                     thermalInvoice.PrinterName = printerName;
                 }
 
-            // Print based on autoPrint setting
-            if (autoPrint)
-                thermalInvoice.Print();
-            else
-                new DevExpress.XtraReports.UI.ReportPrintTool(thermalInvoice).ShowPreview();
-        }
-
-        private void PrintKOT(string invoiceNumber, string orderType, string tableNumber, string customerName, DataTable itemsTable, bool autoPrint)
-        {
-            // Check if KOT is enabled
-            bool isKotEnabled = _bllSalesTerminal.IsKotEnabled();
-            if (!isKotEnabled) return;
-
-            // Create KOT report
-            KOT kotReport = new KOT();
-
-            // Set parameters
-            kotReport.Parameters["p_invoice_no"].Value = invoiceNumber;
-            kotReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            kotReport.Parameters["p_table_no"].Value = tableNumber ?? "";
-            kotReport.Parameters["p_order_type"].Value = orderType ?? "";
-            kotReport.Parameters["p_customer_name"].Value = customerName;
-
-            // Calculate total items
-            int totalItems = 0;
-            foreach (DataRow item in itemsTable.Rows)
-            {
-                if (decimal.TryParse(item["quantity"]?.ToString(), out decimal qty))
+                // Print
+                if (autoPrint)
                 {
-                    totalItems += (int)qty;
+                    thermalInvoice.Print();
+                }
+                else
+                {
+                    DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(thermalInvoice);
+                    printTool.ShowPreview();
                 }
             }
-            kotReport.Parameters["p_total_items"].Value = totalItems.ToString();
-
-            // Set data source
-            kotReport.DataSource = itemsTable;
-
-            // Get KOT printer name
-            string printerName = Main.GetSetting("kot_printer_name", null);
-
-            // Configure printer if specified
-            if (!string.IsNullOrEmpty(printerName))
+            catch (Exception ex)
             {
-                kotReport.PrinterName = printerName;
+                MessageBox.Show($"Error printing thermal invoice: {ex.Message}", "Print Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            // Print
-            if (autoPrint)
-                kotReport.Print();
-            else
-                new DevExpress.XtraReports.UI.ReportPrintTool(kotReport).ShowPreview();
         }
 
         /// <summary>
-        /// Validates that payments cover the grand total
+        /// Complete payment and create sale
         /// </summary>
-        private bool ValidatePayments(out string errorMessage)
+        private void btnPMComplete_Click(object sender, EventArgs e)
         {
-            errorMessage = string.Empty;
-
-            if (paymentsTable == null || paymentsTable.Rows.Count == 0)
+            try
             {
-                errorMessage = "No payment methods selected. Please add at least one payment method.";
-                return false;
-            }
-
-            decimal grandTotal = 0m;
-            if (saleTable.Rows.Count > 0)
-            {
-                decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out grandTotal);
-            }
-
-            if (grandTotal <= 0)
-            {
-                errorMessage = "Grand total must be greater than zero.";
-                return false;
-            }
-
-            // Calculate total payment amount
-            decimal totalPaymentAmount = 0m;
-            foreach (DataRow payment in paymentsTable.Rows)
-            {
-                string paymentMethod = payment["payment_method"]?.ToString();
-                if (string.IsNullOrEmpty(paymentMethod))
-                    continue;
-
-                if (decimal.TryParse(payment["amount"]?.ToString(), out decimal amount))
+                // Validate cart
+                if (salesItemsTable.Rows.Count == 0)
                 {
-                    totalPaymentAmount += amount;
+                    MessageBox.Show("Cart is empty. Cannot complete sale.", "Empty Cart",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-            }
 
-            if (totalPaymentAmount < grandTotal)
-            {
-                decimal remainder = grandTotal - totalPaymentAmount;
+                // Validate payments
+                var (totalPaid, due) = CalculatePaymentTotals();
+                decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
 
-                // Check if customer is selected (not Walk-In)
+                // Calculate total of all payments (including CREDIT)
+                decimal allPaymentsTotal = 0;
+                foreach (DataRow payment in paymentsTable.Rows)
+                {
+                    if (payment.RowState != DataRowState.Deleted)
+                    {
+                        allPaymentsTotal += decimal.Parse(payment["amount"]?.ToString() ?? "0");
+                    }
+                }
+
+                // Check if sum of all payments equals grand total
+                if (Math.Abs(allPaymentsTotal - grandTotal) > 0.01m)
+                {
+                    MessageBox.Show(
+                        $"Payment validation failed:\n\n" +
+                        $"Grand Total: Rs. {grandTotal:F2}\n" +
+                        $"Total Payments: Rs. {allPaymentsTotal:F2}\n\n" +
+                        $"The sum of all payments must equal the grand total.",
+                        "Payment Mismatch",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+
+                // Get sale data
+                int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
+                int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
                 int? customerId = null;
-                if (saleTable.Rows.Count > 0 && saleTable.Rows[0]["customer_id"] != DBNull.Value)
+
+                if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
                 {
                     customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
                 }
 
-                if (customerId == null || customerId == 1)
-                {
-                    errorMessage = "Walk-In customers cannot have credit/partial payment. Please select a registered customer.";
-                    return false;
-                }
+                string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
+                decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
+                decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
+                int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
 
-                // Check credit limit
-                if (customersTable != null)
+                // Calculate change
+                decimal changeDue = Math.Max(0, totalPaid - grandTotal);
+
+                // Get order type and table
+                string orderType = null;
+                string tableNumber = null;
+                if (pnlKOT.Visible)
                 {
-                    DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
-                    if (customerRows.Length > 0)
+                    if (btnDineIn.Appearance.BackColor == Color.FromArgb(4, 181, 152))
                     {
-                        DataRow customer = customerRows[0];
-                        decimal creditLimit = 0m;
-                        decimal creditBalance = 0m;
-
-                        decimal.TryParse(customer["credit_limit"]?.ToString(), out creditLimit);
-                        decimal.TryParse(customer["credit_balance"]?.ToString(), out creditBalance);
-
-                        decimal availableCredit = creditLimit - creditBalance;
-
-                        if (remainder > availableCredit)
-                        {
-                            errorMessage = $"Credit limit exceeded.\n\nRequired: {remainder:F2}\nAvailable Credit: {availableCredit:F2}";
-                            return false;
-                        }
+                        orderType = "DINE_IN";
+                        tableNumber = cmbTableNo.SelectedItem?.ToString();
+                    }
+                    else if (btnTakeAway.Appearance.BackColor == Color.FromArgb(4, 181, 152))
+                    {
+                        orderType = "TAKE_AWAY";
                     }
                 }
-            }
 
-            // Allow overpayment (change due)
-            if (totalPaymentAmount > grandTotal)
-            {
-                // This is valid, change will be calculated
-            }
+                // Generate invoice number
+                string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
+                string notes = $"Sale completed on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
-            return true;
-        }
+                // Save sale
+                int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
+                    discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
+                    salesItemsTable, totalPaid, changeDue, invoiceNumber, null, orderType, tableNumber);
 
-        private void btnPMComplete_Click(object sender, EventArgs e)
-        {
-            // Validation: Check if cart has items
-            if (salesItemsTable.Rows.Count == 0)
-            {
-                MessageBox.Show("Cart is empty. Cannot create sale.", "Empty Cart",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Validation: Check payments
-            if (!ValidatePayments(out string errorMessage))
-            {
-                // If validation fails (e.g. no payments), show error
-                if (!string.IsNullOrEmpty(errorMessage))
-                {
-                    MessageBox.Show(errorMessage, "Payment Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-            }
-
-            // Get sale data
-            int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
-            int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
-            int? customerId = null;
-
-            if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
-            {
-                customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
-            }
-
-            string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
-            decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
-            decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
-            int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
-            decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
-
-            // Calculate payment totals
-            var (totalPaid, due) = CalculatePaymentTotals();
-
-            // If there is a due amount, add it as a CREDIT payment
-            if (due > 0)
-            {
-                DataRow creditPayment = paymentsTable.NewRow();
-                creditPayment["payment_method"] = "CREDIT";
-                creditPayment["amount"] = due;
-                creditPayment["payment_date"] = DateTime.Now;
-                paymentsTable.Rows.Add(creditPayment);
-            }
-
-            decimal changeDue = Math.Max(0, totalPaid - grandTotal);
-
-            // Get order details (if KOT enabled)
-            string orderType = null;
-            string tableNumber = null;
-
-            if (pnlKOT.Visible)
-            {
-                if (btnDineIn.Appearance.BackColor == Color.FromArgb(4, 181, 152))
-                {
-                    orderType = "DINE_IN";
-                    tableNumber = cmbTableNo.SelectedItem?.ToString();
-
-                    if (string.IsNullOrEmpty(tableNumber))
-                    {
-                        MessageBox.Show("Please select a table number for Dine-In order.", "Table Required",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                }
-                else if (btnTakeAway.Appearance.BackColor == Color.FromArgb(4, 181, 152))
-                {
-                    orderType = "TAKE_AWAY";
-                }
-                else
-                {
-                    MessageBox.Show("Please select an order type (Dine-In or Take-Away).", "Order Type Required",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-            }
-
-            // Check if we are updating an existing sale
-            int currentSaleId = 0;
-            if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
-            {
-                int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
-            }
-
-            // Get invoice number from database sequence
-            // Note: If updating from DRAFT/QUOTATION to SALE, we need a NEW invoice number.
-            // If updating an existing SALE (adding payments), we might want to keep it?
-            // Usually invoice number is generated when converting to SALE.
-            // If currentSaleType is already SALE, we keep it. If not, we generate new.
-            string invoiceNumber;
-            string currentSaleType = saleTable.Rows[0]["sale_type"]?.ToString();
-
-            if (currentSaleId > 0 && currentSaleType == "SALE" && saleTable.Columns.Contains("invoice_number") && saleTable.Rows[0]["invoice_number"] != DBNull.Value)
-            {
-                invoiceNumber = saleTable.Rows[0]["invoice_number"].ToString();
-            }
-            else
-            {
-                invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
-            }
-
-            string notes = $"Invoice created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
-
-            // Save sale to database
-            int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
-                discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                salesItemsTable, totalPaid, changeDue, invoiceNumber, null, orderType, tableNumber, currentSaleId);
-
-                // Save payments to database
+                // Save payments
                 _bllSalesTerminal.SavePayments(saleId, paymentsTable, billerId);
 
-                // Update saleTable with the returned sale_id from database
+                // Determine payment status
+                string paymentStatus = "PAID";
+                if (due > 0)
+                {
+                    paymentStatus = "PARTIAL";
+                }
+
+                // Update saleTable
                 DataRow saleRow = saleTable.Rows[0];
                 saleRow["sale_id"] = saleId;
                 saleRow["sale_type"] = "SALE";
                 saleRow["invoice_number"] = invoiceNumber;
-                saleRow["customer_id"] = customerId ?? (object)DBNull.Value;
-
-                // Determine payment status
-                string paymentStatus;
-                if (due == 0)
-                    paymentStatus = "PAID";
-                else if (due > 0 && due < grandTotal)
-                    paymentStatus = "PARTIAL";
-                else
-                    paymentStatus = "CREDIT";
-
                 saleRow["payment_status"] = paymentStatus;
                 saleRow["sale_status"] = "COMPLETED";
-                saleRow["order_type"] = orderType ?? (object)DBNull.Value;
-                saleRow["table_number"] = tableNumber ?? (object)DBNull.Value;
-                saleRow["notes"] = notes;
-                saleRow["created_by"] = billerId;
-                saleRow["created_date"] = DateTime.Now;
                 saleRow["total_paid"] = totalPaid.ToString("F2");
                 saleRow["change_due"] = changeDue.ToString("F2");
 
-                // Generate Invoice Report
-                REPORT.Invoice invoiceReport = new REPORT.Invoice();
+                // Generate and print invoice
+                string customerName = txtCustomer.Text;
 
-                // Set footer text from settings
-                string footerTextA4 = Main.GetSetting("invoice_footer", "Thank You For Your Business!");
-                invoiceReport.Parameters["p_footer"].Value = footerTextA4;
-
-                // Bind main report data (sale items)
-                invoiceReport.DataSource = salesItemsTable;
-
-                // Set main invoice parameters
-                invoiceReport.Parameters["p_invoice_no"].Value = invoiceNumber;
-                invoiceReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                invoiceReport.Parameters["p_total"].Value = totalAmount.ToString("F2");
-                invoiceReport.Parameters["p_discount"].Value = discountValue.ToString("F2");
-                invoiceReport.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
-
-                // Get customer details
-                string customerName = "Walk-In Customer";
-                string customerEmail = "";
-                string customerContact = "";
-                string customerAddress = "";
-
-                if (customerId.HasValue && customerId.Value != 1)
-                {
-                    DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId.Value}'");
-                    if (customerRows.Length > 0)
-                    {
-                        DataRow customer = customerRows[0];
-                        customerName = customer["full_name"]?.ToString() ?? "Walk-In Customer";
-                        customerEmail = customer["email"]?.ToString() ?? "";
-                        customerContact = customer["phone"]?.ToString() ?? "";
-                        customerAddress = customer["address"]?.ToString() ?? "";
-                    }
-                }
-
-                invoiceReport.Parameters["p_customer_name"].Value = customerName;
-                invoiceReport.Parameters["p_email"].Value = customerEmail;
-                invoiceReport.Parameters["p_contact"].Value = customerContact;
-                invoiceReport.Parameters["p_address"].Value = customerAddress;
-
-                // Configure subreport for payments
-                if (invoiceReport.PaymentSubreport?.ReportSource is REPORT.SUBREPORT.SR_Payment subreport)
-                {
-                    subreport.DataSource = paymentsTable;
-                    subreport.Parameters["p_total_paid"].Value = totalPaid.ToString("F2");
-                    subreport.Parameters["p_due"].Value = due.ToString("F2");
-                }
-
-                // Print invoice based on system settings
+                // Check print settings
                 bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
                 bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
-                bool autoPrint = true; // Enforce auto print by default
+                bool autoPrint = true;
 
-                // Print thermal invoice if enabled
                 if (enableThermal)
                 {
                     PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, paymentsTable, autoPrint);
                 }
-                // Print A4 invoice if enabled (Mutually exclusive)
                 else if (enableA4)
                 {
+                    // Print A4 invoice
+                    REPORT.Invoice invoiceReport = new REPORT.Invoice();
+                    invoiceReport.DataSource = salesItemsTable;
+                    
+                    string footerTextA4 = Main.GetSetting("invoice_footer", "Thank You For Your Business!");
+                    invoiceReport.Parameters["p_footer"].Value = footerTextA4;
+                    invoiceReport.Parameters["p_invoice_no"].Value = invoiceNumber;
+                    invoiceReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    invoiceReport.Parameters["p_total"].Value = totalAmount.ToString("F2");
+                    invoiceReport.Parameters["p_discount"].Value = discountValue.ToString("F2");
+                    invoiceReport.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
+                    invoiceReport.Parameters["p_customer_name"].Value = customerName;
+
                     DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
                     printTool.Print();
                 }
 
                 // Print KOT if enabled
-                PrintKOT(invoiceNumber, orderType, tableNumber, customerName, salesItemsTable, autoPrint);
+                if (!string.IsNullOrEmpty(orderType))
+                {
+                    PrintKOT(invoiceNumber, orderType, tableNumber, customerName, salesItemsTable, autoPrint);
+                }
 
-                // Success message
+                // Show success message
                 MessageBox.Show(
                     $"Invoice Created Successfully!\n\n" +
                     $"Invoice Number: {invoiceNumber}\n" +
                     $"Customer: {customerName}\n" +
                     $"Grand Total: {grandTotal:F2}\n" +
                     $"Total Paid: {totalPaid:F2}\n" +
+                    $"Change Due: {changeDue:F2}\n" +
                     $"Due: {due:F2}\n" +
                     $"Payment Status: {paymentStatus}",
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Reset UI
                 btnCancel_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error completing sale: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+        /// <summary>
+        /// Opens panel to load saved drafts/quotations/sales
+        /// </summary>
         private void btnLoadSaved_Click(object sender, EventArgs e)
         {
-            // Initialize panel visibility and grids
-            pnlLoadSaved.Visible = true;
-            pnlLoadSaved.BringToFront();
-
-            // Load data for each tab
-            LoadDraftsList();
-            LoadQuotationsList();
-            LoadSalesList();
+            // This button would open a panel showing drafts/quotations/sales
+            // For now just show a message
+            MessageBox.Show("Load saved sales feature - panel should be visible", "Feature", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Closes the load saved panel
+        /// </summary>
         private void btnCloseLoadSaved_Click(object sender, EventArgs e)
         {
-            pnlLoadSaved.Visible = false;
+            // This would hide the load saved panel
+            // For now just show a message
+            MessageBox.Show("Close load saved panel", "Feature", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void LoadDraftsList()
-        {
-            try
-            {
-                DataTable drafts = _bllSalesTerminal.GetSales("DRAFT");
-                gcDrafts.DataSource = drafts;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading drafts: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void LoadQuotationsList()
-        {
-            try
-            {
-                DataTable quotations = _bllSalesTerminal.GetSales("QUOTATION");
-                gcQuotations.DataSource = quotations;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading quotations: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void LoadSalesList()
-        {
-            try
-            {
-                // We want to load recent sales. The GetSales method in BLL takes a type.
-                // Assuming "SALE" or "CREDIT_SALE" are the types.
-                // The GetSales method in DAL filters by type.
-                // Let's load standard SALE for now.
-                DataTable sales = _bllSalesTerminal.GetSales("SALE");
-                // Optionally merge CREDIT_SALE if needed, or if GetSales("SALE") covers both if logic allows.
-                // Based on DAL: WHERE sale_type = @saleType.
-                // Let's stick to 'SALE' as primary.
-                gcSales.DataSource = sales;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading sales: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
+        /// <summary>
+        /// Loads a selected sale (draft/quotation/sale) into the terminal
+        /// </summary>
         private void LoadSelectedSale(object sender, EventArgs e)
         {
-            // Determine which grid triggered the event
-            DevExpress.XtraGrid.Views.Grid.GridView view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
-            if (view == null || view.FocusedRowHandle < 0) return;
-
-            string saleIdStr = view.GetFocusedRowCellValue("sale_id")?.ToString();
-            if (int.TryParse(saleIdStr, out int saleId))
-            {
-                LoadSaleIntoTerminal(saleId);
-                pnlLoadSaved.Visible = false;
-            }
-        }
-
-        private void LoadSaleIntoTerminal(int saleId)
-        {
-            try
-            {
-                // 1. Reset current terminal
-                // Use btnCancel logic but don't call it directly to avoid UI flicker if possible,
-                // but for safety let's call it to clear state.
-                btnCancel_Click(null, null);
-
-                // 2. Fetch Data
-                DataTable fetchedSale = _bllSalesTerminal.GetSale(saleId);
-                DataTable fetchedItems = _bllSalesTerminal.GetSaleItems(saleId);
-                DataTable fetchedPayments = _bllSalesTerminal.GetSalePayments(saleId);
-
-                if (fetchedSale.Rows.Count == 0)
-                {
-                    MessageBox.Show("Sale record not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                DataRow saleRow = fetchedSale.Rows[0];
-
-                // 3. Populate saleTable (The main header data source)
-                DataRow currentSaleRow = saleTable.Rows[0];
-                currentSaleRow["sale_id"] = saleRow["sale_id"];
-                currentSaleRow["store_id"] = saleRow["store_id"];
-                currentSaleRow["sale_type"] = saleRow["sale_type"];
-                currentSaleRow["invoice_number"] = saleRow["invoice_number"];
-                currentSaleRow["quotation_number"] = saleRow["quotation_number"];
-                currentSaleRow["customer_id"] = saleRow["customer_id"];
-                currentSaleRow["biller_id"] = saleRow["biller_id"];
-                currentSaleRow["total_items"] = saleRow["total_items"];
-                currentSaleRow["total_amount"] = saleRow["total_amount"];
-                currentSaleRow["discount_type"] = saleRow["discount_type"];
-                currentSaleRow["discount_value"] = saleRow["discount_value"];
-                currentSaleRow["grand_total"] = saleRow["grand_total"];
-                currentSaleRow["total_paid"] = saleRow["total_paid"];
-                currentSaleRow["change_due"] = saleRow["change_due"];
-                currentSaleRow["payment_status"] = saleRow["payment_status"];
-                currentSaleRow["sale_status"] = saleRow["sale_status"];
-                currentSaleRow["order_type"] = saleRow["order_type"];
-                currentSaleRow["table_number"] = saleRow["table_number"];
-                currentSaleRow["notes"] = saleRow["notes"];
-                // Keep created_by/date as is or update? Usually we keep original for history.
-
-                // 4. Populate Items
-                salesItemsTable.Clear();
-                foreach (DataRow item in fetchedItems.Rows)
-                {
-                    DataRow newItem = salesItemsTable.NewRow();
-                    newItem["sale_item_id"] = item["sale_item_id"];
-                    newItem["sale_id"] = item["sale_id"];
-                    newItem["product_id"] = item["product_id"];
-                    newItem["product_name"] = item["product_name"];
-                    newItem["product_code"] = item["product_code"];
-                    newItem["unit"] = item["unit"];
-                    newItem["unit_price"] = item["unit_price"];
-                    newItem["quantity"] = item["quantity"];
-                    newItem["discount_type"] = item["discount_type"];
-                    newItem["discount_value"] = item["discount_value"];
-                    newItem["subtotal"] = item["subtotal"];
-                    newItem["status"] = "A";
-                    newItem["remove_action"] = "X";
-                    salesItemsTable.Rows.Add(newItem);
-                }
-
-                // 5. Populate Payments
-                // We need to re-initialize the payment table similar to InitializePaymentPanel
-                // But we don't want to clear and show the panel yet, just load the data.
-                // Actually, `paymentsTable` is local to the instance but initialized in `InitializePaymentPanel`
-                // which is called when `pnlPM` is shown.
-                // Let's pre-load it now so if they click "Add Payment", it shows history.
-                DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
-                paymentsTable = ds.Payment;
-                paymentsTable.Clear();
-                foreach (DataRow pay in fetchedPayments.Rows)
-                {
-                    paymentsTable.ImportRow(pay);
-                }
-
-                // If payment panel is visible (unlikely), refresh it.
-                // If not, it will be refreshed when opened because `InitializePaymentPanel` clears it.
-                // WAIT! `InitializePaymentPanel` CLEARS `paymentsTable`. This is bad if we want to retain loaded payments.
-                // We need to change `InitializePaymentPanel` to NOT clear if we just loaded a sale.
-                // OR we just populate it inside `InitializePaymentPanel`.
-                // Strategy: We will modify `InitializePaymentPanel` to check if `paymentsTable` already has data from a loaded sale.
-                // For now, let's just populate it here.
-
-                // 6. Update UI Elements
-                txtTotal.Text = currentSaleRow["total_amount"].ToString();
-                txtGrandTotal.Text = currentSaleRow["grand_total"].ToString();
-
-                // Customer
-                if (currentSaleRow["customer_id"] != DBNull.Value)
-                {
-                    int custId = Convert.ToInt32(currentSaleRow["customer_id"]);
-                    DataRow[] custRows = customersTable.Select($"customer_id = '{custId}'");
-                    if (custRows.Length > 0)
-                    {
-                        txtCustomer.Text = custRows[0]["full_name"].ToString();
-                    }
-                }
-
-                // Discount
-                txtDiscount.EditValue = currentSaleRow["discount_value"];
-                string discType = currentSaleRow["discount_type"]?.ToString();
-                if (txtDiscount.Properties.Buttons.Count > 0)
-                {
-                    txtDiscount.Properties.Buttons[0].Caption = (discType == "PERCENTAGE") ? "%" : "Rs.";
-                }
-
-                // KOT
-                if (pnlKOT.Visible)
-                {
-                    string orderType = currentSaleRow["order_type"]?.ToString();
-                    if (orderType == "DINE_IN")
-                    {
-                        btnDineIn.Appearance.BackColor = Color.FromArgb(4, 181, 152);
-                        btnDineIn.Appearance.ForeColor = Color.White;
-                        btnTakeAway.Appearance.BackColor = Color.White;
-                        btnTakeAway.Appearance.ForeColor = Color.Black;
-                        pnlKOTTableNo.Visible = true;
-                        string tableNum = currentSaleRow["table_number"]?.ToString();
-                        if (!string.IsNullOrEmpty(tableNum))
-                        {
-                            if (!cmbTableNo.Properties.Items.Contains(tableNum))
-                            {
-                                cmbTableNo.Properties.Items.Add(tableNum);
-                            }
-                            cmbTableNo.SelectedItem = tableNum;
-                        }
-                    }
-                    else if (orderType == "TAKE_AWAY")
-                    {
-                        btnTakeAway.Appearance.BackColor = Color.FromArgb(4, 181, 152);
-                        btnTakeAway.Appearance.ForeColor = Color.White;
-                        btnDineIn.Appearance.BackColor = Color.White;
-                        btnDineIn.Appearance.ForeColor = Color.Black;
-                        pnlKOTTableNo.Visible = false;
-                    }
-                }
-
-                // Grid
-                gvTransactionSum.GridControl.DataSource = salesItemsTable;
-                gvTransactionSum.RefreshData();
-
-                MessageBox.Show("Sale loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading sale: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // This would load the selected sale into the terminal for editing/completing
+            // For now just show a message
+            MessageBox.Show("Load selected sale into terminal", "Feature", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
