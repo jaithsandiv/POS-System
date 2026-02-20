@@ -63,6 +63,30 @@ namespace POS.BLL
                     userId: processedBy
                 );
 
+                // Log stock restoration for each returned item
+                foreach (DataRow item in returnItems.Rows)
+                {
+                    if (item.RowState == DataRowState.Deleted)
+                        continue;
+
+                    int productId = Convert.ToInt32(item["product_id"]);
+                    decimal quantity = Convert.ToDecimal(item["quantity"]);
+                    
+                    // Get product name if available in the DataTable
+                    string productInfo = $"Product ID: {productId}";
+                    if (returnItems.Columns.Contains("product_name") && item["product_name"] != DBNull.Value)
+                    {
+                        productInfo = $"{item["product_name"]} (ID: {productId})";
+                    }
+
+                    _logManager.LogInfo(
+                        source: "STOCK",
+                        message: $"Stock restored - {productInfo}, Quantity: {quantity}, Reason: RETURN (Return ID: {returnId})",
+                        referenceId: productId,
+                        userId: processedBy
+                    );
+                }
+
                 return returnId;
             }
             catch (Exception ex)

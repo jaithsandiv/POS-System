@@ -20,6 +20,7 @@ namespace POS.PAL.USERCONTROL
         private readonly BLL_Store _bllStore = new BLL_Store();
         private readonly BLL_AutoBackup _bllAutoBackup = new BLL_AutoBackup();
         private DataTable _settingsTable;
+        private DataTable _storesTable;
         private bool _isSuperAdmin = false;
 
         public UC_SystemSettings()
@@ -33,6 +34,7 @@ namespace POS.PAL.USERCONTROL
             ConfigureLicenseTabVisibility();
             
             LoadPrinters();
+            LoadStoresDropdown();
             LoadSettings();
             
             // Wire up trial toggle event to validate trial days
@@ -45,6 +47,12 @@ namespace POS.PAL.USERCONTROL
             if (chkIsLicensed != null)
             {
                 chkIsLicensed.CheckedChanged += chkIsLicensed_CheckedChanged;
+            }
+            
+            // Wire up store location selection event
+            if (cmbStoreLocation != null)
+            {
+                cmbStoreLocation.SelectedIndexChanged += CmbStoreLocation_SelectedIndexChanged;
             }
         }
 
@@ -96,10 +104,67 @@ namespace POS.PAL.USERCONTROL
             }
         }
 
+        /// <summary>
+        /// Loads all stores into the cmbStoreLocation dropdown
+        /// </summary>
+        private void LoadStoresDropdown()
+        {
+            try
+            {
+                // Temporarily unsubscribe from the event to prevent triggering during load
+                if (cmbStoreLocation != null)
+                {
+                    cmbStoreLocation.SelectedIndexChanged -= CmbStoreLocation_SelectedIndexChanged;
+                }
+
+                // Get all stores
+                _storesTable = _bllStore.GetStores();
+
+                // Clear existing items
+                cmbStoreLocation.Properties.Items.Clear();
+
+                // Add each store to the dropdown
+                if (_storesTable != null && _storesTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in _storesTable.Rows)
+                    {
+                        string storeName = row["store_name"]?.ToString();
+                        if (!string.IsNullOrWhiteSpace(storeName))
+                        {
+                            cmbStoreLocation.Properties.Items.Add(storeName);
+                        }
+                    }
+                }
+
+                // Don't set a default selection here - let LoadSettings handle it
+                
+                // Re-subscribe to the event
+                if (cmbStoreLocation != null)
+                {
+                    cmbStoreLocation.SelectedIndexChanged += CmbStoreLocation_SelectedIndexChanged;
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error loading stores: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
         private void LoadSettings()
         {
             try
             {
+                // Temporarily unsubscribe from store location event
+                if (cmbStoreLocation != null)
+                {
+                    cmbStoreLocation.SelectedIndexChanged -= CmbStoreLocation_SelectedIndexChanged;
+                }
+
                 // 1. Load System Settings (Key/Value)
                 _settingsTable = _bllSystemSettings.GetSystemSettings();
 
@@ -152,18 +217,73 @@ namespace POS.PAL.USERCONTROL
                     }
                 }
 
-                // 3. Load Store Info
-                DataTable storeDt = _bllStore.GetStores(); 
-                if (storeDt.Rows.Count > 0)
+                // 3. Load Store Info - Get selected store from settings or use current user's store
+                string selectedStoreName = GetStringSetting("selected_store_location");
+                int selectedStoreId = -1;
+                
+                // If no saved selection, use current user's store
+                if (string.IsNullOrEmpty(selectedStoreName) && Main.DataSetApp?.Store != null && Main.DataSetApp.Store.Rows.Count > 0)
                 {
-                    DataRow storeRow = storeDt.Rows[0]; // Assume first store
-                    txtPhone.Text = storeRow["phone"]?.ToString();
-                    txtEmail.Text = storeRow["email"]?.ToString();
-                    txtAddress.Text = storeRow["address"]?.ToString();
-                    txtCity.Text = storeRow["city"]?.ToString();
-                    txtState.Text = storeRow["state"]?.ToString();
-                    txtCountry.Text = storeRow["country"]?.ToString();
-                    txtPostalCode.Text = storeRow["postal_code"]?.ToString();
+                    selectedStoreName = Main.DataSetApp.Store[0]["store_name"]?.ToString();
+                    selectedStoreId = Convert.ToInt32(Main.DataSetApp.Store[0]["store_id"]);
+                }
+                else if (!string.IsNullOrEmpty(selectedStoreName))
+                {
+                    // Find store ID by name
+                    DataTable storeDt = _bllStore.GetStores();
+                    foreach (DataRow row in storeDt.Rows)
+                    {
+                        if (row["store_name"]?.ToString() == selectedStoreName)
+                        {
+                            selectedStoreId = Convert.ToInt32(row["store_id"]);
+                            break;
+                        }
+                    }
+                }
+
+                // Set the selected store in the dropdown
+                if (!string.IsNullOrEmpty(selectedStoreName) && cmbStoreLocation.Properties.Items.Contains(selectedStoreName))
+                {
+                    cmbStoreLocation.SelectedItem = selectedStoreName;
+                }
+                else if (cmbStoreLocation.Properties.Items.Count > 0)
+                {
+                    // Fallback to first store if saved selection is not found
+                    cmbStoreLocation.SelectedIndex = 0;
+                    selectedStoreName = cmbStoreLocation.Text;
+                }
+
+                // Load the selected store's data
+                if (selectedStoreId > 0)
+                {
+                    DataTable storeData = _bllStore.GetStoreById(selectedStoreId);
+                    if (storeData != null && storeData.Rows.Count > 0)
+                    {
+                        DataRow storeRow = storeData.Rows[0];
+                        txtPhone.Text = storeRow["phone"]?.ToString();
+                        txtEmail.Text = storeRow["email"]?.ToString();
+                        txtAddress.Text = storeRow["address"]?.ToString();
+                        txtCity.Text = storeRow["city"]?.ToString();
+                        txtState.Text = storeRow["state"]?.ToString();
+                        txtCountry.Text = storeRow["country"]?.ToString();
+                        txtPostalCode.Text = storeRow["postal_code"]?.ToString();
+                    }
+                }
+                else
+                {
+                    // Fallback: load first available store
+                    DataTable storeDt = _bllStore.GetStores();
+                    if (storeDt.Rows.Count > 0)
+                    {
+                        DataRow storeRow = storeDt.Rows[0];
+                        txtPhone.Text = storeRow["phone"]?.ToString();
+                        txtEmail.Text = storeRow["email"]?.ToString();
+                        txtAddress.Text = storeRow["address"]?.ToString();
+                        txtCity.Text = storeRow["city"]?.ToString();
+                        txtState.Text = storeRow["state"]?.ToString();
+                        txtCountry.Text = storeRow["country"]?.ToString();
+                        txtPostalCode.Text = storeRow["postal_code"]?.ToString();
+                    }
                 }
 
                 // 4. Load License & Trial settings (visible to all users now)
@@ -171,9 +291,20 @@ namespace POS.PAL.USERCONTROL
 
                 // 5. Load backup information
                 LoadBackupInfo();
+
+                // Re-subscribe to store location event
+                if (cmbStoreLocation != null)
+                {
+                    cmbStoreLocation.SelectedIndexChanged += CmbStoreLocation_SelectedIndexChanged;
+                }
             }
             catch (Exception ex)
             {
+                // Re-subscribe to event even if error occurs
+                if (cmbStoreLocation != null)
+                {
+                    cmbStoreLocation.SelectedIndexChanged += CmbStoreLocation_SelectedIndexChanged;
+                }
                 XtraMessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -842,6 +973,70 @@ namespace POS.PAL.USERCONTROL
             {
                 XtraMessageBox.Show($"Error during restore: {ex.Message}",
                     "Restore Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Handles store location selection change and populates address fields
+        /// </summary>
+        private void CmbStoreLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cmbStoreLocation.SelectedIndex < 0 || string.IsNullOrWhiteSpace(cmbStoreLocation.Text))
+                {
+                    return;
+                }
+
+                string selectedStoreName = cmbStoreLocation.Text.Trim();
+
+                // Find the store by name in the stores table
+                if (_storesTable != null && _storesTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in _storesTable.Rows)
+                    {
+                        if (row["store_name"]?.ToString()?.Trim() == selectedStoreName)
+                        {
+                            // Populate the address fields with the selected store's data
+                            txtAddress.Text = row["address"]?.ToString() ?? "";
+                            txtCity.Text = row["city"]?.ToString() ?? "";
+                            txtState.Text = row["state"]?.ToString() ?? "";
+                            txtPostalCode.Text = row["postal_code"]?.ToString() ?? "";
+                            txtCountry.Text = row["country"]?.ToString() ?? "";
+                            
+                            // Also populate contact fields if they exist in the store data
+                            txtPhone.Text = row["phone"]?.ToString() ?? "";
+                            txtEmail.Text = row["email"]?.ToString() ?? "";
+                            
+                            // Save the selected store location to system settings for persistence
+                            try
+                            {
+                                int userId = 1;
+                                if (Main.DataSetApp?.User != null && Main.DataSetApp.User.Count > 0 && !Main.DataSetApp.User[0].Isuser_idNull())
+                                {
+                                    int.TryParse(Main.DataSetApp.User[0].user_id, out userId);
+                                }
+                                
+                                _bllSystemSettings.UpdateSystemSetting("selected_store_location", selectedStoreName, userId);
+                            }
+                            catch
+                            {
+                                // Silently fail if saving preference fails - not critical
+                            }
+                            
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show(
+                    $"Error loading store address: {ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
     }

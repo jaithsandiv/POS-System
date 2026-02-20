@@ -515,6 +515,30 @@ namespace POS.DAL
                         };
 
                         Connection.ExecuteNonQuery(itemQuery, itemParams);
+
+                        // STOCK DEDUCTION: Only deduct stock for actual SALE transactions
+                        // Don't deduct for DRAFT or QUOTATION
+                        if (saleType == "SALE" || saleType == "CREDIT_SALE")
+                        {
+                            decimal quantity = decimal.Parse(item["quantity"]?.ToString() ?? "0");
+                            int productId = Convert.ToInt32(item["product_id"]);
+
+                            string updateStockQuery = @"
+                                UPDATE Product
+                                SET stock_quantity = stock_quantity - @quantity,
+                                    updated_by = @updated_by,
+                                    updated_date = GETDATE()
+                                WHERE product_id = @product_id";
+
+                            var stockParams = new SqlParameter[]
+                            {
+                                new SqlParameter("@quantity", quantity),
+                                new SqlParameter("@updated_by", billerId),
+                                new SqlParameter("@product_id", productId)
+                            };
+
+                            Connection.ExecuteNonQuery(updateStockQuery, stockParams);
+                        }
                     }
                 }
 

@@ -318,7 +318,6 @@
             btnAddSupplier.Appearance.Options.UseBackColor = true;
             btnAddSupplier.Appearance.Options.UseFont = true;
             btnAddSupplier.AppearanceHovered.Options.UseBackColor = true;
-            btnAddSupplier.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("btnAddSupplier.ImageOptions.Image");
             btnAddSupplier.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             btnAddSupplier.Location = new System.Drawing.Point(1779, 31);
             btnAddSupplier.Name = "btnAddSupplier";

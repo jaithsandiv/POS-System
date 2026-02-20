@@ -90,6 +90,27 @@ namespace POS.BLL
                     userId: billerId
                 );
 
+                // Log stock deduction for SALE types (not DRAFT or QUOTATION)
+                if (saleType == "SALE" || saleType == "CREDIT_SALE")
+                {
+                    foreach (DataRow item in saleItems.Rows)
+                    {
+                        if (item.RowState == DataRowState.Deleted)
+                            continue;
+
+                        int productId = Convert.ToInt32(item["product_id"]);
+                        string productName = item["product_name"]?.ToString() ?? "Unknown Product";
+                        decimal quantity = Convert.ToDecimal(item["quantity"]);
+
+                        _logManager.LogInfo(
+                            source: "STOCK",
+                            message: $"Stock deducted - Product: {productName} (ID: {productId}), Quantity: {quantity}, Reason: {saleType} (Sale ID: {resultSaleId})",
+                            referenceId: productId,
+                            userId: billerId
+                        );
+                    }
+                }
+
                 return resultSaleId;
             }
             catch (Exception ex)

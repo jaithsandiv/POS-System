@@ -15,6 +15,7 @@ namespace POS.PAL.USERCONTROL
     public partial class UC_Store_Registration : DevExpress.XtraEditors.XtraUserControl
     {
         private readonly BLL_Store _bllStore = new BLL_Store();
+        private readonly BLL_SystemLog _logManager = new BLL_SystemLog();
         private bool isEditMode = false;
         private int editStoreId = 0;
 
@@ -211,6 +212,14 @@ namespace POS.PAL.USERCONTROL
 
                 if (newStoreId > 0)
                 {
+                    // Log store creation
+                    _logManager.LogAudit(
+                        source: "STORE",
+                        message: $"Store created - ID: {newStoreId}, Name: {storeName}, Location: {city}, {country}",
+                        referenceId: newStoreId,
+                        userId: currentUserId
+                    );
+
                     // Show success message
                     XtraMessageBox.Show(
                         $"Store '{storeName}' created successfully!\n\nStore ID: {newStoreId}",
@@ -224,6 +233,13 @@ namespace POS.PAL.USERCONTROL
                 }
                 else
                 {
+                    _logManager.LogError(
+                        source: "STORE",
+                        message: $"Failed to create store '{storeName}' - database returned 0 or negative ID",
+                        referenceId: null,
+                        userId: currentUserId
+                    );
+
                     XtraMessageBox.Show(
                         "Failed to create store. Please try again.",
                         "Error",
@@ -234,6 +250,19 @@ namespace POS.PAL.USERCONTROL
             }
             catch (Exception ex)
             {
+                int currentUserId = 1;
+                if (Main.DataSetApp?.User != null && Main.DataSetApp.User.Rows.Count > 0)
+                {
+                    currentUserId = Convert.ToInt32(Main.DataSetApp.User[0]["user_id"]);
+                }
+
+                _logManager.LogError(
+                    source: "STORE",
+                    ex: ex,
+                    referenceId: null,
+                    userId: currentUserId
+                );
+
                 XtraMessageBox.Show(
                     $"Error creating store: {ex.Message}",
                     "Error",
@@ -281,6 +310,14 @@ namespace POS.PAL.USERCONTROL
 
                 if (success)
                 {
+                    // Log store update
+                    _logManager.LogAudit(
+                        source: "STORE",
+                        message: $"Store updated - ID: {editStoreId}, Name: {storeName}, Location: {city}, {country}",
+                        referenceId: editStoreId,
+                        userId: currentUserId
+                    );
+
                     // Show success message
                     XtraMessageBox.Show(
                         $"Store '{storeName}' updated successfully!",
@@ -294,6 +331,13 @@ namespace POS.PAL.USERCONTROL
                 }
                 else
                 {
+                    _logManager.LogError(
+                        source: "STORE",
+                        message: $"Failed to update store ID: {editStoreId}, Name: {storeName} - database returned false",
+                        referenceId: editStoreId,
+                        userId: currentUserId
+                    );
+
                     XtraMessageBox.Show(
                         "Failed to update store. Please try again.",
                         "Error",
@@ -304,6 +348,19 @@ namespace POS.PAL.USERCONTROL
             }
             catch (Exception ex)
             {
+                int currentUserId = 1;
+                if (Main.DataSetApp?.User != null && Main.DataSetApp.User.Rows.Count > 0)
+                {
+                    currentUserId = Convert.ToInt32(Main.DataSetApp.User[0]["user_id"]);
+                }
+
+                _logManager.LogError(
+                    source: "STORE",
+                    ex: ex,
+                    referenceId: editStoreId,
+                    userId: currentUserId
+                );
+
                 XtraMessageBox.Show(
                     $"Error updating store: {ex.Message}",
                     "Error",

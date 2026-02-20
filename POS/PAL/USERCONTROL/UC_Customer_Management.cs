@@ -20,6 +20,8 @@ namespace POS.PAL.USERCONTROL
 {
     public partial class UC_Customer_Management : DevExpress.XtraEditors.XtraUserControl
     {
+        private const int DEFAULT_CUSTOMER_ID = 1; // Walk-In Customer - system default
+        
         private readonly BLL_Contacts _bllContacts = new BLL_Contacts();
         private DataTable customersTable;
         private RepositoryItemButtonEdit repositoryItemButtonEdit_Edit;
@@ -218,6 +220,50 @@ namespace POS.PAL.USERCONTROL
 
             // Add context menu for Edit and Delete
             CreateContextMenu();
+            
+            // Handle custom row cell style to disable buttons for default customer
+            gridView1.CustomRowCellEdit += GridView1_CustomRowCellEdit;
+        }
+
+        /// <summary>
+        /// Customizes cell editors for specific rows (disables Edit/Delete for default customer unless current user is super admin)
+        /// </summary>
+        private void GridView1_CustomRowCellEdit(object sender, DevExpress.XtraGrid.Views.Grid.CustomRowCellEditEventArgs e)
+        {
+            if (e.Column.FieldName == "Edit" || e.Column.FieldName == "Delete")
+            {
+                DataRow row = gridView1.GetDataRow(e.RowHandle);
+                if (row != null)
+                {
+                    int customerId = Convert.ToInt32(row["customer_id"]);
+                    bool isCurrentUserSuperAdmin = PermissionManager.IsSuperAdmin();
+                    
+                    // For default customer (Walk-In Customer):
+                    // - Edit and Delete buttons are disabled for all users except super admin
+                    if (customerId == DEFAULT_CUSTOMER_ID)
+                    {
+                        if (!isCurrentUserSuperAdmin)
+                        {
+                            e.RepositoryItem = CreateDisabledButtonEditor();
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates a disabled button editor for grid cells
+        /// </summary>
+        private RepositoryItemButtonEdit CreateDisabledButtonEditor()
+        {
+            RepositoryItemButtonEdit disabledButtonEdit = new RepositoryItemButtonEdit();
+            disabledButtonEdit.Buttons.Clear();
+            var button = new EditorButton(ButtonPredefines.Glyph);
+            button.Enabled = false;
+            disabledButtonEdit.Buttons.Add(button);
+            disabledButtonEdit.TextEditStyle = TextEditStyles.HideTextEditor;
+            disabledButtonEdit.ReadOnly = true;
+            return disabledButtonEdit;
         }
 
         /// <summary>
@@ -843,6 +889,23 @@ namespace POS.PAL.USERCONTROL
                     return;
 
                 int customerId = Convert.ToInt32(selectedRow["customer_id"]);
+                
+                // Prevent editing default customer unless user is super admin
+                if (customerId == DEFAULT_CUSTOMER_ID)
+                {
+                    bool isCurrentUserSuperAdmin = PermissionManager.IsSuperAdmin();
+                    
+                    if (!isCurrentUserSuperAdmin)
+                    {
+                        XtraMessageBox.Show(
+                            "The default Walk-In Customer can only be edited by the Super Admin.",
+                            "Operation Not Allowed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        return;
+                    }
+                }
 
                 // Navigate to registration form in edit mode
                 var registrationForm = new UC_Customer_Registration(customerId);
@@ -912,6 +975,23 @@ namespace POS.PAL.USERCONTROL
 
                 int customerId = Convert.ToInt32(selectedRow["customer_id"]);
                 string fullName = selectedRow["full_name"]?.ToString();
+                
+                // Prevent deleting default customer unless user is super admin
+                if (customerId == DEFAULT_CUSTOMER_ID)
+                {
+                    bool isCurrentUserSuperAdmin = PermissionManager.IsSuperAdmin();
+                    
+                    if (!isCurrentUserSuperAdmin)
+                    {
+                        XtraMessageBox.Show(
+                            "The default Walk-In Customer cannot be deleted as it is a system customer.",
+                            "Operation Not Allowed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning
+                        );
+                        return;
+                    }
+                }
 
                 // Confirm deletion
                 var result = XtraMessageBox.Show(
