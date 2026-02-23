@@ -273,7 +273,7 @@
             btnExportPDF.Appearance.Options.UseBackColor = true;
             btnExportPDF.Appearance.Options.UseFont = true;
             btnExportPDF.Appearance.Options.UseForeColor = true;
-            btnExportPDF.Location = new System.Drawing.Point(1668, 28);
+            btnExportPDF.Location = new System.Drawing.Point(1673, 28);
             btnExportPDF.Name = "btnExportPDF";
             btnExportPDF.Size = new System.Drawing.Size(100, 29);
             btnExportPDF.TabIndex = 16;
@@ -288,7 +288,7 @@
             btnPrint.Appearance.Options.UseFont = true;
             btnPrint.Appearance.Options.UseForeColor = true;
             btnPrint.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            btnPrint.Location = new System.Drawing.Point(1350, 28);
+            btnPrint.Location = new System.Drawing.Point(1355, 28);
             btnPrint.Name = "btnPrint";
             btnPrint.Size = new System.Drawing.Size(100, 29);
             btnPrint.TabIndex = 14;
@@ -302,7 +302,7 @@
             btnExportExcel.Appearance.Options.UseBackColor = true;
             btnExportExcel.Appearance.Options.UseFont = true;
             btnExportExcel.Appearance.Options.UseForeColor = true;
-            btnExportExcel.Location = new System.Drawing.Point(1562, 28);
+            btnExportExcel.Location = new System.Drawing.Point(1567, 28);
             btnExportExcel.Name = "btnExportExcel";
             btnExportExcel.Size = new System.Drawing.Size(100, 29);
             btnExportExcel.TabIndex = 13;
@@ -316,7 +316,7 @@
             btnExportCSV.Appearance.Options.UseBackColor = true;
             btnExportCSV.Appearance.Options.UseFont = true;
             btnExportCSV.Appearance.Options.UseForeColor = true;
-            btnExportCSV.Location = new System.Drawing.Point(1456, 28);
+            btnExportCSV.Location = new System.Drawing.Point(1461, 28);
             btnExportCSV.Name = "btnExportCSV";
             btnExportCSV.Size = new System.Drawing.Size(100, 29);
             btnExportCSV.TabIndex = 12;
