@@ -57,10 +57,11 @@ namespace POS.PAL.USERCONTROL
             txtPin.Properties.Appearance.Options.UseFont = true;
             txtPin.Properties.Appearance.Options.UseTextOptions = true;
             txtPin.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            txtPin.Properties.MaxLength = 6;
+            txtPin.Properties.MaxLength = 8;
             txtPin.Properties.PasswordChar = '*';
             txtPin.Size = new System.Drawing.Size(360, 32);
             txtPin.TabIndex = 1;
+            txtPin.EditValueChanged += txtPin_EditValueChanged;
             // 
             // btnVerify
             // 

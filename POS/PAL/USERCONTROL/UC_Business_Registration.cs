@@ -73,14 +73,27 @@ namespace POS.PAL.USERCONTROL
             var businessRow = _dataSet.Business.NewBusinessRow();
             businessRow.business_name = txtBusinessName.Text.Trim();
 
-            // Convert logo to byte array if exists
+            // Convert logo to byte array if exists, otherwise set to null
             if (Logo.Image != null)
             {
-                using (MemoryStream ms = new MemoryStream())
+                try
                 {
-                    Logo.Image.Save(ms, Logo.Image.RawFormat);
-                    businessRow.logo = ms.ToArray();
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        Logo.Image.Save(ms, Logo.Image.RawFormat);
+                        businessRow.logo = ms.ToArray();
+                    }
                 }
+                catch (Exception)
+                {
+                    // If logo conversion fails, set to null
+                    businessRow.SetlogoNull();
+                }
+            }
+            else
+            {
+                // No logo uploaded - explicitly set to null
+                businessRow.SetlogoNull();
             }
 
             _dataSet.Business.AddBusinessRow(businessRow);
@@ -147,6 +160,11 @@ namespace POS.PAL.USERCONTROL
             {
                 // ignore errors
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

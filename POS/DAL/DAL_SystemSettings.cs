@@ -103,9 +103,19 @@ namespace POS.DAL
                     // Ideally WHERE business_id = 1, but status='A' is safer if id changed.
                     // Assuming single tenant.
 
+                SqlParameter logoParam = new SqlParameter("@logo", SqlDbType.VarBinary);
+                if (logo != null && logo.Length > 0)
+                {
+                    logoParam.Value = logo;
+                }
+                else
+                {
+                    logoParam.Value = DBNull.Value;
+                }
+
                 SqlParameter[] parameters = {
                     new SqlParameter("@business_name", businessName),
-                    new SqlParameter("@logo", logo ?? (object)DBNull.Value),
+                    logoParam,
                     new SqlParameter("@updated_by", updatedBy)
                 };
 

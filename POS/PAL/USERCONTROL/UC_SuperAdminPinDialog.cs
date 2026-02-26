@@ -13,7 +13,7 @@ namespace POS.PAL.USERCONTROL
         {
             InitializeComponent();
             PinVerified = false;
-            
+
             // Allow Enter key to verify
             txtPin.KeyPress += (s, e) =>
             {
@@ -28,10 +28,10 @@ namespace POS.PAL.USERCONTROL
         private void btnVerify_Click(object sender, EventArgs e)
         {
             EnteredPin = txtPin.Text.Trim();
-            
+
             if (string.IsNullOrWhiteSpace(EnteredPin))
             {
-                XtraMessageBox.Show("Please enter a PIN.", "Validation Error", 
+                XtraMessageBox.Show("Please enter a PIN.", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPin.Focus();
                 return;
@@ -72,15 +72,20 @@ namespace POS.PAL.USERCONTROL
                 form.MaximizeBox = false;
                 form.MinimizeBox = false;
                 form.ClientSize = new System.Drawing.Size(400, 200);
-                
+
                 UC_SuperAdminPinDialog dialog = new UC_SuperAdminPinDialog();
                 dialog.Dock = DockStyle.Fill;
                 form.Controls.Add(dialog);
-                
+
                 form.ShowDialog();
-                
+
                 return (dialog.PinVerified, dialog.EnteredPin);
             }
+        }
+
+        private void txtPin_EditValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

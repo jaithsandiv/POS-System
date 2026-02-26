@@ -105,6 +105,7 @@
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(1920, 1050);
             panel1.TabIndex = 0;
+            panel1.Paint += panel1_Paint;
             // 
             // Logo
             // 
@@ -115,7 +116,7 @@
             Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             Logo.TabIndex = 68;
             Logo.TabStop = false;
-            Logo.Click += this.Logo_Click;
+            Logo.Click += Logo_Click;
             // 
             // labelControl8
             // 

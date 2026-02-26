@@ -351,6 +351,9 @@ namespace POS.DAL
                 );
                 SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
+            SqlParameter imageParam = new SqlParameter("@image", SqlDbType.VarBinary, -1);
+            imageParam.Value = image != null ? (object)image : DBNull.Value;
+
             SqlParameter[] parameters = {
                 new SqlParameter("@product_name", productName),
                 new SqlParameter("@product_code", productCode),
@@ -365,7 +368,7 @@ namespace POS.DAL
                 new SqlParameter("@expiry_date", expiryDate.HasValue ? (object)expiryDate.Value : DBNull.Value),
                 new SqlParameter("@manufacture_date", manufactureDate.HasValue ? (object)manufactureDate.Value : DBNull.Value),
                 new SqlParameter("@description", string.IsNullOrWhiteSpace(description) ? (object)DBNull.Value : description),
-                new SqlParameter("@image", image != null ? (object)image : DBNull.Value),
+                imageParam,
                 new SqlParameter("@created_by", createdBy)
             };
 
@@ -402,6 +405,9 @@ namespace POS.DAL
                     updated_date = GETDATE()
                 WHERE product_id = @product_id AND status = 'A'";
 
+            SqlParameter imageParam = new SqlParameter("@image", SqlDbType.VarBinary, -1);
+            imageParam.Value = image != null ? (object)image : DBNull.Value;
+
             SqlParameter[] parameters = {
                 new SqlParameter("@product_id", productId),
                 new SqlParameter("@product_name", productName),
@@ -417,7 +423,7 @@ namespace POS.DAL
                 new SqlParameter("@expiry_date", expiryDate.HasValue ? (object)expiryDate.Value : DBNull.Value),
                 new SqlParameter("@manufacture_date", manufactureDate.HasValue ? (object)manufactureDate.Value : DBNull.Value),
                 new SqlParameter("@description", string.IsNullOrWhiteSpace(description) ? (object)DBNull.Value : description),
-                new SqlParameter("@image", image != null ? (object)image : DBNull.Value),
+                imageParam,
                 new SqlParameter("@updated_by", updatedBy)
             };
 

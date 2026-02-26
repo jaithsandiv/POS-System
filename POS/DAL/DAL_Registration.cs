@@ -28,9 +28,19 @@ namespace POS.DAL
                     OUTPUT INSERTED.business_id
                     VALUES (@business_name, @logo, GETDATE(), DATEADD(DAY, 3, GETDATE()), 0, 'A', NULL, GETDATE())";
 
+                SqlParameter logoParam = new SqlParameter("@logo", SqlDbType.VarBinary);
+                if (businessRow.IslogoNull() || businessRow.logo == null || businessRow.logo.Length == 0)
+                {
+                    logoParam.Value = DBNull.Value;
+                }
+                else
+                {
+                    logoParam.Value = businessRow.logo;
+                }
+
                 SqlParameter[] businessParams = {
                     new SqlParameter("@business_name", businessRow.business_name),
-                    new SqlParameter("@logo", businessRow.IslogoNull() ? (object)DBNull.Value : businessRow.logo)
+                    logoParam
                 };
 
                 int businessId;
