@@ -11,6 +11,7 @@ namespace POS.PAL.Forms
         private readonly int _customerId;
         private readonly BLL_Contacts _bllContacts = new BLL_Contacts();
         private readonly BLL_SalesTerminal _bllSales = new BLL_SalesTerminal();
+        private bool _hasInvoices = true;
 
         public bool PaymentSaved { get; private set; } = false;
 
@@ -26,6 +27,13 @@ namespace POS.PAL.Forms
             
             // Wire up event
             cmbInvoice.EditValueChanged += cmbInvoice_EditValueChanged;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            if (!_hasInvoices)
+                this.Close(); // Close after ShowDialog starts but before the form becomes visible
         }
 
         private void LoadUnpaidInvoices()
@@ -70,9 +78,8 @@ namespace POS.PAL.Forms
                 }
                 else
                 {
+                    _hasInvoices = false;
                     XtraMessageBox.Show("No unpaid invoices found for this customer.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // Optional: Close form or disable save
-                    btnSave.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -112,20 +119,29 @@ namespace POS.PAL.Forms
                 return;
             }
 
-            // Prevent overpayment — amount cannot exceed the invoice's outstanding balance
+            // Handle overpayment — cap the recorded amount at balance_due, give change back
             DataRowView selectedRow = cmbInvoice.GetSelectedDataRow() as DataRowView;
-            if (selectedRow != null && decimal.TryParse(selectedRow["balance_due"]?.ToString(), out decimal balanceDue))
+            decimal balanceDue = amount; // fallback: record exactly what was entered
+            decimal changeToGive = 0;
+            if (selectedRow != null && decimal.TryParse(selectedRow["balance_due"]?.ToString(), out decimal parsedDue))
             {
+                balanceDue = parsedDue;
                 if (amount > balanceDue + 0.01m)
                 {
-                    XtraMessageBox.Show(
-                        $"Payment amount (Rs. {amount:N2}) exceeds the outstanding balance (Rs. {balanceDue:N2}).\n\n" +
-                        $"Please enter an amount equal to or less than the due balance.",
-                        "Overpayment Not Allowed",
-                        MessageBoxButtons.OK,
+                    changeToGive = amount - balanceDue;
+                    var result = XtraMessageBox.Show(
+                        $"Customer paid Rs. {amount:N2} but the outstanding balance is Rs. {balanceDue:N2}.\n\n" +
+                        $"⚠ Give change of Rs. {changeToGive:N2} back to the customer.\n\n" +
+                        $"The payment will be recorded as Rs. {balanceDue:N2} (the exact due amount).\n" +
+                        $"Click OK to confirm.",
+                        "Overpayment — Give Change",
+                        MessageBoxButtons.OKCancel,
                         MessageBoxIcon.Warning);
-                    txtAmount.Text = balanceDue.ToString("F2");
-                    return;
+                    if (result == DialogResult.Cancel)
+                        return;
+                    // Cap the recorded payment to the actual due amount
+                    amount = balanceDue;
+                    txtAmount.Text = amount.ToString("F2");
                 }
             }
 

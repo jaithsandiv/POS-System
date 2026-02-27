@@ -47,6 +47,8 @@ namespace POS.PAL.USERCONTROL
             lblPaymentPaidValue.Text = "0.00";
             lblPaymentBalanceValue.Text = "0.00";
             lblPaymentBalanceValue.Appearance.ForeColor = Color.IndianRed;
+            lblPaymentChangeValue.Text = "0.00";
+            lblPaymentChangeValue.Appearance.ForeColor = Color.SeaGreen;
         }
 
         private void ResetUIElements()
@@ -1039,8 +1041,9 @@ namespace POS.PAL.USERCONTROL
             }
 
             // Add the first payment entry with the selected method
+            // Use Max(0,due) — due can be negative when already overpaid
             var (totalPaid, due) = CalculatePaymentTotals();
-            AddPaymentEntry(selectedPaymentMethod, due);
+            AddPaymentEntry(selectedPaymentMethod, due > 0 ? due : (decimal?)null);
 
             // Reset selection so it can be selected again if needed
             cmbPM.EditValue = null;
@@ -2197,7 +2200,9 @@ namespace POS.PAL.USERCONTROL
                 }
             }
 
-            decimal due = Math.Max(0, grandTotal - totalPaid);
+            // NOTE: due can be negative when totalPaid > grandTotal (overpayment).
+            // Callers that display balance floor at 0; callers that need change use Math.Max(0, -due).
+            decimal due = grandTotal - totalPaid;
             return (totalPaid, due);
         }
 
@@ -2217,19 +2222,20 @@ namespace POS.PAL.USERCONTROL
 
             var (totalPaid, due) = CalculatePaymentTotals();
 
+            // due can be negative when overpaid (cash > grandTotal)
+            decimal balanceRemaining = Math.Max(0, due);
+            decimal changeDueNow = Math.Max(0, -due); // amount to give back to customer
+
             lblPaymentTotalValue.Text = grandTotal.ToString("F2");
             lblPaymentPaidValue.Text = totalPaid.ToString("F2");
-            lblPaymentBalanceValue.Text = due.ToString("F2");
+            lblPaymentBalanceValue.Text = balanceRemaining.ToString("F2");
+            lblPaymentChangeValue.Text = changeDueNow.ToString("F2");
 
-            // Change balance label color based on status
-            if (due > 0)
-            {
-                lblPaymentBalanceValue.Appearance.ForeColor = Color.IndianRed;
-            }
-            else
-            {
-                lblPaymentBalanceValue.Appearance.ForeColor = Color.Green;
-            }
+            // Balance due: red when outstanding, green when fully covered
+            lblPaymentBalanceValue.Appearance.ForeColor = balanceRemaining > 0 ? Color.IndianRed : Color.Green;
+
+            // Change due: highlighted orange when there is change to give back
+            lblPaymentChangeValue.Appearance.ForeColor = changeDueNow > 0 ? Color.OrangeRed : Color.SeaGreen;
         }
 
         /// <summary>
@@ -2439,13 +2445,8 @@ namespace POS.PAL.USERCONTROL
                 }
                 else if (allPaymentsTotal - grandTotal > 0.01m)
                 {
-                    MessageBox.Show(
-                        $"Payment total (Rs. {allPaymentsTotal:F2}) exceeds the grand total (Rs. {grandTotal:F2}).\n\n" +
-                        $"Please correct the payment amounts.",
-                        "Overpayment",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                    return;
+                    // Overpayment is allowed — change will be given back to the customer.
+                    // changeDue is computed below from totalPaid - grandTotal.
                 }
 
                 // ── Unified credit-limit guard ────────────────────────────────────────
@@ -2541,10 +2542,12 @@ namespace POS.PAL.USERCONTROL
                 string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
                 string notes = $"Sale completed on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
-                // Save sale
+                // Save sale — pass 0m for totalPaid so SavePayments owns it exclusively via
+                // its per-row += accumulation. Passing totalPaid here AND having SavePayments
+                // do += would double-count it. changeDue is correct and is not touched by SavePayments.
                 int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
                     discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                    salesItemsTable, totalPaid, changeDue, invoiceNumber, null, orderType, tableNumber);
+                    salesItemsTable, 0m, changeDue, invoiceNumber, null, orderType, tableNumber);
 
                 // Save payments
                 _bllSalesTerminal.SavePayments(saleId, paymentsTable, billerId);
@@ -2603,17 +2606,28 @@ namespace POS.PAL.USERCONTROL
                     PrintKOT(invoiceNumber, orderType, tableNumber, customerName, salesItemsTable, autoPrint);
                 }
 
-                // Show success message
-                MessageBox.Show(
-                    $"Invoice Created Successfully!\n\n" +
-                    $"Invoice Number: {invoiceNumber}\n" +
-                    $"Customer: {customerName}\n" +
-                    $"Grand Total: {grandTotal:F2}\n" +
-                    $"Total Paid: {totalPaid:F2}\n" +
-                    $"Change Due: {changeDue:F2}\n" +
-                    $"Due: {due:F2}\n" +
-                    $"Payment Status: {paymentStatus}",
-                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Show success message — highlight change when customer overpaid
+                if (changeDue > 0)
+                {
+                    MessageBox.Show(
+                        $"Invoice Created Successfully!\n\n" +
+                        $"Invoice Number: {invoiceNumber}\n" +
+                        $"Grand Total:    Rs. {grandTotal:F2}\n" +
+                        $"Total Paid:     Rs. {totalPaid:F2}\n\n" +
+                        $"⚠ GIVE CHANGE:  Rs. {changeDue:F2}",
+                        "Sale Complete — Give Change", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        $"Invoice Created Successfully!\n\n" +
+                        $"Invoice Number: {invoiceNumber}\n" +
+                        $"Customer: {customerName}\n" +
+                        $"Grand Total: Rs. {grandTotal:F2}\n" +
+                        $"Total Paid:  Rs. {totalPaid:F2}\n" +
+                        $"Payment Status: {paymentStatus}",
+                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 
                 // Reset UI
                 btnCancel_Click(null, null);
