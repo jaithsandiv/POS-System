@@ -16,6 +16,9 @@
 # Mono auto generated files
 mono_crash.*
 
+# Installer build output (binaries too large for git)
+Installer/Output/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

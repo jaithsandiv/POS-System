@@ -71,7 +71,7 @@ namespace POS.PAL.USERCONTROL
 
             // Reset combo boxes
             cmbPM.Properties.Items.Clear();
-            cmbPM.Properties.Items.AddRange(new string[] { "CASH", "CARD", "BANK_TRANSFER", "CREDIT" });
+            cmbPM.Properties.Items.AddRange(new string[] { "CASH", "CARD", "BANK_TRANSFER" });
             cmbPM.SelectedIndex = -1;
             cmbTableNo.SelectedIndex = -1;
 
@@ -1144,7 +1144,7 @@ namespace POS.PAL.USERCONTROL
             };
             cmbMethod.Properties.Appearance.Font = new Font("Segoe UI", 9.75F);
             cmbMethod.Properties.Appearance.Options.UseFont = true;
-            cmbMethod.Properties.Items.AddRange(new string[] { "CASH", "CARD", "BANK_TRANSFER", "CREDIT" });
+            cmbMethod.Properties.Items.AddRange(new string[] { "CASH", "CARD", "BANK_TRANSFER" });
             cmbMethod.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             cmbMethod.Properties.Padding = new System.Windows.Forms.Padding(10);
             cmbMethod.Size = new Size(paymentEntryPanel.Width - 130, 44);
@@ -2111,11 +2111,21 @@ namespace POS.PAL.USERCONTROL
                 creditPaymentTable.Columns.Add("payment_method", typeof(string));
                 creditPaymentTable.Columns.Add("amount", typeof(decimal));
                 creditPaymentTable.Columns.Add("payment_date", typeof(DateTime));
+                creditPaymentTable.Columns.Add("card_last_four_digits", typeof(string));
+                creditPaymentTable.Columns.Add("card_holder_name", typeof(string));
+                creditPaymentTable.Columns.Add("card_transaction_number", typeof(string));
+                creditPaymentTable.Columns.Add("card_type", typeof(string));
+                creditPaymentTable.Columns.Add("bank_reference_number", typeof(string));
 
                 DataRow creditPayment = creditPaymentTable.NewRow();
                 creditPayment["payment_method"] = "CREDIT";
                 creditPayment["amount"] = grandTotal;
                 creditPayment["payment_date"] = DateTime.Now;
+                creditPayment["card_last_four_digits"] = DBNull.Value;
+                creditPayment["card_holder_name"] = DBNull.Value;
+                creditPayment["card_transaction_number"] = DBNull.Value;
+                creditPayment["card_type"] = DBNull.Value;
+                creditPayment["bank_reference_number"] = DBNull.Value;
                 creditPaymentTable.Rows.Add(creditPayment);
 
                 // Save CREDIT payment to database
@@ -2437,6 +2447,71 @@ namespace POS.PAL.USERCONTROL
                         MessageBoxIcon.Warning);
                     return;
                 }
+
+                // ── Unified credit-limit guard ────────────────────────────────────────
+                // Validate ALL CREDIT payment rows (manual or auto-appended) against the
+                // customer's available credit. This runs regardless of how the CREDIT row
+                // was added, so a user who manually selects CREDIT from the dropdown and
+                // enters a full amount is also subject to the same limit check.
+                decimal totalCreditPayments = 0;
+                foreach (DataRow pmtRow in paymentsTable.Rows)
+                {
+                    if (pmtRow.RowState != DataRowState.Deleted &&
+                        pmtRow["payment_method"]?.ToString() == "CREDIT")
+                    {
+                        totalCreditPayments += decimal.Parse(pmtRow["amount"]?.ToString() ?? "0");
+                    }
+                }
+
+                if (totalCreditPayments > 0.01m)
+                {
+                    // Walk-in / no customer selected
+                    if (customerId == null || customerId == 1)
+                    {
+                        MessageBox.Show(
+                            "Credit payment is not allowed for Walk-In Customer.\n" +
+                            "Please select a registered customer or use a cash/card payment.",
+                            "Credit Not Allowed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    DataRow[] limitRows = customersTable.Select($"customer_id = '{customerId}'");
+                    if (limitRows.Length > 0)
+                    {
+                        decimal custCreditLimit = 0, custCreditBalance = 0;
+                        decimal.TryParse(limitRows[0]["credit_limit"]?.ToString(), out custCreditLimit);
+                        decimal.TryParse(limitRows[0]["credit_balance"]?.ToString(), out custCreditBalance);
+
+                        if (custCreditLimit <= 0)
+                        {
+                            MessageBox.Show(
+                                $"Customer '{limitRows[0]["full_name"]}' has no credit limit set.\n" +
+                                $"Cannot process credit payment of Rs. {totalCreditPayments:F2}.\n\n" +
+                                $"Please configure a credit limit for this customer first.",
+                                "No Credit Limit",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        decimal availCred = custCreditLimit - custCreditBalance;
+                        if (totalCreditPayments > availCred + 0.01m)
+                        {
+                            MessageBox.Show(
+                                $"Credit payment of Rs. {totalCreditPayments:F2} exceeds available credit.\n\n" +
+                                $"Credit Limit:     Rs. {custCreditLimit:F2}\n" +
+                                $"Current Balance:  Rs. {custCreditBalance:F2}\n" +
+                                $"Available Credit: Rs. {availCred:F2}",
+                                "Credit Limit Exceeded",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
+                // ── End credit-limit guard ────────────────────────────────────────────
 
                 string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
                 decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
