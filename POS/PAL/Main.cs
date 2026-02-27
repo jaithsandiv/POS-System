@@ -24,6 +24,7 @@ namespace POS
         private const int collapsedWidth = 0;
         private const int expandedWidth = 250;
         private Timer clockTimer;
+        private bool _trialWarningShown = false;
 
         public Main()
         {
@@ -236,9 +237,14 @@ namespace POS
         /// </summary>
         private void ShowTrialWarningIfNeeded()
         {
+            if (_trialWarningShown)
+                return;
+
             // Check if we should show warning
             if (BLL_TrialManager.ShouldShowWarning())
             {
+                _trialWarningShown = true;
+
                 var trialStatus = BLL_TrialManager.GetTrialStatus();
                 
                 string title = trialStatus.IsTrialExpired ? "Trial Expired" : "Trial Expiring Soon";
@@ -797,6 +803,9 @@ namespace POS
                 
                 // Clear permissions from PermissionManager
                 BLL.PermissionManager.ClearPermissions();
+
+                // Reset trial warning so it shows again on next login
+                _trialWarningShown = false;
 
                 // Load login screen
                 UC_Login login = new UC_Login();
