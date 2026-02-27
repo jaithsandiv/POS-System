@@ -112,6 +112,23 @@ namespace POS.PAL.Forms
                 return;
             }
 
+            // Prevent overpayment — amount cannot exceed the invoice's outstanding balance
+            DataRowView selectedRow = cmbInvoice.GetSelectedDataRow() as DataRowView;
+            if (selectedRow != null && decimal.TryParse(selectedRow["balance_due"]?.ToString(), out decimal balanceDue))
+            {
+                if (amount > balanceDue + 0.01m)
+                {
+                    XtraMessageBox.Show(
+                        $"Payment amount (Rs. {amount:N2}) exceeds the outstanding balance (Rs. {balanceDue:N2}).\n\n" +
+                        $"Please enter an amount equal to or less than the due balance.",
+                        "Overpayment Not Allowed",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    txtAmount.Text = balanceDue.ToString("F2");
+                    return;
+                }
+            }
+
             int saleId = Convert.ToInt32(cmbInvoice.EditValue);
             string paymentMethod = cmbPaymentMethod.Text;
             string reference = txtReference.Text;
