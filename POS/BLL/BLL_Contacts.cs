@@ -151,7 +151,8 @@ namespace POS.BLL
         /// </summary>
         public int InsertCustomer(int? groupId, string fullName, string companyName, string email, 
                                    string phone, string address, string city, string state, 
-                                   string country, string postalCode, int createdBy)
+                                   string country, string postalCode,
+                                   decimal creditLimit, decimal openingBalance, int createdBy)
         {
             // Validation
             if (string.IsNullOrWhiteSpace(fullName))
@@ -161,7 +162,8 @@ namespace POS.BLL
                 throw new ArgumentException("Phone number is required.", nameof(phone));
 
             return _dalContacts.InsertCustomer(groupId, fullName, companyName, email, 
-                                                phone, address, city, state, country, postalCode, createdBy);
+                                                phone, address, city, state, country, postalCode,
+                                                creditLimit, openingBalance, createdBy);
         }
 
         /// <summary>
@@ -169,7 +171,8 @@ namespace POS.BLL
         /// </summary>
         public bool UpdateCustomer(int customerId, int? groupId, string fullName, string companyName, 
                                     string email, string phone, string address, string city, 
-                                    string state, string country, string postalCode, int updatedBy)
+                                    string state, string country, string postalCode,
+                                    decimal creditLimit, decimal openingBalance, int updatedBy)
         {
             // Validation
             if (string.IsNullOrWhiteSpace(fullName))
@@ -179,7 +182,8 @@ namespace POS.BLL
                 throw new ArgumentException("Phone number is required.", nameof(phone));
 
             return _dalContacts.UpdateCustomer(customerId, groupId, fullName, companyName, 
-                                                email, phone, address, city, state, country, postalCode, updatedBy);
+                                                email, phone, address, city, state, country, postalCode,
+                                                creditLimit, openingBalance, updatedBy);
         }
 
         /// <summary>

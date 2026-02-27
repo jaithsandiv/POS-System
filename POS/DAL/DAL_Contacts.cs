@@ -655,7 +655,8 @@ namespace POS.DAL
         /// </summary>
         public int InsertCustomer(int? groupId, string fullName, string companyName, string email, 
                                    string phone, string address, string city, string state, 
-                                   string country, string postalCode, int createdBy)
+                                   string country, string postalCode,
+                                   decimal creditLimit, decimal openingBalance, int createdBy)
         {
             try
             {
@@ -667,7 +668,7 @@ namespace POS.DAL
                     )
                     VALUES (
                         @group_id, @full_name, @company_name, @email, @phone, @address,
-                        @city, @state, @country, @postal_code, 0, 0,
+                        @city, @state, @country, @postal_code, @credit_limit, @credit_balance,
                         'A', @created_by, GETDATE()
                     );
                     SELECT CAST(SCOPE_IDENTITY() AS INT);";
@@ -684,6 +685,8 @@ namespace POS.DAL
                     new SqlParameter("@state", string.IsNullOrWhiteSpace(state) ? (object)DBNull.Value : state),
                     new SqlParameter("@country", string.IsNullOrWhiteSpace(country) ? (object)DBNull.Value : country),
                     new SqlParameter("@postal_code", string.IsNullOrWhiteSpace(postalCode) ? (object)DBNull.Value : postalCode),
+                    new SqlParameter("@credit_limit", creditLimit),
+                    new SqlParameter("@credit_balance", openingBalance),
                     new SqlParameter("@created_by", createdBy)
                 };
 
@@ -706,7 +709,8 @@ namespace POS.DAL
         /// </summary>
         public bool UpdateCustomer(int customerId, int? groupId, string fullName, string companyName, 
                                     string email, string phone, string address, string city, 
-                                    string state, string country, string postalCode, int updatedBy)
+                                    string state, string country, string postalCode,
+                                    decimal creditLimit, decimal openingBalance, int updatedBy)
         {
             try
             {
@@ -723,6 +727,8 @@ namespace POS.DAL
                         state = @state,
                         country = @country,
                         postal_code = @postal_code,
+                        credit_limit = @credit_limit,
+                        credit_balance = @credit_balance,
                         updated_by = @updated_by,
                         updated_date = GETDATE()
                     WHERE customer_id = @customer_id AND status = 'A'";
@@ -740,6 +746,8 @@ namespace POS.DAL
                     new SqlParameter("@state", string.IsNullOrWhiteSpace(state) ? (object)DBNull.Value : state),
                     new SqlParameter("@country", string.IsNullOrWhiteSpace(country) ? (object)DBNull.Value : country),
                     new SqlParameter("@postal_code", string.IsNullOrWhiteSpace(postalCode) ? (object)DBNull.Value : postalCode),
+                    new SqlParameter("@credit_limit", creditLimit),
+                    new SqlParameter("@credit_balance", openingBalance),
                     new SqlParameter("@updated_by", updatedBy)
                 };
 
@@ -797,7 +805,7 @@ namespace POS.DAL
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type = 'SALE'
+                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                     GROUP BY cg.group_name
                     ORDER BY total_sales DESC";
 
@@ -833,7 +841,7 @@ namespace POS.DAL
                         LEFT JOIN Customer c ON s.customer_id = c.customer_id
                         LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
                         WHERE s.status = 'A' 
-                          AND s.sale_type = 'SALE'
+                          AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                         GROUP BY cg.group_name
                     ) AS GroupedSales
                     WHERE customer_group LIKE @keyword
@@ -859,29 +867,41 @@ namespace POS.DAL
         {
             try
             {
+                // FIX Gap 8: Compute 'due' entirely from transactions to avoid double-counting
+                // credit_balance. The live balance column is used for limit checks, not for reporting.
                 string query = @"
                     WITH CustomerSales AS (
                         SELECT 
                             c.customer_id,
                             ISNULL(c.full_name, 'Walk-In Customer') AS customer_name,
-                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE' THEN s.grand_total ELSE 0 END), 0) AS total_sale,
-                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE_RETURN' THEN s.grand_total ELSE 0 END), 0) AS total_sell_return,
-                            ISNULL(c.credit_balance, 0) AS opening_balance
+                            ISNULL(SUM(CASE WHEN s.sale_type IN ('SALE','CREDIT_SALE') THEN s.grand_total ELSE 0 END), 0) AS total_sale,
+                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE_RETURN' THEN s.grand_total ELSE 0 END), 0) AS total_sell_return
                         FROM Customer c
                         LEFT JOIN Sale s ON c.customer_id = s.customer_id AND s.status = 'A'
                         WHERE c.status = 'A'
-                        GROUP BY c.customer_id, c.full_name, c.credit_balance
+                        GROUP BY c.customer_id, c.full_name
+                    ),
+                    CustomerPaymentsData AS (
+                        SELECT
+                            s.customer_id,
+                            ISNULL(SUM(p.amount), 0) AS total_payments
+                        FROM Payment p
+                        JOIN Sale s ON p.sale_id = s.sale_id AND s.status = 'A'
+                        WHERE p.status = 'A'
+                          AND p.payment_method <> 'CREDIT'
+                        GROUP BY s.customer_id
                     )
                     SELECT 
-                        customer_name,
+                        cs.customer_name,
                         CAST(0 AS DECIMAL(18,2)) AS total_purchase,
                         CAST(0 AS DECIMAL(18,2)) AS total_purchase_return,
-                        total_sale,
-                        total_sell_return,
-                        opening_balance,
-                        (opening_balance + total_sale - total_sell_return) AS due
-                    FROM CustomerSales
-                    ORDER BY customer_name";
+                        cs.total_sale,
+                        cs.total_sell_return,
+                        ISNULL(cpd.total_payments, 0) AS total_paid,
+                        (cs.total_sale - cs.total_sell_return - ISNULL(cpd.total_payments, 0)) AS due
+                    FROM CustomerSales cs
+                    LEFT JOIN CustomerPaymentsData cpd ON cs.customer_id = cpd.customer_id
+                    ORDER BY cs.customer_name";
 
                 return Connection.ExecuteQuery(query) ?? new DataTable();
             }
@@ -903,34 +923,44 @@ namespace POS.DAL
                     return GetSupplierCustomerReport();
                 }
 
+                // FIX Gap 8: Same transaction-derived 'due' calculation, no double-counting
                 string query = @"
                     WITH CustomerSales AS (
                         SELECT 
                             c.customer_id,
                             ISNULL(c.full_name, 'Walk-In Customer') AS customer_name,
-                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE' THEN s.grand_total ELSE 0 END), 0) AS total_sale,
-                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE_RETURN' THEN s.grand_total ELSE 0 END), 0) AS total_sell_return,
-                            ISNULL(c.credit_balance, 0) AS opening_balance
+                            ISNULL(SUM(CASE WHEN s.sale_type IN ('SALE','CREDIT_SALE') THEN s.grand_total ELSE 0 END), 0) AS total_sale,
+                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE_RETURN' THEN s.grand_total ELSE 0 END), 0) AS total_sell_return
                         FROM Customer c
                         LEFT JOIN Sale s ON c.customer_id = s.customer_id AND s.status = 'A'
                         WHERE c.status = 'A'
-                        GROUP BY c.customer_id, c.full_name, c.credit_balance
+                        GROUP BY c.customer_id, c.full_name
+                    ),
+                    CustomerPaymentsData AS (
+                        SELECT
+                            s.customer_id,
+                            ISNULL(SUM(p.amount), 0) AS total_payments
+                        FROM Payment p
+                        JOIN Sale s ON p.sale_id = s.sale_id AND s.status = 'A'
+                        WHERE p.status = 'A'
+                          AND p.payment_method <> 'CREDIT'
+                        GROUP BY s.customer_id
                     )
                     SELECT 
-                        customer_name,
+                        cs.customer_name,
                         CAST(0 AS DECIMAL(18,2)) AS total_purchase,
                         CAST(0 AS DECIMAL(18,2)) AS total_purchase_return,
-                        total_sale,
-                        total_sell_return,
-                        opening_balance,
-                        (opening_balance + total_sale - total_sell_return) AS due
-                    FROM CustomerSales
-                    WHERE customer_name LIKE @keyword
-                       OR CONVERT(VARCHAR, total_sale) LIKE @keyword
-                       OR CONVERT(VARCHAR, total_sell_return) LIKE @keyword
-                       OR CONVERT(VARCHAR, opening_balance) LIKE @keyword
-                       OR CONVERT(VARCHAR, opening_balance + total_sale - total_sell_return) LIKE @keyword
-                    ORDER BY customer_name";
+                        cs.total_sale,
+                        cs.total_sell_return,
+                        ISNULL(cpd.total_payments, 0) AS total_paid,
+                        (cs.total_sale - cs.total_sell_return - ISNULL(cpd.total_payments, 0)) AS due
+                    FROM CustomerSales cs
+                    LEFT JOIN CustomerPaymentsData cpd ON cs.customer_id = cpd.customer_id
+                    WHERE cs.customer_name LIKE @keyword
+                       OR CONVERT(VARCHAR, cs.total_sale) LIKE @keyword
+                       OR CONVERT(VARCHAR, cs.total_sell_return) LIKE @keyword
+                       OR CONVERT(VARCHAR, cs.total_sale - cs.total_sell_return - ISNULL(cpd.total_payments, 0)) LIKE @keyword
+                    ORDER BY cs.customer_name";
 
                 SqlParameter[] parameters = {
                     new SqlParameter("@keyword", "%" + keyword + "%")
@@ -1025,7 +1055,7 @@ namespace POS.DAL
                     (grand_total - total_paid) AS balance_due
                 FROM Sale
                 WHERE customer_id = @CustomerId
-                  AND sale_type = 'SALE'
+                  AND sale_type IN ('SALE', 'CREDIT_SALE')
                   AND status = 'A'
                   AND payment_status IN ('PENDING', 'PARTIAL', 'CREDIT')
                 ORDER BY created_date ASC";

@@ -2339,6 +2339,16 @@ namespace POS.PAL.USERCONTROL
                 var (totalPaid, due) = CalculatePaymentTotals();
                 decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
 
+                // Get sale data early (needed for credit limit validation below)
+                int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
+                int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
+                int? customerId = null;
+
+                if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
+                {
+                    customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
+                }
+
                 // Calculate total of all payments (including CREDIT)
                 decimal allPaymentsTotal = 0;
                 foreach (DataRow payment in paymentsTable.Rows)
@@ -2349,29 +2359,83 @@ namespace POS.PAL.USERCONTROL
                     }
                 }
 
-                // Check if sum of all payments equals grand total
-                if (Math.Abs(allPaymentsTotal - grandTotal) > 0.01m)
+                decimal remainingBalance = grandTotal - allPaymentsTotal;
+
+                if (remainingBalance > 0.01m)
+                {
+                    // Auto-add a CREDIT row for the remaining balance with limit validation
+                    if (customerId == null || customerId == 1)
+                    {
+                        MessageBox.Show(
+                            $"There is a remaining balance of Rs. {remainingBalance:F2}.\n\n" +
+                            $"Credit is not available for Walk-In Customer.\n" +
+                            $"Please select a registered customer or cover the full balance.",
+                            "Balance Due",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    DataRow[] creditCustomerRows = customersTable.Select($"customer_id = '{customerId}'");
+                    if (creditCustomerRows.Length == 0)
+                    {
+                        MessageBox.Show("Customer information not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    DataRow creditCustomer = creditCustomerRows[0];
+                    decimal creditLimit = 0, currentCreditBalance = 0;
+                    decimal.TryParse(creditCustomer["credit_limit"]?.ToString(), out creditLimit);
+                    decimal.TryParse(creditCustomer["credit_balance"]?.ToString(), out currentCreditBalance);
+
+                    if (creditLimit <= 0)
+                    {
+                        MessageBox.Show(
+                            $"Customer '{creditCustomer["full_name"]}' has no credit limit set.\n" +
+                            $"The remaining Rs. {remainingBalance:F2} cannot be put on credit.\n\n" +
+                            $"Please cover the full amount or configure a credit limit for this customer.",
+                            "No Credit Limit",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    decimal availableCredit = creditLimit - currentCreditBalance;
+                    if (remainingBalance > availableCredit)
+                    {
+                        MessageBox.Show(
+                            $"Remaining balance (Rs. {remainingBalance:F2}) exceeds the customer's available credit.\n\n" +
+                            $"Credit Limit:     Rs. {creditLimit:F2}\n" +
+                            $"Current Balance:  Rs. {currentCreditBalance:F2}\n" +
+                            $"Available Credit: Rs. {availableCredit:F2}",
+                            "Credit Limit Exceeded",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // Auto-append CREDIT row for the remainder
+                    DataRow autoCredit = paymentsTable.NewRow();
+                    autoCredit["payment_method"] = "CREDIT";
+                    autoCredit["amount"] = remainingBalance.ToString("F2");
+                    autoCredit["card_last_four_digits"] = DBNull.Value;
+                    autoCredit["card_holder_name"] = DBNull.Value;
+                    autoCredit["card_transaction_number"] = DBNull.Value;
+                    autoCredit["card_type"] = DBNull.Value;
+                    autoCredit["bank_reference_number"] = DBNull.Value;
+                    paymentsTable.Rows.Add(autoCredit);
+
+                    allPaymentsTotal = grandTotal; // reconcile after adding CREDIT row
+                }
+                else if (allPaymentsTotal - grandTotal > 0.01m)
                 {
                     MessageBox.Show(
-                        $"Payment validation failed:\n\n" +
-                        $"Grand Total: Rs. {grandTotal:F2}\n" +
-                        $"Total Payments: Rs. {allPaymentsTotal:F2}\n\n" +
-                        $"The sum of all payments must equal the grand total.",
-                        "Payment Mismatch",
+                        $"Payment total (Rs. {allPaymentsTotal:F2}) exceeds the grand total (Rs. {grandTotal:F2}).\n\n" +
+                        $"Please correct the payment amounts.",
+                        "Overpayment",
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
+                        MessageBoxIcon.Warning);
                     return;
-                }
-
-                // Get sale data
-                int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
-                int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
-                int? customerId = null;
-
-                if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
-                {
-                    customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
                 }
 
                 string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";

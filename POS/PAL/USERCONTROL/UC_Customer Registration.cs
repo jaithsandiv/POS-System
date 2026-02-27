@@ -19,6 +19,12 @@ namespace POS.PAL.USERCONTROL
         private int editCustomerId = 0;
         private DataTable customerGroupsTable;
 
+        // Credit fields added programmatically
+        private DevExpress.XtraEditors.SpinEdit numCreditLimit;
+        private DevExpress.XtraEditors.SpinEdit numOpeningBalance;
+        private DevExpress.XtraEditors.LabelControl lblCreditLimitLabel;
+        private DevExpress.XtraEditors.LabelControl lblOpeningBalanceLabel;
+
         /// <summary>
         /// Constructor for Add mode (new customer)
         /// </summary>
@@ -47,6 +53,14 @@ namespace POS.PAL.USERCONTROL
             labelControl3.Text = "Edit Customer";
             labelControl2.Text = "Update customer information";
             regBtn.Text = "Update";
+
+            // Relabel Opening Balance field to reflect it's overriding live balance
+            if (lblOpeningBalanceLabel != null)
+            {
+                lblOpeningBalanceLabel.Text = "Current Balance (override):";
+                if (numOpeningBalance != null)
+                    numOpeningBalance.ToolTip = "Editing this directly overrides the live credit balance. Normally managed automatically by sales and payments.";
+            }
         }
 
         /// <summary>
@@ -60,11 +74,75 @@ namespace POS.PAL.USERCONTROL
             // Configure customer group dropdown
             ConfigureCustomerGroupLookup();
 
+            // Add credit limit / opening balance fields dynamically
+            InitializeCreditFields();
+
             // Wire up the register/update button click event
             regBtn.Click += RegBtn_Click;
 
             // Set focus to full name
             txtfullName.Focus();
+        }
+
+        /// <summary>
+        /// Adds Credit Limit and Opening Balance fields to the form at runtime.
+        /// </summary>
+        private void InitializeCreditFields()
+        {
+            var font = new System.Drawing.Font("Segoe UI", 9.75F);
+            var fieldSize = new System.Drawing.Size(480, 44);
+
+            // --- Credit Limit (left column) ---
+            lblCreditLimitLabel = new DevExpress.XtraEditors.LabelControl
+            {
+                Name = "lblCreditLimitLabel",
+                Text = "Credit Limit:",
+                Location = new System.Drawing.Point(381, 780)
+            };
+            lblCreditLimitLabel.Appearance.Font = font;
+            lblCreditLimitLabel.Appearance.Options.UseFont = true;
+            panelControl1.Controls.Add(lblCreditLimitLabel);
+
+            numCreditLimit = new DevExpress.XtraEditors.SpinEdit
+            {
+                Name = "numCreditLimit",
+                Location = new System.Drawing.Point(381, 803),
+                Size = fieldSize,
+                TabIndex = 100
+            };
+            numCreditLimit.Properties.Appearance.Font = font;
+            numCreditLimit.Properties.Appearance.Options.UseFont = true;
+            numCreditLimit.Properties.Padding = new System.Windows.Forms.Padding(10);
+            numCreditLimit.Properties.MaxValue = 9999999m;
+            numCreditLimit.Properties.MinValue = 0m;
+            numCreditLimit.Properties.Increment = 500m;
+            panelControl1.Controls.Add(numCreditLimit);
+
+            // --- Opening / Current Balance (right column) ---
+            lblOpeningBalanceLabel = new DevExpress.XtraEditors.LabelControl
+            {
+                Name = "lblOpeningBalanceLabel",
+                Text = "Opening Balance:",
+                Location = new System.Drawing.Point(995, 780)
+            };
+            lblOpeningBalanceLabel.Appearance.Font = font;
+            lblOpeningBalanceLabel.Appearance.Options.UseFont = true;
+            panelControl1.Controls.Add(lblOpeningBalanceLabel);
+
+            numOpeningBalance = new DevExpress.XtraEditors.SpinEdit
+            {
+                Name = "numOpeningBalance",
+                Location = new System.Drawing.Point(995, 803),
+                Size = fieldSize,
+                TabIndex = 101
+            };
+            numOpeningBalance.Properties.Appearance.Font = font;
+            numOpeningBalance.Properties.Appearance.Options.UseFont = true;
+            numOpeningBalance.Properties.Padding = new System.Windows.Forms.Padding(10);
+            numOpeningBalance.Properties.MaxValue = 9999999m;
+            numOpeningBalance.Properties.MinValue = 0m;
+            numOpeningBalance.Properties.Increment = 100m;
+            panelControl1.Controls.Add(numOpeningBalance);
         }
 
         /// <summary>
@@ -163,6 +241,21 @@ namespace POS.PAL.USERCONTROL
                     else
                     {
                         comboboxCustomerGroup.SelectedIndex = 0; // Select empty option
+                    }
+
+                    // Load credit fields
+                    if (numCreditLimit != null && row.Table.Columns.Contains("credit_limit") &&
+                        row["credit_limit"] != DBNull.Value && !string.IsNullOrWhiteSpace(row["credit_limit"].ToString()))
+                    {
+                        if (decimal.TryParse(row["credit_limit"].ToString(), out decimal cl))
+                            numCreditLimit.Value = cl;
+                    }
+
+                    if (numOpeningBalance != null && row.Table.Columns.Contains("credit_balance") &&
+                        row["credit_balance"] != DBNull.Value && !string.IsNullOrWhiteSpace(row["credit_balance"].ToString()))
+                    {
+                        if (decimal.TryParse(row["credit_balance"].ToString(), out decimal cb))
+                            numOpeningBalance.Value = cb;
                     }
                 }
             }
@@ -277,6 +370,8 @@ namespace POS.PAL.USERCONTROL
                 string state = txtState.Text.Trim();
                 string country = string.Empty; // Not in the form, can be added later
                 string postalCode = txtPostalCode.Text.Trim();
+                decimal creditLimit = numCreditLimit?.Value ?? 0m;
+                decimal openingBalance = numOpeningBalance?.Value ?? 0m;
 
                 // Get current user ID
                 int currentUserId = 1; // Default
@@ -288,7 +383,7 @@ namespace POS.PAL.USERCONTROL
                 // Insert the customer
                 int newCustomerId = _bllContacts.InsertCustomer(
                     groupId, fullName, companyName, email, phone, 
-                    address, city, state, country, postalCode, currentUserId
+                    address, city, state, country, postalCode, creditLimit, openingBalance, currentUserId
                 );
 
                 // Show success message
@@ -342,6 +437,8 @@ namespace POS.PAL.USERCONTROL
                 string state = txtState.Text.Trim();
                 string country = string.Empty; // Not in the form, can be added later
                 string postalCode = txtPostalCode.Text.Trim();
+                decimal creditLimit = numCreditLimit?.Value ?? 0m;
+                decimal openingBalance = numOpeningBalance?.Value ?? 0m;
 
                 // Get current user ID
                 int currentUserId = 1; // Default
@@ -353,7 +450,7 @@ namespace POS.PAL.USERCONTROL
                 // Update the customer
                 bool success = _bllContacts.UpdateCustomer(
                     editCustomerId, groupId, fullName, companyName, email, phone, 
-                    address, city, state, country, postalCode, currentUserId
+                    address, city, state, country, postalCode, creditLimit, openingBalance, currentUserId
                 );
 
                 if (success)
@@ -408,6 +505,8 @@ namespace POS.PAL.USERCONTROL
             txtState.Text = string.Empty;
             txtPostalCode.Text = string.Empty;
             comboboxCustomerGroup.SelectedIndex = 0;
+            if (numCreditLimit != null) numCreditLimit.Value = 0;
+            if (numOpeningBalance != null) numOpeningBalance.Value = 0;
             txtfullName.Focus();
         }
 

@@ -139,8 +139,14 @@ namespace POS.PAL.Forms
                 
                 payments.Rows.Add(row);
 
-                // TODO: Pass the correct User ID (Biller ID). For now using 1 (Admin) or need to get from Session.
-                int userId = 1; // Default fallback
+                // Use logged-in user ID from the active session
+                int userId = 1; // fallback
+                try
+                {
+                    if (Main.DataSetApp?.User != null && Main.DataSetApp.User.Rows.Count > 0)
+                        userId = Convert.ToInt32(Main.DataSetApp.User[0]["user_id"]);
+                }
+                catch { /* keep fallback */ }
 
                 _bllSales.SavePayments(saleId, payments, userId);
 

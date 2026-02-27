@@ -732,7 +732,6 @@ namespace POS.DAL
                     return;
 
                 bool hasCreditPayment = false;
-                decimal totalNonCreditPaid = 0;
 
                 foreach (DataRow payment in payments.Rows)
                 {
@@ -747,15 +746,8 @@ namespace POS.DAL
                     if (amount <= 0)
                         continue;
 
-                    // Track CREDIT payments separately
                     if (paymentMethod == "CREDIT")
-                    {
                         hasCreditPayment = true;
-                    }
-                    else
-                    {
-                        totalNonCreditPaid += amount;
-                    }
 
                     string query = @"
                         INSERT INTO Payment (
@@ -789,10 +781,9 @@ namespace POS.DAL
 
                     Connection.ExecuteNonQuery(query, parameters);
 
-                    // Update customer credit balance if payment is CREDIT
                     if (paymentMethod == "CREDIT")
                     {
-                        // Update the customer's credit balance in the database
+                        // CREDIT payment: increase customer's credit balance (they owe more)
                         string updateCreditQuery = @"
                             UPDATE Customer
                             SET credit_balance = ISNULL(credit_balance, 0) + @amount,
@@ -800,45 +791,83 @@ namespace POS.DAL
                                 updated_date = GETDATE()
                             WHERE customer_id = (SELECT customer_id FROM Sale WHERE sale_id = @sale_id)";
 
-                        var creditParams = new SqlParameter[]
+                        Connection.ExecuteNonQuery(updateCreditQuery, new SqlParameter[]
                         {
                             new SqlParameter("@amount", amount),
                             new SqlParameter("@updated_by", createdBy),
                             new SqlParameter("@sale_id", saleId)
-                        };
+                        });
+                    }
+                    else
+                    {
+                        // FIX Bug 1: Real money received — decrease credit_balance (debt repaid).
+                        // Guard prevents going below zero for walk-in / non-credit customers.
+                        string decreaseCreditQuery = @"
+                            UPDATE Customer
+                            SET credit_balance = CASE
+                                    WHEN ISNULL(credit_balance, 0) - @amount < 0 THEN 0
+                                    ELSE ISNULL(credit_balance, 0) - @amount
+                                END,
+                                updated_by = @updated_by,
+                                updated_date = GETDATE()
+                            WHERE customer_id = (SELECT customer_id FROM Sale WHERE sale_id = @sale_id)
+                              AND ISNULL(credit_balance, 0) > 0";
 
-                        Connection.ExecuteNonQuery(updateCreditQuery, creditParams);
+                        Connection.ExecuteNonQuery(decreaseCreditQuery, new SqlParameter[]
+                        {
+                            new SqlParameter("@amount", amount),
+                            new SqlParameter("@updated_by", createdBy),
+                            new SqlParameter("@sale_id", saleId)
+                        });
+
+                        // FIX Bug 2: Update Sale.total_paid so balance_due stays accurate.
+                        string updateTotalPaidQuery = @"
+                            UPDATE Sale
+                            SET total_paid = ISNULL(total_paid, 0) + @amount,
+                                updated_by = @updated_by,
+                                updated_date = GETDATE()
+                            WHERE sale_id = @sale_id";
+
+                        Connection.ExecuteNonQuery(updateTotalPaidQuery, new SqlParameter[]
+                        {
+                            new SqlParameter("@amount", amount),
+                            new SqlParameter("@updated_by", createdBy),
+                            new SqlParameter("@sale_id", saleId)
+                        });
                     }
                 }
 
-                // Update payment_status based on payment composition
-                // Get grand_total from sale
-                string getGrandTotalQuery = "SELECT grand_total FROM Sale WHERE sale_id = @sale_id";
-                var grandTotalResult = Connection.ExecuteQuery(getGrandTotalQuery, new SqlParameter[] { new SqlParameter("@sale_id", saleId) });
-                
-                if (grandTotalResult.Rows.Count > 0)
-                {
-                    decimal grandTotal = Convert.ToDecimal(grandTotalResult.Rows[0]["grand_total"]);
-                    string newPaymentStatus = "PENDING";
+                // FIX Bug 3: Use the cumulative total_paid (all historical + current batch) from the DB
+                // to determine the correct payment_status, not just the current batch total.
+                string getSaleQuery = "SELECT grand_total, ISNULL(total_paid, 0) AS total_paid FROM Sale WHERE sale_id = @sale_id";
+                var saleResult = Connection.ExecuteQuery(getSaleQuery, new SqlParameter[] { new SqlParameter("@sale_id", saleId) });
 
-                    // Determine final payment status
-                    if (hasCreditPayment && totalNonCreditPaid == 0)
+                if (saleResult.Rows.Count > 0)
+                {
+                    decimal grandTotal = Convert.ToDecimal(saleResult.Rows[0]["grand_total"]);
+                    decimal cumulativeTotalPaid = Convert.ToDecimal(saleResult.Rows[0]["total_paid"]);
+                    string newPaymentStatus;
+
+                    if (hasCreditPayment && cumulativeTotalPaid == 0)
                     {
-                        // Pure CREDIT sale
+                        // Entire balance is on credit — no cash received at all
                         newPaymentStatus = "CREDIT";
                     }
-                    else if (totalNonCreditPaid >= grandTotal)
+                    else if (cumulativeTotalPaid >= grandTotal)
                     {
-                        // Fully paid (with or without CREDIT)
+                        // Fully settled with real money
                         newPaymentStatus = "PAID";
                     }
-                    else if (totalNonCreditPaid > 0)
+                    else if (cumulativeTotalPaid > 0 || hasCreditPayment)
                     {
-                        // Partially paid
+                        // Some cash received but not all, or mix of cash + credit
                         newPaymentStatus = "PARTIAL";
                     }
+                    else
+                    {
+                        newPaymentStatus = "PENDING";
+                    }
 
-                    // Update the sale's payment_status
                     string updateStatusQuery = @"
                         UPDATE Sale 
                         SET payment_status = @payment_status,
@@ -846,14 +875,12 @@ namespace POS.DAL
                             updated_date = GETDATE()
                         WHERE sale_id = @sale_id";
 
-                    var statusParams = new SqlParameter[]
+                    Connection.ExecuteNonQuery(updateStatusQuery, new SqlParameter[]
                     {
                         new SqlParameter("@payment_status", newPaymentStatus),
                         new SqlParameter("@updated_by", createdBy),
                         new SqlParameter("@sale_id", saleId)
-                    };
-
-                    Connection.ExecuteNonQuery(updateStatusQuery, statusParams);
+                    });
                 }
             }
             catch (Exception ex)
@@ -970,7 +997,7 @@ namespace POS.DAL
                         MAX(s.created_date) AS last_order_date
                     FROM Sale s
                     WHERE s.status = 'A' 
-                      AND s.sale_type = 'SALE'
+                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                       AND s.table_number IS NOT NULL
                     GROUP BY s.table_number
                     ORDER BY grand_total DESC";
@@ -1005,7 +1032,7 @@ namespace POS.DAL
                         MAX(s.created_date) AS last_order_date
                     FROM Sale s
                     WHERE s.status = 'A' 
-                      AND s.sale_type = 'SALE'
+                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                       AND s.table_number IS NOT NULL
                       AND s.table_number LIKE @keyword
                     GROUP BY s.table_number
@@ -1048,7 +1075,7 @@ namespace POS.DAL
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type = 'SALE'
+                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                     ORDER BY s.created_date DESC";
 
                 return Connection.ExecuteQuery(query) ?? new DataTable();
@@ -1089,7 +1116,7 @@ namespace POS.DAL
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type = 'SALE'
+                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                       AND (
                         s.invoice_number LIKE @keyword
                         OR CONVERT(VARCHAR, s.created_date, 120) LIKE @keyword
@@ -1146,7 +1173,7 @@ namespace POS.DAL
                     INNER JOIN Sale s ON si.sale_id = s.sale_id
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type = 'SALE'
+                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                       AND si.status = 'A'
                     ORDER BY s.created_date DESC, si.product_name";
 
@@ -1192,7 +1219,7 @@ namespace POS.DAL
                     INNER JOIN Sale s ON si.sale_id = s.sale_id
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type = 'SALE'
+                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                       AND si.status = 'A'
                       AND (
                         si.product_name LIKE @keyword
@@ -1255,7 +1282,7 @@ namespace POS.DAL
                     LEFT JOIN Brand b ON p.brand_id = b.brand_id
                     LEFT JOIN Supplier s ON b.supplier_id = s.supplier_id
                     WHERE sale.status = 'A' 
-                      AND sale.sale_type = 'SALE'
+                      AND sale.sale_type IN ('SALE', 'CREDIT_SALE')
                       AND si.status = 'A'
                     ORDER BY sale.created_date DESC, si.product_name";
 
@@ -1302,7 +1329,7 @@ namespace POS.DAL
                     LEFT JOIN Brand b ON p.brand_id = b.brand_id
                     LEFT JOIN Supplier s ON b.supplier_id = s.supplier_id
                     WHERE sale.status = 'A' 
-                      AND sale.sale_type = 'SALE'
+                      AND sale.sale_type IN ('SALE', 'CREDIT_SALE')
                       AND si.status = 'A'
                       AND (
                         si.product_name LIKE @keyword OR
@@ -1347,7 +1374,7 @@ namespace POS.DAL
                     FROM SaleItem si
                     INNER JOIN Sale s ON si.sale_id = s.sale_id
                     INNER JOIN Product p ON si.product_id = p.product_id
-                    WHERE s.sale_type = 'SALE' 
+                    WHERE s.sale_type IN ('SALE', 'CREDIT_SALE')
                       AND s.status = 'A' 
                       AND si.status = 'A'
                     GROUP BY p.product_id, p.product_name
@@ -1393,7 +1420,7 @@ namespace POS.DAL
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     LEFT JOIN Store st ON s.store_id = st.store_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type = 'SALE'
+                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                     ORDER BY s.created_date DESC";
 
                 return Connection.ExecuteQuery(query) ?? new DataTable();
@@ -1441,7 +1468,7 @@ namespace POS.DAL
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     LEFT JOIN Store st ON s.store_id = st.store_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type = 'SALE'
+                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                       AND (
                         CONVERT(VARCHAR, s.created_date, 120) LIKE @keyword
                         OR s.invoice_number LIKE @keyword

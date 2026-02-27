@@ -39,11 +39,11 @@ BEGIN
     WHERE status = 'A' 
       AND created_date BETWEEN @FromDate AND @ToDate;
 
-    -- 3. Invoice Due
+    -- 3. Invoice Due (Outstanding balance — includes both SALE and CREDIT_SALE types)
     SELECT 
         @InvoiceDue = ISNULL(SUM(grand_total - total_paid), 0)
     FROM Sale
-    WHERE sale_type = 'SALE' 
+    WHERE sale_type IN ('SALE', 'CREDIT_SALE')
       AND status = 'A' 
       AND payment_status IN ('PENDING', 'PARTIAL', 'CREDIT')
       AND created_date BETWEEN @FromDate AND @ToDate;
@@ -164,7 +164,7 @@ BEGIN
         T.Credit,
         T.Status
     FROM (
-        -- Sales (Invoices)
+        -- Sales (Invoices) — includes CREDIT_SALE type
         SELECT 
             created_date AS TransactionDate,
             invoice_number AS InvoiceNumber,
@@ -175,14 +175,14 @@ BEGIN
             payment_status AS Status
         FROM Sale
         WHERE customer_id = @CustomerId
-          AND sale_type = 'SALE'
+          AND sale_type IN ('SALE', 'CREDIT_SALE')
           AND status = 'A'
           AND created_date BETWEEN @StartDate AND @EndDate
           AND (@StoreId IS NULL OR store_id = @StoreId)
 
         UNION ALL
 
-        -- Payments
+        -- Payments (exclude CREDIT rows — they acknowledge debt, they don't discharge it)
         SELECT 
             p.created_date AS TransactionDate,
             s.invoice_number AS InvoiceNumber,
@@ -195,6 +195,7 @@ BEGIN
         JOIN Sale s ON p.sale_id = s.sale_id
         WHERE s.customer_id = @CustomerId
           AND p.status = 'A'
+          AND p.payment_method <> 'CREDIT'
           AND p.created_date BETWEEN @StartDate AND @EndDate
           AND (@StoreId IS NULL OR s.store_id = @StoreId)
 
@@ -253,21 +254,22 @@ BEGIN
     FROM Customer
     WHERE customer_id = @CustomerId;
 
-    -- Total Invoiced
+    -- Total Invoiced (both regular SALE and CREDIT_SALE)
     SELECT @TotalInvoice = ISNULL(SUM(grand_total), 0)
     FROM Sale
     WHERE customer_id = @CustomerId
-      AND sale_type = 'SALE'
+      AND sale_type IN ('SALE', 'CREDIT_SALE')
       AND status = 'A'
       AND created_date BETWEEN @StartDate AND @EndDate
       AND (@StoreId IS NULL OR store_id = @StoreId);
 
-    -- Total Paid
+    -- Total Paid (exclude CREDIT payments — those are debt acknowledgements, not money received)
     SELECT @TotalPaid = ISNULL(SUM(p.amount), 0)
     FROM Payment p
     JOIN Sale s ON p.sale_id = s.sale_id
     WHERE s.customer_id = @CustomerId
       AND p.status = 'A'
+      AND p.payment_method <> 'CREDIT'
       AND p.created_date BETWEEN @StartDate AND @EndDate
       AND (@StoreId IS NULL OR s.store_id = @StoreId);
 

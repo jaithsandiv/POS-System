@@ -754,9 +754,7 @@ namespace POS.PAL.USERCONTROL
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            // Navigate to Add/Edit Customer screen with current ID
-            // Main.Instance.LoadUserControl(new UC_Add_Customer(_customerId));
-            XtraMessageBox.Show("Edit Customer feature will be implemented in the next phase.", "Feature Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Main.Instance.LoadUserControl(new UC_Customer_Registration(_customerId));
         }
     }
 }
