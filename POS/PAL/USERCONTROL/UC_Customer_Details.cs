@@ -63,24 +63,29 @@ namespace POS.PAL.USERCONTROL
             // Clear existing columns if any
             gridView1.Columns.Clear();
 
-            // Add columns
-            gridView1.Columns.AddVisible("TransactionDate", "Date");
-            gridView1.Columns.AddVisible("InvoiceNumber", "Invoice #");
-            gridView1.Columns.AddVisible("TransactionType", "Type");
-            gridView1.Columns.AddVisible("Description", "Description");
-            gridView1.Columns.AddVisible("Debit", "Debit");
-            gridView1.Columns.AddVisible("Credit", "Credit");
-            gridView1.Columns.AddVisible("Status", "Status");
+            // Add columns for customer sales
+            gridView1.Columns.AddVisible("invoice_number", "Invoice #");
+            gridView1.Columns.AddVisible("sale_date", "Date");
+            gridView1.Columns.AddVisible("sale_type", "Type");
+            gridView1.Columns.AddVisible("grand_total", "Grand Total");
+            gridView1.Columns.AddVisible("total_paid", "Total Paid");
+            gridView1.Columns.AddVisible("balance_due", "Balance Due");
+            gridView1.Columns.AddVisible("payment_status", "Payment Status");
+            gridView1.Columns.AddVisible("store_name", "Location");
 
-            // Format columns
-            gridView1.Columns["TransactionDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            gridView1.Columns["TransactionDate"].DisplayFormat.FormatString = "dd/MM/yyyy";
-            
-            gridView1.Columns["Debit"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            gridView1.Columns["Debit"].DisplayFormat.FormatString = "N2";
-            
-            gridView1.Columns["Credit"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            gridView1.Columns["Credit"].DisplayFormat.FormatString = "N2";
+            // Format date column
+            gridView1.Columns["sale_date"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            gridView1.Columns["sale_date"].DisplayFormat.FormatString = "dd/MM/yyyy HH:mm";
+
+            // Format amount columns
+            gridView1.Columns["grand_total"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            gridView1.Columns["grand_total"].DisplayFormat.FormatString = "N2";
+
+            gridView1.Columns["total_paid"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            gridView1.Columns["total_paid"].DisplayFormat.FormatString = "N2";
+
+            gridView1.Columns["balance_due"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            gridView1.Columns["balance_due"].DisplayFormat.FormatString = "N2";
         }
 
         /// <summary>
@@ -253,9 +258,9 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
-                // 1. Fetch Transactions
-                DataTable transactions = _bllContacts.GetCustomerTransactions(_customerId, _selectedStartDate, _selectedEndDate, _selectedStoreId);
-                gridControl1.DataSource = transactions;
+                // 1. Fetch customer sales for the grid
+                DataTable sales = _bllContacts.GetCustomerSales(_customerId, _selectedStartDate, _selectedEndDate, _selectedStoreId);
+                gridControl1.DataSource = sales;
 
                 // 2. Fetch Account Summary
                 DataTable summary = _bllContacts.GetCustomerAccountSummary(_customerId, _selectedStartDate, _selectedEndDate, _selectedStoreId);

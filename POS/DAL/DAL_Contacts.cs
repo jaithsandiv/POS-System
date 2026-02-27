@@ -1066,5 +1066,45 @@ namespace POS.DAL
 
             return Connection.ExecuteQuery(query, parameters);
         }
+
+        /// <summary>
+        /// Gets all sales for a specific customer with invoice details and balance due
+        /// </summary>
+        public DataTable GetCustomerSales(int customerId, DateTime startDate, DateTime endDate, int? storeId = null)
+        {
+            string query = @"
+                SELECT 
+                    s.sale_id,
+                    ISNULL(s.invoice_number, 'N/A') AS invoice_number,
+                    s.created_date AS sale_date,
+                    s.sale_type,
+                    s.total_amount,
+                    s.discount_value,
+                    s.discount_type,
+                    s.grand_total,
+                    s.total_paid,
+                    (s.grand_total - s.total_paid) AS balance_due,
+                    s.payment_status,
+                    s.sale_status,
+                    ISNULL(st.store_name, 'Main Store') AS store_name
+                FROM Sale s
+                LEFT JOIN Store st ON s.store_id = st.store_id
+                WHERE s.customer_id = @CustomerId
+                  AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                  AND s.status = 'A'
+                  AND s.created_date BETWEEN @StartDate AND DATEADD(day, 1, @EndDate)
+                  AND (@StoreId IS NULL OR s.store_id = @StoreId)
+                ORDER BY s.created_date DESC";
+
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@CustomerId", customerId),
+                new SqlParameter("@StartDate", startDate.Date),
+                new SqlParameter("@EndDate", endDate.Date),
+                new SqlParameter("@StoreId", storeId.HasValue ? (object)storeId.Value : DBNull.Value)
+            };
+
+            return Connection.ExecuteQuery(query, parameters) ?? new DataTable();
+        }
     }
 }

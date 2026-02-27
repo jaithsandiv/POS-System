@@ -267,5 +267,13 @@ namespace POS.BLL
         {
             return _dalContacts.GetUnpaidInvoices(customerId);
         }
+
+        /// <summary>
+        /// Gets all sales for a specific customer with invoice details and balance due
+        /// </summary>
+        public DataTable GetCustomerSales(int customerId, DateTime startDate, DateTime endDate, int? storeId = null)
+        {
+            return _dalContacts.GetCustomerSales(customerId, startDate, endDate, storeId);
+        }
     }
 }

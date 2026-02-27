@@ -800,27 +800,59 @@ namespace POS.DAL
                     }
                     else
                     {
-                        // FIX Bug 1: Real money received — decrease credit_balance (debt repaid).
-                        // Guard prevents going below zero for walk-in / non-credit customers.
+                        // Real money received — decrease credit_balance only by how much of this
+                        // payment settles credit-owed on this invoice (i.e. the portion that was
+                        // previously recorded as a CREDIT payment on the sale).
+                        // This prevents reducing credit_balance for ordinary cash sales that were
+                        // never on credit.
                         string decreaseCreditQuery = @"
                             UPDATE Customer
                             SET credit_balance = CASE
-                                    WHEN ISNULL(credit_balance, 0) - @amount < 0 THEN 0
-                                    ELSE ISNULL(credit_balance, 0) - @amount
+                                    WHEN ISNULL(credit_balance, 0) - @credit_owed < 0 THEN 0
+                                    ELSE ISNULL(credit_balance, 0) - @credit_owed
                                 END,
                                 updated_by = @updated_by,
                                 updated_date = GETDATE()
                             WHERE customer_id = (SELECT customer_id FROM Sale WHERE sale_id = @sale_id)
-                              AND ISNULL(credit_balance, 0) > 0";
+                              AND ISNULL(credit_balance, 0) > 0
+                              AND (
+                                  SELECT ISNULL(SUM(p2.amount), 0)
+                                  FROM Payment p2
+                                  WHERE p2.sale_id = @sale_id
+                                    AND p2.payment_method = 'CREDIT'
+                                    AND p2.status = 'A'
+                              ) > 0";
 
-                        Connection.ExecuteNonQuery(decreaseCreditQuery, new SqlParameter[]
+                        // Calculate how much of this payment reduces credit debt:
+                        // = MIN(amount_being_paid, outstanding_credit_on_this_invoice)
+                        // We pass the payment amount; the SQL caps it at the actual credit owed on this sale.
+                        string getCreditOwedQuery = @"
+                            SELECT ISNULL(SUM(p2.amount), 0) AS credit_owed
+                            FROM Payment p2
+                            WHERE p2.sale_id = @sale_id
+                              AND p2.payment_method = 'CREDIT'
+                              AND p2.status = 'A'";
+
+                        DataTable creditOwedResult = Connection.ExecuteQuery(getCreditOwedQuery,
+                            new SqlParameter[] { new SqlParameter("@sale_id", saleId) });
+
+                        decimal creditOwedOnSale = 0;
+                        if (creditOwedResult.Rows.Count > 0)
+                            decimal.TryParse(creditOwedResult.Rows[0]["credit_owed"]?.ToString(), out creditOwedOnSale);
+
+                        decimal creditReduction = Math.Min(amount, creditOwedOnSale);
+
+                        if (creditReduction > 0)
                         {
-                            new SqlParameter("@amount", amount),
-                            new SqlParameter("@updated_by", createdBy),
-                            new SqlParameter("@sale_id", saleId)
-                        });
+                            Connection.ExecuteNonQuery(decreaseCreditQuery, new SqlParameter[]
+                            {
+                                new SqlParameter("@credit_owed", creditReduction),
+                                new SqlParameter("@updated_by", createdBy),
+                                new SqlParameter("@sale_id", saleId)
+                            });
+                        }
 
-                        // FIX Bug 2: Update Sale.total_paid so balance_due stays accurate.
+                        // Update Sale.total_paid so balance_due stays accurate.
                         string updateTotalPaidQuery = @"
                             UPDATE Sale
                             SET total_paid = ISNULL(total_paid, 0) + @amount,
@@ -925,16 +957,19 @@ namespace POS.DAL
                 SELECT 
                     s.sale_id,
                     s.invoice_number,
-                    c.full_name as customer_name,
+                    s.sale_type,
+                    ISNULL(c.full_name, 'Walk-In Customer') as customer_name,
                     s.created_date as sale_date,
                     s.grand_total,
+                    s.total_paid,
+                    (s.grand_total - s.total_paid) AS balance_due,
                     s.payment_status,
                     s.sale_status,
                     u.full_name as biller_name
                 FROM Sale s
                 LEFT JOIN Customer c ON s.customer_id = c.customer_id
                 LEFT JOIN [User] u ON s.biller_id = u.user_id
-                WHERE s.status = 'A' AND s.sale_type = '" + saleType + @"'
+                WHERE s.status = 'A' AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                 ORDER BY s.sale_id DESC";
 
             return Connection.ExecuteQuery(query);
@@ -951,20 +986,24 @@ namespace POS.DAL
                 SELECT 
                     s.sale_id,
                     s.invoice_number,
-                    c.full_name as customer_name,
+                    s.sale_type,
+                    ISNULL(c.full_name, 'Walk-In Customer') as customer_name,
                     s.created_date as sale_date,
                     s.grand_total,
+                    s.total_paid,
+                    (s.grand_total - s.total_paid) AS balance_due,
                     s.payment_status,
                     s.sale_status,
                     u.full_name as biller_name
                 FROM Sale s
                 LEFT JOIN Customer c ON s.customer_id = c.customer_id
                 LEFT JOIN [User] u ON s.biller_id = u.user_id
-                WHERE s.status = 'A' AND s.sale_type = @saleType
+                WHERE s.status = 'A' AND s.sale_type IN ('SALE', 'CREDIT_SALE')
                 AND (
                     CONVERT(VARCHAR, s.sale_id) LIKE @keyword
                     OR s.invoice_number LIKE @keyword
-                    OR c.full_name LIKE @keyword
+                    OR s.sale_type LIKE @keyword
+                    OR ISNULL(c.full_name, 'Walk-In Customer') LIKE @keyword
                     OR CONVERT(VARCHAR, s.created_date, 120) LIKE @keyword
                     OR CONVERT(VARCHAR, s.grand_total) LIKE @keyword
                     OR s.payment_status LIKE @keyword
@@ -973,7 +1012,6 @@ namespace POS.DAL
                 ORDER BY s.sale_id DESC";
 
             SqlParameter[] parameters = {
-                new SqlParameter("@saleType", saleType),
                 new SqlParameter("@keyword", "%" + keyword + "%")
             };
 

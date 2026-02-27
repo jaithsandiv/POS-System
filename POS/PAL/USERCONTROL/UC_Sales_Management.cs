@@ -116,7 +116,6 @@ namespace POS.PAL.USERCONTROL
             // Clear existing columns
             gridViewSales.Columns.Clear();
 
-            // Add columns matching the database schema
             var colSaleId = gridViewSales.Columns.AddVisible("sale_id", "Sale ID");
             colSaleId.FieldName = "sale_id";
             colSaleId.Width = 80;
@@ -133,6 +132,14 @@ namespace POS.PAL.USERCONTROL
             colInvoiceNumber.OptionsColumn.AllowFocus = false;
             colInvoiceNumber.OptionsColumn.FixedWidth = true;
 
+            var colSaleType = gridViewSales.Columns.AddVisible("sale_type", "Type");
+            colSaleType.FieldName = "sale_type";
+            colSaleType.Width = 110;
+            colSaleType.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colSaleType.OptionsColumn.AllowEdit = false;
+            colSaleType.OptionsColumn.AllowFocus = false;
+            colSaleType.OptionsColumn.FixedWidth = true;
+
             var colCustomer = gridViewSales.Columns.AddVisible("customer_name", "Customer");
             colCustomer.FieldName = "customer_name";
             colCustomer.Width = 200;
@@ -147,7 +154,7 @@ namespace POS.PAL.USERCONTROL
             colDate.OptionsColumn.AllowFocus = false;
             colDate.OptionsColumn.FixedWidth = true;
 
-            var colTotal = gridViewSales.Columns.AddVisible("grand_total", "Total");
+            var colTotal = gridViewSales.Columns.AddVisible("grand_total", "Grand Total");
             colTotal.FieldName = "grand_total";
             colTotal.Width = 120;
             colTotal.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
@@ -156,6 +163,26 @@ namespace POS.PAL.USERCONTROL
             colTotal.OptionsColumn.AllowEdit = false;
             colTotal.OptionsColumn.AllowFocus = false;
             colTotal.OptionsColumn.FixedWidth = true;
+
+            var colTotalPaid = gridViewSales.Columns.AddVisible("total_paid", "Total Paid");
+            colTotalPaid.FieldName = "total_paid";
+            colTotalPaid.Width = 110;
+            colTotalPaid.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            colTotalPaid.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            colTotalPaid.DisplayFormat.FormatString = "n2";
+            colTotalPaid.OptionsColumn.AllowEdit = false;
+            colTotalPaid.OptionsColumn.AllowFocus = false;
+            colTotalPaid.OptionsColumn.FixedWidth = true;
+
+            var colBalanceDue = gridViewSales.Columns.AddVisible("balance_due", "Balance Due");
+            colBalanceDue.FieldName = "balance_due";
+            colBalanceDue.Width = 110;
+            colBalanceDue.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            colBalanceDue.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            colBalanceDue.DisplayFormat.FormatString = "n2";
+            colBalanceDue.OptionsColumn.AllowEdit = false;
+            colBalanceDue.OptionsColumn.AllowFocus = false;
+            colBalanceDue.OptionsColumn.FixedWidth = true;
 
             var colPaymentStatus = gridViewSales.Columns.AddVisible("payment_status", "Payment Status");
             colPaymentStatus.FieldName = "payment_status";
