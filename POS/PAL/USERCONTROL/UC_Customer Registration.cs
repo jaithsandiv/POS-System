@@ -223,10 +223,9 @@ namespace POS.PAL.USERCONTROL
                     txtPostalCode.Text = row["postal_code"]?.ToString();
                     
                     // Set the customer group in the combobox
-                    if (row["group_id"] != DBNull.Value)
+                    string groupIdStr = row["group_id"]?.ToString();
+                    if (!string.IsNullOrWhiteSpace(groupIdStr) && int.TryParse(groupIdStr, out int groupId))
                     {
-                        int groupId = Convert.ToInt32(row["group_id"]);
-                        
                         // Find and select the matching customer group
                         for (int i = 0; i < comboboxCustomerGroup.Properties.Items.Count; i++)
                         {
@@ -244,17 +243,17 @@ namespace POS.PAL.USERCONTROL
                     }
 
                     // Load credit fields
-                    if (numCreditLimit != null && row.Table.Columns.Contains("credit_limit") &&
-                        row["credit_limit"] != DBNull.Value && !string.IsNullOrWhiteSpace(row["credit_limit"].ToString()))
+                    if (numCreditLimit != null && row.Table.Columns.Contains("credit_limit"))
                     {
-                        if (decimal.TryParse(row["credit_limit"].ToString(), out decimal cl))
+                        string creditLimitStr = row["credit_limit"]?.ToString();
+                        if (!string.IsNullOrWhiteSpace(creditLimitStr) && decimal.TryParse(creditLimitStr, out decimal cl))
                             numCreditLimit.Value = cl;
                     }
 
-                    if (numOpeningBalance != null && row.Table.Columns.Contains("credit_balance") &&
-                        row["credit_balance"] != DBNull.Value && !string.IsNullOrWhiteSpace(row["credit_balance"].ToString()))
+                    if (numOpeningBalance != null && row.Table.Columns.Contains("credit_balance"))
                     {
-                        if (decimal.TryParse(row["credit_balance"].ToString(), out decimal cb))
+                        string creditBalanceStr = row["credit_balance"]?.ToString();
+                        if (!string.IsNullOrWhiteSpace(creditBalanceStr) && decimal.TryParse(creditBalanceStr, out decimal cb))
                             numOpeningBalance.Value = cb;
                     }
                 }
