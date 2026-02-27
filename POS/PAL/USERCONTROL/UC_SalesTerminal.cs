@@ -224,7 +224,8 @@ namespace POS.PAL.USERCONTROL
             // Validate stock availability
             decimal newQuantity = currentCartQuantity + 1;
             
-            if (newQuantity > availableStock)
+            bool stockCheckEnabled = Main.GetSetting("stock_check_enabled", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+            if (stockCheckEnabled && newQuantity > availableStock)
             {
                 string productName = product["product_name"]?.ToString() ?? "Unknown Product";
                 MessageBox.Show(
@@ -411,32 +412,36 @@ namespace POS.PAL.USERCONTROL
                 // Validate stock if quantity changed
                 if (e.Column.FieldName == "quantity")
                 {
-                    string productIdStr = currentRow["product_id"]?.ToString();
-                    if (!string.IsNullOrEmpty(productIdStr))
+                    bool stockCheckEnabled = Main.GetSetting("stock_check_enabled", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+                    if (stockCheckEnabled)
                     {
-                        // Get available stock from products table
-                        DataRow[] productRows = productsTable.Select($"product_id = '{productIdStr}'");
-                        if (productRows.Length > 0)
+                        string productIdStr = currentRow["product_id"]?.ToString();
+                        if (!string.IsNullOrEmpty(productIdStr))
                         {
-                            decimal availableStock = Convert.ToDecimal(productRows[0]["stock_quantity"]);
-                            decimal requestedQty = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "quantity"));
-
-                            if (requestedQty > availableStock)
+                            // Get available stock from products table
+                            DataRow[] productRows = productsTable.Select($"product_id = '{productIdStr}'");
+                            if (productRows.Length > 0)
                             {
-                                string productName = currentRow["product_name"]?.ToString() ?? "Unknown Product";
-                                MessageBox.Show(
-                                    $"Insufficient stock for '{productName}'.\n\n" +
-                                    $"Available Stock: {availableStock:F2}\n" +
-                                    $"Requested Quantity: {requestedQty:F2}\n" +
-                                    $"Quantity has been adjusted to available stock.",
-                                    "Stock Unavailable",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning
-                                );
+                                decimal availableStock = Convert.ToDecimal(productRows[0]["stock_quantity"]);
+                                decimal requestedQty = Convert.ToDecimal(gvTransactionSum.GetRowCellValue(e.RowHandle, "quantity"));
 
-                                // Set quantity to available stock
-                                gvTransactionSum.SetRowCellValue(e.RowHandle, "quantity", availableStock);
-                                return;
+                                if (requestedQty > availableStock)
+                                {
+                                    string productName = currentRow["product_name"]?.ToString() ?? "Unknown Product";
+                                    MessageBox.Show(
+                                        $"Insufficient stock for '{productName}'.\n\n" +
+                                        $"Available Stock: {availableStock:F2}\n" +
+                                        $"Requested Quantity: {requestedQty:F2}\n" +
+                                        $"Quantity has been adjusted to available stock.",
+                                        "Stock Unavailable",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Warning
+                                    );
+
+                                    // Set quantity to available stock
+                                    gvTransactionSum.SetRowCellValue(e.RowHandle, "quantity", availableStock);
+                                    return;
+                                }
                             }
                         }
                     }
@@ -626,14 +631,15 @@ namespace POS.PAL.USERCONTROL
                     Tag = product.Name
                 };
 
-                // Disable button if out of stock
-                if (stock <= 0)
+                // Disable button if out of stock (only when stock check is enabled)
+                bool stockCheckEnabled = Main.GetSetting("stock_check_enabled", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+                if (stockCheckEnabled && stock <= 0)
                 {
                     productButton.Enabled = false;
                     productButton.Appearance.BackColor = Color.LightGray;
                     productButton.Appearance.ForeColor = Color.DarkGray;
                 }
-                else if (stock <= 10)
+                else if (stock <= 10 && stock > 0)
                 {
                     // Highlight low stock items
                     productButton.Appearance.ForeColor = Color.DarkOrange;
@@ -663,18 +669,18 @@ namespace POS.PAL.USERCONTROL
                             {
                                 imageWidth = (int)(imageHeight * aspectRatio);
                             }
-                            
+                        
                             // Create scaled image
                             productButton.ImageOptions.Image = originalImage.GetThumbnailImage(imageWidth, imageHeight, null, IntPtr.Zero);
                             productButton.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
                         }
                         
                         // Set text below image with stock information
-                        if (stock <= 0)
+                        if (stockCheckEnabled && stock <= 0)
                         {
                             productButton.Text = $"{product.Name}\nRs. {price:F2}\nOUT OF STOCK";
                         }
-                        else if (stock <= 10)
+                        else if (stock <= 10 && stock > 0)
                         {
                             productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2} (Low)";
                             productButton.Appearance.ForeColor = Color.DarkOrange;
@@ -687,11 +693,11 @@ namespace POS.PAL.USERCONTROL
                     catch
                     {
                         // If image loading fails, show text only
-                        if (stock <= 0)
+                        if (stockCheckEnabled && stock <= 0)
                         {
                             productButton.Text = $"{product.Name}\nRs. {price:F2}\nOUT OF STOCK";
                         }
-                        else if (stock <= 10)
+                        else if (stock <= 10 && stock > 0)
                         {
                             productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2} (Low)";
                             productButton.Appearance.ForeColor = Color.DarkOrange;
@@ -705,11 +711,11 @@ namespace POS.PAL.USERCONTROL
                 else
                 {
                     // No image - display text only with stock details
-                    if (stock <= 0)
+                    if (stockCheckEnabled && stock <= 0)
                     {
                         productButton.Text = $"{product.Name}\nRs. {price:F2}\nOUT OF STOCK";
                     }
-                    else if (stock <= 10)
+                    else if (stock <= 10 && stock > 0)
                     {
                         productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2} (Low)";
                         productButton.Appearance.ForeColor = Color.DarkOrange;
@@ -1892,7 +1898,7 @@ namespace POS.PAL.USERCONTROL
 
             // Get quotation number from database sequence
             // Note: If updating, we keep the same quotation number ideally, but GetNextQuotationNumber generates a new one.
-            // For now, if it's an update, let's keep the existing one if possible, or generate new one.
+            // For now, let's keep the existing one if possible, or generate new one.
             // The current UI flow doesn't store quotation number in `saleTable` easily accessible for reuse without reading it.
             // Let's assume we generate a new number for simplicity or check if `quotation_number` column exists.
             string quotationNumber;
@@ -2028,8 +2034,7 @@ namespace POS.PAL.USERCONTROL
                 DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
                 if (customerRows.Length == 0)
                 {
-                    MessageBox.Show("Customer information not found.", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Customer information not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -2037,7 +2042,7 @@ namespace POS.PAL.USERCONTROL
 
                 // Check if customer has credit limit
                 decimal creditLimit = 0;
-                decimal creditBalance = 0;
+                decimal currentCreditBalance = 0;
 
                 if (selectedCustomer.Table.Columns.Contains("credit_limit") &&
                     selectedCustomer["credit_limit"] != DBNull.Value &&
@@ -2055,7 +2060,7 @@ namespace POS.PAL.USERCONTROL
                 {
                     if (decimal.TryParse(selectedCustomer["credit_balance"].ToString(), out decimal parsedCreditBalance))
                     {
-                        creditBalance = parsedCreditBalance;
+                        currentCreditBalance = parsedCreditBalance;
                     }
                 }
 
@@ -2075,14 +2080,14 @@ namespace POS.PAL.USERCONTROL
                 }
 
                 // Validation: Grand total must not exceed available credit
-                decimal availableCredit = creditLimit - creditBalance;
+                decimal availableCredit = creditLimit - currentCreditBalance;
                 if (grandTotal > availableCredit)
                 {
                     MessageBox.Show(
                         $"Grand Total ({grandTotal:F2}) exceeds available credit.\n\n" +
-                        $"Credit Limit: {creditLimit:F2}\n" +
-                        $"Current Balance: {creditBalance:F2}\n" +
-                        $"Available Credit: {availableCredit:F2}",
+                        $"Credit Limit:     Rs. {creditLimit:F2}\n" +
+                        $"Current Balance:  Rs. {currentCreditBalance:F2}\n" +
+                        $"Available Credit: Rs. {availableCredit:F2}",
                         "Credit Limit Exceeded", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -2326,7 +2331,7 @@ namespace POS.PAL.USERCONTROL
                 else
                 {
                     DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(thermalInvoice);
-                    printTool.ShowPreview();
+                    printTool.Print();
                 }
             }
             catch (Exception ex)
@@ -2404,12 +2409,13 @@ namespace POS.PAL.USERCONTROL
                     decimal.TryParse(creditCustomer["credit_limit"]?.ToString(), out creditLimit);
                     decimal.TryParse(creditCustomer["credit_balance"]?.ToString(), out currentCreditBalance);
 
+                    // Validation: Credit limit must be set
                     if (creditLimit <= 0)
                     {
                         MessageBox.Show(
-                            $"Customer '{creditCustomer["full_name"]}' has no credit limit set.\n" +
+                            $"Customer '{creditCustomer["full_name"]}' does not have a credit limit set.\n" +
                             $"The remaining Rs. {remainingBalance:F2} cannot be put on credit.\n\n" +
-                            $"Please cover the full amount or configure a credit limit for this customer.",
+                            $"Please configure a credit limit for this customer first.",
                             "No Credit Limit",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
@@ -2497,14 +2503,14 @@ namespace POS.PAL.USERCONTROL
                             return;
                         }
 
-                        decimal availCred = custCreditLimit - custCreditBalance;
-                        if (totalCreditPayments > availCred + 0.01m)
+                        decimal availableCredit = custCreditLimit - custCreditBalance;
+                        if (totalCreditPayments > availableCredit + 0.01m)
                         {
                             MessageBox.Show(
                                 $"Credit payment of Rs. {totalCreditPayments:F2} exceeds available credit.\n\n" +
                                 $"Credit Limit:     Rs. {custCreditLimit:F2}\n" +
                                 $"Current Balance:  Rs. {custCreditBalance:F2}\n" +
-                                $"Available Credit: Rs. {availCred:F2}",
+                                $"Available Credit: Rs. {availableCredit:F2}",
                                 "Credit Limit Exceeded",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
