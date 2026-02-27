@@ -805,7 +805,7 @@ namespace POS.DAL
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND s.sale_type = 'SALE'
                     GROUP BY cg.group_name
                     ORDER BY total_sales DESC";
 
@@ -841,7 +841,7 @@ namespace POS.DAL
                         LEFT JOIN Customer c ON s.customer_id = c.customer_id
                         LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
                         WHERE s.status = 'A' 
-                          AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                          AND s.sale_type = 'SALE'
                         GROUP BY cg.group_name
                     ) AS GroupedSales
                     WHERE customer_group LIKE @keyword
@@ -874,7 +874,7 @@ namespace POS.DAL
                         SELECT 
                             c.customer_id,
                             ISNULL(c.full_name, 'Walk-In Customer') AS customer_name,
-                            ISNULL(SUM(CASE WHEN s.sale_type IN ('SALE','CREDIT_SALE') THEN s.grand_total ELSE 0 END), 0) AS total_sale,
+                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE' THEN s.grand_total ELSE 0 END), 0) AS total_sale,
                             ISNULL(SUM(CASE WHEN s.sale_type = 'SALE_RETURN' THEN s.grand_total ELSE 0 END), 0) AS total_sell_return
                         FROM Customer c
                         LEFT JOIN Sale s ON c.customer_id = s.customer_id AND s.status = 'A'
@@ -929,7 +929,7 @@ namespace POS.DAL
                         SELECT 
                             c.customer_id,
                             ISNULL(c.full_name, 'Walk-In Customer') AS customer_name,
-                            ISNULL(SUM(CASE WHEN s.sale_type IN ('SALE','CREDIT_SALE') THEN s.grand_total ELSE 0 END), 0) AS total_sale,
+                            ISNULL(SUM(CASE WHEN s.sale_type = 'SALE' THEN s.grand_total ELSE 0 END), 0) AS total_sale,
                             ISNULL(SUM(CASE WHEN s.sale_type = 'SALE_RETURN' THEN s.grand_total ELSE 0 END), 0) AS total_sell_return
                         FROM Customer c
                         LEFT JOIN Sale s ON c.customer_id = s.customer_id AND s.status = 'A'
@@ -1055,7 +1055,7 @@ namespace POS.DAL
                     (grand_total - total_paid) AS balance_due
                 FROM Sale
                 WHERE customer_id = @CustomerId
-                  AND sale_type IN ('SALE', 'CREDIT_SALE')
+                  AND sale_type = 'SALE'
                   AND status = 'A'
                   AND payment_status IN ('PENDING', 'PARTIAL', 'CREDIT')
                 ORDER BY created_date ASC";
@@ -1090,7 +1090,7 @@ namespace POS.DAL
                 FROM Sale s
                 LEFT JOIN Store st ON s.store_id = st.store_id
                 WHERE s.customer_id = @CustomerId
-                  AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                  AND s.sale_type = 'SALE'
                   AND s.status = 'A'
                   AND s.created_date BETWEEN @StartDate AND DATEADD(day, 1, @EndDate)
                   AND (@StoreId IS NULL OR s.store_id = @StoreId)

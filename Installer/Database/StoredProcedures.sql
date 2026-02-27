@@ -39,11 +39,11 @@ BEGIN
     WHERE status = 'A' 
       AND created_date BETWEEN @FromDate AND @ToDate;
 
-    -- 3. Invoice Due (Outstanding balance — includes both SALE and CREDIT_SALE types)
+    -- 3. Invoice Due (Outstanding balance)
     SELECT 
         @InvoiceDue = ISNULL(SUM(grand_total - total_paid), 0)
     FROM Sale
-    WHERE sale_type IN ('SALE', 'CREDIT_SALE')
+    WHERE sale_type = 'SALE'
       AND status = 'A' 
       AND payment_status IN ('PENDING', 'PARTIAL', 'CREDIT')
       AND created_date BETWEEN @FromDate AND @ToDate;
@@ -164,7 +164,7 @@ BEGIN
         T.Credit,
         T.Status
     FROM (
-        -- Sales (Invoices) — includes CREDIT_SALE type
+        -- Sales (Invoices)
         SELECT 
             created_date AS TransactionDate,
             invoice_number AS InvoiceNumber,
@@ -175,7 +175,7 @@ BEGIN
             payment_status AS Status
         FROM Sale
         WHERE customer_id = @CustomerId
-          AND sale_type IN ('SALE', 'CREDIT_SALE')
+          AND sale_type = 'SALE'
           AND status = 'A'
           AND created_date BETWEEN @StartDate AND @EndDate
           AND (@StoreId IS NULL OR store_id = @StoreId)
@@ -254,11 +254,11 @@ BEGIN
     FROM Customer
     WHERE customer_id = @CustomerId;
 
-    -- Total Invoiced (both regular SALE and CREDIT_SALE)
+    -- Total Invoiced
     SELECT @TotalInvoice = ISNULL(SUM(grand_total), 0)
     FROM Sale
     WHERE customer_id = @CustomerId
-      AND sale_type IN ('SALE', 'CREDIT_SALE')
+      AND sale_type = 'SALE'
       AND status = 'A'
       AND created_date BETWEEN @StartDate AND @EndDate
       AND (@StoreId IS NULL OR store_id = @StoreId);

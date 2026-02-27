@@ -518,7 +518,7 @@ namespace POS.DAL
 
                         // STOCK DEDUCTION: Only deduct stock for actual SALE transactions
                         // Don't deduct for DRAFT or QUOTATION
-                        if (saleType == "SALE" || saleType == "CREDIT_SALE")
+                        if (saleType == "SALE")
                         {
                             decimal quantity = decimal.Parse(item["quantity"]?.ToString() ?? "0");
                             int productId = Convert.ToInt32(item["product_id"]);
@@ -570,7 +570,7 @@ namespace POS.DAL
                                   string discountType, decimal discountValue, decimal totalAmount,
                                   int totalItems, decimal grandTotal, string notes, DataTable saleItems)
         {
-            return SaveSale(storeId, billerId, customerId, "CREDIT_SALE", discountType, discountValue, 
+            return SaveSale(storeId, billerId, customerId, "SALE", discountType, discountValue, 
                 totalAmount, totalItems, grandTotal, notes, saleItems, 0m, 0m);
         }
 
@@ -724,7 +724,7 @@ namespace POS.DAL
             }
         }
 
-        public void SavePayments(int saleId, DataTable payments, int createdBy)
+        public void SavePayments(int saleId, DataTable payments, int createdBy, bool updateSaleTotalPaid = true)
         {
             try
             {
@@ -852,20 +852,24 @@ namespace POS.DAL
                             });
                         }
 
-                        // Update Sale.total_paid so balance_due stays accurate.
-                        string updateTotalPaidQuery = @"
-                            UPDATE Sale
-                            SET total_paid = ISNULL(total_paid, 0) + @amount,
-                                updated_by = @updated_by,
-                                updated_date = GETDATE()
-                            WHERE sale_id = @sale_id";
-
-                        Connection.ExecuteNonQuery(updateTotalPaidQuery, new SqlParameter[]
+                        // Update Sale.total_paid only when called from receive-payment flow.
+                        // For new sales, SaveSale already set total_paid correctly — skip to avoid double-count.
+                        if (updateSaleTotalPaid)
                         {
-                            new SqlParameter("@amount", amount),
-                            new SqlParameter("@updated_by", createdBy),
-                            new SqlParameter("@sale_id", saleId)
-                        });
+                            string updateTotalPaidQuery = @"
+                                UPDATE Sale
+                                SET total_paid = ISNULL(total_paid, 0) + @amount,
+                                    updated_by = @updated_by,
+                                    updated_date = GETDATE()
+                                WHERE sale_id = @sale_id";
+
+                            Connection.ExecuteNonQuery(updateTotalPaidQuery, new SqlParameter[]
+                            {
+                                new SqlParameter("@amount", amount),
+                                new SqlParameter("@updated_by", createdBy),
+                                new SqlParameter("@sale_id", saleId)
+                            });
+                        }
                     }
                 }
 
@@ -969,7 +973,7 @@ namespace POS.DAL
                 FROM Sale s
                 LEFT JOIN Customer c ON s.customer_id = c.customer_id
                 LEFT JOIN [User] u ON s.biller_id = u.user_id
-                WHERE s.status = 'A' AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                WHERE s.status = 'A' AND s.sale_type = 'SALE'
                 ORDER BY s.sale_id DESC";
 
             return Connection.ExecuteQuery(query);
@@ -998,7 +1002,7 @@ namespace POS.DAL
                 FROM Sale s
                 LEFT JOIN Customer c ON s.customer_id = c.customer_id
                 LEFT JOIN [User] u ON s.biller_id = u.user_id
-                WHERE s.status = 'A' AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                WHERE s.status = 'A' AND s.sale_type = 'SALE'
                 AND (
                     CONVERT(VARCHAR, s.sale_id) LIKE @keyword
                     OR s.invoice_number LIKE @keyword
@@ -1035,7 +1039,7 @@ namespace POS.DAL
                         MAX(s.created_date) AS last_order_date
                     FROM Sale s
                     WHERE s.status = 'A' 
-                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND s.sale_type = 'SALE'
                       AND s.table_number IS NOT NULL
                     GROUP BY s.table_number
                     ORDER BY grand_total DESC";
@@ -1070,7 +1074,7 @@ namespace POS.DAL
                         MAX(s.created_date) AS last_order_date
                     FROM Sale s
                     WHERE s.status = 'A' 
-                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND s.sale_type = 'SALE'
                       AND s.table_number IS NOT NULL
                       AND s.table_number LIKE @keyword
                     GROUP BY s.table_number
@@ -1113,7 +1117,7 @@ namespace POS.DAL
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND s.sale_type = 'SALE'
                     ORDER BY s.created_date DESC";
 
                 return Connection.ExecuteQuery(query) ?? new DataTable();
@@ -1154,7 +1158,7 @@ namespace POS.DAL
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     LEFT JOIN CustomerGroup cg ON c.group_id = cg.group_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND s.sale_type = 'SALE'
                       AND (
                         s.invoice_number LIKE @keyword
                         OR CONVERT(VARCHAR, s.created_date, 120) LIKE @keyword
@@ -1211,7 +1215,7 @@ namespace POS.DAL
                     INNER JOIN Sale s ON si.sale_id = s.sale_id
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND s.sale_type = 'SALE'
                       AND si.status = 'A'
                     ORDER BY s.created_date DESC, si.product_name";
 
@@ -1257,7 +1261,7 @@ namespace POS.DAL
                     INNER JOIN Sale s ON si.sale_id = s.sale_id
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND s.sale_type = 'SALE'
                       AND si.status = 'A'
                       AND (
                         si.product_name LIKE @keyword
@@ -1320,7 +1324,7 @@ namespace POS.DAL
                     LEFT JOIN Brand b ON p.brand_id = b.brand_id
                     LEFT JOIN Supplier s ON b.supplier_id = s.supplier_id
                     WHERE sale.status = 'A' 
-                      AND sale.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND sale.sale_type = 'SALE'
                       AND si.status = 'A'
                     ORDER BY sale.created_date DESC, si.product_name";
 
@@ -1367,7 +1371,7 @@ namespace POS.DAL
                     LEFT JOIN Brand b ON p.brand_id = b.brand_id
                     LEFT JOIN Supplier s ON b.supplier_id = s.supplier_id
                     WHERE sale.status = 'A' 
-                      AND sale.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND sale.sale_type = 'SALE'
                       AND si.status = 'A'
                       AND (
                         si.product_name LIKE @keyword OR
@@ -1412,7 +1416,7 @@ namespace POS.DAL
                     FROM SaleItem si
                     INNER JOIN Sale s ON si.sale_id = s.sale_id
                     INNER JOIN Product p ON si.product_id = p.product_id
-                    WHERE s.sale_type IN ('SALE', 'CREDIT_SALE')
+                    WHERE s.sale_type = 'SALE'
                       AND s.status = 'A' 
                       AND si.status = 'A'
                     GROUP BY p.product_id, p.product_name
@@ -1458,7 +1462,7 @@ namespace POS.DAL
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     LEFT JOIN Store st ON s.store_id = st.store_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND s.sale_type = 'SALE'
                     ORDER BY s.created_date DESC";
 
                 return Connection.ExecuteQuery(query) ?? new DataTable();
@@ -1506,7 +1510,7 @@ namespace POS.DAL
                     LEFT JOIN Customer c ON s.customer_id = c.customer_id
                     LEFT JOIN Store st ON s.store_id = st.store_id
                     WHERE s.status = 'A' 
-                      AND s.sale_type IN ('SALE', 'CREDIT_SALE')
+                      AND s.sale_type = 'SALE'
                       AND (
                         CONVERT(VARCHAR, s.created_date, 120) LIKE @keyword
                         OR s.invoice_number LIKE @keyword

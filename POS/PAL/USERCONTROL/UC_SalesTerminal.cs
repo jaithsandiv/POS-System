@@ -2110,7 +2110,7 @@ namespace POS.PAL.USERCONTROL
                 string notes = $"Credit sale created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}\nCredit Limit: {creditLimit:F2}";
 
                 // Save sale to database using unified SaveSale method
-                int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "CREDIT_SALE",
+                int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
                     discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
                     salesItemsTable, 0m, 0m, invoiceNumber, null, null, null, currentSaleId);
 
@@ -2142,7 +2142,7 @@ namespace POS.PAL.USERCONTROL
                 // Update saleTable with the returned sale_id from database
                 DataRow saleRow = saleTable.Rows[0];
                 saleRow["sale_id"] = saleId;
-                saleRow["sale_type"] = "CREDIT_SALE";
+                saleRow["sale_type"] = "SALE";
                 saleRow["invoice_number"] = invoiceNumber;
                 saleRow["customer_id"] = customerId;
                 saleRow["payment_status"] = "CREDIT";
@@ -2548,15 +2548,33 @@ namespace POS.PAL.USERCONTROL
                 string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
                 string notes = $"Sale completed on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
-                // Save sale — pass 0m for totalPaid so SavePayments owns it exclusively via
-                // its per-row += accumulation. Passing totalPaid here AND having SavePayments
-                // do += would double-count it. changeDue is correct and is not touched by SavePayments.
+                // SaveSale stores the raw total received (incl. change) so Sale.total_paid reflects
+                // what the customer actually handed over. changeDue records how much to give back.
                 int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
                     discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                    salesItemsTable, 0m, changeDue, invoiceNumber, null, orderType, tableNumber);
+                    salesItemsTable, totalPaid, changeDue, invoiceNumber, null, orderType, tableNumber);
 
-                // Save payments
-                _bllSalesTerminal.SavePayments(saleId, paymentsTable, billerId);
+                // Cap Payment rows to what was APPLIED to the sale (exclude change).
+                // E.g. customer hands Rs.1000 on Rs.800 sale → Payment row = 800, change = 200.
+                // Sale.total_paid (above) stays 1000 as recorded by SaveSale.
+                if (changeDue > 0)
+                {
+                    for (int i = paymentsTable.Rows.Count - 1; i >= 0; i--)
+                    {
+                        DataRow pmtRow = paymentsTable.Rows[i];
+                        if (pmtRow.RowState == DataRowState.Deleted) continue;
+                        if (pmtRow["payment_method"]?.ToString() == "CREDIT") continue;
+
+                        decimal rowAmt = 0;
+                        decimal.TryParse(pmtRow["amount"]?.ToString(), out rowAmt);
+                        pmtRow["amount"] = (rowAmt - changeDue).ToString("F2");
+                        break;
+                    }
+                }
+
+                // updateSaleTotalPaid = false: Sale.total_paid is already set correctly by SaveSale above.
+                // Passing true here would add Payment amounts on top → double-count.
+                _bllSalesTerminal.SavePayments(saleId, paymentsTable, billerId, updateSaleTotalPaid: false);
 
                 // Determine payment status
                 string paymentStatus = "PAID";

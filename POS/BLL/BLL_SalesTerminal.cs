@@ -135,11 +135,11 @@ namespace POS.BLL
             return _dalSalesTerminal.GetNextInvoiceNumber();
         }
 
-        public void SavePayments(int saleId, DataTable payments, int createdBy)
+        public void SavePayments(int saleId, DataTable payments, int createdBy, bool updateSaleTotalPaid = true)
         {
             try
             {
-                _dalSalesTerminal.SavePayments(saleId, payments, createdBy);
+                _dalSalesTerminal.SavePayments(saleId, payments, createdBy, updateSaleTotalPaid);
 
                 // Log payment details
                 decimal totalPaid = 0;
