@@ -208,7 +208,7 @@ namespace POS.PAL.USERCONTROL
                     {
                         using (MemoryStream ms = new MemoryStream(businessRow.logo))
                         {
-                            picLogo.Image = Image.FromStream(ms);
+                            picLogo.Image = new Bitmap(Image.FromStream(ms));
                         }
                     }
                     else
