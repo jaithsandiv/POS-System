@@ -2005,6 +2005,7 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
+                // Validate cart
                 if (salesItemsTable.Rows.Count == 0)
                 {
                     MessageBox.Show("Cart is empty. Cannot save credit sale.", "Empty Cart",
@@ -2014,16 +2015,13 @@ namespace POS.PAL.USERCONTROL
 
                 int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
                 int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
-                int customerId = 0;
+                int? customerId = null;
 
-                // Get customer ID from saleTable
                 if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
-                {
                     customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
-                }
 
                 // Validation: Credit sale not allowed for Walk-In Customer (customer_id = 1)
-                if (customerId == 1 || customerId == 0)
+                if (customerId == null || customerId == 1)
                 {
                     MessageBox.Show("Credit sale is not allowed for Walk-In Customer. Please select a registered customer.",
                         "Invalid Customer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -2040,7 +2038,7 @@ namespace POS.PAL.USERCONTROL
 
                 DataRow selectedCustomer = customerRows[0];
 
-                // Check if customer has credit limit
+                // Read credit limit and current balance
                 decimal creditLimit = 0;
                 decimal currentCreditBalance = 0;
 
@@ -2048,20 +2046,14 @@ namespace POS.PAL.USERCONTROL
                     selectedCustomer["credit_limit"] != DBNull.Value &&
                     !string.IsNullOrWhiteSpace(selectedCustomer["credit_limit"]?.ToString()))
                 {
-                    if (decimal.TryParse(selectedCustomer["credit_limit"].ToString(), out decimal parsedCreditLimit))
-                    {
-                        creditLimit = parsedCreditLimit;
-                    }
+                    decimal.TryParse(selectedCustomer["credit_limit"].ToString(), out creditLimit);
                 }
 
                 if (selectedCustomer.Table.Columns.Contains("credit_balance") &&
                     selectedCustomer["credit_balance"] != DBNull.Value &&
                     !string.IsNullOrWhiteSpace(selectedCustomer["credit_balance"]?.ToString()))
                 {
-                    if (decimal.TryParse(selectedCustomer["credit_balance"].ToString(), out decimal parsedCreditBalance))
-                    {
-                        currentCreditBalance = parsedCreditBalance;
-                    }
+                    decimal.TryParse(selectedCustomer["credit_balance"].ToString(), out currentCreditBalance);
                 }
 
                 // Validation: Credit limit must be set
@@ -2072,12 +2064,7 @@ namespace POS.PAL.USERCONTROL
                     return;
                 }
 
-                // Get grand total
-                decimal grandTotal = 0;
-                if (decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out decimal parsedGrandTotal))
-                {
-                    grandTotal = parsedGrandTotal;
-                }
+                decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
 
                 // Validation: Grand total must not exceed available credit
                 decimal availableCredit = creditLimit - currentCreditBalance;
@@ -2101,20 +2088,34 @@ namespace POS.PAL.USERCONTROL
                 // Check if we are updating an existing sale
                 int currentSaleId = 0;
                 if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
-                {
                     int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
+
+                // Get order type and table (KOT support)
+                string orderType = null;
+                string tableNumber = null;
+                if (pnlKOT.Visible)
+                {
+                    if (btnDineIn.Appearance.BackColor == Color.FromArgb(4, 181, 152))
+                    {
+                        orderType = "DINE_IN";
+                        tableNumber = cmbTableNo.SelectedItem?.ToString();
+                    }
+                    else if (btnTakeAway.Appearance.BackColor == Color.FromArgb(4, 181, 152))
+                    {
+                        orderType = "TAKE_AWAY";
+                    }
                 }
 
-                // Get invoice number from database sequence
+                // Generate invoice number
                 string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
                 string notes = $"Credit sale created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}\nCredit Limit: {creditLimit:F2}";
 
-                // Save sale to database using unified SaveSale method
+                // Save sale — total_paid = 0 (no cash collected), change_due = 0
                 int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
                     discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
-                    salesItemsTable, 0m, 0m, invoiceNumber, null, null, null, currentSaleId);
+                    salesItemsTable, 0m, 0m, invoiceNumber, null, orderType, tableNumber, currentSaleId);
 
-                // Create CREDIT payment record
+                // Build CREDIT payment row using the shared paymentsTable schema
                 DataTable creditPaymentTable = new DataTable();
                 creditPaymentTable.Columns.Add("payment_method", typeof(string));
                 creditPaymentTable.Columns.Add("amount", typeof(decimal));
@@ -2136,10 +2137,10 @@ namespace POS.PAL.USERCONTROL
                 creditPayment["bank_reference_number"] = DBNull.Value;
                 creditPaymentTable.Rows.Add(creditPayment);
 
-                // Save CREDIT payment to database
-                _bllSalesTerminal.SavePayments(saleId, creditPaymentTable, billerId);
+                // updateSaleTotalPaid = false: CREDIT rows don't touch Sale.total_paid (stays 0)
+                _bllSalesTerminal.SavePayments(saleId, creditPaymentTable, billerId, updateSaleTotalPaid: false);
 
-                // Update saleTable with the returned sale_id from database
+                // Update saleTable
                 DataRow saleRow = saleTable.Rows[0];
                 saleRow["sale_id"] = saleId;
                 saleRow["sale_type"] = "SALE";
@@ -2153,16 +2154,50 @@ namespace POS.PAL.USERCONTROL
                 saleRow["total_paid"] = "0.00";
                 saleRow["change_due"] = "0.00";
 
+                // Generate and print invoice (same as pnlPM path)
+                string customerName = txtCustomer.Text;
+
+                bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
+                bool autoPrint = true;
+
+                if (enableThermal)
+                {
+                    PrintThermalInvoice(invoiceNumber, grandTotal, customerName, salesItemsTable, creditPaymentTable, autoPrint);
+                }
+                else if (enableA4)
+                {
+                    REPORT.Invoice invoiceReport = new REPORT.Invoice();
+                    invoiceReport.DataSource = salesItemsTable;
+
+                    string footerTextA4 = Main.GetSetting("invoice_footer", "Thank You For Your Business!");
+                    invoiceReport.Parameters["p_footer"].Value = footerTextA4;
+                    invoiceReport.Parameters["p_invoice_no"].Value = invoiceNumber;
+                    invoiceReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    invoiceReport.Parameters["p_total"].Value = totalAmount.ToString("F2");
+                    invoiceReport.Parameters["p_discount"].Value = discountValue.ToString("F2");
+                    invoiceReport.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
+                    invoiceReport.Parameters["p_customer_name"].Value = customerName;
+
+                    DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(invoiceReport);
+                    printTool.Print();
+                }
+
+                // Print KOT if enabled
+                if (!string.IsNullOrEmpty(orderType))
+                {
+                    PrintKOT(invoiceNumber, orderType, tableNumber, customerName, salesItemsTable, autoPrint);
+                }
+
                 // Show success message
-                string customerName = selectedCustomer["full_name"]?.ToString() ?? "Customer";
                 MessageBox.Show(
                     $"Credit Sale Created Successfully!\n\n" +
                     $"Invoice Number: {invoiceNumber}\n" +
                     $"Customer: {customerName}\n" +
-                    $"Grand Total: {grandTotal:F2}\n" +
-                    $"Credit Applied: {grandTotal:F2}\n" +
+                    $"Grand Total:    Rs. {grandTotal:F2}\n" +
+                    $"Credit Applied: Rs. {grandTotal:F2}\n" +
                     $"Payment Status: CREDIT",
-                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    "Credit Sale Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Reset UI
                 btnCancel_Click(null, null);
