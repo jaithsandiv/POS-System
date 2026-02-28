@@ -1,8 +1,8 @@
+using DevExpress.XtraEditors;
+using POS.BLL;
 using System;
 using System.Data;
 using System.Windows.Forms;
-using DevExpress.XtraEditors;
-using POS.BLL;
 
 namespace POS.PAL.Forms
 {
@@ -20,11 +20,11 @@ namespace POS.PAL.Forms
             InitializeComponent();
             _customerId = customerId;
             lblCustomerName.Text = $"Customer: {customerName}";
-            
+
             LoadUnpaidInvoices();
             dtpDate.DateTime = DateTime.Today;
             cmbPaymentMethod.SelectedIndex = 0; // Default to CASH
-            
+
             // Wire up event
             cmbInvoice.EditValueChanged += cmbInvoice_EditValueChanged;
         }
@@ -41,7 +41,7 @@ namespace POS.PAL.Forms
             try
             {
                 DataTable dt = _bllContacts.GetUnpaidInvoices(_customerId);
-                
+
                 // Add a display column
                 if (!dt.Columns.Contains("DisplayMember"))
                 {
@@ -55,7 +55,7 @@ namespace POS.PAL.Forms
                     string invoice = row["invoice_number"].ToString();
                     decimal due = Convert.ToDecimal(row["balance_due"]);
                     string date = Convert.ToDateTime(row["created_date"]).ToString("dd/MM/yyyy");
-                    
+
                     row["DisplayMember"] = $"{invoice} ({date}) - Due: {due:N2}";
                     totalDue += due;
                 }
@@ -65,7 +65,7 @@ namespace POS.PAL.Forms
                 cmbInvoice.Properties.DataSource = dt;
                 cmbInvoice.Properties.DisplayMember = "DisplayMember";
                 cmbInvoice.Properties.ValueMember = "sale_id";
-                
+
                 // Add columns to dropdown
                 cmbInvoice.Properties.Columns.Clear();
                 cmbInvoice.Properties.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo("invoice_number", "Invoice #"));
@@ -164,12 +164,12 @@ namespace POS.PAL.Forms
                 DataRow row = payments.NewRow();
                 row["payment_method"] = paymentMethod;
                 row["amount"] = amount;
-                
+
                 if (paymentMethod == "BANK_TRANSFER" || paymentMethod == "CHEQUE")
                 {
                     row["bank_reference_number"] = reference;
                 }
-                
+
                 payments.Rows.Add(row);
 
                 // Use logged-in user ID from the active session

@@ -260,7 +260,7 @@ BEGIN
     WHERE customer_id = @CustomerId
       AND sale_type = 'SALE'
       AND status = 'A'
-      AND created_date BETWEEN @StartDate AND @EndDate
+      AND created_date BETWEEN @StartDate AND DATEADD(day, 1, @EndDate)
       AND (@StoreId IS NULL OR store_id = @StoreId);
 
     -- Total Paid (exclude CREDIT payments — those are debt acknowledgements, not money received)
@@ -270,7 +270,7 @@ BEGIN
     WHERE s.customer_id = @CustomerId
       AND p.status = 'A'
       AND p.payment_method <> 'CREDIT'
-      AND p.created_date BETWEEN @StartDate AND @EndDate
+      AND p.created_date BETWEEN @StartDate AND DATEADD(day, 1, @EndDate)
       AND (@StoreId IS NULL OR s.store_id = @StoreId);
 
     -- Total Returned
@@ -279,7 +279,7 @@ BEGIN
     JOIN Sale s ON sr.sale_id = s.sale_id
     WHERE s.customer_id = @CustomerId
       AND sr.status = 'A'
-      AND sr.created_date BETWEEN @StartDate AND @EndDate
+      AND sr.created_date BETWEEN @StartDate AND DATEADD(day, 1, @EndDate)
       AND (@StoreId IS NULL OR s.store_id = @StoreId);
 
     -- Back-calculate Opening Balance
