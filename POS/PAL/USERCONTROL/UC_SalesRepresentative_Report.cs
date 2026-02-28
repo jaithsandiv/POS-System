@@ -71,9 +71,9 @@ namespace POS.PAL.USERCONTROL
 
                 foreach (DataRow row in salesRepresentativeTable.Rows)
                 {
-                    // Get total amount (this is the total sales)
-                    decimal totalAmount = row["TotalAmount"] != DBNull.Value ? Convert.ToDecimal(row["TotalAmount"]) : 0;
-                    totalSales += totalAmount;
+                    // Get total paid amount
+                    decimal totalPaid = row["TotalPaid"] != DBNull.Value ? Convert.ToDecimal(row["TotalPaid"]) : 0;
+                    totalSales += totalPaid;
 
                     // Get total remaining (unpaid amount)
                     decimal totalRemaining = row["TotalRemaining"] != DBNull.Value ? Convert.ToDecimal(row["TotalRemaining"]) : 0;
