@@ -226,6 +226,20 @@ namespace POS
             // Update user name when navigation is shown
             if (!hideNavigation)
             {
+                // Auto-collapse sidebar on navigation, but keep it open on Dashboard
+                if (control is UC_Dashboard)
+                {
+                    if (isCollapsed)
+                        ToggleSidebar();
+                    btnToggleMenu.Enabled = false;
+                }
+                else
+                {
+                    if (!isCollapsed)
+                        ToggleSidebar();
+                    btnToggleMenu.Enabled = true;
+                }
+
                 UpdateUserFirstName();
                 ShowTrialWarningIfNeeded();
                 ApplyPermissionBasedVisibility();
