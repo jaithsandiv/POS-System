@@ -155,6 +155,24 @@ namespace POS.PAL.USERCONTROL
             colStatus.OptionsColumn.AllowFocus = false;
             colStatus.OptionsColumn.FixedWidth = true;
 
+            var colCreditBalance = gridView1.Columns.AddVisible("credit_balance", "Credit Balance");
+            colCreditBalance.FieldName = "credit_balance";
+            colCreditBalance.Caption = "Credit Balance";
+            colCreditBalance.Width = 130;
+            colCreditBalance.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colCreditBalance.OptionsColumn.AllowEdit = false;
+            colCreditBalance.OptionsColumn.AllowFocus = false;
+            colCreditBalance.OptionsColumn.FixedWidth = true;
+
+            var colCreditLimit = gridView1.Columns.AddVisible("credit_limit", "Credit Limit");
+            colCreditLimit.FieldName = "credit_limit";
+            colCreditLimit.Caption = "Credit Limit";
+            colCreditLimit.Width = 120;
+            colCreditLimit.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colCreditLimit.OptionsColumn.AllowEdit = false;
+            colCreditLimit.OptionsColumn.AllowFocus = false;
+            colCreditLimit.OptionsColumn.FixedWidth = true;
+
             // Add Edit button column
             var colEdit = gridView1.Columns.AddVisible("Edit", "Edit");
             colEdit.Caption = "Edit";
@@ -366,6 +384,8 @@ namespace POS.PAL.USERCONTROL
                 conditions.Add($"city LIKE '%{searchText}%'");
                 conditions.Add($"group_name LIKE '%{searchText}%'");
                 conditions.Add($"status LIKE '%{searchText}%'");
+                conditions.Add($"credit_balance LIKE '%{searchText}%'");
+                conditions.Add($"credit_limit LIKE '%{searchText}%'");
 
                 // Join all conditions with OR
                 filterExpression.Append(string.Join(" OR ", conditions));
