@@ -121,15 +121,17 @@ namespace POS.PAL.USERCONTROL
 
             filteredView.RowFilter = filter;
 
-            List<(string Name, byte[] Image, string Stock, string Price)> productDetails = new List<(string, byte[], string, string)>();
+            List<(string Id, string Name, byte[] Image, string Stock, string Price)> productDetails =
+                new List<(string, string, byte[], string, string)>();
             foreach (DataRowView row in filteredView)
             {
+                string id = row["product_id"]?.ToString();
                 string name = row["product_name"]?.ToString();
                 byte[] image = row["image"] as byte[];
                 string stock = row["stock_quantity"]?.ToString();
                 string price = row["selling_price"]?.ToString();
 
-                productDetails.Add((name, image, stock, price));
+                productDetails.Add((id, name, image, stock, price));
             }
 
             AddProductButtonsToScrollableControl(productDetails);
@@ -357,10 +359,10 @@ namespace POS.PAL.USERCONTROL
         {
             if (sender is DevExpress.XtraEditors.SimpleButton button)
             {
-                string selectedProduct = button.Tag.ToString();
+                string productId = button.Tag.ToString();
 
-                // Fetch product details from the global products table
-                DataRow[] productRows = productsTable.Select($"product_name = '{selectedProduct}'");
+                // Fetch product details by product_id for unambiguous lookup
+                DataRow[] productRows = productsTable.Select($"product_id = '{productId}'");
 
                 if (productRows.Length > 0)
                 {
@@ -589,21 +591,25 @@ namespace POS.PAL.USERCONTROL
 
         private void LoadProducts()
         {
-            List<(string Name, byte[] Image, string Stock, string Price)> productDetails = new List<(string, byte[], string, string)>();
+            List<(string Id, string Name, byte[] Image, string Stock, string Price)> productDetails =
+                new List<(string, string, byte[], string, string)>();
             foreach (DataRow row in productsTable.Rows)
             {
+                string id = row["product_id"]?.ToString();
                 string name = row["product_name"]?.ToString();
                 byte[] image = row["image"] as byte[];
                 string stock = row["stock_quantity"]?.ToString();
                 string price = row["selling_price"]?.ToString();
 
-                productDetails.Add((name, image, stock, price));
+                productDetails.Add((id, name, image, stock, price));
             }
 
             AddProductButtonsToScrollableControl(productDetails);
         }
 
-        private void AddProductButtonsToScrollableControl(List<(string Name, byte[] Image, string Stock, string Price)> productDetails, int buttonWidth = 170, int buttonHeight = 150, int spacing = 10, int maxButtonsPerRow = 4)
+        private void AddProductButtonsToScrollableControl(
+            List<(string Id, string Name, byte[] Image, string Stock, string Price)> productDetails,
+            int buttonWidth = 170, int buttonHeight = 150, int spacing = 10, int maxButtonsPerRow = 4)
         {
             xtraScrollableControl3.Controls.Clear();
 
@@ -613,7 +619,7 @@ namespace POS.PAL.USERCONTROL
             for (int i = 0; i < productDetails.Count; i++)
             {
                 var product = productDetails[i];
-                
+
                 // Parse price and stock for display
                 decimal price = 0;
                 if (!string.IsNullOrEmpty(product.Price))
@@ -628,7 +634,7 @@ namespace POS.PAL.USERCONTROL
                     Name = $"btnProduct{i}",
                     Width = buttonWidth,
                     Height = buttonHeight,
-                    Tag = product.Name
+                    Tag = product.Id  // Store product_id for unambiguous lookup
                 };
 
                 // Disable button if out of stock (only when stock check is enabled)
@@ -641,89 +647,65 @@ namespace POS.PAL.USERCONTROL
                 }
                 else if (stock <= 10 && stock > 0)
                 {
-                    // Highlight low stock items
                     productButton.Appearance.ForeColor = Color.DarkOrange;
                 }
 
                 if (product.Image != null && product.Image.Length > 0)
                 {
-                    // Product has image - display image above text
                     try
                     {
                         using (var ms = new System.IO.MemoryStream(product.Image))
                         {
                             Image originalImage = Image.FromStream(ms);
-                            
-                            // Calculate scaled image size (leave space for text at bottom)
-                            int imageAreaHeight = buttonHeight - 50; // Reserve 50px for text
-                            int imageWidth = buttonWidth - 20; // 10px padding on each side
+
+                            int imageAreaHeight = buttonHeight - 50;
+                            int imageWidth = buttonWidth - 20;
                             int imageHeight = imageAreaHeight;
-                            
-                            // Maintain aspect ratio
+
                             float aspectRatio = (float)originalImage.Width / originalImage.Height;
                             if (imageWidth / aspectRatio < imageHeight)
-                            {
                                 imageHeight = (int)(imageWidth / aspectRatio);
-                            }
                             else
-                            {
                                 imageWidth = (int)(imageHeight * aspectRatio);
-                            }
-                        
-                            // Create scaled image
+
                             productButton.ImageOptions.Image = originalImage.GetThumbnailImage(imageWidth, imageHeight, null, IntPtr.Zero);
                             productButton.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
                         }
-                        
-                        // Set text below image with stock information
+
                         if (stockCheckEnabled && stock <= 0)
-                        {
                             productButton.Text = $"{product.Name}\nRs. {price:F2}\nOUT OF STOCK";
-                        }
                         else if (stock <= 10 && stock > 0)
                         {
                             productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2} (Low)";
                             productButton.Appearance.ForeColor = Color.DarkOrange;
                         }
                         else
-                        {
                             productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2}";
-                        }
                     }
                     catch
                     {
-                        // If image loading fails, show text only
                         if (stockCheckEnabled && stock <= 0)
-                        {
                             productButton.Text = $"{product.Name}\nRs. {price:F2}\nOUT OF STOCK";
-                        }
                         else if (stock <= 10 && stock > 0)
                         {
                             productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2} (Low)";
                             productButton.Appearance.ForeColor = Color.DarkOrange;
                         }
                         else
-                        {
                             productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2}";
-                        }
                     }
                 }
                 else
                 {
-                    // No image - display text only with stock details
                     if (stockCheckEnabled && stock <= 0)
-                    {
                         productButton.Text = $"{product.Name}\nRs. {price:F2}\nOUT OF STOCK";
-                    }
                     else if (stock <= 10 && stock > 0)
                     {
                         productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2} (Low)";
                         productButton.Appearance.ForeColor = Color.DarkOrange;
                     }
                     else
-                    {
                         productButton.Text = $"{product.Name}\nRs. {price:F2}\nStock: {stock:F2}";
-                    }
                 }
 
                 productButton.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
@@ -860,30 +842,147 @@ namespace POS.PAL.USERCONTROL
 
             e.Handled = true; // Prevent the beep sound
 
-            if (string.IsNullOrWhiteSpace(txtBarcode.Text))
+            string searchText = txtBarcode.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(searchText))
                 return;
 
-            string scannedBarcode = txtBarcode.Text.Trim();
+            SearchAndHandleProducts(searchText);
+        }
 
-            // Search for the product by barcode in the global products table
-            DataRow[] productRows = productsTable.Select($"barcode = '{scannedBarcode}'");
+        private void txtBarcode_EditValueChanged(object sender, EventArgs e)
+        {
+            string searchText = txtBarcode.Text.Trim();
 
-            if (productRows.Length > 0)
+            if (string.IsNullOrWhiteSpace(searchText))
             {
-                // Product found - Add to sales items
-                AddProductToSalesItems(productRows[0]);
-
-                // Clear the barcode field for the next scan
-                txtBarcode.Text = string.Empty;
+                LoadProducts();
+                return;
             }
-            else
+
+            DataRow[] matches = FindProductsBySearch(searchText);
+
+            if (matches.Length == 0)
             {
-                // Product not found - Show warning
-                MessageBox.Show($"Product with barcode '{scannedBarcode}' not found.", "Invalid Barcode", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                // Clear the barcode field
-                txtBarcode.Text = string.Empty;
+                AddProductButtonsToScrollableControl(
+                    new List<(string Id, string Name, byte[] Image, string Stock, string Price)>());
+                return;
             }
+
+            var productDetails = new List<(string Id, string Name, byte[] Image, string Stock, string Price)>();
+            foreach (DataRow row in matches)
+            {
+                productDetails.Add((
+                    row["product_id"]?.ToString(),
+                    row["product_name"]?.ToString(),
+                    row["image"] as byte[],
+                    row["stock_quantity"]?.ToString(),
+                    row["selling_price"]?.ToString()
+                ));
+            }
+
+            AddProductButtonsToScrollableControl(productDetails);
+        }
+
+        /// <summary>
+        /// Searches products by barcode (exact), product_code (exact) and product_name (contains).
+        /// Returns distinct matching rows ordered: exact barcode first, exact code second, name matches last.
+        /// </summary>
+        private DataRow[] FindProductsBySearch(string searchText)
+        {
+            string escaped = searchText.Replace("'", "''");
+
+            // Exact barcode match
+            DataRow[] byBarcode = productsTable.Select($"barcode = '{escaped}'");
+
+            // Exact product_code match
+            DataRow[] byCode = productsTable.Select($"product_code = '{escaped}'");
+
+            // Product name contains search text (case-insensitive via DataTable filter)
+            DataRow[] byName = productsTable.Select($"product_name LIKE '%{escaped}%'");
+
+            // Merge results, preserving priority order and avoiding duplicates
+            var seen = new System.Collections.Generic.HashSet<string>();
+            var result = new System.Collections.Generic.List<DataRow>();
+
+            foreach (var set in new[] { byBarcode, byCode, byName })
+            {
+                foreach (DataRow row in set)
+                {
+                    string id = row["product_id"].ToString();
+                    if (seen.Add(id))
+                        result.Add(row);
+                }
+            }
+
+            return result.ToArray();
+        }
+
+        /// <summary>
+        /// Handles product lookup on Enter in txtBarcode.
+        /// Exact barcode/code hit → add to cart immediately.
+        /// Multiple or name-only matches → show filtered buttons in xtraScrollableControl3.
+        /// </summary>
+        private void SearchAndHandleProducts(string searchText)
+        {
+            string escaped = searchText.Replace("'", "''");
+
+            // 1. Try exact barcode match first
+            DataRow[] exactBarcode = productsTable.Select($"barcode = '{escaped}'");
+            if (exactBarcode.Length == 1)
+            {
+                AddProductToSalesItems(exactBarcode[0]);
+                txtBarcode.Text = string.Empty;
+                LoadProducts();
+                return;
+            }
+
+            // 2. Try exact product_code match
+            DataRow[] exactCode = productsTable.Select($"product_code = '{escaped}'");
+            if (exactCode.Length == 1)
+            {
+                AddProductToSalesItems(exactCode[0]);
+                txtBarcode.Text = string.Empty;
+                LoadProducts();
+                return;
+            }
+
+            // 3. Search by all three fields and show results
+            DataRow[] matches = FindProductsBySearch(searchText);
+
+            if (matches.Length == 0)
+            {
+                MessageBox.Show(
+                    $"No products found matching '{searchText}'.",
+                    "No Results",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                txtBarcode.Text = string.Empty;
+                return;
+            }
+
+            if (matches.Length == 1)
+            {
+                AddProductToSalesItems(matches[0]);
+                txtBarcode.Text = string.Empty;
+                LoadProducts();
+                return;
+            }
+
+            // Multiple matches – display them in the product grid
+            var productDetails = new List<(string Id, string Name, byte[] Image, string Stock, string Price)>();
+            foreach (DataRow row in matches)
+            {
+                productDetails.Add((
+                    row["product_id"]?.ToString(),
+                    row["product_name"]?.ToString(),
+                    row["image"] as byte[],
+                    row["stock_quantity"]?.ToString(),
+                    row["selling_price"]?.ToString()
+                ));
+            }
+
+            AddProductButtonsToScrollableControl(productDetails);
         }
 
         private void txtDiscount_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
@@ -893,21 +992,17 @@ namespace POS.PAL.USERCONTROL
 
             DataRow saleRow = saleTable.Rows[0];
 
-            // Get current discount type
             string currentType = saleRow["discount_type"]?.ToString() ?? "PERCENTAGE";
             string newType = currentType == "PERCENTAGE" ? "FIXED_AMOUNT" : "PERCENTAGE";
 
-            // Update discount type in saleTable
             saleRow["discount_type"] = newType;
 
-            // Update button caption on txtDiscount control
             var txtDiscountControl = (DevExpress.XtraEditors.ButtonEdit)sender;
             if (txtDiscountControl?.Properties.Buttons.Count > 0)
             {
                 txtDiscountControl.Properties.Buttons[0].Caption = newType == "PERCENTAGE" ? "%" : "Rs.";
             }
 
-            // Recalculate grand total with new discount type
             CalculateAndUpdateGrandTotal();
         }
 
@@ -918,14 +1013,10 @@ namespace POS.PAL.USERCONTROL
 
             DataRow saleRow = saleTable.Rows[0];
 
-            // Get the discount value from the control
             var txtDiscountControl = (DevExpress.XtraEditors.ButtonEdit)sender;
             if (txtDiscountControl?.EditValue != null && decimal.TryParse(txtDiscountControl.EditValue.ToString(), out decimal discountValue))
             {
-                // Update discount value in saleTable
                 saleRow["discount_value"] = discountValue.ToString("F2");
-
-                // Recalculate grand total
                 CalculateAndUpdateGrandTotal();
             }
         }
@@ -972,37 +1063,29 @@ namespace POS.PAL.USERCONTROL
             {
                 string customerId = gvCustomers.GetFocusedRowCellValue("customer_id").ToString();
 
-                // Find the customer row in customersTable
                 DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
 
                 if (customerRows.Length > 0)
                 {
                     DataRow selectedCustomer = customerRows[0];
 
-                    // Update the saleTable with customer information
                     if (saleTable.Rows.Count > 0)
                     {
                         DataRow saleRow = saleTable.Rows[0];
                         saleRow["customer_id"] = selectedCustomer["customer_id"];
-
-                        // Set discount type to PERCENTAGE
                         saleRow["discount_type"] = "PERCENTAGE";
 
-                        // Set discount value from customer group discount
                         decimal customerDiscount = 0;
                         if (selectedCustomer["discount_percent"] != DBNull.Value &&
                             !string.IsNullOrWhiteSpace(selectedCustomer["discount_percent"]?.ToString()))
                         {
                             if (decimal.TryParse(selectedCustomer["discount_percent"].ToString(), out decimal parsedDiscount))
-                            {
                                 customerDiscount = parsedDiscount;
-                            }
                         }
 
                         saleRow["discount_value"] = customerDiscount.ToString("F2");
                     }
 
-                    // Update txtDiscount control with customer discount
                     if (txtDiscount != null)
                     {
                         decimal customerDiscount = 0;
@@ -1010,21 +1093,15 @@ namespace POS.PAL.USERCONTROL
                             !string.IsNullOrWhiteSpace(selectedCustomer["discount_percent"]?.ToString()))
                         {
                             if (decimal.TryParse(selectedCustomer["discount_percent"].ToString(), out decimal parsedDiscount))
-                            {
                                 customerDiscount = parsedDiscount;
-                            }
                         }
 
                         txtDiscount.EditValue = customerDiscount;
 
-                        // Update button caption to show PERCENTAGE
                         if (txtDiscount.Properties.Buttons.Count > 0)
-                        {
                             txtDiscount.Properties.Buttons[0].Caption = "%";
-                        }
                     }
 
-                    // Recalculate grand total with new customer discount
                     CalculateAndUpdateGrandTotal();
 
                     pnlCustomers.Visible = false;
@@ -1039,67 +1116,43 @@ namespace POS.PAL.USERCONTROL
             if (string.IsNullOrWhiteSpace(selectedPaymentMethod))
                 return;
 
-            // Show payment panel and initialize it
             if (!pnlPM.Visible)
             {
                 InitializePaymentPanel();
                 pnlPM.Visible = true;
             }
 
-            // Add the first payment entry with the selected method
-            // Use Max(0,due) — due can be negative when already overpaid
             var (totalPaid, due) = CalculatePaymentTotals();
             AddPaymentEntry(selectedPaymentMethod, due > 0 ? due : (decimal?)null);
 
-            // Reset selection so it can be selected again if needed
             cmbPM.EditValue = null;
         }
 
         private void InitializePaymentPanel()
         {
-            // Clear the scrollable control
             pnlPayment.Controls.Clear();
 
-            // Initialize payments DataTable
-            // If paymentsTable is already populated (e.g. from LoadSaleIntoTerminal), use it.
-            // Otherwise, initialize new.
             if (paymentsTable == null)
             {
                 DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
                 paymentsTable = ds.Payment;
             }
 
-            // Only clear if we are starting fresh (sale_id is null/0)
             int currentSaleId = 0;
             if (saleTable != null && saleTable.Rows.Count > 0 && saleTable.Rows[0]["sale_id"] != DBNull.Value)
-            {
                 int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
-            }
 
             if (currentSaleId == 0)
             {
                 paymentsTable.Clear();
                 paymentEntryCounter = 0;
             }
-            else
-            {
-                // If loading existing, we need to populate the UI with existing payments
-                // For now, let's just ensure we don't wipe the data table.
-                // Re-populating the UI (adding panels) for existing payments would be nice but complex
-                // as we need to map rows back to UI controls.
-                // For the requirement "complete partial payments", the user just needs to see balance and add NEW payment.
-                // So we can list existing payments in a read-only way or just show totals.
-                // Let's rely on `lblTotalPaid` which calculates from `paymentsTable`.
-                // We will NOT add panels for existing payments to avoid complexity of editing them.
-            }
 
-            // Reset labels
             UpdatePaymentSummaryUI();
         }
 
         private void btnAddPayment_Click(object sender, EventArgs e)
         {
-            // Add a new payment entry with no method pre-selected
             var (totalPaid, due) = CalculatePaymentTotals();
             AddPaymentEntry(null, due > 0 ? due : (decimal?)null);
         }
@@ -1109,31 +1162,27 @@ namespace POS.PAL.USERCONTROL
             paymentEntryCounter++;
             int entryId = paymentEntryCounter;
 
-            // Determine panel height based on payment method
-            int panelHeight = 200;//180; // Default for CASH/CREDIT (smaller)
+            int panelHeight = 200;
             if (preselectedMethod != null)
             {
                 if (preselectedMethod.ToUpper() == "CARD")
-                    panelHeight = 380; // Increased for CARD (more fields + better spacing)
+                    panelHeight = 380;
                 else if (preselectedMethod.ToUpper() == "BANK_TRANSFER")
-                    panelHeight = 260; // Medium for BANK_TRANSFER
+                    panelHeight = 260;
             }
 
-            // Create a panel for this payment entry with DevExpress styling
             PanelControl paymentEntryPanel = new PanelControl
             {
                 Name = $"pnlPaymentEntry{entryId}",
                 Width = pnlPayment.Width - 30,
                 Height = panelHeight,
                 BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple,
-                Dock = DockStyle.Top // Use docking for automatic positioning
+                Dock = DockStyle.Top
             };
             paymentEntryPanel.Appearance.BorderColor = Color.LightGray;
             paymentEntryPanel.Appearance.Options.UseBorderColor = true;
-            // Add margin/padding between panels
-            paymentEntryPanel.Padding = new System.Windows.Forms.Padding(5, 5, 5, 15); // Top, Left, Right, Bottom margins
+            paymentEntryPanel.Padding = new System.Windows.Forms.Padding(5, 5, 5, 15);
 
-            // Payment method label (matching your existing label style)
             LabelControl lblMethod = new LabelControl
             {
                 Text = $"Payment #{entryId}",
@@ -1144,7 +1193,6 @@ namespace POS.PAL.USERCONTROL
             lblMethod.Appearance.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
             lblMethod.Appearance.Options.UseFont = true;
 
-            // Payment method combo box (matching cmbPM style)
             ComboBoxEdit cmbMethod = new ComboBoxEdit
             {
                 Name = $"cmbMethod{entryId}",
@@ -1159,22 +1207,18 @@ namespace POS.PAL.USERCONTROL
             cmbMethod.Size = new Size(paymentEntryPanel.Width - 130, 44);
 
             if (!string.IsNullOrEmpty(preselectedMethod))
-            {
                 cmbMethod.SelectedItem = preselectedMethod;
-            }
 
-            // Fields panel (will hold method-specific fields) - INCREASED HEIGHT
             PanelControl pnlFields = new PanelControl
             {
                 Name = $"pnlFields{entryId}",
                 Location = new Point(10, 90),
                 Width = paymentEntryPanel.Width - 20,
-                Height = panelHeight - 140, // Dynamic height based on panel
+                Height = panelHeight - 140,
                 BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder,
                 Tag = entryId
             };
 
-            // Remove button (matching btnCancel style) - DYNAMIC POSITION
             SimpleButton btnRemove = new SimpleButton
             {
                 Text = "× Remove",
@@ -1193,13 +1237,11 @@ namespace POS.PAL.USERCONTROL
             btnRemove.Appearance.Options.UseFont = true;
             btnRemove.Click += (s, ev) => RemovePaymentEntry(entryId);
 
-            // Wire up the method selection change event
             cmbMethod.SelectedIndexChanged += (s, ev) =>
             {
                 string selectedMethod = cmbMethod.SelectedItem?.ToString();
                 if (!string.IsNullOrEmpty(selectedMethod))
                 {
-                    // Update panel height based on selected method
                     int newHeight = 200;
                     if (selectedMethod.ToUpper() == "CARD")
                         newHeight = 380;
@@ -1212,38 +1254,26 @@ namespace POS.PAL.USERCONTROL
                     pnlFields.Height = newHeight - 140;
                     btnRemove.Location = new Point(paymentEntryPanel.Width - 115, newHeight - 45);
 
-                    // When changing method within an existing entry, we might want to preserve the amount if possible
-                    // But for now, let's just repopulate. If we want to preserve amount, we'd need to read it from current fields.
-                    // Let's try to read the current amount from the data table
                     decimal? currentAmount = null;
                     DataRow[] rows = paymentsTable.Select($"payment_id = {entryId}");
                     if (rows.Length > 0 && decimal.TryParse(rows[0]["amount"]?.ToString(), out decimal amt))
-                    {
                         currentAmount = amt;
-                    }
 
                     PopulatePaymentFields(pnlFields, selectedMethod, entryId, currentAmount);
                 }
             };
 
-            // Add controls to payment entry panel
             paymentEntryPanel.Controls.Add(lblMethod);
             paymentEntryPanel.Controls.Add(cmbMethod);
             paymentEntryPanel.Controls.Add(pnlFields);
             paymentEntryPanel.Controls.Add(btnRemove);
 
-            // Add payment entry panel to scrollable control
-            // Since we're using Dock.Top, add to the END to maintain visual order (top to bottom)
             pnlPayment.Controls.Add(paymentEntryPanel);
-            paymentEntryPanel.SendToBack(); // Move to bottom of z-order so it appears below existing panels
+            paymentEntryPanel.SendToBack();
 
-            // If method is preselected, populate fields immediately
             if (!string.IsNullOrEmpty(preselectedMethod))
-            {
                 PopulatePaymentFields(pnlFields, preselectedMethod, entryId, prefilledAmount);
-            }
 
-            // Create a payment row in paymentsTable
             DataRow paymentRow = paymentsTable.NewRow();
             paymentRow["payment_id"] = DBNull.Value;
             paymentRow["sale_id"] = DBNull.Value;
@@ -1254,23 +1284,20 @@ namespace POS.PAL.USERCONTROL
             paymentRow["created_date"] = DBNull.Value;
             paymentRow["updated_by"] = DBNull.Value;
             paymentRow["updated_date"] = DBNull.Value;
-            // Card fields (SECURE: Only last 4 digits)
             paymentRow["card_last_four_digits"] = DBNull.Value;
             paymentRow["card_holder_name"] = DBNull.Value;
             paymentRow["card_transaction_number"] = DBNull.Value;
             paymentRow["card_type"] = DBNull.Value;
-            // Bank transfer field
             paymentRow["bank_reference_number"] = DBNull.Value;
 
             paymentsTable.Rows.Add(paymentRow);
-            paymentRow["payment_id"] = entryId; // Use counter as temporary ID
+            paymentRow["payment_id"] = entryId;
 
             UpdatePaymentSummaryUI();
         }
 
         private void RemovePaymentEntry(int entryId)
         {
-            // Find and remove the panel
             Control panelToRemove = pnlPayment.Controls[$"pnlPaymentEntry{entryId}"];
             if (panelToRemove != null)
             {
@@ -1278,19 +1305,15 @@ namespace POS.PAL.USERCONTROL
                 panelToRemove.Dispose();
             }
 
-            // Remove from payments DataTable
             DataRow[] rowsToRemove = paymentsTable.Select($"payment_id = {entryId}");
             foreach (DataRow row in rowsToRemove)
-            {
                 paymentsTable.Rows.Remove(row);
-            }
 
             UpdatePaymentSummaryUI();
         }
 
         private void PopulatePaymentFields(PanelControl fieldsPanel, string paymentMethod, int entryId, decimal? amount = null)
         {
-            // Clear existing controls
             fieldsPanel.Controls.Clear();
 
             switch (paymentMethod.ToUpper())
@@ -1312,7 +1335,6 @@ namespace POS.PAL.USERCONTROL
 
         private void AddCashFieldsToPanel(PanelControl panel, int entryId, decimal? amount = null)
         {
-            // Amount Label (matching your label style)
             LabelControl lblAmount = new LabelControl
             {
                 Text = "Amount (Rs.):",
@@ -1323,7 +1345,6 @@ namespace POS.PAL.USERCONTROL
             lblAmount.Appearance.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             lblAmount.Appearance.Options.UseFont = true;
 
-            // Amount TextEdit (matching txtTotal, txtGrandTotal style)
             TextEdit txtAmount = new TextEdit
             {
                 Name = $"txtCashAmount{entryId}",
@@ -1340,13 +1361,8 @@ namespace POS.PAL.USERCONTROL
             txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             txtAmount.Properties.Mask.EditMask = "n2";
             if (amount.HasValue)
-            {
                 txtAmount.Text = amount.Value.ToString("F2");
-            }
-            txtAmount.EditValueChanged += (s, e) =>
-            {
-                UpdatePaymentAmount(entryId, txtAmount.Text);
-            };
+            txtAmount.EditValueChanged += (s, e) => UpdatePaymentAmount(entryId, txtAmount.Text);
 
             panel.Controls.Add(lblAmount);
             panel.Controls.Add(txtAmount);
@@ -1356,9 +1372,8 @@ namespace POS.PAL.USERCONTROL
         {
             int yPos = 5;
             int fieldHeight = 44;
-            int verticalSpacing = 55; // Space between rows
+            int verticalSpacing = 55;
 
-            // Row 1: Amount and Card Last 4
             LabelControl lblAmount = new LabelControl
             {
                 Text = "Amount (Rs.):",
@@ -1384,9 +1399,7 @@ namespace POS.PAL.USERCONTROL
             txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             txtAmount.Properties.Mask.EditMask = "n2";
             if (amount.HasValue)
-            {
                 txtAmount.Text = amount.Value.ToString("F2");
-            }
             txtAmount.EditValueChanged += (s, e) => UpdatePaymentAmount(entryId, txtAmount.Text);
 
             LabelControl lblCardLast4 = new LabelControl
@@ -1416,7 +1429,6 @@ namespace POS.PAL.USERCONTROL
 
             yPos += verticalSpacing;
 
-            // Row 2: Card Holder
             LabelControl lblCardHolder = new LabelControl
             {
                 Text = "Card Holder:",
@@ -1441,7 +1453,6 @@ namespace POS.PAL.USERCONTROL
 
             yPos += verticalSpacing;
 
-            // Row 3: Card Type
             LabelControl lblCardType = new LabelControl
             {
                 Text = "Card Type:",
@@ -1467,14 +1478,11 @@ namespace POS.PAL.USERCONTROL
             cmbCardType.SelectedIndexChanged += (s, e) =>
             {
                 if (cmbCardType.SelectedItem != null)
-                {
                     UpdateCardField(entryId, "card_type", cmbCardType.SelectedItem.ToString());
-                }
             };
 
             yPos += verticalSpacing;
 
-            // Row 4: Transaction Number
             LabelControl lblTransNo = new LabelControl
             {
                 Text = "Transaction #:",
@@ -1515,7 +1523,6 @@ namespace POS.PAL.USERCONTROL
             int fieldHeight = 44;
             int verticalSpacing = 55;
 
-            // Row 1: Amount
             LabelControl lblAmount = new LabelControl
             {
                 Text = "Amount (Rs.):",
@@ -1541,14 +1548,11 @@ namespace POS.PAL.USERCONTROL
             txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             txtAmount.Properties.Mask.EditMask = "n2";
             if (amount.HasValue)
-            {
                 txtAmount.Text = amount.Value.ToString("F2");
-            }
             txtAmount.EditValueChanged += (s, e) => UpdatePaymentAmount(entryId, txtAmount.Text);
 
             yPos += verticalSpacing;
 
-            // Row 2: Bank Reference
             LabelControl lblBankRef = new LabelControl
             {
                 Text = "Bank Reference:",
@@ -1579,7 +1583,6 @@ namespace POS.PAL.USERCONTROL
 
         private void AddCreditFieldsToPanel(PanelControl panel, int entryId)
         {
-            // Info Label (matching your label style)
             LabelControl lblInfo = new LabelControl
             {
                 Text = "Credit payment will be added to customer's account.\nAmount will be set to Grand Total automatically.",
@@ -1594,7 +1597,6 @@ namespace POS.PAL.USERCONTROL
 
             panel.Controls.Add(lblInfo);
 
-            // Auto-set amount to grand total for credit
             if (saleTable.Rows.Count > 0)
             {
                 decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
@@ -1611,12 +1613,9 @@ namespace POS.PAL.USERCONTROL
                 decimal.TryParse(amount, out amountValue);
                 rows[0]["amount"] = amountValue.ToString("F2");
 
-                // Update method in payment row based on the combo box
                 Control methodCombo = FindControlInScrollable($"cmbMethod{entryId}");
                 if (methodCombo is ComboBoxEdit cmb && cmb.SelectedItem != null)
-                {
                     rows[0]["payment_method"] = cmb.SelectedItem.ToString();
-                }
             }
 
             UpdatePaymentSummaryUI();
@@ -1626,18 +1625,14 @@ namespace POS.PAL.USERCONTROL
         {
             DataRow[] rows = paymentsTable.Select($"payment_id = {entryId}");
             if (rows.Length > 0)
-            {
                 rows[0][fieldName] = string.IsNullOrWhiteSpace(value) ? (object)DBNull.Value : value;
-            }
         }
 
         private void UpdateBankField(int entryId, string fieldName, string value)
         {
             DataRow[] rows = paymentsTable.Select($"payment_id = {entryId}");
             if (rows.Length > 0)
-            {
                 rows[0][fieldName] = string.IsNullOrWhiteSpace(value) ? (object)DBNull.Value : value;
-            }
         }
 
         private Control FindControlInScrollable(string controlName)
@@ -1647,7 +1642,6 @@ namespace POS.PAL.USERCONTROL
                 if (ctrl.Name == controlName)
                     return ctrl;
 
-                // Search within panels
                 if (ctrl is PanelControl panel)
                 {
                     foreach (Control innerCtrl in panel.Controls)
@@ -1664,7 +1658,6 @@ namespace POS.PAL.USERCONTROL
         {
             DAL_DS_SalesTerminal ds = new DAL_DS_SalesTerminal();
 
-            // Initialize global DataTables
             productsTable = _bllSalesTerminal.GetProducts();
             categoriesTable = _bllSalesTerminal.GetCategories();
             brandsTable = _bllSalesTerminal.GetBrands();
@@ -1673,7 +1666,6 @@ namespace POS.PAL.USERCONTROL
             saleTable = ds.Sale;
             saleTable.Clear();
 
-            // Clear payments table reference when cancelling
             if (paymentsTable != null) paymentsTable.Clear();
 
             DataRow newSaleRow = saleTable.NewRow();
@@ -1682,15 +1674,15 @@ namespace POS.PAL.USERCONTROL
             newSaleRow["sale_type"] = DBNull.Value;
             newSaleRow["invoice_number"] = DBNull.Value;
             newSaleRow["quotation_number"] = DBNull.Value;
-            newSaleRow["customer_id"] = 1;  // Default to Walk-In Customer (customer_id = 1)
+            newSaleRow["customer_id"] = 1;
             newSaleRow["biller_id"] = Main.DataSetApp.User[0].user_id;
             newSaleRow["total_items"] = "0";
             newSaleRow["total_amount"] = "0.00";
             newSaleRow["discount_type"] = "PERCENTAGE";
             newSaleRow["discount_value"] = "0.00";
             newSaleRow["grand_total"] = "0.00";
-            newSaleRow["total_paid"] = "0.00";  // NEW: Total amount paid
-            newSaleRow["change_due"] = "0.00";  // NEW: Change to be given back
+            newSaleRow["total_paid"] = "0.00";
+            newSaleRow["change_due"] = "0.00";
             newSaleRow["payment_status"] = DBNull.Value;
             newSaleRow["sale_status"] = DBNull.Value;
             newSaleRow["order_type"] = DBNull.Value;
@@ -1706,25 +1698,20 @@ namespace POS.PAL.USERCONTROL
             salesItemsTable = ds.SaleItem;
             salesItemsTable.Clear();
             if (!salesItemsTable.Columns.Contains("remove_action"))
-            {
                 salesItemsTable.Columns.Add("remove_action", typeof(string));
-            }
 
             tableNosTable = ds.Table;
             tableNosTable.Clear();
 
             ResetUIElements();
 
-            // Reload UI lists
             LoadCategories();
             LoadBrands();
             LoadProducts();
             LoadTableNos();
 
-            // Bind sales items to grid
             gvTransactionSum.GridControl.DataSource = salesItemsTable;
 
-            // Recalculate totals
             CalculateAndUpdateGrandTotal();
         }
 
@@ -1757,9 +1744,7 @@ namespace POS.PAL.USERCONTROL
             int? customerId = null;
 
             if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
-            {
                 customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
-            }
 
             string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
             decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
@@ -1769,12 +1754,9 @@ namespace POS.PAL.USERCONTROL
             decimal totalPaid = decimal.Parse(saleTable.Rows[0]["total_paid"]?.ToString() ?? "0");
             decimal changeDue = decimal.Parse(saleTable.Rows[0]["change_due"]?.ToString() ?? "0");
 
-            // Check if we are updating an existing sale
             int currentSaleId = 0;
             if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
-            {
                 int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
-            }
 
             string orderType = null;
             string tableNumber = null;
@@ -1794,13 +1776,10 @@ namespace POS.PAL.USERCONTROL
 
             string notes = $"Draft saved on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
-            // Save to database using unified SaveSale method
-            // The database will auto-generate the sale_id
             int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "DRAFT",
                 discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
                 salesItemsTable, totalPaid, changeDue, null, null, orderType, tableNumber, currentSaleId);
 
-            // Update saleTable with the returned sale_id from database
             DataRow saleRow = saleTable.Rows[0];
             saleRow["sale_id"] = saleId;
             saleRow["sale_type"] = "DRAFT";
@@ -1815,10 +1794,8 @@ namespace POS.PAL.USERCONTROL
             saleRow["total_paid"] = totalPaid.ToString("F2");
             saleRow["change_due"] = changeDue.ToString("F2");
 
-            // Generate simple success message
             MessageBox.Show($"Draft saved successfully!\nDraft ID: {saleId}", "Draft Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            // Print KOT
             string customerName = txtCustomer.Text;
             PrintKOT($"DRAFT-{saleId}", orderType, tableNumber, customerName, salesItemsTable, true);
 
@@ -1852,7 +1829,6 @@ namespace POS.PAL.USERCONTROL
             string customerName = txtCustomer.Text;
             string invoiceNo = "KOT-PREVIEW";
 
-            // If it's a loaded sale/draft, use its number
             if (saleTable.Rows.Count > 0 && saleTable.Rows[0]["sale_id"] != DBNull.Value)
             {
                 invoiceNo = saleTable.Rows[0]["invoice_number"]?.ToString();
@@ -1877,9 +1853,7 @@ namespace POS.PAL.USERCONTROL
             int? customerId = null;
 
             if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
-            {
                 customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
-            }
 
             string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
             decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
@@ -1889,37 +1863,22 @@ namespace POS.PAL.USERCONTROL
             decimal totalPaid = decimal.Parse(saleTable.Rows[0]["total_paid"]?.ToString() ?? "0");
             decimal changeDue = decimal.Parse(saleTable.Rows[0]["change_due"]?.ToString() ?? "0");
 
-            // Check if we are updating an existing sale
             int currentSaleId = 0;
             if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
-            {
                 int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
-            }
 
-            // Get quotation number from database sequence
-            // Note: If updating, we keep the same quotation number ideally, but GetNextQuotationNumber generates a new one.
-            // For now, let's keep the existing one if possible, or generate new one.
-            // The current UI flow doesn't store quotation number in `saleTable` easily accessible for reuse without reading it.
-            // Let's assume we generate a new number for simplicity or check if `quotation_number` column exists.
             string quotationNumber;
             if (currentSaleId > 0 && saleTable.Columns.Contains("quotation_number") && saleTable.Rows[0]["quotation_number"] != DBNull.Value)
-            {
                 quotationNumber = saleTable.Rows[0]["quotation_number"].ToString();
-            }
             else
-            {
                 quotationNumber = _bllSalesTerminal.GetNextQuotationNumber();
-            }
 
             string notes = $"Quotation created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
-            // Save to database using unified SaveSale method
-            // The database will auto-generate the sale_id
             int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "QUOTATION",
                 discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
                 salesItemsTable, totalPaid, changeDue, null, quotationNumber, null, null, currentSaleId);
 
-            // Update saleTable with the returned sale_id from database
             DataRow saleRow = saleTable.Rows[0];
             saleRow["sale_id"] = saleId;
             saleRow["sale_type"] = "QUOTATION";
@@ -1933,7 +1892,6 @@ namespace POS.PAL.USERCONTROL
             saleRow["total_paid"] = totalPaid.ToString("F2");
             saleRow["change_due"] = changeDue.ToString("F2");
 
-            // Get store details (email, phone, address) from Main.DataSetApp
             string storeEmail = "";
             string storePhone = "";
             string storeAddress = "";
@@ -1946,11 +1904,10 @@ namespace POS.PAL.USERCONTROL
                 storeAddress = storeRow.IsaddressNull() ? "" : storeRow.address;
             }
 
-            // Get customer details
             string customerName = "Walk-In Customer";
             string customerPhone = "";
 
-            if (customerId.HasValue && customerId.Value > 1) // Skip Walk-In Customer (id = 1)
+            if (customerId.HasValue && customerId.Value > 1)
             {
                 DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
                 if (customerRows.Length > 0)
@@ -1961,24 +1918,14 @@ namespace POS.PAL.USERCONTROL
                 }
             }
 
-            // Calculate discount amount
             decimal discountAmount = 0;
             if (discountType == "PERCENTAGE")
-            {
                 discountAmount = totalAmount * discountValue / 100m;
-            }
             else if (discountType == "FIXED_AMOUNT")
-            {
                 discountAmount = discountValue;
-            }
 
-            // Create and configure the report
             POS.PAL.REPORT.Quotation quotationReport = new POS.PAL.REPORT.Quotation();
-
-            // Set datasource for detail items (SaleItem)
             quotationReport.DataSource = salesItemsTable;
-
-            // Set all parameters
             quotationReport.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd");
             quotationReport.Parameters["p_email"].Value = storeEmail;
             quotationReport.Parameters["p_contact"].Value = storePhone;
@@ -1990,11 +1937,9 @@ namespace POS.PAL.USERCONTROL
             quotationReport.Parameters["p_discount"].Value = discountAmount.ToString("F2");
             quotationReport.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
 
-            // Show the report preview
             DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(quotationReport);
             printTool.ShowPreview();
 
-            // Show success message
             MessageBox.Show($"Quotation #{quotationNumber} created successfully!", "Quotation Created",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -2005,7 +1950,6 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
-                // Validate cart
                 if (salesItemsTable.Rows.Count == 0)
                 {
                     MessageBox.Show("Cart is empty. Cannot save credit sale.", "Empty Cart",
@@ -2020,7 +1964,6 @@ namespace POS.PAL.USERCONTROL
                 if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
                     customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
 
-                // Validation: Credit sale not allowed for Walk-In Customer (customer_id = 1)
                 if (customerId == null || customerId == 1)
                 {
                     MessageBox.Show("Credit sale is not allowed for Walk-In Customer. Please select a registered customer.",
@@ -2028,7 +1971,6 @@ namespace POS.PAL.USERCONTROL
                     return;
                 }
 
-                // Find customer details in customersTable
                 DataRow[] customerRows = customersTable.Select($"customer_id = '{customerId}'");
                 if (customerRows.Length == 0)
                 {
@@ -2037,8 +1979,6 @@ namespace POS.PAL.USERCONTROL
                 }
 
                 DataRow selectedCustomer = customerRows[0];
-
-                // Read credit limit and current balance
                 decimal creditLimit = 0;
                 decimal currentCreditBalance = 0;
 
@@ -2056,7 +1996,6 @@ namespace POS.PAL.USERCONTROL
                     decimal.TryParse(selectedCustomer["credit_balance"].ToString(), out currentCreditBalance);
                 }
 
-                // Validation: Credit limit must be set
                 if (creditLimit <= 0)
                 {
                     MessageBox.Show($"Customer '{selectedCustomer["full_name"]}' does not have a credit limit set. Please update customer credit limit.",
@@ -2065,9 +2004,8 @@ namespace POS.PAL.USERCONTROL
                 }
 
                 decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
-
-                // Validation: Grand total must not exceed available credit
                 decimal availableCredit = creditLimit - currentCreditBalance;
+
                 if (grandTotal > availableCredit)
                 {
                     MessageBox.Show(
@@ -2079,18 +2017,15 @@ namespace POS.PAL.USERCONTROL
                     return;
                 }
 
-                // Get sale data
                 string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
                 decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
                 decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
                 int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
 
-                // Check if we are updating an existing sale
                 int currentSaleId = 0;
                 if (saleTable.Rows[0]["sale_id"] != DBNull.Value)
                     int.TryParse(saleTable.Rows[0]["sale_id"].ToString(), out currentSaleId);
 
-                // Get order type and table (KOT support)
                 string orderType = null;
                 string tableNumber = null;
                 if (pnlKOT.Visible)
@@ -2106,16 +2041,13 @@ namespace POS.PAL.USERCONTROL
                     }
                 }
 
-                // Generate invoice number
                 string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
                 string notes = $"Credit sale created on {DateTime.Now:yyyy-MM-dd HH:mm:ss}\nCredit Limit: {creditLimit:F2}";
 
-                // Save sale — total_paid = 0 (no cash collected), change_due = 0
                 int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
                     discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
                     salesItemsTable, 0m, 0m, invoiceNumber, null, orderType, tableNumber, currentSaleId);
 
-                // Build CREDIT payment row using the shared paymentsTable schema
                 DataTable creditPaymentTable = new DataTable();
                 creditPaymentTable.Columns.Add("payment_method", typeof(string));
                 creditPaymentTable.Columns.Add("amount", typeof(decimal));
@@ -2137,10 +2069,8 @@ namespace POS.PAL.USERCONTROL
                 creditPayment["bank_reference_number"] = DBNull.Value;
                 creditPaymentTable.Rows.Add(creditPayment);
 
-                // updateSaleTotalPaid = false: CREDIT rows don't touch Sale.total_paid (stays 0)
                 _bllSalesTerminal.SavePayments(saleId, creditPaymentTable, billerId, updateSaleTotalPaid: false);
 
-                // Update saleTable
                 DataRow saleRow = saleTable.Rows[0];
                 saleRow["sale_id"] = saleId;
                 saleRow["sale_type"] = "SALE";
@@ -2154,7 +2084,6 @@ namespace POS.PAL.USERCONTROL
                 saleRow["total_paid"] = "0.00";
                 saleRow["change_due"] = "0.00";
 
-                // Generate and print invoice (same as pnlPM path)
                 string customerName = txtCustomer.Text;
 
                 bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
@@ -2183,13 +2112,9 @@ namespace POS.PAL.USERCONTROL
                     printTool.Print();
                 }
 
-                // Print KOT if enabled
                 if (!string.IsNullOrEmpty(orderType))
-                {
                     PrintKOT(invoiceNumber, orderType, tableNumber, customerName, salesItemsTable, autoPrint);
-                }
 
-                // Show success message
                 MessageBox.Show(
                     $"Credit Sale Created Successfully!\n\n" +
                     $"Invoice Number: {invoiceNumber}\n" +
@@ -2199,7 +2124,6 @@ namespace POS.PAL.USERCONTROL
                     $"Payment Status: CREDIT",
                     "Credit Sale Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Reset UI
                 btnCancel_Click(null, null);
             }
             catch (Exception ex)
@@ -2216,9 +2140,7 @@ namespace POS.PAL.USERCONTROL
         {
             decimal grandTotal = 0;
             if (saleTable.Rows.Count > 0)
-            {
                 decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out grandTotal);
-            }
 
             decimal totalPaid = 0;
             if (paymentsTable != null)
@@ -2232,16 +2154,11 @@ namespace POS.PAL.USERCONTROL
                     decimal amount = 0;
                     decimal.TryParse(payment["amount"]?.ToString(), out amount);
 
-                    // Exclude CREDIT from total paid calculation
                     if (method != "CREDIT")
-                    {
                         totalPaid += amount;
-                    }
                 }
             }
 
-            // NOTE: due can be negative when totalPaid > grandTotal (overpayment).
-            // Callers that display balance floor at 0; callers that need change use Math.Max(0, -due).
             decimal due = grandTotal - totalPaid;
             return (totalPaid, due);
         }
@@ -2256,25 +2173,19 @@ namespace POS.PAL.USERCONTROL
 
             decimal grandTotal = 0;
             if (saleTable.Rows.Count > 0)
-            {
                 decimal.TryParse(saleTable.Rows[0]["grand_total"]?.ToString(), out grandTotal);
-            }
 
             var (totalPaid, due) = CalculatePaymentTotals();
 
-            // due can be negative when overpaid (cash > grandTotal)
             decimal balanceRemaining = Math.Max(0, due);
-            decimal changeDueNow = Math.Max(0, -due); // amount to give back to customer
+            decimal changeDueNow = Math.Max(0, -due);
 
             lblPaymentTotalValue.Text = grandTotal.ToString("F2");
             lblPaymentPaidValue.Text = totalPaid.ToString("F2");
             lblPaymentBalanceValue.Text = balanceRemaining.ToString("F2");
             lblPaymentChangeValue.Text = changeDueNow.ToString("F2");
 
-            // Balance due: red when outstanding, green when fully covered
             lblPaymentBalanceValue.Appearance.ForeColor = balanceRemaining > 0 ? Color.IndianRed : Color.Green;
-
-            // Change due: highlighted orange when there is change to give back
             lblPaymentChangeValue.Appearance.ForeColor = changeDueNow > 0 ? Color.OrangeRed : Color.SeaGreen;
         }
 
@@ -2283,32 +2194,26 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void PrintKOT(string invoiceNumber, string orderType, string tableNumber, string customerName, DataTable items, bool autoPrint)
         {
-            // KOT printing logic - placeholder for now
-            // You would implement the actual KOT report here
             System.Diagnostics.Debug.WriteLine($"Printing KOT: {invoiceNumber}, Type: {orderType}, Table: {tableNumber}");
         }
 
         /// <summary>
         /// Prints thermal invoice
         /// </summary>
-        private void PrintThermalInvoice(string invoiceNumber, decimal grandTotal, string customerName, 
+        private void PrintThermalInvoice(string invoiceNumber, decimal grandTotal, string customerName,
             DataTable items, DataTable payments, bool autoPrint)
         {
             try
             {
                 ThermalInvoice thermalInvoice = new ThermalInvoice();
 
-                // Set footer text from settings
                 string footerText = Main.GetSetting("invoice_footer", "Thank You!");
                 thermalInvoice.Parameters["p_footer"].Value = footerText;
-
-                // Set main invoice parameters
                 thermalInvoice.Parameters["p_invoice_no"].Value = invoiceNumber;
                 thermalInvoice.Parameters["p_date"].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 thermalInvoice.Parameters["p_customer_name"].Value = customerName;
                 thermalInvoice.Parameters["p_grand_total"].Value = grandTotal.ToString("F2");
 
-                // Get store details
                 if (Main.DataSetApp.Store.Rows.Count > 0)
                 {
                     var storeRow = Main.DataSetApp.Store[0];
@@ -2317,17 +2222,13 @@ namespace POS.PAL.USERCONTROL
                     thermalInvoice.Parameters["p_address"].Value = storeRow.IsaddressNull() ? "" : storeRow.address;
                 }
 
-                // Set data source
                 thermalInvoice.DataSource = items;
 
-                // Calculate totals
                 decimal subtotal = 0m;
                 foreach (DataRow item in items.Rows)
                 {
                     if (decimal.TryParse(item["subtotal"]?.ToString(), out decimal itemTotal))
-                    {
                         subtotal += itemTotal;
-                    }
                 }
 
                 decimal discountAmount = 0m;
@@ -2338,31 +2239,21 @@ namespace POS.PAL.USERCONTROL
                     {
                         string discountType = saleRow["discount_type"]?.ToString();
                         if (discountType == "PERCENTAGE")
-                        {
                             discountAmount = subtotal * (discountValue / 100m);
-                        }
                         else
-                        {
                             discountAmount = discountValue;
-                        }
                     }
                 }
 
                 thermalInvoice.Parameters["p_total"].Value = subtotal.ToString("F2");
                 thermalInvoice.Parameters["p_discount"].Value = "-" + discountAmount.ToString("F2");
 
-                // Get thermal printer name
                 string printerName = Main.GetSetting("thermal_printer_name", null);
                 if (!string.IsNullOrEmpty(printerName))
-                {
                     thermalInvoice.PrinterName = printerName;
-                }
 
-                // Print
                 if (autoPrint)
-                {
                     thermalInvoice.Print();
-                }
                 else
                 {
                     DevExpress.XtraReports.UI.ReportPrintTool printTool = new DevExpress.XtraReports.UI.ReportPrintTool(thermalInvoice);
@@ -2371,7 +2262,7 @@ namespace POS.PAL.USERCONTROL
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error printing thermal invoice: {ex.Message}", "Print Error", 
+                MessageBox.Show($"Error printing thermal invoice: {ex.Message}", "Print Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -2383,7 +2274,6 @@ namespace POS.PAL.USERCONTROL
         {
             try
             {
-                // Validate cart
                 if (salesItemsTable.Rows.Count == 0)
                 {
                     MessageBox.Show("Cart is empty. Cannot complete sale.", "Empty Cart",
@@ -2391,44 +2281,36 @@ namespace POS.PAL.USERCONTROL
                     return;
                 }
 
-                // Validate payments
                 var (totalPaid, due) = CalculatePaymentTotals();
                 decimal grandTotal = decimal.Parse(saleTable.Rows[0]["grand_total"]?.ToString() ?? "0");
 
-                // Get sale data early (needed for credit limit validation below)
                 int storeId = int.Parse(saleTable.Rows[0]["store_id"].ToString());
                 int billerId = int.Parse(saleTable.Rows[0]["biller_id"].ToString());
                 int? customerId = null;
 
                 if (saleTable.Rows[0]["customer_id"] != DBNull.Value)
-                {
                     customerId = int.Parse(saleTable.Rows[0]["customer_id"].ToString());
-                }
 
-                // Calculate total of all payments (including CREDIT)
                 decimal allPaymentsTotal = 0;
                 foreach (DataRow payment in paymentsTable.Rows)
                 {
-                    if (payment.RowState != DataRowState.Deleted)
-                    {
-                        allPaymentsTotal += decimal.Parse(payment["amount"]?.ToString() ?? "0");
-                    }
+                    if (payment.RowState == DataRowState.Deleted)
+                        continue;
+
+                    allPaymentsTotal += decimal.Parse(payment["amount"]?.ToString() ?? "0");
                 }
 
                 decimal remainingBalance = grandTotal - allPaymentsTotal;
 
                 if (remainingBalance > 0.01m)
                 {
-                    // Auto-add a CREDIT row for the remaining balance with limit validation
                     if (customerId == null || customerId == 1)
                     {
                         MessageBox.Show(
                             $"There is a remaining balance of Rs. {remainingBalance:F2}.\n\n" +
                             $"Credit is not available for Walk-In Customer.\n" +
                             $"Please select a registered customer or cover the full balance.",
-                            "Balance Due",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                            "Balance Due", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
@@ -2444,34 +2326,28 @@ namespace POS.PAL.USERCONTROL
                     decimal.TryParse(creditCustomer["credit_limit"]?.ToString(), out creditLimit);
                     decimal.TryParse(creditCustomer["credit_balance"]?.ToString(), out currentCreditBalance);
 
-                    // Validation: Credit limit must be set
                     if (creditLimit <= 0)
                     {
                         MessageBox.Show(
                             $"Customer '{creditCustomer["full_name"]}' does not have a credit limit set.\n" +
                             $"The remaining Rs. {remainingBalance:F2} cannot be put on credit.\n\n" +
                             $"Please configure a credit limit for this customer first.",
-                            "No Credit Limit",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                            "No Credit Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
                     decimal availableCredit = creditLimit - currentCreditBalance;
-                    if (remainingBalance > availableCredit)
+                    if (remainingBalance > availableCredit + 0.01m)
                     {
                         MessageBox.Show(
                             $"Remaining balance (Rs. {remainingBalance:F2}) exceeds the customer's available credit.\n\n" +
                             $"Credit Limit:     Rs. {creditLimit:F2}\n" +
                             $"Current Balance:  Rs. {currentCreditBalance:F2}\n" +
                             $"Available Credit: Rs. {availableCredit:F2}",
-                            "Credit Limit Exceeded",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                            "Credit Limit Exceeded", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
-                    // Auto-append CREDIT row for the remainder
                     DataRow autoCredit = paymentsTable.NewRow();
                     autoCredit["payment_method"] = "CREDIT";
                     autoCredit["amount"] = remainingBalance.ToString("F2");
@@ -2482,19 +2358,9 @@ namespace POS.PAL.USERCONTROL
                     autoCredit["bank_reference_number"] = DBNull.Value;
                     paymentsTable.Rows.Add(autoCredit);
 
-                    allPaymentsTotal = grandTotal; // reconcile after adding CREDIT row
-                }
-                else if (allPaymentsTotal - grandTotal > 0.01m)
-                {
-                    // Overpayment is allowed — change will be given back to the customer.
-                    // changeDue is computed below from totalPaid - grandTotal.
+                    allPaymentsTotal = grandTotal;
                 }
 
-                // ── Unified credit-limit guard ────────────────────────────────────────
-                // Validate ALL CREDIT payment rows (manual or auto-appended) against the
-                // customer's available credit. This runs regardless of how the CREDIT row
-                // was added, so a user who manually selects CREDIT from the dropdown and
-                // enters a full amount is also subject to the same limit check.
                 decimal totalCreditPayments = 0;
                 foreach (DataRow pmtRow in paymentsTable.Rows)
                 {
@@ -2507,15 +2373,12 @@ namespace POS.PAL.USERCONTROL
 
                 if (totalCreditPayments > 0.01m)
                 {
-                    // Walk-in / no customer selected
                     if (customerId == null || customerId == 1)
                     {
                         MessageBox.Show(
                             "Credit payment is not allowed for Walk-In Customer.\n" +
                             "Please select a registered customer or use a cash/card payment.",
-                            "Credit Not Allowed",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+                            "Credit Not Allowed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
@@ -2532,9 +2395,7 @@ namespace POS.PAL.USERCONTROL
                                 $"Customer '{limitRows[0]["full_name"]}' has no credit limit set.\n" +
                                 $"Cannot process credit payment of Rs. {totalCreditPayments:F2}.\n\n" +
                                 $"Please configure a credit limit for this customer first.",
-                                "No Credit Limit",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
+                                "No Credit Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
 
@@ -2546,24 +2407,19 @@ namespace POS.PAL.USERCONTROL
                                 $"Credit Limit:     Rs. {custCreditLimit:F2}\n" +
                                 $"Current Balance:  Rs. {custCreditBalance:F2}\n" +
                                 $"Available Credit: Rs. {availableCredit:F2}",
-                                "Credit Limit Exceeded",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
+                                "Credit Limit Exceeded", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }
                 }
-                // ── End credit-limit guard ────────────────────────────────────────────
 
                 string discountType = saleTable.Rows[0]["discount_type"]?.ToString() ?? "PERCENTAGE";
                 decimal discountValue = decimal.Parse(saleTable.Rows[0]["discount_value"]?.ToString() ?? "0");
                 decimal totalAmount = decimal.Parse(saleTable.Rows[0]["total_amount"]?.ToString() ?? "0");
                 int totalItems = int.Parse(saleTable.Rows[0]["total_items"]?.ToString() ?? "0");
 
-                // Calculate change
                 decimal changeDue = Math.Max(0, totalPaid - grandTotal);
 
-                // Get order type and table
                 string orderType = null;
                 string tableNumber = null;
                 if (pnlKOT.Visible)
@@ -2579,19 +2435,13 @@ namespace POS.PAL.USERCONTROL
                     }
                 }
 
-                // Generate invoice number
                 string invoiceNumber = _bllSalesTerminal.GetNextInvoiceNumber();
                 string notes = $"Sale completed on {DateTime.Now:yyyy-MM-dd HH:mm:ss}";
 
-                // SaveSale stores the raw total received (incl. change) so Sale.total_paid reflects
-                // what the customer actually handed over. changeDue records how much to give back.
                 int saleId = _bllSalesTerminal.SaveSale(storeId, billerId, customerId, "SALE",
                     discountType, discountValue, totalAmount, totalItems, grandTotal, notes,
                     salesItemsTable, totalPaid, changeDue, invoiceNumber, null, orderType, tableNumber);
 
-                // Cap Payment rows to what was APPLIED to the sale (exclude change).
-                // E.g. customer hands Rs.1000 on Rs.800 sale → Payment row = 800, change = 200.
-                // Sale.total_paid (above) stays 1000 as recorded by SaveSale.
                 if (changeDue > 0)
                 {
                     for (int i = paymentsTable.Rows.Count - 1; i >= 0; i--)
@@ -2607,18 +2457,12 @@ namespace POS.PAL.USERCONTROL
                     }
                 }
 
-                // updateSaleTotalPaid = false: Sale.total_paid is already set correctly by SaveSale above.
-                // Passing true here would add Payment amounts on top → double-count.
                 _bllSalesTerminal.SavePayments(saleId, paymentsTable, billerId, updateSaleTotalPaid: false);
 
-                // Determine payment status
                 string paymentStatus = "PAID";
                 if (due > 0)
-                {
                     paymentStatus = "PARTIAL";
-                }
 
-                // Update saleTable
                 DataRow saleRow = saleTable.Rows[0];
                 saleRow["sale_id"] = saleId;
                 saleRow["sale_type"] = "SALE";
@@ -2628,10 +2472,8 @@ namespace POS.PAL.USERCONTROL
                 saleRow["total_paid"] = totalPaid.ToString("F2");
                 saleRow["change_due"] = changeDue.ToString("F2");
 
-                // Generate and print invoice
                 string customerName = txtCustomer.Text;
 
-                // Check print settings
                 bool enableThermal = Main.GetSetting("ENABLE_THERMAL_PRINT", "False").Equals("True", StringComparison.OrdinalIgnoreCase);
                 bool enableA4 = Main.GetSetting("ENABLE_A4_PRINT", "True").Equals("True", StringComparison.OrdinalIgnoreCase);
                 bool autoPrint = true;
@@ -2642,10 +2484,9 @@ namespace POS.PAL.USERCONTROL
                 }
                 else if (enableA4)
                 {
-                    // Print A4 invoice
                     REPORT.Invoice invoiceReport = new REPORT.Invoice();
                     invoiceReport.DataSource = salesItemsTable;
-                    
+
                     string footerTextA4 = Main.GetSetting("invoice_footer", "Thank You For Your Business!");
                     invoiceReport.Parameters["p_footer"].Value = footerTextA4;
                     invoiceReport.Parameters["p_invoice_no"].Value = invoiceNumber;
@@ -2659,13 +2500,9 @@ namespace POS.PAL.USERCONTROL
                     printTool.Print();
                 }
 
-                // Print KOT if enabled
                 if (!string.IsNullOrEmpty(orderType))
-                {
                     PrintKOT(invoiceNumber, orderType, tableNumber, customerName, salesItemsTable, autoPrint);
-                }
 
-                // Show success message — highlight change when customer overpaid
                 if (changeDue > 0)
                 {
                     MessageBox.Show(
@@ -2688,7 +2525,6 @@ namespace POS.PAL.USERCONTROL
                         "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                // Reset UI
                 btnCancel_Click(null, null);
             }
             catch (Exception ex)
@@ -2703,8 +2539,6 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void btnLoadSaved_Click(object sender, EventArgs e)
         {
-            // This button would open a panel showing drafts/quotations/sales
-            // For now just show a message
             MessageBox.Show("Load saved sales feature - panel should be visible", "Feature", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -2713,8 +2547,6 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void btnCloseLoadSaved_Click(object sender, EventArgs e)
         {
-            // This would hide the load saved panel
-            // For now just show a message
             MessageBox.Show("Close load saved panel", "Feature", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -2723,8 +2555,6 @@ namespace POS.PAL.USERCONTROL
         /// </summary>
         private void LoadSelectedSale(object sender, EventArgs e)
         {
-            // This would load the selected sale into the terminal for editing/completing
-            // For now just show a message
             MessageBox.Show("Load selected sale into terminal", "Feature", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
