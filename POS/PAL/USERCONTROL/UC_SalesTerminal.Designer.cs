@@ -1203,7 +1203,7 @@ namespace POS.PAL.USERCONTROL
             button1.TabIndex = 32;
             button1.Text = "+";
             button1.UseVisualStyleBackColor = false;
-            button1.Click += cmbCustomer_DoubleClick;
+            button1.Click += button1_Click;
             // 
             // pnlCustomers1
             // 
@@ -1252,6 +1252,7 @@ namespace POS.PAL.USERCONTROL
             gvCustomers.OptionsCustomization.AllowQuickHideColumns = false;
             gvCustomers.OptionsCustomization.AllowSort = false;
             gvCustomers.OptionsFilter.AllowFilterEditor = false;
+            gvCustomers.OptionsFind.AlwaysVisible = true;
             gvCustomers.OptionsView.ShowFilterPanelMode = DevExpress.XtraGrid.Views.Base.ShowFilterPanelMode.Never;
             gvCustomers.OptionsView.ShowGroupPanel = false;
             gvCustomers.OptionsView.ShowIndicator = false;

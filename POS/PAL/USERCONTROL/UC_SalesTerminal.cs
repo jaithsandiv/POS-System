@@ -1047,6 +1047,11 @@ namespace POS.PAL.USERCONTROL
             gcCustomers.DataSource = customersTable;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Main.Instance.LoadUserControl(new UC_Customer_Registration());
+        }
+
         private void label1_MouseEnter(object sender, EventArgs e)
         {
             label1.BackColor = Color.IndianRed;
