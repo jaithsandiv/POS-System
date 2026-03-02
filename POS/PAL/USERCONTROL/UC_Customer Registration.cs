@@ -57,9 +57,9 @@ namespace POS.PAL.USERCONTROL
             // Relabel Opening Balance field to reflect it's overriding live balance
             if (lblOpeningBalanceLabel != null)
             {
-                lblOpeningBalanceLabel.Text = "Current Balance (override):";
+                lblOpeningBalanceLabel.Text = "Current Balance:";
                 if (numOpeningBalance != null)
-                    numOpeningBalance.ToolTip = "Editing this directly overrides the live credit balance. Normally managed automatically by sales and payments.";
+                    numOpeningBalance.ToolTip = "Live credit balance. Managed automatically by sales and payments.";
             }
         }
 
@@ -142,6 +142,7 @@ namespace POS.PAL.USERCONTROL
             numOpeningBalance.Properties.MaxValue = 9999999m;
             numOpeningBalance.Properties.MinValue = 0m;
             numOpeningBalance.Properties.Increment = 100m;
+            numOpeningBalance.Properties.ReadOnly = true;
             panelControl1.Controls.Add(numOpeningBalance);
         }
 
