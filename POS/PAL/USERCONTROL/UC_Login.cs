@@ -55,7 +55,22 @@ namespace POS.PAL.USERCONTROL
             {
                 // Update user first name in the main form
                 Main.Instance.UpdateUserFirstName();
-                
+
+                // If trial has expired, show the warning once then go straight to settings
+                if (BLL.BLL_TrialManager.IsTrialExpired())
+                {
+                    // Mark warning as shown so LoadUserControl does not trigger it again
+                    Main.Instance.MarkTrialWarningShown();
+                    XtraMessageBox.Show(
+                        BLL.BLL_TrialManager.GetWarningMessage(),
+                        "Trial Expired",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    Main.Instance.LoadUserControl(new UC_SystemSettings(), hideNavigation: false);
+                    return;
+                }
+
                 // Check if user has VIEW_DASHBOARD permission
                 if (BLL.PermissionManager.HasPermission(BLL.PermissionManager.Permissions.VIEW_DASHBOARD))
                 {

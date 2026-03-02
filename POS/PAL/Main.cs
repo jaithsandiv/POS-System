@@ -209,12 +209,27 @@ namespace POS
         }
 
         /// <summary>
+        /// Allows external callers (e.g. UC_Login) to mark the trial warning as already shown,
+        /// preventing ShowTrialWarningIfNeeded from displaying it a second time.
+        /// </summary>
+        public void MarkTrialWarningShown()
+        {
+            _trialWarningShown = true;
+        }
+
+        /// <summary>
         /// Loads a UserControl into the content panel while keeping topbar and sidebar persistent
         /// </summary>
         /// <param name="control">The UserControl to load</param>
         /// <param name="hideNavigation">Set to true to hide topbar and sidebar (for login/registration screens)</param>
         public void LoadUserControl(UserControl control, bool hideNavigation = false)
         {
+            // If trial is expired and this is not the settings page, redirect to settings
+            if (!hideNavigation && BLL_TrialManager.IsTrialExpired() && !(control is UC_SystemSettings))
+            {
+                control = new UC_SystemSettings();
+            }
+
             pnlContent.Controls.Clear();
             pnlContent.Controls.Add(control);
             control.Dock = DockStyle.Fill;
@@ -247,35 +262,46 @@ namespace POS
         }
 
         /// <summary>
-        /// Shows trial warning notification if trial is expiring or expired
+        /// Shows trial warning notification if trial is expiring or expired.
+        /// When expired: shows a single OK-only dialog then navigates to settings.
+        /// When expiring soon: shows an informational dialog; OK navigates to settings, Cancel dismisses.
         /// </summary>
         private void ShowTrialWarningIfNeeded()
         {
             if (_trialWarningShown)
                 return;
 
-            // Check if we should show warning
-            if (BLL_TrialManager.ShouldShowWarning())
-            {
-                _trialWarningShown = true;
+            if (!BLL_TrialManager.ShouldShowWarning())
+                return;
 
-                var trialStatus = BLL_TrialManager.GetTrialStatus();
-                
-                string title = trialStatus.IsTrialExpired ? "Trial Expired" : "Trial Expiring Soon";
-                string message = BLL_TrialManager.GetWarningMessage();
-                
+            _trialWarningShown = true;
+
+            var trialStatus = BLL_TrialManager.GetTrialStatus();
+            string message = BLL_TrialManager.GetWarningMessage();
+
+            if (trialStatus.IsTrialExpired)
+            {
+                // OK-only: user must acknowledge and is sent straight to settings
+                XtraMessageBox.Show(
+                    message,
+                    "Trial Expired",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                LoadUserControl(new UC_SystemSettings());
+            }
+            else
+            {
+                // Expiring soon: let the user choose whether to go to settings now
                 var result = XtraMessageBox.Show(
                     message,
-                    title,
+                    "Trial Expiring Soon",
                     MessageBoxButtons.OKCancel,
-                    trialStatus.IsTrialExpired ? MessageBoxIcon.Warning : MessageBoxIcon.Information
+                    MessageBoxIcon.Information
                 );
-                
+
                 if (result == DialogResult.OK)
-                {
-                    // User clicked OK - navigate to settings
                     LoadUserControl(new UC_SystemSettings());
-                }
             }
         }
 
@@ -305,26 +331,21 @@ namespace POS
                     if (panelReportsHeader != null) panelReportsHeader.Visible = false;
                     if (btnPOS != null) btnPOS.Visible = false;
                     
-                    // Show only Settings
+                    // Show only Settings header and expand the submenu
                     if (panelSettingsHeader != null) panelSettingsHeader.Visible = true;
                     if (btnSettings != null)
                     {
                         btnSettings.Visible = true;
                         btnSettings.Enabled = true;
                     }
-                    else
-                    {
-                        btnSettings.Visible = false;
-                    }
+
+                    // Force the settings submenu open so Business Settings is reachable
+                    if (panelSettingsSubmenu != null) panelSettingsSubmenu.Visible = true;
 
                     if (btnBusinessSettings != null)
                     {
                         btnBusinessSettings.Visible = true;
                         btnBusinessSettings.Enabled = true;
-                    }
-                    else
-                    {
-                        btnBusinessSettings.Visible = false;
                     }
                     
                     // Hide other settings options
